@@ -7,10 +7,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const fixturesPath = path.join(root, "data", "fixtures.json");
 const historyPath = path.join(root, "data", "history.json");
 const teamsPath = path.join(root, "data", "teams.json");
-const generatedAt = "2026-07-13T15:25:20-07:00";
-const historicalGeneratedAt = "2026-07-14T01:06:19-07:00";
+const evidencePath = path.join(root, "data", "shootout-evidence.json");
 const archiveSourceId = "openfootball-worldcup-json-2026-06-17";
-const currentResultsSourceId = "fifa-official-results-sync-2026-07-12";
 
 const historicalTeamAliases = {
   "Congo DR": "COD",
@@ -24,69 +22,6 @@ const historicalTeamAliases = {
   "United States": "USA",
   "West Germany": "GER"
 };
-
-const sourcedOutlooksByMatchNumber = new Map([
-  [
-    101,
-    {
-      method: "sourced-shootout-evidence",
-      sourceIds: [
-        "ladbrokes-france-spain-method-victory-2026-07-13",
-        "as-unai-simon-shootout-record-2026-07-06",
-        "uefa-spain-croatia-shootout-2023",
-        "as-spain-penalty-takers-2026-07-10"
-      ],
-      capturedAt: "2026-07-13T15:25:20-07:00",
-      leanTeamId: "ESP",
-      confidence: "slight",
-      evidence: [
-        {
-          type: "goalkeeper-shootout-record",
-          teamId: "ESP",
-          player: "Unai Simón",
-          saved: 8,
-          faced: 22,
-          highlightSaved: 2,
-          highlight: "2023 Nations League final"
-        },
-        {
-          type: "taker-penalty-record",
-          teamId: "ESP",
-          player: "Mikel Oyarzabal",
-          scored: 51,
-          taken: 57
-        }
-      ]
-    }
-  ],
-  [
-    102,
-    {
-      method: "sourced-shootout-evidence",
-      sourceIds: [
-        "betfair-england-argentina-method-victory-2026-07-13",
-        archiveSourceId,
-        "conmebol-emiliano-martinez-shootout-record-2024"
-      ],
-      capturedAt: "2026-07-13T15:25:20-07:00",
-      leanTeamId: "ARG",
-      confidence: "slight",
-      evidence: [
-        {
-          type: "team-world-cup-shootout-record",
-          teamId: "ARG",
-          wins: 6,
-          appearances: 7
-        },
-        {
-          type: "goalkeeper-unbeaten-national-shootouts",
-          teamId: "ARG",
-          player: "Emiliano Martínez"
-        }
-      ]
-    }
-  ]
-]);
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -215,8 +150,10 @@ function buildShootoutEvents(historyData, fixturesData, teamsData) {
       continue;
     }
 
+    const fixtureDay = String(fixture.kickoffUtc || "").slice(0, 10);
+    const officialResultSourceId = `fifa-official-results-sync-${fixtureDay}`;
     const sourceIds = [
-      currentResultsSourceId,
+      ...((fixturesData.sourceIds || []).includes(officialResultSourceId) ? [officialResultSourceId] : []),
       ...(fixture.resultStoryResearch?.sourceIds || [])
     ];
     addTeamEvent(eventsByTeam, fixture.homeTeamId, {
@@ -249,10 +186,35 @@ function buildTeamRecord(eventsByTeam, teamId, cutoffAt) {
   };
 }
 
-const [fixturesData, historyData, teamsData] = await Promise.all([
+function getSourcedOutlook(evidenceData, fixture) {
+  const fixtureTeamKey = [fixture.homeTeamId, fixture.awayTeamId].sort().join("|");
+  const kickoffTime = new Date(fixture.kickoffUtc).getTime();
+  return (evidenceData.matchups || [])
+    .filter((candidate) => {
+      const candidateTeamKey = [candidate.homeTeamId, candidate.awayTeamId].sort().join("|");
+      const capturedTime = new Date(candidate.capturedAt).getTime();
+      const expiresTime = new Date(candidate.expiresAt).getTime();
+      return candidateTeamKey === fixtureTeamKey &&
+        Number.isFinite(capturedTime) && capturedTime < kickoffTime &&
+        Number.isFinite(expiresTime) && kickoffTime <= expiresTime;
+    })
+    .sort((a, b) => new Date(b.capturedAt).getTime() - new Date(a.capturedAt).getTime())[0] || null;
+}
+
+function getGeneratedAt(existingOutlook, fixture, sourcedOutlook, fallback) {
+  const matchesFixture = existingOutlook?.homeTeamId === fixture.homeTeamId &&
+    existingOutlook?.awayTeamId === fixture.awayTeamId &&
+    existingOutlook?.cutoffAt === fixture.kickoffUtc;
+  return matchesFixture && existingOutlook?.generatedAt
+    ? existingOutlook.generatedAt
+    : sourcedOutlook?.capturedAt || fallback;
+}
+
+const [fixturesData, historyData, teamsData, evidenceData] = await Promise.all([
   readJson(fixturesPath),
   readJson(historyPath),
-  readJson(teamsPath)
+  readJson(teamsPath),
+  readJson(evidencePath)
 ]);
 
 const eventsByTeam = buildShootoutEvents(historyData, fixturesData, teamsData);
@@ -268,7 +230,7 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
 
   const homeRecord = buildTeamRecord(eventsByTeam, fixture.homeTeamId, fixture.kickoffUtc);
   const awayRecord = buildTeamRecord(eventsByTeam, fixture.awayTeamId, fixture.kickoffUtc);
-  const sourcedOutlook = sourcedOutlooksByMatchNumber.get(Number(fixture.matchNumber));
+  const sourcedOutlook = getSourcedOutlook(evidenceData, fixture);
   const sourceIds = [
     archiveSourceId,
     ...homeRecord.sourceIds,
@@ -284,7 +246,12 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
     shootoutOutlook: {
       method: sourcedOutlook?.method || "world-cup-shootout-history",
       sourceIds: uniqueSourceIds,
-      generatedAt,
+      generatedAt: getGeneratedAt(
+        fixture.shootoutOutlook,
+        fixture,
+        sourcedOutlook,
+        fixturesData.updatedAt || new Date().toISOString()
+      ),
       cutoffAt: fixture.kickoffUtc,
       homeTeamId: fixture.homeTeamId,
       awayTeamId: fixture.awayTeamId,
@@ -298,13 +265,14 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
         losses: awayRecord.losses,
         appearances: awayRecord.appearances
       },
-      ...(sourcedOutlook || {})
+      ...(sourcedOutlook
+        ? Object.fromEntries(Object.entries(sourcedOutlook).filter(([key]) => !["id", "homeTeamId", "awayTeamId", "expiresAt"].includes(key)))
+        : {})
     }
   };
 });
 
 fixturesData.sourceIds = [...usedSourceIds];
-fixturesData.updatedAt = generatedAt;
 historyData.fixtures = (historyData.fixtures || []).map((fixture) => {
   if (!isHistoricalShootoutOutlookFixture(fixture)) {
     if (fixture.shootoutOutlook === undefined) {
@@ -337,7 +305,7 @@ historyData.fixtures = (historyData.fixtures || []).map((fixture) => {
     shootoutOutlook: {
       method: "world-cup-shootout-history",
       sourceIds: [...new Set(sourceIds)],
-      generatedAt: historicalGeneratedAt,
+      generatedAt: fixture.shootoutOutlook?.generatedAt || historyData.updatedAt || new Date().toISOString(),
       cutoffAt: fixture.date,
       cutoffKey: fixture.sortKey,
       homeTeamName: fixture.homeSlot,
@@ -355,7 +323,6 @@ historyData.fixtures = (historyData.fixtures || []).map((fixture) => {
     }
   };
 });
-historyData.updatedAt = historicalGeneratedAt;
 await writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`);
 await writeFile(historyPath, `${JSON.stringify(historyData, null, 2)}\n`);
 

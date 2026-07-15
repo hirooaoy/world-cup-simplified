@@ -31,6 +31,23 @@
     "bestThirdPlaceAdvancers": 8,
     "knockoutFieldSize": 32
   },
+  "forecastModels": {
+    "historicalWorldCupForm": {
+      "version": "historical-world-cup-form-v2-regulation",
+      "market": "regulation",
+      "initialRating": 1500,
+      "eloScale": 400,
+      "kFactor": 28,
+      "marginStep": 0.25,
+      "marginCap": 2,
+      "groupDrawBase": 28,
+      "knockoutDrawBase": 24,
+      "drawFloor": 18,
+      "drawGapDivisor": 60,
+      "drawGapCap": 8,
+      "winLogisticScale": 190
+    }
+  },
   "sources": [
     {
       "id": "wikipedia-football-infobox",
@@ -281,6 +298,54 @@
       "type": "forecast",
       "checkedAt": "2026-07-14T15:50:58-07:00",
       "note": "Published final-reach and tournament-win simulation rates for Spain, England, and Argentina; conditional title strength is derived by dividing win rate by final-reach rate and normalizing the two potential finalists."
+    },
+    {
+      "id": "opta-england-argentina-forecast-2026-07-14",
+      "label": "Opta England vs Argentina regulation forecast",
+      "url": "https://theanalyst.com/articles/england-vs-argentina-prediction-world-cup-2026-match-preview",
+      "type": "forecast",
+      "checkedAt": "2026-07-14T17:17:44-07:00",
+      "note": "Latest Opta 90-minute forecast: England 38.2%, draw 29.7%, Argentina 32.0%; England 51.9% to advance."
+    },
+    {
+      "id": "oddschecker-england-argentina-odds-2026-07-14",
+      "label": "Oddschecker England vs Argentina current 1X2 odds",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/england-v-argentina",
+      "type": "market-odds",
+      "checkedAt": "2026-07-14T17:17:44-07:00",
+      "note": "Captured current +165 / +200 / +205 regulation prices and normalized away the bookmaker margin."
+    },
+    {
+      "id": "bet365-england-argentina-odds-2026-07-14",
+      "label": "bet365 England vs Argentina full-time-result odds",
+      "url": "https://www.bet365.com/hub/en-us/football/football-competitions/world-cup/england-v-argentina",
+      "type": "market-odds",
+      "checkedAt": "2026-07-14T17:17:44-07:00",
+      "note": "Captured current +170 / +187 / +200 full-time-result prices and normalized away the bookmaker margin."
+    },
+    {
+      "id": "fox-england-argentina-odds-2026-07-14",
+      "label": "FOX Sports England vs Argentina matchup odds",
+      "url": "https://www.foxsports.com/soccer/fifa-world-cup-men-england-vs-argentina-jul-15-2026-game-boxscore-607932?tab=odds",
+      "type": "market-odds",
+      "checkedAt": "2026-07-14T17:17:44-07:00",
+      "note": "Captured current +166 / +185 / +199 matchup prices and normalized away the bookmaker margin."
+    },
+    {
+      "id": "worldcupbracket-draw-model-2026-07-14",
+      "label": "World Cup Path Visualizer draw-model methodology",
+      "url": "https://www.worldcupbracket.org/methodology",
+      "type": "model-methodology",
+      "checkedAt": "2026-07-14T17:17:44-07:00",
+      "note": "Published Elo-based methodology uses about 22% draw probability for evenly matched teams and calibrates toward recent World Cup draw rates."
+    },
+    {
+      "id": "statszone-third-place-history-2026-04-14",
+      "label": "The Stats Zone World Cup third-place match history",
+      "url": "https://www.thestatszone.com/every-third-place-play-off-match-in-fifa-world-cup-history-178655",
+      "type": "historical-results",
+      "checkedAt": "2026-07-14T17:17:44-07:00",
+      "note": "Complete result list shows only one of the 20 men's World Cup third-place matches through 2022 tied after 90 minutes; used only as one draw-rate input."
     },
     {
       "id": "sportsbettingdime-final-lookahead-2026-07-14",

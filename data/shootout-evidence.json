@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-13T15:25:20-07:00",
+  "matchups": [
+    {
+      "id": "france-spain-2026-semi-final",
+      "homeTeamId": "FRA",
+      "awayTeamId": "ESP",
+      "capturedAt": "2026-07-13T15:25:20-07:00",
+      "expiresAt": "2026-07-14T19:00:00Z",
+      "method": "sourced-shootout-evidence",
+      "sourceIds": [
+        "ladbrokes-france-spain-method-victory-2026-07-13",
+        "as-unai-simon-shootout-record-2026-07-06",
+        "uefa-spain-croatia-shootout-2023",
+        "as-spain-penalty-takers-2026-07-10"
+      ],
+      "leanTeamId": "ESP",
+      "confidence": "slight",
+      "evidence": [
+        {
+          "type": "goalkeeper-shootout-record",
+          "teamId": "ESP",
+          "player": "Unai Simón",
+          "saved": 8,
+          "faced": 22,
+          "highlightSaved": 2,
+          "highlight": "2023 Nations League final"
+        },
+        {
+          "type": "taker-penalty-record",
+          "teamId": "ESP",
+          "player": "Mikel Oyarzabal",
+          "scored": 51,
+          "taken": 57
+        }
+      ]
+    },
+    {
+      "id": "england-argentina-2026-semi-final",
+      "homeTeamId": "ENG",
+      "awayTeamId": "ARG",
+      "capturedAt": "2026-07-13T15:25:20-07:00",
+      "expiresAt": "2026-07-15T19:00:00Z",
+      "method": "sourced-shootout-evidence",
+      "sourceIds": [
+        "betfair-england-argentina-method-victory-2026-07-13",
+        "openfootball-worldcup-json-2026-06-17",
+        "conmebol-emiliano-martinez-shootout-record-2024"
+      ],
+      "leanTeamId": "ARG",
+      "confidence": "slight",
+      "evidence": [
+        {
+          "type": "team-world-cup-shootout-record",
+          "teamId": "ARG",
+          "wins": 6,
+          "appearances": 7
+        },
+        {
+          "type": "goalkeeper-unbeaten-national-shootouts",
+          "teamId": "ARG",
+          "player": "Emiliano Martínez"
+        }
+      ]
+    }
+  ]
+}

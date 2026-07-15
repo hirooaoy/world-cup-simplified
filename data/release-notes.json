@@ -1,6 +1,25 @@
 {
-  "updatedAt": "2026-07-14T17:09:09-07:00",
+  "updatedAt": "2026-07-14T18:30:54-07:00",
   "releases": [
+    {
+      "date": "2026-07-14",
+      "title": "Three-way forecasts and a refined Ball Boy face",
+      "titleZh": "胜平负预测与焕新的 Ball Boy 表情",
+      "highlights": [
+        "Every remaining projected third-place and final pairing now shows regulation-time HOME, TIE, and AWAY percentages instead of a blank card or two-way trophy market.",
+        "Direct lookahead markets remain the first choice; unavailable scenarios use a reproducible online-calibrated model blending Opta strength, current markets, official tournament form, stage draw history, and ranking as only one bounded input.",
+        "England-Argentina was refreshed to ENG 36%, TIE 32%, ARG 32% from today's Opta and margin-normalized bookmaker prices.",
+        "The TIE pill carries the 90-minute draw probability, while its concise tooltip focuses only on the teams' cutoff-safe World Cup shootout evidence.",
+        "Ball Boy now uses a contained circular face with subtler pleased and amused reactions, replacing the old flat wink and smile across desktop and compact mobile states."
+      ],
+      "highlightsZh": [
+        "所有剩余的预测季军赛和决赛对阵现在都会显示常规时间主胜、平局和客胜百分比，不再出现空白卡片或只有两项的夺冠市场。",
+        "系统仍优先使用直接前瞻市场；当市场尚未开出时，采用可复核的在线校准模型，综合 Opta 实力、当前市场、官方赛事表现、阶段平局历史，并仅把排名作为一个受限输入。",
+        "英格兰对阿根廷已按今日 Opta 与去除水位后的庄家价格刷新为：英格兰36%、平局32%、阿根廷32%。",
+        "平局胶囊本身显示90分钟战平概率，简洁提示只说明两队在截止时间前可验证的世界杯点球大战依据。",
+        "Ball Boy 现在采用完整的圆形脸部，并以更细腻的愉悦和逗趣反应取代原先扁平的眨眼与笑脸，同时适配桌面端和紧凑移动端状态。"
+      ]
+    },
     {
       "date": "2026-07-14",
       "title": "Refreshed official line-ups and the semifinal prediction",

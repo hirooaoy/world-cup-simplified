@@ -4,7 +4,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-14-country-matchup-intents";
+} from "./chatbot-knowledge.js?v=2026-07-14-ball-boy-form-3";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -17,9 +17,9 @@ const SCOUT_EYE_EXPRESSION_CLASSES = [
   "is-eye-wide",
   "is-eye-double-blink",
   "is-eye-side-glance",
-  "is-eye-happy",
+  "is-eye-pleased",
   "is-eye-record",
-  "is-eye-wink",
+  "is-eye-amused",
   "is-eye-touch-release"
 ];
 
@@ -300,9 +300,11 @@ widget.innerHTML = `
   <button class="scout-launcher" id="scout-launcher" type="button" aria-label="${scoutText("open")}" aria-expanded="false" aria-controls="scout-panel">
     <span class="scout-visually-hidden">${scoutText("open")}</span>
   </button>
-  <span class="scout-eyes" aria-hidden="true">
-    <span class="scout-eye"><span class="scout-pupil"></span></span>
-    <span class="scout-eye"><span class="scout-pupil"></span></span>
+  <span class="scout-face" aria-hidden="true">
+    <span class="scout-eyes">
+      <span class="scout-eye"><span class="scout-pupil"></span></span>
+      <span class="scout-eye"><span class="scout-pupil"></span></span>
+    </span>
   </span>
   <section class="scout-panel" id="scout-panel" role="dialog" aria-label="${scoutText("chatLabel")}" aria-hidden="true" inert>
     <header class="scout-header">
@@ -868,19 +870,19 @@ function finishJuggleEyeTracking() {
   }
 
   if (finalCount === 0) {
-    playEyeSequence([{ className: "is-eye-wink", duration: 1100, pupil: { x: -1.7, y: 1.6 } }]);
+    playEyeSequence([{ className: "is-eye-amused", duration: 900, pupil: { x: -1.4, y: 0.8 } }]);
     return;
   }
 
   if (isNewBest) {
     playEyeSequence([
       { className: "is-eye-record", duration: 590 },
-      { className: "is-eye-happy", duration: 560 }
+      { className: "is-eye-pleased", duration: 560 }
     ]);
     return;
   }
 
-  playEyeSequence([{ className: "is-eye-happy", duration: 1150 }]);
+  playEyeSequence([{ className: "is-eye-pleased", duration: 900 }]);
 }
 
 function reconcileJuggleState() {
@@ -1995,8 +1997,8 @@ function playPersonalityEyeReaction(eye) {
     "double-blink": [
       { className: "is-eye-double-blink", duration: 540 }
     ],
-    happy: [
-      { className: "is-eye-happy", duration: 760 }
+    pleased: [
+      { className: "is-eye-pleased", duration: 760 }
     ],
     "side-glance": [
       { className: "is-eye-side-glance", duration: 760, pupil: { x: -3.35, y: 0.35 } }
@@ -2004,8 +2006,8 @@ function playPersonalityEyeReaction(eye) {
     wide: [
       { className: "is-eye-wide", duration: 480 }
     ],
-    wink: [
-      { className: "is-eye-wink", duration: 720, pupil: { x: 2.8, y: 0.3 } }
+    amused: [
+      { className: "is-eye-amused", duration: 720, pupil: { x: 1.8, y: 0.2 } }
     ]
   };
   const sequence = sequences[eye];

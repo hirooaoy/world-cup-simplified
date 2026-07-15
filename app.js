@@ -12114,11 +12114,28 @@ function getTournamentConditionalOutcomeProjection(match, participants) {
 
   const isReversed = forecast.homeTeamId === awayTeamId;
   const rawHome = Number(isReversed ? forecast.away : forecast.home);
+  const rawTie = Number(forecast.draw);
   const rawAway = Number(isReversed ? forecast.home : forecast.away);
-  const total = rawHome + rawAway;
+  const isRegulationForecast = forecast.market === "regulation" && Number.isFinite(rawTie);
+  const total = rawHome + rawAway + (isRegulationForecast ? rawTie : 0);
 
-  if (!Number.isFinite(rawHome) || !Number.isFinite(rawAway) || rawHome < 0 || rawAway < 0 || total <= 0) {
+  if (
+    !Number.isFinite(rawHome) ||
+    !Number.isFinite(rawAway) ||
+    rawHome < 0 ||
+    rawAway < 0 ||
+    (isRegulationForecast && rawTie < 0) ||
+    total <= 0
+  ) {
     return null;
+  }
+
+  if (isRegulationForecast) {
+    return {
+      basis: "conditional-model",
+      market: "regulation",
+      percents: normalizeTournamentOutcomePercents(rawHome, rawTie, rawAway)
+    };
   }
 
   const home = clampPercent(Math.round((rawHome / total) * 100));
@@ -12229,6 +12246,8 @@ function getTournamentOutcomeBasisLabel(basis) {
   if (currentLanguage === "zh") {
     return basis === "loaded"
       ? "已载入的比赛预测"
+      : basis === "conditional-model"
+        ? "在线数据校准的条件预测"
       : basis === "conditional-online"
         ? "Opta与当前市场的条件预测"
         : "暂无可验证预测";
@@ -12236,6 +12255,8 @@ function getTournamentOutcomeBasisLabel(basis) {
 
   return basis === "loaded"
     ? "loaded match projection"
+    : basis === "conditional-model"
+      ? "online-calibrated conditional forecast"
     : basis === "conditional-online"
       ? "conditional forecast from Opta and current markets"
       : "no verified forecast loaded";
@@ -12276,6 +12297,15 @@ function getTournamentOutcomeTeamReason(match, participants, side, percent, basi
     Number.isFinite(teamPercent) && Number.isFinite(favoritePercent)
       ? Math.abs(favoritePercent - teamPercent)
       : Number.POSITIVE_INFINITY;
+
+  if (basis === "conditional-model") {
+    const matchupLabel = match?.stage === "bronze-final" ? "third-place matchup" : "final matchup";
+    if (currentLanguage === "zh") {
+      return `若这组预测对阵成为${match?.stage === "bronze-final" ? "季军赛" : "决赛"}，${teamName}常规时间取胜概率约为${percent}%。条件模型综合Opta与市场、赛事表现和排名；对阵确定后改用直接赔率。`;
+    }
+
+    return `${teamName}: ${percent}% to win in regulation if this projected ${matchupLabel} is confirmed. Online-calibrated from Opta and markets, tournament form, and ranking; direct odds replace it once set.`;
+  }
 
   if (basis === "conditional-online") {
     if (currentLanguage === "zh") {
@@ -12502,15 +12532,16 @@ function getTournamentShootoutReason(match, participants) {
 function getTournamentOutcomeTieReason(match, participants, percents, basis) {
   const tiePercent = clampPercent(Math.round(Number(percents?.tie)));
   const isKnockout = Boolean(match?.stage && match.stage !== "group");
+  const shootoutReason = isKnockout ? getTournamentShootoutReason(match, participants) : "";
 
   if (currentLanguage === "zh") {
     return isKnockout
-      ? getTournamentShootoutReason(match, participants)
+      ? shootoutReason
       : `本场常规时间战平的概率约为${tiePercent}%。小组赛将以平局结束。`;
   }
 
   return isKnockout
-    ? getTournamentShootoutReason(match, participants)
+    ? shootoutReason
     : `There is a ${tiePercent}% chance the match is tied after regulation. Group matches end as a tie.`;
 }
 
@@ -15029,40 +15060,80 @@ function renderPredictionBlock(match) {
 }
 
 function getHistoricalProjectionRating(ratings, teamName) {
+  const model = getHistoricalProjectionModel();
   if (!ratings.has(teamName)) {
-    ratings.set(teamName, 1500);
+    ratings.set(teamName, model.initialRating);
   }
 
   return ratings.get(teamName);
 }
 
+function getHistoricalProjectionModel() {
+  const configured = tournament?.forecastModels?.historicalWorldCupForm || {};
+  const numberValue = (key, fallback) => Number.isFinite(Number(configured?.[key]))
+    ? Number(configured[key])
+    : fallback;
+
+  return {
+    version: configured.version || "historical-world-cup-form-v2-regulation",
+    market: configured.market || "regulation",
+    initialRating: numberValue("initialRating", 1500),
+    eloScale: numberValue("eloScale", 400),
+    kFactor: numberValue("kFactor", 28),
+    marginStep: numberValue("marginStep", 0.25),
+    marginCap: numberValue("marginCap", 2),
+    groupDrawBase: numberValue("groupDrawBase", 28),
+    knockoutDrawBase: numberValue("knockoutDrawBase", 24),
+    drawFloor: numberValue("drawFloor", 18),
+    drawGapDivisor: numberValue("drawGapDivisor", 60),
+    drawGapCap: numberValue("drawGapCap", 8),
+    winLogisticScale: numberValue("winLogisticScale", 190)
+  };
+}
+
+function getHistoricalRegulationScore(fixture) {
+  const fullTime = fixture?.scoreDetails?.fullTime;
+  if (Number.isFinite(fullTime?.home) && Number.isFinite(fullTime?.away)) {
+    return { home: Number(fullTime.home), away: Number(fullTime.away) };
+  }
+
+  const score = fixture?.score;
+  return Number.isFinite(score?.home) && Number.isFinite(score?.away)
+    ? { home: Number(score.home), away: Number(score.away) }
+    : null;
+}
+
 function getHistoricalFixtureOutcome(fixture) {
-  if (fixture.status !== "FT" || !fixture.score) {
+  const score = getHistoricalRegulationScore(fixture);
+  if (fixture.status !== "FT" || !score) {
     return null;
   }
 
-  const winner = getHistoricalWinner(fixture);
-
-  if (!winner) {
+  if (score.home === score.away) {
     return 0.5;
   }
 
-  return winner === fixture.homeSlot ? 1 : 0;
+  return score.home > score.away ? 1 : 0;
 }
 
 function applyHistoricalProjectionFixture(ratings, fixture) {
   const outcome = getHistoricalFixtureOutcome(fixture);
+  const score = getHistoricalRegulationScore(fixture);
 
-  if (outcome === null || !fixture.homeSlot || !fixture.awaySlot) {
+  if (outcome === null || !score || !fixture.homeSlot || !fixture.awaySlot) {
     return;
   }
 
+  const model = getHistoricalProjectionModel();
   const homeRating = getHistoricalProjectionRating(ratings, fixture.homeSlot);
   const awayRating = getHistoricalProjectionRating(ratings, fixture.awaySlot);
-  const expectedHome = 1 / (1 + 10 ** ((awayRating - homeRating) / 400));
-  const margin = Math.abs(Number(fixture.score.home) - Number(fixture.score.away));
-  const marginMultiplier = Math.min(2, 1 + Math.max(0, margin - 1) * 0.25);
-  const update = 28 * marginMultiplier * (outcome - expectedHome);
+  const expectedHome = 1 / (1 + 10 ** ((awayRating - homeRating) / model.eloScale));
+  const margin = Math.abs(score.home - score.away);
+  const marginMultiplier = Math.min(
+    model.marginCap,
+    1 + Math.max(0, margin - 1) * model.marginStep
+  );
+  const update = model.kFactor * marginMultiplier * (outcome - expectedHome);
 
   ratings.set(fixture.homeSlot, homeRating + update);
   ratings.set(fixture.awaySlot, awayRating - update);
@@ -15104,15 +15175,21 @@ function getHistoricalProjection(match) {
 
   const homeRating = getHistoricalProjectionRating(ratings, match.homeTeam.name);
   const awayRating = getHistoricalProjectionRating(ratings, match.awayTeam.name);
+  const model = getHistoricalProjectionModel();
   const ratingDiff = homeRating - awayRating;
-  const drawBase = match.group ? 28 : 24;
-  const draw = Math.max(18, drawBase - Math.min(8, Math.abs(ratingDiff) / 60));
+  const drawBase = match.group ? model.groupDrawBase : model.knockoutDrawBase;
+  const draw = Math.max(
+    model.drawFloor,
+    drawBase - Math.min(model.drawGapCap, Math.abs(ratingDiff) / model.drawGapDivisor)
+  );
   const decisiveShare = 100 - draw;
-  const homeShare = 1 / (1 + Math.exp(-ratingDiff / 190));
+  const homeShare = 1 / (1 + Math.exp(-ratingDiff / model.winLogisticScale));
   const projection = {
     ...normalizeProjectionParts(decisiveShare * homeShare, draw, decisiveShare * (1 - homeShare)),
     basis: "Prior World Cup results and earlier matches in this tournament",
     method: "historical-world-cup-form-baseline",
+    modelVersion: model.version,
+    market: model.market,
     priorMatches: previousFixtures.length
   };
 

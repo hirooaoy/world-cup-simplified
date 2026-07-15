@@ -16,6 +16,12 @@ import {
   normalizeLayoutSource
 } from "./lineup-layout-sources.mjs";
 import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
+import {
+  buildConditionalRegulationProjection,
+  buildSourceConsensusProjection,
+  sameProjectionValues
+} from "./forecast-math.mjs";
+import { auditHistoricalForecasts } from "./historical-forecast-model.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -792,6 +798,8 @@ const [
   playerAvailabilityData,
   playerProfilesData,
   youtubeHistoryCacheData,
+  forecastCalibrationData,
+  shootoutEvidenceData,
   standingsData,
   teamsData,
   tournamentData
@@ -808,6 +816,8 @@ const [
   readOptionalJson("player-availability.json"),
   readOptionalJson("player-profiles.json"),
   readOptionalJson("cache/youtube-history.json"),
+  readJson("forecast-calibration.json"),
+  readJson("shootout-evidence.json"),
   readJson("standings.json"),
   readJson("teams.json"),
   readJson("tournament.json")
@@ -989,6 +999,110 @@ for (const team of teamsData.teams || []) {
   assert(isNumber(team.fifaRank), `Team "${team.id}" must have a numeric fifaRank`);
   teams.set(team.id, team);
 }
+
+assert(shootoutEvidenceData?.schemaVersion === 1, "shootout-evidence.json must use schemaVersion 1");
+assert(isValidDateTime(shootoutEvidenceData?.updatedAt), "shootout-evidence.json must include a valid updatedAt");
+const shootoutEvidenceIds = new Set();
+for (const [index, matchup] of (shootoutEvidenceData?.matchups || []).entries()) {
+  const owner = `shootout-evidence.json matchups[${index}]`;
+  assert(typeof matchup?.id === "string" && matchup.id.trim(), `${owner} must include an id`);
+  assert(!shootoutEvidenceIds.has(matchup?.id), `${owner} duplicates id "${matchup?.id}"`);
+  shootoutEvidenceIds.add(matchup?.id);
+  assert(teams.has(matchup?.homeTeamId), `${owner} has unknown homeTeamId "${matchup?.homeTeamId}"`);
+  assert(teams.has(matchup?.awayTeamId), `${owner} has unknown awayTeamId "${matchup?.awayTeamId}"`);
+  assert(matchup?.homeTeamId !== matchup?.awayTeamId, `${owner} must use two different teams`);
+  assert(isValidDateTime(matchup?.capturedAt), `${owner} must include a valid capturedAt`);
+  assert(isValidDateTime(matchup?.expiresAt), `${owner} must include a valid expiresAt`);
+  assert(
+    new Date(matchup?.capturedAt).getTime() < new Date(matchup?.expiresAt).getTime(),
+    `${owner} must expire after it was captured`
+  );
+  assert(matchup?.method === "sourced-shootout-evidence", `${owner} has an unsupported method`);
+  requireSourceIds(matchup?.sourceIds, sourceIds, owner);
+  assert(
+    Array.isArray(matchup?.sourceIds) && matchup.sourceIds.length >= 3,
+    `${owner} must include at least three sources`
+  );
+  assert(
+    [matchup?.homeTeamId, matchup?.awayTeamId].includes(matchup?.leanTeamId),
+    `${owner} leanTeamId must be a participant`
+  );
+  assert(matchup?.confidence === "slight", `${owner} confidence must remain slight`);
+  assert(Array.isArray(matchup?.evidence) && matchup.evidence.length >= 2, `${owner} must include evidence`);
+  const matchupTeamKey = [matchup?.homeTeamId, matchup?.awayTeamId].sort().join("|");
+  const applicableFixtures = (fixturesData.fixtures || []).filter((fixture) => {
+    const fixtureTeamKey = [fixture?.homeTeamId, fixture?.awayTeamId].sort().join("|");
+    const kickoffTime = new Date(fixture?.kickoffUtc).getTime();
+    return fixtureTeamKey === matchupTeamKey &&
+      kickoffTime > new Date(matchup?.capturedAt).getTime() &&
+      kickoffTime <= new Date(matchup?.expiresAt).getTime();
+  });
+  assert(applicableFixtures.length > 0, `${owner} does not apply to any fixture before it expires`);
+  for (const [evidenceIndex, evidence] of (matchup?.evidence || []).entries()) {
+    assert(
+      typeof evidence?.type === "string" && evidence.type.trim(),
+      `${owner}.evidence[${evidenceIndex}] must include a type`
+    );
+    assert(
+      [matchup?.homeTeamId, matchup?.awayTeamId].includes(evidence?.teamId),
+      `${owner}.evidence[${evidenceIndex}] teamId must be a participant`
+    );
+  }
+}
+
+const historicalForecastModel = tournamentData?.forecastModels?.historicalWorldCupForm;
+assert(
+  historicalForecastModel && typeof historicalForecastModel === "object" && !Array.isArray(historicalForecastModel),
+  "tournament.json must define forecastModels.historicalWorldCupForm"
+);
+assert(
+  historicalForecastModel?.version === "historical-world-cup-form-v2-regulation" &&
+    historicalForecastModel?.market === "regulation",
+  "Historical forecast model must explicitly use the versioned regulation-time contract"
+);
+for (const field of [
+  "initialRating",
+  "eloScale",
+  "kFactor",
+  "marginStep",
+  "marginCap",
+  "groupDrawBase",
+  "knockoutDrawBase",
+  "drawFloor",
+  "drawGapDivisor",
+  "drawGapCap",
+  "winLogisticScale"
+]) {
+  assert(isNumber(historicalForecastModel?.[field]), `Historical forecast model ${field} must be numeric`);
+}
+
+const historicalForecastAudit = auditHistoricalForecasts(
+  historyData.fixtures || [],
+  tournamentData?.forecastModels?.historicalWorldCupForm || {}
+);
+assert(
+  forecastCalibrationData?.outcomeFingerprint === historicalForecastAudit.outcomeFingerprint,
+  "forecast-calibration.json is stale; run pnpm forecasts:history:refresh"
+);
+assert(
+  forecastCalibrationData?.model?.version === historicalForecastAudit.model.version,
+  "forecast-calibration.json model version must match tournament.json"
+);
+assert(
+  forecastCalibrationData?.predictions === historicalForecastAudit.predictions,
+  "forecast-calibration.json prediction count is stale"
+);
+for (const metric of ["brier", "logLoss", "favoriteAccuracy", "uniformBrier", "uniformLogLoss"]) {
+  assert(
+    forecastCalibrationData?.metrics?.[metric] === historicalForecastAudit.metrics[metric],
+    `forecast-calibration.json ${metric} is stale`
+  );
+}
+assert(
+  historicalForecastAudit.metrics.brier < historicalForecastAudit.metrics.uniformBrier &&
+    historicalForecastAudit.metrics.logLoss < historicalForecastAudit.metrics.uniformLogLoss,
+  "Historical regulation forecast model must outperform the uniform baseline"
+);
 
 const fixturesByMatchNumber = new Map(
   (fixturesData.fixtures || [])
@@ -2097,6 +2211,26 @@ function getKnockoutWinnerTeamId(fixture) {
   );
 }
 
+function getKnockoutLoserTeamId(fixture) {
+  const winnerTeamId = getKnockoutWinnerTeamId(fixture);
+  if (!winnerTeamId) return "";
+  return fixture.homeTeamId === winnerTeamId ? fixture.awayTeamId || "" : fixture.homeTeamId || "";
+}
+
+function getPotentialKnockoutSlotTeamIds(fixture, side) {
+  const slotText = fixture?.[`${side}Slot`] || "";
+  const slotMatch = /^(Winner|Runner-up) match (\d+)$/i.exec(slotText);
+  if (!slotMatch) return fixture?.[`${side}TeamId`] ? [fixture[`${side}TeamId`]] : [];
+
+  const sourceFixture = fixturesByMatchNumber.get(Number(slotMatch[2]));
+  const resolvedTeamId = slotMatch[1].toLowerCase() === "winner"
+    ? getKnockoutWinnerTeamId(sourceFixture)
+    : getKnockoutLoserTeamId(sourceFixture);
+  if (resolvedTeamId) return [resolvedTeamId];
+
+  return [sourceFixture?.homeTeamId, sourceFixture?.awayTeamId].filter(Boolean);
+}
+
 function validateResolvedKnockoutParticipant(fixture, side) {
   if (fixture.stage === "group") {
     return;
@@ -2524,6 +2658,35 @@ for (const fixture of fixturesData.fixtures || []) {
         isValidDateTime(projection.capturedAt),
         `Fixture "${fixture.id}" online-source-consensus projection must include a valid capturedAt`
       );
+      assert(
+        new Date(projection.capturedAt).getTime() < new Date(fixture.kickoffUtc).getTime(),
+        `Fixture "${fixture.id}" online-source-consensus projection must be captured before kickoff`
+      );
+      if (projection.inputs !== undefined) {
+        assert(
+          Array.isArray(projection.inputs) && projection.inputs.length >= 2,
+          `Fixture "${fixture.id}" online-source-consensus projection inputs must include at least two sources`
+        );
+        const inputSourceIds = new Set();
+        for (const [inputIndex, input] of projection.inputs.entries()) {
+          const inputOwner = `Fixture "${fixture.id}" projection.inputs[${inputIndex}]`;
+          assert(sourceIds.has(input?.sourceId), `${inputOwner} references unknown sourceId`);
+          assert(projection.sourceIds.includes(input?.sourceId), `${inputOwner} sourceId must appear in sourceIds`);
+          assert(!inputSourceIds.has(input?.sourceId), `${inputOwner} duplicates sourceId "${input?.sourceId}"`);
+          inputSourceIds.add(input?.sourceId);
+          assert(
+            isNumber(input?.home) && isNumber(input?.draw) && isNumber(input?.away),
+            `${inputOwner} must include numeric home, draw, and away`
+          );
+          assert(input.home + input.draw + input.away === 100, `${inputOwner} must total 100`);
+          assert(typeof input?.basis === "string" && input.basis.trim(), `${inputOwner} must describe its derivation`);
+        }
+        const expectedProjection = buildSourceConsensusProjection(projection.inputs);
+        assert(
+          sameProjectionValues(projection, expectedProjection),
+          `Fixture "${fixture.id}" online-source-consensus projection must equal its rounded source consensus`
+        );
+      }
     }
 
     if (projection.method === "online-source-forecast") {
@@ -2546,6 +2709,13 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
+  if (["bronze-final", "final"].includes(fixture.stage) && !hasConfirmedTeams) {
+    assert(
+      Array.isArray(fixture.conditionalProjections) && fixture.conditionalProjections.length > 0,
+      `Projected fixture "${fixture.id}" must include conditional 1X2 forecasts for every possible matchup`
+    );
+  }
+
   if (fixture.conditionalProjections !== undefined) {
     assert(
       Array.isArray(fixture.conditionalProjections) && fixture.conditionalProjections.length > 0,
@@ -2562,16 +2732,16 @@ for (const fixture of fixturesData.fixtures || []) {
       const matchupKey = [projection?.homeTeamId, projection?.awayTeamId].sort().join("|");
       assert(!matchupKeys.has(matchupKey), `${owner} duplicates conditional matchup "${matchupKey}"`);
       matchupKeys.add(matchupKey);
-      assert(projection?.market === "match-winner", `${owner} market must be "match-winner"`);
+      assert(projection?.market === "regulation", `${owner} market must be "regulation"`);
       assert(
-        projection?.method === "conditional-online-consensus",
-        `${owner} method must be "conditional-online-consensus"`
+        projection?.method === "online-calibrated-scenario-model",
+        `${owner} method must be "online-calibrated-scenario-model"`
       );
       assert(sourceIds.has(projection?.sourceId), `${owner} references unknown sourceId`);
       requireSourceIds(projection?.sourceIds, sourceIds, owner);
       assert(
-        Array.isArray(projection?.sourceIds) && new Set(projection.sourceIds).size >= 2,
-        `${owner} must include at least two independent sources`
+        Array.isArray(projection?.sourceIds) && new Set(projection.sourceIds).size >= 3,
+        `${owner} must include at least three independent sources`
       );
       assert(projection.sourceIds.includes(projection.sourceId), `${owner} sourceIds must include sourceId`);
       assert(typeof projection?.basis === "string" && projection.basis.trim(), `${owner} must describe its basis`);
@@ -2580,12 +2750,15 @@ for (const fixture of fixturesData.fixtures || []) {
         new Date(projection?.capturedAt).getTime() < new Date(fixture.kickoffUtc).getTime(),
         `${owner} must be captured before kickoff`
       );
-      assert(isNumber(projection?.home) && isNumber(projection?.away), `${owner} must include numeric home and away`);
       assert(
-        projection.home >= 0 && projection.home <= 100 && projection.away >= 0 && projection.away <= 100,
-        `${owner} home and away must each be between 0 and 100`
+        isNumber(projection?.home) && isNumber(projection?.draw) && isNumber(projection?.away),
+        `${owner} must include numeric home, draw, and away`
       );
-      assert(projection.home + projection.away === 100, `${owner} home and away must total 100`);
+      assert(
+        [projection.home, projection.draw, projection.away].every((value) => value >= 0 && value <= 100),
+        `${owner} home, draw, and away must each be between 0 and 100`
+      );
+      assert(projection.home + projection.draw + projection.away === 100, `${owner} 1X2 values must total 100`);
       assert(
         Array.isArray(projection?.inputs) && projection.inputs.length >= 2,
         `${owner} must preserve at least two normalized source inputs`
@@ -2606,13 +2779,43 @@ for (const fixture of fixturesData.fixtures || []) {
         assert(input.home + input.away === 100, `${inputOwner} home and away must total 100`);
         assert(typeof input?.basis === "string" && input.basis.trim(), `${inputOwner} must describe its derivation`);
       }
-      const consensusHome = Math.round(
-        projection.inputs.reduce((total, input) => total + input.home, 0) / projection.inputs.length
+      assert(
+        Array.isArray(projection?.drawInputs) && projection.drawInputs.length >= 2,
+        `${owner} must preserve at least two draw-rate inputs`
+      );
+      const drawInputSourceIds = new Set();
+      for (const [inputIndex, input] of (projection.drawInputs || []).entries()) {
+        const inputOwner = `${owner}.drawInputs[${inputIndex}]`;
+        assert(sourceIds.has(input?.sourceId), `${inputOwner} references unknown sourceId`);
+        assert(projection.sourceIds.includes(input?.sourceId), `${inputOwner} sourceId must appear in sourceIds`);
+        assert(!drawInputSourceIds.has(input?.sourceId), `${inputOwner} duplicates sourceId "${input?.sourceId}"`);
+        drawInputSourceIds.add(input?.sourceId);
+        assert(isNumber(input?.draw) && input.draw >= 0 && input.draw <= 100, `${inputOwner} draw must be 0-100`);
+        assert(typeof input?.basis === "string" && input.basis.trim(), `${inputOwner} must describe its derivation`);
+      }
+      const expectedProjection = buildConditionalRegulationProjection(
+        projection.inputs,
+        projection.drawInputs
       );
       assert(
-        projection.home === consensusHome && projection.away === 100 - consensusHome,
-        `${owner} must equal the rounded unweighted mean of its normalized source inputs`
+        sameProjectionValues(projection, expectedProjection),
+        `${owner} must reproduce its two-way strength and draw-rate inputs as a regulation 1X2 forecast`
       );
+    }
+
+    if (["bronze-final", "final"].includes(fixture.stage) && !hasConfirmedTeams) {
+      const expectedMatchupKeys = getPotentialKnockoutSlotTeamIds(fixture, "home").flatMap((homeTeamId) =>
+        getPotentialKnockoutSlotTeamIds(fixture, "away")
+          .filter((awayTeamId) => awayTeamId !== homeTeamId)
+          .map((awayTeamId) => [homeTeamId, awayTeamId].sort().join("|"))
+      );
+      assert(expectedMatchupKeys.length > 0, `Fixture "${fixture.id}" must resolve potential projected participants`);
+      for (const matchupKey of expectedMatchupKeys) {
+        assert(
+          matchupKeys.has(matchupKey),
+          `Fixture "${fixture.id}" must include a conditional 1X2 forecast for projected matchup "${matchupKey}"`
+        );
+      }
     }
   }
 
@@ -2667,6 +2870,13 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
+  if (fixture.stage === "group") {
+    assert(
+      fixture.shootoutOutlook === undefined && fixture.shootoutForecast === undefined,
+      `Group fixture "${fixture.id}" must end as a tie without penalty-shootout data`
+    );
+  }
+
   if (fixture.stage !== "group" && fixture.homeTeamId && fixture.awayTeamId) {
     assert(
       fixture.shootoutOutlook && typeof fixture.shootoutOutlook === "object" && !Array.isArray(fixture.shootoutOutlook),
@@ -2717,6 +2927,15 @@ for (const fixture of fixturesData.fixtures || []) {
     }
 
     if (outlook?.method === "sourced-shootout-evidence") {
+      const catalogEntry = (shootoutEvidenceData?.matchups || []).find((candidate) => {
+        const candidateKey = [candidate?.homeTeamId, candidate?.awayTeamId].sort().join("|");
+        const fixtureKey = [fixture?.homeTeamId, fixture?.awayTeamId].sort().join("|");
+        return candidateKey === fixtureKey && candidate?.capturedAt === outlook?.capturedAt;
+      });
+      assert(
+        catalogEntry && new Date(fixture.kickoffUtc).getTime() <= new Date(catalogEntry.expiresAt).getTime(),
+        `Fixture "${fixture.id}" sourced shootoutOutlook must come from a current shootout-evidence.json entry`
+      );
       assert(
         Array.isArray(outlook.sourceIds) && outlook.sourceIds.length >= 3,
         `Fixture "${fixture.id}" sourced shootoutOutlook must include at least three sources`
@@ -3472,9 +3691,12 @@ for (const fixture of historyData.fixtures || []) {
   }
 }
 
+const expectedHistoricalShootoutOutlookCount = historicalFixtures.filter(
+  isHistoricalShootoutOutlookFixture
+).length;
 assert(
-  historicalShootoutOutlookCount === 166,
-  `history.json should include 166 cutoff-safe knockout shootout outlooks from 1978-2022, found ${historicalShootoutOutlookCount}`
+  historicalShootoutOutlookCount === expectedHistoricalShootoutOutlookCount,
+  `history.json should include ${expectedHistoricalShootoutOutlookCount} cutoff-safe knockout shootout outlooks under each tournament's rules, found ${historicalShootoutOutlookCount}`
 );
 
 if (youtubeHistoryCacheData) {

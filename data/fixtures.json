@@ -168,7 +168,13 @@
     "fifa-goal-events-sync-2026-07-14",
     "opta-world-cup-semifinal-projections-2026-07-12",
     "sportsbettingdime-final-lookahead-2026-07-14",
-    "oddschecker-world-cup-outrights-2026-07-14"
+    "oddschecker-world-cup-outrights-2026-07-14",
+    "opta-england-argentina-forecast-2026-07-14",
+    "oddschecker-england-argentina-odds-2026-07-14",
+    "bet365-england-argentina-odds-2026-07-14",
+    "fox-england-argentina-odds-2026-07-14",
+    "worldcupbracket-draw-model-2026-07-14",
+    "statszone-third-place-history-2026-04-14"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -21298,7 +21304,7 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-12",
+          "fifa-official-results-sync-2026-06-29",
           "guardian-germany-paraguay-result-2026-06-30"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
@@ -21477,7 +21483,7 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-12",
+          "fifa-official-results-sync-2026-06-30",
           "guardian-netherlands-morocco-result-2026-06-30"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
@@ -22610,7 +22616,7 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-12"
+          "fifa-official-results-sync-2026-07-03"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
         "cutoffAt": "2026-07-07T16:00:00Z",
@@ -22966,7 +22972,7 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-12",
+          "fifa-official-results-sync-2026-06-30",
           "guardian-netherlands-morocco-result-2026-06-30"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
@@ -23723,7 +23729,7 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-12"
+          "fifa-official-results-sync-2026-07-07"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
         "cutoffAt": "2026-07-12T01:00:00Z",
@@ -24310,18 +24316,49 @@
       "homeTeamId": "ENG",
       "awayTeamId": "ARG",
       "projection": {
-        "sourceId": "opta-world-cup-match-predictions-2026",
+        "sourceId": "opta-england-argentina-forecast-2026-07-14",
         "sourceIds": [
-          "opta-world-cup-match-predictions-2026",
-          "oddschecker-england-argentina-odds-2026-07-13",
-          "kalshi-england-argentina-market-2026-07-13"
+          "opta-england-argentina-forecast-2026-07-14",
+          "oddschecker-england-argentina-odds-2026-07-14",
+          "bet365-england-argentina-odds-2026-07-14",
+          "fox-england-argentina-odds-2026-07-14"
         ],
         "method": "online-source-consensus",
-        "basis": "Blended pre-match forecast from Opta, margin-adjusted bookmaker odds, and prediction markets",
-        "capturedAt": "2026-07-13T14:47:45-07:00",
-        "home": 37,
+        "basis": "Rounded consensus of the latest Opta regulation forecast and margin-normalized Oddschecker, bet365, and FOX moneylines",
+        "capturedAt": "2026-07-14T17:17:44-07:00",
+        "home": 36,
         "draw": 32,
-        "away": 31
+        "away": 32,
+        "inputs": [
+          {
+            "sourceId": "opta-england-argentina-forecast-2026-07-14",
+            "home": 38,
+            "draw": 30,
+            "away": 32,
+            "basis": "Opta supercomputer: 38.2% England, 29.7% draw, 32.0% Argentina"
+          },
+          {
+            "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+            "home": 36,
+            "draw": 32,
+            "away": 32,
+            "basis": "Margin-normalized +165 / +200 / +205 regulation moneyline"
+          },
+          {
+            "sourceId": "bet365-england-argentina-odds-2026-07-14",
+            "home": 35,
+            "draw": 33,
+            "away": 32,
+            "basis": "Margin-normalized +170 / +187 / +200 full-time-result prices"
+          },
+          {
+            "sourceId": "fox-england-argentina-odds-2026-07-14",
+            "home": 35,
+            "draw": 33,
+            "away": 32,
+            "basis": "Margin-normalized +166 / +185 / +199 matchup prices"
+          }
+        ]
       },
       "shootoutForecast": {
         "sourceId": "betfair-england-argentina-method-victory-2026-07-13",
@@ -24434,7 +24471,123 @@
           "matchNumber": 103
         }
       },
-      "homeTeamId": "FRA"
+      "homeTeamId": "FRA",
+      "conditionalProjections": [
+        {
+          "homeTeamId": "FRA",
+          "awayTeamId": "ENG",
+          "market": "regulation",
+          "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+          "sourceIds": [
+            "opta-world-cup-semifinal-projections-2026-07-12",
+            "fifa-official-results-sync-2026-07-14",
+            "fifa-ranking-2026-06-11",
+            "statszone-third-place-history-2026-04-14",
+            "worldcupbracket-draw-model-2026-07-14",
+            "oddschecker-england-argentina-odds-2026-07-14"
+          ],
+          "method": "online-calibrated-scenario-model",
+          "basis": "Projected regulation forecast: online team strength blended with official tournament form and ranking, then calibrated to the historically open third-place draw profile",
+          "capturedAt": "2026-07-14T17:17:44-07:00",
+          "home": 44,
+          "draw": 20,
+          "away": 36,
+          "inputs": [
+            {
+              "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+              "home": 58,
+              "away": 42,
+              "basis": "Relative Opta knockout strength normalized from each team's tournament-win and final-reach simulation rates"
+            },
+            {
+              "sourceId": "fifa-official-results-sync-2026-07-14",
+              "home": 56,
+              "away": 44,
+              "basis": "Recency-weighted 2026 tournament form through France's semifinal, using official results and per-match goal difference"
+            },
+            {
+              "sourceId": "fifa-ranking-2026-06-11",
+              "home": 51,
+              "away": 49,
+              "basis": "Small ranking component from France #3 and England #4; ranking is one of three strength inputs, not the forecast"
+            }
+          ],
+          "drawInputs": [
+            {
+              "sourceId": "statszone-third-place-history-2026-04-14",
+              "draw": 5,
+              "basis": "One of the 20 men's World Cup third-place matches through 2022 was tied after 90 minutes"
+            },
+            {
+              "sourceId": "worldcupbracket-draw-model-2026-07-14",
+              "draw": 22,
+              "basis": "Published neutral-team Elo draw anchor"
+            },
+            {
+              "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+              "draw": 32,
+              "basis": "Current margin-normalized semifinal draw probability as the live tournament-market anchor"
+            }
+          ]
+        },
+        {
+          "homeTeamId": "FRA",
+          "awayTeamId": "ARG",
+          "market": "regulation",
+          "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+          "sourceIds": [
+            "opta-world-cup-semifinal-projections-2026-07-12",
+            "fifa-official-results-sync-2026-07-14",
+            "fifa-ranking-2026-06-11",
+            "statszone-third-place-history-2026-04-14",
+            "worldcupbracket-draw-model-2026-07-14",
+            "oddschecker-england-argentina-odds-2026-07-14"
+          ],
+          "method": "online-calibrated-scenario-model",
+          "basis": "Projected regulation forecast: online team strength blended with official tournament form and ranking, then calibrated to the historically open third-place draw profile",
+          "capturedAt": "2026-07-14T17:17:44-07:00",
+          "home": 42,
+          "draw": 20,
+          "away": 38,
+          "inputs": [
+            {
+              "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+              "home": 58,
+              "away": 42,
+              "basis": "Relative Opta knockout strength normalized from each team's tournament-win and final-reach simulation rates"
+            },
+            {
+              "sourceId": "fifa-official-results-sync-2026-07-14",
+              "home": 49,
+              "away": 51,
+              "basis": "Recency-weighted 2026 tournament form through France's semifinal, using official results and per-match goal difference"
+            },
+            {
+              "sourceId": "fifa-ranking-2026-06-11",
+              "home": 49,
+              "away": 51,
+              "basis": "Small ranking component from France #3 and Argentina #1; ranking is one of three strength inputs, not the forecast"
+            }
+          ],
+          "drawInputs": [
+            {
+              "sourceId": "statszone-third-place-history-2026-04-14",
+              "draw": 5,
+              "basis": "One of the 20 men's World Cup third-place matches through 2022 was tied after 90 minutes"
+            },
+            {
+              "sourceId": "worldcupbracket-draw-model-2026-07-14",
+              "draw": 22,
+              "basis": "Published neutral-team Elo draw anchor"
+            },
+            {
+              "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+              "draw": 32,
+              "basis": "Current margin-normalized semifinal draw probability as the live tournament-market anchor"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "match-104-final-2026-07-19",
@@ -24462,18 +24615,23 @@
         {
           "homeTeamId": "ESP",
           "awayTeamId": "ENG",
-          "market": "match-winner",
+          "market": "regulation",
           "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
           "sourceIds": [
             "opta-world-cup-semifinal-projections-2026-07-12",
             "sportsbettingdime-final-lookahead-2026-07-14",
-            "oddschecker-world-cup-outrights-2026-07-14"
+            "oddschecker-world-cup-outrights-2026-07-14",
+            "opta-england-argentina-forecast-2026-07-14",
+            "opta-france-spain-forecast-2026-07-13",
+            "oddschecker-england-argentina-odds-2026-07-14",
+            "bet365-england-argentina-odds-2026-07-14"
           ],
-          "method": "conditional-online-consensus",
-          "basis": "Blended conditional final-win forecast from Opta tournament simulations, current Kalshi lookahead prices, and margin-normalized bookmaker outright and finalist markets",
-          "capturedAt": "2026-07-14T15:50:58-07:00",
-          "home": 57,
-          "away": 43,
+          "method": "online-calibrated-scenario-model",
+          "basis": "Projected regulation forecast: sourced two-way final strength converted to 1X2 with a draw rate calibrated from both Opta semifinals and current bookmaker prices",
+          "capturedAt": "2026-07-14T17:17:44-07:00",
+          "home": 39,
+          "draw": 31,
+          "away": 30,
           "inputs": [
             {
               "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
@@ -24493,23 +24651,50 @@
               "away": 41,
               "basis": "Conditional title strength normalized from current champion and to-reach-final bookmaker prices"
             }
+          ],
+          "drawInputs": [
+            {
+              "sourceId": "opta-england-argentina-forecast-2026-07-14",
+              "draw": 30,
+              "basis": "Opta's 29.7% regulation draw forecast for the other semifinal"
+            },
+            {
+              "sourceId": "opta-france-spain-forecast-2026-07-13",
+              "draw": 27,
+              "basis": "Opta's 27.2% regulation draw forecast for the first semifinal"
+            },
+            {
+              "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+              "draw": 32,
+              "basis": "Current margin-normalized Oddschecker regulation draw probability"
+            },
+            {
+              "sourceId": "bet365-england-argentina-odds-2026-07-14",
+              "draw": 33,
+              "basis": "Current margin-normalized bet365 full-time draw probability"
+            }
           ]
         },
         {
           "homeTeamId": "ESP",
           "awayTeamId": "ARG",
-          "market": "match-winner",
+          "market": "regulation",
           "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
           "sourceIds": [
             "opta-world-cup-semifinal-projections-2026-07-12",
             "sportsbettingdime-final-lookahead-2026-07-14",
-            "oddschecker-world-cup-outrights-2026-07-14"
+            "oddschecker-world-cup-outrights-2026-07-14",
+            "opta-england-argentina-forecast-2026-07-14",
+            "opta-france-spain-forecast-2026-07-13",
+            "oddschecker-england-argentina-odds-2026-07-14",
+            "bet365-england-argentina-odds-2026-07-14"
           ],
-          "method": "conditional-online-consensus",
-          "basis": "Blended conditional final-win forecast from Opta tournament simulations, current Kalshi lookahead prices, and margin-normalized bookmaker outright and finalist markets",
-          "capturedAt": "2026-07-14T15:50:58-07:00",
-          "home": 58,
-          "away": 42,
+          "method": "online-calibrated-scenario-model",
+          "basis": "Projected regulation forecast: sourced two-way final strength converted to 1X2 with a draw rate calibrated from both Opta semifinals and current bookmaker prices",
+          "capturedAt": "2026-07-14T17:17:44-07:00",
+          "home": 40,
+          "draw": 31,
+          "away": 29,
           "inputs": [
             {
               "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
@@ -24528,6 +24713,28 @@
               "home": 60,
               "away": 40,
               "basis": "Conditional title strength normalized from current champion and to-reach-final bookmaker prices"
+            }
+          ],
+          "drawInputs": [
+            {
+              "sourceId": "opta-england-argentina-forecast-2026-07-14",
+              "draw": 30,
+              "basis": "Opta's 29.7% regulation draw forecast for the other semifinal"
+            },
+            {
+              "sourceId": "opta-france-spain-forecast-2026-07-13",
+              "draw": 27,
+              "basis": "Opta's 27.2% regulation draw forecast for the first semifinal"
+            },
+            {
+              "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+              "draw": 32,
+              "basis": "Current margin-normalized Oddschecker regulation draw probability"
+            },
+            {
+              "sourceId": "bet365-england-argentina-odds-2026-07-14",
+              "draw": 33,
+              "basis": "Current margin-normalized bet365 full-time draw probability"
             }
           ]
         }
