@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T21:51:04-07:00",
+  "updatedAt": "2026-07-14T22:31:44-07:00",
   "releases": [
     {
       "date": "2026-07-14",
@@ -10,7 +10,7 @@
         "Completed World Cup scoring records remain visible in a separate edition-labeled row, while archive spotlights keep specific evergreen insight and lightly documented players use conservative role-based wording.",
         "Ball Boy can now resolve 419 browser-supported time zones, common city and region aliases, and 11 multi-zone country choices; unknown locations lead to Settings guidance, while unsupported languages remain clearly bounded to English and Chinese.",
         "Next-opponent questions now return the scheduled fixture and time across more English and Chinese phrasings without crashing on matches that have no highlight video or turning empty URLs into broken links.",
-        "The Report issue page now includes Ball Boy, a top-left Back control, three focused categories plus Others, an unselected localized default, and a larger Send report button that enables only after both required fields are complete.",
+        "The Report issue page now includes Ball Boy, a home-aligned top-left Back control and smooth reduced-motion-aware entry, three focused categories plus Others, an unselected localized default, and a larger Send report button that enables only after both required fields are complete.",
         "Match rows now bring off-screen details into view reliably on desktop and mobile, while the wider desktop search pill keeps its icon fixed, preserves mobile geometry, and player-header flags retain full opacity."
       ],
       "highlightsZh": [
@@ -18,7 +18,7 @@
         "已完成世界杯的进球记录仍会显示在独立的届次数据行中；重点历史球员保留具体的常青解读，资料较少的球员则使用谨慎的角色型表述。",
         "Ball Boy 现在可识别浏览器支持的419个时区、常见城市与地区别名，并为11个跨时区国家提供选择；无法匹配的位置会引导至设置，而不支持的语言会明确说明目前仅支持中文和英文。",
         "询问下一位对手时，Ball Boy 现在能通过更多中英文表达返回已安排的比赛和时间，不会再因比赛没有集锦视频而崩溃，也不会把空网址变成错误链接。",
-        "“报告问题”页面现在加入 Ball Boy、左上角返回控件、三个聚焦分类与“其他”；问题类型默认不选中，只有两个必填字段都完成后，更大的“发送报告”按钮才会启用。",
+        "“报告问题”页面现在加入 Ball Boy、与主页对齐的左上角返回控件和兼顾减少动态效果设置的平滑入场动画，并提供三个聚焦分类与“其他”；问题类型默认不选中，只有两个必填字段都完成后，更大的“发送报告”按钮才会启用。",
         "当比赛详情位于屏幕外时，桌面端和移动端现在都会可靠地将其带入视野；桌面搜索胶囊加宽后图标位置保持不动，移动端几何不变，球员标题中的国旗也保持完全不透明。"
       ]
     },

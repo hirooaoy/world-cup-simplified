@@ -7643,7 +7643,38 @@ button.lineup-event-sub,
 }
 
 .report-header .report-back-link {
+  position: relative;
+  top: 9px;
+  margin-left: 11px;
   margin-bottom: 0;
+}
+
+.report-page .report-header,
+.report-page .report-shell {
+  animation: report-page-enter 520ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+}
+
+.report-page .report-shell {
+  animation-delay: 70ms;
+}
+
+@keyframes report-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-page .report-header,
+  .report-page .report-shell {
+    animation: none;
+  }
 }
 
 .report-back-link {
@@ -8176,6 +8207,11 @@ button.lineup-event-sub,
   .report-shell {
     width: min(calc(100% - 36px), 680px);
     padding: 88px 0 58px;
+  }
+
+  .report-header .report-back-link {
+    top: 6px;
+    margin-left: 7px;
   }
 
   h1 {
