@@ -332,6 +332,100 @@ assert.deepEqual(
   "A parsed 4-1-3-2 must contain one holding midfielder plus three midfielders, not a fictional RW/AM/LW line"
 );
 
+const staleEnglandMatch = structuredClone(livePayloads.get("400021528"));
+staleEnglandMatch.HomeTeam.Tactics = "4-2-3-1";
+staleEnglandMatch.HomeTeam.Players = [
+  player(801, "Jordan Pickford", 1, 0),
+  player(802, "Reece James", 24, 1),
+  player(803, "John Stones", 5, 1),
+  player(804, "Marc Guehi", 6, 1),
+  player(805, "Djed Spence", 25, 1),
+  player(806, "Declan Rice", 4, 2),
+  player(807, "Elliot Anderson", 8, 2),
+  player(808, "Jude Bellingham", 10, 2),
+  player(809, "Morgan Rogers", 17, 2),
+  player(810, "Anthony Gordon", 18, 3),
+  player(811, "Harry Kane", 9, 3),
+  player(812, "Dean Henderson", 13, 0, 2)
+];
+const staleEnglandReference = {
+  type: "pre-kickoff-prediction",
+  updatedAt: "2026-07-15T17:01:22.644Z",
+  lineup: {
+    home: {
+      formation: "4-2-3-1",
+      players: [
+        { name: "Jordan Pickford", position: "GK", x: 50, y: 91 },
+        { name: "Reece James", position: "RB", x: 85, y: 75 },
+        { name: "John Stones", position: "CB", x: 62, y: 75 },
+        { name: "Marc Guehi", position: "CB", x: 38, y: 75 },
+        { name: "Nico O'Reilly", position: "LB", x: 15, y: 75 },
+        { name: "Declan Rice", position: "CM", x: 62, y: 59 },
+        { name: "Elliot Anderson", position: "CM", x: 38, y: 59 },
+        { name: "Bukayo Saka", position: "RW", x: 82, y: 40 },
+        { name: "Jude Bellingham", position: "AM", x: 50, y: 40 },
+        { name: "Anthony Gordon", position: "LW", x: 18, y: 40 },
+        { name: "Harry Kane", position: "ST", x: 50, y: 20 }
+      ]
+    }
+  }
+};
+const englandRoleProfiles = buildProfileLookup({
+  profiles: {
+    james: { name: "Reece James", teamId: "ENG", position: "Right-back" },
+    stones: { name: "John Stones", teamId: "ENG", position: "Centre-back" },
+    guehi: { name: "Marc Guehi", teamId: "ENG", position: "Centre-back" },
+    spence: { name: "Djed Spence", teamId: "ENG", position: "Right-back" },
+    rogers: { name: "Morgan Rogers", teamId: "ENG", position: "Attacking midfielder, winger" }
+  }
+});
+const parsedEngland = buildFifaLineupsFromLiveMatch({
+  fixture: {
+    id: "spence-rogers-role-regression",
+    homeTeamId: "ENG",
+    awayTeamId: "EGY",
+    kickoffUtc: "2026-07-15T19:00:00Z"
+  },
+  liveMatch: staleEnglandMatch,
+  teamsById: new Map([
+    ["ENG", { id: "ENG", name: "England" }],
+    ["EGY", { id: "EGY", name: "Egypt" }]
+  ]),
+  profileLookup: englandRoleProfiles,
+  layoutReference: staleEnglandReference,
+  checkedAt: "2026-07-15T17:44:43.186Z",
+  sourceIds: ["role-constraint-smoke"],
+  mode: "confirmed"
+});
+const expectedEnglandPositions = new Map([
+  ["Jordan Pickford", "GK"],
+  ["Reece James", "RB"],
+  ["John Stones", "CB"],
+  ["Marc Guehi", "CB"],
+  ["Djed Spence", "LB"],
+  ["Declan Rice", "CM"],
+  ["Elliot Anderson", "CM"],
+  ["Jude Bellingham", "AM"],
+  ["Morgan Rogers", "RW"],
+  ["Anthony Gordon", "LW"],
+  ["Harry Kane", "ST"]
+]);
+for (const [name, position] of expectedEnglandPositions) {
+  assert.equal(
+    parsedEngland.home.players.find((entry) => entry.name === name)?.position,
+    position,
+    `${name} should resolve to ${position}`
+  );
+}
+assert.deepEqual(
+  parsedEngland.home.players
+    .filter((entry) => entry.sourcePosition === "defender")
+    .map((entry) => entry.position)
+    .sort(),
+  ["CB", "CB", "LB", "RB"].sort(),
+  "All four FIFA-listed defenders should occupy the back four before exact geometry is available."
+);
+
 const retainedLayout = {
   ...parsed4132,
   teamSheetSource: "fifa-official",

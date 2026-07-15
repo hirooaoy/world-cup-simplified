@@ -26,6 +26,7 @@ const sourceId = `fifa-lineups-sync-${new Date().toISOString().slice(0, 10)}`;
 const checkedAt = process.env.FIFA_LINEUPS_CHECKED_AT || new Date().toISOString();
 const shouldWrite = !process.argv.includes("--check");
 const includeLive = process.argv.includes("--include-live");
+const matchdayOnly = process.argv.includes("--matchday-only");
 const confirmedWindowBeforeMinutes = Number(process.env.FIFA_LINEUPS_WINDOW_BEFORE_MINUTES || 180);
 const confirmedWindowAfterMinutes = Number(process.env.FIFA_LINEUPS_WINDOW_AFTER_MINUTES || 360);
 const requestTimeoutMs = Number(process.env.FIFA_LINEUPS_TIMEOUT_MS || 10000);
@@ -120,12 +121,22 @@ function comparableLineups(lineups) {
     return null;
   }
 
+  const layoutVerification = lineups.layoutVerification && typeof lineups.layoutVerification === "object"
+    ? { ...lineups.layoutVerification }
+    : lineups.layoutVerification || null;
+  if (layoutVerification && typeof layoutVerification === "object") {
+    // A polling timestamp is evidence freshness, not a material lineup change.
+    // Keeping it out of equality prevents five-minute matchday checks from
+    // committing and deploying an otherwise identical provisional board.
+    delete layoutVerification.checkedAt;
+  }
+
   return {
     mode: lineups.mode || "",
     teamSheetSource: lineups.teamSheetSource || "",
     eventSource: lineups.eventSource || "",
     layoutSource: lineups.layoutSource || "",
-    layoutVerification: lineups.layoutVerification || null,
+    layoutVerification,
     home: lineups.home || null,
     away: lineups.away || null
   };
@@ -279,7 +290,7 @@ function shouldSyncFixtureLineup(fixture) {
   }
 
   if (fixture.status === "FT") {
-    return true;
+    return !matchdayOnly;
   }
   if (fixture.status === "LIVE") {
     return includeLive;

@@ -9,6 +9,7 @@ import {
 } from "./lineup-layout-overrides.mjs";
 import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
 import { assignRolesFromPitchGeometry } from "./lineup-layout-roles.mjs";
+import { buildExactLayoutConsensus } from "./lineup-layout-consensus.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
   getLineupLayoutStatus,
@@ -269,6 +270,106 @@ assert.deepEqual(
     Striker: "ST"
   },
   "Role labels should follow the verified pitch bands when they differ from a compact formation label."
+);
+
+function exactConsensusClaim(name, adapter, coordinateDelta = 0) {
+  const side = (team, signature) => ({
+    formation: team.formation,
+    players: team.players.map((entry, index) => ({
+      ...entry,
+      x: Number(entry.x) + (index === 1 ? coordinateDelta : 0)
+    })),
+    signature
+  });
+  const home = side(lineups.home, "4-3-3::home-row-signature");
+  const away = side(lineups.away, "4-3-3::away-row-signature");
+  return {
+    name,
+    adapter,
+    url: `https://example.com/${adapter}`,
+    status: "matched",
+    exactLayout: true,
+    sourceDetail: "synthetic normalized tactical board",
+    signature: { home: home.signature, away: away.signature },
+    home: { formation: home.formation, players: home.players },
+    away: { formation: away.formation, players: away.players }
+  };
+}
+
+const espnConsensusClaim = exactConsensusClaim("ESPN", "espn");
+assert.equal(
+  buildExactLayoutConsensus([espnConsensusClaim]).status,
+  "insufficient",
+  "One exact provider must not create an automatic matchday override."
+);
+assert.equal(
+  buildExactLayoutConsensus([
+    espnConsensusClaim,
+    { ...structuredClone(espnConsensusClaim), url: "https://example.com/espn-duplicate" }
+  ]).status,
+  "insufficient",
+  "Two URLs from the same provider must still count as one source."
+);
+
+const fotmobConsensusClaim = exactConsensusClaim("FotMob", "fotmob", 4);
+const agreedConsensus = buildExactLayoutConsensus([espnConsensusClaim, fotmobConsensusClaim]);
+assert.equal(agreedConsensus.status, "agreed");
+assert.equal(
+  agreedConsensus.home.players[1].x,
+  Number(lineups.home.players[1].x) + 2,
+  "Agreed normalized coordinates should use the per-player median."
+);
+
+const rowConflictClaim = structuredClone(fotmobConsensusClaim);
+rowConflictClaim.signature.away = "4-4-2::different-away-order";
+assert.equal(
+  buildExactLayoutConsensus([espnConsensusClaim, rowConflictClaim]).status,
+  "conflict",
+  "A formation, row, or left-to-right disagreement on either team must stay unresolved."
+);
+
+const geometryConflictClaim = exactConsensusClaim("FotMob", "fotmob", 9);
+assert.equal(
+  buildExactLayoutConsensus([espnConsensusClaim, geometryConflictClaim]).status,
+  "conflict",
+  "Coordinate drift beyond the normalized tolerance must stay unresolved."
+);
+
+const consensusOverride = structuredClone(override);
+consensusOverride.verificationMethod = "source-consensus-v1";
+consensusOverride.consensus = {
+  providers: ["ESPN", "FotMob"],
+  minimumExactSources: 2,
+  coordinateTolerance: { x: 8, y: 10 },
+  aggregation: "median-normalized-coordinates"
+};
+consensusOverride.note = "ESPN and FotMob agreed on the tactical layout.";
+consensusOverride.sources = [espnConsensusClaim, fotmobConsensusClaim].map((claim) => ({
+  name: claim.name,
+  adapter: claim.adapter,
+  url: claim.url,
+  status: claim.status,
+  sourceDetail: claim.sourceDetail,
+  exactLayout: claim.exactLayout,
+  signature: claim.signature
+}));
+assert.deepEqual(
+  getLayoutOverrideProvenanceIssues(consensusOverride),
+  [],
+  "A source-consensus-v1 override should require and accept two distinct exact providers."
+);
+const singleProviderConsensusOverride = structuredClone(consensusOverride);
+singleProviderConsensusOverride.sources = [singleProviderConsensusOverride.sources[0]];
+assert(
+  getLayoutOverrideProvenanceIssues(singleProviderConsensusOverride).some((issue) =>
+    issue.includes("two distinct matched exact-layout providers")
+  ),
+  "Automatic consensus metadata must not validate with only one provider."
+);
+assert.deepEqual(
+  getLayoutOverrideProvenanceIssues(override),
+  [],
+  "Legacy/manual single-source verified overrides must remain valid."
 );
 
 console.log("Lineup layout source smoke passed: derived layouts stay unverified until an exact override is applied.");

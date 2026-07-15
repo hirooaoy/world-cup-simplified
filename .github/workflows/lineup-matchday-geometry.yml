@@ -1,0 +1,88 @@
+name: Lineup Matchday Geometry
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * 11-30 6 *"
+    - cron: "*/5 * 1-19 7 *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: world-cup-data-sync
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Sync official XI and agreed pitch geometry
+    runs-on: ubuntu-latest
+    env:
+      WORLD_CUP_TZ: America/Los_Angeles
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SYNC_PR_TOKEN || github.token }}
+
+      - name: Check matchday window
+        id: window
+        run: node scripts/lineup-matchday-window.mjs --github-output
+
+      - name: Set up Node.js
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Set up pnpm
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.0.7 --activate
+
+      - name: Install dependencies
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync FIFA official matchday lineups
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          FIFA_LINEUPS_WINDOW_BEFORE_MINUTES: "90"
+          FIFA_LINEUPS_WINDOW_AFTER_MINUTES: "20"
+        run: pnpm sync:fifa:lineups:matchday
+
+      - name: Verify agreed kickoff geometry
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          LINEUP_LAYOUT_LIVE_START_BEFORE_MINUTES: "10"
+          LINEUP_LAYOUT_LIVE_START_AFTER_MINUTES: "20"
+        run: pnpm lineups:verify-live-start
+
+      - name: Validate lineup data
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          pnpm validate
+          pnpm smoke:lineup-layouts
+          pnpm smoke:live-lineups
+
+      - name: Detect matchday lineup changes
+        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- data/fixtures.json data/lineups.json data/lineup-layout-overrides.json data/tournament.json data/lineup-prediction-history.json)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit matchday lineups to main and trigger Vercel
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fixtures.json data/lineups.json data/lineup-layout-overrides.json data/tournament.json data/lineup-prediction-history.json
+          git commit -m "Update matchday lineup placement"
+          git push origin HEAD:main

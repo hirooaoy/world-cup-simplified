@@ -51,21 +51,31 @@ When exact placement matters, use an audited manual override in `data/lineup-lay
 3. Store the verified home and away player coordinates in the override.
 4. Run `pnpm sync:fifa:lineups`, then `pnpm validate` and `pnpm smoke:lineup-layouts`.
 
-`pnpm validate` rejects verified overrides that do not include at least one matched exact-layout source, notes that claim evidence not stored in the record, and source sets with conflicting tactical signatures. Conflicting boards remain visible only as provisional placement; do not select a preferred provider and call the result verified.
+`pnpm validate` rejects verified overrides that do not include at least one matched exact-layout source, notes that claim evidence not stored in the record, and source sets with conflicting tactical signatures. Conflicting boards keep the safer formation-derived placement; do not select a preferred provider and call the result verified.
 
-For matchday live starts, use a bounded one-time verification pass instead of an always-on scraper:
+For matchday live starts, `.github/workflows/lineup-matchday-geometry.yml` runs every five minutes during the tournament but exits immediately unless a fixture is between 90 minutes before and 20 minutes after kickoff. In that bounded window it:
+
+1. Syncs the complete FIFA-official XI, bench, captain, and formation. Until those facts exist, the site keeps the pre-match `Line-ups (predicted)` board.
+2. Changes the same card to `Line-ups` as soon as the official XI is complete. Formation-aware assignment keeps FIFA-listed defenders, midfielders, and forwards in safe compatible rows while exact geometry is still unavailable.
+3. From 10 minutes before through 20 minutes after kickoff, merges the configured/discovered ESPN board with a dynamically discovered FotMob board.
+4. Normalizes both boards to the app's 0-100 pitch orientation, then requires the same formation, row membership, left-to-right order, and close coordinates for both teams. Two distinct exact-layout providers are required; agreed coordinates use the per-player median.
+5. Stores a permanent `source-consensus-v1` verified override only when those checks agree. A later FIFA refresh reapplies rather than replaces it. Conflicts and unavailable sources remain Action logs and do not rewrite data or trigger a deployment.
+6. Validates the lineup files, commits a material change to `main`, and lets the repository's Vercel Git integration deploy it automatically.
+
+Public copy deliberately has only two lineup states: `Line-ups (predicted)` before the official XI and `Line-ups` afterward. Exact/provisional verification remains internal.
+
+Run the same core checks locally with:
 
 ```bash
-pnpm sync:fifa:lineups:live
-pnpm lineups:google-kickoff-check
+pnpm sync:fifa:lineups:matchday
 pnpm lineups:verify-live-start
 ```
 
-Run the Google kickoff check once around kickoff, after FIFA official lineups have synced. It is a manual editorial checkpoint: it prints the relevant Google lineup search URL, requires FIFA-official lineup facts before any geometry review, skips fixtures that already have a verified layout override, and does not fetch Google or write data.
+ESPN and FotMob are the automated exact-board providers. Google and Sofascore remain useful manual fallbacks when their public pages cannot be parsed reliably: `pnpm lineups:google-kickoff-check` prints the relevant Google search URL after FIFA official lineups have synced, skips fixtures that already have a verified override, and never fetches Google or writes data.
 
 The kickoff Google check defaults to a tight `-5` to `+20` minute window from kickoff. Live fixtures with FIFA-official lineups but unverified geometry stay visible as late manual checks until `+180` minutes by default. Use `LINEUP_GOOGLE_KICKOFF_BEFORE_MINUTES`, `LINEUP_GOOGLE_KICKOFF_AFTER_MINUTES`, or `LINEUP_GOOGLE_KICKOFF_LATE_LIVE_MINUTES` only if tournament timing requires a different one-time window. If Google confirms a meaningful exact-layout issue, add an audited manual override with the Google URL, `checkedAt`, notes, and `verified-layout` metadata; do not tune the generic inference algorithm.
 
-The live-start verifier remains a broader safety check from 90 minutes before through 90 minutes after kickoff. It targets nearby `SCHEDULED`, `DELAYED`, and `LIVE` fixtures, accepts only complete FIFA-official lineup records, discovers an ESPN board from the public matchday scoreboard when no configured candidate exists, and skips fixtures that already have a verified layout override. Use `LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES` only if tournament timing requires a wider window.
+The live-start verifier defaults to the approved asymmetric `-10` through `+20` minute tactical window. It targets nearby `SCHEDULED`, `DELAYED`, and `LIVE` fixtures, accepts only complete FIFA-official lineup records, discovers missing ESPN/FotMob candidates, and always preserves an existing verified override. Use `LINEUP_LAYOUT_LIVE_START_BEFORE_MINUTES` and `LINEUP_LAYOUT_LIVE_START_AFTER_MINUTES` only if tournament timing changes. A deliberate editorial recheck can pass `--reverify`; routine FIFA refreshes must not.
 
 ## Projection Baselines
 

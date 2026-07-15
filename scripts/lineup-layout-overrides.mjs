@@ -220,6 +220,20 @@ export function getLayoutOverrideProvenanceIssues(override) {
     if (!sources.some(isMatchedExactLayoutSource)) {
       issues.push("verified overrides must include at least one matched source with exactLayout true");
     }
+    if (override.verificationMethod === "source-consensus-v1") {
+      const exactProviderIds = new Set(
+        sources
+          .filter(isMatchedExactLayoutSource)
+          .map((source) => String(source.adapter || source.name || "").trim().toLowerCase())
+          .filter(Boolean)
+      );
+      if (exactProviderIds.size < 2) {
+        issues.push("source-consensus-v1 overrides must include two distinct matched exact-layout providers");
+      }
+      if (override.consensus?.aggregation !== "median-normalized-coordinates") {
+        issues.push("source-consensus-v1 overrides must record median-normalized-coordinates aggregation");
+      }
+    }
     if (sources.some((source) => source?.status === "conflict")) {
       issues.push("verified overrides must not contain unresolved source conflicts");
     }

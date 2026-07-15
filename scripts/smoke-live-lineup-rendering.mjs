@@ -702,6 +702,7 @@ try {
     assert.equal(headingState.ariaLabel, "Line-ups");
     assert(
       !headingState.text.includes("Line-ups (official)") &&
+        !headingState.helpLabel.includes("provisional") &&
         headingState.helpLabel.includes(official ? "Official FIFA lineup" : "Confirmed lineup record") &&
         (official || !headingState.helpLabel.includes("Official")),
       `Confirmed pre-kickoff lineups should reserve official wording for an official source type. Measured ${JSON.stringify(headingState)}.`

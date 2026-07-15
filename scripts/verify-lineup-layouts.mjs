@@ -11,6 +11,7 @@ import {
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-overrides.mjs";
 import { assignRolesFromPitchGeometry } from "./lineup-layout-roles.mjs";
+import { buildExactLayoutConsensus } from "./lineup-layout-consensus.mjs";
 import { isPlayerNameMatch } from "./player-name-matching.mjs";
 import { getSourceCandidatesForFixture } from "./lineup-layout-source-candidates.mjs";
 
@@ -18,6 +19,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const shouldWrite = !process.argv.includes("--check");
 const args = process.argv.slice(2);
+const shouldReverify = args.includes("--reverify");
 const checkedAt = process.env.LINEUP_LAYOUT_CHECKED_AT || new Date().toISOString();
 const overrideSourceId = `lineup-layout-verification-${checkedAt.slice(0, 10)}`;
 const requestTimeoutMs = Number(process.env.LINEUP_LAYOUT_TIMEOUT_MS || 15000);
@@ -26,7 +28,8 @@ const LIVE_START_STATUSES = new Set(["SCHEDULED", "DELAYED", "LIVE"]);
 const VALID_SCOPE_VALUES = new Set(["all-completed", "knockout", "recent-completed", "live-start"]);
 const DEFAULT_SCOPE = "all-completed";
 const DEFAULT_RECENT_COMPLETED_DAYS = 30;
-const DEFAULT_LIVE_START_WINDOW_MINUTES = 90;
+const DEFAULT_LIVE_START_BEFORE_MINUTES = 10;
+const DEFAULT_LIVE_START_AFTER_MINUTES = 20;
 const CLAIM_STATUSES = new Set(["matched", "unavailable", "blocked", "error", "conflict"]);
 const BLOCKED_HTTP_STATUSES = new Set([403, 429, 451]);
 const requestedFixtureFilter = new Set(
@@ -71,19 +74,34 @@ function getRequestedRecentCompletedDays() {
   return parsed;
 }
 
-function getRequestedLiveStartWindowMinutes() {
-  const argValue = getArgValue("--live-start-window-minutes=");
-  if (!argValue) {
-    return Number(process.env.LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES || DEFAULT_LIVE_START_WINDOW_MINUTES);
-  }
-
-  const parsed = Number(argValue);
+function getPositiveMinutes(argValue, envValue, fallback, label) {
+  const parsed = Number(argValue || envValue || fallback);
   if (!Number.isFinite(parsed) || parsed <= 0) {
-    console.error(`--live-start-window-minutes must be a positive number. Received: ${argValue}`);
+    console.error(`${label} must be a positive number. Received: ${argValue || envValue}`);
     process.exit(1);
   }
 
   return parsed;
+}
+
+function getRequestedLiveStartBeforeMinutes() {
+  const legacyWindow = getArgValue("--live-start-window-minutes=") || process.env.LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES;
+  return getPositiveMinutes(
+    getArgValue("--before-kickoff-minutes="),
+    process.env.LINEUP_LAYOUT_LIVE_START_BEFORE_MINUTES || legacyWindow,
+    DEFAULT_LIVE_START_BEFORE_MINUTES,
+    "--before-kickoff-minutes"
+  );
+}
+
+function getRequestedLiveStartAfterMinutes() {
+  const legacyWindow = getArgValue("--live-start-window-minutes=") || process.env.LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES;
+  return getPositiveMinutes(
+    getArgValue("--after-kickoff-minutes="),
+    process.env.LINEUP_LAYOUT_LIVE_START_AFTER_MINUTES || legacyWindow,
+    DEFAULT_LIVE_START_AFTER_MINUTES,
+    "--after-kickoff-minutes"
+  );
 }
 
 function getAuditNow() {
@@ -103,7 +121,8 @@ function getAuditNow() {
 
 const requestedScope = getRequestedScope();
 const requestedRecentDays = getRequestedRecentCompletedDays();
-const requestedLiveStartWindowMinutes = getRequestedLiveStartWindowMinutes();
+const requestedLiveStartBeforeMinutes = getRequestedLiveStartBeforeMinutes();
+const requestedLiveStartAfterMinutes = getRequestedLiveStartAfterMinutes();
 const requestedFixtureIds = getRequestedFixtureFilter();
 const auditNow = getAuditNow();
 
@@ -170,7 +189,7 @@ function isLiveStartFixture(fixture) {
     return true;
   }
 
-  return minutes >= -requestedLiveStartWindowMinutes && minutes <= requestedLiveStartWindowMinutes;
+  return minutes >= -requestedLiveStartBeforeMinutes && minutes <= requestedLiveStartAfterMinutes;
 }
 
 function isFixtureInScope(fixture, scope) {
@@ -274,6 +293,90 @@ async function discoverEspnSourceCandidates(fixture) {
   } catch {
     return [];
   }
+}
+
+function normalizeTeamName(value) {
+  const compact = String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+  const aliases = {
+    capeverde: "caboverde",
+    congodr: "drcongo",
+    czechrepublic: "czechia",
+    iran: "iriran",
+    ivorycoast: "cotedivoire",
+    korearepublic: "southkorea",
+    turkey: "turkiye",
+    us: "unitedstates",
+    usa: "unitedstates"
+  };
+  return aliases[compact] || compact;
+}
+
+function sourceTeamMatches(sourceTeam, team) {
+  const sourceName = normalizeTeamName(sourceTeam?.longName || sourceTeam?.name);
+  if (!sourceName || !team) {
+    return false;
+  }
+
+  return [team.name, team.officialName, team.shortName, team.id]
+    .map(normalizeTeamName)
+    .filter(Boolean)
+    .includes(sourceName);
+}
+
+async function discoverFotmobSourceCandidates(fixture, teamsById) {
+  const kickoff = new Date(fixture?.kickoffUtc || "");
+  const homeTeam = teamsById.get(fixture?.homeTeamId);
+  const awayTeam = teamsById.get(fixture?.awayTeamId);
+  if (Number.isNaN(kickoff.getTime()) || !homeTeam || !awayTeam) {
+    return [];
+  }
+
+  const day = kickoff.toISOString().slice(0, 10).replaceAll("-", "");
+  const matchesUrl = `https://www.fotmob.com/api/data/matches?date=${day}&timezone=UTC&ccode3=USA`;
+  try {
+    const response = await fetchText(matchesUrl);
+    if (!response.ok) {
+      return [];
+    }
+    const payload = JSON.parse(response.text);
+    const matches = (payload.leagues || []).flatMap((league) => league?.matches || []);
+    const match = matches.find((candidate) =>
+      sourceTeamMatches(candidate?.home, homeTeam) && sourceTeamMatches(candidate?.away, awayTeam)
+    );
+    if (!match?.id) {
+      return [];
+    }
+
+    return [{
+      name: "FotMob",
+      adapter: "fotmob",
+      url: `https://www.fotmob.com/match/${match.id}`,
+      discoveredFrom: matchesUrl
+    }];
+  } catch {
+    return [];
+  }
+}
+
+function mergeSourceCandidates(...candidateGroups) {
+  const merged = [];
+  const seen = new Set();
+  for (const source of candidateGroups.flat()) {
+    if (!source?.url) {
+      continue;
+    }
+    const key = `${String(source.adapter || source.name || "").toLowerCase()}|${source.url}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    merged.push(source);
+  }
+  return merged;
 }
 
 function playerName(player) {
@@ -501,6 +604,7 @@ function normalizeExactSourceFormation(value, fallback = "") {
 
 function sourceClaimFromExactLayout({
   name,
+  adapter,
   url,
   sourceDetail = "",
   lineups,
@@ -519,6 +623,7 @@ function sourceClaimFromExactLayout({
 
   return {
     name,
+    ...(adapter ? { adapter } : {}),
     url,
     status: "matched",
     sourceDetail,
@@ -526,8 +631,8 @@ function sourceClaimFromExactLayout({
     home,
     away,
     signature: {
-      home: signatureFromLayout(home.formation, home.players),
-      away: signatureFromLayout(away.formation, away.players)
+      home: `${home.formation}::${signatureFromLayout(home.formation, home.players)}`,
+      away: `${away.formation}::${signatureFromLayout(away.formation, away.players)}`
     }
   };
 }
@@ -580,6 +685,11 @@ function parseEspnLayout(html, lineups, source) {
   }
 
   const section = html.slice(start, start + 160000);
+  const formationTabs = [
+    ...section.slice(0, 20000).matchAll(
+      /<button[^>]*role="tab"[\s\S]*?<img[^>]+alt="[^"]+"[\s\S]*?<span[^>]*>(\d(?:-\d+){1,4})<\/span>[\s\S]*?<\/button>/g
+    )
+  ].map((match) => match[1]);
   const regex =
     /style="left:([0-9.]+)%;top:([0-9.]+)%"[\s\S]{0,1400}?data-track-athlete="([^"]+)"[\s\S]{0,600}?>([^<>]+)<\/a>/g;
   const officialHomeNames = officialSideNames(lineups, "home");
@@ -615,11 +725,14 @@ function parseEspnLayout(html, lineups, source) {
 
   return sourceClaimFromExactLayout({
     name: source.name,
+    adapter: source.adapter,
     url: source.url,
     sourceDetail: "public match-center board geometry",
     lineups,
     homePlayers: homeCanonicalPlayers,
-    awayPlayers: awayCanonicalPlayers
+    awayPlayers: awayCanonicalPlayers,
+    homeFormation: formationTabs[0],
+    awayFormation: formationTabs[1]
   });
 }
 
@@ -893,6 +1006,12 @@ function parseFotmobLayout(html, lineups, source) {
       note: "FotMob lineup payload was not found."
     });
   }
+  if (String(lineup.lineupType || "").trim().toLowerCase() !== "standard") {
+    return sourceClaimEnvelope(source, {
+      status: "unavailable",
+      note: `FotMob exposed a ${lineup.lineupType || "non-standard"} lineup rather than a confirmed standard board.`
+    });
+  }
 
   const officialHomePlayers = lineups.home?.players || [];
   const officialAwayPlayers = lineups.away?.players || [];
@@ -919,6 +1038,7 @@ function parseFotmobLayout(html, lineups, source) {
 
   return sourceClaimFromExactLayout({
     name: source.name,
+    adapter: source.adapter,
     url: source.url,
     sourceDetail: lineup.source ? `lineup payload source: ${lineup.source}` : "lineup payload",
     lineups,
@@ -1006,13 +1126,10 @@ function validateOfficialStarterCoverage(fixtureId, lineups, override) {
 }
 
 function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
-  const matchedClaims = claims.filter((claim) => claim.status === "matched");
-  const exactClaim = matchedClaims.find((claim) => claim.exactLayout);
-  const signatures = new Set(
-    matchedClaims.map((claim) => `${claim.signature?.home || ""}::${claim.signature?.away || ""}`)
-  );
+  const minimumExactSources = requestedScope === "live-start" ? 2 : 1;
+  const consensus = buildExactLayoutConsensus(claims, { minimumExactSources });
 
-  if (!matchedClaims.length) {
+  if (!consensus.matchedClaims.length) {
     return {
       status: "unresolved",
       unresolvedReason: "insufficient_evidence",
@@ -1023,8 +1140,8 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
     };
   }
 
-  if (signatures.size > 1) {
-    for (const claim of matchedClaims) {
+  if (consensus.status === "conflict") {
+    for (const claim of consensus.matchedClaims) {
       claim.status = "conflict";
     }
     return {
@@ -1033,25 +1150,27 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
       checkedAt,
       sourceIds: [overrideSourceId],
       sources: claims,
-      note: "Trusted public sources disagreed on the tactical row order."
+      note: consensus.reason === "geometry_tolerance_conflict"
+        ? "Trusted public sources agreed on player rows but their normalized board coordinates differed beyond the safe tolerance."
+        : "Trusted public sources disagreed on formation, tactical row membership, or left-to-right player order."
     };
   }
 
-  if (!exactClaim) {
+  if (consensus.status !== "agreed") {
+    const exactSourceCount = consensus.exactClaims.length;
     return {
       status: "unresolved",
       unresolvedReason: "insufficient_evidence",
       checkedAt,
       sourceIds: [overrideSourceId],
       sources: claims,
-      note: "Trusted public sources agreed on row order, but no source exposed precise board coordinates."
+      note: minimumExactSources > 1
+        ? `Automatic matchday verification requires ${minimumExactSources} distinct exact-layout providers; ${exactSourceCount} supplied usable geometry.`
+        : "A trusted source matched the row order but did not expose complete board coordinates."
     };
   }
 
-  const exactSourceNames = matchedClaims
-    .filter((claim) => claim.exactLayout)
-    .map((claim) => claim.name)
-    .filter(Boolean);
+  const exactSourceNames = consensus.sourceNames;
   const exactSourceNote =
     exactSourceNames.length > 1
       ? `${exactSourceNames.join(" and ")} agreed on the tactical layout.`
@@ -1060,14 +1179,31 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
   const override = {
     status: "verified",
     layoutSource: VERIFIED_LAYOUT_SOURCE,
+    ...(minimumExactSources > 1
+      ? {
+          verificationMethod: "source-consensus-v1",
+          consensus: {
+            providers: exactSourceNames,
+            minimumExactSources,
+            coordinateTolerance: { x: 8, y: 10 },
+            aggregation: "median-normalized-coordinates"
+          }
+        }
+      : {}),
     checkedAt,
     sourceIds: [overrideSourceId],
     homeTeamId: fixture.homeTeamId,
     awayTeamId: fixture.awayTeamId,
     sources: claims,
     note: `FIFA official team sheet kept for facts; ${exactSourceNote}`,
-    home: exactClaim.home,
-    away: exactClaim.away
+    home: {
+      ...consensus.home,
+      players: assignRolesFromPitchGeometry(consensus.home.formation, consensus.home.players)
+    },
+    away: {
+      ...consensus.away,
+      players: assignRolesFromPitchGeometry(consensus.away.formation, consensus.away.players)
+    }
   };
   const coverageIssues = validateOfficialStarterCoverage(fixtureId, lineups, override);
   if (coverageIssues.length) {
@@ -1111,18 +1247,20 @@ function upsertSource(tournamentData, sourceId, fixtureCount, changedCount) {
   tournamentData.updatedAt = checkedAt;
 }
 
-const [fixturesData, lineupsData, tournamentData, overridesData] = await Promise.all([
+const [fixturesData, lineupsData, tournamentData, overridesData, teamsData] = await Promise.all([
   readJson("fixtures.json"),
   readJson("lineups.json"),
   readJson("tournament.json"),
-  readOptionalJson("lineup-layout-overrides.json", { sourceIds: [], updatedAt: checkedAt, fixtures: {} })
+  readOptionalJson("lineup-layout-overrides.json", { sourceIds: [], updatedAt: checkedAt, fixtures: {} }),
+  readJson("teams.json")
 ]);
+const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 
 let changedCount = 0;
+let overridesChanged = false;
 const nextOverrides = {
   ...overridesData,
-  sourceIds: [...new Set([...(overridesData.sourceIds || []), overrideSourceId])],
-  updatedAt: checkedAt,
+  sourceIds: [...(overridesData.sourceIds || [])],
   fixtures: {
     ...(overridesData.fixtures || {})
   }
@@ -1171,14 +1309,22 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
-  let sourceCandidates = getSourceCandidatesForFixture(fixtureId);
-  if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
-    sourceCandidates = await discoverEspnSourceCandidates(fixture);
-  }
   const existingOverride = getVerifiedLayoutOverride(nextOverrides, fixtureId);
   const lineups = lineupsData.lineups?.[fixtureId];
-  const shouldUseExistingOverride =
-    existingOverride && (requestedScope === "live-start" || !Array.isArray(sourceCandidates) || sourceCandidates.length === 0);
+  let sourceCandidates = Array.isArray(getSourceCandidatesForFixture(fixtureId))
+    ? getSourceCandidatesForFixture(fixtureId)
+    : [];
+  if ((!existingOverride || shouldReverify) && requestedScope === "live-start") {
+    const adapters = new Set(sourceCandidates.map((source) => source.adapter));
+    const [espnCandidates, fotmobCandidates] = await Promise.all([
+      adapters.has("espn") ? [] : discoverEspnSourceCandidates(fixture),
+      adapters.has("fotmob") ? [] : discoverFotmobSourceCandidates(fixture, teamsById)
+    ]);
+    sourceCandidates = mergeSourceCandidates(sourceCandidates, espnCandidates, fotmobCandidates);
+  } else if ((!existingOverride || shouldReverify) && sourceCandidates.length === 0) {
+    sourceCandidates = await discoverEspnSourceCandidates(fixture);
+  }
+  const shouldUseExistingOverride = Boolean(existingOverride && !shouldReverify);
 
   if (shouldUseExistingOverride) {
     if (!lineups || !isVerifiedLineupSource(lineups)) {
@@ -1226,7 +1372,13 @@ for (const fixture of fixturesData.fixtures || []) {
 
   const claims = await Promise.all(sourceCandidates.map((source) => readSourceClaim(source, lineups)));
   const override = buildOverrideFromClaims(fixtureId, fixture, lineups, claims);
-  nextOverrides.fixtures[fixtureId] = override;
+  const shouldPersistOverride = override.status === "verified" || requestedScope !== "live-start";
+  if (shouldPersistOverride) {
+    nextOverrides.fixtures[fixtureId] = override;
+    nextOverrides.updatedAt = checkedAt;
+    nextOverrides.sourceIds = [...new Set([...(nextOverrides.sourceIds || []), overrideSourceId])];
+    overridesChanged = true;
+  }
 
   if (override.status === "verified") {
     summary.verified.push(fixtureId);
@@ -1256,7 +1408,8 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 }
 
-const hasNewVerificationClaims = summary.verified.length || summary.unresolved.length;
+const hasNewVerificationClaims = summary.verified.length ||
+  (requestedScope !== "live-start" && summary.unresolved.length);
 if (shouldWrite && (hasNewVerificationClaims || changedCount)) {
   lineupsData.updatedAt = checkedAt;
   if (hasNewVerificationClaims) {
@@ -1268,11 +1421,14 @@ if (shouldWrite && (hasNewVerificationClaims || changedCount)) {
       changedCount
     );
   }
-  await Promise.all([
-    writeJson("lineup-layout-overrides.json", nextOverrides),
-    writeJson("lineups.json", lineupsData),
-    writeJson("tournament.json", tournamentData)
-  ]);
+  const writes = [writeJson("lineups.json", lineupsData)];
+  if (overridesChanged) {
+    writes.push(writeJson("lineup-layout-overrides.json", nextOverrides));
+  }
+  if (hasNewVerificationClaims) {
+    writes.push(writeJson("tournament.json", tournamentData));
+  }
+  await Promise.all(writes);
 }
 
 const skippedByReason = summary.skipped.reduce(

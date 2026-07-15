@@ -604,6 +604,77 @@ function formationSlots(formation) {
   return baseSlots.map(([role, x, y], index) => slot(role, x, y, index));
 }
 
+function formationBackLineCount(formation) {
+  const count = Number(String(formation || "").split("-")[0]);
+  return Number.isInteger(count) && count > 0 ? count : 4;
+}
+
+function officialLinePenalty(player, targetSlot, formation) {
+  const fifaLine = player.fifaLine;
+  const targetLine = targetSlot.line;
+  if (!fifaLine || !targetLine || fifaLine === targetLine) {
+    return 0;
+  }
+
+  if (fifaLine === "def") {
+    if (["RWB", "LWB"].includes(targetSlot.role)) {
+      return 0;
+    }
+    if (formationBackLineCount(formation) === 3 && ["RM", "LM"].includes(targetSlot.role)) {
+      return 0;
+    }
+  }
+
+  if (fifaLine === "mid" && ["RW", "LW"].includes(targetSlot.role)) {
+    return 0;
+  }
+
+  if (fifaLine === "fwd" && ["AM", "RM", "LM"].includes(targetSlot.role)) {
+    return 0;
+  }
+
+  const lineRank = { def: 0, mid: 1, fwd: 2 };
+  const fifaRank = lineRank[fifaLine];
+  const targetRank = lineRank[targetLine];
+  return Number.isFinite(fifaRank) && Number.isFinite(targetRank)
+    ? Math.max(1, Math.abs(fifaRank - targetRank))
+    : 1;
+}
+
+function roleFamilies(role, formation) {
+  const families = new Set();
+  if (role === "CB") families.add("central-defence");
+  if (["RB", "LB"].includes(role)) families.add("wide-defence");
+  if (["RWB", "LWB"].includes(role)) {
+    families.add("wide-defence");
+    families.add("wide-attack");
+  }
+  if (["DM", "CM", "AM"].includes(role)) families.add("central-midfield");
+  if (["RM", "LM", "RW", "LW"].includes(role)) families.add("wide-attack");
+  if (formationBackLineCount(formation) === 3 && ["RM", "LM"].includes(role)) {
+    families.add("wide-defence");
+  }
+  if (role === "ST") families.add("striker");
+  return families;
+}
+
+function profileFamilyPenalty(player, targetSlot, formation) {
+  if (!String(player.profile?.position || "").trim()) {
+    return 0;
+  }
+
+  const playerFamilies = new Set(
+    profileRoleHints(player.profile, player.fifaLine)
+      .flatMap((role) => [...roleFamilies(role, formation)])
+  );
+  const targetFamilies = roleFamilies(targetSlot.role, formation);
+  if (!playerFamilies.size || !targetFamilies.size) {
+    return 0;
+  }
+
+  return [...playerFamilies].some((family) => targetFamilies.has(family)) ? 0 : 1;
+}
+
 function scorePlayerSlot(player, targetSlot) {
   let score = 0;
   const playerSide = profileSide(player.profile);
@@ -635,15 +706,36 @@ function scorePlayerSlot(player, targetSlot) {
   return score;
 }
 
-function assignOutfieldSlots(players, slots) {
+function isBetterAssignment(candidate, current) {
+  if (candidate.officialPenalty !== current.officialPenalty) {
+    return candidate.officialPenalty < current.officialPenalty;
+  }
+  if (candidate.profilePenalty !== current.profilePenalty) {
+    return candidate.profilePenalty < current.profilePenalty;
+  }
+  return candidate.preferenceScore > current.preferenceScore;
+}
+
+function assignOutfieldSlots(players, slots, formation) {
   const count = players.length;
   const stateCount = 1 << count;
-  const dp = Array.from({ length: stateCount }, () => ({ score: -Infinity, previous: null }));
-  dp[0] = { score: 0, previous: null };
+  const unreachable = {
+    officialPenalty: Infinity,
+    profilePenalty: Infinity,
+    preferenceScore: -Infinity,
+    previous: null
+  };
+  const dp = Array.from({ length: stateCount }, () => ({ ...unreachable }));
+  dp[0] = {
+    officialPenalty: 0,
+    profilePenalty: 0,
+    preferenceScore: 0,
+    previous: null
+  };
 
   for (let mask = 0; mask < stateCount; mask += 1) {
     const playerIndex = countBits(mask);
-    if (playerIndex >= count || dp[mask].score === -Infinity) {
+    if (playerIndex >= count || !Number.isFinite(dp[mask].officialPenalty)) {
       continue;
     }
 
@@ -653,12 +745,17 @@ function assignOutfieldSlots(players, slots) {
       }
 
       const nextMask = mask | (1 << slotIndex);
-      const nextScore = dp[mask].score + scorePlayerSlot(players[playerIndex], slots[slotIndex]);
-      if (nextScore > dp[nextMask].score) {
-        dp[nextMask] = {
-          score: nextScore,
-          previous: { mask, slotIndex }
-        };
+      const candidate = {
+        officialPenalty:
+          dp[mask].officialPenalty + officialLinePenalty(players[playerIndex], slots[slotIndex], formation),
+        profilePenalty:
+          dp[mask].profilePenalty + profileFamilyPenalty(players[playerIndex], slots[slotIndex], formation),
+        preferenceScore:
+          dp[mask].preferenceScore + scorePlayerSlot(players[playerIndex], slots[slotIndex]),
+        previous: { mask, slotIndex }
+      };
+      if (isBetterAssignment(candidate, dp[nextMask])) {
+        dp[nextMask] = candidate;
       }
     }
   }
@@ -1048,7 +1145,7 @@ function buildLineupSide(teamData, fixture, side, formation, team, sourceUrl, pr
     throw new Error(`${side} formation ${formation} created ${slots.length} outfield slots`);
   }
 
-  const assignments = assignOutfieldSlots(outfieldPlayers, slots);
+  const assignments = assignOutfieldSlots(outfieldPlayers, slots, formation);
   const starterEntries = [
     lineupPlayerEntry(goalkeeper, slot("GK", 50, 91)),
     ...outfieldPlayers.map((player, index) => lineupPlayerEntry(player, assignments[index] || slots[index]))

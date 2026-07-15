@@ -425,12 +425,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "HT": "半场结束",
     "Line ups": "阵容",
     "Line-ups": "阵容",
-    "Line-ups (expected)": "预计阵容",
     "Line-ups (predicted)": "预测阵容",
     "low confidence": "低置信度",
     "medium confidence": "中等置信度",
     "high confidence": "高置信度",
-    "Line-ups (verified)": "官方确认阵容",
     "Expected lineups": "预计阵容",
     "Probable lineups": "可能阵容",
     "Official lineups": "官方阵容",
@@ -446,7 +444,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Confirmed lineup record": "已确认阵容记录",
     "Final lineup record": "最终阵容记录",
     "Official FIFA lineup": "官方FIFA阵容",
-    "Pitch layout is provisional.": "球场站位仍为临时推定。",
     "Lineup record": "阵容记录",
     "Lineup record checked": "阵容记录核验",
     "Lineups": "阵容",
@@ -1735,8 +1732,6 @@ Object.entries({
   Likely: "可能",
   "Unknown scorer": "进球者未知",
   "No historical prediction is generated for cancelled fixtures.": "已取消的比赛不会生成历史预测。",
-  "Line-ups (verified)": "官方确认阵容",
-  "Line-ups (expected)": "预计阵容",
   "Line-ups (predicted)": "预测阵容",
   "Final verified lineup": "最终确认阵容",
   "Expected lineups": "预计阵容",
@@ -1752,7 +1747,6 @@ Object.entries({
   "Official lineup source": "官方阵容",
   "Confirmed lineup record": "已确认阵容记录",
   "Official FIFA lineup": "官方FIFA阵容",
-  "Pitch layout is provisional.": "球场站位仍为临时推定。",
   "Predicted from recent official lineups": "根据近期官方首发预测",
   "Informed by published team reports": "参考已发布的球队报道",
   "Predicted lineup record": "预测阵容记录",
@@ -18034,10 +18028,6 @@ function getLineupLayoutVerification(lineup = {}, layoutStatus = getLineupLayout
   return null;
 }
 
-function getLineupLayoutCaveat(lineup = {}) {
-  return getLineupLayoutStatus(lineup).provisional ? localizeText("Pitch layout is provisional.") : "";
-}
-
 function hasCompleteLineupSourceGeometry(players) {
   return players.length === 11 && players.every((player) => {
     const x = Array.isArray(player) ? player[5] : player?.x;
@@ -18526,7 +18516,6 @@ function getLineupHelpText(match, lineup = null) {
   const freshness = getLineupFreshness(match, lineup);
   const sourceLabel = getLineupSourceLabel(match, lineup);
   const isPastLineup = mode === "final" || isCompletedLineupMatch(match);
-  const layoutCaveat = getLineupLayoutCaveat(lineup);
 
   if (isFutureLineup) {
     return withLocalizedSentenceEnd(sourceLabel);
@@ -18541,10 +18530,6 @@ function getLineupHelpText(match, lineup = null) {
     : currentLanguage === "zh"
       ? `${sourceLabel}（${freshness}）`
       : `${sourceLabel} (${freshness})`;
-
-  if (layoutCaveat) {
-    return `${sourceText}\n${layoutCaveat}`;
-  }
 
   if (!freshness) {
     return sourceLabel;
