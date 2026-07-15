@@ -86,6 +86,13 @@ jobs:
           set -o pipefail
           pnpm validate | tee official-validation.log
 
+      - name: Install Chromium
+        run: |
+          pnpm exec playwright install --with-deps chromium || {
+            echo "::warning title=Playwright dependency install failed::Falling back to browser-only Chromium install."
+            pnpm exec playwright install chromium
+          }
+
       - name: Verify the complete lineup lifecycle
         run: pnpm smoke:lineups
 
