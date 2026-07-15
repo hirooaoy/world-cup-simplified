@@ -6582,11 +6582,16 @@ try {
     () => window.scrollY
   );
   await finalSpainArchiveRow.click();
-  await desktopSearchRevealCheck.page.waitForFunction(() => window.scrollY <= 1);
   const desktopSearchRevealMetrics = await desktopSearchRevealCheck.page.evaluate(() => {
-    const info = document.querySelector("#match-info")?.getBoundingClientRect();
+    const infoElement = document.querySelector("#match-info");
+    const info = infoElement?.getBoundingClientRect();
+    const styles = infoElement ? getComputedStyle(infoElement) : null;
 
     return {
+      infoBottom: info?.bottom ?? null,
+      infoClientHeight: infoElement?.clientHeight ?? null,
+      infoOverflowY: styles?.overflowY || "",
+      infoScrollHeight: infoElement?.scrollHeight ?? null,
       infoTop: info?.top ?? null,
       scrollY: window.scrollY,
       viewportHeight: window.innerHeight
@@ -6594,10 +6599,78 @@ try {
   });
   assert(
     desktopSearchScrollBeforeSelection > 100 &&
-      desktopSearchRevealMetrics.scrollY <= 1 &&
+      Math.abs(desktopSearchRevealMetrics.scrollY - desktopSearchScrollBeforeSelection) <= 2 &&
       desktopSearchRevealMetrics.infoTop >= 0 &&
-      desktopSearchRevealMetrics.infoTop < desktopSearchRevealMetrics.viewportHeight,
-    `Choosing a desktop country-search row from deep in the archive should scroll back up to reveal the match detail card. Measured ${JSON.stringify({ desktopSearchScrollBeforeSelection, desktopSearchRevealMetrics })}.`
+      desktopSearchRevealMetrics.infoBottom <= desktopSearchRevealMetrics.viewportHeight + 1 &&
+      desktopSearchRevealMetrics.infoOverflowY === "auto" &&
+      desktopSearchRevealMetrics.infoScrollHeight > desktopSearchRevealMetrics.infoClientHeight,
+    `Choosing a desktop country-search row from deep in the archive should preserve the list position while a viewport-height match detail card follows alongside it. Measured ${JSON.stringify({ desktopSearchScrollBeforeSelection, desktopSearchRevealMetrics })}.`
+  );
+  await desktopSearchRevealCheck.page.evaluate(() => {
+    window.scrollTo({
+      top: Math.max(0, window.scrollY - Math.round(window.innerHeight * 0.75)),
+      behavior: "auto"
+    });
+  });
+  await desktopSearchRevealCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    const bounds = info?.getBoundingClientRect();
+
+    return (
+      info?.classList.contains("is-viewport-docked") &&
+      info.clientHeight >= window.innerHeight - 34 &&
+      bounds?.bottom <= window.innerHeight + 1
+    );
+  });
+  const desktopExpandedCardMetrics = await desktopSearchRevealCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info");
+    const infoBounds = info?.getBoundingClientRect();
+    const headerBounds = document.querySelector(".site-header")?.getBoundingClientRect();
+    const footerBounds = document.querySelector(".site-footer")?.getBoundingClientRect();
+    const styles = info ? getComputedStyle(info) : null;
+
+    return {
+      bottomGap: infoBounds ? Math.round(window.innerHeight - infoBounds.bottom) : null,
+      clientHeight: info?.clientHeight ?? null,
+      docked: info?.classList.contains("is-viewport-docked") || false,
+      footerTop: footerBounds?.top ?? null,
+      headerBottom: headerBounds?.bottom ?? null,
+      top: infoBounds?.top ?? null,
+      transitionDuration: styles?.transitionDuration || "",
+      viewportHeight: window.innerHeight
+    };
+  });
+  assert(
+    desktopExpandedCardMetrics.docked &&
+      desktopExpandedCardMetrics.headerBottom <= 0 &&
+      desktopExpandedCardMetrics.footerTop >= desktopExpandedCardMetrics.viewportHeight &&
+      Math.abs(desktopExpandedCardMetrics.top - 16) <= 1 &&
+      Math.abs(desktopExpandedCardMetrics.bottomGap - 16) <= 2 &&
+      desktopExpandedCardMetrics.clientHeight > desktopSearchRevealMetrics.infoClientHeight + 100 &&
+      desktopExpandedCardMetrics.transitionDuration !== "0s",
+    `The sticky desktop card should animate closer to the viewport bottom while both the site header and disclaimer are offscreen. Measured ${JSON.stringify(desktopExpandedCardMetrics)}.`
+  );
+  const matchInfoScrollBeforeHoverSwitch = await desktopSearchRevealCheck.page
+    .locator("#match-info")
+    .evaluate((info) => {
+      info.scrollTop = Math.min(240, info.scrollHeight - info.clientHeight);
+      return info.scrollTop;
+    });
+  await desktopSearchRevealCheck.page
+    .locator('[data-match-id="match-101-semi-final-2026-07-14"]')
+    .dispatchEvent("pointerenter", { pointerType: "mouse" });
+  await desktopSearchRevealCheck.page.waitForFunction(() => {
+    const selectedRow = document.querySelector(".match-row.is-selected");
+    const info = document.querySelector("#match-info");
+    return (
+      selectedRow?.dataset.matchId === "match-101-semi-final-2026-07-14" &&
+      info?.scrollTop === 0 &&
+      info.classList.contains("is-entering")
+    );
+  });
+  assert(
+    matchInfoScrollBeforeHoverSwitch > 0,
+    `The sticky card should have an internal scroll position to reset before previewing another row. Measured ${matchInfoScrollBeforeHoverSwitch}.`
   );
   await desktopSearchRevealCheck.context.close();
 
@@ -12715,7 +12788,7 @@ try {
   assert(
     JSON.stringify(initialBallBoyPrompts) === JSON.stringify([
       "Explain offside",
-      "Tell me about Mbappe",
+      "Change timezone",
       "How does Argentina play?"
     ]),
     `Ball Boy should open with the three curated questions in order. Measured ${JSON.stringify(initialBallBoyPrompts)}.`
@@ -13623,7 +13696,7 @@ try {
       zhBallBoyShell.sendAria === "发送问题" &&
       JSON.stringify(zhBallBoyShell.prompts) === JSON.stringify([
         "解释越位",
-        "介绍一下姆巴佩",
+        "更改时区",
         "阿根廷怎么踢？"
       ]) &&
       (await zhBallBoySend.isDisabled()),
@@ -13907,6 +13980,66 @@ try {
   await touchPage.locator("#scout-launcher").click();
   const timeZoneBallBoyInput = touchPage.locator("#scout-input");
   const timeZoneBallBoySend = touchPage.locator(".scout-send");
+  await timeZoneBallBoyInput.fill("change timezone");
+  await timeZoneBallBoySend.click();
+  await touchPage.getByText(
+    "Which time zone would you like to use? You can also change it from the Settings icon in the top right.",
+    { exact: true }
+  ).waitFor({ state: "visible" });
+  await timeZoneBallBoyInput.fill("USA");
+  await timeZoneBallBoySend.click();
+  await touchPage.getByText("Which United States time zone?", { exact: true }).waitFor({ state: "visible" });
+  const unitedStatesChoices = await touchPage.locator("[data-scout-setting-value]").evaluateAll((buttons) =>
+    buttons.map((button) => ({ label: button.textContent.trim(), value: button.dataset.scoutSettingValue }))
+  );
+  assert(
+    ["America/Los_Angeles", "America/Chicago", "America/New_York"]
+      .every((timeZone) => unitedStatesChoices.some((choice) => choice.value === timeZone)) &&
+      !(await touchPage.locator(".scout-answer.is-country").count()),
+    `A country-only answer to Ball Boy's pending timezone question should offer that country's time zones instead of becoming a football country card. Measured ${JSON.stringify(unitedStatesChoices)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await touchPage.locator("#timezone-select").evaluate((select) => {
+    select.value = "Asia/Tokyo";
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  await timeZoneBallBoyInput.fill("change timezone");
+  await timeZoneBallBoySend.click();
+  await touchPage.getByText(
+    "Which time zone would you like to use? You can also change it from the Settings icon in the top right.",
+    { exact: true }
+  ).waitFor({ state: "visible" });
+  await timeZoneBallBoyInput.fill("PDT");
+  await timeZoneBallBoySend.click();
+  const pdtAction = touchPage.locator('[data-scout-setting-value="America/Los_Angeles"]');
+  await pdtAction.waitFor({ state: "visible" });
+  assert(
+    (await pdtAction.count()) === 1 && !(await touchPage.locator(".scout-answer.is-country").count()),
+    "A PDT reply to the pending timezone question should resolve to America/Los_Angeles."
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await timeZoneBallBoyInput.fill("change timezone to AEDT");
+  await timeZoneBallBoySend.click();
+  const aedtAction = touchPage.locator('[data-scout-setting-value="Australia/Sydney"]');
+  await aedtAction.waitFor({ state: "visible" });
+  assert(
+    (await aedtAction.count()) === 1,
+    "Ball Boy should recognize a common international timezone abbreviation such as AEDT."
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await timeZoneBallBoyInput.fill("change timezone to UTC");
+  await timeZoneBallBoySend.click();
+  const utcAction = touchPage.locator('[data-scout-setting-value="UTC"]');
+  await utcAction.waitFor({ state: "visible" });
+  assert(
+    (await utcAction.count()) === 1,
+    "Ball Boy should resolve UTC and GMT to a real UTC setting instead of a seasonal city timezone."
+  );
+
+  await touchPage.locator("#scout-reset").click();
   await timeZoneBallBoyInput.fill("timezone to Phoenix");
   await timeZoneBallBoySend.click();
   const phoenixAction = touchPage.locator('[data-scout-setting-value="America/Phoenix"]');

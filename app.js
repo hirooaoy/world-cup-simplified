@@ -3124,6 +3124,8 @@ const ZH_PATTERN_TRANSLATIONS = [
 
 const matchList = document.querySelector("#match-list");
 const matchInfo = document.querySelector("#match-info");
+const siteHeader = document.querySelector(".site-header");
+const siteFooter = document.querySelector(".site-footer");
 const timezoneSelect = document.querySelector("#timezone-select");
 const timezoneControl = document.querySelector(".timezone-control");
 const dayLabel = document.querySelector("#day-label");
@@ -3177,6 +3179,7 @@ const viewPanels = {
 const defaultTimeZone =
   Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
 const preferredTimeZones = [
+  "UTC",
   "America/Los_Angeles",
   "America/Vancouver",
   "America/Denver",
@@ -3216,6 +3219,7 @@ const timeZones = [
     .sort((left, right) => left.localeCompare(right, "en"))
 ];
 const zhTimeZoneNames = {
+  UTC: "协调世界时",
   "America/Los_Angeles": "洛杉矶",
   "America/Vancouver": "温哥华",
   "America/Denver": "丹佛",
@@ -22433,32 +22437,33 @@ function renderMatchContext(match, context = null) {
   return renderKnockoutContext(match, context || createTournamentProgressionContext());
 }
 
+function updateMatchInfoViewportDockState() {
+  const usesDesktopMatchLayout = window.matchMedia("(min-width: 1161px)").matches;
+  const headerBounds = siteHeader?.getBoundingClientRect();
+  const footerBounds = siteFooter?.getBoundingClientRect();
+  const shouldExpand =
+    usesDesktopMatchLayout &&
+    !viewPanels.matches.hidden &&
+    !matchInfo.hidden &&
+    headerBounds?.bottom <= 0 &&
+    footerBounds?.top >= window.innerHeight;
+
+  matchInfo.classList.toggle("is-viewport-docked", Boolean(shouldExpand));
+}
+
 function revealMatchInfoAfterSelection() {
   const usesStackedMatchLayout = window.matchMedia("(max-width: 1160px)").matches;
+
+  if (!usesStackedMatchLayout) {
+    return;
+  }
+
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
   const shouldRevealImmediately = prefersReducedMotion || hasTeamSearchQuery();
 
   window.requestAnimationFrame(() => {
-    const matchInfoRect = matchInfo.getBoundingClientRect();
-
-    if (
-      !usesStackedMatchLayout &&
-      matchInfoRect.top >= 0 &&
-      matchInfoRect.top < window.innerHeight
-    ) {
-      return;
-    }
-
-    if (!usesStackedMatchLayout) {
-      window.scrollTo({
-        top: 0,
-        behavior: "auto"
-      });
-      return;
-    }
-
     matchInfo.scrollIntoView({
       block: "start",
       behavior: shouldRevealImmediately ? "auto" : "smooth"
@@ -24109,7 +24114,8 @@ function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
 function renderMatchInfo(match, options = {}) {
   clearTransientInteractionState();
   const wasMatchInfoHidden = matchInfo.hidden || matchInfo.classList.contains("is-hidden");
-  const shouldAnimateEntrance = wasMatchInfoHidden;
+  const shouldResetMatchInfoScroll = activeMatchId !== match.id;
+  const shouldAnimateEntrance = wasMatchInfoHidden || shouldResetMatchInfoScroll;
   const shouldAnimateLineupEntrance =
     options.animateLineupEntrance !== false && (wasMatchInfoHidden || activeMatchId !== match.id);
   activeMatchId = match.id;
@@ -24119,6 +24125,7 @@ function renderMatchInfo(match, options = {}) {
   viewPanels.matches.classList.add("has-match-info");
   matchInfo.classList.remove("is-hidden");
   matchInfo.hidden = false;
+  window.requestAnimationFrame(updateMatchInfoViewportDockState);
 
   document.querySelectorAll(".match-row, .yesterday-match-card").forEach((row) => {
     const isSelected = row.dataset.matchId === match.id;
@@ -24130,6 +24137,9 @@ function renderMatchInfo(match, options = {}) {
 
   if (match.isHistorical) {
     matchInfo.innerHTML = renderHistoricalMatchInfo(match);
+    if (shouldResetMatchInfoScroll) {
+      matchInfo.scrollTop = 0;
+    }
     positionPlayerCards();
     updateTruncatedTeamTooltips(matchInfo);
     updateStandingNameTooltips(matchInfo);
@@ -24187,6 +24197,9 @@ function renderMatchInfo(match, options = {}) {
       ${renderPastResults(displayMatch)}
     </section>
   `;
+  if (shouldResetMatchInfoScroll) {
+    matchInfo.scrollTop = 0;
+  }
   updateLineupTabIndicators(matchInfo);
   positionPlayerCards();
   updateTruncatedTeamTooltips(matchInfo);
@@ -24212,6 +24225,7 @@ function renderMatchInfoPrompt() {
       ?.setAttribute("aria-pressed", "false");
   });
   matchInfo.replaceChildren();
+  matchInfo.classList.remove("is-viewport-docked");
   matchInfo.classList.add("is-hidden");
   matchInfo.hidden = true;
 }
@@ -27574,6 +27588,7 @@ document.addEventListener(
 
 window.addEventListener("resize", () => {
   updateVisualViewportInsets();
+  updateMatchInfoViewportDockState();
   updateTabIndicators();
   updateTimeZoneLabelForViewport();
   positionCatchUpPopover();
@@ -27598,6 +27613,7 @@ window.addEventListener("resize", () => {
     updateVisualViewportInsets();
     updateTournamentBoardLayout();
     updateTabIndicators();
+    updateMatchInfoViewportDockState();
   });
 });
 window.visualViewport?.addEventListener?.("resize", updateVisualViewportInsets);
@@ -27612,6 +27628,7 @@ window.addEventListener(
     positionPlayerCards();
     updateTooltipBounds();
     updateTournamentShowNextButtonVisibility();
+    updateMatchInfoViewportDockState();
   },
   true
 );

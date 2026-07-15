@@ -39,7 +39,7 @@ const SCOUT_COPY = {
     newChat: "New chat",
     close: "Close Ball Boy",
     suggestedQuestions: "Suggested questions",
-    suggestions: ["Explain offside", "Tell me about Mbappe", "How does Argentina play?"],
+    suggestions: ["Explain offside", "Change timezone", "How does Argentina play?"],
     showMore: "Show more of Ball Boy's answer",
     moreBelow: "More below",
     askLabel: "Ask Ball Boy a question",
@@ -165,7 +165,7 @@ const SCOUT_COPY = {
     newChat: "新对话",
     close: "关闭球童聊天",
     suggestedQuestions: "推荐问题",
-    suggestions: ["解释越位", "介绍一下姆巴佩", "阿根廷怎么踢？"],
+    suggestions: ["解释越位", "更改时区", "阿根廷怎么踢？"],
     showMore: "显示球童回答的更多内容",
     moreBelow: "下方还有内容",
     askLabel: "向球童提问",
@@ -314,6 +314,9 @@ const SCOUT_UNSUPPORTED_LANGUAGE_NAMES = {
   阿拉伯语: "阿拉伯语"
 };
 const SCOUT_TIME_ZONE_ALIASES = {
+  utc: "UTC",
+  gmt: "UTC",
+  "coordinated universal time": "UTC",
   california: "America/Los_Angeles",
   "bay area": "America/Los_Angeles",
   "san francisco bay area": "America/Los_Angeles",
@@ -326,27 +329,70 @@ const SCOUT_TIME_ZONE_ALIASES = {
   "los angeles": "America/Los_Angeles",
   pacific: "America/Los_Angeles",
   "pacific time": "America/Los_Angeles",
+  pt: "America/Los_Angeles",
+  pst: "America/Los_Angeles",
+  pdt: "America/Los_Angeles",
   mountain: "America/Denver",
   "mountain time": "America/Denver",
+  mt: "America/Denver",
+  mst: "America/Denver",
+  mdt: "America/Denver",
   central: "America/Chicago",
   "central time": "America/Chicago",
+  ct: "America/Chicago",
+  cst: "America/Chicago",
+  cdt: "America/Chicago",
   eastern: "America/New_York",
   "eastern time": "America/New_York",
+  et: "America/New_York",
+  est: "America/New_York",
+  edt: "America/New_York",
   "east coast": "America/New_York",
   美国东海岸: "America/New_York",
+  akt: "America/Anchorage",
+  akst: "America/Anchorage",
+  akdt: "America/Anchorage",
+  hst: "Pacific/Honolulu",
   uk: "Europe/London",
   "uk time": "Europe/London",
   britain: "Europe/London",
   "great britain": "Europe/London",
+  bst: "Europe/London",
   英国: "Europe/London",
+  cet: "Europe/Paris",
+  cest: "Europe/Paris",
+  eet: "Europe/Athens",
+  eest: "Europe/Athens",
   china: "Asia/Shanghai",
   "china time": "Asia/Shanghai",
   中国: "Asia/Shanghai",
   india: "Asia/Kolkata",
   "india time": "Asia/Kolkata",
+  ist: "Asia/Kolkata",
+  "india standard time": "Asia/Kolkata",
   印度: "Asia/Kolkata",
+  gst: "Asia/Dubai",
+  "gulf standard time": "Asia/Dubai",
+  ict: "Asia/Bangkok",
+  sgt: "Asia/Singapore",
+  kst: "Asia/Seoul",
   japan: "Asia/Tokyo",
   "japan time": "Asia/Tokyo",
+  jst: "Asia/Tokyo",
+  "japan standard time": "Asia/Tokyo",
+  aest: "Australia/Sydney",
+  aedt: "Australia/Sydney",
+  acst: "Australia/Adelaide",
+  acdt: "Australia/Adelaide",
+  awst: "Australia/Perth",
+  nzst: "Pacific/Auckland",
+  nzdt: "Pacific/Auckland",
+  brt: "America/Sao_Paulo",
+  brst: "America/Sao_Paulo",
+  art: "America/Buenos_Aires",
+  sast: "Africa/Johannesburg",
+  wat: "Africa/Lagos",
+  eat: "Africa/Nairobi",
   日本: "Asia/Tokyo"
 };
 const SCOUT_TIME_ZONE_GROUPS = [
@@ -721,15 +767,34 @@ function getScoutTimeZoneRequest(question) {
   return null;
 }
 
+function isScoutSettingsFollowUpCandidate(question) {
+  const normalized = normalizeScoutSettingsText(question);
+  if (!normalized || normalized.split(/\s+/).length > 5) {
+    return false;
+  }
+  return !/\b(?:who|what|when|where|why|how|match|game|player|team|country|rule|score|play|won|beat)\b/.test(normalized) &&
+    !/(谁|什么|何时|哪里|为什么|怎么|比赛|球员|球队|国家|规则|比分|踢|赢)/.test(normalized);
+}
+
 function getScoutSettingsReply(question) {
   const languageReply = getScoutLanguageIntent(question);
   if (languageReply) {
     return { ...languageReply, originalQuestion: String(question || "").trim() };
   }
   const timeZoneReply = getScoutTimeZoneRequest(question);
-  return timeZoneReply
-    ? { ...timeZoneReply, originalQuestion: String(question || "").trim() }
-    : null;
+  if (timeZoneReply) {
+    return { ...timeZoneReply, originalQuestion: String(question || "").trim() };
+  }
+  if (
+    pendingScoutSettingsRequest?.setting === "timezone" &&
+    isScoutSettingsFollowUpCandidate(question)
+  ) {
+    const followUpReply = getScoutTimeZoneRequest(`change timezone to ${question}`);
+    if (followUpReply) {
+      return { ...followUpReply, originalQuestion: String(question || "").trim() };
+    }
+  }
+  return null;
 }
 
 async function getScoutReply(question, options = {}) {
@@ -853,6 +918,7 @@ let isAvoidingTournamentShowNext = false;
 let scoutVisualViewportFrame = 0;
 let canonicalTurns = [];
 let localeRenderToken = 0;
+let pendingScoutSettingsRequest = null;
 
 function isScoutZh() {
   return scoutLocale === "zh";
@@ -1528,6 +1594,7 @@ function resetConversation() {
   replyRequestToken += 1;
   isReplyPending = false;
   resetBallBoyContext();
+  pendingScoutSettingsRequest = null;
   canonicalTurns = [];
   currentAnswerPrompt = "";
   messages.innerHTML = getScoutInitialMessageHtml();
@@ -1543,6 +1610,13 @@ function resetConversation() {
   }
   queueScoutVisualViewportSync();
   playEyeSequence([{ className: "is-eye-double-blink", duration: 540 }]);
+}
+
+function rememberScoutReplyContext(reply) {
+  pendingScoutSettingsRequest = reply?.kind === "settings-action" &&
+    ["needs-target", "choose-target"].includes(reply.status)
+    ? { setting: reply.setting, status: reply.status }
+    : null;
 }
 
 function appendOffsideExplanation({ scroll = true } = {}) {
@@ -2671,6 +2745,7 @@ async function rerenderScoutConversation() {
   widget.classList.toggle("has-conversation", Boolean(turns.length));
   isReplyPending = Boolean(turns.length);
   resetBallBoyContext();
+  pendingScoutSettingsRequest = null;
   currentAnswerPrompt = "";
   messages.innerHTML = turns.length ? "" : getScoutInitialMessageHtml();
   suggestions.hidden = Boolean(turns.length);
@@ -2688,6 +2763,7 @@ async function rerenderScoutConversation() {
     }
     turn.reply = reply;
     rememberBallBoyReply(reply);
+    rememberScoutReplyContext(reply);
     currentAnswerPrompt = turn.question;
     appendPreviewReply(reply, { animate: false, scroll: false });
   }
@@ -2764,6 +2840,7 @@ async function submitQuestion(question) {
   widget.classList.remove("is-eye-thinking");
   turn.reply = reply;
   rememberBallBoyReply(reply);
+  rememberScoutReplyContext(reply);
   currentAnswerPrompt = trimmed;
   appendPreviewReply(reply);
   updateSendState();
@@ -2812,6 +2889,7 @@ messages.addEventListener("click", (event) => {
       matchingTurn.reply.originStatus = matchingTurn.reply.status;
       matchingTurn.reply.status = "completed";
       matchingTurn.reply.value = value;
+      pendingScoutSettingsRequest = null;
       settingsAction.disabled = true;
       settingsAction.setAttribute("aria-busy", "true");
       languageButton.click();
@@ -2828,6 +2906,7 @@ messages.addEventListener("click", (event) => {
       matchingTurn.reply.originStatus = matchingTurn.reply.status;
       matchingTurn.reply.status = "completed";
       matchingTurn.reply.value = value;
+      pendingScoutSettingsRequest = null;
       timeZoneSelect.value = value;
       timeZoneSelect.dispatchEvent(new Event("change", { bubbles: true }));
       const message = settingsAction.closest(".scout-message");

@@ -1,5 +1,8 @@
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
+const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
+const FOOTER_FIXTURES_URL = "data/fixtures.json";
+const FOOTER_RELEASE_NOTES_URL = "data/release-notes.json";
 const LEGACY_REPORT_TYPE_ALIASES = {
   "no-matches": "match-score-schedule",
   "wrong-match": "match-score-schedule",
@@ -16,7 +19,9 @@ const reportSummary = document.querySelector("#report-summary");
 const formStatus = document.querySelector("#form-status");
 const submitButton = reportForm.querySelector("button[type='submit']");
 const backLink = document.querySelector("#back-link");
+const backLinkLabel = document.querySelector("#back-link-label");
 const reportHeading = document.querySelector("#report-heading");
+const sourceNote = document.querySelector("#source-note");
 
 const requestedReportType = params.get("type") || "";
 const reportType = LEGACY_REPORT_TYPE_ALIASES[requestedReportType] || requestedReportType;
@@ -86,7 +91,36 @@ const text = {
   }
 };
 const t = text[currentLanguage] || text.en;
+const footerText = {
+  en: {
+    dataRefreshed: "Data refreshed",
+    fallbackRelease: "Release notes explain the latest app changes.",
+    latestChanges: "Latest changes",
+    madeBy: "Made by",
+    predictions: "Predictions are unofficial.",
+    releaseNotes: "See release notes",
+    reportIssue: "Report issue",
+    seeSources: "See sources",
+    sourceLabels: ["FIFA schedule", "debutants", "ranking", "standings"],
+    sources: "Sources"
+  },
+  zh: {
+    dataRefreshed: "数据刷新于",
+    fallbackRelease: "发布说明介绍应用的最新改动。",
+    latestChanges: "最新更新",
+    madeBy: "由",
+    predictions: "预测为非官方内容。",
+    releaseNotes: "查看发布说明",
+    reportIssue: "报告问题",
+    seeSources: "查看来源",
+    sourceLabels: ["FIFA赛程", "首次参赛球队", "排名", "积分榜"],
+    sources: "来源"
+  }
+};
+const ft = footerText[currentLanguage] || footerText.en;
 const dateLabel = getDateLabel(reportDate);
+let footerUpdatedAt = "2026-07-15T04:45:47.457Z";
+let footerReleaseNotes = { releases: [] };
 const zhTimeZoneNames = {
   "America/Los_Angeles": "洛杉矶",
   "America/Vancouver": "温哥华",
@@ -116,6 +150,8 @@ issueType.value = [...issueType.options].some((option) => option.value === repor
   : "";
 renderStaticText();
 renderAttachedContext();
+renderReportFooter();
+void loadReportFooterData();
 if (reportDetails) {
   issueDetails.value = reportDetails;
 }
@@ -159,8 +195,8 @@ function renderStaticText() {
   document
     .querySelector("meta[name='description']")
     ?.setAttribute("content", t.metaDescription);
-  if (backLink) {
-    backLink.textContent = t.back;
+  if (backLinkLabel) {
+    backLinkLabel.textContent = t.back;
   }
   if (reportHeading) {
     reportHeading.textContent = t.reportHeading;
@@ -178,6 +214,136 @@ function renderStaticText() {
   [...issueType.options].forEach((option) => {
     option.textContent = t.issueOptions[option.value] || option.textContent;
   });
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function getFooterTimeZone() {
+  const storedTimeZone = String(localStorage.getItem(TIMEZONE_STORAGE_KEY) || "").trim();
+  return reportTimeZone || storedTimeZone || Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+}
+
+function formatFooterUpdatedAt(value) {
+  const timestamp = Date.parse(value || "");
+  if (Number.isNaN(timestamp)) {
+    return "";
+  }
+
+  try {
+    return new Intl.DateTimeFormat(currentLanguage === "zh" ? "zh-CN" : "en-US", {
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      month: "short",
+      timeZone: getFooterTimeZone(),
+      timeZoneName: "short",
+      year: "numeric"
+    }).format(new Date(timestamp));
+  } catch {
+    return new Intl.DateTimeFormat(currentLanguage === "zh" ? "zh-CN" : "en-US", {
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      month: "short",
+      timeZoneName: "short",
+      year: "numeric"
+    }).format(new Date(timestamp));
+  }
+}
+
+function getFooterReleaseContent() {
+  const latestRelease = Array.isArray(footerReleaseNotes?.releases)
+    ? footerReleaseNotes.releases[0]
+    : null;
+  const localizedHighlights = currentLanguage === "zh" ? latestRelease?.highlightsZh : latestRelease?.highlights;
+  const highlights = Array.isArray(localizedHighlights)
+    ? localizedHighlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
+    : [];
+  const title = currentLanguage === "zh"
+    ? String(latestRelease?.titleZh || latestRelease?.title || ft.latestChanges).trim()
+    : String(latestRelease?.title || ft.latestChanges).trim();
+
+  return {
+    title: title || ft.latestChanges,
+    highlights: highlights.length ? highlights : [ft.fallbackRelease]
+  };
+}
+
+function renderReportFooter() {
+  if (!sourceNote) {
+    return;
+  }
+
+  const sentenceEnd = currentLanguage === "zh" ? "。" : ".";
+  const sourceLinks = [
+    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan",
+    "https://inside.fifa.com/fifa-world-ranking/men",
+    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings"
+  ].map((url, index) =>
+    `<a href="${url}" target="_blank" rel="noreferrer">${escapeHtml(ft.sourceLabels[index])}</a>`
+  );
+  const updatedAtText = formatFooterUpdatedAt(footerUpdatedAt);
+  const dataRefreshed = updatedAtText
+    ? `${escapeHtml(ft.dataRefreshed)} ${escapeHtml(updatedAtText)}${sentenceEnd}`
+    : "";
+  const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
+  const creatorText = currentLanguage === "zh"
+    ? `${escapeHtml(ft.madeBy)} ${creatorLink} 制作`
+    : `${escapeHtml(ft.madeBy)} ${creatorLink}`;
+  const releaseContent = getFooterReleaseContent();
+  const sourceTooltip = `
+    <span class="source-tooltip-wrapper">
+      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(ft.seeSources)}</button>${sentenceEnd}
+      <span class="source-tooltip" id="source-tooltip" role="tooltip">
+        <strong>${escapeHtml(ft.sources)}</strong>
+        <span>${sourceLinks.join(" ")}</span>
+      </span>
+    </span>
+  `.trim();
+  const releaseTooltip = `
+    <span class="release-tooltip-wrapper">
+      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(ft.releaseNotes)}</button>${sentenceEnd}
+      <span class="release-tooltip" id="release-tooltip" role="tooltip">
+        <strong>${escapeHtml(releaseContent.title)}</strong>
+        <ul>${releaseContent.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      </span>
+    </span>
+  `.trim();
+
+  sourceNote.innerHTML = `${sourceTooltip} ${escapeHtml(ft.predictions)}${dataRefreshed ? ` ${dataRefreshed}` : ""} <a href="${reportUrl}">${escapeHtml(ft.reportIssue)}</a>${sentenceEnd} ${creatorText}${sentenceEnd} ${releaseTooltip}`;
+}
+
+async function fetchFooterJson(url) {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Unable to load ${url}`);
+  }
+  return response.json();
+}
+
+async function loadReportFooterData() {
+  const [fixturesResult, releaseNotesResult] = await Promise.allSettled([
+    fetchFooterJson(FOOTER_FIXTURES_URL),
+    fetchFooterJson(FOOTER_RELEASE_NOTES_URL)
+  ]);
+
+  if (fixturesResult.status === "fulfilled" && fixturesResult.value?.updatedAt) {
+    footerUpdatedAt = fixturesResult.value.updatedAt;
+  }
+  if (releaseNotesResult.status === "fulfilled") {
+    footerReleaseNotes = releaseNotesResult.value;
+  }
+
+  renderReportFooter();
 }
 
 function getDateLabel(dayKey) {
