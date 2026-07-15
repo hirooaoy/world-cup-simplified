@@ -6593,7 +6593,13 @@ try {
   const desktopSearchScrollBeforeSelection = await desktopSearchRevealCheck.page.evaluate(
     () => window.scrollY
   );
-  await finalSpainArchiveRow.click();
+  await finalSpainArchiveRow.locator(".match-row-trigger").click({
+    position: { x: 8, y: 8 }
+  });
+  await desktopSearchRevealCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    return !info?.hidden && info?.clientHeight > 0 && info.scrollHeight > info.clientHeight;
+  });
   const desktopSearchRevealMetrics = await desktopSearchRevealCheck.page.evaluate(() => {
     const infoElement = document.querySelector("#match-info");
     const info = infoElement?.getBoundingClientRect();
