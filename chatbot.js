@@ -1220,6 +1220,33 @@ function playTournamentShowNextAwareness() {
   ]);
 }
 
+function resetScoutBottomOffset(update) {
+  widget.classList.add("is-bottom-resetting");
+  update();
+  // Resolve the new resting position while the bottom transition is disabled.
+  // This prevents an obsolete tournament/keyboard inset from lingering onscreen.
+  void widget.offsetHeight;
+  widget.classList.remove("is-bottom-resetting");
+}
+
+function clearTournamentShowNextAvoidance({ immediate = false } = {}) {
+  const hadAvoidance =
+    isAvoidingTournamentShowNext ||
+    widget.classList.contains("has-tournament-show-next") ||
+    widget.style.getPropertyValue("--scout-obstacle-bottom");
+  const clear = () => {
+    widget.style.removeProperty("--scout-obstacle-bottom");
+    widget.classList.remove("has-tournament-show-next");
+  };
+
+  if (immediate && hadAvoidance) {
+    resetScoutBottomOffset(clear);
+  } else {
+    clear();
+  }
+  isAvoidingTournamentShowNext = false;
+}
+
 function syncTournamentShowNextAvoidance() {
   tournamentShowNextFrame = 0;
   const result = getVisibleTournamentShowNextButton();
@@ -1230,11 +1257,11 @@ function syncTournamentShowNextAvoidance() {
       window.innerHeight - result.bounds.top + SCOUT_SHOW_NEXT_GAP
     );
     widget.style.setProperty("--scout-obstacle-bottom", `${obstacleBottom}px`);
+    widget.classList.add("has-tournament-show-next");
   } else {
-    widget.style.removeProperty("--scout-obstacle-bottom");
+    clearTournamentShowNextAvoidance({ immediate: true });
   }
 
-  widget.classList.toggle("has-tournament-show-next", shouldAvoid);
   if (shouldAvoid && !isAvoidingTournamentShowNext) {
     playTournamentShowNextAwareness();
   }
@@ -1254,9 +1281,17 @@ function initializeTournamentShowNextAvoidance() {
     return;
   }
 
-  tournamentShowNextObserver = new MutationObserver(
-    queueTournamentShowNextSync
-  );
+  tournamentShowNextObserver = new MutationObserver(() => {
+    if (tournamentView.hidden || tournamentView.closest("[hidden]")) {
+      if (tournamentShowNextFrame) {
+        window.cancelAnimationFrame(tournamentShowNextFrame);
+        tournamentShowNextFrame = 0;
+      }
+      clearTournamentShowNextAvoidance({ immediate: true });
+      return;
+    }
+    queueTournamentShowNextSync();
+  });
   tournamentShowNextObserver.observe(tournamentView, {
     attributes: true,
     attributeFilter: ["aria-hidden", "class", "disabled", "hidden"],
@@ -1466,9 +1501,17 @@ function syncScoutVisualViewport() {
   const viewport = window.visualViewport;
 
   if (!isOpen || !viewport) {
-    widget.style.removeProperty("--scout-visual-height");
-    widget.style.removeProperty("--scout-visual-bottom-inset");
-    widget.classList.remove("is-keyboard-open");
+    const hadVisualBottomOffset = widget.style.getPropertyValue("--scout-visual-bottom-inset");
+    const clear = () => {
+      widget.style.removeProperty("--scout-visual-height");
+      widget.style.removeProperty("--scout-visual-bottom-inset");
+      widget.classList.remove("is-keyboard-open");
+    };
+    if (!isOpen && hadVisualBottomOffset) {
+      resetScoutBottomOffset(clear);
+    } else {
+      clear();
+    }
     return;
   }
 
@@ -1522,7 +1565,7 @@ function setOpen(nextOpen, { focus = true } = {}) {
       }
     }, reducedMotion.matches ? 0 : 360);
   } else {
-    queueScoutVisualViewportSync();
+    syncScoutVisualViewport();
     syncScoutMoreButton();
     if (focus) {
       launcher.focus({ preventScroll: true });
@@ -2973,6 +3016,14 @@ document.addEventListener("touchmove", queueTouchPupilUpdate, { passive: true })
 document.addEventListener("touchend", scheduleTouchGazeRelease, { passive: true });
 document.addEventListener("touchcancel", scheduleTouchGazeRelease, { passive: true });
 document.addEventListener("visibilitychange", scheduleBlink);
+window.addEventListener(
+  "pageshow",
+  () => {
+    syncScoutVisualViewport();
+    queueTournamentShowNextSync();
+  },
+  { passive: true }
+);
 reducedMotion.addEventListener?.("change", scheduleBlink);
 window.addEventListener("worldcup:languagechange", handleScoutLanguageChange);
 const scoutDocumentLanguageObserver = new MutationObserver(() => {

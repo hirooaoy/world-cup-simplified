@@ -1,5 +1,6 @@
 .scout-widget {
   --scout-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  --scout-bottom-duration: 390ms;
   --scout-ease: cubic-bezier(0.22, 0.8, 0.2, 1);
   position: fixed;
   right: 22px;
@@ -18,13 +19,17 @@
   transform-origin: right bottom;
   transition:
     right 360ms var(--scout-ease),
-    bottom 390ms var(--scout-ease),
+    bottom var(--scout-bottom-duration) var(--scout-ease),
     width 360ms var(--scout-ease),
     height 380ms var(--scout-ease),
     border-radius 340ms var(--scout-ease),
     border-width 220ms ease,
     box-shadow 280ms ease;
   will-change: right, bottom, width, height, border-radius;
+}
+
+.scout-widget.is-bottom-resetting {
+  --scout-bottom-duration: 0ms;
 }
 
 .scout-widget[lang^="zh"] .scout-message,

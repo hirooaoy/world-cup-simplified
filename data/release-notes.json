@@ -1,19 +1,21 @@
 {
-  "updatedAt": "2026-07-15T00:10:32-07:00",
+  "updatedAt": "2026-07-15T00:21:54-07:00",
   "releases": [
     {
       "date": "2026-07-15",
-      "title": "Smarter timezone replies and steadier match navigation",
-      "titleZh": "更智能的时区回答与更稳定的比赛导航",
+      "title": "Smarter timezone replies and steadier navigation",
+      "titleZh": "更智能的时区回答与更稳定的导航体验",
       "highlights": [
         "Ball Boy now remembers when it has asked for a timezone, so replies such as USA open the correct regional choices instead of a country football card; common abbreviations including PDT, AEDT, GMT, and UTC are also recognized.",
         "On desktop, the selected match card now stays alongside long result lists, survives background schedule and data refreshes, expands when the site chrome leaves view, scrolls internally, and resets cleanly when another match is previewed; stacked mobile layouts keep their direct reveal behavior, while keyboard-focused event tooltips and player cards retain priority through incidental pointer movement or scrolling.",
-        "The Report issue page now carries the same brand treatment and localized source footer as the main app, including timezone-aware refresh details and the latest release-note highlights."
+        "The Report issue page now carries the same brand treatment and localized source footer as the main app, including timezone-aware refresh details and the latest release-note highlights.",
+        "On mobile, Ball Boy now clears stale Tournament and keyboard viewport offsets as soon as those states end, returning immediately to its normal 12px bottom-right resting position while preserving its other animations."
       ],
       "highlightsZh": [
         "Ball Boy 现在会记住自己正在询问时区，因此用户回答“美国”时会显示正确的地区时区选项，而不会误答成国家队资料；PDT、AEDT、GMT 和 UTC 等常见缩写也已支持。",
         "在桌面端，所选比赛卡片现在会与较长的结果列表并排保持可见，并在后台赛程或数据刷新后继续保留；页眉和页脚离开视野后卡片会扩展并支持内部滚动，预览另一场比赛时会干净重置。移动端堆叠布局仍会直接带用户看到详情，键盘聚焦的事件提示和球员卡也不会因偶发指针移动或滚动而失去优先级。",
-        "“报告问题”页面现在采用与主应用一致的品牌样式和本地化来源页脚，并显示按用户时区格式化的数据刷新时间及最新发布说明要点。"
+        "“报告问题”页面现在采用与主应用一致的品牌样式和本地化来源页脚，并显示按用户时区格式化的数据刷新时间及最新发布说明要点。",
+        "在移动端，Ball Boy 现在会在离开赛事视图或关闭键盘后立即清除过期的位置偏移，恢复到距右侧和底部各12像素的默认位置，同时保留其他动画效果。"
       ]
     },
     {
