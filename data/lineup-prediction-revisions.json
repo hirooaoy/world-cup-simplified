@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2",
-  "updatedAt": "2026-07-15T04:45:49.972Z",
+  "updatedAt": "2026-07-15T07:10:04.261Z",
   "revisions": [
     {
       "schemaVersion": "2",
@@ -25450,6 +25450,2018 @@
                     "confidence": {
                       "label": "low",
                       "score": 0.127,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  }
+                ],
+                "sourceIds": [
+                  "sports-mole-england-argentina-team-news-2026-07-14",
+                  "sky-sports-england-argentina-team-news-2026-07-14",
+                  "stats-zone-england-argentina-preview-2026-07-14",
+                  "fifa-england-argentina-preview-2026-07-13",
+                  "lineup-prediction-official-history",
+                  "lineup-layout-verification-2026-07-13",
+                  "fifa-lineups-sync-2026-07-14"
+                ]
+              }
+            }
+          },
+          "providerCandidates": [
+            {
+              "providerId": "local-official-history",
+              "providerVersion": "1",
+              "fixtureId": "match-102-semi-final-2026-07-15",
+              "mode": "expected",
+              "predictionClass": "forecast",
+              "claimStrength": 1,
+              "updatedAt": "2026-07-12T01:00:00Z",
+              "confidence": {
+                "label": "high",
+                "score": 0.78,
+                "reason": "Local official-history confidence average"
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ],
+              "lineupSourceIds": [
+                "lineup-prediction-official-history"
+              ],
+              "sides": {
+                "home": {
+                  "teamId": "ENG",
+                  "formation": "4-2-3-1",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.78,
+                    "reason": "home prediction based on last verified XI from match 99"
+                  },
+                  "starters": [
+                    {
+                      "name": "Jordan Pickford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Ezri Konsa",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Nico Oreilly",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "John Stones",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Marc Guehi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Declan Rice",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Elliot Anderson",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Jude Bellingham",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Harry Kane",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Anthony Gordon",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Noni Madueke",
+                      "position": "RW"
+                    }
+                  ],
+                  "benchCandidates": [
+                    {
+                      "name": "Dean Henderson",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "James Trafford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Trevoh Chalobah",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Dan Burn",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Reece James",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Djed Spence",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Kobbie Mainoo",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Morgan Rogers",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Eberechi Eze",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Bukayo Saka",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Marcus Rashford",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Ollie Watkins",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Ivan Toney",
+                      "position": "ST"
+                    }
+                  ],
+                  "unavailable": [
+                    {
+                      "name": "Jarell Quansah",
+                      "reason": "Serving the second match of a two-game suspension after his red card against Mexico.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    },
+                    {
+                      "name": "Jordan Henderson",
+                      "reason": "Unavailable with a broken wrist.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    }
+                  ],
+                  "sourceIds": [
+                    "lineup-prediction-official-history",
+                    "lineup-layout-verification-2026-07-13",
+                    "fifa-lineups-sync-2026-07-14",
+                    "sky-sports-england-argentina-team-news-2026-07-14"
+                  ]
+                },
+                "away": {
+                  "teamId": "ARG",
+                  "formation": "4-1-3-2",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.78,
+                    "reason": "away prediction based on last verified XI from match 100"
+                  },
+                  "starters": [
+                    {
+                      "name": "Emiliano Martinez",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Nicolas Tagliafico",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Lisandro Martinez",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Cristian Romero",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Nahuel Molina",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Leandro Paredes",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Rodrigo De Paul",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Alexis Mac Allister",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Enzo Fernandez",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Julian Alvarez",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Lionel Messi",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [
+                    {
+                      "name": "Juan Musso",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Geronimo Rulli",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Marcos Senesi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Gonzalo Montiel",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Nicolas Otamendi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Facundo Medina",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Valentin Barco",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Giovani Lo Celso",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Exequiel Palacios",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Nico Gonzalez",
+                      "position": "LM"
+                    },
+                    {
+                      "name": "Thiago Almada",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Giuliano Simeone",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Nico Paz",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Jose Manuel Lopez",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Lautaro Martinez",
+                      "position": "ST"
+                    }
+                  ],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "lineup-prediction-official-history",
+                    "lineup-layout-verification-2026-07-13",
+                    "fifa-lineups-sync-2026-07-14"
+                  ]
+                }
+              }
+            },
+            {
+              "providerId": "free-public-lineups",
+              "providerVersion": "1",
+              "fixtureId": "match-102-semi-final-2026-07-15",
+              "mode": "expected",
+              "predictionClass": "forecast",
+              "claimStrength": 1,
+              "updatedAt": "2026-07-13T22:50:33Z",
+              "confidence": {
+                "label": "high",
+                "score": 0.84,
+                "reason": "Free public probable-lineup source"
+              },
+              "sourceIds": [
+                "fifa-england-argentina-preview-2026-07-13",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ],
+              "lineupSourceIds": [
+                "fifa-england-argentina-preview-2026-07-13"
+              ],
+              "sides": {
+                "home": {
+                  "teamId": "ENG",
+                  "formation": "4-2-3-1",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.84,
+                    "reason": "home lineup from fifa-england-argentina-preview-2026-07-13"
+                  },
+                  "starters": [
+                    {
+                      "name": "Jordan Pickford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Reece James",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Ezri Konsa",
+                      "position": "RCB"
+                    },
+                    {
+                      "name": "Marc Guehi",
+                      "position": "LCB"
+                    },
+                    {
+                      "name": "Nico O'Reilly",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Elliot Anderson",
+                      "position": "RCM"
+                    },
+                    {
+                      "name": "Declan Rice",
+                      "position": "LCM"
+                    },
+                    {
+                      "name": "Bukayo Saka",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Jude Bellingham",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Anthony Gordon",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Harry Kane",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [],
+                  "unavailable": [
+                    {
+                      "name": "Jarell Quansah",
+                      "reason": "Serving the second match of a two-game suspension after his red card against Mexico.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    },
+                    {
+                      "name": "Jordan Henderson",
+                      "reason": "Unavailable with a broken wrist.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    }
+                  ],
+                  "sourceIds": [
+                    "fifa-england-argentina-preview-2026-07-13",
+                    "sky-sports-england-argentina-team-news-2026-07-14"
+                  ]
+                },
+                "away": {
+                  "teamId": "ARG",
+                  "formation": "4-1-3-2",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.84,
+                    "reason": "away lineup from fifa-england-argentina-preview-2026-07-13"
+                  },
+                  "starters": [
+                    {
+                      "name": "Emiliano Martinez",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Nahuel Molina",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Cristian Romero",
+                      "position": "RCB"
+                    },
+                    {
+                      "name": "Lisandro Martinez",
+                      "position": "LCB"
+                    },
+                    {
+                      "name": "Nicolas Tagliafico",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Leandro Paredes",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Rodrigo De Paul",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Alexis Mac Allister",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Enzo Fernandez",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Lionel Messi",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Julian Alvarez",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "fifa-england-argentina-preview-2026-07-13"
+                  ]
+                }
+              }
+            },
+            {
+              "providerId": "free-public-lineups",
+              "providerVersion": "1",
+              "fixtureId": "match-102-semi-final-2026-07-15",
+              "mode": "expected",
+              "predictionClass": "forecast",
+              "claimStrength": 1,
+              "updatedAt": "2026-07-14T15:50:00Z",
+              "confidence": {
+                "label": "high",
+                "score": 0.92,
+                "reason": "Free public probable-lineup source"
+              },
+              "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ],
+              "lineupSourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14"
+              ],
+              "sides": {
+                "home": {
+                  "teamId": "ENG",
+                  "formation": "4-2-3-1",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.92,
+                    "reason": "home lineup from sports-mole-england-argentina-team-news-2026-07-14"
+                  },
+                  "starters": [
+                    {
+                      "name": "Jordan Pickford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Ezri Konsa",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "John Stones",
+                      "position": "RCB"
+                    },
+                    {
+                      "name": "Marc Guehi",
+                      "position": "LCB"
+                    },
+                    {
+                      "name": "Nico O'Reilly",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Declan Rice",
+                      "position": "RCM"
+                    },
+                    {
+                      "name": "Elliot Anderson",
+                      "position": "LCM"
+                    },
+                    {
+                      "name": "Bukayo Saka",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Jude Bellingham",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Anthony Gordon",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Harry Kane",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [],
+                  "unavailable": [
+                    {
+                      "name": "Jarell Quansah",
+                      "reason": "Serving the second match of a two-game suspension after his red card against Mexico.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    },
+                    {
+                      "name": "Jordan Henderson",
+                      "reason": "Unavailable with a broken wrist.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    }
+                  ],
+                  "sourceIds": [
+                    "sports-mole-england-argentina-team-news-2026-07-14",
+                    "sky-sports-england-argentina-team-news-2026-07-14"
+                  ]
+                },
+                "away": {
+                  "teamId": "ARG",
+                  "formation": "4-1-3-2",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.92,
+                    "reason": "away lineup from sports-mole-england-argentina-team-news-2026-07-14"
+                  },
+                  "starters": [
+                    {
+                      "name": "Emiliano Martinez",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Nahuel Molina",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Cristian Romero",
+                      "position": "RCB"
+                    },
+                    {
+                      "name": "Lisandro Martinez",
+                      "position": "LCB"
+                    },
+                    {
+                      "name": "Nicolas Tagliafico",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Leandro Paredes",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Rodrigo De Paul",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Alexis Mac Allister",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Enzo Fernandez",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Lionel Messi",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Julian Alvarez",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "sports-mole-england-argentina-team-news-2026-07-14"
+                  ]
+                }
+              }
+            },
+            {
+              "providerId": "free-public-lineups",
+              "providerVersion": "1",
+              "fixtureId": "match-102-semi-final-2026-07-15",
+              "mode": "expected",
+              "predictionClass": "forecast",
+              "claimStrength": 1,
+              "updatedAt": "2026-07-14T15:50:00Z",
+              "confidence": {
+                "label": "high",
+                "score": 0.9,
+                "reason": "Free public probable-lineup source"
+              },
+              "sourceIds": [
+                "stats-zone-england-argentina-preview-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ],
+              "lineupSourceIds": [
+                "stats-zone-england-argentina-preview-2026-07-14"
+              ],
+              "sides": {
+                "home": {
+                  "teamId": "ENG",
+                  "formation": "4-2-3-1",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.9,
+                    "reason": "home lineup from stats-zone-england-argentina-preview-2026-07-14"
+                  },
+                  "starters": [
+                    {
+                      "name": "Jordan Pickford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Ezri Konsa",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "John Stones",
+                      "position": "RCB"
+                    },
+                    {
+                      "name": "Marc Guehi",
+                      "position": "LCB"
+                    },
+                    {
+                      "name": "Nico O'Reilly",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Declan Rice",
+                      "position": "RCM"
+                    },
+                    {
+                      "name": "Elliot Anderson",
+                      "position": "LCM"
+                    },
+                    {
+                      "name": "Bukayo Saka",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Jude Bellingham",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Anthony Gordon",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Harry Kane",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [],
+                  "unavailable": [
+                    {
+                      "name": "Jarell Quansah",
+                      "reason": "Serving the second match of a two-game suspension after his red card against Mexico.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    },
+                    {
+                      "name": "Jordan Henderson",
+                      "reason": "Unavailable with a broken wrist.",
+                      "sourceIds": [
+                        "sky-sports-england-argentina-team-news-2026-07-14"
+                      ]
+                    }
+                  ],
+                  "sourceIds": [
+                    "stats-zone-england-argentina-preview-2026-07-14",
+                    "sky-sports-england-argentina-team-news-2026-07-14"
+                  ]
+                },
+                "away": {
+                  "teamId": "ARG",
+                  "formation": "4-1-3-2",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.9,
+                    "reason": "away lineup from stats-zone-england-argentina-preview-2026-07-14"
+                  },
+                  "starters": [
+                    {
+                      "name": "Emiliano Martinez",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Nahuel Molina",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Cristian Romero",
+                      "position": "RCB"
+                    },
+                    {
+                      "name": "Lisandro Martinez",
+                      "position": "LCB"
+                    },
+                    {
+                      "name": "Nicolas Tagliafico",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Leandro Paredes",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Rodrigo De Paul",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Alexis Mac Allister",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Enzo Fernandez",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Lionel Messi",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Julian Alvarez",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "stats-zone-england-argentina-preview-2026-07-14"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "schemaVersion": "2",
+      "generatedAt": "2026-07-15T07:10:04.261Z",
+      "revisionId": "9560242d018f1d561838bd99d8a7f0f940775d7949f1885babd36428646a60b4",
+      "engine": {
+        "id": "lineup-prediction-engine",
+        "version": "2",
+        "runId": "lineup-prediction-2026-07-15-fcb2a0780eb7",
+        "inputFingerprint": "fcb2a0780eb746a178cec3d56e7c1121cf13bed17b2d86a2d91b07455f715178",
+        "modelFingerprint": "eb79163bdf904f7d41d36b022c65663111815c755f49d89249c4f9935df9794c",
+        "revisionId": "9560242d018f1d561838bd99d8a7f0f940775d7949f1885babd36428646a60b4"
+      },
+      "inputs": [
+        {
+          "file": "data/fixtures.json",
+          "role": "target fixtures and kickoff dates"
+        },
+        {
+          "file": "data/lineups.json",
+          "role": "last verified XI, formation, bench, substitutions, and recent minutes/load"
+        },
+        {
+          "file": "data/player-availability.json",
+          "role": "injury, omission, and fixture availability exclusions"
+        },
+        {
+          "file": "data/free-lineup-prediction-sources.json",
+          "role": "free public probable-lineup source candidates"
+        }
+      ],
+      "sources": [
+        {
+          "id": "fifa-england-argentina-preview-2026-07-13",
+          "label": "FIFA England vs Argentina semi-final match preview",
+          "type": "free-public-probable-lineup",
+          "checkedAt": "2026-07-13T22:50:33.000Z",
+          "sourceRole": "lineup-candidate",
+          "suppliesLineup": true,
+          "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/england-v-argentina-live-stream-team-news-tickets-and-more"
+        },
+        {
+          "id": "fifa-lineups-sync-2026-07-14",
+          "label": "FIFA official final lineups sync",
+          "type": "official",
+          "checkedAt": "2026-07-14T21:28:49.403Z",
+          "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums"
+        },
+        {
+          "id": "lineup-layout-verification-2026-07-13",
+          "label": "Lineup layout verification",
+          "type": "editorial",
+          "checkedAt": "2026-07-13T22:55:07.000Z",
+          "url": "https://www.fifa.com/fifaplus/en/match-centre"
+        },
+        {
+          "id": "lineup-prediction-official-history",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-15T07:10:04.261Z"
+        },
+        {
+          "id": "sky-sports-england-argentina-team-news-2026-07-14",
+          "label": "Sky Sports England vs Argentina team news",
+          "type": "team-news",
+          "checkedAt": "2026-07-14T17:14:25Z",
+          "url": "https://www.skysports.com/football/news/11095/13563231/england-vs-argentina-declan-rice-fit-for-world-cup-semi-final-as-thomas-tuchels-squad-issues-begin-to-ease"
+        },
+        {
+          "id": "sports-mole-england-argentina-team-news-2026-07-14",
+          "label": "Sports Mole England vs Argentina team news and predicted XIs",
+          "type": "free-public-probable-lineup",
+          "checkedAt": "2026-07-14T15:50:00.000Z",
+          "sourceRole": "lineup-candidate",
+          "suppliesLineup": true,
+          "url": "https://www.sportsmole.co.uk/football/england/world-cup-2026/preview/england-vs-argentina-prediction-team-news-lineups_601122.html"
+        },
+        {
+          "id": "stats-zone-england-argentina-preview-2026-07-14",
+          "label": "The Stats Zone England vs Argentina preview and predicted XIs",
+          "type": "free-public-probable-lineup",
+          "checkedAt": "2026-07-14T15:50:00.000Z",
+          "sourceRole": "lineup-candidate",
+          "suppliesLineup": true,
+          "url": "https://www.thestatszone.com/england-vs-argentina-preview-team-news-prediction-fifa-world-cup-2026-semi-final-205854"
+        }
+      ],
+      "fixtures": [
+        {
+          "fixture": {
+            "id": "match-102-semi-final-2026-07-15",
+            "matchNumber": 102,
+            "stage": "semi-finals",
+            "round": "semi-finals",
+            "kickoffUtc": "2026-07-15T19:00:00Z",
+            "status": "SCHEDULED",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG"
+          },
+          "prediction": {
+            "fixtureId": "match-102-semi-final-2026-07-15",
+            "mode": "probable",
+            "predictionClass": "forecast",
+            "lastUpdated": "2026-07-15T07:10:04.261Z",
+            "confidence": {
+              "label": "high",
+              "score": 0.931,
+              "method": "evidence-strength-v2",
+              "reason": "Average home/away evidence strength; this is not a calibrated probability."
+            },
+            "sourceIds": [
+              "sports-mole-england-argentina-team-news-2026-07-14",
+              "sky-sports-england-argentina-team-news-2026-07-14",
+              "stats-zone-england-argentina-preview-2026-07-14",
+              "fifa-england-argentina-preview-2026-07-13",
+              "lineup-prediction-official-history",
+              "lineup-layout-verification-2026-07-13",
+              "fifa-lineups-sync-2026-07-14"
+            ],
+            "providers": [
+              {
+                "providerId": "local-official-history",
+                "providerVersion": "1",
+                "score": 0.923,
+                "predictionClass": "forecast",
+                "recencyWeight": 0.45,
+                "sourceReliability": 1,
+                "independenceKey": "source:lineup-prediction-official-history",
+                "updatedAt": "2026-07-12T01:00:00Z",
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "lineup-layout-verification-2026-07-13",
+                  "fifa-lineups-sync-2026-07-14",
+                  "sky-sports-england-argentina-team-news-2026-07-14"
+                ]
+              },
+              {
+                "providerId": "free-public-lineups",
+                "providerVersion": "1",
+                "score": 0.944,
+                "predictionClass": "forecast",
+                "recencyWeight": 0.627,
+                "sourceReliability": 1,
+                "independenceKey": "source:fifa",
+                "updatedAt": "2026-07-13T22:50:33Z",
+                "sourceIds": [
+                  "fifa-england-argentina-preview-2026-07-13",
+                  "sky-sports-england-argentina-team-news-2026-07-14"
+                ]
+              },
+              {
+                "providerId": "free-public-lineups",
+                "providerVersion": "1",
+                "score": 0.972,
+                "predictionClass": "forecast",
+                "recencyWeight": 0.801,
+                "sourceReliability": 1,
+                "independenceKey": "source:sports-mole",
+                "updatedAt": "2026-07-14T15:50:00Z",
+                "sourceIds": [
+                  "sports-mole-england-argentina-team-news-2026-07-14",
+                  "sky-sports-england-argentina-team-news-2026-07-14"
+                ]
+              },
+              {
+                "providerId": "free-public-lineups",
+                "providerVersion": "1",
+                "score": 0.965,
+                "predictionClass": "forecast",
+                "recencyWeight": 0.801,
+                "sourceReliability": 1,
+                "independenceKey": "source:the-stats-zone",
+                "updatedAt": "2026-07-14T15:50:00Z",
+                "sourceIds": [
+                  "stats-zone-england-argentina-preview-2026-07-14",
+                  "sky-sports-england-argentina-team-news-2026-07-14"
+                ]
+              }
+            ],
+            "evidence": {
+              "home": {
+                "confidence": {
+                  "label": "high",
+                  "score": 0.92,
+                  "method": "evidence-strength-v2",
+                  "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 3 independent external sources; this is not a calibrated probability."
+                },
+                "semantics": "evidence-strength-not-calibrated-probability",
+                "independentSourceCount": 4,
+                "formationScores": [
+                  {
+                    "formation": "4-2-3-1",
+                    "score": 2.478,
+                    "providerIds": [
+                      "free-public-lineups",
+                      "local-official-history"
+                    ],
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ],
+                    "independenceKeys": [
+                      "source:sports-mole",
+                      "source:the-stats-zone",
+                      "source:fifa",
+                      "source:lineup-prediction-official-history"
+                    ],
+                    "independentVotes": 4
+                  }
+                ],
+                "disputedSlots": []
+              },
+              "away": {
+                "confidence": {
+                  "label": "high",
+                  "score": 0.942,
+                  "method": "evidence-strength-v2",
+                  "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 3 independent external sources; this is not a calibrated probability."
+                },
+                "semantics": "evidence-strength-not-calibrated-probability",
+                "independentSourceCount": 4,
+                "formationScores": [
+                  {
+                    "formation": "4-1-3-2",
+                    "score": 2.478,
+                    "providerIds": [
+                      "free-public-lineups",
+                      "local-official-history"
+                    ],
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ],
+                    "independenceKeys": [
+                      "source:sports-mole",
+                      "source:the-stats-zone",
+                      "source:fifa",
+                      "source:lineup-prediction-official-history"
+                    ],
+                    "independentVotes": 4
+                  }
+                ],
+                "disputedSlots": []
+              }
+            },
+            "lineup": {
+              "home": {
+                "teamId": "ENG",
+                "formation": "4-2-3-1",
+                "players": [
+                  {
+                    "name": "Jordan Pickford",
+                    "number": "1",
+                    "position": "GK",
+                    "x": 50,
+                    "y": 91,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Ezri Konsa",
+                    "number": "2",
+                    "position": "RB",
+                    "x": 85,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "John Stones",
+                    "number": "5",
+                    "position": "CB",
+                    "x": 62,
+                    "y": 75,
+                    "confidence": {
+                      "label": "medium",
+                      "score": 0.737,
+                      "method": "evidence-strength-v2",
+                      "reason": "3 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Marc Guéhi",
+                    "number": "6",
+                    "position": "CB",
+                    "x": 38,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Nico O'Reilly",
+                    "number": "3",
+                    "position": "LB",
+                    "x": 15,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Declan Rice",
+                    "number": "4",
+                    "position": "CM",
+                    "x": 66,
+                    "y": 59,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Elliot Anderson",
+                    "number": "8",
+                    "position": "CM",
+                    "x": 34,
+                    "y": 59,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Bukayo Saka",
+                    "number": "7",
+                    "position": "RW",
+                    "x": 82,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.756,
+                      "method": "evidence-strength-v2",
+                      "reason": "3 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Jude Bellingham",
+                    "number": "10",
+                    "position": "AM",
+                    "x": 50,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Anthony Gordon",
+                    "number": "18",
+                    "position": "LW",
+                    "x": 18,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Harry Kane",
+                    "number": "9",
+                    "position": "ST",
+                    "x": 50,
+                    "y": 20,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  }
+                ],
+                "bench": [
+                  {
+                    "name": "Djed Spence",
+                    "number": "25",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.135,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Marcus Rashford",
+                    "number": "11",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.135,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Reece James",
+                    "number": "24",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Morgan Rogers",
+                    "number": "17",
+                    "position": "AM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Dan Burn",
+                    "number": "15",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Dean Henderson",
+                    "number": "13",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Eberechi Eze",
+                    "number": "21",
+                    "position": "AM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Ivan Toney",
+                    "number": "22",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "James Trafford",
+                    "number": "23",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Kobbie Mainoo",
+                    "number": "16",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Ollie Watkins",
+                    "number": "19",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Trevoh Chalobah",
+                    "number": "12",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Noni Madueke",
+                    "number": "20",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.82,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  }
+                ],
+                "sourceIds": [
+                  "sports-mole-england-argentina-team-news-2026-07-14",
+                  "sky-sports-england-argentina-team-news-2026-07-14",
+                  "stats-zone-england-argentina-preview-2026-07-14",
+                  "fifa-england-argentina-preview-2026-07-13",
+                  "lineup-prediction-official-history",
+                  "lineup-layout-verification-2026-07-13",
+                  "fifa-lineups-sync-2026-07-14"
+                ]
+              },
+              "away": {
+                "teamId": "ARG",
+                "formation": "4-1-3-2",
+                "players": [
+                  {
+                    "name": "Emiliano Martínez",
+                    "number": "23",
+                    "position": "GK",
+                    "x": 50,
+                    "y": 91,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Nahuel Molina",
+                    "number": "26",
+                    "position": "RB",
+                    "x": 85,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Cristian Romero",
+                    "number": "13",
+                    "position": "CB",
+                    "x": 62,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Lisandro Martínez",
+                    "number": "6",
+                    "position": "CB",
+                    "x": 38,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Nicolás Tagliafico",
+                    "number": "3",
+                    "position": "LB",
+                    "x": 15,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Leandro Paredes",
+                    "number": "5",
+                    "position": "DM",
+                    "x": 50,
+                    "y": 61,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Rodrigo De Paul",
+                    "number": "7",
+                    "position": "CM",
+                    "x": 68,
+                    "y": 45,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Alexis Mac Allister",
+                    "number": "20",
+                    "position": "CM",
+                    "x": 50,
+                    "y": 42,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Enzo Fernández",
+                    "number": "24",
+                    "position": "CM",
+                    "x": 32,
+                    "y": 45,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Lionel Messi",
+                    "number": "10",
+                    "position": "ST",
+                    "x": 58,
+                    "y": 22,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Julián Álvarez",
+                    "number": "9",
+                    "position": "ST",
+                    "x": 42,
+                    "y": 22,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "4 independent starter sources; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "sports-mole-england-argentina-team-news-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14",
+                      "stats-zone-england-argentina-preview-2026-07-14",
+                      "fifa-england-argentina-preview-2026-07-13",
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14"
+                    ]
+                  }
+                ],
+                "bench": [
+                  {
+                    "name": "Lautaro Martínez",
+                    "number": "22",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.138,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Facundo Medina",
+                    "number": "25",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.135,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Thiago Almada",
+                    "number": "16",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.135,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Exequiel Palacios",
+                    "number": "14",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Giovani Lo Celso",
+                    "number": "11",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Giuliano Simeone",
+                    "number": "17",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Marcos Senesi",
+                    "number": "2",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Nico Paz",
+                    "number": "18",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Nicolás Otamendi",
+                    "number": "19",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.133,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Gerónimo Rulli",
+                    "number": "12",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Gonzalo Montiel",
+                    "number": "4",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "José Manuel López",
+                    "number": "21",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Juan Musso",
+                    "number": "1",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Nico González",
+                    "number": "15",
+                    "position": "LM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "lineup-layout-verification-2026-07-13",
+                      "fifa-lineups-sync-2026-07-14",
+                      "sky-sports-england-argentina-team-news-2026-07-14"
+                    ]
+                  },
+                  {
+                    "name": "Valentín Barco",
+                    "number": "8",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "low",
+                      "score": 0.131,
                       "method": "evidence-strength-v2",
                       "reason": "Bench evidence strength; not a calibrated probability."
                     },
