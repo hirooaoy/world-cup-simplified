@@ -404,25 +404,10 @@ function roleSkills(profile, fact) {
 
 function nextSkills(profile, fact) {
   const existing = Array.isArray(profile.skills) ? profile.skills.map(cleanSkill).filter(Boolean) : [];
-  const withGoal = fact?.goals?.length ? ["Goal threat"] : [];
-  const withAssist = fact?.assists?.length ? ["Chance passes"] : [];
-  const base = [...withGoal, ...withAssist, ...existing, ...roleSkills(profile, fact)];
+  const base = [...existing, ...roleSkills(profile, fact)];
   return [...new Set(base)]
     .filter((skill) => !/^match impact$/i.test(skill))
     .slice(0, 3);
-}
-
-function opponentNames(items = [], teamsById) {
-  const ids = [...new Set(items.map((item) => item.opponentId).filter(Boolean))];
-  return ids.map((id) => teamsById.get(id)?.name || id);
-}
-
-function listNames(names) {
-  const clean = names.filter(Boolean);
-  if (!clean.length) return "";
-  if (clean.length === 1) return clean[0];
-  if (clean.length === 2) return `${clean[0]} and ${clean[1]}`;
-  return `${clean.slice(0, 2).join(", ")}, and ${clean[2]}`;
 }
 
 function positionLabel(profile, fact) {
@@ -449,54 +434,126 @@ function positionLabel(profile, fact) {
   return raw || "player";
 }
 
-function positionWithArticle(profile, fact) {
-  const position = positionLabel(profile, fact);
-  return `${/^[aeiou]/i.test(position) ? "an" : "a"} ${position}`;
-}
-
-function actionForSkill(skill, group) {
+function skillInsight(skill, group) {
   const value = cleanSkill(skill).toLowerCase();
-  if (!value || /^(?:tournament|match|squad|team)\b/.test(value)) return "";
+  const insight = (quality, action, qualityZh, actionZh) => ({ quality, action, qualityZh, actionZh });
 
-  if (/penalt(?:y|ies).*(?:save|stop)|(?:save|stop).*penalt/.test(value)) return "saves penalties";
-  if (/shot.?stop|reaction|reflex|one-on-one sav|quick saves?/.test(value)) return "reacts quickly to shots";
-  if (/cross.*(?:claim|handl|command)|claim.*cross|box command|penalty-area command|high balls?/.test(value) && group === "goalkeeper") return "claims crosses";
-  if (/distribution|restart|throwing|goal kicks?|keeper passing/.test(value) && group === "goalkeeper") return "starts attacks with his passing";
-  if (/set.?piece.*(?:deliver|service|quality)|dead-ball|free.?kick|corner/.test(value)) return "creates chances from set pieces";
-  if (/long.?range|long shooting|shooting range|distance shooting/.test(value)) return "shoots from distance";
-  if (/finish|goal threat|inside shooting|quick shooting|box presence|box movement|penalty-box movement|penalty-area movement|near-post|striker movement/.test(value)) return "finds space for shots in the box";
-  if (/chance pass|chance creat|creative pass|final pass|through ball|playmak|vision|assist/.test(value)) return "creates chances with his passing";
-  if (/overlap/.test(value)) return "times his forward runs";
-  if (/cross|service|delivery/.test(value)) return "crosses from wide areas";
-  if (/dribbl|ball carrying|direct carr|progressive carr|close control|tight-space|take-ons?/.test(value)) return "carries the ball past defenders";
-  if (/run.*behind|channel run|counter run|transition run|inside run|forward movement|late run|box arrival/.test(value)) return "runs into space away from defenders";
-  if (/acceleration|pace|speed|direct running|wide running|counter threat/.test(value)) {
-    if (group === "defender") return "recovers when opponents break forward";
-    if (group === "midfielder") return "carries the ball into open space";
-    return "attacks open space at speed";
+  if (/penalt(?:y|ies).*(?:save|stop|presence)|(?:save|stop).*penalt/.test(value)) {
+    return insight("the patience to read a penalty taker's last movement", "waits for the strike before committing", "耐心判断点球手最后一下动作", "等到对方触球前再做扑救选择");
   }
-  if (/press/.test(value)) return "closes down opponents";
-  if (/hold-up|target/.test(value)) return "holds the ball for teammates";
-  if (/link play|combination/.test(value)) return "combines with nearby teammates";
-  if (/aerial|heading|headers?|high-ball/.test(value)) return "competes for high balls";
-  if (/recover/.test(value) && group === "defender") return "recovers into position";
-  if (/track|mark/.test(value) && group === "defender") return "tracks runners";
-  if (/duel|tackl|ball winning|intercept/.test(value)) {
-    if (group === "midfielder") return "wins the ball in midfield";
-    if (group === "forward") return "challenges defenders for loose balls";
-    return "wins defensive duels";
+  if (/shot.?stop|reaction|reflex|one-on-one sav|quick saves?|reach/.test(value) && group === "goalkeeper") {
+    return insight("sharp reactions backed by early positioning", "sets his feet before the shot and reacts without an extra step", "提前站位后的快速反应", "在射门前站稳脚步，再用最少动作完成扑救");
   }
-  if (/defend|cover|clear|block|screen|protect/.test(value)) {
-    if (group === "midfielder") return "covers central space";
-    if (group === "forward") return "helps defend from the front";
-    return "protects space near the box";
+  if (/cross.*(?:claim|handl|command)|claim.*cross|box command|penalty-area command|high balls?|set-piece control/.test(value) && group === "goalkeeper") {
+    return insight("command of the crowded space around goal", "judges when to leave his line and takes pressure off his defenders", "掌控门前拥挤空间的能力", "判断何时出击，替后卫化解高球压力");
   }
-  if (/second ball|loose ball/.test(value)) return "reacts quickly to loose balls";
-  if (/between-lines|pocket|receiv|first touch|turns?/.test(value)) return "receives between the lines and turns";
-  if (/tempo|press resistance|pressure escape|circulation|short pass|simple pass|possession|ball retention/.test(value)) return "keeps possession under pressure";
-  if (/pass|progression|build-up|switching/.test(value)) return "moves the ball forward with simple passes";
-  if (/leadership|organi[sz]|line control|communication|command/.test(value)) return "organizes teammates";
-  return "";
+  if (/distribution|restart|throwing|goal kicks?|keeper passing|short build-up|long distribution/.test(value) && group === "goalkeeper") {
+    return insight("turning a save into the first pass of an attack", "chooses the simple restart before pressure can close in", "把一次扑救变成进攻第一传", "在逼抢靠近前选择最稳妥的出球方式");
+  }
+  if (/sweeper|high starting|outside.*box/.test(value) && group === "goalkeeper") {
+    return insight("starting high enough to protect the space behind his defense", "leaves his line early when a through ball escapes the back line", "用靠前站位保护后防身后空间", "直塞球越过后防时及时出击");
+  }
+  if (/goalkeeper (?:depth|experience|leadership)|veteran goalkeeping|tournament calm/.test(value)) {
+    return insight("staying ready through long quiet spells", "keeps his decisions calm when a sudden save is required", "在长时间无事可做后依然保持专注", "突然需要扑救时仍能冷静判断");
+  }
+  if (/tournament experience|veteran|experience/.test(value)) {
+    return insight("calm decisions shaped by experience in high-pressure moments", "recognizes when to slow the play and when to take the risk", "高压时刻由经验带来的冷静判断", "判断何时放慢节奏，何时承担风险");
+  }
+  if (/set.?piece|dead-ball|free.?kick|corner/.test(value)) {
+    return insight("repeatable technique on dead balls", "varies the height and pace of his delivery", "定位球上稳定而多变的脚法", "通过改变落点和球速寻找防线最薄弱的区域");
+  }
+  if (/near.?post/.test(value)) {
+    return insight("the timing of his run across the nearest defender", "attacks the near-post lane before the marker can turn", "抢到近门柱身前的跑动时机", "在盯防者转身前冲向近门柱线路");
+  }
+  if (/penalty[- ]?(?:box|area) timing|box timing|striker movement|box movement|penalty[- ]?(?:box|area) movement/.test(value)) {
+    return insight("waiting for a defender's attention to shift before moving", "arrives in the box late enough to be difficult to track", "等防守者注意力转移后再启动", "稍晚进入禁区，让盯防者难以持续跟住");
+  }
+  if (/box presence|aerial target|target-forward power|target play/.test(value)) {
+    return insight("giving centre-backs a physical problem they cannot ignore", "pins a defender and creates room for the next runner", "让中后卫无法忽视的身体支点作用", "牵制一名后卫，为后插上的队友腾出空间");
+  }
+  if (/left-footed finish|right-footed finish|first-time finish|quick finish|inside finish|wide finish|aerial finish|box finish|penalty[- ]?(?:box|area) finish|finishing|goal threat|inside shooting|quick shooting|shooting/.test(value)) {
+    const foot = /left-foot/.test(value) ? "left foot" : /right-foot/.test(value) ? "right foot" : "stronger foot";
+    const footZh = /left-foot/.test(value) ? "左脚" : /right-foot/.test(value) ? "右脚" : "惯用脚";
+    return insight("creating a clean shot before the defense can reset", `shifts onto his ${foot} and shoots with little backlift`, "在防线重组前制造干净射门", `把球调整到${footZh}，用很小的摆腿迅速完成射门`);
+  }
+  if (/long.?range|long shooting|shooting range|distance shooting/.test(value)) {
+    return insight("making defenders respect the shot from outside the box", "uses a clean first touch to open a shooting lane from distance", "让防守者必须提防禁区外远射", "用干净的第一脚触球打开远射线路");
+  }
+  if (/chance pass|chance creat|creative pass|final pass|final ball|through ball|playmak|vision|assist|creation|invention/.test(value)) {
+    return insight("seeing the decisive pass one beat before it opens", "draws a defender in and releases the runner behind him", "比防线早一步看到决定性的传球", "先吸引防守者靠近，再把球送到其身后的跑动线路");
+  }
+  if (/overlap|wing-back timing|forward support|box-area support/.test(value)) {
+    return insight("choosing the moment to join an attack from deep", "waits until the wide defender looks inside before running beyond him", "从后场加入进攻的启动时机", "等边路防守者看向内侧后再从外线套上");
+  }
+  if (/cross prevention|stop.*cross/.test(value)) {
+    return insight("closing the crossing angle without losing the runner", "gets close enough to block the delivery without diving in", "封住传中角度时仍不丢掉跑动者", "靠近到能封堵传中，但不贸然出脚");
+  }
+  if (/cross|service|delivery/.test(value)) {
+    return insight("delivering the ball without needing much space", "looks up before crossing and picks a runner rather than an empty area", "在很小空间里也能送出传中的能力", "传中前先观察，再把球送向具体跑动者");
+  }
+  if (/dribbl|ball carrying|direct carr|progressive carr|close control|tight-space|take-ons?|flair/.test(value)) {
+    return insight("changing direction without losing control of the ball", "draws the first challenge, then carries through the gap", "变向时仍把球控制在脚下", "主动吸引第一次上抢，再带球穿过由此出现的空当");
+  }
+  if (/run.*behind|channel run|counter run|transition run|inside run|diagonal run|vertical run|forward run|wide-to-inside|forward movement|late run|box arrival|arrival|off-ball|movement/.test(value)) {
+    return insight("starting his run while defenders are still watching the ball", "moves through the gap between full-back and centre-back", "在防守者仍盯着球时提前启动", "从边后卫与中后卫之间的空当穿过");
+  }
+  if (/acceleration|pace|speed|direct running|wide running|counter threat|transition (?:threat|terror)|burst|explosive/.test(value)) {
+    if (group === "defender") return insight("recovery speed when the defensive line is exposed", "turns early and closes the runner before the box", "防线暴露后的回追速度", "提前转身，在对手进入禁区前缩短距离");
+    if (group === "midfielder") return insight("carrying momentum through open midfield", "pushes the ball beyond the first challenge and accelerates after it", "带球穿过开放中场的推进力", "把球趟过第一道上抢后再加速");
+    return insight("explosive speed once open grass appears", "changes pace after the defender has committed his feet", "看到空当后的爆发速度", "等防守者脚步固定后突然变速");
+  }
+  if (!/press resistance/.test(value) && /counter-press|\bpressing\b|\bpress\b|work rate|defensive work|intensity|energy/.test(value)) {
+    return insight("pressing with a clear target rather than simply chasing", "angles his run to block the easy pass as he closes the ball", "带着明确目标逼抢，而不是只追着球跑", "接近持球人时调整路线，同时封住最简单的传球");
+  }
+  if (/hold-up|forward linking|link play|combination|quick combinations|wall pass/.test(value)) {
+    return insight("making the next teammate's action easier", "protects the ball with his body and returns it into a runner's path", "让队友下一步处理更轻松", "用身体护住球，再把球送回跑动队友的线路");
+  }
+  if (/aerial|heading|headers?|high-ball/.test(value)) {
+    return insight("reading the flight of the ball before the duel begins", "meets the ball early instead of waiting underneath it", "在争顶前先判断球的飞行轨迹", "主动在最合适的高点迎球，而不是站在原地等球落下");
+  }
+  if (/recover/.test(value)) {
+    return insight("recovering position without panicking after the first line is broken", "turns early and protects the route toward goal", "第一道防线被突破后仍能冷静回位", "提前转身，优先封住通向球门的路线");
+  }
+  if (/track|mark|back-post/.test(value)) {
+    return insight("staying connected to runners when the ball moves elsewhere", "checks the runner over his shoulder before the final pass arrives", "球转移到别处时仍能跟住无球跑动", "最后一传到来前回头确认跑动者的位置");
+  }
+  if (/duel|tackl|ball winning|intercept|aggress|combative|bite/.test(value)) {
+    return insight("choosing the moment of contact instead of diving in", "waits for a loose touch and then steps through the ball", "选择身体接触时机，而不是贸然上抢", "等对手触球稍大后再连人带球一起压上");
+  }
+  if (/second ball|loose ball/.test(value)) {
+    return insight("reacting first when a duel leaves the ball free", "positions himself for the next touch before the first contest is over", "对抗后球权松动时的第一反应", "第一次争抢还没结束，就先为下一脚触球站好位置");
+  }
+  if (/defend|cover|clear|block|screen|protect|discipline|compact/.test(value)) {
+    const area = group === "midfielder" ? "the passing lane into midfield" : "the route into the box";
+    const areaZh = group === "midfielder" ? "通向中场核心区域的传球线路" : "进入禁区的路线";
+    return insight("protecting the most dangerous space before stepping to the ball", `holds ${area} until support arrives`, "先保护最危险空间，再考虑上抢", `守住${areaZh}，直到队友能对持球人施压`);
+  }
+  if (/between-lines|pocket|receiv|first touch|turns?|interior/.test(value)) {
+    return insight("receiving in tight spaces with his next action already planned", "opens his body on the first touch so he can play forward", "在狭小空间接球前就想好下一步", "第一脚触球时打开身体，准备向前处理");
+  }
+  if (/tempo|rhythm|press resistance|pressure escape|circulation|short pass|simple pass|possession|ball retention|control|calm|composure|security/.test(value)) {
+    return insight("keeping the ball calm when pressure arrives", "uses his first touch to escape pressure before choosing the pass", "压力到来时仍能让球保持稳定", "第一脚触球先摆脱压力，再选择传球方向");
+  }
+  if (/pass|progression|build-up|switching|range|first-pass/.test(value)) {
+    return insight("moving the defense with the weight and angle of his passing", "plays through nearby pressure instead of around it", "用传球的力度和角度移动防线", "穿过最近一层逼抢，而不总是绕开压力");
+  }
+  if (/leadership|organi[sz]|line control|communication|command|authority/.test(value)) {
+    return insight("organizing teammates before danger becomes obvious", "keeps the line connected with constant small instructions", "在危险出现前组织好队友", "用持续而简短的提醒保持整条防线连接");
+  }
+  if (/intelligen|awareness|reading|decision|timing|positioning|tactical/.test(value)) {
+    return insight("reading the next phase before the space fully opens", "adjusts his position early enough to make the difficult action look simple", "在空当完全出现前读懂下一阶段", "提前调整位置，让困难处理看起来简单");
+  }
+  if (/versatil|depth|cover|upside|mobility|range/.test(value)) {
+    return insight("the flexibility to fill different roles without breaking the team's shape", "changes position while keeping his priorities simple", "在多个角色之间切换时仍保持球队结构", "改变起始位置，但始终坚持清晰简单的处理原则");
+  }
+  if (/power|strength|physical/.test(value)) {
+    return insight("using strength without slowing the next action", "absorbs contact and keeps the ball close enough to continue forward", "在对抗中用力量但不拖慢下一步", "承受身体接触后仍把球留在可继续推进的位置");
+  }
+
+  if (group === "goalkeeper") return insight("staying balanced until the shot reveals its direction", "keeps his feet active and makes the save with the fewest movements", "在射门方向明确前保持身体平衡", "保持脚下轻快，用最少动作完成扑救");
+  if (group === "defender") return insight("making the safer decision before a duel becomes an emergency", "protects the route to goal and challenges only when the touch is loose", "在对抗变成险情前做出更安全的选择", "先封住通向球门的路线，再等待对手触球失误时上抢");
+  if (group === "midfielder") return insight("creating a better angle for the next pass", "moves after releasing the ball so the receiver still has support", "为下一脚传球制造更好的角度", "出球后继续移动，让接球队友始终有支援");
+  return insight("making purposeful movement away from the ball", "changes his position early enough to give the passer a clear target", "用有目的的无球移动创造接应点", "提前改变位置，为传球队友提供清晰目标");
 }
 
 function defaultActions(group) {
@@ -525,51 +582,38 @@ function actionsOverlap(left, right) {
   return shared.length >= 2 && shared.length / Math.min(leftTokens.length, rightTokens.length) >= 0.6;
 }
 
-function observableActions(profile, fact) {
+function playerInsights(profile, fact) {
   const group = roleGroup(profile, fact);
-  const skills = Array.isArray(profile.skills) ? profile.skills : [];
-  const actions = [];
+  const skills = nextSkills(profile, fact);
+  const insights = [];
   for (const skill of [...skills, ...roleSkills(profile, fact)]) {
-    const action = actionForSkill(skill, group);
-    if (action && !actions.some((existing) => actionsOverlap(existing, action))) actions.push(action);
-    if (actions.length === 2) break;
+    const insight = skillInsight(skill, group);
+    if (insights.length && insights.some((existing) => actionsOverlap(existing.action, insight.action))) continue;
+    insights.push(insight);
+    if (insights.length === 3) break;
   }
-  for (const action of defaultActions(group)) {
-    if (!actions.some((existing) => actionsOverlap(existing, action))) actions.push(action);
-    if (actions.length === 2) break;
-  }
-  return actions;
+  return insights;
 }
 
-function actionSentence(profile, fact) {
-  const [first, second] = observableActions(profile, fact);
-  return `He ${first}. He also ${second}.`;
+function stableVariant(value, count) {
+  let hash = 0;
+  for (const char of String(value || "")) hash = (hash * 31 + char.codePointAt(0)) >>> 0;
+  return count ? hash % count : 0;
 }
 
-function englishNote(profileName, profile, fact, teamsById) {
+function englishNote(profileName, profile, fact) {
   const name = shortName(profileName, profile);
-  const team = fact.teamName;
-  const goals = fact.goals || [];
-  const assists = fact.assists || [];
-  const goalOpponents = opponentNames(goals, teamsById);
-  const assistOpponents = opponentNames(assists, teamsById);
-  let evidence;
-
-  if (goals.length && assists.length) {
-    evidence = `${name} has ${goals.length} ${goals.length === 1 ? "goal" : "goals"} and ${assists.length} ${assists.length === 1 ? "assist" : "assists"} for ${team} at this World Cup.`;
-  } else if (goals.length === 1) {
-    evidence = `${name} scored against ${goalOpponents[0] || "their opponent"} for ${team} at this World Cup.`;
-  } else if (goals.length > 1) {
-    evidence = `${name} has scored ${goals.length} goals for ${team} at this World Cup, against ${listNames(goalOpponents)}.`;
-  } else if (assists.length === 1) {
-    evidence = `${name} has one assist for ${team} at this World Cup${assistOpponents[0] ? `, against ${assistOpponents[0]}` : ""}.`;
-  } else if (assists.length > 1) {
-    evidence = `${name} has ${assists.length} assists for ${team} at this World Cup, against ${listNames(assistOpponents)}.`;
-  } else {
-    evidence = `${name} is ${positionWithArticle(profile, fact)} for ${team}.`;
-  }
-
-  return `${evidence} ${actionSentence(profile, fact)}`;
+  const [primary, second, third] = playerInsights(profile, fact);
+  const actionOne = second?.action || defaultActions(roleGroup(profile, fact))[0];
+  const actionTwo = third?.action || defaultActions(roleGroup(profile, fact))[1];
+  const variants = [
+    `${name} stands out for ${primary.quality}. He ${actionOne}. He ${actionTwo}.`,
+    `${name}'s signature is ${primary.quality}. He ${actionOne}. He ${actionTwo}.`,
+    `Watch ${name} for ${primary.quality}. He ${actionOne}. He ${actionTwo}.`,
+    `${name}'s edge is ${primary.quality}. He ${actionOne}. He ${actionTwo}.`,
+    `${name} is defined by ${primary.quality}. He ${actionOne}. He ${actionTwo}.`
+  ];
+  return variants[stableVariant(profileName, variants.length)];
 }
 
 function positionLabelZh(profile, fact) {
@@ -659,36 +703,20 @@ function observableActionsZh(profile, fact) {
   return actions;
 }
 
-function chineseNote(profileName, profile, fact, teamsById) {
-  const team = teamNameZh(fact.teamId, fact.teamName);
-  const goals = fact.goals || [];
-  const assists = fact.assists || [];
-  const goalOpponents = [...new Set(goals.map((item) => item.opponentId).filter(Boolean))]
-    .map((teamId) => teamNameZh(teamId, teamsById.get(teamId)?.name));
-  const assistOpponents = [...new Set(assists.map((item) => item.opponentId).filter(Boolean))]
-    .map((teamId) => teamNameZh(teamId, teamsById.get(teamId)?.name));
-  const [firstAction, secondAction] = observableActionsZh(profile, fact);
-  let evidence;
-
-  if (goals.length && assists.length) {
-    evidence = `他在本届世界杯为${team}打进${goals.length}球，并送出${assists.length}次助攻。`;
-  } else if (goals.length === 1) {
-    evidence = goalOpponents[0]
-      ? `他在本届世界杯对${goalOpponents[0]}的比赛中为${team}打进一球。`
-      : `他在本届世界杯为${team}打进一球。`;
-  } else if (goals.length > 1) {
-    evidence = `他在本届世界杯为${team}打进${goals.length}球。`;
-  } else if (assists.length === 1) {
-    evidence = assistOpponents[0]
-      ? `他在本届世界杯对${assistOpponents[0]}的比赛中为${team}送出一次助攻。`
-      : `他在本届世界杯为${team}送出一次助攻。`;
-  } else if (assists.length > 1) {
-    evidence = `他在本届世界杯为${team}送出${assists.length}次助攻。`;
-  } else {
-    evidence = `他在${team}司职${positionLabelZh(profile, fact)}。`;
-  }
-
-  return `${evidence}比赛中，他${firstAction}，也${secondAction}。`;
+function chineseNote(profileName, profile, fact) {
+  const [primary, second, third] = playerInsights(profile, fact);
+  const group = roleGroup(profile, fact);
+  const fallbacks = defaultActionsZh(group);
+  const actionOne = second?.actionZh || fallbacks[0];
+  const actionTwo = third?.actionZh || fallbacks[1];
+  const variants = [
+    `他的突出特点是${primary.qualityZh}。他会${actionOne}。他也会${actionTwo}。`,
+    `他的比赛方式建立在${primary.qualityZh}上。他会${actionOne}。他也会${actionTwo}。`,
+    `要看懂他的作用，关键是${primary.qualityZh}。留意他如何${actionOne}。他也会${actionTwo}。`,
+    `他最特别的地方是${primary.qualityZh}。他会${actionOne}。他也会${actionTwo}。`,
+    `他靠${primary.qualityZh}与同位置球员拉开差异。他会${actionOne}。他也会${actionTwo}。`
+  ];
+  return variants[stableVariant(profileName, variants.length)];
 }
 
 function targetTeams(teamsData) {
@@ -736,9 +764,13 @@ for (const teamId of teams) {
     const fact = facts.get(getUsageKey(teamId, profileName));
     if (!fact) continue;
 
-    const note = zhOnly ? profile.note : englishNote(profileName, profile, fact, teamsById);
-    const noteZh = chineseNote(profileName, profile, fact, teamsById);
-    const skills = zhOnly ? profile.skills : nextSkills(profile, fact);
+    const overrideProfile = overrideData?.profiles?.[profileName];
+    const copyProfile = Array.isArray(overrideProfile?.skills) && overrideProfile.skills.length
+      ? { ...profile, skills: overrideProfile.skills }
+      : profile;
+    const note = zhOnly ? profile.note : englishNote(profileName, copyProfile, fact);
+    const noteZh = chineseNote(profileName, copyProfile, fact);
+    const skills = zhOnly ? profile.skills : nextSkills(copyProfile, fact);
     if (!zhOnly) {
       profile.note = note;
       profile.skills = skills;

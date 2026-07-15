@@ -4,146 +4,250 @@
   "teamName": "France",
   "profiles": {
     "Adrien Rabiot": {
-      "skills": ["Left-side balance", "Late midfield runs", "Aerial support"],
-      "note": "Rabiot has been France's quiet balance in midfield. He keeps the left side sturdy, then sneaks forward late enough to become the extra runner.",
-      "noteZh": "拉比奥是法国中场安静的平衡点。他让左侧更稳，也会在合适的时机后插上，成为多出来的接应点。"
+      "skills": [
+        "Left-side balance",
+        "Late midfield runs",
+        "Aerial support"
+      ],
+      "note": "Watch Rabiot for creating a better angle for the next pass. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
+      "noteZh": "要看懂他的作用，关键是为下一脚传球制造更好的角度。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Aurelien Tchouameni": {
       "displayName": "Aurélien Tchouaméni",
-      "skills": ["Midfield screening", "Long passing", "Duel control"],
-      "note": "Tchouameni anchors France when the game starts stretching. He wins the first duel and can turn it into the longer pass that sends the forwards running.",
-      "noteZh": "楚阿梅尼在比赛被拉开时稳住法国中场。他先赢下第一下对抗，再用更长的传球把前锋送出去。"
+      "skills": [
+        "Midfield screening",
+        "Long passing",
+        "Duel control"
+      ],
+      "note": "Tchouaméni's edge is protecting the most dangerous space before stepping to the ball. He plays through nearby pressure instead of around it. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会穿过最近一层逼抢，而不总是绕开压力。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "Bradley Barcola": {
-      "skills": ["Left-side burst", "One-on-one running", "Pulled-back passes"],
-      "note": "Barcola keeps giving France width on the left. He can beat the full-back, reach the end line, and pull the ball back for a runner.",
-      "noteZh": "巴尔科拉不断给法国左路拉开宽度。他能过掉边后卫，冲到底线附近，再把球回传给跟进的队友。"
+      "skills": [
+        "Left-side burst",
+        "One-on-one running",
+        "Pulled-back passes"
+      ],
+      "note": "Barcola stands out for explosive speed once open grass appears. He changes his position early enough to give the passer a clear target. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的突出特点是看到空当后的爆发速度。他会提前改变位置，为传球队友提供清晰目标。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Brice Samba": {
-      "skills": ["Goalkeeper command", "Reaction saves", "Box bravery"],
-      "note": "Samba is the experienced keeper France can turn to if Maignan is unavailable. His card is about command, reach, and comfort in traffic.",
-      "noteZh": "如果迈尼昂无法出场，桑巴是法国可以依靠的经验门将。他的看点是指挥、覆盖范围，以及在人群中处理球的稳定。"
+      "skills": [
+        "Goalkeeper command",
+        "Reaction saves",
+        "Box bravery"
+      ],
+      "note": "Samba is defined by organizing teammates before danger becomes obvious. He sets his feet before the shot and reacts without an extra step. He keeps his feet active and makes the save with the fewest movements.",
+      "noteZh": "他靠在危险出现前组织好队友与同位置球员拉开差异。他会在射门前站稳脚步，再用最少动作完成扑救。他也会保持脚下轻快，用最少动作完成扑救。"
     },
     "Dayot Upamecano": {
-      "skills": ["Front-foot duels", "Recovery speed", "Centre-back carrying"],
-      "note": "Upamecano lets France defend with space behind them. He steps into duels early, then has the speed to recover if the first challenge does not finish the play.",
-      "noteZh": "于帕梅卡诺让法国敢在身后留出空间。他会提前上抢，如果第一下没有解决问题，也有速度回追。"
+      "skills": [
+        "Front-foot duels",
+        "Recovery speed",
+        "Centre-back carrying"
+      ],
+      "note": "Watch Upamecano for choosing the moment of contact instead of diving in. He turns early and closes the runner before the box. He protects the route to goal and challenges only when the touch is loose.",
+      "noteZh": "要看懂他的作用，关键是选择身体接触时机，而不是贸然上抢。留意他如何提前转身，在对手进入禁区前缩短距离。他也会先封住通向球门的路线，再等待对手触球失误时上抢。"
     },
     "Desire Doue": {
       "displayName": "Désiré Doué",
-      "skills": ["Rhythm change", "Tight-space touch", "Two-footed invention"],
-      "note": "Doue is the young attacker France use to change the rhythm on the left. He receives in tight pockets and tries the touch that makes a defender turn.",
-      "noteZh": "杜埃是法国用来改变左路节奏的年轻攻击手。他能在狭小区域接球，并用第一下触球迫使防守者转身。"
+      "skills": [
+        "Rhythm change",
+        "Tight-space touch",
+        "Two-footed invention"
+      ],
+      "note": "Watch Doué for keeping the ball calm when pressure arrives. He draws the first challenge, then carries through the gap. He draws a defender in and releases the runner behind him.",
+      "noteZh": "要看懂他的作用，关键是压力到来时仍能让球保持稳定。留意他如何主动吸引第一次上抢，再带球穿过由此出现的空当。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
     },
     "Ibrahima Konate": {
       "displayName": "Ibrahima Konaté",
-      "skills": ["Physical centre-back defending", "Aerial power", "Recovery speed"],
-      "note": "Konate is the centre-back France can add when the match becomes about crosses, contact, and protecting a lead.",
-      "noteZh": "当比赛变成传中、身体对抗和守住领先时，科纳特是法国可以换上的中卫。"
+      "skills": [
+        "Physical centre-back defending",
+        "Aerial power",
+        "Recovery speed"
+      ],
+      "note": "Konaté stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He turns early and closes the runner before the box.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会提前转身，在对手进入禁区前缩短距离。"
     },
     "Jean-Philippe Mateta": {
-      "skills": ["Target-forward play", "Penalty-box finishing", "Hold-up strength"],
-      "note": "Mateta is France's late-game target. If the match gets direct, he gives Mbappe a rest and gives crosses a bigger body to find.",
-      "noteZh": "马特塔是法国比赛后段的支点。如果比赛变得更直接，他能让姆巴佩休息，也让传中有更强壮的目标。"
+      "skills": [
+        "Target-forward play",
+        "Penalty-box finishing",
+        "Hold-up strength"
+      ],
+      "note": "Watch Mateta for making purposeful movement away from the ball. He shifts onto his stronger foot and shoots with little backlift. He protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "要看懂他的作用，关键是用有目的的无球移动创造接应点。留意他如何把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会用身体护住球，再把球送回跑动队友的线路。"
     },
     "Jules Kounde": {
       "displayName": "Jules Koundé",
-      "skills": ["Right-side control", "Centre-back instincts", "One-on-one defending"],
-      "note": "Kounde is the quiet lock on France's right side. He holds the flank steady so the front four can take more risks ahead of him.",
-      "noteZh": "孔德是法国右侧安静的锁。他把边路守稳，让身前的四名攻击手可以承担更多风险。"
+      "skills": [
+        "Right-side control",
+        "Centre-back instincts",
+        "One-on-one defending"
+      ],
+      "note": "Watch Koundé for keeping the ball calm when pressure arrives. He protects the route to goal and challenges only when the touch is loose. He holds the route into the box until support arrives.",
+      "noteZh": "要看懂他的作用，关键是压力到来时仍能让球保持稳定。留意他如何先封住通向球门的路线，再等待对手触球失误时上抢。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Kylian Mbappe": {
       "displayName": "Kylian Mbappé",
-      "skills": ["Elite pace", "Left-channel finishing", "Transition terror"],
-      "note": "Mbappe is still France's game breaker, but this tournament has also been about how quickly others find him. If he receives facing goal before the defense is set, the whole back line starts retreating.",
-      "noteZh": "姆巴佩依然是法国打破比赛的人，但这届世界杯也在考验队友多快能找到他。如果他在防线站稳前面对球门接球，整条后防线都会开始后退。"
+      "skills": [
+        "Elite pace",
+        "Left-channel finishing",
+        "Transition terror"
+      ],
+      "note": "Mbappé's signature is explosive speed once open grass appears. Near goal, he shifts onto his stronger foot and shoots with little backlift. When defenders crowd him, he looks for the next pass instead of forcing a shot.",
+      "noteZh": "他的比赛方式建立在看到空当后的爆发速度上。接近球门时，他会把球调整到惯用脚，用很小的摆腿迅速完成射门。面对多人包夹时，他会寻找下一脚传球，而不是勉强射门。"
     },
     "Lucas Digne": {
-      "skills": ["Early service", "Set-piece delivery", "Steady defending"],
-      "note": "Digne has become France's steadier left-back choice in the knockout run. He offers early service and calmer defending while Hernandez waits as the power option.",
-      "noteZh": "迪涅在淘汰赛阶段成了法国更稳的左后卫选择。他提供早传和更冷静的防守，而埃尔南德斯保留着力量型选择。"
+      "skills": [
+        "Early service",
+        "Set-piece delivery",
+        "Steady defending"
+      ],
+      "note": "Digne is defined by delivering the ball without needing much space. He varies the height and pace of his delivery. He holds the route into the box until support arrives.",
+      "noteZh": "他靠在很小空间里也能送出传中的能力与同位置球员拉开差异。他会通过改变落点和球速寻找防线最薄弱的区域。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Lucas Hernandez": {
       "displayName": "Lucas Hernández",
-      "skills": ["Left-sided defending", "Centre-back cover", "Aggressive duels"],
-      "note": "Lucas Hernandez is the harder defensive version on the left. France can use him when the flank needs bite more than extra attacking runs.",
-      "noteZh": "卢卡斯·埃尔南德斯是左侧更强硬的防守版本。当边路更需要硬度而不是更多前插时，法国可以使用他。"
+      "skills": [
+        "Left-sided defending",
+        "Centre-back cover",
+        "Aggressive duels"
+      ],
+      "note": "Hernández's edge is protecting the most dangerous space before stepping to the ball. He waits for a loose touch and then steps through the ball. He turns early and protects the route toward goal.",
+      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会等对手触球稍大后再连人带球一起压上。他也会提前转身，优先封住通向球门的路线。"
     },
     "Maghnes Akliouche": {
       "displayName": "Maghnes Akliouche",
-      "skills": ["Late attacking craft", "Close control", "Chance passes"],
-      "note": "Akliouche is a late attacking craft option for France. His appeal is the small touch near the box that turns a safe possession spell into a chance.",
-      "noteZh": "阿克利乌什是法国比赛后段的细腻进攻选择。他的价值在于禁区附近的小触球，能把安全控球变成机会。"
+      "skills": [
+        "Late attacking craft",
+        "Close control",
+        "Chance passes"
+      ],
+      "note": "Akliouche stands out for creating a better angle for the next pass. He draws the first challenge, then carries through the gap. He draws a defender in and releases the runner behind him.",
+      "noteZh": "他的突出特点是为下一脚传球制造更好的角度。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
     },
     "Malo Gusto": {
-      "skills": ["Fresh-leg overlaps", "Right-back speed", "Recovery defending"],
-      "note": "Gusto is the right-back France use when Kounde's side needs fresh legs. He can push high, then still sprint back into the wide duel.",
-      "noteZh": "当孔德这一侧需要新鲜体能时，古斯托是法国的右后卫选择。他能压上，也能再冲刺回到边路对抗。"
+      "skills": [
+        "Fresh-leg overlaps",
+        "Right-back speed",
+        "Recovery defending"
+      ],
+      "note": "Gusto stands out for choosing the moment to join an attack from deep. He turns early and closes the runner before the box. He turns early and protects the route toward goal.",
+      "noteZh": "他的突出特点是从后场加入进攻的启动时机。他会提前转身，在对手进入禁区前缩短距离。他也会提前转身，优先封住通向球门的路线。"
     },
     "Manu Kone": {
       "displayName": "Manu Koné",
-      "skills": ["Ball-carrying power", "Midfield duels", "Press escape"],
-      "note": "Kone has become one of France's legs in midfield. He carries through contact and helps the press start again after the ball is lost.",
-      "noteZh": "科内已经成为法国中场的跑动腿。他能带球穿过对抗，也能在丢球后帮助球队再次压迫。"
+      "skills": [
+        "Ball-carrying power",
+        "Midfield duels",
+        "Press escape"
+      ],
+      "note": "Koné stands out for using strength without slowing the next action. He waits for a loose touch and then steps through the ball. He angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "他的突出特点是在对抗中用力量但不拖慢下一步。他会等对手触球稍大后再连人带球一起压上。他也会接近持球人时调整路线，同时封住最简单的传球。"
     },
     "Marcus Thuram": {
-      "skills": ["Forward channel runs", "Hold-up play", "Wide-to-central movement"],
-      "note": "Thuram gives France a forward who can drift wide without leaving the box empty. He is a late-game way to add running power around Mbappe.",
-      "noteZh": "图拉姆让法国拥有一个能拉边但不让禁区空掉的前锋。他是比赛后段在姆巴佩身边增加跑动冲击的选择。"
+      "skills": [
+        "Forward channel runs",
+        "Hold-up play",
+        "Wide-to-central movement"
+      ],
+      "note": "Thuram is defined by starting his run while defenders are still watching the ball. He protects the ball with his body and returns it into a runner's path. He changes pace after the defender has committed his feet.",
+      "noteZh": "他靠在防守者仍盯着球时提前启动与同位置球员拉开差异。他会用身体护住球，再把球送回跑动队友的线路。他也会等防守者脚步固定后突然变速。"
     },
     "Maxence Lacroix": {
-      "skills": ["Recovery speed", "Centre-back range", "Aerial defending"],
-      "note": "Lacroix is France's pace cover at centre-back. He is there for games where the defensive line has to live high and still survive the ball over the top.",
-      "noteZh": "拉克鲁瓦是法国中卫位置的速度保险。当防线必须站得很高，还要防住身后球时，他就有价值。"
+      "skills": [
+        "Recovery speed",
+        "Centre-back range",
+        "Aerial defending"
+      ],
+      "note": "Lacroix stands out for recovery speed when the defensive line is exposed. He plays through nearby pressure instead of around it. He meets the ball early instead of waiting underneath it.",
+      "noteZh": "他的突出特点是防线暴露后的回追速度。他会穿过最近一层逼抢，而不总是绕开压力。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
     },
     "Michael Olise": {
-      "skills": ["Line-breaking passes", "Attacking link", "Set-piece quality"],
-      "note": "Olise has become France's pass before the panic. He receives between midfield and attack, then waits just long enough for Mbappe or Barcola to run.",
-      "noteZh": "奥利塞已经成了法国制造慌乱前的那脚传球。他在中场和锋线之间接球，然后等到姆巴佩或巴尔科拉跑出时机再出球。"
+      "skills": [
+        "Line-breaking passes",
+        "Attacking link",
+        "Set-piece quality"
+      ],
+      "note": "Olise's edge is moving the defense with the weight and angle of his passing. He changes his position early enough to give the passer a clear target. He varies the height and pace of his delivery.",
+      "noteZh": "他最特别的地方是用传球的力度和角度移动防线。他会提前改变位置，为传球队友提供清晰目标。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Mike Maignan": {
-      "skills": ["Elite goalkeeping", "Sweeper command", "Long distribution"],
-      "note": "Maignan is the calm base behind France's high line. His range and distribution let the defenders play forward without every turnover feeling like an emergency.",
-      "noteZh": "迈尼昂是法国高位防线身后的冷静底座。他的覆盖范围和出球能力，让后卫敢向前踢，而不是每次丢球都像警报。"
+      "skills": [
+        "Elite goalkeeping",
+        "Sweeper command",
+        "Long distribution"
+      ],
+      "note": "Maignan is defined by staying balanced until the shot reveals its direction. He leaves his line early when a through ball escapes the back line. He chooses the simple restart before pressure can close in.",
+      "noteZh": "他靠在射门方向明确前保持身体平衡与同位置球员拉开差异。他会直塞球越过后防时及时出击。他也会在逼抢靠近前选择最稳妥的出球方式。"
     },
     "Ngolo Kante": {
       "displayName": "N'Golo Kanté",
-      "skills": ["Counter stopping", "Midfield anticipation", "Ball winning"],
-      "note": "Kante is the emergency brake France can still call on in midfield. Even now, his best trait is seeing the counter before it looks like one.",
-      "noteZh": "坎特依然是法国中场可以启用的紧急刹车。即使现在，他最强的特质仍是能在反击成形前就看见危险。"
+      "skills": [
+        "Counter stopping",
+        "Midfield anticipation",
+        "Ball winning"
+      ],
+      "note": "Kanté stands out for creating a better angle for the next pass. He waits for a loose touch and then steps through the ball. He holds the passing lane into midfield until support arrives.",
+      "noteZh": "他的突出特点是为下一脚传球制造更好的角度。他会等对手触球稍大后再连人带球一起压上。他也会守住通向中场核心区域的传球线路，直到队友能对持球人施压。"
     },
     "Ousmane Dembele": {
       "displayName": "Ousmane Dembélé",
-      "skills": ["Two-footed shooting", "Right-side dribbling", "Chance creation"],
-      "note": "Dembele has been France's chaos button on the right. He can shoot with either foot, and Norway found out how quickly one good spell can become a hat trick.",
-      "noteZh": "登贝莱是法国右侧的混乱按钮。他左右脚都能射门，挪威已经见识到一段好状态能多快变成帽子戏法。"
+      "skills": [
+        "Two-footed shooting",
+        "Right-side dribbling",
+        "Chance creation"
+      ],
+      "note": "Dembélé is defined by creating a clean shot before the defense can reset. He draws the first challenge, then carries through the gap. He draws a defender in and releases the runner behind him.",
+      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
     },
     "Rayan Cherki": {
-      "skills": ["Improvised creation", "Final pass", "Tight-space dribbling"],
-      "note": "Cherki is the bench player for strange endings. When the shape loosens, he wants the ball at his feet and the pass nobody else is brave enough to try.",
-      "noteZh": "谢尔基是法国应对奇怪收尾阶段的替补。当阵型开始松动时，他想要球在脚下，也敢传别人不敢尝试的球。"
+      "skills": [
+        "Improvised creation",
+        "Final pass",
+        "Tight-space dribbling"
+      ],
+      "note": "Watch Cherki for seeing the decisive pass one beat before it opens. He draws the first challenge, then carries through the gap. He opens his body on the first touch so he can play forward.",
+      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何主动吸引第一次上抢，再带球穿过由此出现的空当。他也会第一脚触球时打开身体，准备向前处理。"
     },
     "Robin Risser": {
-      "skills": ["Goalkeeper upside", "Shot stopping", "Penalty-area confidence"],
-      "note": "Risser is France's developmental goalkeeper in this squad. The card matters mostly as depth behind Maignan and Samba, not as a likely match story yet.",
-      "noteZh": "里塞尔是法国这支名单里的培养型门将。他目前更像迈尼昂和桑巴身后的深度，而不是马上会成为比赛主线的人。"
+      "skills": [
+        "Goalkeeper upside",
+        "Shot stopping",
+        "Penalty-area confidence"
+      ],
+      "note": "Risser is defined by the flexibility to fill different roles without breaking the team's shape. He sets his feet before the shot and reacts without an extra step. He keeps his feet active and makes the save with the fewest movements.",
+      "noteZh": "他靠在多个角色之间切换时仍保持球队结构与同位置球员拉开差异。他会在射门前站稳脚步，再用最少动作完成扑救。他也会保持脚下轻快，用最少动作完成扑救。"
     },
     "Theo Hernandez": {
       "displayName": "Théo Hernandez",
-      "skills": ["Left-back surges", "Power carries", "Back-post attacks"],
-      "note": "Theo Hernandez is the left-back who changes the speed of France's attack. One regain can become a carry that drags the whole team upfield.",
-      "noteZh": "特奥·埃尔南德斯是能改变法国进攻速度的左后卫。一次夺回球权，就可能变成把全队带上去的推进。"
+      "skills": [
+        "Left-back surges",
+        "Power carries",
+        "Back-post attacks"
+      ],
+      "note": "Watch Hernandez for making the safer decision before a duel becomes an emergency. He absorbs contact and keeps the ball close enough to continue forward. He checks the runner over his shoulder before the final pass arrives.",
+      "noteZh": "要看懂他的作用，关键是在对抗变成险情前做出更安全的选择。留意他如何承受身体接触后仍把球留在可继续推进的位置。他也会最后一传到来前回头确认跑动者的位置。"
     },
     "Warren Zaire-Emery": {
       "displayName": "Warren Zaïre-Emery",
-      "skills": ["Midfield circulation", "Pressing after loss", "Calm progression"],
-      "note": "Zaire-Emery is the midfield reset option if France need fresher legs and cleaner circulation. His value is keeping attacks moving without making the game louder.",
-      "noteZh": "如果法国需要更新鲜的体能和更干净的中场流转，扎伊尔-埃梅里是重置选择。他的价值是让进攻继续运转，而不把比赛变得更吵。"
+      "skills": [
+        "Midfield circulation",
+        "Pressing after loss",
+        "Calm progression"
+      ],
+      "note": "Zaïre-Emery stands out for keeping the ball calm when pressure arrives. He angles his run to block the easy pass as he closes the ball. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的突出特点是压力到来时仍能让球保持稳定。他会接近持球人时调整路线，同时封住最简单的传球。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "William Saliba": {
-      "skills": ["Elite centre-back calm", "Recovery defending", "Duel control"],
-      "note": "Saliba is the calm that lets France play with so much attacking talent ahead of him. He wins duels without making the whole defense look hurried.",
-      "noteZh": "萨利巴的冷静让法国敢在身前摆出那么多进攻天才。他能赢下对抗，而不让整条防线显得慌张。"
+      "skills": [
+        "Elite centre-back calm",
+        "Recovery defending",
+        "Duel control"
+      ],
+      "note": "Saliba's edge is keeping the ball calm when pressure arrives. He turns early and protects the route toward goal. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他最特别的地方是压力到来时仍能让球保持稳定。他会提前转身，优先封住通向球门的路线。他也会等对手触球稍大后再连人带球一起压上。"
     }
   }
 }

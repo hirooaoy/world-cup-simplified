@@ -27299,6 +27299,9 @@ function attachPlayerCardPositioning(root) {
     (event) => {
       const lineupEventBadge = getLineupEventBadge(event.target);
       if (lineupEventBadge) {
+        if (isTouchTooltipPointerEvent(event)) {
+          return;
+        }
         queueFloatingLineupEventTooltipHide();
         return;
       }

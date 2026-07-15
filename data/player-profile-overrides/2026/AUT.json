@@ -69,8 +69,8 @@
         "Wide cover",
         "Late runs"
       ],
-      "note": "Schöpf is midfield insurance for Austria. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
-      "noteZh": "他给Austria一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+      "note": "Schöpf is defined by pressing with a clear target rather than simply chasing. He holds the passing lane into midfield until support arrives. He moves through the gap between full-back and centre-back.",
+      "noteZh": "他靠带着明确目标逼抢，而不是只追着球跑与同位置球员拉开差异。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会从边后卫与中后卫之间的空当穿过。"
     },
     "Alexander Prass": {
       "skills": [
@@ -78,8 +78,8 @@
         "Progressive carries",
         "Crossing"
       ],
-      "note": "Prass is defensive cover for Austria's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Austria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+      "note": "Prass is defined by pressing with a clear target rather than simply chasing. He draws the first challenge, then carries through the gap. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他靠带着明确目标逼抢，而不是只追着球跑与同位置球员拉开差异。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会传中前先观察，再把球送向具体跑动者。"
     },
     "Alexander Schlager": {
       "skills": [
@@ -87,8 +87,8 @@
         "Box control",
         "Distribution"
       ],
-      "note": "Schlager has carried the keeper minutes for Austria. The card is clean hands, clear restarts, and defenders who do not have to rush.",
-      "noteZh": "他是Austria防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
+      "note": "Schlager's edge is sharp reactions backed by early positioning. He uses his first touch to escape pressure before choosing the pass. He chooses the simple restart before pressure can close in.",
+      "noteZh": "他最特别的地方是提前站位后的快速反应。他会第一脚触球先摆脱压力，再选择传球方向。他也会在逼抢靠近前选择最稳妥的出球方式。"
     },
     "Carney Chukwuemeka": {
       "skills": [
@@ -96,8 +96,8 @@
         "Midfield power",
         "Box entries"
       ],
-      "note": "Chukwuemeka gives Austria midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Austria来说，这可能就是压力到来前的一次干净触球。"
+      "note": "Chukwuemeka's signature is changing direction without losing control of the ball. He absorbs contact and keeps the ball close enough to continue forward. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的比赛方式建立在变向时仍把球控制在脚下上。他会承受身体接触后仍把球留在可继续推进的位置。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "David Affengruber": {
       "transfermarktPlayerCode": "david-affengruber",
@@ -107,8 +107,8 @@
         "Aerial duels",
         "Box clearances"
       ],
-      "note": "Affengruber gives Austria cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Austria后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Affengruber's signature is protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他的比赛方式建立在先保护最危险空间，再考虑上抢上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "David Alaba": {
       "skills": [
@@ -116,8 +116,8 @@
         "Defensive leadership",
         "Left-footed passing"
       ],
-      "note": "Alaba has supplied one of Austria's tournament goals. The pass matters because it arrives before the defender can fully turn.",
-      "noteZh": "他这届世界杯已经为Austria创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
+      "note": "Alaba's signature is seeing the decisive pass one beat before it opens. He keeps the line connected with constant small instructions. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的比赛方式建立在比防线早一步看到决定性的传球上。他会用持续而简短的提醒保持整条防线连接。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Dejan Ljubicic": {
       "displayName": "Dejan Ljubičić",
@@ -126,8 +126,8 @@
         "Right-side cover",
         "Short passing"
       ],
-      "note": "Ljubičić is there for the part of the game where spacing gets ugly. For Austria, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Austria提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+      "note": "Ljubičić stands out for pressing with a clear target rather than simply chasing. He holds the passing lane into midfield until support arrives. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他的突出特点是带着明确目标逼抢，而不是只追着球跑。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Florian Grillitsch": {
       "skills": [
@@ -135,8 +135,8 @@
         "Midfield screening",
         "Tempo control"
       ],
-      "note": "Grillitsch gives Austria a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Austria的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+      "note": "Watch Grillitsch for moving the defense with the weight and angle of his passing. He holds the passing lane into midfield until support arrives. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "要看懂他的作用，关键是用传球的力度和角度移动防线。留意他如何守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Florian Wiegele": {
       "skills": [
@@ -144,8 +144,8 @@
         "Reaction saves",
         "Penalty-area reach"
       ],
-      "note": "Wiegele is Austria's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
-      "noteZh": "他是Austria的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
+      "note": "Wiegele's signature is staying ready through long quiet spells. He sets his feet before the shot and reacts without an extra step. He judges when to leave his line and takes pressure off his defenders.",
+      "noteZh": "他的比赛方式建立在在长时间无事可做后依然保持专注上。他会在射门前站稳脚步，再用最少动作完成扑救。他也会判断何时出击，替后卫化解高球压力。"
     },
     "Kevin Danso": {
       "skills": [
@@ -153,8 +153,8 @@
         "Recovery defending",
         "Aerial power"
       ],
-      "note": "Danso gives Austria another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
-      "noteZh": "他给Austria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Danso stands out for using strength without slowing the next action. He turns early and protects the route toward goal. He meets the ball early instead of waiting underneath it.",
+      "noteZh": "他的突出特点是在对抗中用力量但不拖慢下一步。他会提前转身，优先封住通向球门的路线。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
     },
     "Konrad Laimer": {
       "skills": [
@@ -162,8 +162,8 @@
         "Pressing engine",
         "Ball winning"
       ],
-      "note": "Laimer has one tournament assist in the bank for Austria. The detail is the touch just before the obvious chance appears.",
-      "noteZh": "他已经帮Austria制造过进球。价值在于防线还在移动时，选对出球瞬间。"
+      "note": "Laimer is defined by seeing the decisive pass one beat before it opens. He angles his run to block the easy pass as he closes the ball. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他靠比防线早一步看到决定性的传球与同位置球员拉开差异。他会接近持球人时调整路线，同时封住最简单的传球。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "Marcel Sabitzer": {
       "skills": [
@@ -171,8 +171,8 @@
         "Long shooting",
         "Set pieces"
       ],
-      "note": "Sabitzer has already turned one tournament chance into a goal against Algeria. Watch whether defenders start giving him the extra step.",
-      "noteZh": "他已经为Austria进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
+      "note": "Sabitzer stands out for creating a clean shot before the defense can reset. He varies the height and pace of his delivery. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会通过改变落点和球速寻找防线最薄弱的区域。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "Marco Friedl": {
       "skills": [
@@ -180,8 +180,8 @@
         "Aerial cover",
         "Back-line passing"
       ],
-      "note": "Friedl is back-line insurance for Austria. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Austria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Watch Friedl for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
+      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Marko Arnautovic": {
       "displayName": "Marko Arnautović",
@@ -191,8 +191,8 @@
         "Hold-up play",
         "Box finishing"
       ],
-      "note": "Arnautović has already punished Jordan and Algeria for Austria. The watch point is how little room he needs once the chance is alive.",
-      "noteZh": "他已经多次为Austria把机会变成进球。看他需要的空间有多小。"
+      "note": "Arnautović is defined by creating a clean shot before the defense can reset. He protects the ball with his body and returns it into a runner's path. He arrives in the box late enough to be difficult to track.",
+      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会用身体护住球，再把球送回跑动队友的线路。他也会稍晚进入禁区，让盯防者难以持续跟住。"
     },
     "Michael Gregoritsch": {
       "skills": [
@@ -200,8 +200,8 @@
         "Aerial target",
         "Left-footed finishing"
       ],
-      "note": "Gregoritsch has already created a goal for Austria in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
-      "noteZh": "他已经参与了Austria的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
+      "note": "Watch Gregoritsch for seeing the decisive pass one beat before it opens. He pins a defender and creates room for the next runner. He shifts onto his left foot and shoots with little backlift.",
+      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何牵制一名后卫，为后插上的队友腾出空间。他也会把球调整到左脚，用很小的摆腿迅速完成射门。"
     },
     "Michael Svoboda": {
       "skills": [
@@ -209,8 +209,8 @@
         "Aerial defending",
         "Simple passing"
       ],
-      "note": "Svoboda is defensive cover for Austria's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Austria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+      "note": "Svoboda's signature is the flexibility to fill different roles without breaking the team's shape. He meets the ball early instead of waiting underneath it. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他的比赛方式建立在在多个角色之间切换时仍保持球队结构上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Nicolas Seiwald": {
       "skills": [
@@ -218,8 +218,8 @@
         "Press resistance",
         "Ball circulation"
       ],
-      "note": "Seiwald has been one of Austria's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
-      "noteZh": "他是Austria这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
+      "note": "Seiwald stands out for protecting the most dangerous space before stepping to the ball. He uses his first touch to escape pressure before choosing the pass. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会第一脚触球先摆脱压力，再选择传球方向。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "Patrick Pentz": {
       "skills": [
@@ -227,8 +227,8 @@
         "Goalkeeper command",
         "Quick restarts"
       ],
-      "note": "Pentz gives Austria a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
-      "noteZh": "他在Austria首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+      "note": "Pentz stands out for sharp reactions backed by early positioning. He keeps the line connected with constant small instructions. He chooses the simple restart before pressure can close in.",
+      "noteZh": "他的突出特点是提前站位后的快速反应。他会用持续而简短的提醒保持整条防线连接。他也会在逼抢靠近前选择最稳妥的出球方式。"
     },
     "Patrick Wimmer": {
       "transfermarktPlayerCode": "patrick-wimmer",
@@ -238,8 +238,8 @@
         "Pressing energy",
         "Pulled-back passes"
       ],
-      "note": "Wimmer is an attacking change-up for Austria. He gives the front line fresh running when the first plan starts to look predictable.",
-      "noteZh": "他是Austria的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+      "note": "Wimmer's signature is changing direction without losing control of the ball. He angles his run to block the easy pass as he closes the ball. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的比赛方式建立在变向时仍把球控制在脚下上。他会接近持球人时调整路线，同时封住最简单的传球。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Paul Wanner": {
       "skills": [
@@ -247,8 +247,8 @@
         "Left-footed passing",
         "Between-lines play"
       ],
-      "note": "Wanner is the midfield player Austria can use when possession needs a sharper touch near the box. He tries to make one small gap matter.",
-      "noteZh": "他给Austria一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+      "note": "Watch Wanner for receiving in tight spaces with his next action already planned. He plays through nearby pressure instead of around it. He draws a defender in and releases the runner behind him.",
+      "noteZh": "要看懂他的作用，关键是在狭小空间接球前就想好下一步。留意他如何穿过最近一层逼抢，而不总是绕开压力。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
     },
     "Philipp Lienhart": {
       "skills": [
@@ -256,8 +256,8 @@
         "Aerial defending",
         "Calm passing"
       ],
-      "note": "Lienhart is defensive rotation for Austria. The watch point is how early he closes the lane that looked open.",
-      "noteZh": "他是Austria后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Lienhart stands out for reading the next phase before the space fully opens. He meets the ball early instead of waiting underneath it. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他的突出特点是在空当完全出现前读懂下一阶段。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Phillip Mwene": {
       "skills": [
@@ -265,8 +265,8 @@
         "Wide recovery",
         "Overlap support"
       ],
-      "note": "Mwene gives Austria defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
-      "noteZh": "他给Austria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Mwene stands out for the flexibility to fill different roles without breaking the team's shape. He turns early and protects the route toward goal. He waits until the wide defender looks inside before running beyond him.",
+      "noteZh": "他的突出特点是在多个角色之间切换时仍保持球队结构。他会提前转身，优先封住通向球门的路线。他也会等边路防守者看向内侧后再从外线套上。"
     },
     "Romano Schmid": {
       "skills": [
@@ -274,8 +274,8 @@
         "Quick combinations",
         "Pressing support"
       ],
-      "note": "Schmid already has a World Cup goal in this run, against Jordan. His card is about finding the moment before the match settles again.",
-      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
+      "note": "Schmid's edge is creating a clean shot before the defense can reset. He protects the ball with his body and returns it into a runner's path. He angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会用身体护住球，再把球送回跑动队友的线路。他也会接近持球人时调整路线，同时封住最简单的传球。"
     },
     "Sasa Kalajdzic": {
       "displayName": "Saša Kalajdžić",
@@ -284,8 +284,8 @@
         "Aerial target",
         "Hold-up play"
       ],
-      "note": "Kalajdžić's World Cup has already included a goal against Algeria. The next one may come from the same small window before the shape resets.",
-      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
+      "note": "Kalajdžić stands out for creating a clean shot before the defense can reset. He pins a defender and creates room for the next runner. He protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会牵制一名后卫，为后插上的队友腾出空间。他也会用身体护住球，再把球送回跑动队友的线路。"
     },
     "Stefan Posch": {
       "skills": [
@@ -293,8 +293,8 @@
         "Centre-back cover",
         "Aerial duels"
       ],
-      "note": "Posch gives Austria one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
-      "noteZh": "他是Austria无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
+      "note": "Posch stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He turns early and protects the route toward goal.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会提前转身，优先封住通向球门的路线。"
     },
     "Xaver Schlager": {
       "skills": [
@@ -302,8 +302,8 @@
         "Ball winning",
         "Pressing range"
       ],
-      "note": "Schlager has supplied one of Austria's tournament goals. The pass matters because it arrives before the defender can fully turn.",
-      "noteZh": "他这届世界杯已经为Austria创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
+      "note": "Schlager is defined by seeing the decisive pass one beat before it opens. He waits for a loose touch and then steps through the ball. He angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "他靠比防线早一步看到决定性的传球与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会接近持球人时调整路线，同时封住最简单的传球。"
     }
   }
 }

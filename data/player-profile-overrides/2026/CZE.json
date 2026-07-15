@@ -9,8 +9,8 @@
         "Between-lines touch",
         "Shot creation"
       ],
-      "note": "Hložek gives Czechia midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Czechia来说，这可能就是压力到来前的一次干净触球。"
+      "note": "Hložek is defined by waiting for a defender's attention to shift before moving. He opens his body on the first touch so he can play forward. He draws a defender in and releases the runner behind him.",
+      "noteZh": "他靠等防守者注意力转移后再启动与同位置球员拉开差异。他会第一脚触球时打开身体，准备向前处理。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
     },
     "Alexandr Sojka": {
       "league": "Czech First League",
@@ -19,8 +19,8 @@
         "Central passing",
         "Press resistance"
       ],
-      "note": "Sojka has one tournament assist in the bank for Czechia. The detail is the touch just before the obvious chance appears.",
-      "noteZh": "他已经帮Czechia制造过进球。价值在于防线还在移动时，选对出球瞬间。"
+      "note": "Watch Sojka for seeing the decisive pass one beat before it opens. He plays through nearby pressure instead of around it. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何穿过最近一层逼抢，而不总是绕开压力。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "David Doudera": {
       "league": "Czech First League",
@@ -29,8 +29,8 @@
         "Early crossing",
         "Wing-back energy"
       ],
-      "note": "Douděra gives Czechia midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Czechia来说，这可能就是压力到来前的一次干净触球。"
+      "note": "Douděra is defined by creating a better angle for the next pass. He looks up before crossing and picks a runner rather than an empty area. He angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "他靠为下一脚传球制造更好的角度与同位置球员拉开差异。他会传中前先观察，再把球送向具体跑动者。他也会接近持球人时调整路线，同时封住最简单的传球。"
     },
     "David Jurasek": {
       "skills": [
@@ -38,8 +38,8 @@
         "Crossing range",
         "Recovery pace"
       ],
-      "note": "Jurásek is defensive cover for Czechia's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Czechia在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+      "note": "Jurásek is defined by making the safer decision before a duel becomes an emergency. He looks up before crossing and picks a runner rather than an empty area. He turns early and closes the runner before the box.",
+      "noteZh": "他靠在对抗变成险情前做出更安全的选择与同位置球员拉开差异。他会传中前先观察，再把球送向具体跑动者。他也会提前转身，在对手进入禁区前缩短距离。"
     },
     "David Zima": {
       "league": "Czech First League",
@@ -48,8 +48,8 @@
         "Aerial clearances",
         "Back-line passing"
       ],
-      "note": "Zima is defensive cover for Czechia's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Czechia在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+      "note": "Zima's signature is protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的比赛方式建立在先保护最危险空间，再考虑上抢上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Denis Visinsky": {
       "league": "Czech First League",
@@ -58,8 +58,8 @@
         "Quick combinations",
         "Bench creativity"
       ],
-      "note": "Višinský gives Czechia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Czechia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Watch Višinský for making purposeful movement away from the ball. He protects the ball with his body and returns it into a runner's path. He changes pace after the defender has committed his feet.",
+      "noteZh": "要看懂他的作用，关键是用有目的的无球移动创造接应点。留意他如何用身体护住球，再把球送回跑动队友的线路。他也会等防守者脚步固定后突然变速。"
     },
     "Hugo Sochurek": {
       "displayName": "Hugo Sochůrek",
@@ -77,8 +77,8 @@
         "Central passing",
         "Pressure escapes"
       ],
-      "note": "Sochůrek is there for the part of the game where spacing gets ugly. For Czechia, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Czechia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。",
+      "note": "Sochůrek stands out for keeping the ball calm when pressure arrives. He plays through nearby pressure instead of around it. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的突出特点是压力到来时仍能让球保持稳定。他会穿过最近一层逼抢，而不总是绕开压力。他也会出球后继续移动，让接球队友始终有支援。",
       "sourceUrl": "https://www.transfermarkt.co.uk/hugo-sochurek/profil/spieler/1206877"
     },
     "Jan Kuchta": {
@@ -88,8 +88,8 @@
         "Channel runs",
         "Penalty-box work"
       ],
-      "note": "Kuchta gives Czechia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Czechia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Watch Kuchta for pressing with a clear target rather than simply chasing. He moves through the gap between full-back and centre-back. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "要看懂他的作用，关键是带着明确目标逼抢，而不是只追着球跑。留意他如何从边后卫与中后卫之间的空当穿过。他也会提前改变位置，为传球队友提供清晰目标。"
     },
     "Jaroslav Zeleny": {
       "displayName": "Jaroslav Zelený",
@@ -107,8 +107,8 @@
         "Defensive balance",
         "Aerial duels"
       ],
-      "note": "Zelený gives Czechia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Czechia后防线的保险。卡片不华丽：赢球、稳传、重新站好。",
+      "note": "Zelený's edge is protecting the most dangerous space before stepping to the ball. He protects the route to goal and challenges only when the touch is loose. He meets the ball early instead of waiting underneath it.",
+      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会先封住通向球门的路线，再等待对手触球失误时上抢。他也会主动在最合适的高点迎球，而不是站在原地等球落下。",
       "sourceUrl": "https://www.transfermarkt.co.uk/jaroslav-zeleny/profil/spieler/142219"
     },
     "Jindrich Stanek": {
@@ -118,8 +118,8 @@
         "Box command",
         "Keeper communication"
       ],
-      "note": "Staněk gives Czechia a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
-      "noteZh": "他在Czechia首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+      "note": "Staněk stands out for sharp reactions backed by early positioning. He judges when to leave his line and takes pressure off his defenders. He keeps the line connected with constant small instructions.",
+      "noteZh": "他的突出特点是提前站位后的快速反应。他会判断何时出击，替后卫化解高球压力。他也会用持续而简短的提醒保持整条防线连接。"
     },
     "Ladislav Krejci": {
       "skills": [
@@ -127,8 +127,8 @@
         "Left-footed defending",
         "Set-piece threat"
       ],
-      "note": "Krejčí has already turned one tournament chance into a goal against South Korea. Watch whether defenders start giving him the extra step.",
-      "noteZh": "他已经为Czechia进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
+      "note": "Krejčí's edge is creating a clean shot before the defense can reset. He holds the route into the box until support arrives. He varies the height and pace of his delivery.",
+      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会守住进入禁区的路线，直到队友能对持球人施压。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Lukas Cerv": {
       "league": "Czech First League",
@@ -137,8 +137,8 @@
         "Forward passing",
         "Counter pressure"
       ],
-      "note": "Červ gives Czechia midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Czechia来说，这可能就是压力到来前的一次干净触球。"
+      "note": "Watch Červ for choosing the moment of contact instead of diving in. He plays through nearby pressure instead of around it. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "要看懂他的作用，关键是选择身体接触时机，而不是贸然上抢。留意他如何穿过最近一层逼抢，而不总是绕开压力。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "Lukas Hornicek": {
       "displayName": "Lukáš Horníček",
@@ -156,8 +156,8 @@
         "Young goalkeeper upside",
         "Quick reactions"
       ],
-      "note": "Horníček gives Czechia a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
-      "noteZh": "他在Czechia首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。",
+      "note": "Horníček's edge is sharp reactions backed by early positioning. He changes position while keeping his priorities simple. He judges when to leave his line and takes pressure off his defenders.",
+      "noteZh": "他最特别的地方是提前站位后的快速反应。他会改变起始位置，但始终坚持清晰简单的处理原则。他也会判断何时出击，替后卫化解高球压力。",
       "sourceUrl": "https://www.transfermarkt.co.uk/lukas-hornicek/profil/spieler/629773"
     },
     "Lukas Provod": {
@@ -166,8 +166,8 @@
         "Midfield width",
         "Late box runs"
       ],
-      "note": "Provod is attacking depth for Czechia. If the game slows down, he is there to make the back line move again.",
-      "noteZh": "他是Czechia前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+      "note": "Provod stands out for delivering the ball without needing much space. He changes his position early enough to give the passer a clear target. He changes pace after the defender has committed his feet.",
+      "noteZh": "他的突出特点是在很小空间里也能送出传中的能力。他会提前改变位置，为传球队友提供清晰目标。他也会等防守者脚步固定后突然变速。"
     },
     "Matej Kovar": {
       "skills": [
@@ -175,8 +175,8 @@
         "Short distribution",
         "Shot stopping"
       ],
-      "note": "Kovář gives Czechia the calmest first pass from the back. Watch how quickly he turns a save or claim into a reset.",
-      "noteZh": "他是Czechia这段征程中的门将。价值在于让禁区保持冷静，并让下一次进攻能干净开始。"
+      "note": "Kovář stands out for starting high enough to protect the space behind his defense. He chooses the simple restart before pressure can close in. He sets his feet before the shot and reacts without an extra step.",
+      "noteZh": "他的突出特点是用靠前站位保护后防身后空间。他会在逼抢靠近前选择最稳妥的出球方式。他也会在射门前站稳脚步，再用最少动作完成扑救。"
     },
     "Michal Sadilek": {
       "skills": [
@@ -184,8 +184,8 @@
         "Midfield balance",
         "Left-footed circulation"
       ],
-      "note": "Sadílek is on the scoresheet for Czechia, with his goal coming against South Africa. One finish can change how opponents defend the next run.",
-      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
+      "note": "Sadílek's edge is creating a clean shot before the defense can reset. He moves after releasing the ball so the receiver still has support. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会出球后继续移动，让接球队友始终有支援。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Mojmir Chytil": {
       "league": "Czech First League",
@@ -194,8 +194,8 @@
         "Aerial pressure",
         "Box finishing"
       ],
-      "note": "Chytil gives Czechia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Czechia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Watch Chytil for giving centre-backs a physical problem they cannot ignore. He meets the ball early instead of waiting underneath it. He shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "要看懂他的作用，关键是让中后卫无法忽视的身体支点作用。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
     },
     "Patrik Schick": {
       "skills": [
@@ -203,8 +203,8 @@
         "Left-footed shots",
         "Penalty-box timing"
       ],
-      "note": "Schick is one of Czechia's attacking paths this tournament. Watch how the first defender reacts when he receives facing goal.",
-      "noteZh": "他现在会出现在对手的赛前报告里。对Czechia来说，他的触球可以把协防从下一个跑动上拉走。"
+      "note": "Schick's edge is creating a clean shot before the defense can reset. He changes his position early enough to give the passer a clear target. He arrives in the box late enough to be difficult to track.",
+      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会提前改变位置，为传球队友提供清晰目标。他也会稍晚进入禁区，让盯防者难以持续跟住。"
     },
     "Pavel Sulc": {
       "skills": [
@@ -212,8 +212,8 @@
         "Goal threat",
         "Combination play"
       ],
-      "note": "Šulc is midfield insurance for Czechia. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
-      "noteZh": "他给Czechia一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+      "note": "Šulc's edge is creating a better angle for the next pass. He shifts onto his stronger foot and shoots with little backlift. He protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "他最特别的地方是为下一脚传球制造更好的角度。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会用身体护住球，再把球送回跑动队友的线路。"
     },
     "Robin Hranac": {
       "skills": [
@@ -221,8 +221,8 @@
         "Aerial duels",
         "Back-line passing"
       ],
-      "note": "Hranáč has been part of Czechia's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
-      "noteZh": "他给Czechia后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+      "note": "Hranáč's signature is recovering position without panicking after the first line is broken. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的比赛方式建立在第一道防线被突破后仍能冷静回位上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Stepan Chaloupek": {
       "league": "Czech First League",
@@ -231,8 +231,8 @@
         "Aerial clearances",
         "Defensive midfield cover"
       ],
-      "note": "Chaloupek gives Czechia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Czechia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Chaloupek's edge is the flexibility to fill different roles without breaking the team's shape. He meets the ball early instead of waiting underneath it. He holds the route into the box until support arrives.",
+      "noteZh": "他最特别的地方是在多个角色之间切换时仍保持球队结构。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Tomas Chory": {
       "league": "Czech First League",
@@ -241,8 +241,8 @@
         "Aerial knockdowns",
         "Box command"
       ],
-      "note": "Chorý gives Czechia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Czechia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Chorý is defined by giving centre-backs a physical problem they cannot ignore. He meets the ball early instead of waiting underneath it. He keeps the line connected with constant small instructions.",
+      "noteZh": "他靠让中后卫无法忽视的身体支点作用与同位置球员拉开差异。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会用持续而简短的提醒保持整条防线连接。"
     },
     "Tomas Holes": {
       "league": "Czech First League",
@@ -251,8 +251,8 @@
         "Set-piece marking",
         "Game management"
       ],
-      "note": "Holeš is defensive rotation for Czechia. The watch point is how early he closes the lane that looked open.",
-      "noteZh": "他是Czechia在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+      "note": "Holeš is defined by the flexibility to fill different roles without breaking the team's shape. He varies the height and pace of his delivery. He protects the route to goal and challenges only when the touch is loose.",
+      "noteZh": "他靠在多个角色之间切换时仍保持球队结构与同位置球员拉开差异。他会通过改变落点和球速寻找防线最薄弱的区域。他也会先封住通向球门的路线，再等待对手触球失误时上抢。"
     },
     "Tomas Soucek": {
       "skills": [
@@ -260,8 +260,8 @@
         "Late box runs",
         "Set-piece threat"
       ],
-      "note": "Souček gives Czechia a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Czechia的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+      "note": "Watch Souček for reading the flight of the ball before the duel begins. He moves after releasing the ball so the receiver still has support. He varies the height and pace of his delivery.",
+      "noteZh": "要看懂他的作用，关键是在争顶前先判断球的飞行轨迹。留意他如何出球后继续移动，让接球队友始终有支援。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Vladimir Coufal": {
       "skills": [
@@ -269,8 +269,8 @@
         "Right-back defending",
         "Early crosses"
       ],
-      "note": "Coufal has already created a goal for Czechia in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
-      "noteZh": "他已经参与了Czechia的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
+      "note": "Coufal stands out for seeing the decisive pass one beat before it opens. He holds the route into the box until support arrives. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他的突出特点是比防线早一步看到决定性的传球。他会守住进入禁区的路线，直到队友能对持球人施压。他也会传中前先观察，再把球送向具体跑动者。"
     },
     "Vladimir Darida": {
       "skills": [
@@ -278,8 +278,8 @@
         "Short passing",
         "Tempo management"
       ],
-      "note": "Darida is there for the part of the game where spacing gets ugly. For Czechia, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Czechia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+      "note": "Darida is defined by calm decisions shaped by experience in high-pressure moments. He uses his first touch to escape pressure before choosing the pass. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他靠高压时刻由经验带来的冷静判断与同位置球员拉开差异。他会第一脚触球先摆脱压力，再选择传球方向。他也会出球后继续移动，让接球队友始终有支援。"
     }
   }
 }

@@ -1,26 +1,35 @@
 # Player Card Editorial Spec
 
-Player cards should explain what to watch in this World Cup, not repeat a career bio. The card already shows name, team, position, club, age, value, and skills. The note should give the reader one useful lens for the match.
+Player cards should explain how a player plays, not repeat a career bio or a tournament stat line. The card already shows name, team, position, club, age, value, skills, and a live `This World Cup` row when the player has goals or assists. The note should give the reader one evergreen lens for watching the player.
 
 ## Reader Promise
 
-After reading a player card, a casual fan should know what the player changes for his team or what to watch when he gets involved.
+After reading a player card, a casual fan should understand the player's signature strength, what it looks like on the pitch, and what makes him different from another player in the same position.
 
 Good cards usually answer one of these questions:
 
-- What is this player's World Cup job?
+- What is this player's usual job?
 - What action should I look for during the match?
 - What problem does he create for the opponent?
 - What makes him different from another player in the same position?
 
+## Evergreen Copy Boundary
+
+The paragraph and the live stat row have different jobs:
+
+- The paragraph explains play style, decision-making, movement, technique, or a distinctive physical strength.
+- The `This World Cup` row owns current goals and assists because it is derived from fixture events and can update after every match.
+- Do not put goal totals, assist totals, named 2026 opponents, or phrases such as `this World Cup` and `this tournament` in a current player's paragraph.
+- A finishing or chance-creation strength is welcome, but describe how it works rather than citing the player's latest output.
+
 ## Evidence Order
 
-Use tournament evidence before general reputation.
+Use the most reliable role and play-style evidence available.
 
-1. Verified World Cup lineups, positions, goals, assists, cards, and substitutions.
-2. Match preview or result-story context already stored in fixture data.
-3. Current official or reliable public tournament reporting.
-4. Club or career profile only when tournament evidence is missing.
+1. Curated player strengths and verified role or position.
+2. Verified World Cup lineups when they clarify where the player is currently used.
+3. Current official or reliable reporting about the player's style.
+4. Club or career profile when tournament usage is limited.
 
 Do not make a player sound locked to a side or role if this World Cup has used him differently. For example, a player can be a right winger by profile, but if recent France lineups use him centrally, the card should describe the tournament role.
 
@@ -65,7 +74,7 @@ Future generation should draft the visible note from structured facts rather tha
 
 - `tournamentRole`: the player's current World Cup job.
 - `watchCue`: the action a casual fan should notice.
-- `sourceFacts`: lineup positions, goals, assists, fixture copy, or sourced reporting used for the claim.
+- `sourceFacts`: role, technique, movement, physical traits, lineup positions, or sourced reporting used for the claim.
 - `confidence`: `verified`, `inferred`, or `generic`.
 - `note`: the final reader-facing copy.
 
@@ -89,7 +98,8 @@ For historical profiles, the visible English card line comes from `styleNote`; t
 
 Before shipping a batch:
 
-- The note is about this World Cup, not only the player's general career.
+- The note explains an evergreen play style or distinctive strength.
+- Current goals, assists, opponents, and tournament totals appear only in the live stat row.
 - Any side or position claim matches tournament usage.
 - A new fan can understand the main point without knowing specialist terms.
 - The batch does not reuse the same sentence pattern across many players.

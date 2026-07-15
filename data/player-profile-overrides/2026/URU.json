@@ -10,8 +10,8 @@
         "Wide pressing",
         "Inside movement"
       ],
-      "note": "Canobbio has already turned one tournament chance into a goal against Cabo Verde. Watch whether defenders start giving him the extra step.",
-      "noteZh": "他已经为Uruguay进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
+      "note": "Canobbio stands out for creating a clean shot before the defense can reset. He angles his run to block the easy pass as he closes the ball. He moves through the gap between full-back and centre-back.",
+      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会接近持球人时调整路线，同时封住最简单的传球。他也会从边后卫与中后卫之间的空当穿过。"
     },
     "Brian Rodriguez": {
       "displayName": "Brian Rodríguez",
@@ -20,8 +20,8 @@
         "One-on-one dribbling",
         "Transition carries"
       ],
-      "note": "Rodríguez gives Uruguay a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Uruguay在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Rodríguez is defined by explosive speed once open grass appears. He draws the first challenge, then carries through the gap. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "他靠看到空当后的爆发速度与同位置球员拉开差异。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会提前改变位置，为传球队友提供清晰目标。"
     },
     "Darwin Nunez": {
       "displayName": "Darwin Núñez",
@@ -30,8 +30,8 @@
         "Aerial finishing",
         "Chaos creation"
       ],
-      "note": "Núñez is in the scouting report now. For Uruguay, that means his touches can pull help away from the next runner.",
-      "noteZh": "他是Uruguay这届赛事的一条进攻路径。看他面对球门接球时，第一名防守者怎么反应。"
+      "note": "Núñez's signature is starting his run while defenders are still watching the ball. He shifts onto his stronger foot and shoots with little backlift. He draws a defender in and releases the runner behind him.",
+      "noteZh": "他的比赛方式建立在在防守者仍盯着球时提前启动上。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
     },
     "Emiliano Martinez": {
       "displayName": "Emiliano Martínez",
@@ -40,8 +40,8 @@
         "Short progression",
         "Second-ball pressure"
       ],
-      "note": "Martínez gives Uruguay midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Uruguay来说，这可能就是压力到来前的一次干净触球。"
+      "note": "Martínez's signature is choosing the moment of contact instead of diving in. He plays through nearby pressure instead of around it. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会穿过最近一层逼抢，而不总是绕开压力。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "Facundo Pellistri": {
       "league": "Super League Greece",
@@ -50,8 +50,8 @@
         "Early crosses",
         "Defensive tracking"
       ],
-      "note": "Pellistri is attacking depth for Uruguay. If the game slows down, he is there to make the back line move again.",
-      "noteZh": "他是Uruguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+      "note": "Pellistri stands out for explosive speed once open grass appears. He looks up before crossing and picks a runner rather than an empty area. He checks the runner over his shoulder before the final pass arrives.",
+      "noteZh": "他的突出特点是看到空当后的爆发速度。他会传中前先观察，再把球送向具体跑动者。他也会最后一传到来前回头确认跑动者的位置。"
     },
     "Federico Valverde": {
       "skills": [
@@ -59,8 +59,8 @@
         "Long-range shooting",
         "Two-way coverage"
       ],
-      "note": "Valverde has been one of Uruguay's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
-      "noteZh": "他是Uruguay这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
+      "note": "Valverde's edge is creating a better angle for the next pass. He shifts onto his stronger foot and shoots with little backlift. He holds the passing lane into midfield until support arrives.",
+      "noteZh": "他最特别的地方是为下一脚传球制造更好的角度。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会守住通向中场核心区域的传球线路，直到队友能对持球人施压。"
     },
     "Federico Vinas": {
       "displayName": "Federico Viñas",
@@ -70,8 +70,8 @@
         "Hold-up play",
         "Aerial targets"
       ],
-      "note": "Viñas is attacking depth for Uruguay. If the game slows down, he is there to make the back line move again.",
-      "noteZh": "他是Uruguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+      "note": "Viñas's signature is waiting for a defender's attention to shift before moving. He protects the ball with his body and returns it into a runner's path. He pins a defender and creates room for the next runner.",
+      "noteZh": "他的比赛方式建立在等防守者注意力转移后再启动上。他会用身体护住球，再把球送回跑动队友的线路。他也会牵制一名后卫，为后插上的队友腾出空间。"
     },
     "Fernando Muslera": {
       "skills": [
@@ -79,8 +79,8 @@
         "Shot stopping",
         "Tournament calm"
       ],
-      "note": "Muslera gives Uruguay the calmest first pass from the back. Watch how quickly he turns a save or claim into a reset.",
-      "noteZh": "他是Uruguay这段征程中的门将。价值在于让禁区保持冷静，并让下一次进攻能干净开始。"
+      "note": "Watch Muslera for calm decisions shaped by experience in high-pressure moments. He sets his feet before the shot and reacts without an extra step. He keeps his decisions calm when a sudden save is required.",
+      "noteZh": "要看懂他的作用，关键是高压时刻由经验带来的冷静判断。留意他如何在射门前站稳脚步，再用最少动作完成扑救。他也会突然需要扑救时仍能冷静判断。"
     },
     "Giorgian De Arrascaeta": {
       "displayName": "Giorgian de Arrascaeta",
@@ -89,8 +89,8 @@
         "Set-piece quality",
         "Between-lines touch"
       ],
-      "note": "Arrascaeta gives Uruguay midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Uruguay来说，这可能就是压力到来前的一次干净触球。"
+      "note": "Watch Arrascaeta for seeing the decisive pass one beat before it opens. He varies the height and pace of his delivery. He opens his body on the first touch so he can play forward.",
+      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何通过改变落点和球速寻找防线最薄弱的区域。他也会第一脚触球时打开身体，准备向前处理。"
     },
     "Guillermo Varela": {
       "skills": [
@@ -98,8 +98,8 @@
         "Overlap timing",
         "Back-post defending"
       ],
-      "note": "Varela has been part of Uruguay's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
-      "noteZh": "他给Uruguay后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+      "note": "Varela's signature is choosing the moment of contact instead of diving in. He waits until the wide defender looks inside before running beyond him. He checks the runner over his shoulder before the final pass arrives.",
+      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会等边路防守者看向内侧后再从外线套上。他也会最后一传到来前回头确认跑动者的位置。"
     },
     "Joaquin Piquerez": {
       "displayName": "Joaquín Piquerez",
@@ -108,8 +108,8 @@
         "Set-piece delivery",
         "Wide defending"
       ],
-      "note": "Piquerez is back-line insurance for Uruguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Uruguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Piquerez's edge is delivering the ball without needing much space. He varies the height and pace of his delivery. He holds the route into the box until support arrives.",
+      "noteZh": "他最特别的地方是在很小空间里也能送出传中的能力。他会通过改变落点和球速寻找防线最薄弱的区域。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Jose Maria Gimenez": {
       "displayName": "José María Giménez",
@@ -118,8 +118,8 @@
         "Aerial duels",
         "Box defending"
       ],
-      "note": "Giménez is back-line insurance for Uruguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Uruguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Watch Giménez for organizing teammates before danger becomes obvious. He meets the ball early instead of waiting underneath it. He holds the route into the box until support arrives.",
+      "noteZh": "要看懂他的作用，关键是在危险出现前组织好队友。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Juan Manuel Sanabria": {
       "skills": [
@@ -127,8 +127,8 @@
         "Midfield coverage",
         "Crossing angles"
       ],
-      "note": "Sanabria gives Uruguay another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
-      "noteZh": "他是Uruguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Sanabria is defined by creating a better angle for the next pass. He holds the passing lane into midfield until support arrives. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他靠为下一脚传球制造更好的角度与同位置球员拉开差异。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会传中前先观察，再把球送向具体跑动者。"
     },
     "Manuel Ugarte": {
       "sourceTitle": "Manuel Ugarte (footballer)",
@@ -143,8 +143,8 @@
         "Counter-pressure",
         "Central screening"
       ],
-      "note": "Ugarte gives Uruguay structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
-      "noteZh": "他给Uruguay控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。",
+      "note": "Ugarte stands out for choosing the moment of contact instead of diving in. He angles his run to block the easy pass as he closes the ball. He holds the passing lane into midfield until support arrives.",
+      "noteZh": "他的突出特点是选择身体接触时机，而不是贸然上抢。他会接近持球人时调整路线，同时封住最简单的传球。他也会守住通向中场核心区域的传球线路，直到队友能对持球人施压。",
       "sourceUrl": "https://www.transfermarkt.com/manuel-ugarte/profil/spieler/476701"
     },
     "Mathias Olivera": {
@@ -156,8 +156,8 @@
         "Back-three cover",
         "Aerial support"
       ],
-      "note": "Olivera has been part of Uruguay's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
-      "noteZh": "他给Uruguay后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+      "note": "Olivera stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "Matias Vina": {
       "displayName": "Matías Viña",
@@ -167,8 +167,8 @@
         "Wing-back runs",
         "Recovery defending"
       ],
-      "note": "Viña gives Uruguay cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Uruguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Viña is defined by the flexibility to fill different roles without breaking the team's shape. He protects the route to goal and challenges only when the touch is loose. He turns early and protects the route toward goal.",
+      "noteZh": "他靠在多个角色之间切换时仍保持球队结构与同位置球员拉开差异。他会先封住通向球门的路线，再等待对手触球失误时上抢。他也会提前转身，优先封住通向球门的路线。"
     },
     "Maxi Araujo": {
       "displayName": "Maximiliano Araújo",
@@ -177,8 +177,8 @@
         "Chance passes",
         "Left-wing speed"
       ],
-      "note": "Araújo has already shaped Uruguay's tournament with goals against Saudi Arabia and Cabo Verde and service for teammates. Watch how quickly his next action follows the first touch.",
-      "noteZh": "他这届世界杯已经同时给Uruguay带来终结和传球。防守者不能只防他的一种选择。"
+      "note": "Watch Araújo for creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He changes pace after the defender has committed his feet.",
+      "noteZh": "要看懂他的作用，关键是在防线重组前制造干净射门。留意他如何先吸引防守者靠近，再把球送到其身后的跑动线路。他也会等防守者脚步固定后突然变速。"
     },
     "Nicolas De La Cruz": {
       "displayName": "Nicolás de la Cruz",
@@ -187,8 +187,8 @@
         "Combination play",
         "Set-piece service"
       ],
-      "note": "Cruz is there for the part of the game where spacing gets ugly. For Uruguay, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Uruguay提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+      "note": "Cruz's signature is pressing with a clear target rather than simply chasing. He protects the ball with his body and returns it into a runner's path. He varies the height and pace of his delivery.",
+      "noteZh": "他的比赛方式建立在带着明确目标逼抢，而不是只追着球跑上。他会用身体护住球，再把球送回跑动队友的线路。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Rodrigo Aguirre": {
       "skills": [
@@ -196,8 +196,8 @@
         "Penalty-box strength",
         "Direct finishing"
       ],
-      "note": "Aguirre is an attacking change-up for Uruguay. He gives the front line fresh running when the first plan starts to look predictable.",
-      "noteZh": "他是Uruguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+      "note": "Aguirre's signature is the flexibility to fill different roles without breaking the team's shape. He absorbs contact and keeps the ball close enough to continue forward. He shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "他的比赛方式建立在在多个角色之间切换时仍保持球队结构上。他会承受身体接触后仍把球留在可继续推进的位置。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
     },
     "Rodrigo Bentancur": {
       "skills": [
@@ -205,8 +205,8 @@
         "Central progression",
         "Midfield timing"
       ],
-      "note": "Bentancur has been one of Uruguay's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
-      "noteZh": "他是Uruguay这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
+      "note": "Bentancur's signature is keeping the ball calm when pressure arrives. He plays through nearby pressure instead of around it. He adjusts his position early enough to make the difficult action look simple.",
+      "noteZh": "他的比赛方式建立在压力到来时仍能让球保持稳定上。他会穿过最近一层逼抢，而不总是绕开压力。他也会提前调整位置，让困难处理看起来简单。"
     },
     "Rodrigo Zalazar": {
       "skills": [
@@ -214,8 +214,8 @@
         "Line-breaking passes",
         "Long-range shooting"
       ],
-      "note": "Zalazar is there for the part of the game where spacing gets ugly. For Uruguay, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Uruguay提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+      "note": "Watch Zalazar for creating a better angle for the next pass. He plays through nearby pressure instead of around it. He shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "要看懂他的作用，关键是为下一脚传球制造更好的角度。留意他如何穿过最近一层逼抢，而不总是绕开压力。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
     },
     "Ronald Araujo": {
       "displayName": "Ronald Araújo",
@@ -224,8 +224,8 @@
         "Elite duels",
         "Right-side cover"
       ],
-      "note": "Araújo is back-line insurance for Uruguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Uruguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Araújo is defined by recovering position without panicking after the first line is broken. He waits for a loose touch and then steps through the ball. He holds the route into the box until support arrives.",
+      "noteZh": "他靠第一道防线被突破后仍能冷静回位与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Santiago Bueno": {
       "skills": [
@@ -233,8 +233,8 @@
         "Aerial defending",
         "Low-block clearances"
       ],
-      "note": "Bueno gives Uruguay cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Uruguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Watch Bueno for the flexibility to fill different roles without breaking the team's shape. He meets the ball early instead of waiting underneath it. He holds the route into the box until support arrives.",
+      "noteZh": "要看懂他的作用，关键是在多个角色之间切换时仍保持球队结构。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会守住进入禁区的路线，直到队友能对持球人施压。"
     },
     "Santiago Mele": {
       "skills": [
@@ -242,8 +242,8 @@
         "Cross claiming",
         "Penalty-area command"
       ],
-      "note": "Mele gives Uruguay a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
-      "noteZh": "他在Uruguay首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+      "note": "Watch Mele for sharp reactions backed by early positioning. He judges when to leave his line and takes pressure off his defenders. He chooses the simple restart before pressure can close in.",
+      "noteZh": "要看懂他的作用，关键是提前站位后的快速反应。留意他如何判断何时出击，替后卫化解高球压力。他也会在逼抢靠近前选择最稳妥的出球方式。"
     },
     "Sebastian Caceres": {
       "displayName": "Sebastián Cáceres",
@@ -252,8 +252,8 @@
         "Front-foot duels",
         "Set-piece defending"
       ],
-      "note": "Cáceres gives Uruguay one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
-      "noteZh": "他是Uruguay无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
+      "note": "Cáceres is defined by the flexibility to fill different roles without breaking the team's shape. He waits for a loose touch and then steps through the ball. He varies the height and pace of his delivery.",
+      "noteZh": "他靠在多个角色之间切换时仍保持球队结构与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Sergio Rochet": {
       "skills": [
@@ -261,8 +261,8 @@
         "Goalkeeper command",
         "Tournament experience"
       ],
-      "note": "Rochet sits behind the starter for Uruguay, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
-      "noteZh": "他给Uruguay保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
+      "note": "Rochet stands out for sharp reactions backed by early positioning. He keeps the line connected with constant small instructions. He recognizes when to slow the play and when to take the risk.",
+      "noteZh": "他的突出特点是提前站位后的快速反应。他会用持续而简短的提醒保持整条防线连接。他也会判断何时放慢节奏，何时承担风险。"
     }
   }
 }

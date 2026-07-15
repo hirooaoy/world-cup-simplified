@@ -37,8 +37,8 @@
         "High-ball command",
         "Goalkeeper depth"
       ],
-      "note": "Pierre gives Haiti a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
-      "noteZh": "他在Haiti首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。",
+      "note": "Pierre's edge is sharp reactions backed by early positioning. He meets the ball early instead of waiting underneath it. He keeps his decisions calm when a sudden save is required.",
+      "noteZh": "他最特别的地方是提前站位后的快速反应。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会突然需要扑救时仍能冷静判断。",
       "sourceUrl": "https://www.transfermarkt.com/alexandre-pierre/profil/spieler/838947"
     },
     "Carl Sainte": {
@@ -56,8 +56,8 @@
         "Ball winning",
         "Simple circulation"
       ],
-      "note": "Sainté gives Haiti midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
-      "noteZh": "他适合那些空间变丑的时间段。对Haiti来说，这可能就是压力到来前的一次干净触球。",
+      "note": "Sainté is defined by protecting the most dangerous space before stepping to the ball. He waits for a loose touch and then steps through the ball. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他靠先保护最危险空间，再考虑上抢与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会第一脚触球先摆脱压力，再选择传球方向。",
       "sourceUrl": "https://www.transfermarkt.com/carl-sainte/profil/spieler/718244"
     },
     "Carlens Arcus": {
@@ -75,8 +75,8 @@
         "Overlap timing",
         "Recovery runs"
       ],
-      "note": "Arcus is defensive rotation for Haiti. The watch point is how early he closes the lane that looked open.",
-      "noteZh": "他给Haiti那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。",
+      "note": "Arcus's signature is protecting the most dangerous space before stepping to the ball. He waits until the wide defender looks inside before running beyond him. He turns early and protects the route toward goal.",
+      "noteZh": "他的比赛方式建立在先保护最危险空间，再考虑上抢上。他会等边路防守者看向内侧后再从外线套上。他也会提前转身，优先封住通向球门的路线。",
       "sourceUrl": "https://www.transfermarkt.co.uk/carlens-arcus/profil/spieler/371686"
     },
     "Danley Jean Jacques": {
@@ -94,8 +94,8 @@
         "Central coverage",
         "Forward passing"
       ],
-      "note": "Jacques is a tempo player for Haiti. He turns crowded touches into cleaner angles for the next runner.",
-      "noteZh": "他让Haiti在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。",
+      "note": "Jacques stands out for choosing the moment of contact instead of diving in. He holds the passing lane into midfield until support arrives. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的突出特点是选择身体接触时机，而不是贸然上抢。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会穿过最近一层逼抢，而不总是绕开压力。",
       "sourceUrl": "https://www.transfermarkt.co.uk/danley-jean-jacques/profil/spieler/628834"
     },
     "Derrick Etienne": {
@@ -114,8 +114,8 @@
         "Transition speed",
         "Direct service"
       ],
-      "note": "Jr is the forward Haiti can use when the match needs new legs. His first job is to make tired defenders turn.",
-      "noteZh": "他给Haiti替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。",
+      "note": "Jr is defined by making purposeful movement away from the ball. He changes pace after the defender has committed his feet. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他靠用有目的的无球移动创造接应点与同位置球员拉开差异。他会等防守者脚步固定后突然变速。他也会传中前先观察，再把球送向具体跑动者。",
       "sourceUrl": "https://www.transfermarkt.co.uk/derrick-etienne-jr-/profil/spieler/354763"
     },
     "Dominique Simon": {
@@ -133,8 +133,8 @@
         "Second-ball pressure",
         "Short passing"
       ],
-      "note": "Simon is there for the part of the game where spacing gets ugly. For Haiti, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Haiti提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。",
+      "note": "Simon stands out for protecting the most dangerous space before stepping to the ball. He moves after releasing the ball so the receiver still has support. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会出球后继续移动，让接球队友始终有支援。他也会第一脚触球先摆脱压力，再选择传球方向。",
       "sourceUrl": "https://www.transfermarkt.us/dominique-simon/profil/spieler/988188"
     },
     "Duckens Nazon": {
@@ -152,8 +152,8 @@
         "Penalty-box power",
         "Direct shooting"
       ],
-      "note": "Nazon is in the scouting report now. For Haiti, that means his touches can pull help away from the next runner.",
-      "noteZh": "他是Haiti这届赛事的一条进攻路径。看他面对球门接球时，第一名防守者怎么反应。",
+      "note": "Nazon stands out for making purposeful movement away from the ball. He absorbs contact and keeps the ball close enough to continue forward. He shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "他的突出特点是用有目的的无球移动创造接应点。他会承受身体接触后仍把球留在可继续推进的位置。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
       "sourceUrl": "https://www.transfermarkt.com/duckens-nazon/profil/spieler/345763"
     },
     "Frantzdy Pierrot": {
@@ -171,8 +171,8 @@
         "Hold-up play",
         "Box finishing"
       ],
-      "note": "Pierrot is one of Haiti's named attacking routes in this tournament. His job is to make the first defender move so the finish or final pass can appear.",
-      "noteZh": "他给Haiti一种把控球变成压力的路线。他要让防守者必须做选择。",
+      "note": "Pierrot's signature is giving centre-backs a physical problem they cannot ignore. He protects the ball with his body and returns it into a runner's path. He shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "他的比赛方式建立在让中后卫无法忽视的身体支点作用上。他会用身体护住球，再把球送回跑动队友的线路。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
       "sourceUrl": "https://www.transfermarkt.us/frantzdy-pierrot/profil/spieler/492955"
     },
     "Garven Metusala": {
@@ -190,8 +190,8 @@
         "Aerial defending",
         "Set-piece marking"
       ],
-      "note": "Metusala is defensive cover for Haiti's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Haiti在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。",
+      "note": "Metusala's edge is choosing the moment of contact instead of diving in. He meets the ball early instead of waiting underneath it. He varies the height and pace of his delivery.",
+      "noteZh": "他最特别的地方是选择身体接触时机，而不是贸然上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会通过改变落点和球速寻找防线最薄弱的区域。",
       "sourceUrl": "https://www.transfermarkt.us/garven-metusala/profil/spieler/859175"
     },
     "Hannes Delcroix": {
@@ -209,8 +209,8 @@
         "Back-line recovery",
         "Wide cover"
       ],
-      "note": "Delcroix has been part of Haiti's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
-      "noteZh": "他给Haiti后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。",
+      "note": "Delcroix is defined by protecting the most dangerous space before stepping to the ball. He turns early and protects the route toward goal. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他靠先保护最危险空间，再考虑上抢与同位置球员拉开差异。他会提前转身，优先封住通向球门的路线。他也会等对手触球稍大后再连人带球一起压上。",
       "sourceUrl": "https://www.transfermarkt.co.uk/hannes-delcroix/profil/spieler/338635"
     },
     "Jean-Kevin Duverne": {
@@ -228,8 +228,8 @@
         "Back-line versatility",
         "Recovery defending"
       ],
-      "note": "Duverne has supplied one of Haiti's tournament goals. The pass matters because it arrives before the defender can fully turn.",
-      "noteZh": "他这届世界杯已经为Haiti创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。",
+      "note": "Duverne's signature is seeing the decisive pass one beat before it opens. He changes position while keeping his priorities simple. He turns early and protects the route toward goal.",
+      "noteZh": "他的比赛方式建立在比防线早一步看到决定性的传球上。他会改变起始位置，但始终坚持清晰简单的处理原则。他也会提前转身，优先封住通向球门的路线。",
       "sourceUrl": "https://www.transfermarkt.co.uk/jean-kevin-duverne/profil/spieler/344864"
     },
     "Jean-Ricner Bellegarde": {
@@ -247,8 +247,8 @@
         "Pressure escapes",
         "Forward combinations"
       ],
-      "note": "Bellegarde is a tempo player for Haiti. He turns crowded touches into cleaner angles for the next runner.",
-      "noteZh": "他让Haiti在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。",
+      "note": "Bellegarde's signature is creating a better angle for the next pass. He uses his first touch to escape pressure before choosing the pass. He protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "他的比赛方式建立在为下一脚传球制造更好的角度上。他会第一脚触球先摆脱压力，再选择传球方向。他也会用身体护住球，再把球送回跑动队友的线路。",
       "sourceUrl": "https://www.transfermarkt.us/jean-ricner-bellegarde/profil/spieler/450050"
     },
     "Johny Placide": {
@@ -266,8 +266,8 @@
         "Penalty saves",
         "Defensive command"
       ],
-      "note": "Placide gives Haiti the calmest first pass from the back. Watch how quickly he turns a save or claim into a reset.",
-      "noteZh": "他是Haiti这段征程中的门将。价值在于让禁区保持冷静，并让下一次进攻能干净开始。",
+      "note": "Placide's edge is sharp reactions backed by early positioning. He waits for the strike before committing. He keeps the line connected with constant small instructions.",
+      "noteZh": "他最特别的地方是提前站位后的快速反应。他会等到对方触球前再做扑救选择。他也会用持续而简短的提醒保持整条防线连接。",
       "sourceUrl": "https://www.transfermarkt.co.uk/johny-placide/profil/spieler/51035"
     },
     "Josue Casimir": {
@@ -285,8 +285,8 @@
         "Wing-back energy",
         "Early crossing"
       ],
-      "note": "Casimir gives Haiti defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
-      "noteZh": "他是Haiti艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。",
+      "note": "Casimir's signature is making purposeful movement away from the ball. He angles his run to block the easy pass as he closes the ball. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他的比赛方式建立在用有目的的无球移动创造接应点上。他会接近持球人时调整路线，同时封住最简单的传球。他也会传中前先观察，再把球送向具体跑动者。",
       "sourceUrl": "https://www.transfermarkt.co.uk/josue-casimir/profil/spieler/763182"
     },
     "Josue Duverger": {
@@ -304,8 +304,8 @@
         "Penalty reactions",
         "Low-block patience"
       ],
-      "note": "Duverger sits behind the starter for Haiti, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
-      "noteZh": "他给Haiti保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。",
+      "note": "Duverger stands out for staying ready through long quiet spells. He sets his feet before the shot and reacts without an extra step. He holds the route into the box until support arrives.",
+      "noteZh": "他的突出特点是在长时间无事可做后依然保持专注。他会在射门前站稳脚步，再用最少动作完成扑救。他也会守住进入禁区的路线，直到队友能对持球人施压。",
       "sourceUrl": "https://www.transfermarkt.com/josue-duverger/profil/spieler/490369"
     },
     "Keeto Thermoncy": {
@@ -323,8 +323,8 @@
         "Aerial reach",
         "Development upside"
       ],
-      "note": "Thermoncy gives Haiti cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Haiti后防线的保险。卡片不华丽：赢球、稳传、重新站好。",
+      "note": "Thermoncy stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He changes position while keeping his priorities simple.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会改变起始位置，但始终坚持清晰简单的处理原则。",
       "sourceUrl": "https://www.transfermarkt.us/keeto-thermoncy/profil/spieler/1061046"
     },
     "Lenny Joseph": {
@@ -342,8 +342,8 @@
         "Channel runs",
         "Quick finishing"
       ],
-      "note": "Joseph gives Haiti a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Haiti在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。",
+      "note": "Joseph stands out for starting his run while defenders are still watching the ball. He shifts onto his stronger foot and shoots with little backlift. He arrives in the box late enough to be difficult to track.",
+      "noteZh": "他的突出特点是在防守者仍盯着球时提前启动。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会稍晚进入禁区，让盯防者难以持续跟住。",
       "sourceUrl": "https://www.transfermarkt.com/lenny-joseph/profil/spieler/815359"
     },
     "Louicius Deedson": {
@@ -361,8 +361,8 @@
         "Transition outlet",
         "Pulled-back passes"
       ],
-      "note": "Deedson is an attacking change-up for Haiti. He gives the front line fresh running when the first plan starts to look predictable.",
-      "noteZh": "他是Haiti的进攻深度。如果比赛慢下来，他要让后防线重新移动。",
+      "note": "Watch Deedson for changing direction without losing control of the ball. He changes his position early enough to give the passer a clear target. He plays through nearby pressure instead of around it.",
+      "noteZh": "要看懂他的作用，关键是变向时仍把球控制在脚下。留意他如何提前改变位置，为传球队友提供清晰目标。他也会穿过最近一层逼抢，而不总是绕开压力。",
       "sourceUrl": "https://www.transfermarkt.co.uk/louicius-deedson/profil/spieler/646108"
     },
     "Markhus Lacroix": {
@@ -380,8 +380,8 @@
         "Wide experience",
         "Set-piece delivery"
       ],
-      "note": "Lacroix gives Haiti cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Haiti后防线的保险。卡片不华丽：赢球、稳传、重新站好。",
+      "note": "Lacroix's signature is protecting the most dangerous space before stepping to the ball. He recognizes when to slow the play and when to take the risk. He varies the height and pace of his delivery.",
+      "noteZh": "他的比赛方式建立在先保护最危险空间，再考虑上抢上。他会判断何时放慢节奏，何时承担风险。他也会通过改变落点和球速寻找防线最薄弱的区域。",
       "sourceUrl": "https://www.transfermarkt.com/duke-lacroix/profil/spieler/375472"
     },
     "Martin Experience": {
@@ -399,8 +399,8 @@
         "Overlap support",
         "Wide duels"
       ],
-      "note": "Expérience is in the quiet-work part of Haiti's setup. He keeps attacks from becoming scrambles.",
-      "noteZh": "他是Haiti主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。",
+      "note": "Expérience is defined by recovering position without panicking after the first line is broken. He waits until the wide defender looks inside before running beyond him. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他靠第一道防线被突破后仍能冷静回位与同位置球员拉开差异。他会等边路防守者看向内侧后再从外线套上。他也会等对手触球稍大后再连人带球一起压上。",
       "sourceUrl": "https://www.transfermarkt.us/martin-experience/profil/spieler/804885"
     },
     "Ricardo Ade": {
@@ -418,8 +418,8 @@
         "Aerial power",
         "Box protection"
       ],
-      "note": "Adé has been part of Haiti's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
-      "noteZh": "他在Haiti体系里做的是安静工作。他让对手的进攻不容易变成混乱。",
+      "note": "Adé's signature is organizing teammates before danger becomes obvious. He meets the ball early instead of waiting underneath it. He holds the route into the box until support arrives.",
+      "noteZh": "他的比赛方式建立在在危险出现前组织好队友上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会守住进入禁区的路线，直到队友能对持球人施压。",
       "sourceUrl": "https://www.transfermarkt.com/ricardo-ade/profil/spieler/278145"
     },
     "Ruben Providence": {
@@ -437,8 +437,8 @@
         "Direct carries",
         "Counter outlet"
       ],
-      "note": "Providence is part of Haiti's attacking shape, even when he is not the finisher. His movement decides who gets the next clear touch.",
-      "noteZh": "他是Haiti在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。",
+      "note": "Providence stands out for explosive speed once open grass appears. He draws the first challenge, then carries through the gap. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "他的突出特点是看到空当后的爆发速度。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会提前改变位置，为传球队友提供清晰目标。",
       "sourceUrl": "https://www.transfermarkt.com/ruben-providence/profil/spieler/536520"
     },
     "Wilguens Paugain": {
@@ -456,8 +456,8 @@
         "Wide tackling",
         "Support runs"
       ],
-      "note": "Paugain is defensive cover for Haiti's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Haiti在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。",
+      "note": "Paugain is defined by pressing with a clear target rather than simply chasing. He waits for a loose touch and then steps through the ball. He protects the route to goal and challenges only when the touch is loose.",
+      "noteZh": "他靠带着明确目标逼抢，而不是只追着球跑与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会先封住通向球门的路线，再等待对手触球失误时上抢。",
       "sourceUrl": "https://www.transfermarkt.co.uk/wilguens-paugain/profil/spieler/609691"
     },
     "Wilson Isidor": {
@@ -475,8 +475,8 @@
         "Runs in behind",
         "Penalty-box movement"
       ],
-      "note": "Isidor has already turned one tournament chance into a goal against Morocco. Watch whether defenders start giving him the extra step.",
-      "noteZh": "他已经为Haiti进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。",
+      "note": "Isidor stands out for creating a clean shot before the defense can reset. He moves through the gap between full-back and centre-back. He arrives in the box late enough to be difficult to track.",
+      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会从边后卫与中后卫之间的空当穿过。他也会稍晚进入禁区，让盯防者难以持续跟住。",
       "sourceUrl": "https://www.transfermarkt.co.uk/wilson-isidor/profil/spieler/494237"
     },
     "Woodensky Pierre": {
@@ -494,8 +494,8 @@
         "Ball winning",
         "Protective positioning"
       ],
-      "note": "Pierre gives Haiti a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Haiti的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。",
+      "note": "Pierre is defined by choosing the moment of contact instead of diving in. He holds the passing lane into midfield until support arrives. He plays through nearby pressure instead of around it.",
+      "noteZh": "他靠选择身体接触时机，而不是贸然上抢与同位置球员拉开差异。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会穿过最近一层逼抢，而不总是绕开压力。",
       "sourceUrl": "https://www.transfermarkt.com/woodensky-pierre/profil/spieler/1017735"
     },
     "Yassin Fortune": {
@@ -513,8 +513,8 @@
         "Direct running",
         "Late attacking runs"
       ],
-      "note": "Fortuné gives Haiti a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Haiti的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。",
+      "note": "Fortuné stands out for the flexibility to fill different roles without breaking the team's shape. He changes pace after the defender has committed his feet. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "他的突出特点是在多个角色之间切换时仍保持球队结构。他会等防守者脚步固定后突然变速。他也会提前改变位置，为传球队友提供清晰目标。",
       "sourceUrl": "https://www.transfermarkt.com/yassin-fortune/profil/spieler/342878"
     }
   }

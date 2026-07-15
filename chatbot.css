@@ -251,10 +251,6 @@ body.is-juggle-active .scout-pupil {
   animation: scout-eye-juggle-tap 150ms ease-out;
 }
 
-.scout-widget.is-eye-touch-release .scout-eye {
-  animation: scout-eye-touch-release 260ms ease-in-out;
-}
-
 .scout-widget.is-eye-side-glance .scout-eye:first-child {
   transform: rotate(-3deg) scaleY(0.9);
 }
@@ -363,18 +359,6 @@ body.is-juggle-active .scout-pupil {
   }
   45% {
     transform: scaleX(1.08) scaleY(0.56);
-  }
-}
-
-@keyframes scout-eye-touch-release {
-  0%,
-  18%,
-  100% {
-    transform: scaleY(1);
-  }
-  42%,
-  58% {
-    transform: scaleY(0.08);
   }
 }
 
@@ -1289,6 +1273,63 @@ body.is-juggle-active .scout-pupil {
   margin-top: 11px;
 }
 
+.scout-settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.scout-settings-action,
+.scout-settings-report {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #0a0a0a;
+  border-radius: 999px;
+  padding: 8px 13px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 720;
+  line-height: 1.2;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scout-settings-action {
+  background: #0a0a0a;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.scout-settings-action:hover {
+  transform: translateY(-1px);
+}
+
+.scout-settings-action:disabled {
+  cursor: wait;
+  opacity: 0.56;
+}
+
+.scout-settings-report {
+  background: #ffffff;
+  color: #0a0a0a;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.scout-settings-report:hover {
+  background: #f1f1f3;
+  transform: translateY(-1px);
+}
+
+.scout-settings-action:focus-visible,
+.scout-settings-report:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 2px;
+}
+
 .scout-followup,
 .scout-key-players button,
 .scout-help-grid button,
@@ -1617,6 +1658,24 @@ body.is-juggle-active .scout-pupil {
   line-height: 1.42;
 }
 
+.scout-player-watch-points {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 17px;
+  color: rgba(10, 10, 10, 0.68);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.scout-player-watch-points li {
+  padding-left: 2px;
+}
+
+.scout-player-watch-points li::marker {
+  color: rgba(10, 10, 10, 0.36);
+}
+
 .scout-explainer > .scout-section-label:only-child {
   margin-bottom: 0;
   color: rgba(10, 10, 10, 0.64);
@@ -1635,9 +1694,8 @@ body.is-juggle-active .scout-pupil {
   padding: 0 13px;
 }
 
-.scout-skill-section .scout-skill-flow {
-  border-top: 0;
-  padding-top: 8px;
+.scout-skill-section .scout-player-skill-list {
+  padding: 8px 13px 12px;
 }
 
 .scout-skill-flow,
@@ -2992,6 +3050,8 @@ body.is-juggle-active .scout-pupil {
   .scout-more,
   .scout-chip,
   .scout-followup,
+  .scout-settings-action,
+  .scout-settings-report,
   .scout-key-players button,
   .scout-help-grid button,
   .scout-watch-card,

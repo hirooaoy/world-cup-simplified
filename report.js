@@ -16,6 +16,7 @@ const brandLabel = document.querySelector(".brand-label");
 const reportHeading = document.querySelector("#report-heading");
 
 const reportType = params.get("type") || "other";
+const reportDetails = params.get("details") || "";
 const reportDate = params.get("date") || "";
 const reportTimeZone = params.get("tz") || "";
 const sourceUrl = params.get("from") || document.referrer || "";
@@ -111,6 +112,9 @@ issueType.value = [...issueType.options].some((option) => option.value === repor
   : "other";
 renderStaticText();
 renderAttachedContext();
+if (reportDetails) {
+  issueDetails.value = reportDetails;
+}
 
 if (reportDate) {
   const backParams = new URLSearchParams({

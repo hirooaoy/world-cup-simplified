@@ -195,6 +195,21 @@ const genericChecks = [
   }
 ];
 
+const liveStatCopyChecks = [
+  {
+    pattern: /\b(?:this|the current) (?:World Cup|tournament)\b|\bin this tournament\b/i,
+    message: "keep current-tournament context in the live This World Cup row, not the evergreen paragraph"
+  },
+  {
+    pattern: /\b\d+\s+(?:goals?|assists?)\b|\b(?:one|two|three|four|five|six|seven|eight|nine|ten) (?:goals?|assists?)\b/i,
+    message: "keep goal and assist totals in the live This World Cup row"
+  },
+  {
+    pattern: /\b(?:scored|assisted|set up)\b.{0,90}\bagainst\b|\bagainst\b.{0,90}\b(?:scored|assisted|set up)\b/i,
+    message: "remove named current-tournament goal or assist evidence from the evergreen paragraph"
+  }
+];
+
 const repeatedTemplateChecks = [
   {
     pattern: /\bquiet-work part\b/i,
@@ -343,6 +358,14 @@ function auditProfile(profileName, profile, usage, team, issues) {
     addIssue(issues, profileName, "length", `note is ${note.length} characters; keep it compact`);
   }
 
+  const sentenceKeys = note
+    .split(/[.!?]+/)
+    .map((sentence) => sentence.toLowerCase().replace(/\b(?:he|also)\b/g, " ").replace(/[^a-z0-9]+/g, " ").trim())
+    .filter(Boolean);
+  if (new Set(sentenceKeys).size !== sentenceKeys.length) {
+    addIssue(issues, profileName, "repeated-action", "note repeats the same explanation more than once");
+  }
+
   for (const check of jargonChecks) {
     if (check.pattern.test(note)) {
       addIssue(issues, profileName, "jargon", check.message);
@@ -352,6 +375,12 @@ function auditProfile(profileName, profile, usage, team, issues) {
   for (const check of genericChecks) {
     if (check.pattern.test(note)) {
       addIssue(issues, profileName, "generic-voice", check.message);
+    }
+  }
+
+  for (const check of liveStatCopyChecks) {
+    if (check.pattern.test(note)) {
+      addIssue(issues, profileName, "live-stat-copy", check.message);
     }
   }
 

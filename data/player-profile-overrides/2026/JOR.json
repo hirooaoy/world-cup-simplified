@@ -105,8 +105,8 @@
         "Shot stopping",
         "Box organization"
       ],
-      "note": "Al-Fakhouri sits behind the starter for Jordan, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
-      "noteZh": "他给Jordan保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
+      "note": "Al-Fakhouri stands out for organizing teammates before danger becomes obvious. He sets his feet before the shot and reacts without an extra step. He judges when to leave his line and takes pressure off his defenders.",
+      "noteZh": "他的突出特点是在危险出现前组织好队友。他会在射门前站稳脚步，再用最少动作完成扑救。他也会判断何时出击，替后卫化解高球压力。"
     },
     "Abdallah Nasib": {
       "sourceTitle": "Abdallah Nasib",
@@ -119,8 +119,8 @@
         "Aerial defending",
         "Set-piece marking"
       ],
-      "note": "Nasib has been part of Jordan's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
-      "noteZh": "他给Jordan后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+      "note": "Nasib's edge is choosing the moment of contact instead of diving in. He meets the ball early instead of waiting underneath it. He varies the height and pace of his delivery.",
+      "noteZh": "他最特别的地方是选择身体接触时机，而不是贸然上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Mohammad Abu Alnadi": {
       "displayName": "Mohammad Abu Alnadi",
@@ -139,8 +139,8 @@
         "Aerial duels",
         "Back-line passing"
       ],
-      "note": "Alnadi is back-line insurance for Jordan. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Jordan那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Watch Alnadi for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
+      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Husam Abu Dahab": {
       "transfermarktPlayerCode": "husam-abu-dahab",
@@ -152,8 +152,8 @@
         "Physical defending",
         "Simple build-up"
       ],
-      "note": "Dahab gives Jordan another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
-      "noteZh": "他是Jordan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Watch Dahab for protecting the most dangerous space before stepping to the ball. He plays through nearby pressure instead of around it. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何穿过最近一层逼抢，而不总是绕开压力。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "Mohammad Abu Ghoush": {
       "transfermarktPlayerCode": "mohammad-abu-ghoush",
@@ -165,8 +165,8 @@
         "Wide defending",
         "Recovery runs"
       ],
-      "note": "Taha gives Jordan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Jordan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Taha is defined by making the safer decision before a duel becomes an emergency. He holds the route into the box until support arrives. He turns early and protects the route toward goal.",
+      "noteZh": "他靠在对抗变成险情前做出更安全的选择与同位置球员拉开差异。他会守住进入禁区的路线，直到队友能对持球人施压。他也会提前转身，优先封住通向球门的路线。"
     },
     "Mohammad Abu Hasheesh": {
       "transfermarktPlayerCode": "mohammad-abu-hasheesh",
@@ -178,8 +178,8 @@
         "Cross blocking",
         "Overlap timing"
       ],
-      "note": "Hashish is back-line insurance for Jordan. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Jordan那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Hashish's signature is protecting the most dangerous space before stepping to the ball. He looks up before crossing and picks a runner rather than an empty area. He waits until the wide defender looks inside before running beyond him.",
+      "noteZh": "他的比赛方式建立在先保护最危险空间，再考虑上抢上。他会传中前先观察，再把球送向具体跑动者。他也会等边路防守者看向内侧后再从外线套上。"
     },
     "Mohannad Abu Taha": {
       "transfermarktPlayerCode": "mohannad-abu-taha",
@@ -191,8 +191,8 @@
         "Recovery defending",
         "Crossing"
       ],
-      "note": "Taha has been part of Jordan's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
-      "noteZh": "他给Jordan后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+      "note": "Taha's edge is making the safer decision before a duel becomes an emergency. He turns early and protects the route toward goal. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他最特别的地方是在对抗变成险情前做出更安全的选择。他会提前转身，优先封住通向球门的路线。他也会传中前先观察，再把球送向具体跑动者。"
     },
     "Mohammad Abu Zraiq": {
       "sourceTitle": "Mohammad Abu Zrayq",
@@ -210,8 +210,8 @@
         "Wide acceleration",
         "Box-area carries"
       ],
-      "note": "Zraiq is the forward Jordan can use when the match needs new legs. His first job is to make tired defenders turn.",
-      "noteZh": "他给Jordan替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+      "note": "Zraiq stands out for changing direction without losing control of the ball. He changes pace after the defender has committed his feet. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "他的突出特点是变向时仍把球控制在脚下。他会等防守者脚步固定后突然变速。他也会提前改变位置，为传球队友提供清晰目标。"
     },
     "Yazan Al-Arab": {
       "sourceTitle": "Yazan Al-Arab",
@@ -227,8 +227,8 @@
         "Aerial duels",
         "Line control"
       ],
-      "note": "Al-Arab gives Jordan one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
-      "noteZh": "他是Jordan无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
+      "note": "Watch Al-Arab for organizing teammates before danger becomes obvious. He meets the ball early instead of waiting underneath it. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "要看懂他的作用，关键是在危险出现前组织好队友。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Mohammad Al-Daoud": {
       "displayName": "Mohammad Al-Daoud",
@@ -244,8 +244,8 @@
         "Second balls",
         "Defensive positioning"
       ],
-      "note": "Al-Daoud gives Jordan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Jordan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+      "note": "Al-Daoud's signature is keeping the ball calm when pressure arrives. He positions himself for the next touch before the first contest is over. He adjusts his position early enough to make the difficult action look simple.",
+      "noteZh": "他的比赛方式建立在压力到来时仍能让球保持稳定上。他会第一次争抢还没结束，就先为下一脚触球站好位置。他也会提前调整位置，让困难处理看起来简单。"
     },
     "Ali Azaizeh": {
       "transfermarktPlayerCode": "ali-azaizeh",
@@ -257,8 +257,8 @@
         "Direct running",
         "Low crosses"
       ],
-      "note": "Azaizeh gives Jordan a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Jordan在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Azaizeh's signature is making purposeful movement away from the ball. He changes pace after the defender has committed his feet. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他的比赛方式建立在用有目的的无球移动创造接应点上。他会等防守者脚步固定后突然变速。他也会传中前先观察，再把球送向具体跑动者。"
     },
     "Ali Olwan": {
       "sourceTitle": "Ali Olwan",
@@ -271,8 +271,8 @@
         "Box finishing",
         "Forward pressing"
       ],
-      "note": "Olwan already has a World Cup goal in this run, against Austria. His card is about finding the moment before the match settles again.",
-      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
+      "note": "Watch Olwan for creating a clean shot before the defense can reset. He angles his run to block the easy pass as he closes the ball. He changes pace after the defender has committed his feet.",
+      "noteZh": "要看懂他的作用，关键是在防线重组前制造干净射门。留意他如何接近持球人时调整路线，同时封住最简单的传球。他也会等防守者脚步固定后突然变速。"
     },
     "Mahmoud Al-Mardi": {
       "sourceTitle": "Mahmoud Al-Mardi",
@@ -285,8 +285,8 @@
         "Inside runs",
         "Counter support"
       ],
-      "note": "Mardi gives Jordan a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
-      "noteZh": "他是Jordan在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+      "note": "Watch Mardi for creating a clean shot before the defense can reset. He moves through the gap between full-back and centre-back. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "要看懂他的作用，关键是在防线重组前制造干净射门。留意他如何从边后卫与中后卫之间的空当穿过。他也会提前改变位置，为传球队友提供清晰目标。"
     },
     "Noor Al-Rawabdeh": {
       "sourceTitle": "Noor Al-Rawabdeh",
@@ -299,8 +299,8 @@
         "Defensive cover",
         "Tempo passing"
       ],
-      "note": "Al-Rawabdeh is a tempo player for Jordan. He turns crowded touches into cleaner angles for the next runner.",
-      "noteZh": "他让Jordan在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
+      "note": "Watch Al-Rawabdeh for organizing teammates before danger becomes obvious. He holds the passing lane into midfield until support arrives. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "要看懂他的作用，关键是在危险出现前组织好队友。留意他如何守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Mousa Al-Taamari": {
       "sourceTitle": "Musa Al-Taamari",
@@ -319,8 +319,8 @@
         "Chance passes",
         "Counter acceleration"
       ],
-      "note": "Al-Taamari has shown both sides of the attacking job for Jordan. One action can pull the defender, and the next one can decide the chance.",
-      "noteZh": "他给Jordan展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
+      "note": "Al-Taamari is defined by creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He changes pace after the defender has committed his feet.",
+      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会等防守者脚步固定后突然变速。"
     },
     "Amer Jamous": {
       "transfermarktPlayerCode": "amer-jamous",
@@ -332,8 +332,8 @@
         "Ball recovery",
         "Short passing"
       ],
-      "note": "Jamous is midfield insurance for Jordan. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
-      "noteZh": "他给Jordan一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+      "note": "Jamous is defined by creating a better angle for the next pass. He turns early and protects the route toward goal. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他靠为下一脚传球制造更好的角度与同位置球员拉开差异。他会提前转身，优先封住通向球门的路线。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Anas Badawi": {
       "transfermarktPlayerCode": "anas-badawi",
@@ -345,8 +345,8 @@
         "Overlap support",
         "Recovery speed"
       ],
-      "note": "Badawi is the kind of defender Jordan can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
-      "noteZh": "他是Jordan艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+      "note": "Badawi stands out for protecting the most dangerous space before stepping to the ball. He waits until the wide defender looks inside before running beyond him. He turns early and closes the runner before the box.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会等边路防守者看向内侧后再从外线套上。他也会提前转身，在对手进入禁区前缩短距离。"
     },
     "Nour Bani Attiah": {
       "sourceTitle": "Nour Bani Attiah",
@@ -365,8 +365,8 @@
         "Close-range saves",
         "Cross handling"
       ],
-      "note": "Attiah is goalkeeper cover for Jordan. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
-      "noteZh": "他是Jordan门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
+      "note": "Attiah is defined by organizing teammates before danger becomes obvious. He plays through nearby pressure instead of around it. He judges when to leave his line and takes pressure off his defenders.",
+      "noteZh": "他靠在危险出现前组织好队友与同位置球员拉开差异。他会穿过最近一层逼抢，而不总是绕开压力。他也会判断何时出击，替后卫化解高球压力。"
     },
     "Ehsan Haddad": {
       "sourceTitle": "Ehsan Haddad",
@@ -379,8 +379,8 @@
         "Right-back experience",
         "Cross blocking"
       ],
-      "note": "Haddad has already made a goal happen for Jordan. His value is picking the moment when the defense is still moving.",
-      "noteZh": "他已经为Jordan送出一次进球前的传球。重点是机会真正显眼前的那次触球。"
+      "note": "Haddad's edge is seeing the decisive pass one beat before it opens. He recognizes when to slow the play and when to take the risk. He looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "他最特别的地方是比防线早一步看到决定性的传球。他会判断何时放慢节奏，何时承担风险。他也会传中前先观察，再把球送向具体跑动者。"
     },
     "Ibrahim Sadeh": {
       "sourceTitle": "Ibrahim Sadeh",
@@ -397,8 +397,8 @@
         "Pressure release",
         "Second-ball timing"
       ],
-      "note": "Sadeh gives Jordan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Jordan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+      "note": "Watch Sadeh for moving the defense with the weight and angle of his passing. He moves after releasing the ball so the receiver still has support. He adjusts his position early enough to make the difficult action look simple.",
+      "noteZh": "要看懂他的作用，关键是用传球的力度和角度移动防线。留意他如何出球后继续移动，让接球队友始终有支援。他也会提前调整位置，让困难处理看起来简单。"
     },
     "Nizar Al-Rashdan": {
       "sourceTitle": "Nizar Al-Rashdan",
@@ -414,8 +414,8 @@
         "Midfield screening",
         "Ball winning"
       ],
-      "note": "Al-Rashdan already has a World Cup goal in this run, against Algeria. His card is about finding the moment before the match settles again.",
-      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
+      "note": "Al-Rashdan stands out for creating a clean shot before the defense can reset. He holds the passing lane into midfield until support arrives. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "Odeh Fakhoury": {
       "transfermarktPlayerCode": "odeh-fakhoury",
@@ -427,8 +427,8 @@
         "Counter support",
         "Box-area movement"
       ],
-      "note": "Al-Fakhouri is the forward Jordan can use when the match needs new legs. His first job is to make tired defenders turn.",
-      "noteZh": "他给Jordan替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+      "note": "Watch Al-Fakhouri for making purposeful movement away from the ball. He moves through the gap between full-back and centre-back. He changes pace after the defender has committed his feet.",
+      "noteZh": "要看懂他的作用，关键是用有目的的无球移动创造接应点。留意他如何从边后卫与中后卫之间的空当穿过。他也会等防守者脚步固定后突然变速。"
     },
     "Rajaei Ayed": {
       "sourceTitle": "Rajaei Ayed",
@@ -441,8 +441,8 @@
         "Ball retention",
         "Defensive cover"
       ],
-      "note": "Ayed gives Jordan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
-      "noteZh": "他是Jordan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+      "note": "Watch Ayed for creating a better angle for the next pass. He uses his first touch to escape pressure before choosing the pass. He holds the passing lane into midfield until support arrives.",
+      "noteZh": "要看懂他的作用，关键是为下一脚传球制造更好的角度。留意他如何第一脚触球先摆脱压力，再选择传球方向。他也会守住通向中场核心区域的传球线路，直到队友能对持球人施压。"
     },
     "Saed Al-Rosan": {
       "displayName": "Saed Al-Rosan",
@@ -458,8 +458,8 @@
         "Aerial contests",
         "Box clearances"
       ],
-      "note": "Al-Rosan is defensive cover for Jordan's harder minutes. He is there to win the first contact and make the next pass simple.",
-      "noteZh": "他是Jordan在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+      "note": "Al-Rosan stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He waits for a loose touch and then steps through the ball.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会等对手触球稍大后再连人带球一起压上。"
     },
     "Saleem Obaid": {
       "transfermarktPlayerCode": "saleem-obaid",
@@ -471,8 +471,8 @@
         "Aerial cover",
         "Simple passes"
       ],
-      "note": "Obaid gives Jordan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Jordan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Obaid's edge is the flexibility to fill different roles without breaking the team's shape. He meets the ball early instead of waiting underneath it. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他最特别的地方是在多个角色之间切换时仍保持球队结构。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Yazeed Abulaila": {
       "sourceTitle": "Yazeed Abulaila",
@@ -485,8 +485,8 @@
         "Tournament composure",
         "Box command"
       ],
-      "note": "Laila is the last voice in Jordan's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
-      "noteZh": "他承担了Jordan的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
+      "note": "Laila stands out for sharp reactions backed by early positioning. He uses his first touch to escape pressure before choosing the pass. He judges when to leave his line and takes pressure off his defenders.",
+      "noteZh": "他的突出特点是提前站位后的快速反应。他会第一脚触球先摆脱压力，再选择传球方向。他也会判断何时出击，替后卫化解高球压力。"
     }
   }
 }

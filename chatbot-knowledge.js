@@ -1,6 +1,6 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
 
-const BALL_BOY_DATA_VERSION = "2026-07-14-team-style-profiles-1";
+const BALL_BOY_DATA_VERSION = "2026-07-14-player-watch-bullets-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -1554,7 +1554,7 @@ function getPlayerRole(profile, locale = "en") {
     };
   } else if (position.includes("forward") || position.includes("striker")) {
     role = {
-      summary: "A striker's main job is to run behind the defence, attack the penalty area, and finish chances.",
+      summary: "A striker leads the attack, but the role is not only about scoring. They occupy defenders, time runs into space, link with teammates, and create shots for themselves or others.",
       zone: "finish"
     };
   } else {
@@ -1571,7 +1571,7 @@ function getPlayerRole(profile, locale = "en") {
     defend: "后卫先阻止对手进攻，再帮助球队安全地把球向前推进。",
     create: "中场连接防守与进攻：抢回球权、稳住球，再找到下一脚传球。",
     "attack-wide": "边锋通常从边路启动，突破防守，并在禁区附近创造或完成机会。",
-    finish: "中锋的主要任务是前插到防线身后、冲击禁区并完成射门。"
+    finish: "中锋负责领衔进攻，但任务不只是进球：他们要牵制防守球员、把握时机前插到空当、与队友串联，并为自己或队友创造射门机会。"
   }[role.zone];
   return { ...role, summary };
 }

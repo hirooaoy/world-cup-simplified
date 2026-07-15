@@ -4,14 +4,20 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-14-team-style-profiles-1";
+} from "./chatbot-knowledge.js?v=2026-07-14-player-watch-bullets-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
 const SCOUT_SHOW_NEXT_GAP = 14;
 const SCOUT_TOUCH_GAZE_LINGER_MS = 420;
-const SCOUT_TOUCH_RELEASE_BLINK_MS = 260;
+const SCOUT_IDLE_BLINK_MIN_MS = 9000;
+const SCOUT_IDLE_BLINK_RANGE_MS = 6000;
+const SCOUT_BLINK_COOLDOWN_MS = 5000;
 const SCOUT_JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
+const SCOUT_BLINK_EXPRESSION_CLASSES = new Set([
+  "is-eye-double-blink",
+  "is-eye-record"
+]);
 const SCOUT_EYE_EXPRESSION_CLASSES = [
   "is-eye-aware-below",
   "is-eye-wide",
@@ -19,8 +25,7 @@ const SCOUT_EYE_EXPRESSION_CLASSES = [
   "is-eye-side-glance",
   "is-eye-pleased",
   "is-eye-record",
-  "is-eye-amused",
-  "is-eye-touch-release"
+  "is-eye-amused"
 ];
 
 const SCOUT_COPY = {
@@ -133,6 +138,17 @@ const SCOUT_COPY = {
     scoreAria: (home, away) => `${home} to ${away}`,
     flowAriaSeparator: "; ",
     watchListTitle: "Players to watch",
+    languageActionIntro: "I can do that. You can also change your language from the Settings icon in the top right.",
+    timeZoneActionIntro: "I can do that. You can also change your time zone from the Settings icon in the top right.",
+    switchLanguage: (language) => `Switch to ${language}`,
+    switchTimeZone: (timeZone) => `Switch to ${timeZone}`,
+    languageAlreadySet: (language) => `You’re already using ${language}. You can also change your language from the Settings icon in the top right.`,
+    timeZoneAlreadySet: (timeZone) => `You’re already using ${timeZone}. You can also change your time zone from the Settings icon in the top right.`,
+    languageChanged: (language) => `Language changed to ${language}.`,
+    timeZoneChanged: (timeZone) => `Time zone changed to ${timeZone}.`,
+    unsupportedLanguage: "I currently support English and Chinese.",
+    unsupportedTimeZone: "That time zone isn’t available yet.",
+    reportIssue: "Report issue",
     errorText: "I couldn’t load the data. Try again.",
     errorFollowUps: []
   },
@@ -245,9 +261,71 @@ const SCOUT_COPY = {
     scoreAria: (home, away) => `${home}比${away}`,
     flowAriaSeparator: "；",
     watchListTitle: "值得关注的球员",
+    languageActionIntro: "可以。你也可以通过右上角的设置图标更改语言。",
+    timeZoneActionIntro: "可以。你也可以通过右上角的设置图标更改时区。",
+    switchLanguage: (language) => `切换到${language}`,
+    switchTimeZone: (timeZone) => `切换到${timeZone}`,
+    languageAlreadySet: (language) => `你已在使用${language}。也可以通过右上角的设置图标更改语言。`,
+    timeZoneAlreadySet: (timeZone) => `你已在使用${timeZone}。也可以通过右上角的设置图标更改时区。`,
+    languageChanged: (language) => `语言已切换为${language}。`,
+    timeZoneChanged: (timeZone) => `时区已切换为${timeZone}。`,
+    unsupportedLanguage: "我目前支持英文和中文。",
+    unsupportedTimeZone: "目前还不支持这个时区。",
+    reportIssue: "报告问题",
     errorText: "我无法载入数据。请再试一次。",
     errorFollowUps: []
   }
+};
+
+const SCOUT_LANGUAGE_ALIASES = {
+  chinese: "zh",
+  mandarin: "zh",
+  "simplified chinese": "zh",
+  中文: "zh",
+  汉语: "zh",
+  普通话: "zh",
+  english: "en",
+  英文: "en",
+  英语: "en"
+};
+const SCOUT_UNSUPPORTED_LANGUAGE_NAMES = {
+  arabic: "Arabic",
+  french: "French",
+  german: "German",
+  hindi: "Hindi",
+  italian: "Italian",
+  japanese: "Japanese",
+  korean: "Korean",
+  portuguese: "Portuguese",
+  russian: "Russian",
+  spanish: "Spanish",
+  西班牙语: "西班牙语",
+  法语: "法语",
+  德语: "德语",
+  日语: "日语",
+  韩语: "韩语",
+  葡萄牙语: "葡萄牙语",
+  阿拉伯语: "阿拉伯语"
+};
+const SCOUT_TIME_ZONE_ALIASES = {
+  la: "America/Los_Angeles",
+  "los angeles": "America/Los_Angeles",
+  pacific: "America/Los_Angeles",
+  "pacific time": "America/Los_Angeles",
+  mountain: "America/Denver",
+  "mountain time": "America/Denver",
+  central: "America/Chicago",
+  "central time": "America/Chicago",
+  eastern: "America/New_York",
+  "eastern time": "America/New_York",
+  uk: "Europe/London",
+  "uk time": "Europe/London",
+  china: "Asia/Shanghai",
+  "china time": "Asia/Shanghai",
+  india: "Asia/Kolkata",
+  "india time": "Asia/Kolkata",
+  japan: "Asia/Tokyo",
+  "japan time": "Asia/Tokyo"
 };
 
 function readScoutLocale() {
@@ -275,6 +353,159 @@ let scoutLocale = readScoutLocale();
 function scoutText(key, ...args) {
   const value = SCOUT_COPY[scoutLocale]?.[key] ?? SCOUT_COPY.en[key] ?? key;
   return typeof value === "function" ? value(...args) : value;
+}
+
+function normalizeScoutSettingsText(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .trim()
+    .toLocaleLowerCase("en-US")
+    .replace(/[“”"'’]/g, "")
+    .replace(/[?!。！？]+$/g, "")
+    .replace(/[_/]+/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+function getScoutLanguageName(language, locale = scoutLocale) {
+  if (normalizeBallBoyLocale(locale) === "zh") {
+    return language === "zh" ? "中文" : "英文";
+  }
+  return language === "zh" ? "Chinese" : "English";
+}
+
+function getScoutLanguageIntent(question) {
+  const normalized = normalizeScoutSettingsText(question);
+  const hasAction = /\b(?:change|set|switch|use)\b/.test(normalized) ||
+    /(?:切换|改成|换成|设置为|使用|用)/.test(normalized);
+  if (!hasAction) {
+    return null;
+  }
+
+  const targetPatterns = [
+    /^(?:please )?(?:change|set|switch|use)(?: my| the| app| site| page)*(?: language| locale)?(?: to| as)? (.+?)(?: language)?$/,
+    /^(?:请)?(?:把)?(?:语言|语种)?(?:切换|改成|换成|设置为|使用|用)(?:到|为)?(.+)$/
+  ];
+  const requestedTarget = targetPatterns
+    .map((pattern) => normalized.match(pattern)?.[1]?.trim())
+    .find(Boolean);
+  if (!requestedTarget) {
+    return null;
+  }
+
+  const supportedLanguage = SCOUT_LANGUAGE_ALIASES[requestedTarget];
+  if (supportedLanguage) {
+    return {
+      kind: "settings-action",
+      setting: "language",
+      status: supportedLanguage === scoutLocale ? "already" : "pending",
+      value: supportedLanguage
+    };
+  }
+
+  const unsupportedLanguage = SCOUT_UNSUPPORTED_LANGUAGE_NAMES[requestedTarget];
+  if (unsupportedLanguage) {
+    return {
+      kind: "settings-action",
+      requestedLabel: unsupportedLanguage,
+      setting: "language",
+      status: "unsupported",
+      value: ""
+    };
+  }
+
+  return null;
+}
+
+function normalizeScoutTimeZoneTarget(value) {
+  return normalizeScoutSettingsText(value)
+    .replace(/\b(?:please|my|the|app|site|page|timezone|time zone|time)\b/g, " ")
+    .replace(/(?:请|我的|网站|页面|时区|时间)/g, "")
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getScoutTimeZoneOption(target) {
+  const timeZoneSelect = document.querySelector("#timezone-select");
+  if (!timeZoneSelect) {
+    return null;
+  }
+  const normalizedTarget = normalizeScoutTimeZoneTarget(target);
+  const aliasValue = SCOUT_TIME_ZONE_ALIASES[normalizeScoutSettingsText(target)] ||
+    SCOUT_TIME_ZONE_ALIASES[normalizedTarget];
+  if (aliasValue) {
+    return [...timeZoneSelect.options].find((option) => option.value === aliasValue) || null;
+  }
+
+  return [...timeZoneSelect.options].find((option) => {
+    const valueName = normalizeScoutTimeZoneTarget(option.value);
+    const cityName = normalizeScoutTimeZoneTarget(option.value.split("/").at(-1));
+    const label = normalizeScoutTimeZoneTarget(option.textContent);
+    return [valueName, cityName, label].includes(normalizedTarget);
+  }) || null;
+}
+
+function getScoutTimeZoneRequest(question) {
+  const normalized = normalizeScoutSettingsText(question);
+  const hasAction = /\b(?:change|set|switch|use)\b/.test(normalized) ||
+    /(?:切换|改成|换成|设置为|使用|用)/.test(normalized);
+  if (!hasAction) {
+    return null;
+  }
+
+  const patterns = [
+    /^(?:please )?(?:change|set|switch)(?: my| the| this| app| site| page)*(?: time ?zone| timezone)(?: to)? (.+)$/,
+    /^(?:please )?(?:change|set|switch|use)(?: to)? (.+?) (?:time|time ?zone|timezone)$/,
+    /^(?:please )?(?:change|set|switch|use)(?: to)? (.+)$/,
+    /(?:把)?(?:我的|网站|页面)?时区(?:切换|改成|换成|设置为|用)?(?:到|为)?(.+)$/,
+    /(?:切换|改成|换成|设置为|使用|用)(?:到|为)?(.+?)(?:时区|时间)$/
+  ];
+  const matchedPattern = patterns
+    .map((pattern) => normalized.match(pattern))
+    .find(Boolean);
+  const requestedTarget = matchedPattern?.[1]?.trim() || "";
+  if (!requestedTarget) {
+    return null;
+  }
+
+  const option = getScoutTimeZoneOption(requestedTarget);
+  if (option) {
+    const timeZoneSelect = document.querySelector("#timezone-select");
+    return {
+      kind: "settings-action",
+      setting: "timezone",
+      status: option.value === timeZoneSelect?.value ? "already" : "pending",
+      value: option.value
+    };
+  }
+
+  const hasTimeZoneCue = /\b(?:time|time ?zone|timezone)\b/.test(normalized) ||
+    /(?:时区|时间)/.test(normalized);
+  if (hasTimeZoneCue) {
+    return {
+      kind: "settings-action",
+      requestedLabel: requestedTarget,
+      setting: "timezone",
+      status: "unsupported",
+      value: ""
+    };
+  }
+  return null;
+}
+
+function getScoutSettingsReply(question) {
+  const languageReply = getScoutLanguageIntent(question);
+  if (languageReply) {
+    return { ...languageReply, originalQuestion: String(question || "").trim() };
+  }
+  const timeZoneReply = getScoutTimeZoneRequest(question);
+  return timeZoneReply
+    ? { ...timeZoneReply, originalQuestion: String(question || "").trim() }
+    : null;
+}
+
+async function getScoutReply(question, options = {}) {
+  return getScoutSettingsReply(question) || getBallBoyReply(question, options);
 }
 
 function getScoutInitialMessageHtml() {
@@ -368,6 +599,7 @@ let isOpen = false;
 let pointerFrame = 0;
 let latestPointer = null;
 let blinkTimer = 0;
+let lastBlinkAt = 0;
 let touchGazeTimer = 0;
 let isTouchGazeActive = false;
 let replyTimer = 0;
@@ -477,9 +709,6 @@ function queueTouchPupilUpdate(event) {
   touchGazeTimer = 0;
   isTouchGazeActive = true;
   latestPointer = { x: touch.clientX, y: touch.clientY };
-  if (widget.classList.contains("is-eye-touch-release")) {
-    clearEyeExpression({ restore: false });
-  }
   pauseRandomBlink();
   if (!isJuggleActive && !isEyeExpressionActive && !isReplyPending && !pointerFrame) {
     pointerFrame = window.requestAnimationFrame(updatePupils);
@@ -507,26 +736,8 @@ function scheduleTouchGazeRelease(event) {
     touchGazeTimer = 0;
     isTouchGazeActive = false;
     latestPointer = null;
-
-    if (
-      reducedMotion.matches ||
-      document.hidden ||
-      isJuggleActive ||
-      isEyeExpressionActive ||
-      isReplyPending
-    ) {
-      syncEyeAttention();
-      scheduleBlink();
-      return;
-    }
-
-    playEyeSequence([
-      {
-        className: "is-eye-touch-release",
-        duration: SCOUT_TOUCH_RELEASE_BLINK_MS,
-        pupil: { x: 0, y: 0 }
-      }
-    ]);
+    syncEyeAttention();
+    scheduleBlink();
   }, SCOUT_TOUCH_GAZE_LINGER_MS);
 }
 
@@ -534,6 +745,14 @@ function pauseRandomBlink() {
   window.clearTimeout(blinkTimer);
   blinkTimer = 0;
   widget.classList.remove("is-blinking");
+}
+
+function getBlinkCooldownRemaining() {
+  return Math.max(0, SCOUT_BLINK_COOLDOWN_MS - (Date.now() - lastBlinkAt));
+}
+
+function markBlinkActivity() {
+  lastBlinkAt = Date.now();
 }
 
 function scheduleBlink() {
@@ -549,6 +768,7 @@ function scheduleBlink() {
     return;
   }
 
+  const idleDelay = SCOUT_IDLE_BLINK_MIN_MS + Math.random() * SCOUT_IDLE_BLINK_RANGE_MS;
   blinkTimer = window.setTimeout(() => {
     blinkTimer = 0;
     if (
@@ -561,13 +781,18 @@ function scheduleBlink() {
       scheduleBlink();
       return;
     }
+    if (getBlinkCooldownRemaining() > 0) {
+      scheduleBlink();
+      return;
+    }
+    markBlinkActivity();
     widget.classList.add("is-blinking");
     blinkTimer = window.setTimeout(() => {
       blinkTimer = 0;
       widget.classList.remove("is-blinking");
       scheduleBlink();
     }, 135);
-  }, 3400 + Math.random() * 4300);
+  }, Math.max(idleDelay, getBlinkCooldownRemaining()));
 }
 
 function removeEyeExpressionClasses() {
@@ -603,13 +828,20 @@ function clearEyeExpression({ restore = true } = {}) {
 }
 
 function playEyeSequence(steps) {
+  const availableSteps = getBlinkCooldownRemaining() > 0
+    ? steps.filter((step) => !SCOUT_BLINK_EXPRESSION_CLASSES.has(step.className))
+    : steps;
   clearEyeExpression({ restore: false });
   pauseRandomBlink();
 
-  if (reducedMotion.matches || !steps.length) {
+  if (reducedMotion.matches || !availableSteps.length) {
     syncEyeAttention();
     scheduleBlink();
     return;
+  }
+
+  if (availableSteps.some((step) => SCOUT_BLINK_EXPRESSION_CLASSES.has(step.className))) {
+    markBlinkActivity();
   }
 
   const sequenceToken = eyeExpressionToken;
@@ -622,7 +854,7 @@ function playEyeSequence(steps) {
     }
 
     removeEyeExpressionClasses();
-    const step = steps[index];
+    const step = availableSteps[index];
     if (!step) {
       eyeExpressionTimer = 0;
       isEyeExpressionActive = false;
@@ -1415,6 +1647,23 @@ function formatScoutMarketValue(value) {
   return `€${Number.isInteger(millions) ? millions : millions.toFixed(1)}m`;
 }
 
+function renderScoutWatchList(note) {
+  const points = String(note || "")
+    .trim()
+    .match(/[^.!?。！？]+(?:[.!?。！？]+|$)/gu) || [];
+  const cleanPoints = points
+    .map((point) => point.trim())
+    .filter(Boolean);
+  if (!cleanPoints.length) {
+    return "";
+  }
+  return `
+    <ul class="scout-player-watch-points">
+      ${cleanPoints.map((point) => `<li>${escapeScoutHtml(point)}</li>`).join("")}
+    </ul>
+  `;
+}
+
 function appendPlayerReply(reply, options = {}) {
   const { age, profile, role, stats, team } = reply;
   const focus = reply.focus || "overview";
@@ -1431,20 +1680,13 @@ function appendPlayerReply(reply, options = {}) {
     ? `<em>${escapeScoutHtml(scoutText("prime"))} ${escapeScoutHtml(formatScoutMarketValue(profile.peakMarketValue))}</em>`
     : "";
   const skills = profile.skills.length
-    ? profile.skills
-        .map(
-          (skill, index) => `
-            <span class="scout-flow-step">${escapeScoutHtml(skill)}</span>
-            ${index < profile.skills.length - 1 ? '<span class="scout-flow-arrow" aria-hidden="true">→</span>' : ""}
-          `
-        )
-        .join("")
-    : `<span class="scout-flow-step">${escapeScoutHtml(scoutText("readPlay"))}</span>`;
+    ? profile.skills.map((skill) => `<span>${escapeScoutHtml(skill)}</span>`).join("")
+    : `<span>${escapeScoutHtml(scoutText("readPlay"))}</span>`;
   const note = profile.note
     ? `
       <div class="scout-explainer">
         <p class="scout-section-label">${escapeScoutHtml(scoutText("whyWatch"))}</p>
-        <p>${escapeScoutHtml(profile.note)}</p>
+        ${renderScoutWatchList(profile.note)}
       </div>
     `
     : "";
@@ -1489,7 +1731,7 @@ function appendPlayerReply(reply, options = {}) {
     ? `
       <div class="scout-skill-section">
         <p class="scout-section-label">${escapeScoutHtml(scoutText("signatureTraits"))}</p>
-        <div class="scout-skill-flow" aria-label="${escapeScoutHtml(scoutText("threeTraits"))}">
+        <div class="player-skill-list scout-player-skill-list" aria-label="${escapeScoutHtml(scoutText("threeTraits"))}">
           ${skills}
         </div>
       </div>
@@ -1992,6 +2234,76 @@ function appendPersonalityReply(reply, options = {}) {
   appendMessage(reply.text, "assistant", { ...options, className: "is-personality" });
 }
 
+function getScoutTimeZoneLabel(timeZone) {
+  const option = [...(document.querySelector("#timezone-select")?.options || [])]
+    .find((candidate) => candidate.value === timeZone);
+  return option?.textContent?.trim() || String(timeZone || "").replace(/_/g, " ");
+}
+
+function getScoutReportIssueUrl(reply) {
+  const params = new URLSearchParams({
+    type: "other",
+    from: window.location.href,
+    details: isScoutZh()
+      ? `Ball Boy 暂不支持这个请求：${reply.originalQuestion}`
+      : `Ball Boy does not currently support this request: ${reply.originalQuestion}`
+  });
+  const timeZone = document.querySelector("#timezone-select")?.value;
+  if (timeZone) {
+    params.set("tz", timeZone);
+  }
+  if (scoutLocale !== "en") {
+    params.set("lang", scoutLocale);
+  }
+  return `report.html?${params.toString()}`;
+}
+
+function getScoutSettingsLead(reply) {
+  const label = reply.setting === "language"
+    ? getScoutLanguageName(reply.value)
+    : getScoutTimeZoneLabel(reply.value);
+  if (reply.status === "completed") {
+    return scoutText(reply.setting === "language" ? "languageChanged" : "timeZoneChanged", label);
+  }
+  if (reply.status === "already") {
+    return scoutText(reply.setting === "language" ? "languageAlreadySet" : "timeZoneAlreadySet", label);
+  }
+  if (reply.status === "unsupported") {
+    return scoutText(reply.setting === "language" ? "unsupportedLanguage" : "unsupportedTimeZone");
+  }
+  return scoutText(reply.setting === "language" ? "languageActionIntro" : "timeZoneActionIntro");
+}
+
+function appendSettingsActionReply(reply, options = {}) {
+  let actions = "";
+  if (reply.status === "pending") {
+    const label = reply.setting === "language"
+      ? getScoutLanguageName(reply.value)
+      : getScoutTimeZoneLabel(reply.value);
+    const buttonText = scoutText(
+      reply.setting === "language" ? "switchLanguage" : "switchTimeZone",
+      label
+    );
+    actions = `
+      <div class="scout-settings-actions">
+        <button
+          class="scout-settings-action"
+          type="button"
+          data-scout-setting-action="${escapeScoutHtml(reply.setting)}"
+          data-scout-setting-value="${escapeScoutHtml(reply.value)}"
+        >${escapeScoutHtml(buttonText)}</button>
+      </div>
+    `;
+  } else if (reply.status === "unsupported") {
+    actions = `
+      <div class="scout-settings-actions">
+        <a class="scout-settings-report" href="${escapeScoutHtml(getScoutReportIssueUrl(reply))}">${escapeScoutHtml(scoutText("reportIssue"))}</a>
+      </div>
+    `;
+  }
+  createScoutVisualMessage("settings", getScoutSettingsLead(reply), actions, [], options);
+}
+
 function playPersonalityEyeReaction(eye) {
   const sequences = {
     "double-blink": [
@@ -2050,6 +2362,8 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
     appendClarificationReply(reply, options);
   } else if (reply.kind === "personality") {
     appendPersonalityReply(reply, options);
+  } else if (reply.kind === "settings-action") {
+    appendSettingsActionReply(reply, options);
   } else {
     appendUnknownReply(reply, options);
   }
@@ -2098,8 +2412,10 @@ async function rerenderScoutConversation() {
 
   for (const turn of turns) {
     appendMessage(turn.question, "user", { scroll: false });
-    const reply = await getBallBoyReply(turn.question, { locale: scoutLocale })
-      .catch(() => getScoutErrorReply());
+    const reply = turn.reply?.kind === "settings-action" && turn.reply.status === "completed"
+      ? turn.reply
+      : await getScoutReply(turn.question, { locale: scoutLocale })
+        .catch(() => getScoutErrorReply());
     if (renderToken !== localeRenderToken || requestToken !== replyRequestToken) {
       return;
     }
@@ -2169,7 +2485,7 @@ async function submitQuestion(question) {
   syncEyeAttention();
   const thinkingMessage = appendThinkingMessage();
   const requestedLocale = scoutLocale;
-  const replyPromise = getBallBoyReply(trimmed, { locale: requestedLocale })
+  const replyPromise = getScoutReply(trimmed, { locale: requestedLocale })
     .catch(() => getScoutErrorReply(requestedLocale));
   const [reply] = await Promise.all([replyPromise, waitForScoutReplyDelay()]);
   if (requestToken !== replyRequestToken) {
@@ -2203,6 +2519,55 @@ suggestions.addEventListener("click", (event) => {
   }
 });
 messages.addEventListener("click", (event) => {
+  const settingsAction = event.target.closest("[data-scout-setting-action]");
+  if (settingsAction) {
+    const setting = settingsAction.dataset.scoutSettingAction;
+    const value = settingsAction.dataset.scoutSettingValue;
+    const matchingTurn = [...canonicalTurns]
+      .reverse()
+      .find((turn) =>
+        turn.reply?.kind === "settings-action" &&
+        turn.reply.setting === setting &&
+        turn.reply.value === value &&
+        turn.reply.status === "pending"
+      );
+    if (!matchingTurn) {
+      return;
+    }
+
+    if (setting === "language") {
+      const languageButton = document.querySelector(`.language-option[data-language="${CSS.escape(value)}"]`);
+      if (!languageButton) {
+        return;
+      }
+      matchingTurn.reply.status = "completed";
+      settingsAction.disabled = true;
+      settingsAction.setAttribute("aria-busy", "true");
+      languageButton.click();
+      return;
+    }
+
+    if (setting === "timezone") {
+      const timeZoneSelect = document.querySelector("#timezone-select");
+      const hasOption = [...(timeZoneSelect?.options || [])]
+        .some((option) => option.value === value);
+      if (!timeZoneSelect || !hasOption) {
+        return;
+      }
+      matchingTurn.reply.status = "completed";
+      timeZoneSelect.value = value;
+      timeZoneSelect.dispatchEvent(new Event("change", { bubbles: true }));
+      const message = settingsAction.closest(".scout-message");
+      const lead = message?.querySelector(".scout-answer-lead");
+      if (lead) {
+        lead.textContent = getScoutSettingsLead(matchingTurn.reply);
+      }
+      message?.querySelector(".scout-settings-actions")?.remove();
+      syncEyeAttention();
+      scheduleBlink();
+    }
+    return;
+  }
   const promptButton = event.target.closest("[data-scout-prompt]");
   if (promptButton) {
     submitQuestion(promptButton.dataset.scoutPrompt);

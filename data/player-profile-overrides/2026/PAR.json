@@ -23,8 +23,8 @@
         "Aerial target play",
         "First-time shots"
       ],
-      "note": "Arce is the forward Paraguay can use when the match needs new legs. His first job is to make tired defenders turn.",
-      "noteZh": "他给Paraguay替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+      "note": "Arce is defined by creating a clean shot before the defense can reset. He pins a defender and creates room for the next runner. He changes his position early enough to give the passer a clear target.",
+      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会牵制一名后卫，为后插上的队友腾出空间。他也会提前改变位置，为传球队友提供清晰目标。"
     },
     "Alexandro Maidana": {
       "skills": [
@@ -32,8 +32,8 @@
         "Recovery speed",
         "Forward support"
       ],
-      "note": "Maidana is the kind of defender Paraguay can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
-      "noteZh": "他是Paraguay艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+      "note": "Maidana's edge is protecting the most dangerous space before stepping to the ball. He turns early and closes the runner before the box. He waits until the wide defender looks inside before running beyond him.",
+      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会提前转身，在对手进入禁区前缩短距离。他也会等边路防守者看向内侧后再从外线套上。"
     },
     "Andres Cubas": {
       "displayName": "Andrés Cubas",
@@ -43,8 +43,8 @@
         "Midfield screening",
         "Counter control"
       ],
-      "note": "Cubas gives Paraguay structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
-      "noteZh": "他给Paraguay控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
+      "note": "Cubas's signature is choosing the moment of contact instead of diving in. He holds the passing lane into midfield until support arrives. He uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会第一脚触球先摆脱压力，再选择传球方向。"
     },
     "Antonio Sanabria": {
       "skills": [
@@ -52,8 +52,8 @@
         "Aerial timing",
         "Box finishing"
       ],
-      "note": "Sanabria is attacking depth for Paraguay. If the game slows down, he is there to make the back line move again.",
-      "noteZh": "他是Paraguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+      "note": "Sanabria's signature is making the next teammate's action easier. He meets the ball early instead of waiting underneath it. He shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "他的比赛方式建立在让队友下一步处理更轻松上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
     },
     "Braian Ojeda": {
       "skills": [
@@ -61,8 +61,8 @@
         "Duel energy",
         "Simple progression"
       ],
-      "note": "Ojeda is midfield insurance for Paraguay. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
-      "noteZh": "他给Paraguay一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+      "note": "Ojeda's signature is changing direction without losing control of the ball. He angles his run to block the easy pass as he closes the ball. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的比赛方式建立在变向时仍把球控制在脚下上。他会接近持球人时调整路线，同时封住最简单的传球。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Damian Bobadilla": {
       "displayName": "Damián Bobadilla",
@@ -71,8 +71,8 @@
         "Late arrivals",
         "Defensive work rate"
       ],
-      "note": "Bobadilla is there for the part of the game where spacing gets ugly. For Paraguay, that can mean one clean touch before pressure arrives.",
-      "noteZh": "他给Paraguay提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+      "note": "Bobadilla's signature is creating a better angle for the next pass. He moves through the gap between full-back and centre-back. He angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "他的比赛方式建立在为下一脚传球制造更好的角度上。他会从边后卫与中后卫之间的空当穿过。他也会接近持球人时调整路线，同时封住最简单的传球。"
     },
     "Diego Gomez": {
       "displayName": "Diego Gómez",
@@ -90,8 +90,8 @@
         "Midfield shooting",
         "Box-to-box range"
       ],
-      "note": "Gómez is a tempo player for Paraguay. He turns crowded touches into cleaner angles for the next runner.",
-      "noteZh": "他让Paraguay在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。",
+      "note": "Gómez's edge is using strength without slowing the next action. He shifts onto his stronger foot and shoots with little backlift. He plays through nearby pressure instead of around it.",
+      "noteZh": "他最特别的地方是在对抗中用力量但不拖慢下一步。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会穿过最近一层逼抢，而不总是绕开压力。",
       "sourceUrl": "https://www.transfermarkt.com/diego-gomez/profil/spieler/996897"
     },
     "Fabian Balbuena": {
@@ -101,8 +101,8 @@
         "Aerial clearances",
         "Back-line organization"
       ],
-      "note": "Balbuena is back-line insurance for Paraguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
-      "noteZh": "他给Paraguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+      "note": "Balbuena stands out for calm decisions shaped by experience in high-pressure moments. He meets the ball early instead of waiting underneath it. He keeps the line connected with constant small instructions.",
+      "noteZh": "他的突出特点是高压时刻由经验带来的冷静判断。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会用持续而简短的提醒保持整条防线连接。"
     },
     "Gabriel Avalos": {
       "displayName": "Gabriel Ávalos",
@@ -111,8 +111,8 @@
         "Aerial finishing",
         "Penalty-box instincts"
       ],
-      "note": "Ávalos is an attacking change-up for Paraguay. He gives the front line fresh running when the first plan starts to look predictable.",
-      "noteZh": "他是Paraguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+      "note": "Watch Ávalos for making purposeful movement away from the ball. He shifts onto his stronger foot and shoots with little backlift. He arrives in the box late enough to be difficult to track.",
+      "noteZh": "要看懂他的作用，关键是用有目的的无球移动创造接应点。留意他如何把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会稍晚进入禁区，让盯防者难以持续跟住。"
     },
     "Gaston Olveira": {
       "displayName": "Gastón Olveira",
@@ -122,8 +122,8 @@
         "Cross claiming",
         "Short distribution"
       ],
-      "note": "Olveira gives Paraguay a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
-      "noteZh": "他在Paraguay首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+      "note": "Olveira's signature is organizing teammates before danger becomes obvious. He judges when to leave his line and takes pressure off his defenders. He chooses the simple restart before pressure can close in.",
+      "noteZh": "他的比赛方式建立在在危险出现前组织好队友上。他会判断何时出击，替后卫化解高球压力。他也会在逼抢靠近前选择最稳妥的出球方式。"
     },
     "Gatito Fernandez": {
       "displayName": "Gatito Fernández",
@@ -139,8 +139,8 @@
         "Penalty-area bravery",
         "Reaction saves"
       ],
-      "note": "Fernández is goalkeeper cover for Paraguay. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
-      "noteZh": "他是Paraguay门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
+      "note": "Fernández is defined by staying ready through long quiet spells. He keeps his feet active and makes the save with the fewest movements. He sets his feet before the shot and reacts without an extra step.",
+      "noteZh": "他靠在长时间无事可做后依然保持专注与同位置球员拉开差异。他会保持脚下轻快，用最少动作完成扑救。他也会在射门前站稳脚步，再用最少动作完成扑救。"
     },
     "Gustavo Caballero": {
       "skills": [
@@ -148,8 +148,8 @@
         "Pressing from the front",
         "Direct carries"
       ],
-      "note": "Caballero is an attacking change-up for Paraguay. He gives the front line fresh running when the first plan starts to look predictable.",
-      "noteZh": "他是Paraguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+      "note": "Watch Caballero for explosive speed once open grass appears. He angles his run to block the easy pass as he closes the ball. He draws the first challenge, then carries through the gap.",
+      "noteZh": "要看懂他的作用，关键是看到空当后的爆发速度。留意他如何接近持球人时调整路线，同时封住最简单的传球。他也会主动吸引第一次上抢，再带球穿过由此出现的空当。"
     },
     "Gustavo Gomez": {
       "displayName": "Gustavo Gómez",
@@ -158,8 +158,8 @@
         "Aerial dominance",
         "Set-piece threat"
       ],
-      "note": "Gómez has been part of Paraguay's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
-      "noteZh": "他在Paraguay体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
+      "note": "Watch Gómez for organizing teammates before danger becomes obvious. He meets the ball early instead of waiting underneath it. He varies the height and pace of his delivery.",
+      "noteZh": "要看懂他的作用，关键是在危险出现前组织好队友。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会通过改变落点和球速寻找防线最薄弱的区域。"
     },
     "Gustavo Velazquez": {
       "displayName": "Gustavo Velázquez",
@@ -169,8 +169,8 @@
         "Penalty-area defending",
         "Aerial strength"
       ],
-      "note": "Velázquez gives Paraguay cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
-      "noteZh": "他是Paraguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+      "note": "Velázquez's edge is choosing the moment of contact instead of diving in. He holds the route into the box until support arrives. He meets the ball early instead of waiting underneath it.",
+      "noteZh": "他最特别的地方是选择身体接触时机，而不是贸然上抢。他会守住进入禁区的路线，直到队友能对持球人施压。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
     },
     "Isidro Pitta": {
       "skills": [
@@ -178,8 +178,8 @@
         "Box contact",
         "Hold-up play"
       ],
-      "note": "Pitta is an attacking change-up for Paraguay. He gives the front line fresh running when the first plan starts to look predictable.",
-      "noteZh": "他是Paraguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+      "note": "Pitta's edge is starting his run while defenders are still watching the ball. He changes his position early enough to give the passer a clear target. He protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "他最特别的地方是在防守者仍盯着球时提前启动。他会提前改变位置，为传球队友提供清晰目标。他也会用身体护住球，再把球送回跑动队友的线路。"
     },
     "Jose Canale": {
       "displayName": "José Canale",
@@ -189,8 +189,8 @@
         "Aerial duels",
         "Left-sided balance"
       ],
-      "note": "Canale is the kind of defender Paraguay can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
-      "noteZh": "他是Paraguay艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+      "note": "Canale's edge is protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He protects the route to goal and challenges only when the touch is loose.",
+      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会先封住通向球门的路线，再等待对手触球失误时上抢。"
     },
     "Juan Jose Caceres": {
       "displayName": "Juan José Cáceres",
@@ -199,8 +199,8 @@
         "Wide duels",
         "Overlap restraint"
       ],
-      "note": "Cáceres gives Paraguay one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
-      "noteZh": "他是Paraguay无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
+      "note": "Cáceres's edge is protecting the most dangerous space before stepping to the ball. He waits for a loose touch and then steps through the ball. He waits until the wide defender looks inside before running beyond him.",
+      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会等对手触球稍大后再连人带球一起压上。他也会等边路防守者看向内侧后再从外线套上。"
     },
     "Julio Enciso": {
       "displayName": "Julio Enciso",
@@ -209,8 +209,8 @@
         "Chance passes",
         "Explosive shooting"
       ],
-      "note": "Enciso has shown both sides of the attacking job for Paraguay. One action can pull the defender, and the next one can decide the chance.",
-      "noteZh": "他给Paraguay展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
+      "note": "Enciso's edge is creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "Junior Alonso": {
       "displayName": "Júnior Alonso",
@@ -219,8 +219,8 @@
         "Aerial leadership",
         "Back-line cover"
       ],
-      "note": "Alonso has been part of Paraguay's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
-      "noteZh": "他在Paraguay体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
+      "note": "Alonso stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He turns early and protects the route toward goal.",
+      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会提前转身，优先封住通向球门的路线。"
     },
     "Kaku": {
       "displayName": "Kaku",
@@ -245,8 +245,8 @@
         "Final passes",
         "Set-piece service"
       ],
-      "note": "Kaku is midfield insurance for Paraguay. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
-      "noteZh": "他给Paraguay一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。",
+      "note": "Kaku's signature is creating a better angle for the next pass. He draws a defender in and releases the runner behind him. He varies the height and pace of his delivery.",
+      "noteZh": "他的比赛方式建立在为下一脚传球制造更好的角度上。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会通过改变落点和球速寻找防线最薄弱的区域。",
       "sourceUrl": "https://www.transfermarkt.com/kaku/profil/spieler/355817"
     },
     "Matias Galarza": {
@@ -256,8 +256,8 @@
         "Chance passes",
         "Midfield intensity"
       ],
-      "note": "Galarza has both scored and created for Paraguay in this run. He matters because the same movement can become the shot or the pass before it.",
-      "noteZh": "他这届世界杯已经为Paraguay贡献进球和传球。防守者必须同时判断射门和分球。"
+      "note": "Watch Galarza for creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "要看懂他的作用，关键是在防线重组前制造干净射门。留意他如何先吸引防守者靠近，再把球送到其身后的跑动线路。他也会接近持球人时调整路线，同时封住最简单的传球。"
     },
     "Mauricio": {
       "displayName": "Maurício",
@@ -271,8 +271,8 @@
         "Between-lines receiving",
         "Late box runs"
       ],
-      "note": "Maurício has already turned one tournament chance into a goal against United States. Watch whether defenders start giving him the extra step.",
-      "noteZh": "他已经为Paraguay进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
+      "note": "Maurício's signature is creating a clean shot before the defense can reset. He opens his body on the first touch so he can play forward. He moves after releasing the ball so the receiver still has support.",
+      "noteZh": "他的比赛方式建立在在防线重组前制造干净射门上。他会第一脚触球时打开身体，准备向前处理。他也会出球后继续移动，让接球队友始终有支援。"
     },
     "Miguel Almiron": {
       "displayName": "Miguel Almirón",
@@ -281,8 +281,8 @@
         "Right-wing carries",
         "Counter speed"
       ],
-      "note": "Almirón gives Paraguay structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
-      "noteZh": "他给Paraguay控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
+      "note": "Almirón's edge is creating a better angle for the next pass. He pushes the ball beyond the first challenge and accelerates after it. He plays through nearby pressure instead of around it.",
+      "noteZh": "他最特别的地方是为下一脚传球制造更好的角度。他会把球趟过第一道上抢后再加速。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Omar Alderete": {
       "skills": [
@@ -290,8 +290,8 @@
         "Aerial defending",
         "Long passing"
       ],
-      "note": "Alderete has been part of Paraguay's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
-      "noteZh": "他在Paraguay体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
+      "note": "Alderete's edge is making the safer decision before a duel becomes an emergency. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
+      "noteZh": "他最特别的地方是在对抗变成险情前做出更安全的选择。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
     },
     "Orlando Gill": {
       "league": "Argentine Primera División",
@@ -300,8 +300,8 @@
         "Penalty-area reach",
         "Shot stopping"
       ],
-      "note": "Gill is the last voice in Paraguay's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
-      "noteZh": "他承担了Paraguay的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
+      "note": "Gill stands out for sharp reactions backed by early positioning. He judges when to leave his line and takes pressure off his defenders. He chooses the simple restart before pressure can close in.",
+      "noteZh": "他的突出特点是提前站位后的快速反应。他会判断何时出击，替后卫化解高球压力。他也会在逼抢靠近前选择最稳妥的出球方式。"
     },
     "Ramon Sosa": {
       "displayName": "Ramón Sosa",
@@ -310,8 +310,8 @@
         "One-on-one dribbling",
         "Pulled-back passes"
       ],
-      "note": "Sosa is attacking depth for Paraguay. If the game slows down, he is there to make the back line move again.",
-      "noteZh": "他是Paraguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+      "note": "Sosa stands out for explosive speed once open grass appears. He draws the first challenge, then carries through the gap. He plays through nearby pressure instead of around it.",
+      "noteZh": "他的突出特点是看到空当后的爆发速度。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会穿过最近一层逼抢，而不总是绕开压力。"
     }
   }
 }

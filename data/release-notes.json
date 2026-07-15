@@ -1,6 +1,25 @@
 {
-  "updatedAt": "2026-07-14T20:04:30-07:00",
+  "updatedAt": "2026-07-14T20:41:18-07:00",
   "releases": [
+    {
+      "date": "2026-07-14",
+      "title": "Evergreen player insight and better Ball Boy controls",
+      "titleZh": "常青球员解读与更完善的 Ball Boy 控制",
+      "highlights": [
+        "All 1,248 current player profiles now use unique, bilingual evergreen descriptions focused on play style, decisions, movement, and distinctive strengths; live goals and assists remain in the separate This World Cup row.",
+        "Ball Boy player answers present the most useful scouting traits as compact, wrapping skill pills instead of simplistic beginner copy or duplicated tournament totals.",
+        "Ball Boy can now offer confirmation-first language and timezone changes through the app's existing Settings controls, while unsupported languages lead to a prefilled Report issue form.",
+        "Ball Boy now blinks on a calmer 9–15 second idle cadence, skips the old touch-release blink, and applies a five-second shared cooldown to prevent rapid repeat animations.",
+        "On mobile, yellow-card, goal, and assist tooltips now open with a normal tap and close when the user taps elsewhere; desktop hover and keyboard behavior are unchanged."
+      ],
+      "highlightsZh": [
+        "全部1,248名现役球员的资料现已采用独特的中英文常青描述，重点解释踢法、决策、跑位和鲜明优势；实时进球与助攻仍保留在独立的“本届世界杯”数据行中。",
+        "Ball Boy 的球员回答现在会用紧凑且可换行的能力标签呈现最有价值的观察要点，不再使用过度简化的新手文案或重复赛事数据。",
+        "Ball Boy 现在可以通过应用现有的设置控件，在确认后更改语言和时区；不支持的语言会引导至已预填内容的“报告问题”表单。",
+        "Ball Boy 的空闲眨眼间隔现调整为更平静的9至15秒，取消触摸结束时的额外眨眼，并加入5秒共享冷却以避免连续重复动画。",
+        "在移动端，黄牌、进球和助攻提示现在可通过普通点按打开，并在点按其他位置时关闭；桌面端悬停和键盘操作保持不变。"
+      ]
+    },
     {
       "date": "2026-07-14",
       "title": "Richer match stories, team insight, and mobile flow",

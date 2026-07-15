@@ -526,6 +526,18 @@ await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 
 const { port } = server.address();
 const baseUrl = `http://127.0.0.1:${port}`;
+const [chatbotSource, chatbotCssSource] = await Promise.all([
+  readFile(path.join(root, "chatbot.js"), "utf8"),
+  readFile(path.join(root, "chatbot.css"), "utf8")
+]);
+assert(
+  chatbotSource.includes("const SCOUT_IDLE_BLINK_MIN_MS = 9000;") &&
+    chatbotSource.includes("const SCOUT_IDLE_BLINK_RANGE_MS = 6000;") &&
+    chatbotSource.includes("const SCOUT_BLINK_COOLDOWN_MS = 5000;") &&
+    !chatbotSource.includes("is-eye-touch-release") &&
+    !chatbotCssSource.includes("scout-eye-touch-release"),
+  "Ball Boy should use the calmer idle cadence and shared blink cooldown without a touch-release blink animation."
+);
 const fixturesData = JSON.parse(await readFile(path.join(root, "data/fixtures.json"), "utf8"));
 const [playerAvailabilityData, freeLineupPredictionSourcesData] = await Promise.all(
   ["player-availability.json", "free-lineup-prediction-sources.json"].map(async (fileName) =>
@@ -3088,8 +3100,8 @@ try {
       bellinghamRenderedText.includes("中场") &&
       bellinghamRenderedText.includes("皇家马德里（西甲）") &&
       bellinghamRenderedText.includes("23岁") &&
-      bellinghamRenderedText.includes("英格兰") &&
-      !/Jude|Midfielder|Real Madrid|La Liga|Age|England/.test(bellinghamRenderedText),
+      bellinghamRenderedText.includes("防守者仍盯着球时提前启动") &&
+      !/Jude|Midfielder|Real Madrid|La Liga|Age/.test(bellinghamRenderedText),
     `The complete Chinese Bellingham card should localize its identity, role, club, age, and note. Measured ${bellinghamRenderedText}.`
   );
 
@@ -3116,8 +3128,8 @@ try {
       emboloRenderedText.includes("前锋") &&
       emboloRenderedText.includes("雷恩（法甲）") &&
       emboloRenderedText.includes("29岁") &&
-      emboloRenderedText.includes("瑞士") &&
-      !/Breel|Forward|Rennes|Ligue|Age|Switzerland|安博洛/.test(emboloRenderedText),
+      emboloRenderedText.includes("让队友下一步处理更轻松") &&
+      !/Breel|Forward|Rennes|Ligue|Age|安博洛/.test(emboloRenderedText),
     `The complete Chinese Embolo card should keep one canonical name and localize every detail. Measured ${emboloRenderedText}.`
   );
 
@@ -12075,6 +12087,71 @@ try {
     "On touch devices, tapping a Past 24 hours card should open its match detail card."
   );
 
+  await touchPage.goto(`${baseUrl}?view=matches&date=2026-07-01&tz=America%2FLos_Angeles&lineupPrototype=1`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForSelector(".match-row");
+  await touchPage.locator('[data-match-id="match-80-round-of-32-2026-07-01"]').tap();
+  await touchPage.locator("#match-info .lineup-preview-block").waitFor({ state: "attached" });
+  const touchLineupEventTapStates = [];
+  const checkTouchLineupEventTap = async ({ playerName, selector, tooltip }) => {
+    const badge = touchPage
+      .locator(`#match-info .lineup-tab-panel:not([hidden]) [data-lineup-player-name="${playerName}"] ${selector}`)
+      .first();
+    await badge.scrollIntoViewIfNeeded();
+    await badge.tap();
+    await touchPage.waitForFunction((expectedTooltip) => {
+      const floatingTooltip = document.querySelector(".lineup-event-tooltip-floating");
+      return (
+        floatingTooltip?.textContent.trim() === expectedTooltip &&
+        floatingTooltip.classList.contains("is-visible") &&
+        document.querySelectorAll(".lineup-event-badge.is-event-tooltip-open").length === 1
+      );
+    }, tooltip);
+    const openState = await touchPage.evaluate(() => ({
+      openBadges: document.querySelectorAll(".lineup-event-badge.is-event-tooltip-open").length,
+      tooltip: document.querySelector(".lineup-event-tooltip-floating.is-visible")?.textContent.trim() || ""
+    }));
+    await touchPage.locator("#match-info .lineup-heading > span").tap();
+    await touchPage.waitForFunction(() =>
+      !document.querySelector(".lineup-event-tooltip-floating.is-visible") &&
+      !document.querySelector(".lineup-event-badge.is-event-tooltip-open")
+    );
+    touchLineupEventTapStates.push({
+      ...openState,
+      closedAfterOutsideTap: true,
+      expectedTooltip: tooltip
+    });
+  };
+  await checkTouchLineupEventTap({
+    playerName: "Jude Bellingham",
+    selector: ".lineup-event-card.is-yellow",
+    tooltip: "19' Yellow card"
+  });
+  await checkTouchLineupEventTap({
+    playerName: "Harry Kane",
+    selector: ".lineup-event-score.is-goal",
+    tooltip: "75' goal, 86' goal"
+  });
+  await touchPage
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-tab[data-lineup-tab='away']")
+    .tap();
+  await checkTouchLineupEventTap({
+    playerName: "Chancel Mbemba",
+    selector: ".lineup-event-score.is-assist",
+    tooltip: "7' assist"
+  });
+  assert(
+    touchLineupEventTapStates.length === 3 &&
+      touchLineupEventTapStates.every(
+        (state) =>
+          state.openBadges === 1 &&
+          state.tooltip === state.expectedTooltip &&
+          state.closedAfterOutsideTap
+      ),
+    `On touch devices, yellow-card, goal, and assist badges should open on a normal tap and close on an outside tap. Measured ${JSON.stringify(touchLineupEventTapStates)}.`
+  );
+
   await touchPage.goto(`${baseUrl}?view=matches&date=2026-07-07&tz=America%2FLos_Angeles&lineupPrototype=1`, {
     waitUntil: "load"
   });
@@ -12177,11 +12254,7 @@ try {
   await touchPage.evaluate(() =>
     new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
   );
-  await touchMessiGoalBadge.dispatchEvent("pointerdown", {
-    bubbles: true,
-    cancelable: true,
-    pointerType: "touch"
-  });
+  await touchMessiGoalBadge.tap();
   await touchPage.waitForFunction(() => {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating");
     const styles = tooltip ? getComputedStyle(tooltip) : null;
@@ -12627,6 +12700,84 @@ try {
       initialBallBoySheetState.height <= 456,
     `Ball Boy should open as a medium mobile sheet without summoning the keyboard. Measured ${JSON.stringify(initialBallBoySheetState)}.`
   );
+  await touchPage.waitForFunction(() =>
+    !document.querySelector("#scout-widget")?.classList.contains("is-eye-wide")
+  );
+  await touchPage.evaluate(() => {
+    const widget = document.querySelector("#scout-widget");
+    window.__ballBoyBlinkClasses = [];
+    window.__ballBoyBlinkObserver = new MutationObserver(() => {
+      if (
+        widget?.classList.contains("is-blinking") ||
+        widget?.classList.contains("is-eye-double-blink") ||
+        widget?.classList.contains("is-eye-record") ||
+        widget?.classList.contains("is-eye-touch-release")
+      ) {
+        window.__ballBoyBlinkClasses.push(widget.className);
+      }
+    });
+    window.__ballBoyBlinkObserver.observe(widget, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+  await touchPage.locator(".scout-status").tap();
+  await touchPage.waitForTimeout(80);
+  const ballBoyTouchGazeActive = await touchPage.evaluate(() => {
+    const eyes = document.querySelector(".scout-eyes");
+    return {
+      x: eyes?.style.getPropertyValue("--scout-pupil-x") || "",
+      y: eyes?.style.getPropertyValue("--scout-pupil-y") || ""
+    };
+  });
+  await touchPage.waitForTimeout(560);
+  const ballBoyTouchReleaseState = await touchPage.evaluate(() => {
+    const eyes = document.querySelector(".scout-eyes");
+    window.__ballBoyBlinkObserver?.disconnect();
+    const result = {
+      blinkClasses: window.__ballBoyBlinkClasses || [],
+      x: eyes?.style.getPropertyValue("--scout-pupil-x") || "",
+      y: eyes?.style.getPropertyValue("--scout-pupil-y") || ""
+    };
+    delete window.__ballBoyBlinkClasses;
+    delete window.__ballBoyBlinkObserver;
+    return result;
+  });
+  assert(
+    (ballBoyTouchGazeActive.x !== "0.00px" || ballBoyTouchGazeActive.y !== "0.00px") &&
+      ballBoyTouchReleaseState.x === "0.00px" &&
+      ballBoyTouchReleaseState.y === "0.00px" &&
+      ballBoyTouchReleaseState.blinkClasses.length === 0,
+    `Ball Boy should follow a touch, recenter after release, and not blink. Measured ${JSON.stringify({ active: ballBoyTouchGazeActive, released: ballBoyTouchReleaseState })}.`
+  );
+  await touchPage.evaluate(() => {
+    const widget = document.querySelector("#scout-widget");
+    window.__ballBoyDoubleBlinkCount = 0;
+    window.__ballBoyCooldownObserver = new MutationObserver(() => {
+      if (widget?.classList.contains("is-eye-double-blink")) {
+        window.__ballBoyDoubleBlinkCount += 1;
+      }
+    });
+    window.__ballBoyCooldownObserver.observe(widget, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+  await touchPage.locator(".scout-reset").click();
+  await touchPage.waitForTimeout(620);
+  await touchPage.locator(".scout-reset").click();
+  await touchPage.waitForTimeout(100);
+  const ballBoyCooldownBlinkCount = await touchPage.evaluate(() => {
+    window.__ballBoyCooldownObserver?.disconnect();
+    const count = window.__ballBoyDoubleBlinkCount || 0;
+    delete window.__ballBoyDoubleBlinkCount;
+    delete window.__ballBoyCooldownObserver;
+    return count;
+  });
+  assert(
+    ballBoyCooldownBlinkCount === 1,
+    `Ball Boy should suppress a second contextual blink inside the shared cooldown. Measured ${ballBoyCooldownBlinkCount}.`
+  );
   const ballBoyClosedHeaderLayerState = await touchPage.evaluate(() => {
     const catchUpButton = document.querySelector("#catch-up-button");
     const settingsButton = document.querySelector("#settings-button");
@@ -12741,11 +12892,10 @@ try {
     const card = answer?.querySelector(".scout-player-card");
     const valueCell = card?.querySelector(".scout-player-fact-section:last-child .is-value");
     const lead = answer?.querySelector(".scout-answer-lead")?.textContent.replace(/\s+/g, " ").trim() || "";
-    const note = [...(card?.querySelectorAll(".scout-explainer") || [])]
-      .at(-1)
-      ?.querySelector("p:last-child")
-      ?.textContent.replace(/\s+/g, " ")
-      .trim() || "";
+    const noteBlock = [...card?.querySelectorAll(".scout-explainer") || []].at(-1);
+    const noteBullets = [...(noteBlock?.querySelectorAll(".scout-player-watch-points li") || [])]
+      .map((item) => item.textContent.replace(/\s+/g, " ").trim());
+    const note = noteBullets.join(" ");
     const prompts = [...(answer?.querySelectorAll("[data-scout-prompt]") || [])]
       .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
 
@@ -12759,6 +12909,7 @@ try {
       lead,
       moreHidden: document.querySelector("#scout-more")?.hidden,
       note,
+      noteBullets,
       promptCount: prompts.length,
       promptUniqueCount: new Set(prompts).size,
       remaining: conversation
@@ -12766,9 +12917,14 @@ try {
         : null,
       rolePitchCount: card?.querySelectorAll(".scout-role-pitch").length || 0,
       roleSummaryLabel: card?.querySelector(".scout-explainer .scout-section-label")?.textContent.trim() || "",
+      roleSummary: card?.querySelector(".scout-explainer > p:last-child")?.textContent.replace(/\s+/g, " ").trim() || "",
       scopes: [...(card?.querySelectorAll(".scout-player-fact-section > .scout-section-label") || [])]
         .map((item) => item.textContent.trim()),
+      signatureArrowCount: card?.querySelectorAll(".scout-skill-section .scout-flow-arrow").length || 0,
       signatureLabel: card?.querySelector(".scout-skill-section > .scout-section-label")?.textContent.trim() || "",
+      signaturePillCount: card?.querySelectorAll(".scout-player-skill-list > span").length || 0,
+      signaturePillRadius: getComputedStyle(card?.querySelector(".scout-player-skill-list > span")).borderRadius,
+      signatureWrap: getComputedStyle(card?.querySelector(".scout-player-skill-list")).flexWrap,
       statCells: [...(card?.querySelectorAll(".scout-player-fact-row > div") || [])]
         .map((item) => item.innerText.replace(/\s+/g, " ").trim()),
       valueTitle: valueCell?.getAttribute("title") || ""
@@ -12785,11 +12941,19 @@ try {
       haalandBallBoyMetrics.valueTitle.includes("sourced public player data") &&
       haalandBallBoyMetrics.rolePitchCount === 0 &&
       haalandBallBoyMetrics.roleSummaryLabel === "Beginner version" &&
+      haalandBallBoyMetrics.roleSummary ===
+        "A striker leads the attack, but the role is not only about scoring. They occupy defenders, time runs into space, link with teammates, and create shots for themselves or others." &&
       haalandBallBoyMetrics.signatureLabel === "Signature traits" &&
+      haalandBallBoyMetrics.signatureArrowCount === 0 &&
+      haalandBallBoyMetrics.signaturePillCount === 3 &&
+      haalandBallBoyMetrics.signaturePillRadius === "999px" &&
+      haalandBallBoyMetrics.signatureWrap === "wrap" &&
       haalandBallBoyMetrics.avatarFlagCount === 0 &&
       haalandBallBoyMetrics.inlineFlagCount === 1 &&
-      haalandBallBoyMetrics.note.startsWith("Haaland has scored 7 goals for Norway at this World Cup") &&
-      haalandBallBoyMetrics.note.includes("He finds space for shots in the box.") &&
+      haalandBallBoyMetrics.note.startsWith("Haaland's edge is creating a clean shot before the defense can reset") &&
+      haalandBallBoyMetrics.note.includes("He arrives in the box late enough to be difficult to track.") &&
+      !/\b(?:World Cup|\d+ goals?|\d+ assists?)\b/i.test(haalandBallBoyMetrics.note) &&
+      haalandBallBoyMetrics.noteBullets.length === 3 &&
       haalandBallBoyMetrics.followUpCount === 3 &&
       haalandBallBoyMetrics.promptCount === haalandBallBoyMetrics.promptUniqueCount &&
       haalandBallBoyMetrics.remaining > 8 &&
@@ -12923,7 +13087,7 @@ try {
       cardClass: document.querySelector(".scout-player-card")?.className || "",
       conversationOverflow: conversation ? conversation.scrollWidth - conversation.clientWidth : null,
       unrelatedFacts: document.querySelectorAll(".scout-player-card .scout-player-facts").length,
-      skillOverflow: [...document.querySelectorAll(".scout-player-card .scout-flow-step")]
+      skillOverflow: [...document.querySelectorAll(".scout-player-card .scout-player-skill-list > span")]
         .map((skill) => ({
           overflow: skill.scrollWidth - skill.clientWidth,
           text: skill.textContent.trim()
@@ -13428,9 +13592,11 @@ try {
   const zhPlayerBallBoyMetrics = await touchPage.evaluate(() => {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const card = answer.querySelector(".scout-player-card");
+    const noteBlock = [...card.querySelectorAll(".scout-explainer")].at(-1);
     return {
       labels: [...card.querySelectorAll(".scout-section-label")].map((item) => item.textContent.trim()),
-      note: [...card.querySelectorAll(".scout-explainer")].at(-1)?.querySelector("p:last-child")?.textContent.trim() || "",
+      noteBullets: [...(noteBlock?.querySelectorAll(".scout-player-watch-points li") || [])]
+        .map((item) => item.textContent.trim()),
       overflow: card.scrollWidth - card.clientWidth,
       text: card.innerText.replace(/\s+/g, " ").trim(),
       worldCupAria: card.querySelector(".scout-player-facts")?.getAttribute("aria-label") || ""
@@ -13444,7 +13610,9 @@ try {
       !zhPlayerBallBoyMetrics.labels.includes("常见活动区域") &&
       zhPlayerBallBoyMetrics.labels.includes("新手版") &&
       zhPlayerBallBoyMetrics.labels.includes("标志性特点") &&
-      zhPlayerBallBoyMetrics.note === "他在本届世界杯为法国打进8球，并送出3次助攻。比赛中，他在禁区内寻找射门空间，也用传球创造机会。" &&
+      zhPlayerBallBoyMetrics.noteBullets.length === 3 &&
+      zhPlayerBallBoyMetrics.noteBullets.every((bullet) => bullet.length >= 16) &&
+      !/[A-Za-z]/.test(zhPlayerBallBoyMetrics.noteBullets.join(" ")) &&
       zhPlayerBallBoyMetrics.worldCupAria === "世界杯数据和球员资料" &&
       !/This World Cup|Player details|Usual role zone|Beginner version|Signature traits/.test(zhPlayerBallBoyMetrics.text) &&
       zhPlayerBallBoyMetrics.overflow <= 1,
