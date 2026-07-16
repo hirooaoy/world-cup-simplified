@@ -953,8 +953,16 @@ function scorelessStoryBullets(fixture, teamsById) {
     .sort((a, b) => Number(a.minute) - Number(b.minute));
   if (substitutions.length) {
     const first = substitutions[0];
+    const simultaneous = substitutions.filter(
+      (event) => Number(event.minute) === Number(first.minute) && event.side === first.side
+    );
     const team = getFixtureTeam(fixture, teamsById, first.side)?.name || first.teamId;
-    addStoryBullet(bullets, `${team} made the first change in the ${ordinalNumber(first.minute)} minute, sending on ${first.onName}, but the deadlock held`);
+    addStoryBullet(
+      bullets,
+      simultaneous.length > 1
+        ? `${team} made ${simultaneous.length} changes in the ${ordinalNumber(first.minute)} minute, including ${first.onName}, but the score stayed 0-0`
+        : `${team} sent on ${first.onName} in the ${ordinalNumber(first.minute)} minute, but the score stayed 0-0`
+    );
   }
 
   addStoryBullet(bullets, cleanResultContext(fixture) || `Neither side found a goal, leaving the match at 0-0`);
@@ -1197,14 +1205,20 @@ function zhScorelessStoryBullets(fixture, teamsById) {
       ? `${homeName}的${homeFormation}阵型与${awayName}的${awayFormation}阵型在上半场相互抵消`
       : `${homeName}与${awayName}在上半场均未能打破僵局`
   );
-  const substitution = currentMatchEvents(fixture)
+  const substitutions = currentMatchEvents(fixture)
     .filter((event) => event.kind === "substitution" && Number.isFinite(Number(event.minute)))
-    .sort((a, b) => Number(a.minute) - Number(b.minute))[0];
+    .sort((a, b) => Number(a.minute) - Number(b.minute));
+  const substitution = substitutions[0];
   if (substitution) {
+    const simultaneous = substitutions.filter(
+      (event) => Number(event.minute) === Number(substitution.minute) && event.side === substitution.side
+    );
     const teamName = zhTeamName(fixture, teamsById, substitution.side);
     addZhStoryBullet(
       bullets,
-      `${teamName}在第${substitution.minute}分钟率先调整进攻，换上${zhPlayerName(substitution.onName)}，但僵局依旧`
+      simultaneous.length > 1
+        ? `${teamName}在第${substitution.minute}分钟同时换上${simultaneous.length}人，其中包括${zhPlayerName(substitution.onName)}，但比分仍是0比0`
+        : `${teamName}在第${substitution.minute}分钟换上${zhPlayerName(substitution.onName)}，但比分仍是0比0`
     );
   }
   addZhStoryBullet(bullets, `${homeName}与${awayName}最终0比0战平`);
@@ -1351,7 +1365,7 @@ function buildDetailedCurrentStoryBulletsZh(fixture, teamsById) {
 
 function hasGeneratedCurrentStoryBullets(fixture) {
   return (fixture.resultStoryBullets || []).some((bullet) =>
-    /finished .+ pass in the|set up .+ for a finish|struck (?:in|at) the?|supplied the middle goals|traded the middle blows|first attacking change|cancelled each other out through halftime|own goal,/i.test(String(bullet || ""))
+    /finished .+ pass in the|set up .+ for a finish|struck (?:in|at) the?|supplied the middle goals|traded the middle blows|first attacking change|reached halftime without a breakthrough|score stayed 0-0|cancelled each other out through halftime|own goal,/i.test(String(bullet || ""))
   );
 }
 

@@ -11,11 +11,33 @@
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://world-cup-simplified.vercel.app/report.html" />
     <meta name="theme-color" content="#ffffff" />
+    <script>
+      (() => {
+        const supportedLanguages = new Set(["en", "es", "ko", "zh"]);
+        const normalize = (value) => {
+          const language = String(value || "").trim().toLowerCase().split(/[-_]/)[0];
+          return supportedLanguages.has(language) ? language : "";
+        };
+        let storedLanguage = "";
+        try {
+          storedLanguage = localStorage.getItem("world-cup-simplified-language");
+        } catch {
+          // The report remains usable in English when storage is unavailable.
+        }
+        const params = new URLSearchParams(window.location.search);
+        const language = normalize(params.get("lang")) || normalize(storedLanguage) || "en";
+        if (language !== "es" && language !== "ko") {
+          return;
+        }
+
+        document.documentElement.lang = language === "es" ? "es-419" : "ko";
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
-    <link rel="stylesheet" href="styles.css?v=2026-07-15-report-back-hover-1" />
-    <link rel="stylesheet" href="chatbot.css?v=2026-07-15-full-flags" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-16-3" />
+    <link rel="stylesheet" href="chatbot.css?v=2026-07-16-3" />
   </head>
   <body class="report-page">
     <header class="site-header report-header">
@@ -101,24 +123,25 @@
     <footer class="site-footer report-footer">
       <div class="source-note" id="source-note">
         <span class="source-tooltip-wrapper">
-          <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">See sources</button>.
+          <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">See sources</button>
           <span class="source-tooltip" id="source-tooltip" role="tooltip">
-            <strong>Sources</strong>
-            <span>
-              <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank" rel="noreferrer">FIFA schedule</a>
-              <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan" target="_blank" rel="noreferrer">debutants</a>
-              <a href="https://inside.fifa.com/fifa-world-ranking/men" target="_blank" rel="noreferrer">ranking</a>
-              <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings" target="_blank" rel="noreferrer">standings</a>
+            <span class="source-tooltip-list">
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Tournament facts</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank" rel="noreferrer">FIFA</a></span></span>
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Forecasts</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://theanalyst.com/articles/world-cup" target="_blank" rel="noreferrer">Opta Analyst</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://www.oddschecker.com/football/world-cup" target="_blank" rel="noreferrer">Oddschecker</a></span></span>
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Player information</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://en.wikipedia.org/wiki/Category:Association_football_players" target="_blank" rel="noreferrer">Wikipedia</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank" rel="noreferrer">Wikimedia Commons</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://github.com/dcaribou/transfermarkt-datasets" target="_blank" rel="noreferrer">Transfermarkt</a></span></span>
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Official highlights</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://www.youtube.com/channel/UCpcTrCXblq78GZrTUTLWeBw" target="_blank" rel="noreferrer">FIFA</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg" target="_blank" rel="noreferrer">FOX Sports</a></span></span>
             </span>
+            <span class="source-tooltip-note">Exact sources vary by match.</span>
           </span>
-        </span>. Predictions are unofficial. Data refreshed Jul 14, 2026, 9:45 PM PDT. <a href="report.html">Report issue</a>. Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>.
+        </span> • Predictions are unofficial • Data refreshed Jul 14, 2026, 9:45 PM PDT •
         <span class="release-tooltip-wrapper">
-          <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">See release notes</button>.
+          <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">See release notes</button>
           <span class="release-tooltip" id="release-tooltip" role="tooltip">
-            <strong>Latest changes</strong>
+            <strong>Release notes: Latest changes</strong>
             <ul>
               <li>Release notes load from data/release-notes.json.</li>
             </ul>
+            <span class="release-tooltip-note">Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a></span>
           </span>
         </span>
       </div>
@@ -126,7 +149,7 @@
 
     <script type="module" src="clarity.js"></script>
     <script type="module" src="analytics.js"></script>
-    <script type="module" src="report.js?v=2026-07-14-report-footer-1"></script>
-    <script type="module" src="chatbot.js?v=2026-07-15-offside-cleanup"></script>
+    <script type="module" src="report.js?v=2026-07-16-5"></script>
+    <script type="module" src="chatbot.js?v=2026-07-16-5"></script>
   </body>
 </html>

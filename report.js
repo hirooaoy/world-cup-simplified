@@ -1,3 +1,9 @@
+import {
+  getLanguageConfig,
+  loadLocaleDomain,
+  normalizeLanguage
+} from "./locales/locale-runtime.js?v=2026-07-16-5";
+
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
 const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
@@ -10,6 +16,18 @@ const LEGACY_REPORT_TYPE_ALIASES = {
 };
 
 const params = new URLSearchParams(window.location.search);
+let currentLanguage = getCurrentLanguage();
+let activeLocalePack = null;
+
+if (currentLanguage === "es" || currentLanguage === "ko") {
+  try {
+    activeLocalePack = await loadLocaleDomain(currentLanguage, "report");
+  } catch (error) {
+    console.error("Unable to load the requested report locale.", error);
+    currentLanguage = "en";
+  }
+}
+
 const reportForm = document.querySelector("#report-form");
 const issueType = document.querySelector("#issue-type");
 const issueDetails = document.querySelector("#issue-details");
@@ -29,7 +47,6 @@ const reportDetails = params.get("details") || "";
 const reportDate = params.get("date") || "";
 const reportTimeZone = params.get("tz") || "";
 const sourceUrl = params.get("from") || document.referrer || "";
-const currentLanguage = getCurrentLanguage();
 const text = {
   en: {
     addNote: "Add a short note before sending.",
@@ -90,7 +107,7 @@ const text = {
     whatChanged: "需要修改什么？"
   }
 };
-const t = text[currentLanguage] || text.en;
+const t = activeLocalePack?.text || text[currentLanguage] || text.en;
 const footerText = {
   en: {
     dataRefreshed: "Data refreshed",
@@ -99,10 +116,15 @@ const footerText = {
     madeBy: "Made by",
     predictions: "Predictions are unofficial.",
     releaseNotes: "See release notes",
+    releaseNotesLabel: "Release notes",
     reportIssue: "Report issue",
     seeSources: "See sources",
-    sourceLabels: ["FIFA schedule", "debutants", "ranking", "standings"],
-    sources: "Sources"
+    sources: "Sources",
+    tournamentFacts: "Tournament facts",
+    forecasts: "Forecasts",
+    playerInformation: "Player information",
+    officialHighlights: "Official highlights",
+    exactSources: "Exact sources vary by match."
   },
   zh: {
     dataRefreshed: "数据刷新于",
@@ -111,16 +133,22 @@ const footerText = {
     madeBy: "由",
     predictions: "预测为非官方内容。",
     releaseNotes: "查看发布说明",
+    releaseNotesLabel: "发布说明",
     reportIssue: "报告问题",
     seeSources: "查看来源",
-    sourceLabels: ["FIFA赛程", "首次参赛球队", "排名", "积分榜"],
-    sources: "来源"
+    sources: "来源",
+    tournamentFacts: "赛事事实",
+    forecasts: "预测",
+    playerInformation: "球员信息",
+    officialHighlights: "官方集锦",
+    exactSources: "每场比赛的具体来源可能不同。"
   }
 };
-const ft = footerText[currentLanguage] || footerText.en;
+const ft = activeLocalePack?.footerText || footerText[currentLanguage] || footerText.en;
 const dateLabel = getDateLabel(reportDate);
 let footerUpdatedAt = "2026-07-15T04:45:47.457Z";
 let footerReleaseNotes = { releases: [] };
+let activeReportFooterTooltipTrigger = null;
 const zhTimeZoneNames = {
   "America/Los_Angeles": "洛杉矶",
   "America/Vancouver": "温哥华",
@@ -157,40 +185,70 @@ if (reportDetails) {
 }
 updateSubmitState();
 
+const backParams = new URLSearchParams();
 if (reportDate) {
-  const backParams = new URLSearchParams({
-    view: "matches",
-    date: reportDate
-  });
-
+  backParams.set("view", "matches");
+  backParams.set("date", reportDate);
   if (reportTimeZone) {
     backParams.set("tz", reportTimeZone);
   }
+}
 
-  if (currentLanguage !== "en") {
-    backParams.set("lang", currentLanguage);
-  }
+if (currentLanguage !== "en") {
+  backParams.set("lang", currentLanguage);
+}
 
+if (backParams.size) {
   backLink.href = `./?${backParams.toString()}`;
 }
 
 function getCurrentLanguage() {
-  const requestedLanguage = String(params.get("lang") || "").trim().toLowerCase();
-  const storedLanguage = String(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "")
-    .trim()
-    .toLowerCase();
-  const language = requestedLanguage || storedLanguage;
+  const resolveSupportedLanguage = (value) => {
+    const rawLanguage = String(value || "").trim().toLowerCase();
+    const primaryLanguage = rawLanguage.split(/[-_]/u)[0];
+    if (!rawLanguage || !["en", "es", "ko", "zh"].includes(primaryLanguage)) {
+      return "";
+    }
+    return normalizeLanguage(rawLanguage);
+  };
+  const requestedLanguage = resolveSupportedLanguage(params.get("lang"));
+  const storedLanguage = resolveSupportedLanguage(localStorage.getItem(LANGUAGE_STORAGE_KEY));
+  const language = requestedLanguage || storedLanguage || "en";
 
-  if (language.startsWith("zh")) {
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, "zh");
-    return "zh";
+  if (requestedLanguage) {
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
   }
 
-  return "en";
+  return language;
+}
+
+function getActiveLanguageConfig() {
+  try {
+    return getLanguageConfig(currentLanguage) || {};
+  } catch {
+    return {};
+  }
+}
+
+function getDocumentLanguage() {
+  const config = getActiveLanguageConfig();
+  return config.documentLanguage
+    || config.documentLang
+    || config.htmlLang
+    || ({ en: "en", es: "es", ko: "ko", zh: "zh-Hans" })[currentLanguage]
+    || "en";
+}
+
+function getIntlLocale() {
+  const config = getActiveLanguageConfig();
+  return config.intlLocale
+    || config.locale
+    || ({ en: "en-US", es: "es-419", ko: "ko-KR", zh: "zh-CN" })[currentLanguage]
+    || "en-US";
 }
 
 function renderStaticText() {
-  document.documentElement.lang = currentLanguage === "zh" ? "zh-Hans" : "en";
+  document.documentElement.lang = getDocumentLanguage();
   document.title = t.title;
   document
     .querySelector("meta[name='description']")
@@ -237,7 +295,7 @@ function formatFooterUpdatedAt(value) {
   }
 
   try {
-    return new Intl.DateTimeFormat(currentLanguage === "zh" ? "zh-CN" : "en-US", {
+    return new Intl.DateTimeFormat(getIntlLocale(), {
       day: "numeric",
       hour: "numeric",
       minute: "2-digit",
@@ -247,7 +305,7 @@ function formatFooterUpdatedAt(value) {
       year: "numeric"
     }).format(new Date(timestamp));
   } catch {
-    return new Intl.DateTimeFormat(currentLanguage === "zh" ? "zh-CN" : "en-US", {
+    return new Intl.DateTimeFormat(getIntlLocale(), {
       day: "numeric",
       hour: "numeric",
       minute: "2-digit",
@@ -262,6 +320,27 @@ function getFooterReleaseContent() {
   const latestRelease = Array.isArray(footerReleaseNotes?.releases)
     ? footerReleaseNotes.releases[0]
     : null;
+  const localeRelease = activeLocalePack?.releaseNotes?.[latestRelease?.title];
+
+  if (activeLocalePack) {
+    const localizedFieldSuffix = currentLanguage === "es" ? "Es" : "Ko";
+    const dataHighlights = latestRelease?.[`highlights${localizedFieldSuffix}`];
+    const localizedHighlights = Array.isArray(dataHighlights)
+      ? dataHighlights
+      : localeRelease?.highlights;
+    const highlights = Array.isArray(localizedHighlights)
+      ? localizedHighlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
+      : [];
+    return {
+      title: String(
+        latestRelease?.[`title${localizedFieldSuffix}`]
+        || localeRelease?.title
+        || ft.latestChanges
+      ).trim() || ft.latestChanges,
+      highlights: highlights.length ? highlights : [ft.fallbackRelease]
+    };
+  }
+
   const localizedHighlights = currentLanguage === "zh" ? latestRelease?.highlightsZh : latestRelease?.highlights;
   const highlights = Array.isArray(localizedHighlights)
     ? localizedHighlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
@@ -281,46 +360,138 @@ function renderReportFooter() {
     return;
   }
 
-  const sentenceEnd = currentLanguage === "zh" ? "。" : ".";
-  const sourceLinks = [
-    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan",
-    "https://inside.fifa.com/fifa-world-ranking/men",
-    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings"
-  ].map((url, index) =>
-    `<a href="${url}" target="_blank" rel="noreferrer">${escapeHtml(ft.sourceLabels[index])}</a>`
-  );
+  activeReportFooterTooltipTrigger = null;
+  const sourceUrls = {
+    fifa: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+    fifaHighlights: "https://www.youtube.com/channel/UCpcTrCXblq78GZrTUTLWeBw",
+    forecast: "https://theanalyst.com/articles/world-cup",
+    market: "https://www.oddschecker.com/football/world-cup",
+    transfermarkt: "https://github.com/dcaribou/transfermarkt-datasets",
+    wikipedia: "https://en.wikipedia.org/wiki/Category:Association_football_players",
+    wikimedia: "https://commons.wikimedia.org/wiki/Main_Page",
+    foxHighlights: "https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg"
+  };
+  const sourceLink = (url, label, className = "") =>
+    `<a${className ? ` class="${className}"` : ""} href="${url}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+  const sourceSeparator = `<span class="source-tooltip-separator" aria-hidden="true"> — </span>`;
+  const itemSeparator = `<span class="source-tooltip-item-separator" aria-hidden="true"> · </span>`;
+  const sourceTooltipRows = [
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.tournamentFacts)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.forecasts)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, "Oddschecker")}</span></span>`,
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.playerInformation)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.officialHighlights)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
+  ];
   const updatedAtText = formatFooterUpdatedAt(footerUpdatedAt);
   const dataRefreshed = updatedAtText
-    ? `${escapeHtml(ft.dataRefreshed)} ${escapeHtml(updatedAtText)}${sentenceEnd}`
+    ? `${escapeHtml(ft.dataRefreshed)} ${escapeHtml(updatedAtText)}`
     : "";
-  const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
+  const predictionsText = escapeHtml(ft.predictions.replace(/[.。]$/u, ""));
   const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
-  const creatorText = currentLanguage === "zh"
-    ? `${escapeHtml(ft.madeBy)} ${creatorLink} 制作`
-    : `${escapeHtml(ft.madeBy)} ${creatorLink}`;
+  const creatorText = activeLocalePack?.formatting?.creatorPattern
+    ? escapeHtml(activeLocalePack.formatting.creatorPattern).replace("{creator}", creatorLink)
+    : currentLanguage === "zh"
+      ? `${escapeHtml(ft.madeBy)} ${creatorLink} 制作`
+      : `${escapeHtml(ft.madeBy)} ${creatorLink}`;
+  const creatorCredit = `<span class="release-tooltip-note">${creatorText}</span>`;
   const releaseContent = getFooterReleaseContent();
   const sourceTooltip = `
     <span class="source-tooltip-wrapper">
-      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(ft.seeSources)}</button>${sentenceEnd}
+      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(ft.seeSources)}</button>
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
-        <strong>${escapeHtml(ft.sources)}</strong>
-        <span>${sourceLinks.join(" ")}</span>
+        <span class="source-tooltip-list">${sourceTooltipRows.join("")}</span>
+        <span class="source-tooltip-note">${escapeHtml(ft.exactSources)}</span>
       </span>
     </span>
   `.trim();
   const releaseTooltip = `
     <span class="release-tooltip-wrapper">
-      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(ft.releaseNotes)}</button>${sentenceEnd}
+      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(ft.releaseNotes)}</button>
       <span class="release-tooltip" id="release-tooltip" role="tooltip">
-        <strong>${escapeHtml(releaseContent.title)}</strong>
+        <strong>${escapeHtml(ft.releaseNotesLabel)}${currentLanguage === "zh" ? "：" : ": "}${escapeHtml(releaseContent.title)}</strong>
         <ul>${releaseContent.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        ${creatorCredit}
       </span>
     </span>
   `.trim();
 
-  sourceNote.innerHTML = `${sourceTooltip} ${escapeHtml(ft.predictions)}${dataRefreshed ? ` ${dataRefreshed}` : ""} <a href="${reportUrl}">${escapeHtml(ft.reportIssue)}</a>${sentenceEnd} ${creatorText}${sentenceEnd} ${releaseTooltip}`;
+  sourceNote.innerHTML = [sourceTooltip, predictionsText, dataRefreshed, releaseTooltip]
+    .filter(Boolean)
+    .join(" • ");
+  updateReportFooterTooltipBounds();
 }
+
+function updateReportFooterTooltipBounds(root = sourceNote) {
+  if (!root) {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    root.querySelectorAll(".source-tooltip, .release-tooltip").forEach((tooltip) => {
+      tooltip.style.removeProperty("--tooltip-shift-x");
+      const rect = tooltip.getBoundingClientRect();
+      const viewportInset = 6;
+      let shift = 0;
+
+      if (rect.left < viewportInset) {
+        shift += viewportInset - rect.left;
+      }
+      if (rect.right + shift > window.innerWidth - viewportInset) {
+        shift -= rect.right + shift - (window.innerWidth - viewportInset);
+      }
+      if (Math.abs(shift) > 0.5) {
+        tooltip.style.setProperty("--tooltip-shift-x", `${shift.toFixed(2)}px`);
+      }
+    });
+  });
+}
+
+function clearReportFooterTouchTooltip() {
+  activeReportFooterTooltipTrigger?.classList.remove("is-touch-tooltip-open");
+  activeReportFooterTooltipTrigger = null;
+}
+
+function handleReportFooterPointerDown(event) {
+  const target = event.target instanceof Element ? event.target : null;
+  const trigger = target?.closest(".source-tooltip-trigger, .release-tooltip-trigger");
+  const isTouch =
+    event.pointerType === "touch" ||
+    window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+  if (!isTouch) {
+    return;
+  }
+
+  if (!trigger || !sourceNote?.contains(trigger)) {
+    if (!target?.closest(".source-tooltip, .release-tooltip")) {
+      clearReportFooterTouchTooltip();
+    }
+    return;
+  }
+
+  event.preventDefault();
+  if (activeReportFooterTooltipTrigger === trigger) {
+    clearReportFooterTouchTooltip();
+    trigger.blur();
+    return;
+  }
+
+  clearReportFooterTouchTooltip();
+  activeReportFooterTooltipTrigger = trigger;
+  trigger.classList.add("is-touch-tooltip-open");
+  trigger.focus({ preventScroll: true });
+  updateReportFooterTooltipBounds(trigger.closest(".source-tooltip-wrapper, .release-tooltip-wrapper"));
+}
+
+document.addEventListener("pointerdown", handleReportFooterPointerDown, true);
+sourceNote?.addEventListener("focusin", (event) => {
+  const wrapper = event.target instanceof Element
+    ? event.target.closest(".source-tooltip-wrapper, .release-tooltip-wrapper")
+    : null;
+  if (wrapper) {
+    updateReportFooterTooltipBounds(wrapper);
+  }
+});
+window.addEventListener("resize", () => updateReportFooterTooltipBounds());
 
 async function fetchFooterJson(url) {
   const response = await fetch(url, { cache: "no-store" });
@@ -352,7 +523,7 @@ function getDateLabel(dayKey) {
   }
 
   const [year, month, day] = dayKey.split("-").map(Number);
-  return new Intl.DateTimeFormat(currentLanguage === "zh" ? "zh-CN" : undefined, {
+  return new Intl.DateTimeFormat(getIntlLocale(), {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -393,12 +564,32 @@ function formatTimeZoneLabel(timeZone) {
     return zhTimeZoneNames[timeZone] || timeZone.replace(/_/g, " ");
   }
 
+  const localizedName = activeLocalePack?.timeZoneNames?.[timeZone];
+  if (localizedName) {
+    return localizedName;
+  }
+
+  if (activeLocalePack) {
+    try {
+      const timeZoneName = new Intl.DateTimeFormat(getIntlLocale(), {
+        timeZone,
+        timeZoneName: "longGeneric"
+      }).formatToParts(new Date()).find((part) => part.type === "timeZoneName")?.value;
+      if (timeZoneName) {
+        return timeZoneName;
+      }
+    } catch {
+      // Preserve a readable IANA label if the browser cannot localize this zone.
+    }
+  }
+
   return timeZone.replace(/_/g, " ");
 }
 
 function renderAttachedContext() {
   const contextItems = [];
-  const separator = currentLanguage === "zh" ? "：" : ": ";
+  const separator = activeLocalePack?.formatting?.labelSeparator
+    || (currentLanguage === "zh" ? "：" : ": ");
 
   if (dateLabel) {
     contextItems.push(`${t.date}${separator}${dateLabel}`);

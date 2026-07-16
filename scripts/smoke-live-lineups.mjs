@@ -613,6 +613,8 @@ try {
   }
 
   const payload = await invokeHandler();
+  const firstPassLiveFootballRequestCount = [...fetchHits.liveFootball.values()]
+    .reduce((total, count) => total + count, 0);
   const byId = new Map((payload.fixturesData?.fixtures || []).map((fixture) => [fixture.id, fixture]));
   const liveFixture = byId.get("match-101-semi-final-2026-07-14");
   const concurrentFixture = byId.get("match-102-semi-final-2026-07-15");
@@ -659,17 +661,17 @@ try {
   assert.equal(concurrentFixture.lineups.home.players.length, 11);
   assert.equal(
     maxConcurrentLiveFootballRequests,
-    Math.min(payload.syncStatus.lineupFixtures, 4),
-    "Expected every eligible FIFA lineup request to use the configured concurrent worker pool"
+    Math.min(firstPassLiveFootballRequestCount, 4),
+    "Expected eligible FIFA lineup requests to use the configured concurrent worker pool"
   );
 
   assert.equal(newlyCompletedFixture?.lineups?.mode, "final");
   assert.equal(newlyCompletedFixture.lineups.teamSheetSource, "fifa-official");
-  assert.equal(newlyCompletedFixture.lineups.layoutSource, "verified-layout");
+  assert.equal(newlyCompletedFixture.lineups.layoutSource, "fifa-official-layout");
   assert.equal(newlyCompletedFixture.lineups.layoutVerification?.status, "verified");
   assert(
     newlyCompletedFixture.lineups.layoutVerification?.sources?.some(
-      (source) => source.exactLayout === true
+      (source) => source.adapter === "fifa-tactical-pdf" && source.exactLayout === true
     )
   );
   assert.equal(newlyCompletedFixture.lineups.home.players.length, 11);

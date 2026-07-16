@@ -15,6 +15,7 @@ const dataDir = path.join(root, "data");
 const args = process.argv.slice(2);
 const outputPath = path.resolve(root, optionValue("--output=") || "tmp/pdfs/fifa-tactical-lineup-history-audit.json");
 const requestedMatches = parseRequestedMatches();
+const skipArchives = args.includes("--no-archives");
 const timeoutMs = positiveNumber(process.env.FIFA_TACTICAL_AUDIT_TIMEOUT_MS, 30000);
 const maximumPdfBytes = positiveNumber(process.env.FIFA_TACTICAL_MAX_PDF_BYTES, 5 * 1024 * 1024);
 const userAgent = "World-Cup-Simplified/FIFA-tactical-lineup-history-audit";
@@ -156,6 +157,9 @@ function selectedDocumentSummary(candidate) {
     canonicalUrl: candidate.canonicalUrl,
     version: candidate.parsed.version,
     publishedAt: candidate.parsed.publishedAt,
+    layoutPerspective: candidate.parsed.layoutPerspective,
+    isUpdatedVersion: candidate.parsed.isUpdatedVersion,
+    revisionComment: candidate.parsed.revisionComment || null,
     sha256: candidate.parsed.sha256,
     signature: lineupSignature(parsedLineups(candidate.parsed))
   };
@@ -273,6 +277,9 @@ function summarizeCandidate(candidate, kickoff) {
     version: candidate.parsed.version,
     publishedAt: candidate.parsed.publishedAt,
     publicationTiming: publishedMs <= kickoff.getTime() ? "pre-kickoff" : "post-kickoff",
+    layoutPerspective: candidate.parsed.layoutPerspective,
+    isUpdatedVersion: candidate.parsed.isUpdatedVersion,
+    revisionComment: candidate.parsed.revisionComment || null,
     sha256: candidate.parsed.sha256
   };
 }
@@ -296,13 +303,30 @@ function chooseEarliestParsed(candidates) {
     )[0] || null;
 }
 
-function classificationFor({ selected, fallback, existingSignature }) {
-  const candidate = selected || fallback;
+function chooseLatestPreKickoff(candidates, kickoff) {
+  return candidates
+    .filter((candidate) => candidate.parsed && new Date(candidate.parsed.publishedAt).getTime() <= kickoff.getTime())
+    .sort((left, right) =>
+      new Date(right.parsed.publishedAt).getTime() - new Date(left.parsed.publishedAt).getTime() ||
+      right.parsed.version - left.parsed.version
+    )[0] || null;
+}
+
+function chooseLatestOfficialUpdate(candidates) {
+  return candidates
+    .filter((candidate) => ["observed", "revised"].includes(candidate.parsed?.layoutPerspective))
+    .sort((left, right) =>
+      right.parsed.version - left.parsed.version ||
+      new Date(right.parsed.publishedAt).getTime() - new Date(left.parsed.publishedAt).getTime()
+    )[0] || null;
+}
+
+function classificationFor({ preferred, existingSignature }) {
+  const candidate = preferred;
   if (!candidate) return "unavailable-or-unparseable";
   const officialSignature = lineupSignature(parsedLineups(candidate.parsed));
   const agreement = signaturesAgree(existingSignature, officialSignature);
-  if (selected) return agreement ? "pre-kickoff-official-agrees" : "pre-kickoff-official-differs";
-  return agreement ? "post-kickoff-only-agrees" : "post-kickoff-only-differs";
+  return agreement ? "preferred-official-agrees" : "preferred-official-differs";
 }
 
 const [fixturesData, lineupsData, tacticalIndex, profilesData] = await Promise.all([
@@ -316,7 +340,16 @@ const fixtures = fixturesData.fixtures
   .filter((fixture) => !requestedMatches || requestedMatches.has(matchNumberForFixture(fixture)))
   .sort((left, right) => matchNumberForFixture(left) - matchNumberForFixture(right));
 const lineupsByFixtureId = lineupsData.lineups || {};
-const captures = capturesByRegistrationId(await fetchCdxCaptures());
+let captures = new Map();
+if (!skipArchives) {
+  try {
+    captures = capturesByRegistrationId(await fetchCdxCaptures());
+  } catch (error) {
+    console.warn(
+      `Warning: archived FIFA tactical captures were unavailable (${error.message}); auditing current official documents only.`
+    );
+  }
+}
 const matches = [];
 
 for (const fixture of fixtures) {
@@ -353,9 +386,12 @@ for (const fixture of fixtures) {
 
   const selected = chooseEarliestPreKickoff(candidates, kickoff);
   const fallback = selected ? null : chooseEarliestParsed(candidates);
+  const latestOfficialUpdate = chooseLatestOfficialUpdate(candidates);
+  const latestPreKickoff = chooseLatestPreKickoff(candidates, kickoff);
+  const preferred = latestOfficialUpdate || latestPreKickoff || chooseEarliestParsed(candidates);
   const existingSignature = lineupSignature(lineups);
-  const classification = classificationFor({ selected, fallback, existingSignature });
-  const reference = selected || fallback;
+  const classification = classificationFor({ preferred, existingSignature });
+  const reference = preferred;
   matches.push({
     matchNumber,
     fixtureId: fixture.id,
@@ -368,8 +404,11 @@ for (const fixture of fixtures) {
       signature: existingSignature
     },
     classification,
+    preferredOfficialDocument: selectedDocumentSummary(preferred),
+    latestOfficialUpdateDocument: selectedDocumentSummary(latestOfficialUpdate),
+    latestPreKickoffDocument: selectedDocumentSummary(latestPreKickoff),
     selectedPreKickoffDocument: selectedDocumentSummary(selected),
-    earliestParsedDocument: selectedDocumentSummary(reference),
+    earliestParsedDocument: selectedDocumentSummary(selected || fallback),
     candidates: candidates.map((candidate) => summarizeCandidate(candidate, kickoff))
   });
   console.log(
@@ -388,8 +427,8 @@ const output = {
   generatedAt: new Date().toISOString(),
   policy: {
     primaryEvidence: "FIFA Tactical Line-up PDF positioned text",
-    acceptedDocument: "earliest recoverable document whose embedded FIFA publication timestamp is at or before kickoff",
-    postKickoffRule: "never auto-apply; retain for manual comparison only",
+    acceptedDocument: "latest FIFA post-observation update when present; otherwise the latest recoverable pre-kickoff tactical document",
+    postKickoffRule: "auto-apply only when FIFA marks the document as updated after observation of the game",
     comparison: "formation plus tactical rows and left-to-right shirt-number order"
   },
   summary,

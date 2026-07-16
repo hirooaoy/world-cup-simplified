@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T17:32:35Z",
+  "updatedAt": "2026-07-16T17:30:00Z",
   "defaultLateralOrder": "right-to-left",
   "sources": [
     {
@@ -131,6 +131,46 @@
       "outlet": "the-stats-zone",
       "independenceKey": "the-stats-zone",
       "note": "Independently updated matchday preview with the same Konsa-Stones-Guehi-O'Reilly back four."
+    },
+    {
+      "id": "sports-mole-france-england-preview-2026-07-16",
+      "label": "Sports Mole France vs England third-place preview",
+      "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/preview/france-vs-england-prediction-team-news-lineups_601289.html",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00Z",
+      "outlet": "sports-mole",
+      "independenceKey": "sports-mole",
+      "note": "Current third-place preview with predicted XIs for France and England."
+    },
+    {
+      "id": "racing-post-france-england-preview-2026-07-16",
+      "label": "Racing Post France vs England team news and predicted XIs",
+      "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/france-vs-england-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-acFre6b3w30W/",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00Z",
+      "outlet": "racing-post",
+      "independenceKey": "racing-post",
+      "note": "Independent current third-place preview with predicted XIs and injury context."
+    },
+    {
+      "id": "sports-mole-spain-argentina-preview-2026-07-16",
+      "label": "Sports Mole Spain vs Argentina final predicted XIs",
+      "url": "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00Z",
+      "outlet": "sports-mole",
+      "independenceKey": "sports-mole",
+      "note": "Current final prediction retaining the Messi-Alvarez partnership; Spain's XI is paired from Sports Mole's same-day Spain prediction."
+    },
+    {
+      "id": "racing-post-spain-argentina-preview-2026-07-16",
+      "label": "Racing Post Spain vs Argentina team news and predicted XIs",
+      "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00Z",
+      "outlet": "racing-post",
+      "independenceKey": "racing-post",
+      "note": "Independent current final preview with predicted XIs and a more conservative Argentina shape."
     }
   ],
   "fixtures": [
@@ -796,6 +836,184 @@
                 { "name": "Enzo Fernandez", "position": "LW" },
                 { "name": "Lionel Messi", "position": "ST" },
                 { "name": "Julian Alvarez", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-103-bronze-final-2026-07-18",
+      "sources": [
+        {
+          "sourceId": "sports-mole-france-england-preview-2026-07-16",
+          "confidence": 0.9,
+          "checkedAt": "2026-07-16T17:30:00Z",
+          "note": "Current third-place prediction keeps both captains starting while rotating selected supporting players.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Ibrahima Konate", "position": "CB" },
+                { "name": "Maxence Lacroix", "position": "CB" },
+                { "name": "Theo Hernandez", "position": "LB" },
+                { "name": "Manu Kone", "position": "CM" },
+                { "name": "Warren Zaire-Emery", "position": "CM" },
+                { "name": "Rayan Cherki", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Desire Doue", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Djed Spence", "position": "RB" },
+                { "name": "Ezri Konsa", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Declan Rice", "position": "CM" },
+                { "name": "Elliot Anderson", "position": "CM" },
+                { "name": "Morgan Rogers", "position": "RW" },
+                { "name": "Jude Bellingham", "position": "AM" },
+                { "name": "Anthony Gordon", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "racing-post-france-england-preview-2026-07-16",
+          "confidence": 0.88,
+          "checkedAt": "2026-07-16T17:30:00Z",
+          "note": "Independent preview also starts Mbappe and Kane while expecting broader rotation around them.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Ibrahima Konate", "position": "CB" },
+                { "name": "Maxence Lacroix", "position": "CB" },
+                { "name": "Theo Hernandez", "position": "LB" },
+                { "name": "Ngolo Kante", "position": "CM" },
+                { "name": "Warren Zaire-Emery", "position": "CM" },
+                { "name": "Rayan Cherki", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Desire Doue", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Jarell Quansah", "position": "RB" },
+                { "name": "Ezri Konsa", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Kobbie Mainoo", "position": "CM" },
+                { "name": "Elliot Anderson", "position": "CM" },
+                { "name": "Morgan Rogers", "position": "RW" },
+                { "name": "Eberechi Eze", "position": "AM" },
+                { "name": "Marcus Rashford", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-104-final-2026-07-19",
+      "sources": [
+        {
+          "sourceId": "sports-mole-spain-argentina-preview-2026-07-16",
+          "confidence": 0.9,
+          "checkedAt": "2026-07-16T17:30:00Z",
+          "note": "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+          "teams": {
+            "home": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Fabian Ruiz", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ARG",
+              "formation": "4-4-2",
+              "starters": [
+                { "name": "Emiliano Martinez", "position": "GK" },
+                { "name": "Gonzalo Montiel", "position": "RB" },
+                { "name": "Cristian Romero", "position": "CB" },
+                { "name": "Lisandro Martinez", "position": "CB" },
+                { "name": "Nicolas Tagliafico", "position": "LB" },
+                { "name": "Rodrigo De Paul", "position": "RM" },
+                { "name": "Leandro Paredes", "position": "CM" },
+                { "name": "Enzo Fernandez", "position": "CM" },
+                { "name": "Alexis Mac Allister", "position": "LM" },
+                { "name": "Lionel Messi", "position": "RST" },
+                { "name": "Julian Alvarez", "position": "LST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "racing-post-spain-argentina-preview-2026-07-16",
+          "confidence": 0.88,
+          "checkedAt": "2026-07-16T17:30:00Z",
+          "note": "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+          "teams": {
+            "home": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Fabian Ruiz", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ARG",
+              "formation": "4-1-4-1",
+              "starters": [
+                { "name": "Emiliano Martinez", "position": "GK" },
+                { "name": "Nahuel Molina", "position": "RB" },
+                { "name": "Cristian Romero", "position": "CB" },
+                { "name": "Lisandro Martinez", "position": "CB" },
+                { "name": "Nicolas Tagliafico", "position": "LB" },
+                { "name": "Leandro Paredes", "position": "DM" },
+                { "name": "Giuliano Simeone", "position": "RM" },
+                { "name": "Enzo Fernandez", "position": "CM" },
+                { "name": "Alexis Mac Allister", "position": "CM" },
+                { "name": "Julian Alvarez", "position": "LM" },
+                { "name": "Lionel Messi", "position": "ST" }
               ]
             }
           }

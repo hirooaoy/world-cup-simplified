@@ -33,6 +33,7 @@ function evidencePosition(player = {}) {
   if (Number.isFinite(x) && x !== 50) {
     if (position === "CB") return x > 50 ? "RCB" : "LCB";
     if (position === "CM") return x > 50 ? "RCM" : "LCM";
+    if (position === "ST") return x > 50 ? "RST" : "LST";
   }
   return position;
 }

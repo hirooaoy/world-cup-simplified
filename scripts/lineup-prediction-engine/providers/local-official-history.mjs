@@ -264,50 +264,6 @@ function recentScoreFor(recent, player, resolveIdentity) {
   return recent.playerScores.find((candidate) => samePlayer(candidate.player, player, resolveIdentity));
 }
 
-function buildBronzeRotationBaseline({ latest, recent, selectedStarters, unavailableEntries, resolveIdentity }) {
-  const selected = [...selectedStarters];
-  const benchPool = [];
-  for (const player of [...(latest.teamLineup.bench || []), ...recent.playerScores.map((entry) => entry.player)]) {
-    if (
-      !isUnavailable(player, unavailableEntries, resolveIdentity) &&
-      !selected.some((starter) => samePlayer(starter, player, resolveIdentity)) &&
-      !benchPool.some((candidate) => samePlayer(candidate, player, resolveIdentity))
-    ) {
-      benchPool.push(player);
-    }
-  }
-
-  const rotationCandidates = selected
-    .map((player, index) => ({ index, player, recent: recentScoreFor(recent, player, resolveIdentity) }))
-    .filter(({ player }) => positionGroup(player) !== "GK")
-    .sort((left, right) =>
-      Number(right.recent?.recentMinutes || 0) - Number(left.recent?.recentMinutes || 0) ||
-      Number(right.recent?.recentStarts || 0) - Number(left.recent?.recentStarts || 0)
-    );
-  const rotated = [];
-
-  for (const starter of rotationCandidates) {
-    if (rotated.length >= 4) break;
-    const group = positionGroup(starter.player);
-    const replacement = benchPool
-      .filter((player) => positionGroup(player) === group)
-      .map((player) => ({ player, recent: recentScoreFor(recent, player, resolveIdentity) }))
-      .filter(({ recent }) => recent && (recent.recentMinutes > 0 || recent.recentStarts > 0))
-      .sort((left, right) => {
-        const leftLoadBonus = Number(left.recent.recentMinutes || 0) < 180 ? 0.75 : 0;
-        const rightLoadBonus = Number(right.recent.recentMinutes || 0) < 180 ? 0.75 : 0;
-        return right.recent.score + rightLoadBonus - (left.recent.score + leftLoadBonus);
-      })[0];
-    if (!replacement) continue;
-    selected[starter.index] = replacement.player;
-    rotated.push({ out: playerName(starter.player), in: playerName(replacement.player) });
-    const benchIndex = benchPool.findIndex((player) => samePlayer(player, replacement.player, resolveIdentity));
-    if (benchIndex >= 0) benchPool.splice(benchIndex, 1);
-  }
-
-  return { selected, rotated };
-}
-
 function confidenceForPlayer(player, playerScores, inLastXi, resolveIdentity) {
   const score = playerScores.find((candidate) => samePlayer(candidate.player, player, resolveIdentity));
   const recentStarts = score?.recentStarts || 0;
@@ -382,10 +338,6 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
   }
 
   const isBronzeFinal = fixture.stage === "bronze-final";
-  const bronzeRotation = isBronzeFinal
-    ? buildBronzeRotationBaseline({ latest, recent, selectedStarters, unavailableEntries, resolveIdentity })
-    : { selected: selectedStarters, rotated: [] };
-  selectedStarters.splice(0, selectedStarters.length, ...bronzeRotation.selected);
 
   const benchCandidates = [];
   for (const player of latest.teamLineup.bench || []) {
@@ -414,7 +366,7 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
     0.4,
     Math.min(isBronzeFinal ? 0.58 : 0.88, 0.58 + formationStability * 0.12 + (unavailableRemoved ? -0.08 : 0.08))
   );
-  const starterOptions = { playerScores: recent.playerScores, profileLookup, resolveIdentity, sourceIds, teamId, evidence: isBronzeFinal ? "Rotation-aware bronze-final baseline" : "Last verified official XI" };
+  const starterOptions = { playerScores: recent.playerScores, profileLookup, resolveIdentity, sourceIds, teamId, evidence: "Last verified official XI" };
   const benchOptions = { playerScores: recent.playerScores, profileLookup, resolveIdentity, sourceIds, teamId, evidence: "Recent official bench/minutes", inLastXi: false };
 
   return {
@@ -442,8 +394,7 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
       `${unavailableRemoved} last-XI player${unavailableRemoved === 1 ? "" : "s"} removed for explicit availability`,
       ...(isBronzeFinal
         ? [
-            "Bronze-final rotation risk: latest-XI carryover is intentionally downweighted.",
-            `${bronzeRotation.rotated.length} high-load starter${bronzeRotation.rotated.length === 1 ? "" : "s"} rotated toward recent bench/minutes alternatives.`
+            "Bronze-final selection uncertainty is reflected in confidence; rotation is not assumed without source evidence."
           ]
         : [])
     ],

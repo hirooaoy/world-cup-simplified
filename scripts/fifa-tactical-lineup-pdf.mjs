@@ -252,6 +252,27 @@ function parsePublishedAt(versionItem) {
   return new Date(timestamp).toISOString();
 }
 
+function parseRevisionMetadata(items) {
+  const combinedText = items.map((item) => item.str).join(" ");
+  const revisionComment = cleanText(
+    combinedText.match(/\bComment:\s*(.*?)(?:\s+UPDATED\s+VERSION\b|$)/i)?.[1] || ""
+  );
+  const isUpdatedVersion = /\bUPDATED\s+VERSION\b/i.test(combinedText);
+  const isPostObservationUpdate =
+    /\bobserv(?:ation|ations|ed)\b|shape change|position changes?|tactical line[- ]?up change following match/i.test(
+      `${revisionComment} ${combinedText}`
+    );
+  return {
+    layoutPerspective: isPostObservationUpdate
+      ? "observed"
+      : isUpdatedVersion
+        ? "revised"
+        : "nominal",
+    isUpdatedVersion,
+    revisionComment
+  };
+}
+
 function centerX(item) {
   return item.x + item.width / 2;
 }
@@ -481,6 +502,7 @@ export function parseFifaTacticalLineupDocument({
   const version = Number(versionItem.str.match(/\bVersion\s+(\d+)\b/i)?.[1]);
   if (!Number.isInteger(version) || version <= 0) reject("invalid_version", `Invalid FIFA tactical document version "${version}".`);
   const publishedAt = parsePublishedAt(versionItem);
+  const revision = parseRevisionMetadata(items);
   const expectedVersion = Number(fixture?.tacticalLineupVersion || 0);
   if (expectedVersion && version !== expectedVersion) {
     reject("invalid_version", `FIFA tactical document version is ${version}; expected ${expectedVersion}.`);
@@ -516,6 +538,7 @@ export function parseFifaTacticalLineupDocument({
     matchNumber,
     version,
     publishedAt,
+    ...revision,
     sourceUrl: cleanText(document.sourceUrl),
     sha256: cleanText(document.sha256).toLowerCase(),
     home,

@@ -1,0 +1,851 @@
+{
+  "schemaVersion": 1,
+  "source": "data/history.json",
+  "coverage": {
+    "field": "fixtures[].venue",
+    "status": "complete",
+    "uniqueVenueCount": 209
+  },
+  "methodology": {
+    "es": "Preserve each official or historical venue name exactly as stored, while using established Spanish city names where a conventional form exists.",
+    "ko": "Use established Korean football-news names or careful phonetic transliterations for both venues and cities; branded venue names are not translated literally."
+  },
+  "venues": {
+    "Ahmad bin Ali Stadium, Al Rayyan": {
+      "es": "Ahmad bin Ali Stadium, Al Rayyan",
+      "ko": "아흐마드 빈 알리 스타디움, 알라이얀"
+    },
+    "Al Bayt Stadium, Al Khor": {
+      "es": "Al Bayt Stadium, Al Khor",
+      "ko": "알바이트 스타디움, 알코르"
+    },
+    "Al Janoub Stadium, Al Wakrah": {
+      "es": "Al Janoub Stadium, Al Wakrah",
+      "ko": "알자눕 스타디움, 알와크라"
+    },
+    "Al Thumama Stadium, Doha": {
+      "es": "Al Thumama Stadium, Doha",
+      "ko": "알투마마 스타디움, 도하"
+    },
+    "Allianz Arena, München": {
+      "es": "Allianz Arena, Múnich",
+      "ko": "알리안츠 아레나, 뮌헨"
+    },
+    "AOL Arena, Hamburg": {
+      "es": "AOL Arena, Hamburgo",
+      "ko": "AOL 아레나, 함부르크"
+    },
+    "Arena Amazônia, Manaus": {
+      "es": "Arena Amazônia, Manaus",
+      "ko": "아레나 아마조니아, 마나우스"
+    },
+    "Arena da Baixada, Curitiba": {
+      "es": "Arena da Baixada, Curitiba",
+      "ko": "아레나 다 바이샤다, 쿠리치바"
+    },
+    "Arena de São Paulo, São Paulo": {
+      "es": "Arena de São Paulo, São Paulo",
+      "ko": "아레나 지 상파울루, 상파울루"
+    },
+    "Arena Fonte Nova, Salvador": {
+      "es": "Arena Fonte Nova, Salvador",
+      "ko": "아레나 폰치 노바, 사우바도르"
+    },
+    "Arena Pantanal, Cuiabá": {
+      "es": "Arena Pantanal, Cuiabá",
+      "ko": "아레나 판타나우, 쿠이아바"
+    },
+    "Arena Pernambuco, Recife": {
+      "es": "Arena Pernambuco, Recife",
+      "ko": "아레나 페르남부쿠, 헤시피"
+    },
+    "Arosvallen, Västerås": {
+      "es": "Arosvallen, Västerås",
+      "ko": "아로스발렌, 베스테로스"
+    },
+    "Asiad Main Stadium, Busan": {
+      "es": "Asiad Main Stadium, Busan",
+      "ko": "부산아시아드주경기장, 부산"
+    },
+    "AWD-Arena, Hannover": {
+      "es": "AWD-Arena, Hannover",
+      "ko": "AWD 아레나, 하노버"
+    },
+    "Ayresome Park, Middlesbrough": {
+      "es": "Ayresome Park, Middlesbrough",
+      "ko": "에어섬 파크, 미들즈브러"
+    },
+    "Balaídos, Vigo": {
+      "es": "Balaídos, Vigo",
+      "ko": "발라이도스, 비고"
+    },
+    "Camp Nou, Barcelona": {
+      "es": "Camp Nou, Barcelona",
+      "ko": "캄 노우, 바르셀로나"
+    },
+    "Cape Town Stadium, Cape Town": {
+      "es": "Cape Town Stadium, Ciudad del Cabo",
+      "ko": "케이프타운 스타디움, 케이프타운"
+    },
+    "Charmilles Stadium, Geneva": {
+      "es": "Charmilles Stadium, Ginebra",
+      "ko": "샤르미유 스타디움, 제네바"
+    },
+    "Citrus Bowl, Orlando": {
+      "es": "Citrus Bowl, Orlando",
+      "ko": "시트러스 볼, 올랜도"
+    },
+    "Commerzbank-Arena, Frankfurt": {
+      "es": "Commerzbank-Arena, Fráncfort",
+      "ko": "코메르츠방크 아레나, 프랑크푸르트"
+    },
+    "Cornaredo Stadium, Lugano": {
+      "es": "Cornaredo Stadium, Lugano",
+      "ko": "코르나레도 스타디움, 루가노"
+    },
+    "Cotton Bowl, Dallas": {
+      "es": "Cotton Bowl, Dallas",
+      "ko": "코튼 볼, 댈러스"
+    },
+    "Daegu World Cup Stadium, Daegu": {
+      "es": "Daegu World Cup Stadium, Daegu",
+      "ko": "대구월드컵경기장, 대구"
+    },
+    "Daejeon World Cup Stadium, Daejeon": {
+      "es": "Daejeon World Cup Stadium, Daejeon",
+      "ko": "대전월드컵경기장, 대전"
+    },
+    "Education City Stadium, Al Rayyan": {
+      "es": "Education City Stadium, Al Rayyan",
+      "ko": "에듀케이션 시티 스타디움, 알라이얀"
+    },
+    "Ekaterinburg Arena, Ekaterinburg": {
+      "es": "Ekaterinburg Arena, Ekaterimburgo",
+      "ko": "예카테린부르크 아레나, 예카테린부르크"
+    },
+    "El Molinón, Gijón": {
+      "es": "El Molinón, Gijón",
+      "ko": "엘 몰리논, 히혼"
+    },
+    "Ellis Park Stadium, Johannesburg": {
+      "es": "Ellis Park Stadium, Johannesburgo",
+      "ko": "엘리스 파크 스타디움, 요하네스버그"
+    },
+    "Estadio Azteca, Mexico City": {
+      "es": "Estadio Azteca, Ciudad de México",
+      "ko": "에스타디오 아스테카, 멕시코시티"
+    },
+    "Estádio Beira-Rio, Porto Alegre": {
+      "es": "Estádio Beira-Rio, Porto Alegre",
+      "ko": "이스타지우 베이라히우, 포르투알레그리"
+    },
+    "Estadio Benito Villamarín, Seville": {
+      "es": "Estadio Benito Villamarín, Sevilla",
+      "ko": "에스타디오 베니토 비야마린, 세비야"
+    },
+    "Estadio Carlos Dittborn, Arica": {
+      "es": "Estadio Carlos Dittborn, Arica",
+      "ko": "에스타디오 카를로스 디트보른, 아리카"
+    },
+    "Estadio Carlos Tartiere, Oviedo": {
+      "es": "Estadio Carlos Tartiere, Oviedo",
+      "ko": "에스타디오 카를로스 타르티에레, 오비에도"
+    },
+    "Estádio Castelão, Fortaleza": {
+      "es": "Estádio Castelão, Fortaleza",
+      "ko": "이스타지우 카스텔랑, 포르탈레자"
+    },
+    "Estadio Centenario, Montevideo": {
+      "es": "Estadio Centenario, Montevideo",
+      "ko": "에스타디오 센테나리오, 몬테비데오"
+    },
+    "Estadio Chateau Carreras, Córdoba": {
+      "es": "Estadio Chateau Carreras, Córdoba",
+      "ko": "에스타디오 샤토 카레라스, 코르도바"
+    },
+    "Estadio Ciudad de Mendoza, Mendoza": {
+      "es": "Estadio Ciudad de Mendoza, Mendoza",
+      "ko": "에스타디오 시우다드 데 멘도사, 멘도사"
+    },
+    "Estadio Cuauhtémoc, Puebla": {
+      "es": "Estadio Cuauhtémoc, Puebla",
+      "ko": "에스타디오 쿠아우테목, 푸에블라"
+    },
+    "Estádio das Dunas, Natal": {
+      "es": "Estádio das Dunas, Natal",
+      "ko": "이스타지우 다스 두나스, 나타우"
+    },
+    "Estadio de Riazor, A Coruña": {
+      "es": "Estadio de Riazor, A Coruña",
+      "ko": "에스타디오 데 리아소르, 아코루냐"
+    },
+    "Estádio do Maracanã, Rio de Janeiro": {
+      "es": "Estádio do Maracanã, Río de Janeiro",
+      "ko": "이스타지우 두 마라카낭, 리우데자네이루"
+    },
+    "Estádio do Pacaembu, São Paulo": {
+      "es": "Estádio do Pacaembu, São Paulo",
+      "ko": "이스타지우 두 파카엠부, 상파울루"
+    },
+    "Estádio dos Eucaliptos, Porto Alegre": {
+      "es": "Estádio dos Eucaliptos, Porto Alegre",
+      "ko": "이스타지우 두스 에우칼립투스, 포르투알레그리"
+    },
+    "Estádio Durival Britto, Curitiba": {
+      "es": "Estádio Durival Britto, Curitiba",
+      "ko": "이스타지우 두리바우 브리투, 쿠리치바"
+    },
+    "Estádio Durival de Britto, Curitiba": {
+      "es": "Estádio Durival de Britto, Curitiba",
+      "ko": "이스타지우 두리바우 지 브리투, 쿠리치바"
+    },
+    "Estadio El Teniente, Rancagua": {
+      "es": "Estadio El Teniente, Rancagua",
+      "ko": "에스타디오 엘 테니엔테, 랑카과"
+    },
+    "Estadio Gigante de Arroyito, Rosario": {
+      "es": "Estadio Gigante de Arroyito, Rosario",
+      "ko": "에스타디오 히간테 데 아로이토, 로사리오"
+    },
+    "Estádio Ilha do Retiro, Recife": {
+      "es": "Estádio Ilha do Retiro, Recife",
+      "ko": "이스타지우 일랴 두 헤티루, 헤시피"
+    },
+    "Estádio Independência, Belo Horizonte": {
+      "es": "Estádio Independência, Belo Horizonte",
+      "ko": "이스타지우 인데펜덴시아, 벨루오리존치"
+    },
+    "Estadio Jalisco, Guadalajara": {
+      "es": "Estadio Jalisco, Guadalajara",
+      "ko": "에스타디오 할리스코, 과달라하라"
+    },
+    "Estadio José Amalfitani, Buenos Aires": {
+      "es": "Estadio José Amalfitani, Buenos Aires",
+      "ko": "에스타디오 호세 아말피타니, 부에노스아이레스"
+    },
+    "Estadio José Maria Minella, Mar del Plata": {
+      "es": "Estadio José Maria Minella, Mar del Plata",
+      "ko": "에스타디오 호세 마리아 미네야, 마르델플라타"
+    },
+    "Estadio José María Minella, Mar del Plata": {
+      "es": "Estadio José María Minella, Mar del Plata",
+      "ko": "에스타디오 호세 마리아 미네야, 마르델플라타"
+    },
+    "Estadio José Rico Pérez, Alicante": {
+      "es": "Estadio José Rico Pérez, Alicante",
+      "ko": "에스타디오 호세 리코 페레스, 알리칸테"
+    },
+    "Estadio José Zorrilla, Valladolid": {
+      "es": "Estadio José Zorrilla, Valladolid",
+      "ko": "에스타디오 호세 소리야, 바야돌리드"
+    },
+    "Estadio La Corregidora, Querétaro": {
+      "es": "Estadio La Corregidora, Querétaro",
+      "ko": "에스타디오 라 코레히도라, 케레타로"
+    },
+    "Estadio La Rosaleda, Málaga": {
+      "es": "Estadio La Rosaleda, Málaga",
+      "ko": "에스타디오 라 로살레다, 말라가"
+    },
+    "Estadio Luis Casanova, Valencia": {
+      "es": "Estadio Luis Casanova, Valencia",
+      "ko": "에스타디오 루이스 카사노바, 발렌시아"
+    },
+    "Estadio Luis Dosal, Toluca": {
+      "es": "Estadio Luis Dosal, Toluca",
+      "ko": "에스타디오 루이스 도살, 톨루카"
+    },
+    "Estádio Mineirão, Belo Horizonte": {
+      "es": "Estádio Mineirão, Belo Horizonte",
+      "ko": "이스타지우 미네이랑, 벨루오리존치"
+    },
+    "Estadio Monumental, Buenos Aires": {
+      "es": "Estadio Monumental, Buenos Aires",
+      "ko": "에스타디오 모누멘탈, 부에노스아이레스"
+    },
+    "Estádio Nacional Mané Garrincha, Brasília": {
+      "es": "Estádio Nacional Mané Garrincha, Brasilia",
+      "ko": "이스타지우 나시오나우 마네 가린샤, 브라질리아"
+    },
+    "Estadio Nacional, Santiago": {
+      "es": "Estadio Nacional, Santiago",
+      "ko": "에스타디오 나시오날, 산티아고"
+    },
+    "Estadio Nemesio Díez, Toluca": {
+      "es": "Estadio Nemesio Díez, Toluca",
+      "ko": "에스타디오 네메시오 디에스, 톨루카"
+    },
+    "Estadio Neza 86, Nezahualcóyotl": {
+      "es": "Estadio Neza 86, Nezahualcóyotl",
+      "ko": "에스타디오 네사 86, 네사우알코요틀"
+    },
+    "Estadio Nou Camp, León": {
+      "es": "Estadio Nou Camp, León",
+      "ko": "에스타디오 노우 캄프, 레온"
+    },
+    "Estadio Olímpico Chateau Carreras, Córdoba": {
+      "es": "Estadio Olímpico Chateau Carreras, Córdoba",
+      "ko": "에스타디오 올림피코 샤토 카레라스, 코르도바"
+    },
+    "Estadio Olímpico Universitario, Mexico City": {
+      "es": "Estadio Olímpico Universitario, Ciudad de México",
+      "ko": "에스타디오 올림피코 우니베르시타리오, 멕시코시티"
+    },
+    "Estadio Parque Central, Montevideo": {
+      "es": "Estadio Parque Central, Montevideo",
+      "ko": "에스타디오 파르케 센트랄, 몬테비데오"
+    },
+    "Estadio Pocitos, Montevideo": {
+      "es": "Estadio Pocitos, Montevideo",
+      "ko": "에스타디오 포시토스, 몬테비데오"
+    },
+    "Estadio Ramón Sánchez Pizjuán, Seville": {
+      "es": "Estadio Ramón Sánchez Pizjuán, Sevilla",
+      "ko": "에스타디오 라몬 산체스 피스후안, 세비야"
+    },
+    "Estadio San Mamés, Bilbao": {
+      "es": "Estadio San Mamés, Bilbao",
+      "ko": "에스타디오 산 마메스, 빌바오"
+    },
+    "Estadio Santiago Bernabéu": {
+      "es": "Estadio Santiago Bernabéu",
+      "ko": "에스타디오 산티아고 베르나베우"
+    },
+    "Estadio Santiago Bernabéu, Madrid": {
+      "es": "Estadio Santiago Bernabéu, Madrid",
+      "ko": "에스타디오 산티아고 베르나베우, 마드리드"
+    },
+    "Estadio Sarriá, Barcelona": {
+      "es": "Estadio Sarriá, Barcelona",
+      "ko": "에스타디오 사리아, 바르셀로나"
+    },
+    "Estadio Sausalito, Viña del Mar": {
+      "es": "Estadio Sausalito, Viña del Mar",
+      "ko": "에스타디오 사우살리토, 비냐델마르"
+    },
+    "Estadio Sergio León Chavez, Irapuato": {
+      "es": "Estadio Sergio León Chavez, Irapuato",
+      "ko": "에스타디오 세르히오 레온 차베스, 이라푸아토"
+    },
+    "Estadio Tecnológico, Monterrey": {
+      "es": "Estadio Tecnológico, Monterrey",
+      "ko": "에스타디오 테크놀로히코, 몬테레이"
+    },
+    "Estadio Tres de Marzo, Guadalajara": {
+      "es": "Estadio Tres de Marzo, Guadalajara",
+      "ko": "에스타디오 트레스 데 마르소, 과달라하라"
+    },
+    "Estadio Universitario, Monterrey": {
+      "es": "Estadio Universitario, Monterrey",
+      "ko": "에스타디오 우니베르시타리오, 몬테레이"
+    },
+    "Estadio Vicente Calderón, Madrid": {
+      "es": "Estadio Vicente Calderón, Madrid",
+      "ko": "에스타디오 비센테 칼데론, 마드리드"
+    },
+    "Eyravallen, Örebro": {
+      "es": "Eyravallen, Örebro",
+      "ko": "에이라발렌, 외레브로"
+    },
+    "Fisht Stadium, Sochi": {
+      "es": "Fisht Stadium, Sochi",
+      "ko": "피시트 스타디움, 소치"
+    },
+    "Foxboro Stadium, Foxborough": {
+      "es": "Foxboro Stadium, Foxborough",
+      "ko": "폭스보로 스타디움, 폭스버러"
+    },
+    "Frankenstadion, Nürnberg": {
+      "es": "Frankenstadion, Núremberg",
+      "ko": "프랑켄슈타디온, 뉘른베르크"
+    },
+    "Free State Stadium, Bloemfontein": {
+      "es": "Free State Stadium, Bloemfontein",
+      "ko": "프리스테이트 스타디움, 블룸폰테인"
+    },
+    "Fritz-Walter-Stadion, Kaiserslautern": {
+      "es": "Fritz-Walter-Stadion, Kaiserslautern",
+      "ko": "프리츠 발터 슈타디온, 카이저슬라우테른"
+    },
+    "Giants Stadium, East Rutherford": {
+      "es": "Giants Stadium, East Rutherford",
+      "ko": "자이언츠 스타디움, 이스트러더퍼드"
+    },
+    "Goodison Park, Liverpool": {
+      "es": "Goodison Park, Liverpool",
+      "ko": "구디슨 파크, 리버풀"
+    },
+    "Gottlieb-Daimler-Stadion, Stuttgart": {
+      "es": "Gottlieb-Daimler-Stadion, Stuttgart",
+      "ko": "고틀리프 다임러 슈타디온, 슈투트가르트"
+    },
+    "Gwangju World Cup Stadium, Gwangju": {
+      "es": "Gwangju World Cup Stadium, Gwangju",
+      "ko": "광주월드컵경기장, 광주"
+    },
+    "Hardturm Stadium, Zürich": {
+      "es": "Hardturm Stadium, Zúrich",
+      "ko": "하르트투름 스타디움, 취리히"
+    },
+    "Hillsborough Stadium, Sheffield": {
+      "es": "Hillsborough Stadium, Sheffield",
+      "ko": "힐즈버러 스타디움, 셰필드"
+    },
+    "Idrottsparken, Norrköping": {
+      "es": "Idrottsparken, Norrköping",
+      "ko": "이드로츠파르켄, 노르셰핑"
+    },
+    "Incheon Munhak Stadium, Incheon": {
+      "es": "Incheon Munhak Stadium, Incheon",
+      "ko": "인천문학경기장, 인천"
+    },
+    "International Stadium Yokohama, Yokohama": {
+      "es": "International Stadium Yokohama, Yokohama",
+      "ko": "요코하마 국제종합경기장, 요코하마"
+    },
+    "Jeju World Cup Stadium, Jeju": {
+      "es": "Jeju World Cup Stadium, Jeju",
+      "ko": "제주월드컵경기장, 제주"
+    },
+    "Jeonju World Cup Stadium, Jeonju": {
+      "es": "Jeonju World Cup Stadium, Jeonju",
+      "ko": "전주월드컵경기장, 전주"
+    },
+    "Jernvallen, Sandviken": {
+      "es": "Jernvallen, Sandviken",
+      "ko": "예른발렌, 산드비켄"
+    },
+    "Kaliningrad Stadium, Kaliningrad": {
+      "es": "Kaliningrad Stadium, Kaliningrado",
+      "ko": "칼리닌그라드 스타디움, 칼리닌그라드"
+    },
+    "Kashima Soccer Stadium, Ibaraki": {
+      "es": "Kashima Soccer Stadium, Ibaraki",
+      "ko": "가시마 사커 스타디움, 이바라키"
+    },
+    "Kazan Arena, Kazan": {
+      "es": "Kazan Arena, Kazán",
+      "ko": "카잔 아레나, 카잔"
+    },
+    "Khalifa International Stadium, Al Rayyan": {
+      "es": "Khalifa International Stadium, Al Rayyan",
+      "ko": "칼리파 인터내셔널 스타디움, 알라이얀"
+    },
+    "Kobe Wing Stadium, Kobe": {
+      "es": "Kobe Wing Stadium, Kobe",
+      "ko": "고베 윙 스타디움, 고베"
+    },
+    "La Romareda, Zaragoza": {
+      "es": "La Romareda, Zaragoza",
+      "ko": "라 로마레다, 사라고사"
+    },
+    "Loftus Versfeld Stadium, Pretoria": {
+      "es": "Loftus Versfeld Stadium, Pretoria",
+      "ko": "로프터스 버스펠드 스타디움, 프리토리아"
+    },
+    "Lusail Iconic Stadium, Lusail": {
+      "es": "Lusail Iconic Stadium, Lusail",
+      "ko": "루사일 아이코닉 스타디움, 루사일"
+    },
+    "Luzhniki Stadium, Moscow": {
+      "es": "Luzhniki Stadium, Moscú",
+      "ko": "루즈니키 스타디움, 모스크바"
+    },
+    "Malmö Stadion, Malmö": {
+      "es": "Malmö Stadion, Malmö",
+      "ko": "말뫼 스타디온, 말뫼"
+    },
+    "Mbombela Stadium, Nelspruit": {
+      "es": "Mbombela Stadium, Nelspruit",
+      "ko": "음봄벨라 스타디움, 넬스프루이트"
+    },
+    "Miyagi Stadium, Miyagi": {
+      "es": "Miyagi Stadium, Miyagi",
+      "ko": "미야기 스타디움, 미야기"
+    },
+    "Mordovia Arena, Saransk": {
+      "es": "Mordovia Arena, Saransk",
+      "ko": "모르도비야 아레나, 사란스크"
+    },
+    "Moses Mabhida Stadium, Durban": {
+      "es": "Moses Mabhida Stadium, Durban",
+      "ko": "모세스 마비다 스타디움, 더반"
+    },
+    "Munsu Cup Stadium, Ulsan": {
+      "es": "Munsu Cup Stadium, Ulsan",
+      "ko": "울산문수축구경기장, 울산"
+    },
+    "Nagai Stadium, Osaka": {
+      "es": "Nagai Stadium, Osaka",
+      "ko": "나가이 스타디움, 오사카"
+    },
+    "Neckarstadion, Stuttgart": {
+      "es": "Neckarstadion, Stuttgart",
+      "ko": "네카어슈타디온, 슈투트가르트"
+    },
+    "Nelson Mandela Bay Stadium, Port Elizabeth": {
+      "es": "Nelson Mandela Bay Stadium, Port Elizabeth",
+      "ko": "넬슨 만델라 베이 스타디움, 포트엘리자베스"
+    },
+    "Niedersachsenstadion, Hanover": {
+      "es": "Niedersachsenstadion, Hannover",
+      "ko": "니더작센슈타디온, 하노버"
+    },
+    "Niigata Stadium, Niigata": {
+      "es": "Niigata Stadium, Niigata",
+      "ko": "니가타 스타디움, 니가타"
+    },
+    "Nizhny Novgorod Stadium, Nizhny Novgorod": {
+      "es": "Nizhny Novgorod Stadium, Nizhni Nóvgorod",
+      "ko": "니즈니노브고로드 스타디움, 니즈니노브고로드"
+    },
+    "Nuevo Estadio, Elche": {
+      "es": "Nuevo Estadio, Elche",
+      "ko": "누에보 에스타디오, 엘체"
+    },
+    "Ōita Stadium, Ōita": {
+      "es": "Ōita Stadium, Ōita",
+      "ko": "오이타 스타디움, 오이타"
+    },
+    "Old Trafford, Manchester": {
+      "es": "Old Trafford, Mánchester",
+      "ko": "올드 트래퍼드, 맨체스터"
+    },
+    "Olympiastadion, Berlin": {
+      "es": "Olympiastadion, Berlín",
+      "ko": "올림피아슈타디온, 베를린"
+    },
+    "Olympiastadion, Helsingborg": {
+      "es": "Olympiastadion, Helsingborg",
+      "ko": "올림피아스타디온, 헬싱보리"
+    },
+    "Olympiastadion, München": {
+      "es": "Olympiastadion, Múnich",
+      "ko": "올림피아슈타디온, 뮌헨"
+    },
+    "Olympiastadion, West Berlin": {
+      "es": "Olympiastadion, Berlín Occidental",
+      "ko": "올림피아슈타디온, 서베를린"
+    },
+    "Örjans Vall, Halmstad": {
+      "es": "Örjans Vall, Halmstad",
+      "ko": "외리안스 발, 할름스타드"
+    },
+    "Parc des Princes, Paris": {
+      "es": "Parc des Princes, París",
+      "ko": "파르크 데 프랭스, 파리"
+    },
+    "Parc Lescure, Bordeaux": {
+      "es": "Parc Lescure, Burdeos",
+      "ko": "파르크 레스퀴르, 보르도"
+    },
+    "Parkstadion, Gelsenkirchen": {
+      "es": "Parkstadion, Gelsenkirchen",
+      "ko": "파르크슈타디온, 겔젠키르헨"
+    },
+    "Peter Mokaba Stadium, Polokwane": {
+      "es": "Peter Mokaba Stadium, Polokwane",
+      "ko": "피터 모카바 스타디움, 폴로콰네"
+    },
+    "Pontiac Silverdome, Pontiac": {
+      "es": "Pontiac Silverdome, Pontiac",
+      "ko": "폰티액 실버돔, 폰티액"
+    },
+    "Råsunda Stadium, Solna": {
+      "es": "Råsunda Stadium, Solna",
+      "ko": "로순다 스타디움, 솔나"
+    },
+    "RFK Stadium, Washington": {
+      "es": "RFK Stadium, Washington",
+      "ko": "RFK 스타디움, 워싱턴"
+    },
+    "RheinEnergieStadion, Köln": {
+      "es": "RheinEnergieStadion, Colonia",
+      "ko": "라인에네르기슈타디온, 쾰른"
+    },
+    "Rheinstadion, Düsseldorf": {
+      "es": "Rheinstadion, Düsseldorf",
+      "ko": "라인슈타디온, 뒤셀도르프"
+    },
+    "Rimnersvallen, Uddevalla": {
+      "es": "Rimnersvallen, Uddevalla",
+      "ko": "림네르스발렌, 우데발라"
+    },
+    "Roker Park, Sunderland": {
+      "es": "Roker Park, Sunderland",
+      "ko": "로커 파크, 선덜랜드"
+    },
+    "Rose Bowl, Pasadena": {
+      "es": "Rose Bowl, Pasadena",
+      "ko": "로즈 볼, 패서디나"
+    },
+    "Rostov Arena, Rostov-on-Don": {
+      "es": "Rostov Arena, Rostov del Don",
+      "ko": "로스토프 아레나, 로스토프나도누"
+    },
+    "Royal Bafokeng Stadium, Rustenburg": {
+      "es": "Royal Bafokeng Stadium, Rustenburg",
+      "ko": "로열 바포켕 스타디움, 루스텐버그"
+    },
+    "Ryavallen, Borås": {
+      "es": "Ryavallen, Borås",
+      "ko": "리아발렌, 보로스"
+    },
+    "Saint Petersburg Stadium, Saint Petersburg": {
+      "es": "Saint Petersburg Stadium, San Petersburgo",
+      "ko": "상트페테르부르크 스타디움, 상트페테르부르크"
+    },
+    "Saint Petersburg Stadium, St. Petersburg": {
+      "es": "Saint Petersburg Stadium, San Petersburgo",
+      "ko": "상트페테르부르크 스타디움, 상트페테르부르크"
+    },
+    "Saitama Stadium, Saitama": {
+      "es": "Saitama Stadium, Saitama",
+      "ko": "사이타마 스타디움, 사이타마"
+    },
+    "Samara Arena, Samara": {
+      "es": "Samara Arena, Samara",
+      "ko": "사마라 아레나, 사마라"
+    },
+    "San Siro, Milan": {
+      "es": "San Siro, Milán",
+      "ko": "산 시로, 밀라노"
+    },
+    "Sapporo Dome, Sapporo": {
+      "es": "Sapporo Dome, Sapporo",
+      "ko": "삿포로 돔, 삿포로"
+    },
+    "Seoul World Cup Stadium, Seoul": {
+      "es": "Seoul World Cup Stadium, Seúl",
+      "ko": "서울월드컵경기장, 서울"
+    },
+    "Shizuoka Stadium, Shizuoka": {
+      "es": "Shizuoka Stadium, Shizuoka",
+      "ko": "시즈오카 스타디움, 시즈오카"
+    },
+    "Signal Iduna Park, Dortmund": {
+      "es": "Signal Iduna Park, Dortmund",
+      "ko": "지그날 이두나 파크, 도르트문트"
+    },
+    "Soccer City, Johannesburg": {
+      "es": "Soccer City, Johannesburgo",
+      "ko": "사커 시티, 요하네스버그"
+    },
+    "Soldier Field, Chicago": {
+      "es": "Soldier Field, Chicago",
+      "ko": "솔저 필드, 시카고"
+    },
+    "Spartak Stadium, Moscow": {
+      "es": "Spartak Stadium, Moscú",
+      "ko": "스파르타크 스타디움, 모스크바"
+    },
+    "St. Jakob Stadium, Basel": {
+      "es": "St. Jakob Stadium, Basilea",
+      "ko": "장크트 야코프 스타디움, 바젤"
+    },
+    "Stade Chapou, Toulouse": {
+      "es": "Stade Chapou, Toulouse",
+      "ko": "스타드 샤푸, 툴루즈"
+    },
+    "Stade de France, Saint-Denis": {
+      "es": "Stade de France, Saint-Denis",
+      "ko": "스타드 드 프랑스, 생드니"
+    },
+    "Stade de la Beaujoire, Nantes": {
+      "es": "Stade de la Beaujoire, Nantes",
+      "ko": "스타드 드 라 보주아르, 낭트"
+    },
+    "Stade de la Meinau, Strasbourg": {
+      "es": "Stade de la Meinau, Estrasburgo",
+      "ko": "스타드 드 라 메노, 스트라스부르"
+    },
+    "Stade de la Mosson, Montpellier": {
+      "es": "Stade de la Mosson, Montpellier",
+      "ko": "스타드 드 라 모송, 몽펠리에"
+    },
+    "Stade de Toulouse, Toulouse": {
+      "es": "Stade de Toulouse, Toulouse",
+      "ko": "스타드 드 툴루즈, 툴루즈"
+    },
+    "Stade du Fort Carré, Antibes": {
+      "es": "Stade du Fort Carré, Antibes",
+      "ko": "스타드 뒤 포르 카레, 앙티브"
+    },
+    "Stade Félix Bollaert, Lens": {
+      "es": "Stade Félix Bollaert, Lens",
+      "ko": "스타드 펠릭스 볼라르, 랑스"
+    },
+    "Stade Geoffroy-Guichard, Saint-Étienne": {
+      "es": "Stade Geoffroy-Guichard, Saint-Étienne",
+      "ko": "스타드 조프루아 기샤르, 생테티엔"
+    },
+    "Stade Gerland, Lyon": {
+      "es": "Stade Gerland, Lyon",
+      "ko": "스타드 제를랑, 리옹"
+    },
+    "Stade municipal, Le Havre": {
+      "es": "Stade municipal, Le Havre",
+      "ko": "스타드 뮈니시팔, 르아브르"
+    },
+    "Stade Olympique de Colombes, Paris": {
+      "es": "Stade Olympique de Colombes, París",
+      "ko": "스타드 올랭피크 드 콜롱브, 파리"
+    },
+    "Stade Olympique de la Pontaise, Lausanne": {
+      "es": "Stade Olympique de la Pontaise, Lausana",
+      "ko": "스타드 올랭피크 드 라 퐁테즈, 로잔"
+    },
+    "Stade Vélodrome, Marseille": {
+      "es": "Stade Vélodrome, Marsella",
+      "ko": "스타드 벨로드롬, 마르세유"
+    },
+    "Stade Victor Boucquey, Lille": {
+      "es": "Stade Victor Boucquey, Lille",
+      "ko": "스타드 빅토르 부케, 릴"
+    },
+    "Stadio Artemio Franchi, Florence": {
+      "es": "Stadio Artemio Franchi, Florencia",
+      "ko": "스타디오 아르테미오 프란키, 피렌체"
+    },
+    "Stadio Benito Mussolini, Turin": {
+      "es": "Stadio Benito Mussolini, Turín",
+      "ko": "스타디오 베니토 무솔리니, 토리노"
+    },
+    "Stadio Comunale, Florence": {
+      "es": "Stadio Comunale, Florencia",
+      "ko": "스타디오 코무날레, 피렌체"
+    },
+    "Stadio delle Alpi, Turin": {
+      "es": "Stadio delle Alpi, Turín",
+      "ko": "스타디오 델레 알피, 토리노"
+    },
+    "Stadio Delle Alpi, Turin": {
+      "es": "Stadio Delle Alpi, Turín",
+      "ko": "스타디오 델레 알피, 토리노"
+    },
+    "Stadio Friuli, Udine": {
+      "es": "Stadio Friuli, Udine",
+      "ko": "스타디오 프리울리, 우디네"
+    },
+    "Stadio Giorgio Ascarelli, Naples": {
+      "es": "Stadio Giorgio Ascarelli, Nápoles",
+      "ko": "스타디오 조르조 아스카렐리, 나폴리"
+    },
+    "Stadio Giovanni Berta, Florence": {
+      "es": "Stadio Giovanni Berta, Florencia",
+      "ko": "스타디오 조반니 베르타, 피렌체"
+    },
+    "Stadio La Favorita, Palermo": {
+      "es": "Stadio La Favorita, Palermo",
+      "ko": "스타디오 라 파보리타, 팔레르모"
+    },
+    "Stadio Littoriale, Bologna": {
+      "es": "Stadio Littoriale, Bolonia",
+      "ko": "스타디오 리토리알레, 볼로냐"
+    },
+    "Stadio Littorio, Trieste": {
+      "es": "Stadio Littorio, Trieste",
+      "ko": "스타디오 리토리오, 트리에스테"
+    },
+    "Stadio Luigi Ferraris, Genoa": {
+      "es": "Stadio Luigi Ferraris, Génova",
+      "ko": "스타디오 루이지 페라리스, 제노바"
+    },
+    "Stadio Marc'Antonio Bentegodi, Verona": {
+      "es": "Stadio Marc'Antonio Bentegodi, Verona",
+      "ko": "스타디오 마르칸토니오 벤테고디, 베로나"
+    },
+    "Stadio Nazionale PNF, Rome": {
+      "es": "Stadio Nazionale PNF, Roma",
+      "ko": "스타디오 나치오날레 PNF, 로마"
+    },
+    "Stadio Olimpico, Rome": {
+      "es": "Stadio Olimpico, Roma",
+      "ko": "스타디오 올림피코, 로마"
+    },
+    "Stadio Renato Dall'Ara, Bologna": {
+      "es": "Stadio Renato Dall'Ara, Bolonia",
+      "ko": "스타디오 레나토 달라라, 볼로냐"
+    },
+    "Stadio San Nicola, Bari": {
+      "es": "Stadio San Nicola, Bari",
+      "ko": "스타디오 산 니콜라, 바리"
+    },
+    "Stadio San Paolo, Naples": {
+      "es": "Stadio San Paolo, Nápoles",
+      "ko": "스타디오 산 파올로, 나폴리"
+    },
+    "Stadio San Siro, Milan": {
+      "es": "Stadio San Siro, Milán",
+      "ko": "스타디오 산 시로, 밀라노"
+    },
+    "Stadio Sant'Elia, Cagliari": {
+      "es": "Stadio Sant'Elia, Cagliari",
+      "ko": "스타디오 산텔리아, 칼리아리"
+    },
+    "Stadium 974, Doha": {
+      "es": "Stadium 974, Doha",
+      "ko": "스타디움 974, 도하"
+    },
+    "Stanford Stadium, Stanford": {
+      "es": "Stanford Stadium, Stanford",
+      "ko": "스탠퍼드 스타디움, 스탠퍼드"
+    },
+    "Suwon World Cup Stadium, Suwon": {
+      "es": "Suwon World Cup Stadium, Suwon",
+      "ko": "수원월드컵경기장, 수원"
+    },
+    "Tunavallen, Eskilstuna": {
+      "es": "Tunavallen, Eskilstuna",
+      "ko": "투나발렌, 에스킬스투나"
+    },
+    "Ullevi, Gothenburg": {
+      "es": "Ullevi, Gotemburgo",
+      "ko": "울레비, 예테보리"
+    },
+    "Vélodrome Municipal, Reims": {
+      "es": "Vélodrome Municipal, Reims",
+      "ko": "벨로드롬 뮈니시팔, 랭스"
+    },
+    "Veltins-Arena, Gelsenkirchen": {
+      "es": "Veltins-Arena, Gelsenkirchen",
+      "ko": "펠틴스 아레나, 겔젠키르헨"
+    },
+    "Villa Park, Birmingham": {
+      "es": "Villa Park, Birmingham",
+      "ko": "빌라 파크, 버밍엄"
+    },
+    "Volgograd Arena, Volgograd": {
+      "es": "Volgograd Arena, Volgogrado",
+      "ko": "볼고그라드 아레나, 볼고그라드"
+    },
+    "Volksparkstadion, Hamburg": {
+      "es": "Volksparkstadion, Hamburgo",
+      "ko": "폴크스파르크슈타디온, 함부르크"
+    },
+    "Waldstadion, Frankfurt": {
+      "es": "Waldstadion, Fráncfort",
+      "ko": "발트슈타디온, 프랑크푸르트"
+    },
+    "Wankdorf Stadium, Bern": {
+      "es": "Wankdorf Stadium, Berna",
+      "ko": "방크도르프 스타디움, 베른"
+    },
+    "Wembley Stadium, London": {
+      "es": "Wembley Stadium, Londres",
+      "ko": "웸블리 스타디움, 런던"
+    },
+    "Westfalenstadion, Dortmund": {
+      "es": "Westfalenstadion, Dortmund",
+      "ko": "베스트팔렌슈타디온, 도르트문트"
+    },
+    "White City Stadium, London": {
+      "es": "White City Stadium, Londres",
+      "ko": "화이트 시티 스타디움, 런던"
+    },
+    "Zentralstadion, Leipzig": {
+      "es": "Zentralstadion, Leipzig",
+      "ko": "첸트랄슈타디온, 라이프치히"
+    }
+  }
+}

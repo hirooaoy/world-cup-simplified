@@ -51,6 +51,98 @@ function ambiguousVenueShorthandCopy(items) {
   return items.filter((highlight) => ambiguousVenueShorthandPattern.test(highlight));
 }
 
+function ordinalNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) {
+    return "";
+  }
+  const lastTwo = number % 100;
+  const suffix = lastTwo >= 11 && lastTwo <= 13
+    ? "th"
+    : number % 10 === 1
+      ? "st"
+      : number % 10 === 2
+        ? "nd"
+        : number % 10 === 3
+          ? "rd"
+          : "th";
+  return `${number}${suffix}`;
+}
+
+function generatedScorelessSubstitutionIssue(fixture) {
+  const story = resultStoryBullets(fixture);
+  if (!story.some((highlight) =>
+    /reached halftime without a breakthrough|cancelled each other out through halftime/i.test(highlight)
+  )) {
+    return "";
+  }
+
+  const substitutions = ["home", "away"]
+    .flatMap((side) =>
+      (fixture.matchEvents?.[side]?.substitutions || []).map((event) => ({ ...event, side }))
+    )
+    .filter((event) => Number.isFinite(Number(event.minute)))
+    .sort((a, b) => Number(a.minute) - Number(b.minute));
+  if (!substitutions.length) {
+    return "";
+  }
+
+  const first = substitutions[0];
+  const simultaneous = substitutions.filter(
+    (event) => Number(event.minute) === Number(first.minute) && event.side === first.side
+  );
+  const changeBullet = story.find((highlight) =>
+    /score stayed 0-0|made the first change|sent on .+deadlock held/i.test(highlight)
+  ) || "";
+  const expectedMinute = `${ordinalNumber(first.minute)} minute`;
+  if (!changeBullet.includes(expectedMinute) || !changeBullet.includes(first.onName)) {
+    return `expected the first numeric substitution detail to include ${first.onName} in the ${expectedMinute}`;
+  }
+  if (simultaneous.length > 1 && !changeBullet.includes(`made ${simultaneous.length} changes`)) {
+    return `expected ${simultaneous.length} simultaneous changes at ${first.minute}', but the recap does not state that count`;
+  }
+  if (
+    simultaneous.length === 1 &&
+    !changeBullet.includes(`sent on ${first.onName}`) &&
+    !changeBullet.includes(`sending on ${first.onName}`)
+  ) {
+    return `expected the single first change at ${first.minute}' to say ${first.onName} was sent on`;
+  }
+  return "";
+}
+
+function scorelessFormationMismatch(fixture) {
+  const formationBullet = resultStoryBullets(fixture).find((highlight) =>
+    /cancelled each other out through halftime/i.test(highlight)
+  );
+  if (!formationBullet) {
+    return "";
+  }
+  const formations = formationBullet.match(/\b\d(?:-\d){1,4}\b/g) || [];
+  const expected = [
+    fixture.matchEvents?.home?.formation,
+    fixture.matchEvents?.away?.formation
+  ].filter(Boolean);
+  if (formations.length !== 2 || expected.length !== 2) {
+    return `could not match both recap formations to the official post-match event record`;
+  }
+  if (formations[0] !== expected[0] || formations[1] !== expected[1]) {
+    return `story says ${formations.join(" / ")} but the official post-match record says ${expected.join(" / ")}`;
+  }
+  return "";
+}
+
+function groupContextMismatch(fixture) {
+  const sourceContext = (fixture.resultHighlights || [])
+    .map((highlight) => String(highlight || "").replace(/^[^\p{L}\p{N}]+/u, "").trim())
+    .find((highlight) => /\bGroup [A-L]\b/i.test(highlight));
+  const storyContext = resultStoryBullets(fixture).find((highlight) => /\bGroup [A-L]\b/i.test(highlight));
+  if (!storyContext || !sourceContext || storyContext === sourceContext) {
+    return "";
+  }
+  return `story says "${storyContext}" but the calculated result context says "${sourceContext}"`;
+}
+
 function weakHistoricalStoryBullets(fixture) {
   return resultStoryBullets(fixture).filter((highlight) => weakHistoricalStoryPattern.test(highlight));
 }
@@ -209,6 +301,21 @@ for (const fixture of fixturesData.fixtures || []) {
     issues.push(
       `${fixture.id} (${matchLabel}) has current result story copy with colon/dash scaffolding: ${scaffoldedStories.join(" | ")}`
     );
+  }
+
+  const scorelessSubstitutionIssue = generatedScorelessSubstitutionIssue(fixture);
+  if (scorelessSubstitutionIssue) {
+    issues.push(`${fixture.id} (${matchLabel}) has inaccurate scoreless-match substitution copy: ${scorelessSubstitutionIssue}.`);
+  }
+
+  const formationMismatch = scorelessFormationMismatch(fixture);
+  if (formationMismatch) {
+    issues.push(`${fixture.id} (${matchLabel}) has inaccurate scoreless-match formation copy: ${formationMismatch}.`);
+  }
+
+  const groupMismatch = groupContextMismatch(fixture);
+  if (groupMismatch) {
+    issues.push(`${fixture.id} (${matchLabel}) has stale group-points result copy: ${groupMismatch}.`);
   }
 
   const ambiguousVenueStories = ambiguousVenueShorthandCopy(momentHighlights);

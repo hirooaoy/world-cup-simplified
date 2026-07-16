@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "competitionEditionId": "281",
-  "updatedAt": "2026-07-15T22:17:17.047Z",
+  "updatedAt": "2026-07-16T16:29:09.561Z",
   "minimumRegistrationId": 12449,
   "maximumKnownRegistrationId": 12550,
   "lookaheadRegistrationCount": 16,
@@ -111,142 +111,412 @@
     "102": 12549
   },
   "documents": {
+    "1": {
+      "fixtureId": "mexico-south-africa-2026-06-11",
+      "registrationId": 12452,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12452/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-11T19:17:30.000Z",
+      "sha256": "3061f1e4ab57f7df18aad9b10d24e307b4cc47b5ddb8687cbd58171bd147d21f"
+    },
+    "2": {
+      "fixtureId": "south-korea-czechia-2026-06-11",
+      "registrationId": 12450,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12450/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-12T02:14:41.000Z",
+      "sha256": "6edb81e012d58d88f0ae76f3e58730bf2e6237b96f4e4b4dcdc30d18f2400fbd"
+    },
+    "3": {
+      "fixtureId": "canada-bosnia-2026-06-12",
+      "registrationId": 12458,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12458/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-12T19:16:00.000Z",
+      "sha256": "dce4b8caa537e2d0163a295ef8a705cc15aa9e403a38e7f99b34da16e675d8f1"
+    },
+    "4": {
+      "fixtureId": "united-states-paraguay-2026-06-12",
+      "registrationId": 12467,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12467/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-13T01:12:00.000Z",
+      "sha256": "ea910e1857b11fe9e95070bf4cdd87937b7e172f2828862acc6bc59925473f79"
+    },
+    "5": {
+      "fixtureId": "haiti-scotland-2026-06-13",
+      "registrationId": 12462,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12462/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-14T01:11:51.000Z",
+      "sha256": "dedcf4e6fa6711f078432651cbff933979f2c62244a4020fce6557ee1b8fbaf2"
+    },
     "6": {
       "fixtureId": "australia-turkiye-2026-06-13",
       "registrationId": 12472,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12472/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-14T02:40:00.000Z",
+      "publishedAt": "2026-06-14T02:41:08.000Z",
       "sha256": "abb5b18b49fd55d744bd1c4727002657569d5e258b0fcbc1f13aeaa14f2f8e60",
       "archiveUrl": "https://web.archive.org/web/20260614165115id_/https://fdp.fifa.org/assetspublic/ce281/r12472/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-14T16:51:15.000Z"
+    },
+    "7": {
+      "fixtureId": "brazil-morocco-2026-06-13",
+      "registrationId": 12465,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12465/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-13T22:16:00.000Z",
+      "sha256": "11af2487d594ea651941861b3095b2932274015e7eb3ec456f935fd6f3434d23"
+    },
+    "8": {
+      "fixtureId": "qatar-switzerland-2026-06-13",
+      "registrationId": 12456,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12456/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-13T19:18:04.000Z",
+      "sha256": "a65e9abf919c4af7ea5e328794404023c4d33cdfa901a8025d78fdd0a85896a9"
+    },
+    "9": {
+      "fixtureId": "cote-divoire-ecuador-2026-06-14",
+      "registrationId": 12476,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12476/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-14T23:17:03.000Z",
+      "sha256": "49b073c26b4e3974ea92ff075a80b9c44b5767cafa80dd6c12e323d1f4bc53a0"
     },
     "10": {
       "fixtureId": "germany-curacao-2026-06-14",
       "registrationId": 12473,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12473/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-14T15:50:00.000Z",
-      "sha256": "69e3a390fc2e046d3ae8ffc9c0c275ced2d7611bc59df982d8a91aef661bb6d6",
-      "archiveUrl": "https://web.archive.org/web/20260614163009id_/https://fdp.fifa.org/assetspublic/ce281/r12473/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-14T16:30:09.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-14T17:16:52.000Z",
+      "sha256": "b7a9c7f2f4bd48040b18e2c4859f82ab9d0146ac326c46e71793e53012ba13a6",
+      "history": [
+        {
+          "fixtureId": "germany-curacao-2026-06-14",
+          "registrationId": 12473,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12473/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-14T15:50:00.000Z",
+          "sha256": "69e3a390fc2e046d3ae8ffc9c0c275ced2d7611bc59df982d8a91aef661bb6d6",
+          "archiveUrl": "https://web.archive.org/web/20260614163009id_/https://fdp.fifa.org/assetspublic/ce281/r12473/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-14T16:30:09.000Z"
+        }
+      ]
     },
     "11": {
       "fixtureId": "netherlands-japan-2026-06-14",
       "registrationId": 12480,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12480/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-14T18:46:00.000Z",
-      "sha256": "e3341d0f474f9ba69a371be0dd7cd4a44bac0f5baa64def39ea619e173bde75b",
-      "archiveUrl": "https://web.archive.org/web/20260614191002id_/https://fdp.fifa.org/assetspublic/ce281/r12480/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-14T19:10:02.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-14T20:09:51.000Z",
+      "sha256": "0a94d4e49a024be296ea5761176a9be1c69bfd7321cb801f17184de5e79e0075",
+      "history": [
+        {
+          "fixtureId": "netherlands-japan-2026-06-14",
+          "registrationId": 12480,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12480/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-14T18:46:00.000Z",
+          "sha256": "e3341d0f474f9ba69a371be0dd7cd4a44bac0f5baa64def39ea619e173bde75b",
+          "archiveUrl": "https://web.archive.org/web/20260614191002id_/https://fdp.fifa.org/assetspublic/ce281/r12480/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-14T19:10:02.000Z"
+        }
+      ]
+    },
+    "12": {
+      "fixtureId": "sweden-tunisia-2026-06-14",
+      "registrationId": 12484,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12484/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-15T02:12:16.000Z",
+      "sha256": "7df09466253300a8d74aa5a253fb26662fcd5ac8fb2d050ec648db0327e433f8"
     },
     "13": {
       "fixtureId": "saudi-arabia-uruguay-2026-06-15",
       "registrationId": 12495,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12495/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-15T20:49:00.000Z",
-      "sha256": "3e9a428a6eb41755985209462acb3bc23c7d2925c64396a0039ff302dd8dfc3a",
-      "archiveUrl": "https://web.archive.org/web/20260615213555id_/https://fdp.fifa.org/assetspublic/ce281/r12495/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-15T21:35:55.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-15T22:11:13.000Z",
+      "sha256": "b2bc7d32d3fc8fadc239ee7e9a726779a14ea7a3d6edec7d99484a6098457a61",
+      "history": [
+        {
+          "fixtureId": "saudi-arabia-uruguay-2026-06-15",
+          "registrationId": 12495,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12495/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-15T20:49:00.000Z",
+          "sha256": "3e9a428a6eb41755985209462acb3bc23c7d2925c64396a0039ff302dd8dfc3a",
+          "archiveUrl": "https://web.archive.org/web/20260615213555id_/https://fdp.fifa.org/assetspublic/ce281/r12495/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-15T21:35:55.000Z"
+        }
+      ]
     },
     "14": {
       "fixtureId": "spain-cabo-verde-2026-06-15",
       "registrationId": 12492,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12492/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-15T15:15:00.000Z",
-      "sha256": "0457b9da6b78dc212f8a26d040e19aafa427ae05e5cd9cabcab80fa6ab24585f",
-      "archiveUrl": "https://web.archive.org/web/20260615152052id_/https://fdp.fifa.org/assetspublic/ce281/r12492/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-15T15:20:52.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-15T16:29:47.000Z",
+      "sha256": "d41be974ff3bdaf4f33bccb2d5c0f2b765e342f15b4c003720b3478a67c27be6",
+      "history": [
+        {
+          "fixtureId": "spain-cabo-verde-2026-06-15",
+          "registrationId": 12492,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12492/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-15T15:15:00.000Z",
+          "sha256": "0457b9da6b78dc212f8a26d040e19aafa427ae05e5cd9cabcab80fa6ab24585f",
+          "archiveUrl": "https://web.archive.org/web/20260615152052id_/https://fdp.fifa.org/assetspublic/ce281/r12492/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-15T15:20:52.000Z"
+        }
+      ]
     },
     "15": {
       "fixtureId": "ir-iran-new-zealand-2026-06-15",
       "registrationId": 12485,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12485/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-15T23:57:00.000Z",
-      "sha256": "b7c6b8e69b71a333a76cf1e0ded3e9396f7c4933b58c4dae3be7ba395aeff39b",
-      "archiveUrl": "https://web.archive.org/web/20260616003919id_/https://fdp.fifa.org/assetspublic/ce281/r12485/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-16T00:39:19.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-16T01:25:50.000Z",
+      "sha256": "1f7a6c44fa2e824a8bb191b9a50cec62e5e2e88e3467b01775e0be06937c07d9",
+      "history": [
+        {
+          "fixtureId": "ir-iran-new-zealand-2026-06-15",
+          "registrationId": 12485,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12485/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-15T23:57:00.000Z",
+          "sha256": "b7c6b8e69b71a333a76cf1e0ded3e9396f7c4933b58c4dae3be7ba395aeff39b",
+          "archiveUrl": "https://web.archive.org/web/20260616003919id_/https://fdp.fifa.org/assetspublic/ce281/r12485/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-16T00:39:19.000Z"
+        }
+      ]
     },
     "16": {
       "fixtureId": "belgium-egypt-2026-06-15",
       "registrationId": 12488,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12488/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-15T17:42:00.000Z",
-      "sha256": "fc37d380d604d04937b3df060acb0edd6e8f652a3891ef5a3cfe6437afbed56d",
-      "archiveUrl": "https://web.archive.org/web/20260615184237id_/https://fdp.fifa.org/assetspublic/ce281/r12488/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-15T18:42:37.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-15T19:10:00.000Z",
+      "sha256": "ebda963551adf63a42473af806fb17046ce256190899c3563e7336ac8b44ad9c",
+      "history": [
+        {
+          "fixtureId": "belgium-egypt-2026-06-15",
+          "registrationId": 12488,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12488/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-15T17:42:00.000Z",
+          "sha256": "fc37d380d604d04937b3df060acb0edd6e8f652a3891ef5a3cfe6437afbed56d",
+          "archiveUrl": "https://web.archive.org/web/20260615184237id_/https://fdp.fifa.org/assetspublic/ce281/r12488/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-15T18:42:37.000Z"
+        }
+      ]
     },
     "17": {
       "fixtureId": "france-senegal-2026-06-16",
       "registrationId": 12499,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12499/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-16T17:37:00.000Z",
+      "publishedAt": "2026-06-16T17:38:37.000Z",
       "sha256": "63100110b5a232685e34147428f5901e9b908206d8dbf43376b8a69f3c854b46",
       "archiveUrl": "https://web.archive.org/web/20260616185111id_/https://fdp.fifa.org/assetspublic/ce281/r12499/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-16T18:51:11.000Z"
+    },
+    "18": {
+      "fixtureId": "iraq-norway-2026-06-16",
+      "registrationId": 12497,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12497/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-16T22:10:29.000Z",
+      "sha256": "404e2e0546a7473b478b0e86ab492dcf976e622b8d681cd1fbadf966d36752ab"
     },
     "19": {
       "fixtureId": "argentina-algeria-2026-06-16",
       "registrationId": 12506,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12506/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-16T23:44:00.000Z",
-      "sha256": "33c0fd689efad9978d37e3d31eca0b31dbeed2f1954edf0c65d0fd3c4bb2e96f",
-      "archiveUrl": "https://web.archive.org/web/20260617003048id_/https://fdp.fifa.org/assetspublic/ce281/r12506/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-17T00:30:48.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-17T01:12:00.000Z",
+      "sha256": "4417b64ce7c151aaad92ddba0f512aa651fd452351cb283f4778ac35b2a37ebb",
+      "history": [
+        {
+          "fixtureId": "argentina-algeria-2026-06-16",
+          "registrationId": 12506,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12506/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-16T23:44:00.000Z",
+          "sha256": "33c0fd689efad9978d37e3d31eca0b31dbeed2f1954edf0c65d0fd3c4bb2e96f",
+          "archiveUrl": "https://web.archive.org/web/20260617003048id_/https://fdp.fifa.org/assetspublic/ce281/r12506/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-17T00:30:48.000Z"
+        }
+      ]
+    },
+    "20": {
+      "fixtureId": "austria-jordan-2026-06-16",
+      "registrationId": 12508,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12508/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-17T04:17:47.000Z",
+      "sha256": "ed2ec9c5519931e3b7028455e7272dcf71ecff72370c17647aceef911dc63f43"
     },
     "21": {
       "fixtureId": "ghana-panama-2026-06-17",
       "registrationId": 12519,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12519/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-17T21:44:00.000Z",
-      "sha256": "346ac22d644e33616f13159d9ac63ad09aec4bce1b8876953dcdf733b8880d81",
-      "archiveUrl": "https://web.archive.org/web/20260617215002id_/https://fdp.fifa.org/assetspublic/ce281/r12519/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-17T21:50:02.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-17T23:12:55.000Z",
+      "sha256": "09b8de2638cffc8dc0960933531621dab567656619cd09fbcaa8b2a38e850574",
+      "history": [
+        {
+          "fixtureId": "ghana-panama-2026-06-17",
+          "registrationId": 12519,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12519/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-17T21:44:00.000Z",
+          "sha256": "346ac22d644e33616f13159d9ac63ad09aec4bce1b8876953dcdf733b8880d81",
+          "archiveUrl": "https://web.archive.org/web/20260617215002id_/https://fdp.fifa.org/assetspublic/ce281/r12519/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-17T21:50:02.000Z"
+        }
+      ]
+    },
+    "22": {
+      "fixtureId": "england-croatia-2026-06-17",
+      "registrationId": 12516,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12516/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-17T20:09:02.000Z",
+      "sha256": "c4e42c2ca5961a7737c1b82b8ac77dd7ea8f26e5ecc5317251df57f8e77156d4"
+    },
+    "23": {
+      "fixtureId": "portugal-dr-congo-2026-06-17",
+      "registrationId": 12511,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12511/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-17T17:09:00.000Z",
+      "sha256": "fa823bcbefb12c2ed434ebea1325f29cbecc04871a3a71fd3372e4fccb673bc2"
+    },
+    "24": {
+      "fixtureId": "uzbekistan-colombia-2026-06-17",
+      "registrationId": 12513,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12513/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-18T02:12:13.000Z",
+      "sha256": "a6518bc35ac0b626f0e9cabfc54afebea8d70a8b8ce168bfbb94dd22db7d6994"
+    },
+    "25": {
+      "fixtureId": "czechia-south-africa-2026-06-18",
+      "registrationId": 12449,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12449/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-18T16:23:18.000Z",
+      "sha256": "f6a06168e94dc561f467ea8163fca1e120e02c64076a653bce53fb4cf29b0844"
+    },
+    "26": {
+      "fixtureId": "switzerland-bosnia-2026-06-18",
+      "registrationId": 12455,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12455/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-18T19:10:26.000Z",
+      "sha256": "de9b3487dec5fc8e79a36030069613e995498586709434e6e5c7050aac339221"
+    },
+    "27": {
+      "fixtureId": "canada-qatar-2026-06-18",
+      "registrationId": 12459,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12459/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-18T22:11:26.000Z",
+      "sha256": "4358dd34dd2825e04305f88df55ab7308115bfe897614f8e13d490f6767d519b"
+    },
+    "28": {
+      "fixtureId": "mexico-south-korea-2026-06-18",
+      "registrationId": 12451,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12451/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-19T01:07:30.000Z",
+      "sha256": "96003c4e1d883f95011d1b742ae0424b04ea995c0200a02382085035699c2d14"
+    },
+    "29": {
+      "fixtureId": "brazil-haiti-2026-06-19",
+      "registrationId": 12466,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12466/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-20T00:41:15.000Z",
+      "sha256": "978b0fdd94ad5eba7f7313f4d7524202fc3839c3a6161194567ba64b9d752990"
+    },
+    "30": {
+      "fixtureId": "scotland-morocco-2026-06-19",
+      "registrationId": 12463,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12463/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-19T22:09:00.000Z",
+      "sha256": "2dce1cdea3e6e1e1834a006805b8f5d3bad9dc896b0e36a8a5330a30d765f5df"
     },
     "31": {
       "fixtureId": "turkiye-paraguay-2026-06-19",
       "registrationId": 12470,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12470/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-20T01:44:00.000Z",
-      "sha256": "c42f7606c44d0c1f59d90b1b1a53495bc50434e50f1361da0c5469a0c211d286",
-      "archiveUrl": "https://web.archive.org/web/20260620021322id_/https://fdp.fifa.org/assetspublic/ce281/r12470/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-20T02:13:22.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-20T03:10:15.000Z",
+      "sha256": "d34a27fece7470e20846a00e7f267b55cdf4f9214b00f2fb2976bc2a7393c5ef",
+      "history": [
+        {
+          "fixtureId": "turkiye-paraguay-2026-06-19",
+          "registrationId": 12470,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12470/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-20T01:44:00.000Z",
+          "sha256": "c42f7606c44d0c1f59d90b1b1a53495bc50434e50f1361da0c5469a0c211d286",
+          "archiveUrl": "https://web.archive.org/web/20260620021322id_/https://fdp.fifa.org/assetspublic/ce281/r12470/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-20T02:13:22.000Z"
+        }
+      ]
     },
     "32": {
       "fixtureId": "united-states-australia-2026-06-19",
       "registrationId": 12471,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12471/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-19T17:43:00.000Z",
-      "sha256": "2ccdb049beefa2bdc5e85ae91c5bf34c6673f7e1c71635109fe90e49823839e9",
-      "archiveUrl": "https://web.archive.org/web/20260619183421id_/https://fdp.fifa.org/assetspublic/ce281/r12471/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-19T18:34:21.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-19T20:01:00.000Z",
+      "sha256": "124a9e3d072b1d6dc1b368e48df0717a26ff937b6c88da2532726eca46029286",
+      "history": [
+        {
+          "fixtureId": "united-states-australia-2026-06-19",
+          "registrationId": 12471,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12471/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-19T17:43:00.000Z",
+          "sha256": "2ccdb049beefa2bdc5e85ae91c5bf34c6673f7e1c71635109fe90e49823839e9",
+          "archiveUrl": "https://web.archive.org/web/20260619183421id_/https://fdp.fifa.org/assetspublic/ce281/r12471/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-19T18:34:21.000Z"
+        }
+      ]
     },
     "33": {
       "fixtureId": "germany-cote-divoire-2026-06-20",
       "registrationId": 12478,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12478/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-20T18:46:00.000Z",
-      "sha256": "9abe34d44028e40f6997ede3e4ac9cc42d369febd8bbd8404c72393924a27044",
-      "archiveUrl": "https://web.archive.org/web/20260620193449id_/https://fdp.fifa.org/assetspublic/ce281/r12478/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-20T19:34:49.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-20T20:07:50.000Z",
+      "sha256": "910d5f6e5c7a2fdc5bb4705d1fbb9065e9253a8179dfb12c9228b21ff5d41b94",
+      "history": [
+        {
+          "fixtureId": "germany-cote-divoire-2026-06-20",
+          "registrationId": 12478,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12478/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-20T18:46:00.000Z",
+          "sha256": "9abe34d44028e40f6997ede3e4ac9cc42d369febd8bbd8404c72393924a27044",
+          "archiveUrl": "https://web.archive.org/web/20260620193449id_/https://fdp.fifa.org/assetspublic/ce281/r12478/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-20T19:34:49.000Z"
+        }
+      ]
     },
     "34": {
       "fixtureId": "ecuador-curacao-2026-06-20",
       "registrationId": 12474,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12474/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-20T22:56:00.000Z",
+      "publishedAt": "2026-06-20T22:56:16.000Z",
       "sha256": "f482b1f58de7257fe6f45e077693d0d513843459e4f502e0c7f105dadb6745cd",
       "archiveUrl": "https://web.archive.org/web/20260620232841id_/https://fdp.fifa.org/assetspublic/ce281/r12474/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-20T23:28:41.000Z"
@@ -255,48 +525,134 @@
       "fixtureId": "netherlands-sweden-2026-06-20",
       "registrationId": 12481,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12481/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-20T15:51:00.000Z",
-      "sha256": "87bc0a757332dbc9562459f06f6c712e8b59ff2f8260289ad1e8af7a28eed293",
-      "archiveUrl": "https://web.archive.org/web/20260620163840id_/https://fdp.fifa.org/assetspublic/ce281/r12481/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-20T16:38:40.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-20T17:10:40.000Z",
+      "sha256": "138ae30105532b81e1c9d24f60a7ab2b27224c0c8af2c55b3a82fa7169cc5c52",
+      "history": [
+        {
+          "fixtureId": "netherlands-sweden-2026-06-20",
+          "registrationId": 12481,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12481/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-20T15:51:00.000Z",
+          "sha256": "87bc0a757332dbc9562459f06f6c712e8b59ff2f8260289ad1e8af7a28eed293",
+          "archiveUrl": "https://web.archive.org/web/20260620163840id_/https://fdp.fifa.org/assetspublic/ce281/r12481/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-20T16:38:40.000Z"
+        }
+      ]
+    },
+    "36": {
+      "fixtureId": "tunisia-japan-2026-06-20",
+      "registrationId": 12483,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12483/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-21T04:14:48.000Z",
+      "sha256": "b1b670c0ab721186632df1e5da62fc5a0fec121463f930bbb0b36a40fa176374"
+    },
+    "37": {
+      "fixtureId": "uruguay-cabo-verde-2026-06-21",
+      "registrationId": 12496,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12496/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-21T22:06:44.000Z",
+      "sha256": "e8cbbb378f26ee901d2fb1a881073f51077fdbe781280ff3d597b8805c3aa66f"
+    },
+    "38": {
+      "fixtureId": "spain-saudi-arabia-2026-06-21",
+      "registrationId": 12491,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12491/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-21T16:10:55.000Z",
+      "sha256": "5c5dc5e6b44010dca6f5dc528d8cfaae4c76bef2681099883a9856d2b5fc9a9a"
+    },
+    "39": {
+      "fixtureId": "belgium-ir-iran-2026-06-21",
+      "registrationId": 12486,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12486/pdf/TacticalLineup-English.pdf",
+      "version": 3,
+      "publishedAt": "2026-06-21T19:11:19.000Z",
+      "sha256": "d8bbea7cd47dff16358e8eec6ee3fad99bb59621829b569ebfc67aa431426119"
     },
     "40": {
       "fixtureId": "new-zealand-egypt-2026-06-21",
       "registrationId": 12489,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12489/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-21T23:37:00.000Z",
+      "publishedAt": "2026-06-21T23:37:39.000Z",
       "sha256": "8c5aea8020078bc491e9c99850866b5d1ada4bcd6dfb5a183c3a0c06fe337ca0",
       "archiveUrl": "https://web.archive.org/web/20260706170606id_/https://fdp.fifa.org/assetspublic/ce281/r12489/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-07-06T17:06:06.000Z"
+    },
+    "41": {
+      "fixtureId": "norway-senegal-2026-06-22",
+      "registrationId": 12500,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12500/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-23T00:11:26.000Z",
+      "sha256": "71a1357bb486b7232aad54c4be4699f7a3e84391210bd6b841fe58e4a25a6441"
+    },
+    "42": {
+      "fixtureId": "france-iraq-2026-06-22",
+      "registrationId": 12501,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12501/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-22T21:07:18.000Z",
+      "sha256": "e173c06e3e2411032c6128cf81de5f1555fcdc65b18a84f473daf47fab9b9be5"
+    },
+    "43": {
+      "fixtureId": "argentina-austria-2026-06-22",
+      "registrationId": 12504,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12504/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-22T17:12:18.000Z",
+      "sha256": "e59cce5788c67181018a3c3948ebd058c5fa52333f5f8cee53f620a6d571f8eb"
     },
     "44": {
       "fixtureId": "jordan-algeria-2026-06-22",
       "registrationId": 12507,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12507/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-23T01:43:00.000Z",
-      "sha256": "6d91cb4fbfe08ff31ed1b6fcca10e6835a06b2ea318cb5197effdd4e622741f9",
-      "archiveUrl": "https://web.archive.org/web/20260623021745id_/https://fdp.fifa.org/assetspublic/ce281/r12507/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-23T02:17:45.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-23T03:13:21.000Z",
+      "sha256": "23af2a5f8de1c7efb8ab6dd8160a890104b89eb619984ad137a3bf9cf244ce66",
+      "history": [
+        {
+          "fixtureId": "jordan-algeria-2026-06-22",
+          "registrationId": 12507,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12507/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-23T01:43:00.000Z",
+          "sha256": "6d91cb4fbfe08ff31ed1b6fcca10e6835a06b2ea318cb5197effdd4e622741f9",
+          "archiveUrl": "https://web.archive.org/web/20260623021745id_/https://fdp.fifa.org/assetspublic/ce281/r12507/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-23T02:17:45.000Z"
+        }
+      ]
     },
     "45": {
       "fixtureId": "england-ghana-2026-06-23",
       "registrationId": 12515,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12515/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-23T18:44:00.000Z",
-      "sha256": "78577b6fb9e87ab38ef72166c9f7c27e6473a7434a5c48d49ecd4992fa426b68",
-      "archiveUrl": "https://web.archive.org/web/20260623200119id_/https://fdp.fifa.org/assetspublic/ce281/r12515/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-23T20:01:19.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-23T20:10:37.000Z",
+      "sha256": "a6447fb8eb985479ff02106d6dc04139d71ad14a228fdfb7b80df1437c306622",
+      "history": [
+        {
+          "fixtureId": "england-ghana-2026-06-23",
+          "registrationId": 12515,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12515/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-23T18:44:00.000Z",
+          "sha256": "78577b6fb9e87ab38ef72166c9f7c27e6473a7434a5c48d49ecd4992fa426b68",
+          "archiveUrl": "https://web.archive.org/web/20260623200119id_/https://fdp.fifa.org/assetspublic/ce281/r12515/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-23T20:01:19.000Z"
+        }
+      ]
     },
     "46": {
       "fixtureId": "panama-croatia-2026-06-23",
       "registrationId": 12520,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12520/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-23T21:42:00.000Z",
+      "publishedAt": "2026-06-23T21:43:09.000Z",
       "sha256": "48c9f6868c4e6ad36f832b2386d38b37c07d68f5560ab49f3d4a09a94774ba53",
       "archiveUrl": "https://web.archive.org/web/20260623220119id_/https://fdp.fifa.org/assetspublic/ce281/r12520/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-23T22:01:19.000Z"
@@ -306,30 +662,74 @@
       "registrationId": 12512,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12512/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-23T15:48:00.000Z",
+      "publishedAt": "2026-06-23T15:48:31.000Z",
       "sha256": "6834853aa74324d845d48adcda7114864405633b2a02d0041137af188e9eeb9d",
       "archiveUrl": "https://web.archive.org/web/20260623155851id_/https://fdp.fifa.org/assetspublic/ce281/r12512/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-23T15:58:51.000Z"
+    },
+    "48": {
+      "fixtureId": "colombia-dr-congo-2026-06-23",
+      "registrationId": 12510,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12510/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-24T02:10:33.000Z",
+      "sha256": "83ca8abb54e76e5d8f73eaf273c05037b7275e017adfaf9a6dbbf313815afb82"
     },
     "49": {
       "fixtureId": "scotland-brazil-2026-06-24",
       "registrationId": 12464,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12464/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-24T20:43:00.000Z",
-      "sha256": "b1a02bf995cda218fdfb78dd05dd0673602b402e068fa1a1fabec3500cf82eaf",
-      "archiveUrl": "https://web.archive.org/web/20260624212324id_/https://fdp.fifa.org/assetspublic/ce281/r12464/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-24T21:23:24.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-24T22:07:00.000Z",
+      "sha256": "533b85d3e862e8cfd5a9269a540bf19d046234a3ee2676ee129c2cd2b579d417",
+      "history": [
+        {
+          "fixtureId": "scotland-brazil-2026-06-24",
+          "registrationId": 12464,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12464/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-24T20:43:00.000Z",
+          "sha256": "b1a02bf995cda218fdfb78dd05dd0673602b402e068fa1a1fabec3500cf82eaf",
+          "archiveUrl": "https://web.archive.org/web/20260624212324id_/https://fdp.fifa.org/assetspublic/ce281/r12464/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-24T21:23:24.000Z"
+        }
+      ]
     },
     "50": {
       "fixtureId": "morocco-haiti-2026-06-24",
       "registrationId": 12461,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12461/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-24T20:36:00.000Z",
-      "sha256": "c2c487aa4b0211c9964902a3a9241a6d0e76ea0a463711727b0c06f1aa1d6919",
-      "archiveUrl": "https://web.archive.org/web/20260624212559id_/https://fdp.fifa.org/assetspublic/ce281/r12461/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-24T21:25:59.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-24T22:11:00.000Z",
+      "sha256": "64e3730c5330141c7f41bfa31470ba3bd179598217e28d856d7b81f5ca53ec66",
+      "history": [
+        {
+          "fixtureId": "morocco-haiti-2026-06-24",
+          "registrationId": 12461,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12461/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-24T20:36:00.000Z",
+          "sha256": "c2c487aa4b0211c9964902a3a9241a6d0e76ea0a463711727b0c06f1aa1d6919",
+          "archiveUrl": "https://web.archive.org/web/20260624212559id_/https://fdp.fifa.org/assetspublic/ce281/r12461/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-24T21:25:59.000Z"
+        }
+      ]
+    },
+    "51": {
+      "fixtureId": "switzerland-canada-2026-06-24",
+      "registrationId": 12460,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12460/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-24T19:12:20.000Z",
+      "sha256": "43b07e80ea2062ce20de8b3dfb7f7c0f797ef7f6ae51536161ae22e26efa8a1e"
+    },
+    "52": {
+      "fixtureId": "bosnia-qatar-2026-06-24",
+      "registrationId": 12457,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12457/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-24T19:11:00.000Z",
+      "sha256": "d673c83d06164d89ea1df32a581ffae4b47255cb7845aa39b478629394948166"
     },
     "53": {
       "fixtureId": "czechia-mexico-2026-06-24",
@@ -339,32 +739,180 @@
       "publishedAt": "2026-06-24T23:50:00.000Z",
       "sha256": "23aa9bf1ee4127920af4175c5d14e79c14cf521df3b6568eedefb04c32011a36"
     },
+    "54": {
+      "fixtureId": "south-africa-south-korea-2026-06-24",
+      "registrationId": 12454,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12454/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-25T01:08:54.000Z",
+      "sha256": "be1eaf77a51f5cd0f5f0da848a2a8af95899afa7d0b271d747f12e4e25fd9487"
+    },
+    "55": {
+      "fixtureId": "curacao-cote-divoire-2026-06-25",
+      "registrationId": 12477,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12477/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-25T20:12:36.000Z",
+      "sha256": "be0b2d4ab87901033564161018024024b6f7bca2fe62eae864c3ace929b22bbd"
+    },
+    "56": {
+      "fixtureId": "ecuador-germany-2026-06-25",
+      "registrationId": 12475,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12475/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-25T20:10:42.000Z",
+      "sha256": "a41c0f7ad66782c2348ca7a862550b09a7d1d5d0dcc5ea60a882577a3a3064f1"
+    },
+    "57": {
+      "fixtureId": "japan-sweden-2026-06-25",
+      "registrationId": 12479,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12479/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-25T23:10:39.000Z",
+      "sha256": "c5e578d0fb206c77ad5f18034a969dca422b0ebe44ca0672ec469fb103ff294b"
+    },
+    "58": {
+      "fixtureId": "tunisia-netherlands-2026-06-25",
+      "registrationId": 12482,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12482/pdf/TacticalLineup-English.pdf",
+      "version": 3,
+      "publishedAt": "2026-06-25T23:13:00.000Z",
+      "sha256": "de8d5566ced86952b9c85035a3c5592f6fb73ed8de2dd9bdc5d8841313a311f4"
+    },
+    "59": {
+      "fixtureId": "turkiye-united-states-2026-06-25",
+      "registrationId": 12468,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12468/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-26T02:21:00.000Z",
+      "sha256": "dbec0a7d54f6add74ce8ad432bc1d74d7c86d4dbbdb5c4f88f49f540d58359dc"
+    },
+    "60": {
+      "fixtureId": "paraguay-australia-2026-06-25",
+      "registrationId": 12469,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12469/pdf/TacticalLineup-English.pdf",
+      "version": 3,
+      "publishedAt": "2026-06-26T02:12:12.000Z",
+      "sha256": "327f9cd4ee863aa079fcb02333d0ee662bb375ecf6d1378797951067190c0875"
+    },
     "61": {
       "fixtureId": "norway-france-2026-06-26",
       "registrationId": 12498,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12498/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-26T17:42:00.000Z",
-      "sha256": "0c4a3687a2b548b476a2c0dce610815a87d31ccd42dc194eee0da9e6eaae8ef9",
-      "archiveUrl": "https://web.archive.org/web/20260626182550id_/https://fdp.fifa.org/assetspublic/ce281/r12498/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-26T18:25:50.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-26T19:08:35.000Z",
+      "sha256": "f2a594705d32858cd2f7bd454e6a662c3144e7635f93568fc412185cf15573c3",
+      "history": [
+        {
+          "fixtureId": "norway-france-2026-06-26",
+          "registrationId": 12498,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12498/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-26T17:42:00.000Z",
+          "sha256": "0c4a3687a2b548b476a2c0dce610815a87d31ccd42dc194eee0da9e6eaae8ef9",
+          "archiveUrl": "https://web.archive.org/web/20260626182550id_/https://fdp.fifa.org/assetspublic/ce281/r12498/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-26T18:25:50.000Z"
+        }
+      ]
     },
     "62": {
       "fixtureId": "senegal-iraq-2026-06-26",
       "registrationId": 12502,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12502/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-26T17:57:00.000Z",
-      "sha256": "c51509c89043c1faaa4722448feb6d662d8a40fff8fd71625a8c9bd92418972b",
-      "archiveUrl": "https://web.archive.org/web/20260626183153id_/https://fdp.fifa.org/assetspublic/ce281/r12502/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-06-26T18:31:53.000Z"
+      "version": 2,
+      "publishedAt": "2026-06-26T19:11:00.000Z",
+      "sha256": "75936e1411dd46dc01af1b0e9d4ae7541a0a45a6b742811bdb06778ed640dbb0",
+      "history": [
+        {
+          "fixtureId": "senegal-iraq-2026-06-26",
+          "registrationId": 12502,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12502/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-26T17:57:00.000Z",
+          "sha256": "c51509c89043c1faaa4722448feb6d662d8a40fff8fd71625a8c9bd92418972b",
+          "archiveUrl": "https://web.archive.org/web/20260626183153id_/https://fdp.fifa.org/assetspublic/ce281/r12502/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-06-26T18:31:53.000Z"
+        }
+      ]
+    },
+    "63": {
+      "fixtureId": "egypt-ir-iran-2026-06-26",
+      "registrationId": 12487,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12487/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T03:10:00.000Z",
+      "sha256": "e6d199e88d2bc1c5d6cb27513bc8f28ae88045ee8076a8e64bf71a84f4a3e54c"
+    },
+    "64": {
+      "fixtureId": "new-zealand-belgium-2026-06-26",
+      "registrationId": 12490,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12490/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T03:08:09.000Z",
+      "sha256": "088aa4cff04526ecdae032164f757a6480e875ff92d9d97e5ad74b76cb24a7fb"
+    },
+    "65": {
+      "fixtureId": "cabo-verde-saudi-arabia-2026-06-26",
+      "registrationId": 12494,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12494/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T00:06:00.000Z",
+      "sha256": "226eb575bfd2b02cf4617c43c6dbb3ffb4271c08b913e8aaa60a64f887507690"
+    },
+    "66": {
+      "fixtureId": "uruguay-spain-2026-06-26",
+      "registrationId": 12493,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12493/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T00:11:57.000Z",
+      "sha256": "860504724cedfc3451767bc75e59ea689ab67e812c89ec06295c98a1bcaa8a18"
+    },
+    "67": {
+      "fixtureId": "panama-england-2026-06-27",
+      "registrationId": 12517,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12517/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T21:09:11.000Z",
+      "sha256": "ed547b1ae10f610ad458c38ea65cd9e29818a6a7cfe478e48d72bc5f54e0b135"
+    },
+    "68": {
+      "fixtureId": "croatia-ghana-2026-06-27",
+      "registrationId": 12518,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12518/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T21:10:32.000Z",
+      "sha256": "25fa7ce472b63ab19165998eb38cbd57f9dde920fbff0c7b4c2fcbb3a4942a57"
+    },
+    "69": {
+      "fixtureId": "algeria-austria-2026-06-27",
+      "registrationId": 12505,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12505/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-28T02:09:17.000Z",
+      "sha256": "cd9ab1290895f58232b69c3ec8dd5667daf0f1f4e5407f0fc1cf920307eaf1de"
+    },
+    "70": {
+      "fixtureId": "jordan-argentina-2026-06-27",
+      "registrationId": 12503,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12503/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-28T02:06:00.000Z",
+      "sha256": "755d4ea58d8502b9c7a250003999a77356c9d98b15d6c9eb1fbeb4e30c3f7866"
+    },
+    "71": {
+      "fixtureId": "colombia-portugal-2026-06-27",
+      "registrationId": 12514,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12514/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-27T23:38:38.000Z",
+      "sha256": "f1cbca061b2efc4cddb7d1e241c1a9c1d13d8b19697f4b0a6fb5044d580953d2"
     },
     "72": {
       "fixtureId": "dr-congo-uzbekistan-2026-06-27",
       "registrationId": 12509,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12509/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-27T22:24:00.000Z",
+      "publishedAt": "2026-06-27T22:25:21.000Z",
       "sha256": "b3c95b32cc424796e68bb86bc34159f0bb17e1e35fbe51104d51745df34f633b",
       "archiveUrl": "https://web.archive.org/web/20260630054154id_/https://fdp.fifa.org/assetspublic/ce281/r12509/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-30T05:41:54.000Z"
@@ -374,117 +922,281 @@
       "registrationId": 12527,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12527/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-06-28T17:42:00.000Z",
+      "publishedAt": "2026-06-28T17:43:01.000Z",
       "sha256": "0d118bfadb5fd517494f3f2619fc192d2b206c0513b846f88643082e807ad5b4",
       "archiveUrl": "https://web.archive.org/web/20260630061405id_/https://fdp.fifa.org/assetspublic/ce281/r12527/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-06-30T06:14:05.000Z"
+    },
+    "74": {
+      "fixtureId": "match-74-round-of-32-2026-06-29",
+      "registrationId": 12522,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12522/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-29T20:41:17.000Z",
+      "sha256": "d44f000daadccca1d0ab2171bf1ea0be69d711d3ff2a25ec6c58315a72f6c9b8"
+    },
+    "75": {
+      "fixtureId": "match-75-round-of-32-2026-06-29",
+      "registrationId": 12531,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12531/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-30T01:09:05.000Z",
+      "sha256": "664ce4af06e2019fb864debe0a67e88545b1fe4ad3fc8d2475f8ee7ef7fbdc8b"
+    },
+    "76": {
+      "fixtureId": "match-76-round-of-32-2026-06-29",
+      "registrationId": 12525,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12525/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-29T17:06:48.000Z",
+      "sha256": "c2adbbc05fa5c51321cca610c878f8f2707d1fa37a2c71f0286a235492eff0dd"
+    },
+    "77": {
+      "fixtureId": "match-77-round-of-32-2026-06-30",
+      "registrationId": 12532,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12532/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-30T21:07:13.000Z",
+      "sha256": "14b17d45e1aada490177a30c90f64eab007a1feee1b3ec6b99dd3e3ff95c5d1a"
+    },
+    "78": {
+      "fixtureId": "match-78-round-of-32-2026-06-30",
+      "registrationId": 12523,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12523/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-06-30T17:11:25.000Z",
+      "sha256": "437c781d9fdef59a12a79d2ff278cbfda0f937231ab8956df4f87b4841cf683c"
     },
     "79": {
       "fixtureId": "match-79-round-of-32-2026-06-30",
       "registrationId": 12529,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12529/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-06-30T23:37:00.000Z",
-      "sha256": "ed3c07c110dcd1436c48435d6b482abec8c7e27fae0b86edb707d2ce5bc7b7dd",
-      "archiveUrl": "https://web.archive.org/web/20260701000547id_/https://fdp.fifa.org/assetspublic/ce281/r12529/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-01T00:05:47.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-01T02:11:47.000Z",
+      "sha256": "04c28a2bcc27238eb8aa7e5c986bd1d8b6790639afec2c35a58274b547fc1dd9",
+      "history": [
+        {
+          "fixtureId": "match-79-round-of-32-2026-06-30",
+          "registrationId": 12529,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12529/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-06-30T23:37:00.000Z",
+          "sha256": "ed3c07c110dcd1436c48435d6b482abec8c7e27fae0b86edb707d2ce5bc7b7dd",
+          "archiveUrl": "https://web.archive.org/web/20260701000547id_/https://fdp.fifa.org/assetspublic/ce281/r12529/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-01T00:05:47.000Z"
+        }
+      ]
     },
     "80": {
       "fixtureId": "match-80-round-of-32-2026-07-01",
       "registrationId": 12521,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12521/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-01T14:40:00.000Z",
-      "sha256": "324046b31d88e25bb2e4c1d56400bd0df1a56a991216692f62553e60d59aa56f",
-      "archiveUrl": "https://web.archive.org/web/20260701152047id_/https://fdp.fifa.org/assetspublic/ce281/r12521/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-01T15:20:47.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-01T16:13:00.000Z",
+      "sha256": "86b2c339d1f3765235883689ec70d77aa44933926f9e4fb8fe584a53f8e6dbad",
+      "history": [
+        {
+          "fixtureId": "match-80-round-of-32-2026-07-01",
+          "registrationId": 12521,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12521/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-01T14:40:00.000Z",
+          "sha256": "324046b31d88e25bb2e4c1d56400bd0df1a56a991216692f62553e60d59aa56f",
+          "archiveUrl": "https://web.archive.org/web/20260701152047id_/https://fdp.fifa.org/assetspublic/ce281/r12521/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-01T15:20:47.000Z"
+        }
+      ]
     },
     "81": {
       "fixtureId": "match-81-round-of-32-2026-07-01",
       "registrationId": 12533,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12533/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-01T22:41:00.000Z",
-      "sha256": "a10daffb179747cc5b495b6f9edcc4f67237ea41f2aab12cfca03cd062486730",
-      "archiveUrl": "https://web.archive.org/web/20260702000206id_/https://fdp.fifa.org/assetspublic/ce281/r12533/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-02T00:02:06.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-02T00:07:38.000Z",
+      "sha256": "143b2b27c1f75d30d103435f6aa66b8e2ae0cd2cd6dd4b268768869ff4fd7620",
+      "history": [
+        {
+          "fixtureId": "match-81-round-of-32-2026-07-01",
+          "registrationId": 12533,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12533/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-01T22:41:00.000Z",
+          "sha256": "a10daffb179747cc5b495b6f9edcc4f67237ea41f2aab12cfca03cd062486730",
+          "archiveUrl": "https://web.archive.org/web/20260702000206id_/https://fdp.fifa.org/assetspublic/ce281/r12533/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-02T00:02:06.000Z"
+        }
+      ]
+    },
+    "82": {
+      "fixtureId": "match-82-round-of-32-2026-07-01",
+      "registrationId": 12534,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12534/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-01T20:08:18.000Z",
+      "sha256": "4e6fd69fa096f2ed7995338e412f04a09a1abf4db809e82d17dcc71a7e5c4240"
+    },
+    "83": {
+      "fixtureId": "match-83-round-of-32-2026-07-02",
+      "registrationId": 12535,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12535/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-02T23:04:42.000Z",
+      "sha256": "5c0da7e8d1a9cc1af5fb9c48c05aaa82cba0867dc514355575ce23f0eaa2b902"
     },
     "84": {
       "fixtureId": "match-84-round-of-32-2026-07-02",
       "registrationId": 12528,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12528/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-02T17:41:00.000Z",
-      "sha256": "6cf56e8ecff120fa81335308ab4de48258c34c4f52c6d6a8738ab9a001063ce3",
-      "archiveUrl": "https://web.archive.org/web/20260702184038id_/https://fdp.fifa.org/assetspublic/ce281/r12528/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-02T18:40:38.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-02T19:08:12.000Z",
+      "sha256": "451db399e20bfa362ed9cecac5ecb76e9243e1286bff768f6f6d56c6dff362d2",
+      "history": [
+        {
+          "fixtureId": "match-84-round-of-32-2026-07-02",
+          "registrationId": 12528,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12528/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-02T17:41:00.000Z",
+          "sha256": "6cf56e8ecff120fa81335308ab4de48258c34c4f52c6d6a8738ab9a001063ce3",
+          "archiveUrl": "https://web.archive.org/web/20260702184038id_/https://fdp.fifa.org/assetspublic/ce281/r12528/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-02T18:40:38.000Z"
+        }
+      ]
     },
     "85": {
       "fixtureId": "match-85-round-of-32-2026-07-02",
       "registrationId": 12536,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12536/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-03T01:40:00.000Z",
-      "sha256": "b74df8530098831857ba96de602f65b359c5579035e53c497911eae8804d57a2",
-      "archiveUrl": "https://web.archive.org/web/20260703021952id_/https://fdp.fifa.org/assetspublic/ce281/r12536/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-03T02:19:52.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-03T03:09:31.000Z",
+      "sha256": "d5cdc1b84da0bb68437bb7618787dd72200771d3a26f5df7d0912f8a249a2ccf",
+      "history": [
+        {
+          "fixtureId": "match-85-round-of-32-2026-07-02",
+          "registrationId": 12536,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12536/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-03T01:40:00.000Z",
+          "sha256": "b74df8530098831857ba96de602f65b359c5579035e53c497911eae8804d57a2",
+          "archiveUrl": "https://web.archive.org/web/20260703021952id_/https://fdp.fifa.org/assetspublic/ce281/r12536/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-03T02:19:52.000Z"
+        }
+      ]
     },
     "86": {
       "fixtureId": "match-86-round-of-32-2026-07-03",
       "registrationId": 12530,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12530/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-03T20:44:00.000Z",
-      "sha256": "9ad9c127d8766608d604a8bd9d1686754fd075a0cdf6fa953ca4bbc7496dedec",
-      "archiveUrl": "https://web.archive.org/web/20260703211322id_/https://fdp.fifa.org/assetspublic/ce281/r12530/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-03T21:13:22.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-03T22:12:13.000Z",
+      "sha256": "2885ca9b942b890dba07adc86b7d9a792470f0aad79793e220790208fe4c2f85",
+      "history": [
+        {
+          "fixtureId": "match-86-round-of-32-2026-07-03",
+          "registrationId": 12530,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12530/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-03T20:44:00.000Z",
+          "sha256": "9ad9c127d8766608d604a8bd9d1686754fd075a0cdf6fa953ca4bbc7496dedec",
+          "archiveUrl": "https://web.archive.org/web/20260703211322id_/https://fdp.fifa.org/assetspublic/ce281/r12530/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-03T21:13:22.000Z"
+        }
+      ]
     },
     "87": {
       "fixtureId": "match-87-round-of-32-2026-07-03",
       "registrationId": 12526,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12526/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-04T00:08:00.000Z",
-      "sha256": "3138973030057ce0bfcfba1ec88f9cb3dc2ed83d75a44ee5f1c1f4555eb6d61c",
-      "archiveUrl": "https://web.archive.org/web/20260704011200id_/https://fdp.fifa.org/assetspublic/ce281/r12526/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-04T01:12:00.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-04T01:34:00.000Z",
+      "sha256": "3eb2af6a81f4d7c02be3dc3e9d7017e752ab8cf21b6b7b182c8ad7312464ed84",
+      "history": [
+        {
+          "fixtureId": "match-87-round-of-32-2026-07-03",
+          "registrationId": 12526,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12526/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-04T00:08:00.000Z",
+          "sha256": "3138973030057ce0bfcfba1ec88f9cb3dc2ed83d75a44ee5f1c1f4555eb6d61c",
+          "archiveUrl": "https://web.archive.org/web/20260704011200id_/https://fdp.fifa.org/assetspublic/ce281/r12526/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-04T01:12:00.000Z"
+        }
+      ]
     },
     "88": {
       "fixtureId": "match-88-round-of-32-2026-07-03",
       "registrationId": 12524,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12524/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-03T16:41:00.000Z",
-      "sha256": "aa73c6f30a1f3a50765e0d5dbc00cfadfc46ca386e2bcdb0583a1acd07dc8d68",
-      "archiveUrl": "https://web.archive.org/web/20260703170037id_/https://fdp.fifa.org/assetspublic/ce281/r12524/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-03T17:00:37.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-03T18:08:13.000Z",
+      "sha256": "4b5bc6ea336a632f61d48d4419a12ab94cb6a1869de4208e01e1e3adb27a798a",
+      "history": [
+        {
+          "fixtureId": "match-88-round-of-32-2026-07-03",
+          "registrationId": 12524,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12524/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-03T16:41:00.000Z",
+          "sha256": "aa73c6f30a1f3a50765e0d5dbc00cfadfc46ca386e2bcdb0583a1acd07dc8d68",
+          "archiveUrl": "https://web.archive.org/web/20260703170037id_/https://fdp.fifa.org/assetspublic/ce281/r12524/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-03T17:00:37.000Z"
+        }
+      ]
     },
     "89": {
       "fixtureId": "match-89-round-of-16-2026-07-04",
       "registrationId": 12542,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12542/pdf/TacticalLineup-English.pdf",
-      "version": 1,
-      "publishedAt": "2026-07-04T19:43:00.000Z",
-      "sha256": "86eff6b9c6d98dd8107dbbf82fcf847ae1327ee8a9db5ff8a2b87959d64df96a",
-      "archiveUrl": "https://web.archive.org/web/20260704204742id_/https://fdp.fifa.org/assetspublic/ce281/r12542/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-04T20:47:42.000Z"
+      "version": 2,
+      "publishedAt": "2026-07-04T21:10:49.000Z",
+      "sha256": "655e73537b1f3def336d55a3c9f86a0c3781b560c964643247377f74daa0f395",
+      "history": [
+        {
+          "fixtureId": "match-89-round-of-16-2026-07-04",
+          "registrationId": 12542,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12542/pdf/TacticalLineup-English.pdf",
+          "version": 1,
+          "publishedAt": "2026-07-04T19:43:00.000Z",
+          "sha256": "86eff6b9c6d98dd8107dbbf82fcf847ae1327ee8a9db5ff8a2b87959d64df96a",
+          "archiveUrl": "https://web.archive.org/web/20260704204742id_/https://fdp.fifa.org/assetspublic/ce281/r12542/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-04T20:47:42.000Z"
+        }
+      ]
+    },
+    "90": {
+      "fixtureId": "match-90-round-of-16-2026-07-04",
+      "registrationId": 12539,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12539/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-04T17:06:04.000Z",
+      "sha256": "73c9637d2301d63f2433a7d412cb6197fae00be176a8dc3b774226ec64ba1db8"
     },
     "91": {
       "fixtureId": "match-91-round-of-16-2026-07-05",
       "registrationId": 12541,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12541/pdf/TacticalLineup-English.pdf",
-      "version": 2,
-      "publishedAt": "2026-07-05T18:54:00.000Z",
-      "sha256": "ff9df87ad2c91b3dc841623d71d15d1b215e7b01ff9e1776d03a7d60aa8213d1",
-      "archiveUrl": "https://web.archive.org/web/20260705191232id_/https://fdp.fifa.org/assetspublic/ce281/r12541/pdf/TacticalLineup-English.pdf",
-      "capturedAt": "2026-07-05T19:12:32.000Z"
+      "version": 3,
+      "publishedAt": "2026-07-05T20:10:00.000Z",
+      "sha256": "dbcdb6e48317fb3c7a783df70ac1fa5dee827bf130be704473e447c996662c21",
+      "history": [
+        {
+          "fixtureId": "match-91-round-of-16-2026-07-05",
+          "registrationId": 12541,
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12541/pdf/TacticalLineup-English.pdf",
+          "version": 2,
+          "publishedAt": "2026-07-05T18:54:00.000Z",
+          "sha256": "ff9df87ad2c91b3dc841623d71d15d1b215e7b01ff9e1776d03a7d60aa8213d1",
+          "archiveUrl": "https://web.archive.org/web/20260705191232id_/https://fdp.fifa.org/assetspublic/ce281/r12541/pdf/TacticalLineup-English.pdf",
+          "capturedAt": "2026-07-05T19:12:32.000Z"
+        }
+      ]
     },
     "92": {
       "fixtureId": "match-92-round-of-16-2026-07-05",
       "registrationId": 12540,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12540/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-07-05T22:40:00.000Z",
+      "publishedAt": "2026-07-05T22:41:26.000Z",
       "sha256": "cdff460bcad6e967d902824c019982fb258fa58c8e3738836f0be2af30c0380a",
       "archiveUrl": "https://web.archive.org/web/20260706053232id_/https://fdp.fifa.org/assetspublic/ce281/r12540/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-07-06T05:32:32.000Z"
@@ -494,10 +1206,50 @@
       "registrationId": 12538,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12538/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-07-06T17:40:00.000Z",
+      "publishedAt": "2026-07-06T17:41:41.000Z",
       "sha256": "c4ef906ba031a774c729a51388d12319ba6980691b93a9bd0ebacc71d8818bb9",
       "archiveUrl": "https://web.archive.org/web/20260706204152id_/https://fdp.fifa.org/assetspublic/ce281/r12538/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-07-06T20:41:52.000Z"
+    },
+    "94": {
+      "fixtureId": "match-94-round-of-16-2026-07-06",
+      "registrationId": 12543,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12543/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-07T00:11:42.000Z",
+      "sha256": "4760a30bb8670bc333db724704b3378fec9dc4e04f76d6ddb1f3b4986effa05a"
+    },
+    "95": {
+      "fixtureId": "match-95-round-of-16-2026-07-07",
+      "registrationId": 12537,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12537/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-07T16:10:00.000Z",
+      "sha256": "d9ecc6dbb207a619540f43148b31c4995f4e72222ff143aff6837ec88127b63c"
+    },
+    "96": {
+      "fixtureId": "match-96-round-of-16-2026-07-07",
+      "registrationId": 12544,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12544/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-07T20:06:19.000Z",
+      "sha256": "f76a0ecda8bdb11eb32a6d65586d50c32ce74112db16b721b28108d62c99344c"
+    },
+    "97": {
+      "fixtureId": "match-97-quarter-final-2026-07-09",
+      "registrationId": 12545,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12545/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-09T20:06:16.000Z",
+      "sha256": "6f5806e91ab25be674a18f8bdd8bb8f5fd29ef1d7f2a01a110c37588423b85c0"
+    },
+    "98": {
+      "fixtureId": "match-98-quarter-final-2026-07-10",
+      "registrationId": 12547,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12547/pdf/TacticalLineup-English.pdf",
+      "version": 3,
+      "publishedAt": "2026-07-10T19:09:00.000Z",
+      "sha256": "2725c60226d7c35548f1cc8da030367dcaa5d0234f6a034e08eaaded305f5420"
     },
     "99": {
       "fixtureId": "match-99-quarter-final-2026-07-11",
@@ -509,12 +1261,20 @@
       "archiveUrl": "https://web.archive.org/web/20260714110409id_/https://fdp.fifa.org/assetspublic/ce281/r12548/pdf/TacticalLineup-English.pdf",
       "capturedAt": "2026-07-14T11:04:09.000Z"
     },
+    "100": {
+      "fixtureId": "match-100-quarter-final-2026-07-11",
+      "registrationId": 12546,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12546/pdf/TacticalLineup-English.pdf",
+      "version": 2,
+      "publishedAt": "2026-07-12T01:08:09.000Z",
+      "sha256": "18a6bb984a32a772d95381b89ee821b7878cd73bf9365ef188ecba95352b927f"
+    },
     "101": {
       "fixtureId": "match-101-semi-final-2026-07-14",
       "registrationId": 12550,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-07-14T17:40:00.000Z",
+      "publishedAt": "2026-07-14T17:40:50.000Z",
       "sha256": "e6da2e9eed2f3bdaf090fbac79f48b6e2b71f5d55db5c96b666d3d815b24b561"
     },
     "102": {
@@ -522,7 +1282,7 @@
       "registrationId": 12549,
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
       "version": 1,
-      "publishedAt": "2026-07-15T17:41:00.000Z",
+      "publishedAt": "2026-07-15T17:41:37.000Z",
       "sha256": "cda8da4f98a5a9493b526b49558ab3d39e494b5647d5a703f00b19fa232a8f83"
     }
   }

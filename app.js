@@ -1,6 +1,15 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
+import {
+  LOCALE_PACK_VERSION,
+  LOCALE_SCHEMA_VERSION,
+  SHELL_MESSAGES,
+  getLanguageConfig,
+  getSupportedLanguages,
+  loadLocaleDomain,
+  normalizeLanguage as normalizeLocaleLanguage
+} from "./locales/locale-runtime.js?v=2026-07-16-5";
 
-const DATA_VERSION = "2026-07-15-suspended-bench-1";
+const DATA_VERSION = "2026-07-16-ranking-year-1";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -68,103 +77,17 @@ const JUGGLE_WALL_BOUNCE_LEVEL_SPIN = 22;
 const JUGGLE_MAX_FRAME_SECONDS = 0.04;
 const JUGGLE_SOUND_DURATION_SECONDS = 0.08;
 const DEFAULT_LANGUAGE = "en";
-const LANGUAGE_LOCALES = {
-  en: "en-US",
-  zh: "zh-CN"
-};
+const LANGUAGE_CONFIGS = Object.freeze(
+  Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
+);
+const LANGUAGE_LOCALES = Object.freeze(
+  Object.fromEntries(
+    Object.entries(LANGUAGE_CONFIGS).map(([language, config]) => [language, config.intlLocale])
+  )
+);
 const SUPPORTED_LANGUAGES = new Set(Object.keys(LANGUAGE_LOCALES));
-const LANGUAGE_SWITCH_PENDING_MIN_MS = 260;
-const UI_TEXT = {
-  en: {
-    adminMessage: "Admin message",
-    adminMessageDismiss: "Dismiss message",
-    adminMessageLabel: "Admin note",
-    appName: "World Cup Simplified",
-    appHomeLabel: "World Cup Simplified home",
-    calendarNextMonth: "Next month",
-    calendarPreviousMonth: "Previous month",
-    calendarToday: "Today",
-    calendarWeekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    calendarYesterday: "Yesterday",
-    catchUp: "Catch Up",
-    catchUpDialog: "Catch Up",
-    chooseMatchDate: "Choose match date",
-    chooseStandingsYear: "Choose standings year",
-    clearCountrySearch: "Clear country search",
-    countrySearch: "Search country matches",
-    groups: "Groups",
-    darkMode: "Dark mode",
-    language: "Language",
-    languageEnglish: "English",
-    languageChinese: "Chinese",
-    languageSwitching: "Switching language",
-    juggleBall: "Soccer ball",
-    juggleCurrent: "Current juggling streak",
-    juggleRecord: "Best juggling streak",
-    juggleRecordAction: "Drop soccer ball",
-    matches: "Matches",
-    matchDetails: "Match details",
-    matchesHeading: "Matches and selected match details",
-    matchesList: "Matches",
-    month: "Month",
-    past24Hours: "Past 24 hours",
-    searchCountryPlaceholder: "Search country",
-    settings: "Settings",
-    showYesterday: "Show past 24 hours",
-    standings: "Standings",
-    standingsSections: "Standings sections",
-    standingsSummary:
-      "Top two in each group advance. The best eight third-place teams also reach the Round of 32.",
-    thirdPlaceRace: "Third-Place Race",
-    timeZone: "Time zone",
-    tournament: "Tournament",
-    worldCupViews: "World Cup views"
-  },
-  zh: {
-    adminMessage: "站内消息",
-    adminMessageDismiss: "关闭消息",
-    adminMessageLabel: "站内便笺",
-    appName: "世界杯简明指南",
-    appHomeLabel: "世界杯简明指南首页",
-    calendarNextMonth: "下个月",
-    calendarPreviousMonth: "上个月",
-    calendarToday: "今天",
-    calendarWeekdays: ["日", "一", "二", "三", "四", "五", "六"],
-    calendarYesterday: "昨天",
-    catchUp: "速览",
-    catchUpDialog: "比赛速览",
-    chooseMatchDate: "选择比赛日期",
-    chooseStandingsYear: "选择积分榜年份",
-    clearCountrySearch: "清除国家队搜索",
-    countrySearch: "搜索国家队比赛",
-    groups: "小组",
-    darkMode: "深色模式",
-    language: "语言",
-    languageEnglish: "English",
-    languageChinese: "中文",
-    languageSwitching: "正在切换语言",
-    juggleBall: "足球",
-    juggleCurrent: "当前颠球次数",
-    juggleRecord: "最佳颠球纪录",
-    juggleRecordAction: "让足球落下",
-    matches: "赛程",
-    matchDetails: "比赛详情",
-    matchesHeading: "比赛和已选比赛详情",
-    matchesList: "比赛",
-    month: "月份",
-    past24Hours: "过去24小时",
-    searchCountryPlaceholder: "搜索国家队",
-    settings: "设置",
-    showYesterday: "显示过去24小时",
-    standings: "积分榜",
-    standingsSections: "积分榜分区",
-    standingsSummary: "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
-    thirdPlaceRace: "最佳小组第三排名",
-    timeZone: "时区",
-    tournament: "淘汰赛",
-    worldCupViews: "世界杯视图"
-  }
-};
+const LANGUAGE_PENDING_INDICATOR_DELAY_MS = 160;
+const UI_TEXT = SHELL_MESSAGES;
 const ZH_EXACT_TRANSLATIONS = new Map(
   Object.entries({
     "After extra time": "加时后",
@@ -319,7 +242,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Groups": "小组",
     "Haiti": "海地",
     "Half-time": "半场结束",
-    "Hide Past 24 hours": "隐藏过去24小时",
+    "Hide recent matches": "隐藏近期比赛",
     "IR Iran": "伊朗",
     "Iraq": "伊拉克",
     "Japan": "日本",
@@ -386,7 +309,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "No loaded source matches yet.": "尚未载入来源场次。",
     "No loaded World Cup matches found.": "未找到已载入的世界杯比赛。",
     "No next knockout match is loaded yet.": "尚未载入下一场淘汰赛。",
-    "Past 24 hours": "过去24小时",
+    "Recent matches": "近期比赛",
     "Penalty pressure": "点球压力",
     "Player": "球员",
     "Predicted matchup; participants come from current knockout-path estimates.":
@@ -1759,7 +1682,12 @@ Object.entries({
   "Predicted lineup record": "预测阵容记录",
   "Evidence strength": "证据强度",
   "Checked": "核验于",
-  "Sources": "来源"
+  "Sources": "来源",
+  "Tournament facts": "赛事事实",
+  Forecasts: "预测",
+  "Player information": "球员信息",
+  "Official highlights": "官方集锦",
+  "Exact sources vary by match.": "每场比赛的具体来源可能不同。"
 }).forEach(([text, translation]) => {
   ZH_EXACT_TRANSLATIONS.set(text, translation);
 });
@@ -3171,10 +3099,13 @@ const adminMessageText = document.querySelector("#admin-message-text");
 const adminMessageDismiss = document.querySelector("#admin-message-dismiss");
 const settingsButton = document.querySelector("#settings-button");
 const settingsPopover = document.querySelector("#settings-popover");
-const languageSwitch = document.querySelector("#language-switch");
-const languageButtons = document.querySelectorAll(".language-option");
+const languageControl = document.querySelector(".language-control");
+const languageSelect = document.querySelector("#language-select");
+const languageStatus = document.querySelector("#language-status");
 const settingsLanguageLabel = document.querySelector("#settings-language-label");
 const settingsDarkModeLabel = document.querySelector("#settings-dark-mode-label");
+const settingsReportLink = document.querySelector("#settings-report-link");
+const settingsReportLabel = document.querySelector("#settings-report-label");
 const darkModeToggle = document.querySelector("#dark-mode-toggle");
 const timezoneLabel = document.querySelector(".timezone-label");
 const settingsYesterdayLabel = document.querySelector("#settings-yesterday-label");
@@ -3312,6 +3243,10 @@ const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
   "2018:Group H": ["Japan", "Senegal"]
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
+const TOURNAMENT_SCROLL_TIMELINE_SUPPORTED =
+  typeof CSS !== "undefined" &&
+  CSS.supports("animation-timeline: scroll()") &&
+  CSS.supports("scroll-timeline-axis: inline");
 const TOURNAMENT_PROGRESS_ROUNDS = [
   {
     id: "round-of-32",
@@ -3647,30 +3582,58 @@ function isAdminMessageInWindow(message, now = Date.now()) {
 
 function getLocalizedAdminMessageCopy(message) {
   const copy = message?.copy;
+  let isDirectLocaleCopy = false;
+  let text = "";
+
   if (copy && typeof copy === "object" && !Array.isArray(copy)) {
-    const text = currentLanguage === "zh" ? copy.zh || copy.en : copy.en || copy.zh;
-    return String(text || "").trim();
+    const directCopy = copy[currentLanguage];
+    isDirectLocaleCopy = typeof directCopy === "string" && directCopy.trim().length > 0;
+    text = isDirectLocaleCopy ? directCopy : copy.en || copy.zh;
+  } else {
+    const localizedKey = {
+      es: "messageEs",
+      ko: "messageKo",
+      zh: "messageZh"
+    }[currentLanguage];
+    const directCopy = localizedKey ? message?.[localizedKey] : "";
+    isDirectLocaleCopy = typeof directCopy === "string" && directCopy.trim().length > 0;
+    text = isDirectLocaleCopy
+      ? directCopy
+      : message?.message || message?.messageEn || message?.messageZh;
   }
 
-  const text =
-    currentLanguage === "zh"
-      ? message?.messageZh || message?.message || message?.messageEn
-      : message?.message || message?.messageEn || message?.messageZh;
-  return String(text || "").trim();
+  const compactText = String(text || "").trim();
+  return (currentLanguage === "es" || currentLanguage === "ko") && !isDirectLocaleCopy
+    ? localizeDisplayText(compactText)
+    : compactText;
 }
 
 function getLocalizedAdminMessageEmphasis(message) {
   const emphasis = message?.emphasis;
+  let isDirectLocaleCopy = false;
+  let text = "";
+
   if (emphasis && typeof emphasis === "object" && !Array.isArray(emphasis)) {
-    const text = currentLanguage === "zh" ? emphasis.zh || emphasis.en : emphasis.en || emphasis.zh;
-    return String(text || "").trim();
+    const directCopy = emphasis[currentLanguage];
+    isDirectLocaleCopy = typeof directCopy === "string" && directCopy.trim().length > 0;
+    text = isDirectLocaleCopy ? directCopy : emphasis.en || emphasis.zh;
+  } else {
+    const localizedKey = {
+      es: "emphasisEs",
+      ko: "emphasisKo",
+      zh: "emphasisZh"
+    }[currentLanguage];
+    const directCopy = localizedKey ? message?.[localizedKey] : "";
+    isDirectLocaleCopy = typeof directCopy === "string" && directCopy.trim().length > 0;
+    text = isDirectLocaleCopy
+      ? directCopy
+      : message?.emphasis || message?.emphasisEn || message?.emphasisZh;
   }
 
-  const text =
-    currentLanguage === "zh"
-      ? message?.emphasisZh || message?.emphasis || message?.emphasisEn
-      : message?.emphasis || message?.emphasisEn || message?.emphasisZh;
-  return typeof text === "string" ? text.trim() : "";
+  const compactText = typeof text === "string" ? text.trim() : "";
+  return (currentLanguage === "es" || currentLanguage === "ko") && !isDirectLocaleCopy
+    ? localizeDisplayText(compactText)
+    : compactText;
 }
 
 function renderAdminMessageCopy(message, copy) {
@@ -3854,6 +3817,7 @@ let tournamentBoardDragGesture = null;
 let tournamentBoardSuppressClickUntil = 0;
 let tournamentConnectorFrameId = 0;
 let tournamentConnectorRetryTimeoutId = 0;
+let tournamentRoundHeaderFrameId = 0;
 let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
@@ -3895,9 +3859,11 @@ let renderedAdminMessageId = "";
 let adminMessageCollapseTimeoutId = 0;
 let teamsById = new Map();
 let teamsByName = new Map();
+let fifaRankingYear = null;
 let tournament = { groups: [], stages: [], sources: [] };
 let releaseNotes = { releases: [] };
 let isReleaseNotesLoading = true;
+let releaseLocaleIntentPromise = null;
 let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
@@ -3919,16 +3885,12 @@ function setYesterdayLayoutOffset(isOffset) {
 }
 
 function normalizeLanguage(value) {
-  const language = String(value || "").trim().toLowerCase();
-  if (SUPPORTED_LANGUAGES.has(language)) {
-    return language;
+  const rawLanguage = String(value || "").trim();
+  if (!rawLanguage) {
+    return "";
   }
-
-  if (language.startsWith("zh")) {
-    return "zh";
-  }
-
-  return "";
+  const language = rawLanguage.toLowerCase().split(/[-_]/u)[0];
+  return SUPPORTED_LANGUAGES.has(language) ? normalizeLocaleLanguage(language) : "";
 }
 
 function getInitialLanguage() {
@@ -3947,6 +3909,346 @@ function getInitialLanguage() {
 }
 
 let currentLanguage = getInitialLanguage();
+let activeAppLocalePack = null;
+let activePlayerNameTranslations = Object.freeze({});
+let activePlayerNameTranslationMatchers = [];
+let activeLocaleContentTranslations = Object.freeze({});
+let activeLocaleContentEntities = Object.freeze({});
+let activeLocaleContentHelpers = Object.freeze({});
+let activeLocaleContentScopes = new Set();
+const playerNameLocaleLoaders = Object.freeze({
+  es: () => import(`./locales/es/player-names.js?v=${LOCALE_PACK_VERSION}`),
+  ko: () => import(`./locales/ko/player-names.js?v=${LOCALE_PACK_VERSION}`)
+});
+const archivePlayerNameLocaleLoaders = Object.freeze({
+  es: () => import(`./locales/es/player-names-archive.js?v=${LOCALE_PACK_VERSION}`),
+  ko: () => import(`./locales/ko/player-names-archive.js?v=${LOCALE_PACK_VERSION}`)
+});
+const localeContentLoaders = Object.freeze({
+  es: Object.freeze({
+    current: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
+    archive: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
+    release: () => import(`./locales/es/content-release.js?v=${LOCALE_PACK_VERSION}`)
+  }),
+  ko: Object.freeze({
+    current: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`),
+    archive: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`),
+    release: () => import(`./locales/ko/content-release.js?v=${LOCALE_PACK_VERSION}`)
+  })
+});
+const localeContentLoadCache = new Map();
+
+function isLocaleRecord(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function isLocaleTranslationDictionary(value) {
+  if (!isLocaleRecord(value)) {
+    return false;
+  }
+
+  const entries = Object.entries(value);
+  if (!entries.length) {
+    return false;
+  }
+
+  for (const [source, translation] of entries) {
+    if (!source.trim() || typeof translation !== "string" || !translation.trim()) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function getPlayerNameTranslations(module, language, options = {}) {
+  const exportName = `${language.toUpperCase()}_${
+    options.archive ? "ARCHIVE_" : ""
+  }PLAYER_NAME_TRANSLATIONS`;
+  const translations = module?.[exportName];
+  if (!isLocaleTranslationDictionary(translations)) {
+    throw new TypeError(
+      `Invalid locale player-name module: ${language}/${options.archive ? "archive" : "current"}`
+    );
+  }
+  return translations;
+}
+
+function getRequiredLocaleContentScopes() {
+  const scopes = new Set(["current"]);
+  const activeFixture = activeMatchId ? getFixtureById(activeMatchId) : null;
+  if (
+    selectedStandingsYear !== CURRENT_STANDINGS_YEAR ||
+    isShowingOlderTeamMatches ||
+    activeFixture?.isHistorical
+  ) {
+    scopes.add("archive");
+  }
+  return [...scopes];
+}
+
+async function loadLocaleContentScope(language, scope) {
+  const normalizedLanguage = normalizeLanguage(language) || DEFAULT_LANGUAGE;
+  if (normalizedLanguage === "en" || normalizedLanguage === "zh") {
+    return Object.freeze({
+      entities: Object.freeze({}),
+      helpers: Object.freeze({}),
+      translations: Object.freeze({})
+    });
+  }
+
+  const loader = localeContentLoaders[normalizedLanguage]?.[scope];
+  if (!loader) {
+    throw new Error(`Unsupported locale content scope: ${normalizedLanguage}/${scope}`);
+  }
+
+  const cacheKey = `${normalizedLanguage}:${scope}`;
+  if (!localeContentLoadCache.has(cacheKey)) {
+    const request = loader()
+      .then((module) => {
+        const metadata = module?.CONTENT_METADATA;
+        const translations = module?.CONTENT_TRANSLATIONS;
+        const entities = module?.CONTENT_ENTITIES;
+        const formatHistoricalResultStory = module?.formatHistoricalResultStory;
+        const defaultPayload = module?.default;
+        if (
+          !isLocaleRecord(metadata) ||
+          metadata.schemaVersion !== LOCALE_SCHEMA_VERSION ||
+          metadata.language !== normalizedLanguage ||
+          metadata.scope !== scope ||
+          !/^[a-f0-9]{64}$/u.test(String(metadata.sourceFingerprint || "")) ||
+          !isLocaleTranslationDictionary(translations) ||
+          !isLocaleRecord(entities) ||
+          !isLocaleRecord(defaultPayload) ||
+          defaultPayload.schemaVersion !== metadata.schemaVersion ||
+          defaultPayload.language !== metadata.language ||
+          defaultPayload.scope !== metadata.scope ||
+          defaultPayload.sourceFingerprint !== metadata.sourceFingerprint ||
+          defaultPayload.translations !== translations ||
+          defaultPayload.entities !== entities ||
+          (scope === "archive" &&
+            (typeof formatHistoricalResultStory !== "function" ||
+              defaultPayload.formatHistoricalResultStory !== formatHistoricalResultStory))
+        ) {
+          throw new TypeError(`Invalid locale content module: ${cacheKey}`);
+        }
+        const structuredTranslations =
+          scope === "current" && isLocaleRecord(entities.structuredTranslations)
+            ? entities.structuredTranslations
+            : {};
+        return Object.freeze({
+          entities,
+          helpers: Object.freeze(
+            scope === "archive" ? { formatHistoricalResultStory } : {}
+          ),
+          translations: Object.freeze({
+            ...structuredTranslations,
+            ...translations
+          })
+        });
+      })
+      .catch((error) => {
+        localeContentLoadCache.delete(cacheKey);
+        throw error;
+      });
+    localeContentLoadCache.set(cacheKey, request);
+  }
+
+  return localeContentLoadCache.get(cacheKey);
+}
+
+async function loadLocaleContentScopes(language, scopes, options = {}) {
+  const optionalScopes = new Set(options.optionalScopes || []);
+  const loadedEntries = await Promise.all(
+    [...new Set(scopes)].map(async (scope) => {
+      try {
+        return [scope, await loadLocaleContentScope(language, scope)];
+      } catch (error) {
+        if (!optionalScopes.has(scope)) {
+          throw error;
+        }
+        console.warn(`Unable to load the optional ${language}/${scope} locale content`, error);
+        return null;
+      }
+    })
+  );
+  const entries = loadedEntries.filter(Boolean);
+  return {
+    scopes: new Set(entries.map(([scope]) => scope)),
+    entities: Object.freeze(
+      Object.assign({}, ...entries.map(([, payload]) => payload.entities))
+    ),
+    helpers: Object.freeze(
+      Object.assign({}, ...entries.map(([, payload]) => payload.helpers))
+    ),
+    translations: Object.freeze(
+      Object.assign({}, ...entries.map(([, payload]) => payload.translations))
+    )
+  };
+}
+
+async function loadAppLocaleAssets(language, options = {}) {
+  const normalizedLanguage = normalizeLanguage(language) || DEFAULT_LANGUAGE;
+  if (normalizedLanguage === "en" || normalizedLanguage === "zh") {
+    return {
+      pack: null,
+      playerNames: Object.freeze({}),
+      contentScopes: new Set(),
+      contentEntities: Object.freeze({}),
+      contentHelpers: Object.freeze({}),
+      contentTranslations: Object.freeze({})
+    };
+  }
+
+  const scopes = options.scopes || getRequiredLocaleContentScopes();
+  const shouldLoadArchiveNames = scopes.includes("archive");
+  const [pack, playerNameModule, archivePlayerNameModule, content] = await Promise.all([
+    loadLocaleDomain(normalizedLanguage, "app"),
+    playerNameLocaleLoaders[normalizedLanguage]?.(),
+    shouldLoadArchiveNames
+      ? archivePlayerNameLocaleLoaders[normalizedLanguage]?.()
+      : Promise.resolve(null),
+    loadLocaleContentScopes(normalizedLanguage, scopes, { optionalScopes: ["release"] })
+  ]);
+  const currentPlayerNames = getPlayerNameTranslations(playerNameModule, normalizedLanguage);
+  const archivePlayerNames = archivePlayerNameModule
+    ? getPlayerNameTranslations(archivePlayerNameModule, normalizedLanguage, { archive: true })
+    : Object.freeze({});
+
+  return {
+    pack,
+    playerNames: Object.freeze({ ...currentPlayerNames, ...archivePlayerNames }),
+    contentScopes: content.scopes,
+    contentEntities: content.entities,
+    contentHelpers: content.helpers,
+    contentTranslations: content.translations
+  };
+}
+
+function rebuildActivePlayerNameMatchers() {
+  const sourcesByInitial = new Map();
+  const sources = Object.keys(activePlayerNameTranslations).sort(
+    (left, right) => right.length - left.length || left.localeCompare(right, "en")
+  );
+
+  for (const source of sources) {
+    const initial = Array.from(source)[0] || "";
+    if (!initial) {
+      continue;
+    }
+    const initialSources = sourcesByInitial.get(initial) || [];
+    initialSources.push(source);
+    sourcesByInitial.set(initial, initialSources);
+  }
+
+  activePlayerNameTranslationMatchers = [...sourcesByInitial].map(([initial, initialSources]) => [
+    initial,
+    new RegExp(
+      `(^|[^\\p{Letter}\\p{Number}])(${initialSources
+        .map(escapeRegExp)
+        .join("|")})(?=$|[^\\p{Letter}\\p{Number}])`,
+      "gu"
+    )
+  ]);
+}
+
+function applyAppLocaleAssets(_language, assets) {
+  activeAppLocalePack = assets?.pack || null;
+  activePlayerNameTranslations = assets?.playerNames || Object.freeze({});
+  activeLocaleContentEntities = assets?.contentEntities || Object.freeze({});
+  activeLocaleContentHelpers = assets?.contentHelpers || Object.freeze({});
+  activeLocaleContentTranslations = assets?.contentTranslations || Object.freeze({});
+  activeLocaleContentScopes = new Set(assets?.contentScopes || []);
+  rebuildActivePlayerNameMatchers();
+}
+
+async function ensureActiveLocaleContentScope(scope) {
+  if (
+    currentLanguage === "en" ||
+    currentLanguage === "zh" ||
+    activeLocaleContentScopes.has(scope)
+  ) {
+    return true;
+  }
+
+  const requestedLanguage = currentLanguage;
+  const [content, archivePlayerNameModule] = await Promise.all([
+    loadLocaleContentScope(requestedLanguage, scope),
+    scope === "archive"
+      ? archivePlayerNameLocaleLoaders[requestedLanguage]?.()
+      : Promise.resolve(null)
+  ]);
+  if (currentLanguage !== requestedLanguage) {
+    return false;
+  }
+
+  activeLocaleContentTranslations = Object.freeze({
+    ...activeLocaleContentTranslations,
+    ...content.translations
+  });
+  activeLocaleContentEntities = Object.freeze({
+    ...activeLocaleContentEntities,
+    ...content.entities
+  });
+  activeLocaleContentHelpers = Object.freeze({
+    ...activeLocaleContentHelpers,
+    ...content.helpers
+  });
+  activeLocaleContentScopes.add(scope);
+
+  if (archivePlayerNameModule) {
+    const archivePlayerNames = getPlayerNameTranslations(
+      archivePlayerNameModule,
+      requestedLanguage,
+      { archive: true }
+    );
+    activePlayerNameTranslations = Object.freeze({
+      ...activePlayerNameTranslations,
+      ...archivePlayerNames
+    });
+    rebuildActivePlayerNameMatchers();
+  }
+
+  return true;
+}
+
+async function ensureRequiredActiveLocaleContentScopes() {
+  return Promise.all(
+    getRequiredLocaleContentScopes().map(async (scope) => {
+      try {
+        return await ensureActiveLocaleContentScope(scope);
+      } catch (error) {
+        if (scope !== "release") {
+          throw error;
+        }
+        console.warn("Unable to load the optional release-note locale", error);
+        return false;
+      }
+    })
+  );
+}
+
+async function renderMatchInfoWhenLocaleReady(match, options = {}) {
+  if (match?.isHistorical) {
+    try {
+      const didLoadArchiveLocale = await ensureActiveLocaleContentScope("archive");
+      if (!didLoadArchiveLocale) {
+        return false;
+      }
+    } catch (error) {
+      console.warn("Unable to load the archive locale", error);
+      return false;
+    }
+  }
+
+  if (typeof options.shouldRender === "function" && !options.shouldRender()) {
+    return false;
+  }
+
+  renderMatchInfo(match, options);
+  return true;
+}
+
 const juggleToy = {
   animationFrameId: 0,
   audioContext: null,
@@ -4169,7 +4471,22 @@ function formatThirdPlaceDeciderLabelZh(label) {
 }
 
 function localizeText(value) {
-  return currentLanguage === "zh" ? translateTextToZh(value) : normalizeEnglishOutcomeTerminology(value);
+  if (currentLanguage === "zh") {
+    return translateTextToZh(value);
+  }
+  if (activeAppLocalePack?.helpers?.translateText) {
+    const text = String(value ?? "");
+    const leadingWhitespace = text.match(/^\s*/u)?.[0] || "";
+    const trailingWhitespace = text.match(/\s*$/u)?.[0] || "";
+    const compactText = text.trim();
+    const curatedTranslation = activeAppLocalePack.helpers.translateText(compactText);
+    const translated =
+      curatedTranslation !== compactText
+        ? curatedTranslation
+        : activeLocaleContentTranslations[compactText] || compactText;
+    return `${leadingWhitespace}${translated}${trailingWhitespace}`;
+  }
+  return normalizeEnglishOutcomeTerminology(value);
 }
 
 function normalizeEnglishOutcomeTerminology(value) {
@@ -5796,7 +6113,13 @@ function translatePlayerSkillToZh(value) {
 }
 
 function localizePlayerSkill(value) {
-  return currentLanguage === "zh" ? translatePlayerSkillToZh(value) : String(value ?? "");
+  if (currentLanguage === "zh") {
+    return translatePlayerSkillToZh(value);
+  }
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return activeAppLocalePack?.helpers?.formatPlayerSkill?.(value) || "";
+  }
+  return localizeText(value);
 }
 
 function translateHistoricalBasisToZh(value) {
@@ -6437,8 +6760,76 @@ function localizeKnownDisplayEntities(value) {
   );
 }
 
+function replaceActivePlayerNames(value) {
+  const text = String(value ?? "");
+  if (!text || !activePlayerNameTranslationMatchers.length) {
+    return text;
+  }
+
+  const compactText = text.trim();
+  const exactTranslation = activePlayerNameTranslations[compactText];
+  if (exactTranslation) {
+    const leadingWhitespace = text.match(/^\s*/u)?.[0] || "";
+    const trailingWhitespace = text.match(/\s*$/u)?.[0] || "";
+    return `${leadingWhitespace}${exactTranslation}${trailingWhitespace}`;
+  }
+
+  const presentInitials = new Set(text);
+  const matches = [];
+  for (const [initial, pattern] of activePlayerNameTranslationMatchers) {
+    if (!presentInitials.has(initial)) {
+      continue;
+    }
+    for (const match of text.matchAll(pattern)) {
+      const source = match[2];
+      const start = match.index + match[1].length;
+      matches.push({
+        end: start + source.length,
+        source,
+        start
+      });
+    }
+  }
+
+  if (!matches.length) {
+    return text;
+  }
+
+  matches.sort(
+    (left, right) =>
+      left.start - right.start ||
+      (right.end - right.start) - (left.end - left.start)
+  );
+
+  let cursor = 0;
+  let output = "";
+  for (const match of matches) {
+    if (match.start < cursor) {
+      continue;
+    }
+    output += text.slice(cursor, match.start);
+    output += activePlayerNameTranslations[match.source] || match.source;
+    cursor = match.end;
+  }
+
+  return `${output}${text.slice(cursor)}`;
+}
+
 function localizeDisplayText(value) {
-  return currentLanguage === "zh" ? localizeKnownDisplayEntities(localizeText(value)) : localizeText(value);
+  if (currentLanguage === "zh") {
+    return localizeKnownDisplayEntities(localizeText(value));
+  }
+  return replaceActivePlayerNames(localizeText(value));
+}
+
+function formatActiveLocaleMessage(type, data = {}, fallback = "") {
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const localized = activeAppLocalePack?.helpers?.formatAppMessage?.(type, data);
+    if (localized) {
+      return localized;
+    }
+  }
+  return fallback;
 }
 
 function localizeMultilineText(value) {
@@ -6450,6 +6841,9 @@ function localizeMultilineText(value) {
 
 function getLocalizedTeamName(teamOrName) {
   const name = typeof teamOrName === "string" ? teamOrName : teamOrName?.name || "";
+  if (activeAppLocalePack?.helpers?.translateTeamName) {
+    return activeAppLocalePack.helpers.translateTeamName(name, teamOrName?.id || "");
+  }
   return localizeText(name);
 }
 
@@ -6459,6 +6853,9 @@ function setSeoMetaContent(selector, content) {
 
 function getSeoCanonicalUrl(matchId = "") {
   const url = new URL("/", SITE_ORIGIN);
+  if (currentLanguage !== DEFAULT_LANGUAGE) {
+    url.searchParams.set("lang", currentLanguage);
+  }
   if (matchId) {
     url.searchParams.set("match", matchId);
   }
@@ -6483,7 +6880,7 @@ function getSeoEventStatus(match) {
 
 function getSeoStageLabel(match) {
   const stage = tournament.stages.find((item) => item.id === match.stage);
-  return localizeText(stage?.label || match.stage || "match");
+  return localizeStageLabel(stage?.label || match.stage || "match");
 }
 
 function getSeoMatchCopy(match) {
@@ -6523,6 +6920,20 @@ function getSeoMatchCopy(match) {
     };
   }
 
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const localizedCopy = activeAppLocalePack?.helpers?.getSeoMatchCopy?.({
+      away,
+      hasConfirmedTeams,
+      home,
+      isFinished,
+      isLive,
+      stage
+    });
+    if (localizedCopy) {
+      return localizedCopy;
+    }
+  }
+
   if (!hasConfirmedTeams) {
     return {
       title: `World Cup 2026 ${stage}: Time, Teams & Match Guide | World Cup Simplified`,
@@ -6552,11 +6963,15 @@ function getSeoMatchCopy(match) {
 }
 
 function getSeoStructuredData(metadata, match = null) {
+  const homeSeo =
+    activeAppLocalePack?.helpers?.getSeoHomeCopy?.() ||
+    HOME_SEO[currentLanguage] ||
+    HOME_SEO.en;
   const website = {
     "@type": "WebSite",
-    name: "World Cup Simplified",
+    name: localizeText("World Cup Simplified"),
     url: `${SITE_ORIGIN}/`,
-    description: HOME_SEO.en.description
+    description: homeSeo.description
   };
 
   if (!match) {
@@ -6574,15 +6989,15 @@ function getSeoStructuredData(metadata, match = null) {
     image: SITE_SOCIAL_IMAGE,
     location: {
       "@type": "Place",
-      name: match.venue || "2026 FIFA World Cup venue"
+      name: localizeDisplayText(match.venue || "2026 FIFA World Cup venue")
     }
   };
 
   if (!match.homeTeam?.isSlot) {
-    event.homeTeam = { "@type": "SportsTeam", name: match.homeTeam.name };
+    event.homeTeam = { "@type": "SportsTeam", name: getLocalizedTeamName(match.homeTeam) };
   }
   if (!match.awayTeam?.isSlot) {
-    event.awayTeam = { "@type": "SportsTeam", name: match.awayTeam.name };
+    event.awayTeam = { "@type": "SportsTeam", name: getLocalizedTeamName(match.awayTeam) };
   }
 
   return { "@context": "https://schema.org", "@graph": [website, event] };
@@ -6592,7 +7007,10 @@ function updateSeoMetadataFromUrl() {
   const requestedMatchId = new URLSearchParams(window.location.search).get("match") || "";
   const fixture = getFixtureById(requestedMatchId);
   const match = fixture ? hydrateFixture(fixture) : null;
-  const homeSeo = HOME_SEO[currentLanguage] || HOME_SEO.en;
+  const homeSeo =
+    activeAppLocalePack?.helpers?.getSeoHomeCopy?.() ||
+    HOME_SEO[currentLanguage] ||
+    HOME_SEO.en;
   const matchCopy = match ? getSeoMatchCopy(match) : null;
   const canonicalUrl = getSeoCanonicalUrl(match?.id || "");
   const title = matchCopy?.title || homeSeo.title;
@@ -6600,7 +7018,7 @@ function updateSeoMetadataFromUrl() {
   const metadata = {
     canonicalUrl,
     description,
-    name: matchCopy?.name || "World Cup Simplified",
+    name: matchCopy?.name || localizeText("World Cup Simplified"),
     title
   };
 
@@ -6610,8 +7028,10 @@ function updateSeoMetadataFromUrl() {
   setSeoMetaContent('meta[property="og:url"]', canonicalUrl);
   setSeoMetaContent('meta[property="og:title"]', title);
   setSeoMetaContent('meta[property="og:description"]', description);
+  setSeoMetaContent('meta[property="og:image:alt"]', metadata.name);
   setSeoMetaContent('meta[name="twitter:title"]', title);
   setSeoMetaContent('meta[name="twitter:description"]', description);
+  setSeoMetaContent('meta[name="twitter:image:alt"]', metadata.name);
 
   const structuredData = document.querySelector("#seo-structured-data");
   if (structuredData) {
@@ -6625,29 +7045,41 @@ function getLocalizedStandingName(team) {
 
 let pendingLanguage = "";
 let languageSwitchRequestId = 0;
+let languagePendingIndicatorTimer = 0;
+let isLanguagePendingIndicatorVisible = false;
 
 function renderLanguageControls() {
-  languageSwitch?.setAttribute("aria-label", t("language"));
-  languageSwitch?.classList.toggle("is-pending", Boolean(pendingLanguage));
-  languageSwitch?.setAttribute("aria-busy", String(Boolean(pendingLanguage)));
-  languageButtons.forEach((button) => {
-    const language = normalizeLanguage(button.dataset.language);
-    const isSelected = language === currentLanguage;
-    const isPending = language === pendingLanguage;
-    const isSwitching = Boolean(pendingLanguage);
-    const label = language === "zh" ? t("languageChinese") : t("languageEnglish");
-    button.classList.toggle("is-active", isSelected);
-    button.classList.toggle("is-pending", isPending);
-    button.disabled = isSwitching;
-    button.setAttribute("aria-pressed", String(isSelected));
-    button.setAttribute("aria-busy", String(isPending));
-    button.textContent = language === "zh" ? "中文" : "English";
-    button.setAttribute("aria-label", isPending ? `${label}: ${t("languageSwitching")}` : label);
-  });
+  const isSwitching = Boolean(pendingLanguage);
+  languageControl?.classList.toggle(
+    "is-pending",
+    isSwitching && isLanguagePendingIndicatorVisible
+  );
+  languageControl?.setAttribute("aria-busy", String(isSwitching));
+  if (languageSelect) {
+    languageSelect.value = currentLanguage;
+    languageSelect.disabled = isSwitching;
+    languageSelect.setAttribute("aria-label", t("language"));
+  }
+  if (languageStatus) {
+    languageStatus.textContent =
+      isSwitching && isLanguagePendingIndicatorVisible ? t("languageSwitching") : "";
+  }
 }
 
 function setPendingLanguage(language) {
+  window.clearTimeout(languagePendingIndicatorTimer);
+  languagePendingIndicatorTimer = 0;
   pendingLanguage = normalizeLanguage(language) || "";
+  isLanguagePendingIndicatorVisible = false;
+  if (pendingLanguage) {
+    languagePendingIndicatorTimer = window.setTimeout(() => {
+      languagePendingIndicatorTimer = 0;
+      if (pendingLanguage) {
+        isLanguagePendingIndicatorVisible = true;
+        renderLanguageControls();
+      }
+    }, LANGUAGE_PENDING_INDICATOR_DELAY_MS);
+  }
   renderLanguageControls();
 }
 
@@ -6657,14 +7089,10 @@ function waitForLanguageSpinnerPaint() {
   });
 }
 
-function waitForLanguagePendingMinimum(startedAt) {
-  const elapsed = performance.now() - startedAt;
-  const remaining = Math.max(0, LANGUAGE_SWITCH_PENDING_MIN_MS - elapsed);
-  return new Promise((resolve) => window.setTimeout(resolve, remaining));
-}
-
 function renderStaticText() {
-  document.documentElement.lang = currentLanguage === "zh" ? "zh-Hans" : "en";
+  const languageConfig = getLanguageConfig(currentLanguage);
+  document.documentElement.lang = languageConfig.htmlLang;
+  document.documentElement.dir = languageConfig.direction;
   updateSeoMetadataFromUrl();
   brandHomeLink?.setAttribute("aria-label", t("appHomeLabel"));
   if (brandLabel) {
@@ -6688,6 +7116,15 @@ function renderStaticText() {
   }
   if (settingsLanguageLabel) {
     settingsLanguageLabel.textContent = t("language");
+  }
+  if (settingsReportLabel) {
+    settingsReportLabel.textContent = t("reportIssue");
+  }
+  if (settingsReportLink) {
+    settingsReportLink.href =
+      currentLanguage === DEFAULT_LANGUAGE
+        ? "report.html"
+        : `report.html?lang=${encodeURIComponent(currentLanguage)}`;
   }
   renderLanguageControls();
 
@@ -6721,7 +7158,7 @@ function renderStaticText() {
   datePopover?.setAttribute("aria-label", t("chooseMatchDate"));
   calendarPrevMonth?.setAttribute("aria-label", t("calendarPreviousMonth"));
   calendarNextMonth?.setAttribute("aria-label", t("calendarNextMonth"));
-  calendarYesterdayButton.textContent = t("calendarYesterday");
+  calendarYesterdayButton.textContent = t("calendarPrevious");
   calendarTodayButton.textContent = t("calendarToday");
   calendarWeekdayLabels.forEach((label, index) => {
     label.textContent = t("calendarWeekdays")[index] || label.textContent;
@@ -6753,19 +7190,25 @@ function localizeRenderedText(root = document.body) {
     return;
   }
 
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode(node) {
-      return shouldLocalizeTextNode(node)
-        ? NodeFilter.FILTER_ACCEPT
-        : NodeFilter.FILTER_REJECT;
-    }
-  });
   const textNodes = [];
-  let node = walker.nextNode();
+  if (root.nodeType === Node.TEXT_NODE) {
+    if (shouldLocalizeTextNode(root)) {
+      textNodes.push(root);
+    }
+  } else {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        return shouldLocalizeTextNode(node)
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      }
+    });
+    let node = walker.nextNode();
 
-  while (node) {
-    textNodes.push(node);
-    node = walker.nextNode();
+    while (node) {
+      textNodes.push(node);
+      node = walker.nextNode();
+    }
   }
 
   textNodes.forEach((textNode) => {
@@ -6775,9 +7218,19 @@ function localizeRenderedText(root = document.body) {
     }
   });
 
-  root
-    .querySelectorAll("[aria-label], [title], [placeholder], [data-tooltip]")
-    .forEach((element) => {
+  const attributeElements = [];
+  if (
+    root.nodeType === Node.ELEMENT_NODE &&
+    root.matches("[aria-label], [title], [placeholder], [data-tooltip]")
+  ) {
+    attributeElements.push(root);
+  }
+  attributeElements.push(
+    ...Array.from(
+      root.querySelectorAll?.("[aria-label], [title], [placeholder], [data-tooltip]") || []
+    )
+  );
+  attributeElements.forEach((element) => {
       if (element.closest("#catch-up-list")) {
         return;
       }
@@ -6808,6 +7261,7 @@ let isApplyingLanguage = false;
 let languageObserverFrameId = 0;
 let languageObserverPauseDepth = 0;
 let isLanguageObserverConnected = false;
+const pendingLanguageObserverRoots = new Set();
 
 function cancelPendingLanguageObserverFrame() {
   if (!languageObserverFrameId) {
@@ -6816,6 +7270,7 @@ function cancelPendingLanguageObserverFrame() {
 
   window.cancelAnimationFrame(languageObserverFrameId);
   languageObserverFrameId = 0;
+  pendingLanguageObserverRoots.clear();
 }
 
 function connectLanguageObserver() {
@@ -7162,6 +7617,7 @@ function spawnJuggleBall() {
   juggleToy.fallDistance = fallDistance;
   juggleToy.fallDuration = fallDuration;
   juggleToy.lastFrameTime = 0;
+  clearTransientInteractionState();
   juggleToy.phase = "falling";
   juggleToy.previousX = startX;
   juggleToy.previousY = startY;
@@ -7901,10 +8357,9 @@ function getTimeZoneAbbreviation(timeZone, date = new Date()) {
 }
 
 function getTimeZoneLabel(timeZone) {
-  const label =
-    currentLanguage === "zh"
-      ? zhTimeZoneNames[timeZone] || timeZone.replace(/_/g, " ")
-      : timeZone.replace(/_/g, " ");
+  const label = currentLanguage === "zh"
+    ? zhTimeZoneNames[timeZone] || timeZone.replace(/_/g, " ")
+    : activeAppLocalePack?.entities?.timeZones?.[timeZone] || timeZone.replace(/_/g, " ");
   return `${label} (${getTimeZoneAbbreviation(timeZone)})`;
 }
 
@@ -8232,6 +8687,18 @@ function getMatchCountForDay(dayKey) {
   return getCalendarDayMatchCounts().get(dayKey) || 0;
 }
 
+function getCalendarPreviousShortcutDayKey(todayKey = getDayKey(new Date(), selectedTimeZone)) {
+  return [...getAvailableDayKeys()].reverse().find((dayKey) => dayKey < todayKey) || "";
+}
+
+function getCalendarTodayShortcutDayKey(todayKey = getDayKey(new Date(), selectedTimeZone)) {
+  if (getMatchCountForDay(todayKey) > 0) {
+    return todayKey;
+  }
+
+  return getAvailableDayKeys().find((dayKey) => dayKey > todayKey) || "";
+}
+
 function getSelectedDateLabel() {
   const todayKey = getDayKey(new Date(), selectedTimeZone);
   const selectedYear = selectedDayKey.slice(0, 4);
@@ -8279,7 +8746,6 @@ function renderCalendar() {
   }
 
   const todayKey = getDayKey(new Date(), selectedTimeZone);
-  const yesterdayKey = getRelativeDayKey(todayKey, -1);
   const previousMonthKey = getAdjacentCalendarMonthKey(-1);
   const nextMonthKey = getAdjacentCalendarMonthKey(1);
   const monthDate = getDateFromMonthKey(calendarMonthKey);
@@ -8302,8 +8768,14 @@ function renderCalendar() {
         )
       : localizeText("No next World Cup month")
   );
-  calendarYesterdayButton.disabled = getMatchCountForDay(yesterdayKey) === 0;
-  calendarTodayButton.disabled = getMatchCountForDay(todayKey) === 0;
+  calendarYesterdayButton.textContent = t("calendarPrevious");
+  calendarYesterdayButton.disabled = !getCalendarPreviousShortcutDayKey(todayKey);
+  const todayShortcutDayKey = getCalendarTodayShortcutDayKey(todayKey);
+  calendarTodayButton.textContent =
+    todayShortcutDayKey && todayShortcutDayKey !== todayKey
+      ? localizeText("Up next")
+      : t("calendarToday");
+  calendarTodayButton.disabled = !todayShortcutDayKey;
   calendarGrid.replaceChildren(
     ...getCalendarDayKeys(calendarMonthKey).map((dayKey) => {
       const dayDate = getDateFromKey(dayKey);
@@ -8401,6 +8873,9 @@ function setStandingsYearOpen(isOpen) {
 
   if (isOpen) {
     renderStandingsYearPicker();
+    ensureActiveLocaleContentScope("archive").catch((error) => {
+      console.warn("Unable to prefetch the archive locale", error);
+    });
   }
 }
 
@@ -8440,15 +8915,6 @@ function updateStandingsModeTabIndicator() {
   );
 }
 
-function updateLanguageTabIndicator() {
-  updateTabIndicator(
-    languageSwitch,
-    Array.from(languageButtons).find(
-      (button) => normalizeLanguage(button.dataset.language) === currentLanguage
-    )
-  );
-}
-
 function updateLineupTabIndicators(root = document) {
   const blocks = root?.matches?.(".lineup-preview-block")
     ? [root]
@@ -8464,7 +8930,6 @@ function updateLineupTabIndicators(root = document) {
 function updateTabIndicators() {
   updateViewTabIndicator();
   updateStandingsModeTabIndicator();
-  updateLanguageTabIndicator();
   updateLineupTabIndicators();
 }
 
@@ -8472,20 +8937,33 @@ function queueTabIndicatorUpdate() {
   window.requestAnimationFrame(updateTabIndicators);
 }
 
-function selectStandingsYear(year, options = {}) {
+async function selectStandingsYear(year, options = {}) {
   const nextYear = getValidStandingsYear(year);
+  const nextMode = getValidStandingsMode(
+    selectedStandingsMode,
+    getDefaultStandingsModeForYear(nextYear),
+    nextYear
+  );
+  setStandingsYearOpen(false);
+  if (nextYear !== CURRENT_STANDINGS_YEAR) {
+    try {
+      const didLoadArchiveLocale = await ensureActiveLocaleContentScope("archive");
+      if (!didLoadArchiveLocale) {
+        return false;
+      }
+    } catch (error) {
+      console.warn("Unable to load the archive locale", error);
+      return false;
+    }
+  }
   if (nextYear !== selectedStandingsYear) {
     clearTransientInteractionState();
   }
   selectedStandingsYear = nextYear;
-  selectedStandingsMode = getValidStandingsMode(
-    selectedStandingsMode,
-    getDefaultStandingsModeForYear(selectedStandingsYear),
-    selectedStandingsYear
-  );
-  setStandingsYearOpen(false);
+  selectedStandingsMode = nextMode;
   renderStandingsView();
   updateUrlState(options);
+  return true;
 }
 
 function selectStandingsMode(mode, options = {}) {
@@ -8586,7 +9064,9 @@ function renderFlag(team) {
   const content = team.flagClass ? "" : escapeHtml(team.flag);
   const teamName = getLocalizedTeamName(team);
   const label =
-    currentLanguage === "zh" ? `${teamName} 旗帜` : `${teamName} flag`;
+    currentLanguage === "zh"
+      ? `${teamName} 旗帜`
+      : formatActiveLocaleMessage("flag-label", { teamName }, `${teamName} flag`);
   return `<span class="${escapeHtml(className)}" role="img" aria-label="${escapeHtml(label)}">${content}</span>`;
 }
 
@@ -8596,12 +9076,30 @@ function renderRank(team) {
   }
 
   const teamName = getLocalizedTeamName(team);
+  const rankingYear = Number.isInteger(fifaRankingYear) ? fifaRankingYear : null;
+  const rankingYearSuffix = rankingYear ? ` (${rankingYear})` : "";
   const label =
     currentLanguage === "zh"
-      ? `${teamName} FIFA世界排名 ${team.fifaRank}`
-      : `${teamName} FIFA world ranking ${team.fifaRank}`;
-  const tooltip = localizeText("FIFA world ranking used for this 2026 tournament view.");
-  const ariaLabel = currentLanguage === "zh" ? `${label}。${tooltip}` : `${label}. ${tooltip}`;
+      ? `${teamName} FIFA世界排名 ${team.fifaRank}${rankingYear ? `（${rankingYear}）` : ""}`
+      : formatActiveLocaleMessage(
+          "rank-label",
+          { rank: team.fifaRank, teamName, year: rankingYear },
+          `${teamName} FIFA world ranking ${team.fifaRank}${rankingYearSuffix}`
+        );
+  const tooltip =
+    currentLanguage === "zh" && rankingYear
+      ? `此处为本${rankingYear}赛事视图使用的FIFA世界排名。`
+      : formatActiveLocaleMessage(
+          "rank-tooltip",
+          { year: rankingYear },
+          rankingYear
+            ? `FIFA world ranking used for this ${rankingYear} tournament view.`
+            : "FIFA world ranking used for this tournament view."
+        );
+  const ariaLabel =
+    currentLanguage === "zh"
+      ? `${label}。${tooltip}`
+      : formatActiveLocaleMessage("rank-aria", { label, tooltip }, `${label}. ${tooltip}`);
   return `<span class="rank-pill" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" data-tooltip="${escapeHtml(tooltip)}">#${escapeHtml(team.fifaRank)}</span>`;
 }
 
@@ -9336,8 +9834,19 @@ function getVenueLabel(match) {
     return location ? `${venue} \u2022 ${location}` : venue;
   }
 
-  const location = venueLocations[match.venue];
-  return location ? `${match.venue} \u2022 ${location}` : match.venue;
+  const historicalVenue =
+    activeLocaleContentEntities.historicalVenues?.[match.venue];
+  if (historicalVenue) {
+    return historicalVenue;
+  }
+
+  const venue =
+    activeAppLocalePack?.entities?.venueNames?.[match.venue] ||
+    localizeDisplayText(match.venue);
+  const location =
+    activeAppLocalePack?.entities?.venueLocations?.[match.venue] ||
+    localizeDisplayText(venueLocations[match.venue] || "");
+  return location ? `${venue} \u2022 ${location}` : venue;
 }
 
 function getTournamentVenueLabel(match) {
@@ -9349,9 +9858,14 @@ function getTournamentVenueLabel(match) {
     return zhVenueLocations[match.venue] || localizeHistoricalVenueText(venueLocations[match.venue] || match.venue);
   }
 
-  const location = venueLocations[match.venue];
+  const location =
+    activeAppLocalePack?.entities?.venueLocations?.[match.venue] ||
+    localizeDisplayText(venueLocations[match.venue] || "");
   if (!location) {
-    return match.venue;
+    return (
+      activeAppLocalePack?.entities?.venueNames?.[match.venue] ||
+      localizeDisplayText(match.venue)
+    );
   }
 
   const locationParts = location.split(",").map((part) => part.trim()).filter(Boolean);
@@ -9602,7 +10116,11 @@ function formatOfficialMatchTimeLabel(value, addedTime = null, phase = "") {
     addedMinutes > 0 &&
     ["First half", "Second half"].includes(matchPhase)
   ) {
-    return `${matchTime} (+${addedMinutes} added)`;
+    return formatActiveLocaleMessage(
+      "official-added-time",
+      { addedMinutes, matchTime },
+      `${matchTime} (+${addedMinutes} added)`
+    );
   }
 
   if (matchTime && matchPhase === "Extra time") {
@@ -9694,7 +10212,11 @@ function getOfficialMatchTimeSnapshotTooltip(match) {
 
   return currentLanguage === "zh"
     ? `FIFA快照：${snapshotLabel} · ${freshness}核验`
-    : `FIFA snapshot: ${snapshotLabel} · checked ${freshness}`;
+    : formatActiveLocaleMessage(
+        "fifa-snapshot",
+        { freshness, snapshotLabel },
+        `FIFA snapshot: ${snapshotLabel} · checked ${freshness}`
+      );
 }
 
 function getMatchScoreOutcomeSide(match, score) {
@@ -9733,12 +10255,20 @@ function getMatchScoreAriaLabel(match, label, home, away, score, freshness = "",
   const penaltyLabel = penaltyText
     ? currentLanguage === "zh"
       ? `，点球 ${penaltyText}`
-      : `, penalties ${penaltyText}`
+      : formatActiveLocaleMessage(
+          "score-penalties-suffix",
+          { penaltyText },
+          `, penalties ${penaltyText}`
+        )
     : "";
   const freshnessLabel = freshness
     ? currentLanguage === "zh"
       ? `，最后检查 ${freshness}`
-      : `, last checked ${freshness}`
+      : formatActiveLocaleMessage(
+          "score-freshness-suffix",
+          { freshness },
+          `, last checked ${freshness}`
+        )
     : "";
 
   return `${label} ${home} ${score.home}, ${away} ${score.away}${penaltyLabel}${freshnessLabel}`;
@@ -9799,7 +10329,11 @@ function renderScoreStatus(match, state, currentTime) {
   const ariaLabel =
     currentLanguage === "zh"
       ? `${pendingText}；已核验比分尚未载入`
-      : `${pendingText}; verified score is not loaded yet`;
+      : formatActiveLocaleMessage(
+          "score-pending-aria",
+          { pendingText },
+          `${pendingText}; verified score is not loaded yet`
+        );
   return pendingText
     ? `<span class="score-status is-pending" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(pendingText)}</span>`
     : "";
@@ -9811,11 +10345,11 @@ function getLivePillAttributes(match, options = {}) {
   const ariaLabel = tooltip
     ? currentLanguage === "zh"
       ? `直播：${tooltip}`
-      : `Live: ${tooltip}`
+      : formatActiveLocaleMessage("live-aria", { detail: tooltip }, `Live: ${tooltip}`)
     : positionLabel
       ? currentLanguage === "zh"
         ? `直播：${positionLabel}`
-        : `Live: ${positionLabel}`
+        : formatActiveLocaleMessage("live-aria", { detail: positionLabel }, `Live: ${positionLabel}`)
     : localizeText("Live");
   const interactionAttributes = tooltip && options.focusable !== false ? ` role="button" tabindex="0"` : "";
   const tooltipAttributes = tooltip
@@ -9908,7 +10442,11 @@ function getMatchTimeAriaLabel(match) {
   const timeLabel = getMatchTimeLabel(match);
   const hasExplicitTimeZone = /\b(?:local|UTC|GMT)\b/i.test(timeLabel);
   return match.isHistorical && match.localTime && timeLabel && !hasExplicitTimeZone
-    ? `${timeLabel} ${localizeText("local")}`
+    ? formatActiveLocaleMessage(
+        "historical-local-clock",
+        { timeText: timeLabel },
+        `${timeLabel} ${localizeText("local")}`
+      )
     : timeLabel;
 }
 
@@ -9985,15 +10523,20 @@ function getOfficialMatchSnapshotAriaLabel(match) {
     return `${timeLabel}${addedTimeLabel}${phaseLabel}`;
   }
 
-  const timeLabel = stoppageMinute
-    ? `${formatOrdinal(minute)} minute plus ${stoppageMinute}`
-    : `${formatOrdinal(minute)} minute`;
-  const addedTimeLabel =
-    !stoppageMinute && Number.isInteger(addedTime) && addedTime > 0
-      ? `, ${addedTime} minutes of added time announced`
-      : "";
-  const phaseLabel = phase === "Extra time" ? `, ${phase}` : "";
-  return `${timeLabel}${addedTimeLabel}${phaseLabel}`;
+  return formatActiveLocaleMessage(
+    "official-minute",
+    {
+      addedTime: Number.isInteger(addedTime) ? addedTime : 0,
+      minute,
+      phase,
+      stoppageMinute: Number.isInteger(stoppageMinute) ? stoppageMinute : 0
+    },
+    `${stoppageMinute ? `${formatOrdinal(minute)} minute plus ${stoppageMinute}` : `${formatOrdinal(minute)} minute`}${
+      !stoppageMinute && Number.isInteger(addedTime) && addedTime > 0
+        ? `, ${addedTime} minutes of added time announced`
+        : ""
+    }${phase === "Extra time" ? `, ${phase}` : ""}`
+  );
 }
 
 function getMatchOutcomeAriaLabel(match, score, displayTeams) {
@@ -10005,17 +10548,37 @@ function getMatchOutcomeAriaLabel(match, score, displayTeams) {
   if (winnerSide) {
     const winnerName = getLocalizedTeamName(displayTeams?.[winnerSide]);
     if (match.scoreDetails?.penalties) {
-      return currentLanguage === "zh" ? `${winnerName}点球获胜` : `${winnerName} won on penalties`;
+      return currentLanguage === "zh"
+        ? `${winnerName}点球获胜`
+        : formatActiveLocaleMessage(
+            "match-outcome",
+            { kind: "penalties", winnerName },
+            `${winnerName} won on penalties`
+          );
     }
 
-    return currentLanguage === "zh" ? `${winnerName}获胜` : `${winnerName} won`;
+    return currentLanguage === "zh"
+      ? `${winnerName}获胜`
+      : formatActiveLocaleMessage(
+          "match-outcome",
+          { kind: "winner", winnerName },
+          `${winnerName} won`
+        );
   }
 
   if (isKnockoutResultMatch(match)) {
-    return currentLanguage === "zh" ? "淘汰赛胜者尚未载入" : "Knockout winner not loaded";
+    return currentLanguage === "zh"
+      ? "淘汰赛胜者尚未载入"
+      : formatActiveLocaleMessage(
+          "match-outcome",
+          { kind: "knockout-pending" },
+          "Knockout winner not loaded"
+        );
   }
 
-  return currentLanguage === "zh" ? "平局" : "Draw";
+  return currentLanguage === "zh"
+    ? "平局"
+    : formatActiveLocaleMessage("match-outcome", { kind: "draw" }, "Draw");
 }
 
 function getMatchAccessibilityScore(score) {
@@ -10065,14 +10628,31 @@ function getLiveMatchAccessibilityScoreText(snapshot) {
   const scoreText =
     currentLanguage === "zh"
       ? `${snapshot.home}${snapshot.score.home}，${snapshot.away}${snapshot.score.away}`
-      : `${snapshot.home} ${snapshot.score.home}, ${snapshot.away} ${snapshot.score.away}`;
+      : formatActiveLocaleMessage(
+          "accessibility-score",
+          {
+            away: snapshot.away,
+            awayScore: snapshot.score.away,
+            home: snapshot.home,
+            homeScore: snapshot.score.home
+          },
+          `${snapshot.home} ${snapshot.score.home}, ${snapshot.away} ${snapshot.score.away}`
+        );
   if (!snapshot.penalties) {
     return scoreText;
   }
 
   return currentLanguage === "zh"
     ? `${scoreText}，点球${snapshot.penalties.home}比${snapshot.penalties.away}`
-    : `${scoreText}, penalties ${snapshot.penalties.home} to ${snapshot.penalties.away}`;
+    : formatActiveLocaleMessage(
+        "accessibility-penalties",
+        {
+          awayPenalties: snapshot.penalties.away,
+          homePenalties: snapshot.penalties.home,
+          scoreText
+        },
+        `${scoreText}, penalties ${snapshot.penalties.home} to ${snapshot.penalties.away}`
+      );
 }
 
 function getLiveMatchAccessibilityOutcomeText(snapshot) {
@@ -10082,10 +10662,22 @@ function getLiveMatchAccessibilityOutcomeText(snapshot) {
 
   const winnerName = snapshot[snapshot.winnerSide];
   if (snapshot.penalties) {
-    return currentLanguage === "zh" ? `${winnerName}点球获胜` : `${winnerName} won on penalties`;
+    return currentLanguage === "zh"
+      ? `${winnerName}点球获胜`
+      : formatActiveLocaleMessage(
+          "match-outcome",
+          { kind: "penalties", winnerName },
+          `${winnerName} won on penalties`
+        );
   }
 
-  return currentLanguage === "zh" ? `${winnerName}获胜` : `${winnerName} won`;
+  return currentLanguage === "zh"
+    ? `${winnerName}获胜`
+    : formatActiveLocaleMessage(
+        "match-outcome",
+        { kind: "winner", winnerName },
+        `${winnerName} won`
+      );
 }
 
 function getLiveMatchAccessibilityAnnouncement(kind, snapshot) {
@@ -10126,6 +10718,22 @@ function getLiveMatchAccessibilityAnnouncement(kind, snapshot) {
         ? `${localizeText(snapshot.phase)}：${scoreSentence}`
         : `${localizeText(snapshot.phase)}：${matchupText}。`;
     }
+  }
+
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return formatActiveLocaleMessage(
+      "accessibility-announcement",
+      {
+        home: snapshot.home,
+        away: snapshot.away,
+        kind,
+        outcomeText:
+          kind === "final" ? getLiveMatchAccessibilityOutcomeText(snapshot) : "",
+        phase: snapshot.phase,
+        scoreText
+      },
+      ""
+    );
   }
 
   if (kind === "started") {
@@ -10279,7 +10887,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         : state === "delayed"
           ? `${localizeText("Delayed")}, `
           : ["FT", "AET", "PEN"].includes(match.status)
-            ? `${currentLanguage === "zh" ? "全场结束" : "Final"}, `
+            ? `${currentLanguage === "zh"
+                ? "全场结束"
+                : formatActiveLocaleMessage("full-time-prefix", {}, localizeText("Final"))}, `
             : "";
   const statusLabel =
     match.status === "CANCELLED"
@@ -10327,9 +10937,15 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
   `;
 
-  row.addEventListener("pointerenter", (event) => {
-    if (!isRestoringHistoryState && shouldPreviewMatchInfoOnHover(event)) {
-      renderMatchInfo(match);
+  row.addEventListener("pointermove", (event) => {
+    if (
+      !isRestoringHistoryState &&
+      activeMatchId !== match.id &&
+      shouldPreviewMatchInfoOnHover(event)
+    ) {
+      void renderMatchInfoWhenLocaleReady(match, {
+        shouldRender: () => row.matches(":hover")
+      });
     }
   });
   row.addEventListener("focusin", (event) => {
@@ -10338,10 +10954,12 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
     }
 
     if (syncUrl && !isRestoringHistoryState) {
-      renderMatchInfo(match);
+      void renderMatchInfoWhenLocaleReady(match, {
+        shouldRender: () => row.contains(document.activeElement)
+      });
     }
   });
-  row.addEventListener("click", (event) => {
+  row.addEventListener("click", async (event) => {
     const targetElement = getEventTargetElement(event.target);
 
     if (targetElement?.closest("a")) {
@@ -10353,8 +10971,13 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
       return;
     }
 
-    renderMatchInfo(match, { commit: true, reveal: true });
-    updateUrlState({ historyMode: "push" });
+    const didRender = await renderMatchInfoWhenLocaleReady(match, {
+      commit: true,
+      reveal: true
+    });
+    if (didRender) {
+      updateUrlState({ historyMode: "push" });
+    }
   });
 
   return row;
@@ -10389,6 +11012,11 @@ function formatOrdinal(value) {
             : "th";
 
   return `${number}${suffix}`;
+}
+
+function formatLocalizedOrdinal(value) {
+  const fallback = formatOrdinal(value);
+  return formatActiveLocaleMessage("ordinal", { value: Number(value) }, fallback);
 }
 
 function getTournamentFormatNumber(keys, fallback) {
@@ -11416,7 +12044,12 @@ function renderStandingTeam(team, options = {}) {
 
 function renderThirdPlaceStandingBadge(candidate) {
   const status = candidate.status || getThirdPlaceStatus(candidate, getThirdPlaceAdvancerCount());
-  const rankLabel = formatOrdinal(candidate.position);
+  const rankLabel = formatLocalizedOrdinal(candidate.position);
+  const raceLabel = formatActiveLocaleMessage(
+    "third-place-race-rank",
+    { rank: rankLabel },
+    localizeText(`3rd race ${rankLabel}`)
+  );
   const isAdvancing = status.label === "Advancing";
   const statusLabel = localizeText(isAdvancing ? "Advancing" : "Not advancing");
   const reason = localizeMultilineText(
@@ -11426,12 +12059,12 @@ function renderThirdPlaceStandingBadge(candidate) {
   );
   const label =
     currentLanguage === "zh"
-      ? `${getLocalizedTeamName(candidate.team)} ${localizeText(`3rd race ${rankLabel}`)}：${statusLabel}。${reason}`
-      : `${getLocalizedTeamName(candidate.team)} ${localizeText(`3rd race ${rankLabel}`)}: ${statusLabel}. ${reason}`;
+      ? `${getLocalizedTeamName(candidate.team)} ${raceLabel}：${statusLabel}。${reason}`
+      : `${getLocalizedTeamName(candidate.team)} ${raceLabel}: ${statusLabel}. ${reason}`;
 
   return `
     <span class="third-place-pill is-${escapeHtml(status.kind)}" tabindex="0" aria-label="${escapeHtml(label)}" data-tooltip="${escapeHtml(reason)}">
-      ${escapeHtml(localizeText(`3rd race ${rankLabel}`))}
+      ${escapeHtml(raceLabel)}
     </span>
   `;
 }
@@ -12019,7 +12652,7 @@ function renderThirdPlaceRaceRow(candidate) {
 
   return `
     <tr class="${escapeHtml(rowClasses)}">
-      <td class="third-place-rank-cell">${escapeHtml(formatOrdinal(candidate.position))}</td>
+      <td class="third-place-rank-cell">${escapeHtml(formatLocalizedOrdinal(candidate.position))}</td>
       <td>${renderStandingTeam(candidate.team)}</td>
       <td>
         <button class="third-place-group-button" type="button" data-group-id="${escapeHtml(candidate.groupId)}" aria-label="${escapeHtml(localizeText(`Open ${candidate.groupLabel} standings`))}">
@@ -12138,7 +12771,7 @@ function getTournamentStageLabel(stageId) {
 }
 
 function localizeStageLabel(label) {
-  if (currentLanguage !== "zh") {
+  if (currentLanguage === "en") {
     return label;
   }
 
@@ -12146,6 +12779,10 @@ function localizeStageLabel(label) {
 
   if (finalGroupStageMatch) {
     return `${localizeText(finalGroupStageMatch[1])} ${localizeText(finalGroupStageMatch[2])}`;
+  }
+
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return activeAppLocalePack?.helpers?.translateStageLabel?.(label) || localizeText(label);
   }
 
   return (
@@ -12644,13 +13281,14 @@ function getTournamentOutcomeBasisLabel(basis) {
         : "暂无可验证预测";
   }
 
-  return basis === "loaded"
+  const english = basis === "loaded"
     ? "loaded match projection"
     : basis === "conditional-model"
       ? "online-calibrated conditional forecast"
-    : basis === "conditional-online"
-      ? "conditional forecast from Opta and current markets"
-      : "no verified forecast loaded";
+      : basis === "conditional-online"
+        ? "conditional forecast from Opta and current markets"
+        : "no verified forecast loaded";
+  return formatActiveLocaleMessage("tournament-basis", { basis }, english);
 }
 
 function getTournamentPenaltyEdgeSide(participants, percents) {
@@ -12695,7 +13333,16 @@ function getTournamentOutcomeTeamReason(match, participants, side, percent, basi
       return `若这组预测对阵成为${match?.stage === "bronze-final" ? "季军赛" : "决赛"}，${teamName}常规时间取胜概率约为${percent}%。条件模型综合Opta与市场、赛事表现和排名；对阵确定后改用直接赔率。`;
     }
 
-    return `${teamName}: ${percent}% to win in regulation if this projected ${matchupLabel} is confirmed. Online-calibrated from Opta and markets, tournament form, and ranking; direct odds replace it once set.`;
+    return formatActiveLocaleMessage(
+      "tournament-team-reason",
+      {
+        matchupLabel: localizeText(matchupLabel),
+        percent,
+        teamName,
+        variant: "conditional-model"
+      },
+      `${teamName}: ${percent}% to win in regulation if this projected ${matchupLabel} is confirmed. Online-calibrated from Opta and markets, tournament form, and ranking; direct odds replace it once set.`
+    );
   }
 
   if (basis === "conditional-online") {
@@ -12703,7 +13350,11 @@ function getTournamentOutcomeTeamReason(match, participants, side, percent, basi
       return `如果这组预测对阵成为决赛，${teamName}夺冠的条件概率约为${percent}%，包括加时赛和点球大战。预测综合Opta与当前市场数据。`;
     }
 
-    return `${teamName} have a ${percent}% chance to win the final if this projected matchup is confirmed, including extra time and penalties. Conditional forecast from Opta and current markets.`;
+    return formatActiveLocaleMessage(
+      "tournament-team-reason",
+      { percent, teamName, variant: "conditional-online" },
+      `${teamName} have a ${percent}% chance to win the final if this projected matchup is confirmed, including extra time and penalties. Conditional forecast from Opta and current markets.`
+    );
   }
 
   if (currentLanguage === "zh") {
@@ -12717,12 +13368,24 @@ function getTournamentOutcomeTeamReason(match, participants, side, percent, basi
   }
 
   if (side === favoriteSide) {
-    return `${teamName} have a ${percent}% chance to win in regulation.`;
+    return formatActiveLocaleMessage(
+      "tournament-team-reason",
+      { percent, teamName, variant: "favorite" },
+      `${teamName} have a ${percent}% chance to win in regulation.`
+    );
   }
 
   return favoriteGap <= 5
-    ? `${teamName} have a ${percent}% chance to win in regulation. This is close, but ${favoriteName} have the slight edge.`
-    : `${teamName} have a ${percent}% chance to win in regulation. They can still win, but ${favoriteName} are favored.`;
+    ? formatActiveLocaleMessage(
+        "tournament-team-reason",
+        { favoriteName, percent, teamName, variant: "close-underdog" },
+        `${teamName} have a ${percent}% chance to win in regulation. This is close, but ${favoriteName} have the slight edge.`
+      )
+    : formatActiveLocaleMessage(
+        "tournament-team-reason",
+        { favoriteName, percent, teamName, variant: "underdog" },
+        `${teamName} have a ${percent}% chance to win in regulation. They can still win, but ${favoriteName} are favored.`
+      );
 }
 
 function getTournamentShootoutHistoryRecord(match, participants, side) {
@@ -12763,11 +13426,14 @@ function formatWorldCupShootoutHistoryReason(homeName, awayName, home, away) {
   const awayWins = Number(away?.wins) || 0;
   const homeAppearances = Number(home?.appearances) || 0;
   const awayAppearances = Number(away?.appearances) || 0;
+  const formatLocalized =
+    activeAppLocalePack?.helpers?.formatWorldCupShootoutHistory;
 
   if (!homeAppearances && !awayAppearances) {
     return currentLanguage === "zh"
       ? `如果进入点球大战，这将是${homeName}与${awayName}首次参加世界杯点球大战。`
-      : `If it goes to penalties, it would be a first World Cup shootout for both ${homeName} and ${awayName}.`;
+      : formatLocalized?.("both-new", { homeName, awayName }) ||
+          `If it goes to penalties, it would be a first World Cup shootout for both ${homeName} and ${awayName}.`;
   }
 
   if (!homeAppearances || !awayAppearances) {
@@ -12780,18 +13446,35 @@ function formatWorldCupShootoutHistoryReason(homeName, awayName, home, away) {
     if (!wins) {
       return currentLanguage === "zh"
         ? `如果进入点球大战，${newName}将首次参赛；${experiencedName}此前${appearances}次世界杯点球大战仍未取胜。`
-        : `If it goes to penalties, it would be ${newName}'s first; ${experiencedName} are still seeking a win after ${appearances} World Cup shootout${appearances === 1 ? "" : "s"}.`;
+        : formatLocalized?.("one-new-winless", {
+            appearances,
+            experiencedName,
+            newName
+          }) ||
+            `If it goes to penalties, it would be ${newName}'s first; ${experiencedName} are still seeking a win after ${appearances} World Cup shootout${appearances === 1 ? "" : "s"}.`;
     }
 
     return currentLanguage === "zh"
       ? `如果进入点球大战，${experiencedName}拥有${appearances}次世界杯点球大战${wins}胜的经验；${newName}将首次参赛。`
-      : `If it goes to penalties, ${experiencedName} bring ${wins} win${wins === 1 ? "" : "s"} from ${appearances} World Cup shootout${appearances === 1 ? "" : "s"}; it would be ${newName}'s first.`;
+      : formatLocalized?.("one-new-experienced", {
+          appearances,
+          experiencedName,
+          newName,
+          wins
+        }) ||
+          `If it goes to penalties, ${experiencedName} bring ${wins} win${wins === 1 ? "" : "s"} from ${appearances} World Cup shootout${appearances === 1 ? "" : "s"}; it would be ${newName}'s first.`;
   }
 
   if (!homeWins && !awayWins) {
     return currentLanguage === "zh"
       ? `如果进入点球大战，两队都将争取世界杯点球大战首胜：${homeName}此前${homeAppearances}次未胜，${awayName}${awayAppearances}次未胜。`
-      : `If it goes to penalties, both are chasing a first World Cup shootout win: ${homeName} have tried ${homeAppearances} time${homeAppearances === 1 ? "" : "s"}, ${awayName} ${awayAppearances}.`;
+      : formatLocalized?.("both-winless", {
+          awayAppearances,
+          awayName,
+          homeAppearances,
+          homeName
+        }) ||
+          `If it goes to penalties, both are chasing a first World Cup shootout win: ${homeName} have tried ${homeAppearances} time${homeAppearances === 1 ? "" : "s"}, ${awayName} ${awayAppearances}.`;
   }
 
   const homeRate = homeWins / homeAppearances;
@@ -12799,7 +13482,13 @@ function formatWorldCupShootoutHistoryReason(homeName, awayName, home, away) {
   if (homeWins === awayWins && homeAppearances === awayAppearances) {
     return currentLanguage === "zh"
       ? `如果进入点球大战，${homeName}与${awayName}的世界杯点球大战记录相同，都是${homeAppearances}次${homeWins}胜。`
-      : `If it goes to penalties, ${homeName} and ${awayName} share a World Cup shootout record of ${homeWins} win${homeWins === 1 ? "" : "s"} in ${homeAppearances}.`;
+      : formatLocalized?.("same-record", {
+          appearances: homeAppearances,
+          awayName,
+          homeName,
+          wins: homeWins
+        }) ||
+          `If it goes to penalties, ${homeName} and ${awayName} share a World Cup shootout record of ${homeWins} win${homeWins === 1 ? "" : "s"} in ${homeAppearances}.`;
   }
 
   const leanSide = homeRate === awayRate ? (homeAppearances > awayAppearances ? "home" : "away") : homeRate > awayRate ? "home" : "away";
@@ -12813,7 +13502,16 @@ function formatWorldCupShootoutHistoryReason(homeName, awayName, home, away) {
 
   return currentLanguage === "zh"
     ? `如果进入点球大战，${leanName}可能略占${edgeType === "experience" ? "经验" : "历史战绩"}优势：世界杯点球大战${leanAppearances}次${leanWins}胜，${otherName}则是${otherAppearances}次${otherWins}胜。`
-    : `If it goes to penalties, ${leanName} may have a slight ${edgeType} edge: ${leanWins} win${leanWins === 1 ? "" : "s"} in ${leanAppearances} World Cup shootout${leanAppearances === 1 ? "" : "s"}, compared with ${otherWins} in ${otherAppearances} for ${otherName}.`;
+    : formatLocalized?.("edge", {
+        edgeType,
+        leanAppearances,
+        leanName,
+        leanWins,
+        otherAppearances,
+        otherName,
+        otherWins
+      }) ||
+        `If it goes to penalties, ${leanName} may have a slight ${edgeType} edge: ${leanWins} win${leanWins === 1 ? "" : "s"} in ${leanAppearances} World Cup shootout${leanAppearances === 1 ? "" : "s"}, compared with ${otherWins} in ${otherAppearances} for ${otherName}.`;
 }
 
 function getTournamentShootoutHistoryReason(match, participants) {
@@ -12846,15 +13544,31 @@ function getTournamentSourcedShootoutReason(match, participants) {
     );
     const goalkeeperName = currentLanguage === "zh"
       ? translateTextToZh(goalkeeperRecord.player) || goalkeeperRecord.player
-      : goalkeeperRecord.player;
+      : currentLanguage === "en"
+        ? goalkeeperRecord.player
+        : localizeDisplayText(goalkeeperRecord.player);
     const takerName = currentLanguage === "zh"
       ? translateTextToZh(takerRecord.player) || takerRecord.player
-      : String(takerRecord.player || "").split(" ").at(-1);
+      : currentLanguage === "en"
+        ? String(takerRecord.player || "").split(" ").at(-1)
+        : localizeDisplayText(takerRecord.player);
     const conversion = Math.round((Number(takerRecord.scored) / Number(takerRecord.taken)) * 100);
 
     return currentLanguage === "zh"
       ? `如果进入点球大战，${teamName}可能略占优势：${goalkeeperName}面对${goalkeeperRecord.faced}次点球大战罚球扑出${goalkeeperRecord.saved}次，其中${goalkeeperRecord.highlightSaved}次来自2023年决赛；${takerName}职业生涯点球命中率为${conversion}%。`
-      : `If it goes to penalties, ${teamName} may have a slight edge: ${goalkeeperName} has saved ${goalkeeperRecord.saved} of ${goalkeeperRecord.faced} shootout kicks—${goalkeeperRecord.highlightSaved} in the 2023 final—and ${takerName} converts ${conversion}% of career penalties.`;
+      : activeAppLocalePack?.helpers?.formatSourcedShootoutReason?.(
+          "goalkeeper-taker",
+          {
+            conversion,
+            faced: goalkeeperRecord.faced,
+            goalkeeperName,
+            highlightSaved: goalkeeperRecord.highlightSaved,
+            saved: goalkeeperRecord.saved,
+            takerName,
+            teamName
+          }
+        ) ||
+          `If it goes to penalties, ${teamName} may have a slight edge: ${goalkeeperName} has saved ${goalkeeperRecord.saved} of ${goalkeeperRecord.faced} shootout kicks—${goalkeeperRecord.highlightSaved} in the 2023 final—and ${takerName} converts ${conversion}% of career penalties.`;
   }
 
   const teamRecord = evidence.find((entry) => entry?.type === "team-world-cup-shootout-record");
@@ -12865,10 +13579,21 @@ function getTournamentSourcedShootoutReason(match, participants) {
     );
     const goalkeeperName = currentLanguage === "zh"
       ? translateTextToZh(unbeatenKeeper.player) || unbeatenKeeper.player
-      : unbeatenKeeper.player;
+      : currentLanguage === "en"
+        ? unbeatenKeeper.player
+        : localizeDisplayText(unbeatenKeeper.player);
     return currentLanguage === "zh"
       ? `如果进入点球大战，${teamName}可能略占优势：他们在${teamRecord.appearances}次世界杯点球大战中赢下${teamRecord.wins}次，而${goalkeeperName}代表国家队参加点球大战从未失利。`
-      : `If it goes to penalties, ${teamName} may have a slight edge: they have won ${teamRecord.wins} of ${teamRecord.appearances} World Cup shootouts, and ${goalkeeperName} has never lost one for his country.`;
+      : activeAppLocalePack?.helpers?.formatSourcedShootoutReason?.(
+          "team-unbeaten-keeper",
+          {
+            appearances: teamRecord.appearances,
+            goalkeeperName,
+            teamName,
+            wins: teamRecord.wins
+          }
+        ) ||
+          `If it goes to penalties, ${teamName} may have a slight edge: they have won ${teamRecord.wins} of ${teamRecord.appearances} World Cup shootouts, and ${goalkeeperName} has never lost one for his country.`;
   }
 
   return "";
@@ -12899,7 +13624,11 @@ function getTournamentShootoutReason(match, participants) {
   if (!matchesParticipants || !Number.isFinite(homePercent) || !Number.isFinite(awayPercent)) {
     return currentLanguage === "zh"
       ? "若120分钟后仍战平，比赛将进入点球大战。"
-      : "If it is still tied after 120 minutes, the match goes to a penalty shootout.";
+      : formatActiveLocaleMessage(
+          "shootout-default",
+          {},
+          "If it is still tied after 120 minutes, the match goes to a penalty shootout."
+        );
   }
 
   const homeName = getTournamentTeamDisplayName(homeTeam);
@@ -12908,7 +13637,11 @@ function getTournamentShootoutReason(match, participants) {
   if (Math.abs(homePercent - awayPercent) < 4) {
     return currentLanguage === "zh"
       ? `若120分钟后仍战平，最新点球市场认为${homeName}与${awayName}之间没有明显优势。`
-      : `If it is still tied after 120 minutes, the shootout market sees no clear edge between ${homeName} and ${awayName}.`;
+      : formatActiveLocaleMessage(
+          "shootout-even",
+          { awayName, homeName },
+          `If it is still tied after 120 minutes, the shootout market sees no clear edge between ${homeName} and ${awayName}.`
+        );
   }
 
   const edgeSide = homePercent > awayPercent ? "home" : "away";
@@ -12917,7 +13650,11 @@ function getTournamentShootoutReason(match, participants) {
 
   return currentLanguage === "zh"
     ? `若120分钟后仍战平，最新点球市场认为${edgeName}略占优势，概率约为${edgePercent}%。`
-    : `If it is still tied after 120 minutes, the shootout market gives ${edgeName} a slight edge at ${edgePercent}%.`;
+    : formatActiveLocaleMessage(
+        "shootout-edge",
+        { edgeName, edgePercent },
+        `If it is still tied after 120 minutes, the shootout market gives ${edgeName} a slight edge at ${edgePercent}%.`
+      );
 }
 
 function getTournamentOutcomeTieReason(match, participants, percents, basis) {
@@ -12933,7 +13670,11 @@ function getTournamentOutcomeTieReason(match, participants, percents, basis) {
 
   return isKnockout
     ? shootoutReason
-    : `There is a ${tiePercent}% chance the match is tied after regulation. Group matches end as a tie.`;
+    : formatActiveLocaleMessage(
+        "group-tie-reason",
+        { tiePercent },
+        `There is a ${tiePercent}% chance the match is tied after regulation. Group matches end as a tie.`
+      );
 }
 
 function cloneTournamentStandingStates(states) {
@@ -13254,20 +13995,44 @@ function getTournamentSlotOdds(slot, context) {
 }
 
 function getTournamentLikelihoodReason(favorite, other, percent) {
-  const favoriteName = getStandingName(favorite);
-  const otherName = getStandingName(other);
+  const shouldUseActiveLocaleNames = currentLanguage === "es" || currentLanguage === "ko";
+  const favoriteName = shouldUseActiveLocaleNames
+    ? getLocalizedStandingName(favorite)
+    : getStandingName(favorite);
+  const otherName = shouldUseActiveLocaleNames
+    ? getLocalizedStandingName(other)
+    : getStandingName(other);
   const favoriteRank = getFifaRankValue(favorite);
   const otherRank = getFifaRankValue(other);
 
   if (Number.isFinite(favoriteRank) && Number.isFinite(otherRank)) {
     if (favoriteRank === otherRank) {
-      return `${favoriteName} and ${otherName} are close in FIFA rank. Rough ${percent}%.`;
+      return formatActiveLocaleMessage(
+        "tournament-likelihood",
+        { favoriteName, otherName, percent, variant: "rank-close" },
+        `${favoriteName} and ${otherName} are close in FIFA rank. Rough ${percent}%.`
+      );
     }
 
-    return `${favoriteName} have the stronger FIFA rank (#${favoriteRank} vs #${otherRank}). Rough ${percent}%.`;
+    return formatActiveLocaleMessage(
+      "tournament-likelihood",
+      {
+        favoriteName,
+        favoriteRank,
+        otherName,
+        otherRank,
+        percent,
+        variant: "rank-strong"
+      },
+      `${favoriteName} have the stronger FIFA rank (#${favoriteRank} vs #${otherRank}). Rough ${percent}%.`
+    );
   }
 
-  return `${favoriteName} are the current slot pick. Rough ${percent}%.`;
+  return formatActiveLocaleMessage(
+    "tournament-likelihood",
+    { favoriteName, percent, variant: "slot-pick" },
+    `${favoriteName} are the current slot pick. Rough ${percent}%.`
+  );
 }
 
 function getTournamentAdvancementLikelihoodReason(match, participants, side, projection) {
@@ -13275,29 +14040,54 @@ function getTournamentAdvancementLikelihoodReason(match, participants, side, pro
   const otherSide = side === "home" ? "away" : "home";
   const otherTeam = participants?.[otherSide]?.team;
   const percent = Number(projection?.percents?.[side]);
-  const teamName = getStandingName(team);
+  const teamName =
+    currentLanguage === "es" || currentLanguage === "ko"
+      ? getLocalizedStandingName(team)
+      : getStandingName(team);
 
   if (projection?.basis !== "loaded") {
     return getTournamentLikelihoodReason(team, otherTeam, percent);
   }
 
   if (projection.drawResolutionBasis === "shootout") {
-    return `${teamName} have the higher advance estimate after combining the loaded match forecast with the shootout outlook. Rough ${percent}%.`;
+    return formatActiveLocaleMessage(
+      "tournament-likelihood",
+      { percent, teamName, variant: "advance-shootout" },
+      `${teamName} have the higher advance estimate after combining the loaded match forecast with the shootout outlook. Rough ${percent}%.`
+    );
   }
 
-  return `${teamName} have the higher advance estimate from the loaded match forecast, with drawn-game paths split by the decisive-win chances. Rough ${percent}%.`;
+  return formatActiveLocaleMessage(
+    "tournament-likelihood",
+    { percent, teamName, variant: "advance-regulation" },
+    `${teamName} have the higher advance estimate from the loaded match forecast, with drawn-game paths split by the decisive-win chances. Rough ${percent}%.`
+  );
 }
 
 function getTournamentPredictionLead(participants) {
-  const homeName = participants?.home?.team ? getStandingName(participants.home.team) : "";
-  const awayName = participants?.away?.team ? getStandingName(participants.away.team) : "";
+  const getPredictionName = (team) =>
+    currentLanguage === "es" || currentLanguage === "ko"
+      ? getLocalizedStandingName(team)
+      : getStandingName(team);
+  const homeName = participants?.home?.team ? getPredictionName(participants.home.team) : "";
+  const awayName = participants?.away?.team ? getPredictionName(participants.away.team) : "";
 
   if (homeName && awayName) {
-    return `Prediction based on ${homeName} vs ${awayName}.`;
+    return formatActiveLocaleMessage(
+      "prediction-lead",
+      { awayName, homeName },
+      `Prediction based on ${homeName} vs ${awayName}.`
+    );
   }
 
   const loneName = homeName || awayName;
-  return loneName ? `Prediction based on ${loneName}'s current path.` : "";
+  return loneName
+    ? formatActiveLocaleMessage(
+        "prediction-lead",
+        { homeName: loneName },
+        `Prediction based on ${loneName}'s current path.`
+      )
+    : "";
 }
 
 function getTournamentPredictionReason(participants, detail) {
@@ -13326,7 +14116,15 @@ function getTournamentLikelyWinnerPrediction(match, context) {
   }
 
   if (homeTeam && !awayTeam) {
-    const detail = `${getStandingName(homeTeam)} are the only current team in this slot. Rough 55%.`;
+    const teamName =
+      currentLanguage === "es" || currentLanguage === "ko"
+        ? getLocalizedStandingName(homeTeam)
+        : getStandingName(homeTeam);
+    const detail = formatActiveLocaleMessage(
+      "tournament-likelihood",
+      { percent: 55, teamName, variant: "only-team" },
+      `${teamName} are the only current team in this slot. Rough 55%.`
+    );
     const prediction = {
       entry: participants.home,
       percent: 55,
@@ -13339,7 +14137,15 @@ function getTournamentLikelyWinnerPrediction(match, context) {
   }
 
   if (!homeTeam && awayTeam) {
-    const detail = `${getStandingName(awayTeam)} are the only current team in this slot. Rough 55%.`;
+    const teamName =
+      currentLanguage === "es" || currentLanguage === "ko"
+        ? getLocalizedStandingName(awayTeam)
+        : getStandingName(awayTeam);
+    const detail = formatActiveLocaleMessage(
+      "tournament-likelihood",
+      { percent: 55, teamName, variant: "only-team" },
+      `${teamName} are the only current team in this slot. Rough 55%.`
+    );
     const prediction = {
       entry: participants.away,
       percent: 55,
@@ -13401,7 +14207,15 @@ function getTournamentLikelyRunnerUpPrediction(match, context) {
   const runnerUpSide = winnerPrediction.side === "home" ? "away" : "home";
   const runnerUpEntry = participants[runnerUpSide];
   const percent = Math.max(1, Math.min(99, 100 - Number(winnerPrediction.percent || 50)));
-  const detail = `${getStandingName(runnerUpEntry.team)} are the projected runner-up from this semi-final. Rough ${percent}%.`;
+  const teamName =
+    currentLanguage === "es" || currentLanguage === "ko"
+      ? getLocalizedStandingName(runnerUpEntry.team)
+      : getStandingName(runnerUpEntry.team);
+  const detail = formatActiveLocaleMessage(
+    "tournament-likelihood",
+    { percent, teamName, variant: "semi-runner-up" },
+    `${teamName} are the projected runner-up from this semi-final. Rough ${percent}%.`
+  );
   const prediction = {
     entry: runnerUpEntry,
     percent,
@@ -13756,7 +14570,9 @@ function renderTournamentOutcomePill(outcome) {
   const teamAttributes = outcome.team ? ` data-team-id="${escapeHtml(outcome.team.id)}"` : "";
   const labelHtml = outcome.team
     ? renderTournamentProbabilityLabel(outcome.team, `${percent}%`)
-    : `<span>${escapeHtml(`${currentLanguage === "zh" ? "平局" : "TIE"} ${percent}%`)}</span>`;
+    : `<span>${escapeHtml(`${currentLanguage === "zh"
+        ? "平局"
+        : formatActiveLocaleMessage("tie-label", {}, "TIE")} ${percent}%`)}</span>`;
 
   return `<span class="knockout-likelihood is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}" data-outcome="${escapeHtml(outcome.key)}"${teamAttributes}>${labelHtml}</span>`;
 }
@@ -13797,7 +14613,7 @@ function renderTournamentOutcomeFooter(match, participants) {
 }
 
 function getLocalizedTournamentSlotOddsReason(slotOdds) {
-  if (currentLanguage !== "zh") {
+  if (currentLanguage === "en") {
     return localizeText(slotOdds.reason);
   }
 
@@ -13806,7 +14622,21 @@ function getLocalizedTournamentSlotOddsReason(slotOdds) {
     .map((candidate) =>
       `${getLocalizedStandingName(candidate.team)} ${formatTournamentSlotPercent(candidate.probability)}`
     )
-    .join("、");
+    .join(currentLanguage === "zh" ? "、" : ", ");
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return formatActiveLocaleMessage(
+      "slot-odds-reason",
+      {
+        alternatives: slotOdds.alternatives.map(
+          (candidate) =>
+            `${getLocalizedStandingName(candidate.team)} ${formatTournamentSlotPercent(candidate.probability)}`
+        ),
+        slotLabel,
+        teamName: getLocalizedStandingName(slotOdds.team)
+      },
+      slotOdds.reason
+    );
+  }
   return alternatives
     ? `${getLocalizedStandingName(slotOdds.team)}目前最可能占据${slotLabel}。其他可能：${alternatives}。`
     : `${getLocalizedStandingName(slotOdds.team)}目前最可能占据${slotLabel}。暂无接近替代球队。`;
@@ -13869,16 +14699,20 @@ function isTournamentMatchLocked(match, participants) {
 function getTournamentOpenMatchLabel(participants) {
   const homeName = participants?.home?.team
     ? getTournamentTeamDisplayName(participants.home.team)
-    : participants?.home?.label || "";
+    : localizeText(participants?.home?.label || "");
   const awayName = participants?.away?.team
     ? getTournamentTeamDisplayName(participants.away.team)
-    : participants?.away?.label || "";
+    : localizeText(participants?.away?.label || "");
 
   if (currentLanguage === "zh") {
     return `打开${homeName}对${awayName}的比赛详情`;
   }
 
-  return `Open ${homeName} vs ${awayName} match details`;
+  return formatActiveLocaleMessage(
+    "open-match",
+    { awayName, homeName },
+    `Open ${homeName} vs ${awayName} match details`
+  );
 }
 
 function renderTournamentMatchCard(match, context, options = {}) {
@@ -14440,7 +15274,11 @@ function getHistoricalTournamentMatchDateLabel(match) {
   const localTimeText = timeText
     ? currentLanguage === "zh"
       ? `当地${timeText}`
-      : `${timeText} local`
+      : formatActiveLocaleMessage(
+          "historical-local-clock",
+          { timeText },
+          `${timeText} local`
+        )
     : "";
   const baseLabel = [dateText, localTimeText].filter(Boolean).join(" ");
 
@@ -14613,14 +15451,26 @@ function renderHistoricalTournamentView(year) {
   `;
 }
 
-function openMatchFromTournament(matchId) {
+async function openMatchFromTournament(matchId) {
   const fixture = getFixtureById(matchId);
 
   if (!fixture) {
-    return;
+    return false;
   }
 
   const match = hydrateFixture(fixture);
+  if (match.isHistorical) {
+    try {
+      const didLoadArchiveLocale = await ensureActiveLocaleContentScope("archive");
+      if (!didLoadArchiveLocale) {
+        return false;
+      }
+    } catch (error) {
+      console.warn("Unable to load the archive locale", error);
+      return false;
+    }
+  }
+
   selectedDayKey = getFixtureDayKey(match);
   calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
   activeMatchId = match.id;
@@ -14640,6 +15490,7 @@ function openMatchFromTournament(matchId) {
     row?.scrollIntoView({ block: "nearest", inline: "nearest" });
     row?.querySelector(".match-row-trigger")?.focus({ preventScroll: true });
   });
+  return true;
 }
 
 function isTournamentMobileLayout() {
@@ -14700,9 +15551,14 @@ function updateTournamentShowNextButtonVisibility(root = standingsGrid) {
   }
 
   const targetIsVisible = getVisibleTournamentCardRatio(targetCard, progression) >= 0.6;
-  button.classList.toggle("is-target-visible", targetIsVisible);
-  button.disabled = targetIsVisible;
-  button.setAttribute("aria-hidden", String(targetIsVisible));
+  const wasClickDismissed = button.classList.contains("is-click-dismissed");
+  if (targetIsVisible && wasClickDismissed) {
+    button.classList.remove("is-click-dismissed");
+  }
+  const shouldHide = (wasClickDismissed && !targetIsVisible) || targetIsVisible;
+  button.classList.toggle("is-target-visible", shouldHide);
+  button.disabled = shouldHide;
+  button.setAttribute("aria-hidden", String(shouldHide));
 }
 
 function updateTournamentBoardLayout(root = standingsGrid) {
@@ -14737,8 +15593,105 @@ function updateTournamentBoardLayout(root = standingsGrid) {
     match.style.removeProperty("--mobile-path-span");
   });
   updateTournamentShowNextButtonVisibility(root);
+  scheduleTournamentRoundHeaderUpdate();
 
   scheduleTournamentConnectorUpdate();
+}
+
+function updateTournamentRoundHeaders(root = standingsGrid) {
+  const progression = root?.querySelector(".tournament-progression");
+  const headings = progression ? [...progression.querySelectorAll(".progress-round h3")] : [];
+  let overlay = progression?.querySelector(".tournament-sticky-round-overlay");
+
+  if (!progression || !headings.length || isTournamentMobileLayout()) {
+    progression?.classList.remove("is-round-labels-sticky");
+    overlay?.remove();
+    return;
+  }
+
+  const progressionStyle = getComputedStyle(progression);
+  const progressionRect = progression.getBoundingClientRect();
+  const paddingTop = Number.parseFloat(progressionStyle.paddingTop) || 0;
+  const paddingBottom = Number.parseFloat(progressionStyle.paddingBottom) || 0;
+  const borderTop = Number.parseFloat(progressionStyle.borderTopWidth) || 0;
+  const borderLeft = Number.parseFloat(progressionStyle.borderLeftWidth) || 0;
+  const borderRight = Number.parseFloat(progressionStyle.borderRightWidth) || 0;
+  const headingHeight = headings[0].getBoundingClientRect().height;
+  const shouldStick =
+    progressionRect.top + borderTop + paddingTop <= paddingTop &&
+    progressionRect.bottom - borderTop - paddingBottom > paddingTop + headingHeight;
+
+  progression.classList.toggle("is-round-labels-sticky", shouldStick);
+
+  if (!shouldStick) {
+    overlay?.remove();
+    return;
+  }
+
+  const canvasLeft = progressionRect.left + borderLeft;
+  const canvasRight = progressionRect.right - borderRight;
+  const labelSignature = headings.map((heading) => heading.textContent.trim()).join("|");
+
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "tournament-sticky-round-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.innerHTML = '<div class="tournament-sticky-round-track"></div>';
+    progression.append(overlay);
+  }
+
+  const track = overlay.querySelector(".tournament-sticky-round-track");
+  if (!track) {
+    overlay.remove();
+    return;
+  }
+
+  if (track.dataset.labelSignature !== labelSignature) {
+    track.dataset.labelSignature = labelSignature;
+    track.replaceChildren(
+      ...headings.map((heading) => {
+        const label = document.createElement("div");
+        label.className = "tournament-sticky-round-label";
+        label.textContent = heading.textContent.trim();
+        return label;
+      })
+    );
+  }
+
+  overlay.style.left = `${canvasLeft}px`;
+  overlay.style.top = `${paddingTop}px`;
+  overlay.style.width = `${Math.max(0, canvasRight - canvasLeft)}px`;
+  overlay.style.height = `${headingHeight}px`;
+
+  const labels = [...track.querySelectorAll(".tournament-sticky-round-label")];
+  labels.forEach((label, index) => {
+    const roundRect = headings[index]?.closest(".progress-round")?.getBoundingClientRect();
+    if (!roundRect) {
+      return;
+    }
+
+    label.style.left = `${roundRect.left + progression.scrollLeft - canvasLeft}px`;
+    label.style.width = `${roundRect.width}px`;
+  });
+
+  const scrollRange = Math.max(0, progression.scrollWidth - progression.clientWidth);
+  track.style.setProperty("--tournament-sticky-round-scroll-range", `${scrollRange}px`);
+  if (!TOURNAMENT_SCROLL_TIMELINE_SUPPORTED) {
+    track.style.transform = `translate3d(${-progression.scrollLeft}px, 0, 0)`;
+  } else {
+    track.style.removeProperty("transform");
+  }
+}
+
+function scheduleTournamentRoundHeaderUpdate() {
+  if (tournamentRoundHeaderFrameId) {
+    return;
+  }
+
+  tournamentRoundHeaderFrameId = window.requestAnimationFrame(() => {
+    tournamentRoundHeaderFrameId = 0;
+    updateTournamentRoundHeaders();
+  });
 }
 
 function getTournamentProgressionFromEvent(event) {
@@ -14991,11 +15944,16 @@ function updateTournamentConnectors() {
   svg.style.width = `${width}px`;
   svg.style.height = `${height}px`;
 
+  const svgRect = svg.getBoundingClientRect();
+  if (svgRect.width < 1 || svgRect.height < 1) {
+    return false;
+  }
+
+  const scaleX = width / svgRect.width;
+  const scaleY = height / svgRect.height;
   const getRelativePoint = (rect, side) => ({
-    x:
-      (side === "left" ? rect.left - progressionRect.left : rect.right - progressionRect.left) +
-      progression.scrollLeft,
-    y: rect.top + rect.height / 2 - progressionRect.top + progression.scrollTop
+    x: (side === "left" ? rect.left - svgRect.left : rect.right - svgRect.left) * scaleX,
+    y: (rect.top + rect.height / 2 - svgRect.top) * scaleY
   });
   const roundPoint = (value) => Math.round(value * 2) / 2;
 
@@ -15225,13 +16183,21 @@ function renderStandingsYearPicker() {
     ...getAvailableStandingsYears().map((year) => {
       const button = document.createElement("button");
       const isSelected = year === selectedStandingsYear;
+      const isCurrent = year === CURRENT_STANDINGS_YEAR;
 
       button.type = "button";
-      button.className = ["standings-year-option", isSelected ? "is-selected" : ""]
+      button.className = [
+        "standings-year-option",
+        isSelected ? "is-selected" : "",
+        isCurrent ? "is-current" : ""
+      ]
         .filter(Boolean)
         .join(" ");
       button.dataset.standingsYear = String(year);
       button.setAttribute("aria-pressed", String(isSelected));
+      if (isCurrent) {
+        button.setAttribute("aria-current", "date");
+      }
       button.textContent = String(year);
       return button;
     })
@@ -16085,38 +17051,94 @@ function getGeneratedDrawMoment(match, score) {
   const awayFocus = getResultFocusName(match, "away");
   const homeName = match.homeTeam?.name || homeFocus;
   const awayName = match.awayTeam?.name || awayFocus;
-  const candidates =
+  const candidateData =
     score.home === 0 && score.away === 0
       ? [
-          `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`,
-          `🌟 ${homeName} and ${awayName} cancelled each other out.`
+          {
+            fallback: `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`,
+            variant: "draw-focus-goalless"
+          },
+          {
+            fallback: `🌟 ${homeName} and ${awayName} cancelled each other out.`,
+            variant: "draw-teams-goalless"
+          }
         ]
       : [
-          `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`,
-          `🌟 ${homeName} and ${awayName} traded momentum without a winner.`
+          {
+            fallback: `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`,
+            variant: "draw-focus-level"
+          },
+          {
+            fallback: `🌟 ${homeName} and ${awayName} traded momentum without a winner.`,
+            variant: "draw-teams-level"
+          }
         ];
+  const candidate = candidateData.find(({ fallback }) => fallback.length <= 95);
+  const fallback = candidate?.fallback || "🌟 No breakthrough came from a tight draw.";
 
-  return candidates.find((text) => text.length <= 95) || "🌟 No breakthrough came from a tight draw.";
+  return formatActiveLocaleMessage(
+    "catch-up-highlight",
+    {
+      away: awayName,
+      awayFocus: localizeDisplayText(awayFocus),
+      home: homeName,
+      homeFocus: localizeDisplayText(homeFocus),
+      variant: candidate?.variant || "draw-no-breakthrough"
+    },
+    fallback
+  );
 }
 
 function getGeneratedDrawHighlights(match, score, context, standout) {
   const scoreText = `${score.home}-${score.away}`;
-  const impactNote = isKnockoutResultMatch(match)
+  const isKnockout = isKnockoutResultMatch(match);
+  const impactFallback = isKnockout
     ? `📊 ${context} still needs a knockout winner loaded.`
     : score.home === 0 && score.away === 0
       ? `📊 Both sides took one point from ${context}.`
       : `📊 Both teams took one point from ${context}.`;
+  const impactNote = formatActiveLocaleMessage(
+    "catch-up-highlight",
+    {
+      context,
+      variant: isKnockout
+        ? "draw-knockout-impact"
+        : score.home === 0 && score.away === 0
+          ? "draw-goalless-impact"
+          : "draw-level-impact"
+    },
+    impactFallback
+  );
 
   if (score.home === 0 && score.away === 0) {
+    const scoringFallback = `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} shared a 0-0 draw.`;
     return [
-      `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} shared a 0-0 draw.`,
+      formatActiveLocaleMessage(
+        "catch-up-highlight",
+        {
+          away: match.awayTeam.name,
+          home: match.homeTeam.name,
+          variant: "draw-goalless-score"
+        },
+        scoringFallback
+      ),
       formatStandoutHighlight(standout) || getGeneratedDrawMoment(match, score),
       impactNote
     ];
   }
 
+  const scoringFallback = `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`;
   return [
-    `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`,
+    formatActiveLocaleMessage(
+      "catch-up-highlight",
+      {
+        away: match.awayTeam.name,
+        home: match.homeTeam.name,
+        scoreText,
+        variant: "draw-level-score"
+      },
+      scoringFallback
+    ),
     formatStandoutHighlight(standout) || getGeneratedDrawMoment(match, score),
     impactNote
   ];
@@ -16144,66 +17166,174 @@ function getGeneratedGoalMoment(match, score, winnerSide) {
   const candidates = [];
 
   if (topScorerEntry?.[1] >= 3 && winner) {
-    candidates.push(`🌟 ${topScorerEntry[0]} completed a hat trick as ${winner.name} ran away with it.`);
+    candidates.push({
+      fallback: `🌟 ${topScorerEntry[0]} completed a hat trick as ${winner.name} ran away with it.`,
+      player: topScorerEntry[0],
+      variant: "goal-hat-trick",
+      winner: winner.name
+    });
   }
 
   if (topScorerEntry?.[1] === 2 && winner) {
-    candidates.push(`🌟 ${topScorerEntry[0]} scored twice as ${winner.name} pulled clear.`);
+    candidates.push({
+      fallback: `🌟 ${topScorerEntry[0]} scored twice as ${winner.name} pulled clear.`,
+      player: topScorerEntry[0],
+      variant: "goal-brace",
+      winner: winner.name
+    });
   }
 
   if (winner && Math.abs(score.home - score.away) === 1 && lastWinnerGoal) {
     candidates.push(
       lastWinnerGoal.ownGoal
-        ? `🌟 A ${lastWinnerMinute} own goal settled it for ${winner.name}.`
-        : `🌟 ${lastWinnerGoal.name}'s ${lastWinnerMinute} winner settled it for ${winner.name}.`
+        ? {
+            fallback: `🌟 A ${lastWinnerMinute} own goal settled it for ${winner.name}.`,
+            minute: lastWinnerMinute,
+            variant: "goal-own-winner",
+            winner: winner.name
+          }
+        : {
+            fallback: `🌟 ${lastWinnerGoal.name}'s ${lastWinnerMinute} winner settled it for ${winner.name}.`,
+            minute: lastWinnerMinute,
+            player: lastWinnerGoal.name,
+            variant: "goal-winner",
+            winner: winner.name
+          }
     );
   }
 
   if (winner && firstGoal?.side && firstGoal.side !== winnerSide) {
-    candidates.push(`🌟 ${firstGoal.name} put ${firstGoal.team.name} in front before ${winner.name} chased the match back.`);
+    candidates.push({
+      fallback: `🌟 ${firstGoal.name} put ${firstGoal.team.name} in front before ${winner.name} chased the match back.`,
+      firstTeam: firstGoal.team.name,
+      player: firstGoal.name,
+      variant: "goal-comeback",
+      winner: winner.name
+    });
   }
 
   if (winner && goals.length >= 2 && lastGoal?.name) {
-    candidates.push(`🌟 ${firstGoal.name} opened it before ${lastGoal.name} finished the scoring.`);
+    candidates.push({
+      fallback: `🌟 ${firstGoal.name} opened it before ${lastGoal.name} finished the scoring.`,
+      firstPlayer: firstGoal.name,
+      lastPlayer: lastGoal.name,
+      variant: "goal-bookends"
+    });
   }
 
-  return candidates.find((text) => text.length <= 140) || "";
+  const candidate = candidates.find(({ fallback }) => fallback.length <= 140);
+  if (!candidate) {
+    return "";
+  }
+
+  return formatActiveLocaleMessage(
+    "catch-up-highlight",
+    {
+      ...candidate,
+      firstPlayer: localizeDisplayText(candidate.firstPlayer),
+      lastPlayer: localizeDisplayText(candidate.lastPlayer),
+      player: localizeDisplayText(candidate.player)
+    },
+    candidate.fallback
+  );
 }
 
 function getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage) {
   if (match?.stage === "final") {
-    return `📊 ${winner.name} won the World Cup.`;
+    const fallback = `📊 ${winner.name} won the World Cup.`;
+    return formatActiveLocaleMessage(
+      "catch-up-highlight",
+      { variant: "champion-impact", winner: winner.name },
+      fallback
+    );
   }
 
   if (match?.stage === "bronze-final") {
-    return `📊 ${winner.name} secured third place.`;
+    const fallback = `📊 ${winner.name} secured third place.`;
+    return formatActiveLocaleMessage(
+      "catch-up-highlight",
+      { variant: "third-impact", winner: winner.name },
+      fallback
+    );
   }
 
   if (!nextStage) {
-    return `📊 ${winner.name} advanced from the ${context}.`;
+    const fallback = `📊 ${winner.name} advanced from the ${context}.`;
+    return formatActiveLocaleMessage(
+      "catch-up-highlight",
+      { context, variant: "advanced-impact", winner: winner.name },
+      fallback
+    );
   }
 
   const detailed = `📊 ${winner.name} reached the ${nextStage} and ${loser.name} exited.`;
-  return detailed.length <= 95 ? detailed : `📊 ${winner.name} advanced from the ${context}.`;
+  if (detailed.length <= 95) {
+    return formatActiveLocaleMessage(
+      "catch-up-highlight",
+      {
+        loser: loser.name,
+        nextStage,
+        variant: "reached-impact",
+        winner: winner.name
+      },
+      detailed
+    );
+  }
+
+  const fallback = `📊 ${winner.name} advanced from the ${context}.`;
+  return formatActiveLocaleMessage(
+    "catch-up-highlight",
+    { context, variant: "advanced-impact", winner: winner.name },
+    fallback
+  );
 }
 
 function getKnockoutResultCatchUpHeadline(match, winner, loser, margin, penaltyText, nextStage) {
   if (match?.stage === "final") {
-    return `${winner.name} win the World Cup`;
+    const fallback = `${winner.name} win the World Cup`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      { variant: "final-headline", winner: winner.name },
+      fallback
+    );
   }
 
   if (match?.stage === "bronze-final") {
-    return `${winner.name} secure third place`;
+    const fallback = `${winner.name} secure third place`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      { variant: "bronze-headline", winner: winner.name },
+      fallback
+    );
   }
 
   if (penaltyText) {
-    return `${winner.name} survive ${loser.name} on penalties`;
+    const fallback = `${winner.name} survive ${loser.name} on penalties`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        loser: loser.name,
+        variant: "penalties-headline",
+        winner: winner.name
+      },
+      fallback
+    );
   }
 
   if (nextStage) {
-    return margin === 1
+    const fallback = margin === 1
       ? `${winner.name} edge ${loser.name} to reach the ${nextStage}`
       : `${winner.name} beat ${loser.name} to reach the ${nextStage}`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        loser: loser.name,
+        nextStage,
+        variant: margin === 1 ? "edge-next-headline" : "beat-next-headline",
+        winner: winner.name
+      },
+      fallback
+    );
   }
 
   return "";
@@ -16211,22 +17341,184 @@ function getKnockoutResultCatchUpHeadline(match, winner, loser, margin, penaltyT
 
 function getKnockoutResultCatchUpBody(match, winner, loser, score, scoreText, penaltyText, nextStage, context) {
   if (match?.stage === "final") {
-    return `${winner.name}'s ${scoreText} win settled the Final against ${loser.name}.`;
+    const fallback = `${winner.name}'s ${scoreText} win settled the Final against ${loser.name}.`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        loser: loser.name,
+        scoreText,
+        variant: "final-body",
+        winner: winner.name
+      },
+      fallback
+    );
   }
 
   if (match?.stage === "bronze-final") {
-    return `${winner.name}'s ${scoreText} win secured third place against ${loser.name}.`;
+    const fallback = `${winner.name}'s ${scoreText} win secured third place against ${loser.name}.`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        loser: loser.name,
+        scoreText,
+        variant: "bronze-body",
+        winner: winner.name
+      },
+      fallback
+    );
   }
 
   if (penaltyText && nextStage) {
-    return `${winner.name} advanced to the ${nextStage} on penalties after a ${score.home}-${score.away} draw, ending ${loser.name}'s run.`;
+    const fallback = `${winner.name} advanced to the ${nextStage} on penalties after a ${score.home}-${score.away} draw, ending ${loser.name}'s run.`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        loser: loser.name,
+        nextStage,
+        scoreText: `${score.home}-${score.away}`,
+        variant: "penalties-next-body",
+        winner: winner.name
+      },
+      fallback
+    );
   }
 
   if (nextStage) {
-    return `${winner.name}'s ${scoreText} win moved them into the ${nextStage}.`;
+    const fallback = `${winner.name}'s ${scoreText} win moved them into the ${nextStage}.`;
+    return formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        nextStage,
+        scoreText,
+        variant: "next-body",
+        winner: winner.name
+      },
+      fallback
+    );
   }
 
-  return `${winner.name}'s ${scoreText} win moved them through from the ${context} and ended ${loser.name}'s run.`;
+  const fallback = `${winner.name}'s ${scoreText} win moved them through from the ${context} and ended ${loser.name}'s run.`;
+  return formatActiveLocaleMessage(
+    "catch-up-result",
+    {
+      context,
+      loser: loser.name,
+      scoreText,
+      variant: "through-body",
+      winner: winner.name
+    },
+    fallback
+  );
+}
+
+function getGeneratedWinScoringNote(match, score, winner, loser, margin, scoreText, penaltyText, isKnockout) {
+  let fallback = "";
+  let variant = "";
+
+  if (margin >= 3) {
+    fallback = `⚽ ${winner.name} made a statement with a ${scoreText} win.`;
+    variant = "win-statement-score";
+  } else if (penaltyText) {
+    fallback = `⚽ ${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`;
+    variant = "win-penalties-score";
+  } else if (isKnockout && margin === 1) {
+    fallback = `⚽ ${winner.name} edged ${loser.name} ${scoreText}.`;
+    variant = "win-edge-score";
+  } else if (Number(scoreText.split("-")[0]) === 1) {
+    fallback = `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`;
+    variant = "win-decisive-score";
+  } else {
+    fallback = `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
+    variant = "win-score";
+  }
+
+  return formatActiveLocaleMessage(
+    "catch-up-highlight",
+    {
+      loser: loser.name,
+      scoreText,
+      variant,
+      winner: winner.name
+    },
+    fallback
+  );
+}
+
+function getGeneratedWinControlNote(match, score, winnerSide, winner, loser, margin, penaltyText, context, standout) {
+  const suppliedNote =
+    formatStandoutHighlight(standout) ||
+    getGeneratedGoalMoment(match, score, winnerSide);
+  if (suppliedNote) {
+    return suppliedNote;
+  }
+
+  let fallback = "";
+  let variant = "";
+  const loserScore = winnerSide === "home" ? score.away : score.home;
+  const isKnockout = isKnockoutResultMatch(match);
+
+  if (penaltyText) {
+    fallback = `🌟 The shootout decided ${context}.`;
+    variant = "control-shootout";
+  } else if (isKnockout && loserScore === 0) {
+    fallback = `🌟 ${winner.name}'s clean sheet ended ${loser.name}'s run.`;
+    variant = "control-knockout-clean-sheet";
+  } else if (loserScore === 0) {
+    fallback = `🌟 The clean sheet gave ${loser.name} no way back.`;
+    variant = "control-clean-sheet";
+  } else if (margin >= 3) {
+    fallback = `🌟 ${winner.name}'s attack broke the match open.`;
+    variant = "control-attack";
+  } else if (margin === 1) {
+    fallback = `🌟 ${winner.name} came through a tight one-goal match.`;
+    variant = "control-tight";
+  } else {
+    fallback = `🌟 ${winner.name} created enough separation to control the finish.`;
+    variant = "control-finish";
+  }
+
+  return formatActiveLocaleMessage(
+    "catch-up-highlight",
+    {
+      context,
+      loser: loser.name,
+      variant,
+      winner: winner.name
+    },
+    fallback
+  );
+}
+
+function getGeneratedWinImpactNote(match, winner, loser, margin, context, nextStage) {
+  if (isKnockoutResultMatch(match)) {
+    return getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage);
+  }
+
+  if (match.groupId && margin > 0) {
+    const goalDifference = formatGoalDifference(margin);
+    const fallback = `📊 ${winner.name} took three points and ${goalDifference} GD in ${context}.`;
+    return formatActiveLocaleMessage(
+      "catch-up-highlight",
+      {
+        context,
+        goalDifference,
+        variant: "group-three-points-gd",
+        winner: winner.name
+      },
+      fallback
+    );
+  }
+
+  const fallback = `📊 ${winner.name} took three points from ${context}.`;
+  return formatActiveLocaleMessage(
+    "catch-up-highlight",
+    {
+      context,
+      variant: "group-three-points",
+      winner: winner.name
+    },
+    fallback
+  );
 }
 
 function getGeneratedWinHighlights(match, score, context, standout) {
@@ -16240,34 +17532,35 @@ function getGeneratedWinHighlights(match, score, context, standout) {
   const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
   const isKnockout = isKnockoutResultMatch(match);
   const nextStage = getResultNextKnockoutStageLabel(match);
-  const scoringNote = margin >= 3
-    ? `⚽ ${winner.name} made a statement with a ${scoreText} win.`
-    : penaltyText
-      ? `⚽ ${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
-      : isKnockout && margin === 1
-        ? `⚽ ${winner.name} edged ${loser.name} ${scoreText}.`
-        : winnerScore === 1
-          ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
-          : `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
-  const controlNote =
-    formatStandoutHighlight(standout) ||
-    getGeneratedGoalMoment(match, score, winnerSide) ||
-    (penaltyText
-      ? `🌟 The shootout decided ${context}.`
-      : isKnockout && loserScore === 0
-        ? `🌟 ${winner.name}'s clean sheet ended ${loser.name}'s run.`
-        : loserScore === 0
-          ? `🌟 The clean sheet gave ${loser.name} no way back.`
-          : margin >= 3
-            ? `🌟 ${winner.name}'s attack broke the match open.`
-            : margin === 1
-              ? `🌟 ${winner.name} came through a tight one-goal match.`
-              : `🌟 ${winner.name} created enough separation to control the finish.`);
-  const groupImpact = isKnockout
-    ? getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage)
-    : match.groupId && margin > 0
-      ? `📊 ${winner.name} took three points and ${formatGoalDifference(margin)} GD in ${context}.`
-      : `📊 ${winner.name} took three points from ${context}.`;
+  const scoringNote = getGeneratedWinScoringNote(
+    match,
+    score,
+    winner,
+    loser,
+    margin,
+    scoreText,
+    penaltyText,
+    isKnockout
+  );
+  const controlNote = getGeneratedWinControlNote(
+    match,
+    score,
+    winnerSide,
+    winner,
+    loser,
+    margin,
+    penaltyText,
+    context,
+    standout
+  );
+  const groupImpact = getGeneratedWinImpactNote(
+    match,
+    winner,
+    loser,
+    margin,
+    context,
+    nextStage
+  );
   const storyHighlights = getGeneratedWinStoryBullets(match, score, winnerSide);
   const controlHighlights = storyHighlights.length
     ? storyHighlights
@@ -16312,34 +17605,35 @@ function getGeneratedCatchUpWinHighlights(match, score, context, standout) {
   const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
   const isKnockout = isKnockoutResultMatch(match);
   const nextStage = getResultNextKnockoutStageLabel(match);
-  const scoringNote = margin >= 3
-    ? `⚽ ${winner.name} made a statement with a ${scoreText} win.`
-    : penaltyText
-      ? `⚽ ${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
-      : isKnockout && margin === 1
-        ? `⚽ ${winner.name} edged ${loser.name} ${scoreText}.`
-        : winnerScore === 1
-          ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
-          : `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
-  const controlNote =
-    formatStandoutHighlight(standout) ||
-    getGeneratedGoalMoment(match, score, winnerSide) ||
-    (penaltyText
-      ? `🌟 The shootout decided ${context}.`
-      : isKnockout && loserScore === 0
-        ? `🌟 ${winner.name}'s clean sheet ended ${loser.name}'s run.`
-        : loserScore === 0
-          ? `🌟 The clean sheet gave ${loser.name} no way back.`
-          : margin >= 3
-            ? `🌟 ${winner.name}'s attack broke the match open.`
-            : margin === 1
-              ? `🌟 ${winner.name} came through a tight one-goal match.`
-              : `🌟 ${winner.name} created enough separation to control the finish.`);
-  const groupImpact = isKnockout
-    ? getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage)
-    : match.groupId && margin > 0
-      ? `📊 ${winner.name} took three points and ${formatGoalDifference(margin)} GD in ${context}.`
-      : `📊 ${winner.name} took three points from ${context}.`;
+  const scoringNote = getGeneratedWinScoringNote(
+    match,
+    score,
+    winner,
+    loser,
+    margin,
+    scoreText,
+    penaltyText,
+    isKnockout
+  );
+  const controlNote = getGeneratedWinControlNote(
+    match,
+    score,
+    winnerSide,
+    winner,
+    loser,
+    margin,
+    penaltyText,
+    context,
+    standout
+  );
+  const groupImpact = getGeneratedWinImpactNote(
+    match,
+    winner,
+    loser,
+    margin,
+    context,
+    nextStage
+  );
 
   return [
     scoringNote,
@@ -16671,8 +17965,8 @@ function renderMatchCardEvent(match, event) {
 function renderMatchSubstitutionCopy(match, event) {
   const onPlayer = renderMatchEventPerson(match, event.side, event.onName, "Impact sub");
   const offPlayer = renderMatchEventPerson(match, event.side, event.offName, "Player");
-  if (currentLanguage === "zh") {
-    return `${onPlayer}<span class="match-event-sub-link">${escapeHtml(localizeText("for"))}</span>${offPlayer}`;
+  if (currentLanguage === "ko") {
+    return `${offPlayer}<span class="match-event-sub-link">${escapeHtml(localizeText("for"))}</span>${onPlayer}`;
   }
 
   return `${onPlayer}<span class="match-event-sub-link">${escapeHtml(localizeText("for"))}</span>${offPlayer}`;
@@ -16749,17 +18043,31 @@ function renderLiveScoreSourcePart(part, index) {
 function renderLiveScoreSourceNote(match) {
   const snapshotLabel = getOfficialMatchSnapshotLabel(match);
   const freshness = getLiveScoreSourceFreshness(match);
-  const currentTimeLabel = currentLanguage === "zh" ? "当前时间" : "Current time";
+  const currentTimeLabel =
+    currentLanguage === "zh"
+      ? "当前时间"
+      : formatActiveLocaleMessage("source-current-time", {}, "Current time");
   const checkedLabel = freshness
     ? currentLanguage === "zh"
       ? `${freshness}核验`
-      : `Checked ${freshness}`
+      : formatActiveLocaleMessage("source-checked", { freshness }, `Checked ${freshness}`)
     : "";
   const fifaUrl = getFifaScheduleResultsUrl();
-  const latestLabel = currentLanguage === "zh" ? "查看最新" : "See latest";
+  const latestLabel =
+    currentLanguage === "zh"
+      ? "查看最新"
+      : formatActiveLocaleMessage("source-latest", {}, "See latest");
+  const latestAriaLabel =
+    currentLanguage === "zh"
+      ? "在 FIFA 查看最新比分"
+      : formatActiveLocaleMessage(
+          "source-latest-aria",
+          {},
+          "See latest score at FIFA"
+        );
   const sourcePart = `
     <span class="live-source-latest">
-      <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(currentLanguage === "zh" ? "在 FIFA 查看最新比分" : "See latest score at FIFA")}">${escapeHtml(latestLabel)}</a>
+      <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(latestAriaLabel)}">${escapeHtml(latestLabel)}</a>
     </span>
   `.trim();
   const currentTimePart = snapshotLabel
@@ -17470,15 +18778,7 @@ const MOCK_LINEUP_COACHES = {
     sinceYear: "2025",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Thomas%20Tuchel%20Chelsea.jpg?width=160",
     imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Thomas_Tuchel_Chelsea.jpg",
-    sourceUrl: "https://www.englandfootball.com/articles/2026/Jun/26/thomas-tuchel-pre-panama-match-press-conference-quotes-20262606",
-    note: {
-      en: "Tuchel is a detail-heavy coach: he likes control, clear roles, and patient problem-solving against packed defenses.",
-      zh: "图赫尔很重视细节：他喜欢掌控比赛、明确分工，并耐心破解密集防守。"
-    },
-    history: {
-      en: "He previously won the UEFA Champions League with Chelsea and league titles in France and Germany.",
-      zh: "他此前曾带领切尔西赢得欧冠，也在法国和德国拿过联赛冠军。"
-    }
+    sourceUrl: "https://www.englandfootball.com/articles/2026/Jun/26/thomas-tuchel-pre-panama-match-press-conference-quotes-20262606"
   },
   ESP: {
     name: "Luis de la Fuente",
@@ -17957,7 +19257,7 @@ function getLocalizedLineupCoachAgeLine(coach, referenceDate = new Date()) {
     return "";
   }
 
-  return currentLanguage === "zh" ? `${age}岁` : `Age ${age}`;
+  return currentLanguage === "zh" ? `${age}岁` : localizeText(`Age ${age}`);
 }
 
 function createMockLineupTeam(teamId) {
@@ -18797,9 +20097,10 @@ function getLocalizedLineupCoachName(coach) {
     return "";
   }
 
-  return currentLanguage === "zh"
-    ? coach.nameZh || translateEntityNameToZh(coach.name) || coach.name
-    : coach.name;
+  if (currentLanguage === "zh") {
+    return coach.nameZh || translateEntityNameToZh(coach.name) || coach.name;
+  }
+  return localizeDisplayText(coach.name);
 }
 
 const LINEUP_POSITION_ZH = {
@@ -18827,7 +20128,10 @@ function getLocalizedLineupPosition(position) {
     return "";
   }
 
-  return currentLanguage === "zh" ? LINEUP_POSITION_ZH[value] || localizeText(value) : value;
+  if (currentLanguage === "zh") {
+    return LINEUP_POSITION_ZH[value] || localizeText(value);
+  }
+  return activeAppLocalePack?.helpers?.translateLineupPosition?.(value) || localizeText(value);
 }
 
 function getLineupHeadingLabel(match, lineup) {
@@ -18896,7 +20200,7 @@ function getLineupPlayerData(player, team) {
   };
 }
 
-function getLineupDisplayY(y) {
+function getLineupDisplayY(y, position = "") {
   const value = Number(y);
   if (!Number.isFinite(value)) {
     return y;
@@ -18904,14 +20208,20 @@ function getLineupDisplayY(y) {
 
   const sourceTop = 20;
   const sourceBottom = 91;
+  const targetBottom = 92.3;
+  let displayValue = value;
   if (value < sourceTop) {
-    return value;
+    return position === "GK" ? Math.max(displayValue, targetBottom) : displayValue;
   }
 
   const targetTop = 15;
-  const targetBottom = 92.3;
   const ratio = clampNumber((value - sourceTop) / (sourceBottom - sourceTop), 0, 1);
-  return Math.round((targetTop + ratio * (targetBottom - targetTop)) * 10) / 10;
+  displayValue = Math.round((targetTop + ratio * (targetBottom - targetTop)) * 10) / 10;
+
+  // The marker also contains the name and value line, so keep goalkeepers on
+  // the presentation baseline even when an observed FIFA document places
+  // their avatar higher. The checked-in source coordinate remains unchanged.
+  return position === "GK" ? Math.max(displayValue, targetBottom) : displayValue;
 }
 
 function normalizeLineupEventName(name) {
@@ -19093,7 +20403,9 @@ function getLineupEventBadgeLabel(event, playerName) {
     : ["goal", "assist", "ownGoal"].includes(event.kind)
       ? getLineupScoringLabel(event)
       : getLineupCardLabel(event);
-  const localizedName = currentLanguage === "zh" ? translateEntityNameToZh(playerName) || playerName : playerName;
+  const localizedName = currentLanguage === "zh"
+    ? translateEntityNameToZh(playerName) || playerName
+    : localizeDisplayText(playerName);
   return [minute, localizedName, eventLabel].filter(Boolean).join(" ");
 }
 
@@ -19151,10 +20463,18 @@ function renderLineupSubstitutionToggle(substitution, playerName, match, side, i
   const targetName = isPreviewActive ? substitution.offName : substitution.onName;
   const localizedTargetName = currentLanguage === "zh"
     ? translateEntityNameToZh(targetName) || targetName
-    : targetName;
-  const actionLabel = currentLanguage === "zh"
+    : localizeDisplayText(targetName);
+  const actionLabelFallback = currentLanguage === "zh"
     ? `${label}。切换显示${localizedTargetName}`
     : `${label}. Show ${localizedTargetName}.`;
+  const actionLabel = formatActiveLocaleMessage(
+    "substitution-show",
+    {
+      label,
+      targetName: localizedTargetName
+    },
+    actionLabelFallback
+  );
 
   return `
     <button
@@ -19454,14 +20774,22 @@ function renderLineupCoachThumbnail(coach, className = "lineup-coach-avatar") {
 
 function renderLineupCoachCard(coach) {
   const coachName = getLocalizedLineupCoachName(coach);
-  const teamText = localizeText(coach?.teamName || "");
+  const teamText = getLocalizedTeamName(coach?.teamName || "");
   const roleText = currentLanguage === "zh"
     ? `${teamText}${localizeText("Head Coach")}`
-    : `${teamText} ${localizeText("Head Coach")}`;
+    : formatActiveLocaleMessage(
+        "coach-role",
+        { teamText },
+        `${teamText} ${localizeText("Head Coach")}`
+      );
   const sinceText = coach?.sinceYear
     ? currentLanguage === "zh"
-      ? `${escapeHtml(coach.sinceYear)} 年起`
-      : `${localizeText("Since")} ${escapeHtml(coach.sinceYear)}`
+      ? `${coach.sinceYear} 年起`
+      : formatActiveLocaleMessage(
+          "coach-since",
+          { year: coach.sinceYear },
+          `${localizeText("Since")} ${coach.sinceYear}`
+        )
     : "";
   const ageText = getLocalizedLineupCoachAgeLine(coach);
   const styleTags = getLineupCoachStyleTags(coach);
@@ -19488,7 +20816,7 @@ function renderLineupCoachCard(coach) {
           <strong class="player-card-name">${escapeHtml(coachName)}</strong>
         </span>
         <span class="player-card-position">${escapeHtml(roleText)}</span>
-        ${sinceText ? `<span class="player-card-club">${sinceText}</span>` : ""}
+        ${sinceText ? `<span class="player-card-club">${escapeHtml(sinceText)}</span>` : ""}
         </span>
       </span>
       ${styleItems ? `<span class="player-skill-list">${styleItems}</span>` : ""}
@@ -19656,7 +20984,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     shouldAnimateEntrance ? "is-lineup-entering" : ""
   ].filter(Boolean).join(" ");
   const revealDelay = `${shouldAnimateEntrance ? getLineupMarkerRevealDelayMs(lineupPlayer.y) : 0}ms`;
-  const displayY = getLineupDisplayY(lineupPlayer.y);
+  const displayY = getLineupDisplayY(lineupPlayer.y, lineupPlayer.position);
 
   return `
     <span
@@ -19695,9 +21023,16 @@ function renderLineupBenchPlayer(player, team, teamLineup) {
 
 function getLocalizedBenchAvailabilityCopy(value) {
   if (value && typeof value === "object" && !Array.isArray(value)) {
-    return String((currentLanguage === "zh" ? value.zh || value.en : value.en || value.zh) || "").trim();
+    const localizedValue =
+      value[currentLanguage] ||
+      (currentLanguage === "zh" ? value.zh || value.en : value.en || value.zh) ||
+      "";
+    return currentLanguage === "en" || currentLanguage === "zh"
+      ? String(localizedValue).trim()
+      : localizeDisplayText(localizedValue);
   }
-  return String(value || "").trim();
+  const text = String(value || "").trim();
+  return currentLanguage === "en" || currentLanguage === "zh" ? text : localizeDisplayText(text);
 }
 
 function getLineupBenchAvailabilityDetails(availability) {
@@ -19712,7 +21047,11 @@ function getLineupBenchAvailabilityStatus(availability) {
   if (currentLanguage === "zh") {
     return status === "suspended" ? "停赛" : "无法出场";
   }
-  return status === "suspended" ? "Suspended" : "Unavailable";
+  return formatActiveLocaleMessage(
+    "bench-status",
+    { status },
+    localizeText(status === "suspended" ? "Suspended" : "Unavailable")
+  );
 }
 
 function renderLineupBenchAvailabilityBadge(availability, playerName) {
@@ -19720,8 +21059,15 @@ function renderLineupBenchAvailabilityBadge(availability, playerName) {
   const statusLabel = getLineupBenchAvailabilityStatus(availability);
   const details = getLineupBenchAvailabilityDetails(availability);
   const tooltip = details.join(" • ") || statusLabel;
-  const unavailableLabel = currentLanguage === "zh" ? `${statusLabel}，无法出场` : `${statusLabel} and unavailable`;
-  const ariaLabel = [playerName, unavailableLabel, ...details].filter(Boolean).join(". ");
+  const unavailableLabel =
+    currentLanguage === "zh"
+      ? `${statusLabel}，无法出场`
+      : formatActiveLocaleMessage(
+          "bench-unavailable",
+          { isSuspended: status === "suspended", statusLabel },
+          `${statusLabel} and unavailable`
+        );
+  const ariaLabel = [localizeDisplayText(playerName), unavailableLabel, ...details].filter(Boolean).join(". ");
 
   if (status !== "suspended") {
     return "";
@@ -19741,12 +21087,21 @@ function renderLineupBenchUnavailablePlayer(entry, team, teamLineup) {
   const numberLabel = formatLineupNumberLabel(lineupPlayer.number, lineupPlayer.isCaptain);
   const positionLabel = getLocalizedLineupPosition(lineupPlayer.position);
   const statusLabel = getLineupBenchAvailabilityStatus(availability);
+  const availabilityStatus = String(
+    availability?.benchDisplay?.status || "unavailable"
+  ).trim().toLowerCase();
   const details = getLineupBenchAvailabilityDetails(availability);
   const rowLabel = [
-    lineupPlayer.name,
+    localizeDisplayText(lineupPlayer.name),
     numberLabel ? `#${numberLabel}` : "",
     positionLabel,
-    currentLanguage === "zh" ? `${statusLabel}，无法出场` : `${statusLabel} and unavailable`,
+    currentLanguage === "zh"
+      ? `${statusLabel}，无法出场`
+      : formatActiveLocaleMessage(
+          "bench-unavailable",
+          { isSuspended: availabilityStatus === "suspended", statusLabel },
+          `${statusLabel} and unavailable`
+        ),
     ...details
   ].filter(Boolean).join(". ");
 
@@ -20128,7 +21483,13 @@ function getSourceLocalizedKeyInformationCopy(info, language = currentLanguage) 
     return "";
   }
 
-  const languageKeys = language === "zh" ? ["zh", "zhHans", "zh-Hans"] : ["en"];
+  const languageKeys = language === "zh"
+    ? ["zh", "zhHans", "zh-Hans", "en"]
+    : language === "es"
+      ? ["es", "es-419", "en"]
+      : language === "ko"
+        ? ["ko", "ko-KR", "en"]
+        : ["en"];
   for (const key of languageKeys) {
     const value = getKeyInformationCopy(info[key]);
     if (value) {
@@ -20153,6 +21514,12 @@ function getNameSeries(names) {
 
 function getLocalizedNameSeries(names) {
   const cleanNames = names.filter(Boolean);
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return new Intl.ListFormat(getAppLocale(), {
+      style: "long",
+      type: "conjunction"
+    }).format(cleanNames);
+  }
   if (currentLanguage !== "zh") {
     return getNameSeries(cleanNames);
   }
@@ -20166,20 +21533,41 @@ function buildLocalizedKeyInformationFallback(team, players = [], opponent = nul
   const playerNames = players
     .map((player) => getLocalizedPlayerDisplayName(player))
     .filter(Boolean);
-  const tags = getTeamStyleTags(team).map(localizeText).filter((value) => value && !/[A-Za-z]/.test(value));
+  const tags = getTeamStyleTags(team).map(localizeText).filter(Boolean);
   const opponentTags = opponent
-    ? getTeamStyleTags(opponent).map(localizeText).filter((value) => value && !/[A-Za-z]/.test(value))
+    ? getTeamStyleTags(opponent).map(localizeText).filter(Boolean)
     : [];
   const localizedTagline = team?.tagline ? localizeText(team.tagline) : "";
-  const tagline = localizedTagline && !/[A-Za-z]/.test(localizedTagline) ? localizedTagline : "";
-  const mainTag = tags[0] || tagline || "自身节奏";
-  const opponentTag = opponentTags[0] || "对方节奏";
+  const tagline = localizedTagline || "";
+  const mainTag = tags[0] || tagline || localizeText("Match control");
+  const opponentTag = opponentTags[0] || localizeText("Opponent's rhythm");
+
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const playerText = getLocalizedNameSeries(playerNames);
+    const fallback = opponentName
+      ? `${teamName} are built around ${mainTag}. ${playerText ? `Watch ${playerText}. ` : ""}Against ${opponentName}, the key is imposing that plan while limiting ${opponentTag}.`
+      : `${teamName} are built around ${mainTag}.${playerText ? ` Watch ${playerText}.` : ""}`;
+    return formatActiveLocaleMessage(
+      "key-information-fallback",
+      {
+        mainTag,
+        opponentName,
+        opponentTag,
+        playerText,
+        teamName
+      },
+      fallback
+    );
+  }
+
+  const zhMainTag = mainTag && !/[A-Za-z]/.test(mainTag) ? mainTag : "自身节奏";
+  const zhOpponentTag = opponentTag && !/[A-Za-z]/.test(opponentTag) ? opponentTag : "对方节奏";
   const playerText = playerNames.length
     ? `最值得关注的是${getLocalizedNameSeries(playerNames)}。`
     : "";
-  const identityText = tagline || mainTag;
+  const identityText = tagline && !/[A-Za-z]/.test(tagline) ? tagline : zhMainTag;
   const matchupText = opponentName
-    ? `面对${opponentName}，重点看${teamName}能否用${mainTag}创造机会，同时限制对手的${opponentTag}。`
+    ? `面对${opponentName}，重点看${teamName}能否用${zhMainTag}创造机会，同时限制对手的${zhOpponentTag}。`
     : "";
 
   return `${teamName}的基本思路是${identityText}。${playerText}${matchupText}`;
@@ -20193,9 +21581,15 @@ function getKeyInformationText(team, info, players = [], opponent = null) {
       : buildLocalizedKeyInformationFallback(team, players, opponent);
   }
 
-  const specificCopy = getSourceLocalizedKeyInformationCopy(info, "en") || getKeyInformationCopy(info);
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return buildLocalizedKeyInformationFallback(team, players, opponent);
+  }
+
+  const specificCopy =
+    getSourceLocalizedKeyInformationCopy(info, currentLanguage) ||
+    getKeyInformationCopy(info);
   if (specificCopy) {
-    return specificCopy;
+    return currentLanguage === "en" ? specificCopy : localizeDisplayText(specificCopy);
   }
 
   const names = players
@@ -20214,13 +21608,25 @@ function getKeyInformationText(team, info, players = [], opponent = null) {
     );
   }
 
-  return `${team.name}'s key pieces here are ${getNameSeries(names)}. ${notes.join(" ")}`;
+  const localizedPlayerNames = players
+    .map((player) => getLocalizedPlayerDisplayName(player))
+    .filter(Boolean);
+  const localizedNotes = notes.map(localizeDisplayText);
+  return formatActiveLocaleMessage(
+    "key-info-fallback",
+    {
+      notes: localizedNotes,
+      playerNames: localizedPlayerNames,
+      teamName: getLocalizedTeamName(team)
+    },
+    `${team.name}'s key pieces here are ${getNameSeries(names)}. ${notes.join(" ")}`
+  );
 }
 
 function getKeyInformationLabel(team) {
   const label = team?.name || "TBD";
-  const localizedLabel = localizeText(label);
-  return team?.tagline ? `${localizedLabel}: ${localizeText(team.tagline)}` : localizedLabel;
+  const localizedLabel = getLocalizedTeamName(team || label);
+  return team?.tagline ? `${localizedLabel}: ${localizeDisplayText(team.tagline)}` : localizedLabel;
 }
 
 function parseHistoricalKeyInformationCopy(info) {
@@ -20301,6 +21707,14 @@ function formatHistoricalStyleHeadline(tags) {
     return localizedTags.join("、");
   }
 
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return formatActiveLocaleMessage(
+      "historical-style-series",
+      { items: localizedTags },
+      localizedTags.join(" / ")
+    );
+  }
+
   if (localizedTags.length === 1) {
     return localizedTags[0];
   }
@@ -20342,7 +21756,8 @@ function getHistoricalPlanStyleHeadline(planKey) {
   };
   const headlines = currentLanguage === "zh" ? zh : english;
 
-  return headlines[planKey] || headlines.shape;
+  const headline = headlines[planKey] || headlines.shape;
+  return currentLanguage === "en" || currentLanguage === "zh" ? headline : localizeText(headline);
 }
 
 function getHistoricalKeyInformationHeadline(team, info) {
@@ -20359,7 +21774,7 @@ function getHistoricalKeyInformationHeadline(team, info) {
   if (parsed.isCanceled) {
     return currentLanguage === "zh"
       ? "取消赛程保留阵容背景"
-      : "Canceled fixture kept as squad context";
+      : localizeText("Canceled fixture kept as squad context");
   }
 
   return getHistoricalPlanStyleHeadline(getHistoricalPlanHeadlineKey(parsed.plan));
@@ -20478,7 +21893,9 @@ function isHistoricalPlayerProfilePending(player, profile) {
 }
 
 function getHistoricalPlayerProfileLoadingLabel() {
-  return currentLanguage === "zh" ? "正在加载历届球员资料" : "Loading archive player profile";
+  return currentLanguage === "zh"
+    ? "正在加载历届球员资料"
+    : localizeText("Loading archive player profile");
 }
 
 function isHistoricalPlayerCard(player) {
@@ -20492,11 +21909,13 @@ function getPlayerDisplayName(player, profile = getPlayerProfile(player)) {
 function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player)) {
   const displayName = getPlayerDisplayName(player, profile);
   if (isHistoricalPlayerCard(player)) {
-    return localizeHistoricalScorerName(displayName);
+    return currentLanguage === "zh"
+      ? localizeHistoricalScorerName(displayName)
+      : localizeDisplayText(displayName);
   }
 
   if (currentLanguage !== "zh") {
-    return displayName;
+    return localizeDisplayText(displayName);
   }
 
   const sourceName = getPlayerName(player);
@@ -20709,7 +22128,9 @@ function getLocalizedPlayerPosition(player, profile = getPlayerProfile(player)) 
     return translatePlayerPositionToZh(position) || localizeText("Position to verify");
   }
 
-  return formatPlayerPosition(position) || "Position to verify";
+  const formattedPosition = formatPlayerPosition(position);
+  return activeAppLocalePack?.helpers?.translateLineupPosition?.(formattedPosition) ||
+    localizeText(formattedPosition || "Position to verify");
 }
 
 function getHistoricalArchiveClubLineZh(player, profile) {
@@ -20800,6 +22221,33 @@ function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) 
     return getHistoricalArchiveClubLineZh(player, profile);
   }
 
+  if (currentLanguage !== "zh") {
+    const clubValue = getPlayerClubValue(player, profile);
+    const historicalArchiveMatch = isHistoricalPlayerCard(player)
+      ? String(clubValue || "").trim().match(/^(.+?)\s+(\d{4})\s+World Cup archive$/iu)
+      : null;
+    const club = clubValue
+      ? historicalArchiveMatch
+        ? formatActiveLocaleMessage(
+            "historical-archive-club",
+            {
+              teamName: historicalArchiveMatch[1],
+              year: historicalArchiveMatch[2]
+            },
+            localizeDisplayText(clubValue)
+          )
+        : localizeDisplayText(clubValue)
+      : isHistoricalPlayerCard(player)
+        ? localizeText("Historic World Cup record")
+        : isGoalScorerCardPlayer(player)
+          ? localizeText(getGoalScorerTeamLine(player))
+          : localizeText("Club to verify");
+    const league = getPlayerLeagueValue(player, profile)
+      ? localizeDisplayText(getPlayerLeagueValue(player, profile))
+      : "";
+    return league ? `${club} (${league})` : club;
+  }
+
   const club = getPlayerClubValue(player, profile)
     ? localizePlayerClubName(getPlayerClubValue(player, profile))
     : isHistoricalPlayerCard(player)
@@ -20881,12 +22329,15 @@ function getLocalizedPlayerAgeLine(player, profile) {
   if (isHistoricalPlayerCard(player)) {
     const tournamentYear = Number(player?.tournamentYear || player?.year);
     if (Number.isInteger(tournamentYear) && tournamentYear > 0) {
-      return currentLanguage === "zh" ? `${tournamentYear}年时${age}岁` : `${tournamentYear} age ${age}`;
+      if (currentLanguage === "zh") {
+        return `${tournamentYear}年时${age}岁`;
+      }
+      return localizeText(`${tournamentYear} age ${age}`);
     }
-    return currentLanguage === "zh" ? `当时${age}岁` : `Age then ${age}`;
+    return currentLanguage === "zh" ? `当时${age}岁` : localizeText(`Age then ${age}`);
   }
 
-  return currentLanguage === "zh" ? `${age}岁` : `Age ${age}`;
+  return currentLanguage === "zh" ? `${age}岁` : localizeText(`Age ${age}`);
 }
 
 function getPlayerMarketValueInfo(profile) {
@@ -20949,17 +22400,17 @@ function renderPlayerMarketValueLine(profile) {
   const label = marketValue.estimated
     ? currentLanguage === "zh"
       ? "估值"
-      : "Est. value"
+      : localizeText("Est. value")
     : currentLanguage === "zh"
       ? "身价"
-      : "Value";
+      : localizeText("Value");
   const tooltip = marketValue.estimated
     ? currentLanguage === "zh"
       ? "估算市场价值，参考公开估值、年龄、俱乐部层级、角色和近期表现。"
-      : "Estimated market value, shaped by public valuations, age, club level, role, and recent form."
+      : localizeText("Estimated market value, shaped by public valuations, age, club level, role, and recent form.")
     : currentLanguage === "zh"
       ? "来自公开球员估值数据的市场价值。"
-      : "Market value from sourced player valuation data.";
+      : localizeText("Market value from sourced player valuation data.");
 
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}${primeSuffix}`;
 }
@@ -20980,11 +22431,11 @@ function renderPlayerPrimeMarketValueSuffix(profile, currentValue) {
     return "";
   }
 
-  const label = currentLanguage === "zh" ? "巅峰" : "Prime";
+  const label = currentLanguage === "zh" ? "巅峰" : localizeText("Prime");
   const tooltip =
     currentLanguage === "zh"
       ? "来自Transfermarkt数据集的球员生涯峰值市场价值。"
-      : "Career-high market value from the Transfermarkt dataset.";
+      : localizeText("Career-high market value from the Transfermarkt dataset.");
 
   return ` (<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(primeValue)})`;
 }
@@ -21005,11 +22456,11 @@ function renderHistoricalPeakValueLine(profile) {
     return "";
   }
 
-  const label = currentLanguage === "zh" ? "峰值身价" : "Peak value";
+  const label = currentLanguage === "zh" ? "峰值身价" : localizeText("Peak value");
   const tooltip =
     currentLanguage === "zh"
       ? "来自Transfermarkt数据集的球员生涯峰值市场价值；不是这场比赛当天的精确身价。"
-      : "Career peak market value from the Transfermarkt dataset; not an exact match-day value.";
+      : localizeText("Career peak market value from the Transfermarkt dataset; not an exact match-day value.");
 
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
 }
@@ -21022,11 +22473,13 @@ function renderHistoricalTournamentValueLine(profile) {
 
   const tournamentYear = Number(profile?.tournamentYear || profile?.year);
   const yearText = Number.isInteger(tournamentYear) && tournamentYear > 0 ? `${tournamentYear} ` : "";
-  const label = currentLanguage === "zh" ? `${yearText}身价`.trim() : `${yearText}value`.trim();
+  const label = currentLanguage === "zh"
+    ? `${yearText}身价`.trim()
+    : localizeText(`${yearText}value`.trim());
   const tooltip =
     currentLanguage === "zh"
       ? "该届世界杯时期的市场价值；仅在有版本化来源时显示。"
-      : "Tournament-year market value; shown only when a versioned source is available.";
+      : localizeText("Tournament-year market value; shown only when a versioned source is available.");
 
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
 }
@@ -21154,6 +22607,19 @@ function formatPlayerTournamentStatCount(count, statName) {
     return statName === "goals" ? `${number}球` : `${number}助攻`;
   }
 
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return formatActiveLocaleMessage(
+      "player-stat-count",
+      {
+        count: number,
+        statName
+      },
+      statName === "goals"
+        ? `${number} ${number === 1 ? "goal" : "goals"}`
+        : `${number} ${number === 1 ? "assist" : "assists"}`
+    );
+  }
+
   if (statName === "goals") {
     return `${number} ${number === 1 ? "goal" : "goals"}`;
   }
@@ -21177,12 +22643,33 @@ function renderPlayerTournamentStatsLine(player, profile = getPlayerProfile(play
   }
 
   if (stats.archiveYear) {
-    return currentLanguage === "zh"
-      ? `${stats.archiveYear}年世界杯：${parts.join("，")}`
-      : `${stats.archiveYear} World Cup: ${parts.join(", ")}`;
+    if (currentLanguage === "zh") {
+      return `${stats.archiveYear}年世界杯：${parts.join("，")}`;
+    }
+    const fallback = `${stats.archiveYear} World Cup: ${parts.join(", ")}`;
+    return formatActiveLocaleMessage(
+      "player-tournament-stats",
+      {
+        parts,
+        variant: "archive",
+        year: stats.archiveYear
+      },
+      localizeText(fallback)
+    );
   }
 
-  return currentLanguage === "zh" ? `本届世界杯：${parts.join("，")}` : `This World Cup: ${parts.join(", ")}`;
+  if (currentLanguage === "zh") {
+    return `本届世界杯：${parts.join("，")}`;
+  }
+  const fallback = `This World Cup: ${parts.join(", ")}`;
+  return formatActiveLocaleMessage(
+    "player-tournament-stats",
+    {
+      parts,
+      variant: "current"
+    },
+    localizeText(fallback)
+  );
 }
 
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
@@ -21293,6 +22780,10 @@ function getPlayerCardNote(player, profile = getPlayerProfile(player)) {
     return profile?.styleNote || profile?.note || getPlayerNote(player) || "";
   }
 
+  if ((currentLanguage === "es" || currentLanguage === "ko") && profile?.note) {
+    return profile.note;
+  }
+
   return getPlayerNote(player) || profile?.note || "";
 }
 
@@ -21315,6 +22806,28 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
     return localizeKnownDisplayEntities(profile.noteZh);
   }
 
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const historical = isHistoricalPlayerCard(player);
+    const localizedPlayerNote = activeAppLocalePack?.helpers?.formatPlayerNote?.(note, {
+      historical,
+      localizedName: getLocalizedPlayerDisplayName(player, profile)
+    });
+    if (localizedPlayerNote) {
+      return localizedPlayerNote;
+    }
+
+    if (activeAppLocalePack?.helpers?.isTemplatedPlayerNote?.(note, { historical })) {
+      const skills = getPlayerSkills(player, profile)
+        .map(localizePlayerSkill)
+        .filter(Boolean);
+      return formatActiveLocaleMessage(
+        "player-note-fallback",
+        { skills },
+        skills.join(", ")
+      );
+    }
+  }
+
   const localizedNote = localizeText(note);
   if (currentLanguage !== "zh" || localizedNote !== note) {
     return localizeKnownPlayerNames(localizedNote);
@@ -21335,7 +22848,7 @@ function getPlayerAliases(player, allPlayers) {
   const nameParts = name.split(/\s+/).filter(Boolean);
   const displayParts = displayName.split(/\s+/).filter(Boolean);
 
-  if (currentLanguage === "zh") {
+  if (currentLanguage !== "en") {
     candidates.push(localizeDisplayText(name), localizeDisplayText(displayName));
   }
 
@@ -21405,29 +22918,37 @@ function getPlayerMentionEntries(players) {
 function getPlayerMentionEntriesForText(players) {
   const entries = getPlayerMentionEntries(players);
 
-  if (currentLanguage === "zh") {
-    const zhAliasBuckets = new Map();
-    const addZhAliasCandidate = (alias, player) => {
+  if (currentLanguage !== "en") {
+    const localizedAliasBuckets = new Map();
+    const addLocalizedAliasCandidate = (alias, player) => {
       const text = String(alias || "").trim();
       const playerKey = normalizeTextKey(getPlayerName(player));
       const aliasKey = normalizeTextKey(text);
 
-      if (!text || !playerKey || !aliasKey || /[A-Za-z]/.test(text)) {
+      if (
+        !text ||
+        !playerKey ||
+        !aliasKey ||
+        (currentLanguage === "zh" && /[A-Za-z]/.test(text))
+      ) {
         return;
       }
 
-      const bucket = zhAliasBuckets.get(aliasKey) || { aliases: [], players: new Map() };
+      const bucket =
+        localizedAliasBuckets.get(aliasKey) || { aliases: [], players: new Map() };
       if (!bucket.aliases.includes(text)) {
         bucket.aliases.push(text);
       }
       bucket.players.set(playerKey, player);
-      zhAliasBuckets.set(aliasKey, bucket);
+      localizedAliasBuckets.set(aliasKey, bucket);
     };
 
-    for (const entry of entries) {
-      const alias = translateRouteEntityPartToZh(entry.alias);
-      if (alias && alias !== entry.alias) {
-        addZhAliasCandidate(alias, entry.player);
+    if (currentLanguage === "zh") {
+      for (const entry of entries) {
+        const alias = translateRouteEntityPartToZh(entry.alias);
+        if (alias && alias !== entry.alias) {
+          addLocalizedAliasCandidate(alias, entry.player);
+        }
       }
     }
 
@@ -21440,11 +22961,11 @@ function getPlayerMentionEntriesForText(players) {
       ];
 
       for (const alias of aliases) {
-        addZhAliasCandidate(alias, player);
+        addLocalizedAliasCandidate(alias, player);
       }
     }
 
-    for (const bucket of zhAliasBuckets.values()) {
+    for (const bucket of localizedAliasBuckets.values()) {
       if (bucket.players.size !== 1) {
         continue;
       }
@@ -21558,7 +23079,7 @@ function renderPlayerMention(label, player, options = {}) {
   const position = isProfileLoading ? "" : getLocalizedPlayerPosition(player, profile);
   const club = isProfileLoading
     ? ""
-    : currentLanguage === "zh" ? getLocalizedPlayerClubLine(player, profile) : getPlayerClubLine(player, profile);
+    : currentLanguage === "en" ? getPlayerClubLine(player, profile) : getLocalizedPlayerClubLine(player, profile);
   const note = isProfileLoading ? "" : getLocalizedPlayerNote(player, profile);
   const ageLine = isProfileLoading ? "" : getLocalizedPlayerAgeLine(player, profile);
   const valueLine = isProfileLoading ? "" : renderPlayerValueLine(player, profile);
@@ -21572,7 +23093,7 @@ function renderPlayerMention(label, player, options = {}) {
   const visibleLabel = explicitVisibleLabel || (
     shouldPreserveLocalizedMentionLabel(label)
       ? label
-      : currentLanguage === "zh"
+      : currentLanguage !== "en"
         ? displayName
         : label
   );
@@ -21678,6 +23199,10 @@ function isFloatingPlayerCardActive() {
 }
 
 function shouldKeepFloatingPlayerCardForSource(playerHover) {
+  if (isJuggleRunActive()) {
+    return false;
+  }
+
   const isTouchMode = isTouchPlayerCardMode();
   const sourceIsEngaged = isTouchMode
     ? playerHover?.matches(":focus-within") || playerHover?.classList.contains("is-card-open")
@@ -21765,6 +23290,11 @@ function positionFloatingPlayerCard(playerHover, cardWidth) {
 }
 
 function showFloatingPlayerCard(playerHover, cardWidth) {
+  if (isJuggleRunActive()) {
+    hideFloatingPlayerCard();
+    return;
+  }
+
   const sourceCard = playerHover?.querySelector(".player-card");
   const floatingCard = ensureFloatingPlayerCard();
   if (!sourceCard) {
@@ -21804,6 +23334,11 @@ function showFloatingPlayerCard(playerHover, cardWidth) {
 }
 
 function positionPlayerCard(playerHover, options = {}) {
+  if (isJuggleRunActive()) {
+    clearActivePlayerHover();
+    return;
+  }
+
   const { forceFloating = false } = options;
   const card = playerHover?.querySelector(".player-card");
   const trigger = playerHover?.querySelector(".player-link");
@@ -21969,6 +23504,10 @@ function queueFloatingLineupEventTooltipHide() {
 }
 
 function shouldPreviewPlayerCardOnHover(event) {
+  if (isJuggleRunActive()) {
+    return false;
+  }
+
   if (event.pointerType && event.pointerType !== "mouse") {
     return false;
   }
@@ -22039,6 +23578,12 @@ function isPlayerCardClickSuppressed() {
 }
 
 function openPlayerHoverCard(playerHover) {
+  if (isJuggleRunActive()) {
+    clearActivePlayerHover();
+    blurActiveTransientElement();
+    return;
+  }
+
   closeInactivePlayerHovers(playerHover);
 
   activePlayerHover = playerHover;
@@ -22142,6 +23687,40 @@ function getMatchGoalPlayers(match) {
   }));
 }
 
+function getMatchAssistPlayers(match) {
+  return getFixtureGoals(match)
+    .filter((goal) => !goal.ownGoal && goal.assistName && normalizeTextKey(goal.assistName) !== normalizeTextKey(goal.name))
+    .map((goal) => ({
+      name: goal.assistName,
+      team: goal.scoringTeam,
+      teamId: goal.scoringTeam?.id || "",
+      note: ""
+    }));
+}
+
+function getMatchLineupMentionPlayers(match) {
+  const lineup = getFixtureLineupPreview(match);
+  if (!lineup) {
+    return [];
+  }
+
+  return [
+    { lineup: lineup.home, team: match.homeTeam },
+    { lineup: lineup.away, team: match.awayTeam }
+  ].flatMap(({ lineup: teamLineup, team }) =>
+    [...(teamLineup?.players || []), ...(teamLineup?.bench || [])]
+      .map((player) => ({
+        name: getLineupPlayerFullName(player),
+        team,
+        teamId: team?.id || "",
+        uniformNumber: player?.[0] || "",
+        position: player?.[3] || "",
+        note: ""
+      }))
+      .filter((player) => player.name)
+  );
+}
+
 function getUniqueMentionPlayers(players) {
   const seen = new Set();
   const uniquePlayers = [];
@@ -22171,6 +23750,8 @@ function getMatchMentionPlayers(match, keyInformation = {}) {
   return getUniqueMentionPlayers([
     ...getMatchKeyPlayers(match),
     ...getMatchGoalPlayers(match),
+    ...getMatchAssistPlayers(match),
+    ...getMatchLineupMentionPlayers(match),
     ...getProfileMentionPlayersFromText(keyInformation.home),
     ...getProfileMentionPlayersFromText(keyInformation.away)
   ]);
@@ -22287,6 +23868,11 @@ function getPastWinnerTeamId(result) {
 function getPastRecord(match, results) {
   return results.reduce(
     (record, result) => {
+      const homeScore = Number(result.homeScore);
+      const awayScore = Number(result.awayScore);
+      if (Number.isFinite(homeScore) && Number.isFinite(awayScore)) {
+        record.goals += homeScore + awayScore;
+      }
       const winnerTeamId = getPastWinnerTeamId(result);
 
       if (!winnerTeamId) {
@@ -22299,8 +23885,47 @@ function getPastRecord(match, results) {
 
       return record;
     },
-    { awayWins: 0, draws: 0, homeWins: 0, total: results.length }
+    { awayWins: 0, draws: 0, goals: 0, homeWins: 0, total: results.length }
   );
+}
+
+function getPastSummaryText(match, h2h, hasResolvedTeams) {
+  const sourceSummary =
+    h2h.status === "research-pending"
+      ? "Past meetings not loaded yet."
+      : hasResolvedTeams && /^Teams are not known yet\./.test(h2h.summary || "")
+        ? ""
+        : h2h.summary;
+
+  if (!sourceSummary) {
+    return "";
+  }
+
+  if ((currentLanguage === "es" || currentLanguage === "ko") && hasResolvedTeams) {
+    const results = Array.isArray(h2h.results) ? h2h.results : [];
+    const messageData = {
+      away: getLocalizedTeamName(match.awayTeam),
+      home: getLocalizedTeamName(match.homeTeam)
+    };
+    if (results.length) {
+      const record = getPastRecord(match, results);
+      return formatActiveLocaleMessage("h2h-record", {
+        ...messageData,
+        awayWins: record.awayWins,
+        draws: record.draws,
+        goals: record.goals,
+        homeWins: record.homeWins
+      });
+    }
+    if (
+      h2h.status === "verified-empty" ||
+      /never met|first head-to-head/i.test(sourceSummary)
+    ) {
+      return formatActiveLocaleMessage("h2h-none", messageData);
+    }
+  }
+
+  return localizeText(sourceSummary);
 }
 
 function formatPastRecordPercent(count, total) {
@@ -22393,14 +24018,9 @@ function renderPastResultList(results, leadingTeamId = "", options = {}) {
 function renderPastResults(match) {
   const h2h = match.h2h || {};
   const hasResolvedTeams = Boolean(match.homeTeam && match.awayTeam && !match.homeTeam.isSlot && !match.awayTeam.isSlot);
-  const summaryText =
-    h2h.status === "research-pending"
-      ? "Past meetings not loaded yet."
-      : hasResolvedTeams && /^Teams are not known yet\./.test(h2h.summary || "")
-        ? ""
-        : h2h.summary;
+  const summaryText = getPastSummaryText(match, h2h, hasResolvedTeams);
   const summary = summaryText
-    ? `<p class="h2h-summary">${escapeHtml(localizeText(summaryText))}</p>`
+    ? `<p class="h2h-summary">${escapeHtml(summaryText)}</p>`
     : "";
 
   if (!Array.isArray(h2h.results)) {
@@ -22511,7 +24131,11 @@ function renderKnockoutContextSearchAction(teamOrName) {
   const ariaLabel =
     currentLanguage === "zh"
       ? `查看${teamLabel}全部比赛`
-      : `See all ${teamLabel} matches`;
+      : formatActiveLocaleMessage(
+          "see-all-matches",
+          { teamLabel },
+          `See all ${teamLabel} matches`
+        );
 
   return ` <button class="knockout-context-search-action" type="button" data-team-search-query="${escapeHtml(
     query
@@ -22624,6 +24248,31 @@ function formatGroupRoundSummary(team, resultItems, remainingCount) {
     return formatGroupRoundSummaryZh(team, resultItems, remainingCount);
   }
 
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const subject = renderKnockoutContextTeamName(team, getLocalizedTeamName(team), {
+      isSubject: true
+    });
+    const items = resultItems.map((item) => ({
+      opponent: renderKnockoutContextTeamName(
+        item.opponent,
+        getLocalizedTeamName(item.opponent),
+        { showRank: true }
+      ),
+      outcome: item.outcome,
+      scoreText: escapeHtml(item.scoreText)
+    }));
+    return formatActiveLocaleMessage(
+      "group-summary",
+      {
+        items,
+        remainingCount,
+        searchAction: renderKnockoutContextSearchAction(team),
+        subject
+      },
+      ""
+    );
+  }
+
   const groups = {
     win: [],
     draw: [],
@@ -22673,7 +24322,13 @@ function getGroupRoundSummaryForParticipant(entry) {
         : renderKnockoutParticipantLabel(entry);
 
     if (slotText && slotText !== "TBD") {
-      return currentLanguage === "zh" ? `${label}尚未确认。` : `${label} is not confirmed yet.`;
+      return currentLanguage === "zh"
+        ? `${label}尚未确认。`
+        : formatActiveLocaleMessage(
+            "slot-unconfirmed",
+            { label },
+            `${label} is not confirmed yet.`
+          );
     }
 
     return `${label}: ${escapeHtml(localizeText("No loaded group-round results yet."))}`;
@@ -22759,7 +24414,16 @@ function renderKnockoutCompletedSummary(match, context) {
       return `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`;
     }
 
-    return `${homeName} and ${awayName} tied ${scoreText}`;
+    return formatActiveLocaleMessage(
+      "knockout-draw",
+      {
+        awayName,
+        homeName,
+        homeParticleSource: getTournamentTeamDisplayName(participants.home.team),
+        scoreText
+      },
+      `${homeName} and ${awayName} tied ${scoreText}`
+    );
   }
 
   const winnerSide = participants.away.team?.id === winner.id ? "away" : "home";
@@ -22769,6 +24433,8 @@ function renderKnockoutCompletedSummary(match, context) {
     isSubject: true
   });
   const loserName = renderKnockoutParticipantLabel(participants[loserSide], { showRank: true });
+  const winnerParticleSource = getTournamentTeamDisplayName(participants[winnerSide].team);
+  const loserParticleSource = getTournamentTeamDisplayName(participants[loserSide].team);
   const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
   const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));
 
@@ -22777,14 +24443,39 @@ function renderKnockoutCompletedSummary(match, context) {
       return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`;
     }
 
-    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie ${renderKnockoutContextSearchTail(`(${penaltyText} pens)`, winner)}`;
+    const searchAction = renderKnockoutContextSearchAction(winner);
+    return formatActiveLocaleMessage(
+      "knockout-penalties",
+      {
+        loserName,
+        loserParticleSource,
+        penaltyText,
+        scoreText,
+        searchAction,
+        winnerName,
+        winnerParticleSource
+      },
+      `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie ${renderKnockoutContextSearchTail(`(${penaltyText} pens)`, winner)}`
+    );
   }
 
   if (currentLanguage === "zh") {
     return `${winnerName}以 ${winnerScoreText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`;
   }
 
-  return `${winnerName} beat ${loserName} ${renderKnockoutContextSearchTail(winnerScoreText, winner)}`;
+  const searchAction = renderKnockoutContextSearchAction(winner);
+  return formatActiveLocaleMessage(
+    "knockout-win",
+    {
+      loserName,
+      loserParticleSource,
+      scoreText: winnerScoreText,
+      searchAction,
+      winnerName,
+      winnerParticleSource
+    },
+    `${winnerName} beat ${loserName} ${renderKnockoutContextSearchTail(winnerScoreText, winner)}`
+  );
 }
 
 function renderKnockoutSourceMatchSummary(match, context) {
@@ -22804,7 +24495,11 @@ function renderKnockoutSourceMatchSummary(match, context) {
       return `${matchup} 正在进行，比分 ${scoreText}。`;
     }
 
-    return `${matchup} is live at ${scoreText}.`;
+    return formatActiveLocaleMessage(
+      "match-status",
+      { matchup, scoreText, status: "live" },
+      `${matchup} is live at ${scoreText}.`
+    );
   }
 
   if (match.status === "DELAYED") {
@@ -22812,7 +24507,11 @@ function renderKnockoutSourceMatchSummary(match, context) {
       return `${matchup} 开球延迟。`;
     }
 
-    return `${matchup} is delayed.`;
+    return formatActiveLocaleMessage(
+      "match-status",
+      { matchup, status: "delayed" },
+      `${matchup} is delayed.`
+    );
   }
 
   if (isKnockoutMatchupPredicted(match, context)) {
@@ -22820,14 +24519,22 @@ function renderKnockoutSourceMatchSummary(match, context) {
       return `${matchup} 是当前预测。`;
     }
 
-    return `${matchup} is predicted.`;
+    return formatActiveLocaleMessage(
+      "match-status",
+      { matchup, status: "predicted" },
+      `${matchup} is predicted.`
+    );
   }
 
   if (currentLanguage === "zh") {
     return `${matchup} 尚未开赛。`;
   }
 
-  return `${matchup} is scheduled.`;
+  return formatActiveLocaleMessage(
+    "match-status",
+    { matchup, status: "scheduled" },
+    `${matchup} is scheduled.`
+  );
 }
 
 function renderResolvedNextKnockoutOpponentLine(match, context) {
@@ -22852,7 +24559,11 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
   if (!winnerSide || !participants[winnerSide]) {
     return currentLanguage === "zh"
       ? `胜者将对阵 ${fallbackWinnerName}。${fallbackSearchAction}`
-      : `Winner will face ${fallbackWinnerName}${fallbackSearchAction}`;
+      : formatActiveLocaleMessage(
+          "winner-face",
+          { opponent: fallbackWinnerName, searchAction: fallbackSearchAction },
+          `Winner will face ${fallbackWinnerName}${fallbackSearchAction}`
+        );
   }
 
   const loserSide = winnerSide === "away" ? "home" : "away";
@@ -22869,18 +24580,35 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
   if (penaltyText && scoreText) {
     return currentLanguage === "zh"
       ? `胜者将对阵 ${winnerName}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。${searchAction}`
-      : `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} tie against ${loserName}${searchAction}`;
+      : formatActiveLocaleMessage(
+          "winner-face-resolved-penalties",
+          { loserName, penaltyText, scoreText, searchAction, winnerName },
+          `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} tie against ${loserName}${searchAction}`
+        );
   }
 
   if (winnerScoreText) {
     return currentLanguage === "zh"
       ? `胜者将对阵 ${winnerName}，后者以 ${winnerScoreText} 击败 ${loserName}。${searchAction}`
-      : `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}${searchAction}`;
+      : formatActiveLocaleMessage(
+          "winner-face-resolved-win",
+          {
+            loserName,
+            scoreText: winnerScoreText,
+            searchAction,
+            winnerName
+          },
+          `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}${searchAction}`
+        );
   }
 
   return currentLanguage === "zh"
     ? `胜者将对阵 ${winnerName}。${searchAction}`
-    : `Winner will face ${winnerName}${searchAction}`;
+    : formatActiveLocaleMessage(
+        "winner-face",
+        { opponent: winnerName, searchAction },
+        `Winner will face ${winnerName}${searchAction}`
+      );
 }
 
 function isTerminalKnockoutMatch(match) {
@@ -22946,12 +24674,20 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
     if (isTournamentProjectedMatch(otherMatch, context)) {
       return currentLanguage === "zh"
         ? `胜者将对阵 ${matchup} 的预测胜者。`
-        : `Winner will face predicted winner of ${matchup}`;
+        : formatActiveLocaleMessage(
+            "winner-face-predicted",
+            { matchup },
+            `Winner will face predicted winner of ${matchup}`
+          );
     }
 
     return currentLanguage === "zh"
       ? `胜者将对阵 ${matchup} 的胜者。`
-      : `Winner will face winner of ${matchup}`;
+      : formatActiveLocaleMessage(
+          "winner-face-matchup",
+          { matchup },
+          `Winner will face winner of ${matchup}`
+        );
   }
 
   if (otherSlot) {
@@ -22962,13 +24698,24 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
     const searchAction = otherSlotTeam ? renderKnockoutContextSearchAction(otherSlotTeam) : "";
     return currentLanguage === "zh"
       ? `胜者将对阵 ${escapeHtml(localizeText(otherSlot))}。${searchAction}`
-      : `Winner will face ${escapeHtml(localizeText(otherSlot))}${searchAction}`;
+      : formatActiveLocaleMessage(
+          "winner-face",
+          {
+            opponent: escapeHtml(localizeText(otherSlot)),
+            searchAction
+          },
+          `Winner will face ${escapeHtml(localizeText(otherSlot))}${searchAction}`
+        );
   }
 
   const nextStage = escapeHtml(getTournamentStageLabel(nextMatch.stage));
   return currentLanguage === "zh"
     ? `胜者将进入${nextStage}。`
-    : `Winner moves into ${nextStage}`;
+    : formatActiveLocaleMessage(
+        "winner-moves",
+        { nextStage },
+        `Winner moves into ${nextStage}`
+      );
 }
 
 function renderNextKnockoutContext(match, context) {
@@ -23086,7 +24833,7 @@ function formatScorePair(pair) {
 function renderHistoricalScoreDetails(match) {
   const details = match.scoreDetails || {};
   const rows = [
-    { label: "Final", value: formatScorePair(match.score) },
+    { label: "Final score", value: formatScorePair(match.score) },
     { label: "Half-time", value: formatScorePair(details.halfTime) },
     { label: "After extra time", value: formatScorePair(details.extraTime) },
     { label: "Penalties", value: formatScorePair(details.penalties) }
@@ -23201,7 +24948,8 @@ function getHistoricalContextLabel(match) {
 }
 
 function getLocalizedHistoricalTeamName(teamName) {
-  return localizeText(teamName || "");
+  return activeAppLocalePack?.helpers?.translateTeamName?.(teamName || "") ||
+    localizeText(teamName || "");
 }
 
 function getHistoricalDateText(match) {
@@ -23213,7 +24961,11 @@ function getHistoricalDateText(match) {
   const timeText = getHistoricalTournamentTimeLabel(match);
   return currentLanguage === "zh"
     ? `${dateText} 当地时间 ${timeText}`
-    : `${dateText} at ${timeText} local time`;
+    : formatActiveLocaleMessage(
+        "historical-local-time",
+        { dateText, timeText },
+        `${dateText} at ${timeText} local time`
+      );
 }
 
 function getHistoricalTournamentFixtures(match) {
@@ -23541,7 +25293,7 @@ function getHistoricalRoundLabelSeries(fixtures, fallback = "Round path") {
       fixtures
         .map((fixture) => normalizeHistoricalTournamentRoundLabel(fixture.round))
         .filter(Boolean)
-        .map((label) => [label, localizeText(label)])
+        .map((label) => [label, localizeStageLabel(label)])
     ).values()
   ];
 
@@ -23567,7 +25319,16 @@ function renderHistoricalKnockoutCompletedSummary(match) {
     const awayName = renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true });
     return currentLanguage === "zh"
       ? `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`
-      : `${homeName} and ${awayName} tied ${scoreText}`;
+      : formatActiveLocaleMessage(
+          "knockout-draw",
+          {
+            awayName,
+            homeName,
+            homeParticleSource: getLocalizedHistoricalTeamName(match.homeSlot),
+            scoreText
+          },
+          `${homeName} and ${awayName} tied ${scoreText}`
+        );
   }
 
   const loser = getHistoricalOpponent(match, winner);
@@ -23577,14 +25338,39 @@ function renderHistoricalKnockoutCompletedSummary(match) {
   const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(match, winner)));
 
   if (penaltyText) {
+    const searchAction = renderKnockoutContextSearchAction(winner);
     return currentLanguage === "zh"
       ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`
-      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie ${renderKnockoutContextSearchTail(`(${penaltyText} pens)`, winner)}`;
+      : formatActiveLocaleMessage(
+          "knockout-penalties",
+          {
+            loserName,
+            loserParticleSource: getLocalizedHistoricalTeamName(loser),
+            penaltyText,
+            scoreText,
+            searchAction,
+            winnerName,
+            winnerParticleSource: getLocalizedHistoricalTeamName(winner)
+          },
+          `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie ${renderKnockoutContextSearchTail(`(${penaltyText} pens)`, winner)}`
+        );
   }
 
+  const searchAction = renderKnockoutContextSearchAction(winner);
   return currentLanguage === "zh"
     ? `${winnerName}以 ${winnerScoreText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`
-    : `${winnerName} beat ${loserName} ${renderKnockoutContextSearchTail(winnerScoreText, winner)}`;
+    : formatActiveLocaleMessage(
+        "knockout-win",
+        {
+          loserName,
+          loserParticleSource: getLocalizedHistoricalTeamName(loser),
+          scoreText: winnerScoreText,
+          searchAction,
+          winnerName,
+          winnerParticleSource: getLocalizedHistoricalTeamName(winner)
+        },
+        `${winnerName} beat ${loserName} ${renderKnockoutContextSearchTail(winnerScoreText, winner)}`
+      );
 }
 
 function renderHistoricalPreviousKnockoutContext(match) {
@@ -23687,7 +25473,13 @@ function getHistoricalNextPathEntries(match) {
 function renderHistoricalReplayNextLine(replayMatch) {
   const summary = renderHistoricalKnockoutCompletedSummary(replayMatch);
 
-  return currentLanguage === "zh" ? `随后进行了重赛：${summary}` : `Replay followed: ${summary}`;
+  return currentLanguage === "zh"
+    ? `随后进行了重赛：${summary}`
+    : formatActiveLocaleMessage(
+        "historical-replay",
+        { summary },
+        `Replay followed: ${summary}`
+      );
 }
 
 function renderHistoricalAdvancedNextLine(entry) {
@@ -23700,7 +25492,11 @@ function renderHistoricalAdvancedNextLine(entry) {
     return `${teamName}随后晋级对阵${clause}。${searchAction}`;
   }
 
-  return `${teamName} advanced to face${clause}.${searchAction}`;
+  return formatActiveLocaleMessage(
+    "historical-advanced-line",
+    { clause, searchAction, teamName },
+    `${teamName} advanced to face ${clause}.${searchAction}`
+  );
 }
 
 function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
@@ -23711,7 +25507,7 @@ function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
     isSubject: sourceWinner === opponentName
   });
   if (!sourceMatch) {
-    return currentLanguage === "zh" ? opponent : ` ${opponent}`;
+    return opponent;
   }
 
   const otherName = renderHistoricalKnockoutTeamName(getHistoricalOpponent(sourceMatch, opponentName));
@@ -23720,30 +25516,68 @@ function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
   const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(sourceMatch, opponentName)));
 
   if (!scoreText) {
-    return currentLanguage === "zh" ? opponent : ` ${opponent}`;
+    return opponent;
   }
 
   if (penaltyText) {
     if (sourceWinner === opponentName) {
       return currentLanguage === "zh"
         ? `${opponent}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${otherName}`
-        : ` ${opponent} who won ${penaltyText} on penalties after a ${scoreText} tie against ${otherName}`;
+        : formatActiveLocaleMessage(
+            "historical-qualification",
+            {
+              otherName,
+              opponent,
+              penaltyText,
+              scoreText,
+              variant: "penalty-win"
+            },
+            `${opponent} who won ${penaltyText} on penalties after a ${scoreText} tie against ${otherName}`
+          );
     }
 
     return currentLanguage === "zh"
       ? `${opponent}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 不敌 ${otherName}`
-      : ` ${opponent} who lost ${penaltyText} on penalties after a ${scoreText} tie to ${otherName}`;
+      : formatActiveLocaleMessage(
+          "historical-qualification",
+          {
+            otherName,
+            opponent,
+            penaltyText,
+            scoreText,
+            variant: "penalty-loss"
+          },
+          `${opponent} who lost ${penaltyText} on penalties after a ${scoreText} tie to ${otherName}`
+        );
   }
 
   if (sourceWinner === opponentName) {
     return currentLanguage === "zh"
       ? `${opponent}，后者以 ${teamScoreText} 击败 ${otherName}`
-      : ` ${opponent} who won ${teamScoreText} against ${otherName}`;
+      : formatActiveLocaleMessage(
+          "historical-qualification",
+          {
+            otherName,
+            opponent,
+            teamScoreText,
+            variant: "win"
+          },
+          `${opponent} who won ${teamScoreText} against ${otherName}`
+        );
   }
 
   return currentLanguage === "zh"
     ? `${opponent}，后者以 ${teamScoreText} 不敌 ${otherName}`
-    : ` ${opponent} who lost ${teamScoreText} to ${otherName}`;
+    : formatActiveLocaleMessage(
+        "historical-qualification",
+        {
+          otherName,
+          opponent,
+          teamScoreText,
+          variant: "loss"
+        },
+        `${opponent} who lost ${teamScoreText} to ${otherName}`
+      );
 }
 
 function renderHistoricalNextPathLine(entry) {
@@ -23755,7 +25589,11 @@ function renderHistoricalNextPathLine(entry) {
     return `${entry.kind === "winner" ? "胜者" : "败者"}随后对阵${clause}。${searchAction}`;
   }
 
-  return `${entry.kind === "winner" ? "Winner" : "Loser"} faced${clause}.${searchAction}`;
+  return formatActiveLocaleMessage(
+    "historical-next-line",
+    { clause, kind: entry.kind, searchAction },
+    `${entry.kind === "winner" ? "Winner" : "Loser"} faced ${clause}.${searchAction}`
+  );
 }
 
 function renderHistoricalNextKnockoutContext(match) {
@@ -23857,7 +25695,11 @@ function getHistoricalTeamKeyHeadline(match, teamName) {
       return `${localizedTeamName}：比赛取消`;
     }
 
-    return `${teamName}: match cancelled`;
+    return formatActiveLocaleMessage(
+      "historical-headline",
+      { status: "cancelled", teamName: localizedTeamName },
+      `${teamName}: match cancelled`
+    );
   }
 
   const winner = getHistoricalWinner(match);
@@ -23869,7 +25711,11 @@ function getHistoricalTeamKeyHeadline(match, teamName) {
       return `${localizedTeamName}：战平 ${scoreText}`;
     }
 
-    return `${teamName}: tied ${scoreText}`;
+    return formatActiveLocaleMessage(
+      "historical-headline",
+      { result: "tie", scoreText, teamName: localizedTeamName },
+      `${teamName}: tied ${scoreText}`
+    );
   }
 
   if (penalties) {
@@ -23879,9 +25725,17 @@ function getHistoricalTeamKeyHeadline(match, teamName) {
         : `${localizedTeamName}：点球落败，${scoreText}`;
     }
 
-    return winner === teamName
-      ? `${teamName}: won on pens, ${scoreText}`
-      : `${teamName}: lost on pens, ${scoreText}`;
+    return formatActiveLocaleMessage(
+      "historical-headline",
+      {
+        result: winner === teamName ? "penalty-win" : "penalty-loss",
+        scoreText,
+        teamName: localizedTeamName
+      },
+      winner === teamName
+        ? `${teamName}: won on pens, ${scoreText}`
+        : `${teamName}: lost on pens, ${scoreText}`
+    );
   }
 
   if (currentLanguage === "zh") {
@@ -23890,7 +25744,15 @@ function getHistoricalTeamKeyHeadline(match, teamName) {
       : `${localizedTeamName}：失利 ${scoreText}`;
   }
 
-  return winner === teamName ? `${teamName}: won ${scoreText}` : `${teamName}: lost ${scoreText}`;
+  return formatActiveLocaleMessage(
+    "historical-headline",
+    {
+      result: winner === teamName ? "win" : "loss",
+      scoreText,
+      teamName: localizedTeamName
+    },
+    winner === teamName ? `${teamName}: won ${scoreText}` : `${teamName}: lost ${scoreText}`
+  );
 }
 
 function getHistoricalTeamGoals(match, teamName) {
@@ -23901,13 +25763,21 @@ function formatHistoricalGoalName(goal) {
   const name = goal.name
     ? currentLanguage === "zh"
       ? localizeHistoricalScorerName(goal.name)
-      : goal.name
+      : currentLanguage === "en"
+        ? goal.name
+        : localizeDisplayText(goal.name)
     : currentLanguage === "zh"
       ? "对手"
-      : "an opponent";
+      : formatActiveLocaleMessage("historical-opponent", {}, "an opponent");
 
   if (goal.ownGoal) {
-    return currentLanguage === "zh" ? `${name}乌龙` : `${name} own goal`;
+    return currentLanguage === "zh"
+      ? `${name}乌龙`
+      : formatActiveLocaleMessage(
+          "historical-own-goal",
+          { name },
+          `${name} own goal`
+        );
   }
 
   return name || localizeText("Unknown scorer");
@@ -23924,6 +25794,14 @@ function formatHistoricalScorerSeries(items) {
 
   if (currentLanguage === "zh") {
     return items.join("、");
+  }
+
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return formatActiveLocaleMessage(
+      "historical-style-series",
+      { items },
+      items.join(" / ")
+    );
   }
 
   if (items.length === 2) {
@@ -23946,15 +25824,15 @@ function formatHistoricalScorerCount(name, count) {
     return `${name}破门`;
   }
 
-  if (count >= 3) {
-    return `${name} scored a hat trick`;
-  }
-
-  if (count === 2) {
-    return `${name} scored twice`;
-  }
-
-  return `${name} scored`;
+  return formatActiveLocaleMessage(
+    "historical-scorer-count",
+    { count, name },
+    count >= 3
+      ? `${name} scored a hat trick`
+      : count === 2
+        ? `${name} scored twice`
+        : `${name} scored`
+  );
 }
 
 function getHistoricalScorerText(goals = []) {
@@ -23974,10 +25852,12 @@ function getHistoricalScorerText(goals = []) {
     const name = goal.name
       ? currentLanguage === "zh"
         ? localizeHistoricalScorerName(goal.name)
-        : goal.name
+        : currentLanguage === "en"
+          ? goal.name
+          : localizeDisplayText(goal.name)
       : currentLanguage === "zh"
         ? "未知进球者"
-        : "Unknown scorer";
+        : localizeText("Unknown scorer");
     scorers.set(name, (scorers.get(name) || 0) + 1);
   }
 
@@ -23985,7 +25865,13 @@ function getHistoricalScorerText(goals = []) {
     formatHistoricalScorerCount(name, count)
   );
   const ownGoalText = ownGoals.map((name) =>
-    currentLanguage === "zh" ? `造成${name}` : `benefited from ${name}`
+    currentLanguage === "zh"
+      ? `造成${name}`
+      : formatActiveLocaleMessage(
+          "historical-benefited-own-goal",
+          { name },
+          `benefited from ${name}`
+        )
   );
   const scoringMoments = [...scorerText, ...ownGoalText];
 
@@ -24021,7 +25907,15 @@ function getHistoricalDrawScoringHighlight(match) {
     return `⚽ ${getLocalizedHistoricalTeamName(match.homeTeam.name)}和${getLocalizedHistoricalTeamName(match.awayTeam.name)}以 ${scoreText} 战平。`;
   }
 
-  return `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`;
+  return formatActiveLocaleMessage(
+    "historical-draw-scoring",
+    {
+      awayName: getLocalizedHistoricalTeamName(match.awayTeam.name),
+      homeName: getLocalizedHistoricalTeamName(match.homeTeam.name),
+      scoreText
+    },
+    `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`
+  );
 }
 
 function getHistoricalResultOutcomeHighlight(match) {
@@ -24033,7 +25927,15 @@ function getHistoricalResultOutcomeHighlight(match) {
       return `🚫 ${getLocalizedHistoricalTeamName(match.homeTeam.name)}对${getLocalizedHistoricalTeamName(match.awayTeam.name)}的比赛已取消。`;
     }
 
-    return `🚫 ${match.homeTeam.name} vs ${match.awayTeam.name} was cancelled.`;
+    return formatActiveLocaleMessage(
+      "historical-outcome",
+      {
+        awayName: getLocalizedHistoricalTeamName(match.awayTeam.name),
+        homeName: getLocalizedHistoricalTeamName(match.homeTeam.name),
+        variant: "cancelled"
+      },
+      `🚫 ${match.homeTeam.name} vs ${match.awayTeam.name} was cancelled.`
+    );
   }
 
   if (!winner) {
@@ -24041,7 +25943,16 @@ function getHistoricalResultOutcomeHighlight(match) {
       return `🤝 ${getLocalizedHistoricalTeamName(match.homeTeam.name)}和${getLocalizedHistoricalTeamName(match.awayTeam.name)}以 ${scoreText} 战平。`;
     }
 
-    return `🤝 ${match.homeTeam.name} and ${match.awayTeam.name} tied ${scoreText}.`;
+    return formatActiveLocaleMessage(
+      "historical-outcome",
+      {
+        awayName: getLocalizedHistoricalTeamName(match.awayTeam.name),
+        homeName: getLocalizedHistoricalTeamName(match.homeTeam.name),
+        scoreText,
+        variant: "draw"
+      },
+      `🤝 ${match.homeTeam.name} and ${match.awayTeam.name} tied ${scoreText}.`
+    );
   }
 
   const loser = winner === match.homeTeam.name ? match.awayTeam.name : match.homeTeam.name;
@@ -24053,14 +25964,32 @@ function getHistoricalResultOutcomeHighlight(match) {
       return `🎯 ${getLocalizedHistoricalTeamName(winner)}在 ${formatScorePair(match.score)} 战平后通过点球击败${getLocalizedHistoricalTeamName(loser)}。`;
     }
 
-    return `🎯 ${winner} beat ${loser} on penalties after a ${formatScorePair(match.score)} tie.`;
+    return formatActiveLocaleMessage(
+      "historical-outcome",
+      {
+        loser: getLocalizedHistoricalTeamName(loser),
+        scoreText: formatScorePair(match.score),
+        variant: "penalties",
+        winner: getLocalizedHistoricalTeamName(winner)
+      },
+      `🎯 ${winner} beat ${loser} on penalties after a ${formatScorePair(match.score)} tie.`
+    );
   }
 
   if (currentLanguage === "zh") {
     return `🏁 ${getLocalizedHistoricalTeamName(winner)}以 ${winnerScoreText || scoreText} 击败${getLocalizedHistoricalTeamName(loser)}。`;
   }
 
-  return `🏁 ${winner} beat ${loser} ${winnerScoreText || scoreText}.`;
+  return formatActiveLocaleMessage(
+    "historical-outcome",
+    {
+      loser: getLocalizedHistoricalTeamName(loser),
+      scoreText: winnerScoreText || scoreText,
+      variant: "win",
+      winner: getLocalizedHistoricalTeamName(winner)
+    },
+    `🏁 ${winner} beat ${loser} ${winnerScoreText || scoreText}.`
+  );
 }
 
 function getHistoricalFocusName(match, side) {
@@ -24072,7 +26001,11 @@ function getHistoricalFocusName(match, side) {
     ? player
       ? localizeHistoricalScorerName(name)
       : getLocalizedHistoricalTeamName(name)
-    : name;
+    : currentLanguage === "en"
+      ? name
+      : player
+        ? localizeDisplayText(name)
+        : getLocalizedHistoricalTeamName(name);
 }
 
 function getHistoricalDrawControlHighlight(match) {
@@ -24086,9 +26019,17 @@ function getHistoricalDrawControlHighlight(match) {
       : `🌟 ${homeFocus}和${awayFocus}互有回应，比分仍然持平。`;
   }
 
-  return isScoreless
-    ? `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`
-    : `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`;
+  return formatActiveLocaleMessage(
+    "historical-control",
+    {
+      awayFocus,
+      homeFocus,
+      variant: isScoreless ? "draw-scoreless" : "draw"
+    },
+    isScoreless
+      ? `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`
+      : `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`
+  );
 }
 
 function getHistoricalResultControlHighlight(match) {
@@ -24097,7 +26038,14 @@ function getHistoricalResultControlHighlight(match) {
       return `📌 这场取消的比赛保留在${getHistoricalContextLabel(match)}存档中。`;
     }
 
-    return `📌 The cancelled fixture remains in the ${match.tournamentName} archive.`;
+    return formatActiveLocaleMessage(
+      "historical-control",
+      {
+        context: localizeText(match.tournamentName),
+        variant: "cancelled"
+      },
+      `📌 The cancelled fixture remains in the ${match.tournamentName} archive.`
+    );
   }
 
   const winner = getHistoricalWinner(match);
@@ -24110,7 +26058,11 @@ function getHistoricalResultControlHighlight(match) {
       return `🌟 点球大战决定了${context}。`;
     }
 
-    return `🌟 The shootout decided ${context}.`;
+    return formatActiveLocaleMessage(
+      "historical-control",
+      { context, variant: "shootout" },
+      `🌟 The shootout decided ${context}.`
+    );
   }
 
   if (extraTime) {
@@ -24118,7 +26070,14 @@ function getHistoricalResultControlHighlight(match) {
       return `🌟 ${winner ? getLocalizedHistoricalTeamName(winner) : "本场比赛"}加时取胜。`;
     }
 
-    return `🌟 ${winner || "The match"} won after extra time.`;
+    return formatActiveLocaleMessage(
+      "historical-control",
+      {
+        variant: "extra-time",
+        winner: winner ? getLocalizedHistoricalTeamName(winner) : ""
+      },
+      `🌟 ${winner || "The match"} won after extra time.`
+    );
   }
 
   if (winner) {
@@ -24130,7 +26089,14 @@ function getHistoricalResultControlHighlight(match) {
         return `🌟 ${getLocalizedHistoricalTeamName(winner)}完成零封。`;
       }
 
-      return `🌟 ${winner} kept a clean sheet.`;
+      return formatActiveLocaleMessage(
+        "historical-control",
+        {
+          variant: "clean-sheet",
+          winner: getLocalizedHistoricalTeamName(winner)
+        },
+        `🌟 ${winner} kept a clean sheet.`
+      );
     }
 
     if (winnerScore - loserScore >= 3) {
@@ -24138,14 +26104,22 @@ function getHistoricalResultControlHighlight(match) {
         return `🌟 ${getLocalizedHistoricalTeamName(winner)}彻底打开局面。`;
       }
 
-      return `🌟 ${winner} broke the match open.`;
+      return formatActiveLocaleMessage(
+        "historical-control",
+        { variant: "open", winner: getLocalizedHistoricalTeamName(winner) },
+        `🌟 ${winner} broke the match open.`
+      );
     }
 
     if (currentLanguage === "zh") {
       return `🌟 ${getLocalizedHistoricalTeamName(winner)}守住了赛果。`;
     }
 
-    return `🌟 ${winner} protected the result.`;
+    return formatActiveLocaleMessage(
+      "historical-control",
+      { variant: "protected", winner: getLocalizedHistoricalTeamName(winner) },
+      `🌟 ${winner} protected the result.`
+    );
   }
 
   return getHistoricalDrawControlHighlight(match);
@@ -24159,7 +26133,11 @@ function getHistoricalResultProgressHighlight(match) {
       return `📊 这场取消的${context}比赛没有产生积分或晋级结果。`;
     }
 
-    return `📊 No points or progression came from this cancelled ${context} fixture.`;
+    return formatActiveLocaleMessage(
+      "historical-result-progress",
+      { context, variant: "cancelled" },
+      `📊 No points or progression came from this cancelled ${context} fixture.`
+    );
   }
 
   if (match.group) {
@@ -24170,14 +26148,26 @@ function getHistoricalResultProgressHighlight(match) {
         return `📊 双方都从${context}拿到1分。`;
       }
 
-      return `📊 Both teams took one point from ${context}.`;
+      return formatActiveLocaleMessage(
+        "historical-result-progress",
+        { context, variant: "group-draw" },
+        `📊 Both teams took one point from ${context}.`
+      );
     }
 
     if (currentLanguage === "zh") {
       return `📊 ${getLocalizedHistoricalTeamName(winner)}从${context}拿到3分。`;
     }
 
-    return `📊 ${winner} took three points from ${context}.`;
+    return formatActiveLocaleMessage(
+      "historical-result-progress",
+      {
+        context,
+        variant: "group-win",
+        winner: getLocalizedHistoricalTeamName(winner)
+      },
+      `📊 ${winner} took three points from ${context}.`
+    );
   }
 
   const winner = getHistoricalWinner(match);
@@ -24187,7 +26177,15 @@ function getHistoricalResultProgressHighlight(match) {
       return `🏆 ${getLocalizedHistoricalTeamName(winner)}赢得${localizeText(match.tournamentName)}冠军。`;
     }
 
-    return `🏆 ${winner} won the ${match.tournamentName} title.`;
+    return formatActiveLocaleMessage(
+      "historical-result-progress",
+      {
+        tournament: localizeText(match.tournamentName),
+        variant: "champion",
+        winner: getLocalizedHistoricalTeamName(winner)
+      },
+      `🏆 ${winner} won the ${match.tournamentName} title.`
+    );
   }
 
   if (/third|3rd|place/i.test(match.round || "") && winner) {
@@ -24195,7 +26193,15 @@ function getHistoricalResultProgressHighlight(match) {
       return `🥉 ${getLocalizedHistoricalTeamName(winner)}在${localizeText(match.tournamentName)}获得第三名。`;
     }
 
-    return `🥉 ${winner} secured third place at ${match.tournamentName}.`;
+    return formatActiveLocaleMessage(
+      "historical-result-progress",
+      {
+        tournament: localizeText(match.tournamentName),
+        variant: "third",
+        winner: getLocalizedHistoricalTeamName(winner)
+      },
+      `🥉 ${winner} secured third place at ${match.tournamentName}.`
+    );
   }
 
   if (currentLanguage === "zh") {
@@ -24204,7 +26210,15 @@ function getHistoricalResultProgressHighlight(match) {
       : `📊 ${context}以平局结束。`;
   }
 
-  return winner ? `📊 ${winner} advanced from ${context}.` : `📊 ${context} ended level.`;
+  return formatActiveLocaleMessage(
+    "historical-result-progress",
+    {
+      context,
+      variant: winner ? "advanced" : "level",
+      winner: winner ? getLocalizedHistoricalTeamName(winner) : ""
+    },
+    winner ? `📊 ${winner} advanced from ${context}.` : `📊 ${context} ended level.`
+  );
 }
 
 function getHistoricalAuthoredResultHighlights(match) {
@@ -24242,6 +26256,19 @@ function getHistoricalResultHighlights(match) {
   ].filter(Boolean);
 }
 
+function localizeHistoricalResultStory(value) {
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const localized = activeLocaleContentHelpers.formatHistoricalResultStory?.(value, {
+      player: (name) => localizeDisplayText(name),
+      stage: (stage) => localizeStageLabel(stage),
+      team: (team) => getLocalizedHistoricalTeamName(team)
+    });
+    return localized || localizeDisplayText(value);
+  }
+
+  return localizeText(value);
+}
+
 function renderHistoricalResultBlock(match) {
   const scoringHighlight = renderHistoricalScoringDetailsHighlight(match);
   const mentionPlayers = getHistoricalMentionPlayers(match);
@@ -24256,7 +26283,9 @@ function renderHistoricalResultBlock(match) {
     ? `
       <ul class="result-highlights result-story-highlights">
         ${highlights
-          .map((highlight) => stripResultHighlightMarker(localizeText(highlight)))
+          .map((highlight) =>
+            stripResultHighlightMarker(localizeHistoricalResultStory(highlight))
+          )
           .filter(Boolean)
           .map((highlight) => `<li>${renderPlayerLinkedText(highlight, mentionPlayers)}</li>`)
           .join("")}
@@ -24283,6 +26312,12 @@ function getHistoricalRoundText(match) {
       : localizeText(match.round || "match");
   }
 
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return match.group
+      ? `${localizeText(match.group)} (${localizeStageLabel(match.round)})`
+      : localizeStageLabel(match.round || "match");
+  }
+
   return match.group ? `${match.group} (${match.round})` : `the ${match.round || "match"}`;
 }
 
@@ -24307,7 +26342,14 @@ function getHistoricalProgressionText(match, teamName, nextMatch) {
       return `下一场：${localizeText(nextMatch.round)} 对 ${getLocalizedHistoricalTeamName(getHistoricalOpponent(nextMatch, teamName))}，${navDateWithYearFormatter.format(getDateFromKey(nextMatch.date))}。`;
     }
 
-    return `Next: ${nextMatch.round} vs ${getHistoricalOpponent(nextMatch, teamName)}, ${navDateWithYearFormatter.format(getDateFromKey(nextMatch.date))}.`;
+    const round = localizeStageLabel(nextMatch.round);
+    const opponent = getLocalizedHistoricalTeamName(getHistoricalOpponent(nextMatch, teamName));
+    const date = navDateWithYearFormatter.format(getDateFromKey(nextMatch.date));
+    return formatActiveLocaleMessage(
+      "historical-progress",
+      { date, opponent, round, variant: "next" },
+      `Next: ${nextMatch.round} vs ${getHistoricalOpponent(nextMatch, teamName)}, ${date}.`
+    );
   }
 
   if (match.round === "Final" && getHistoricalWinner(match) === teamName) {
@@ -24315,7 +26357,11 @@ function getHistoricalProgressionText(match, teamName, nextMatch) {
       return `这场比赛锁定了${localizeText(match.tournamentName)}冠军。`;
     }
 
-    return `That sealed the ${match.tournamentName} title.`;
+    return formatActiveLocaleMessage(
+      "historical-progress",
+      { tournament: localizeText(match.tournamentName), variant: "champion" },
+      `That sealed the ${match.tournamentName} title.`
+    );
   }
 
   if (match.round === "Final") {
@@ -24323,7 +26369,11 @@ function getHistoricalProgressionText(match, teamName, nextMatch) {
       return `这场比赛让他们以亚军结束${localizeText(match.tournamentName)}征程。`;
     }
 
-    return `That ended their ${match.tournamentName} run as runners-up.`;
+    return formatActiveLocaleMessage(
+      "historical-progress",
+      { tournament: localizeText(match.tournamentName), variant: "runner-up" },
+      `That ended their ${match.tournamentName} run as runners-up.`
+    );
   }
 
   if (/third|3rd|place/i.test(match.round || "")) {
@@ -24333,16 +26383,28 @@ function getHistoricalProgressionText(match, teamName, nextMatch) {
         : `这场比赛结束了他们的季军赛征程。`;
     }
 
-    return getHistoricalWinner(match) === teamName
-      ? `That secured third place at ${match.tournamentName}.`
-      : `That closed their ${match.tournamentName} run in the third-place match.`;
+    const didWin = getHistoricalWinner(match) === teamName;
+    return formatActiveLocaleMessage(
+      "historical-progress",
+      {
+        tournament: localizeText(match.tournamentName),
+        variant: didWin ? "third-win" : "third-loss"
+      },
+      didWin
+        ? `That secured third place at ${match.tournamentName}.`
+        : `That closed their ${match.tournamentName} run in the third-place match.`
+    );
   }
 
   if (currentLanguage === "zh") {
     return `这是他们在${localizeText(match.tournamentName)}已载入的最后一场比赛。`;
   }
 
-  return `That was their last loaded match at ${match.tournamentName}.`;
+  return formatActiveLocaleMessage(
+    "historical-progress",
+    { tournament: localizeText(match.tournamentName), variant: "last" },
+    `That was their last loaded match at ${match.tournamentName}.`
+  );
 }
 
 function getHistoricalTeamKeyBody(match, teamName) {
@@ -24374,9 +26436,27 @@ function getHistoricalTeamKeyBody(match, teamName) {
       ? `Scheduled against ${opponentText}, but the match was cancelled.`
       : `${getHistoricalResultVerb(match, teamName)} ${opponentText} ${scoreText} in ${roundText}.`;
 
-  return [result, scorerText, getHistoricalProgressionText(match, teamName, nextMatch)]
-    .filter(Boolean)
-    .join(" ");
+  const progressionText = getHistoricalProgressionText(match, teamName, nextMatch);
+  return formatActiveLocaleMessage(
+    "historical-team-body",
+    {
+      opponent: opponent ? getLocalizedHistoricalTeamName(opponent) : localizeText("their opponent"),
+      progressionText,
+      result:
+        match.status === "CANCELLED"
+          ? ""
+          : !winner
+            ? "tie"
+            : winner === teamName
+              ? "win"
+              : "loss",
+      round: roundText,
+      scoreText,
+      scorerText,
+      status: match.status === "CANCELLED" ? "cancelled" : ""
+    },
+    [result, scorerText, progressionText].filter(Boolean).join(" ")
+  );
 }
 
 function renderHistoricalKeyInformation(match) {
@@ -24474,9 +26554,9 @@ function getHistoricalPastRecord(match, results) {
 function renderHistoricalPastRecord(match, results) {
   const record = getHistoricalPastRecord(match, results);
   const items = [
-    { count: record.homeWins, label: localizeText(match.homeTeam.name), type: "win" },
+    { count: record.homeWins, label: getLocalizedHistoricalTeamName(match.homeTeam.name), type: "win" },
     { count: record.draws, label: "Tie", type: "draw" },
-    { count: record.awayWins, label: localizeText(match.awayTeam.name), type: "win" }
+    { count: record.awayWins, label: getLocalizedHistoricalTeamName(match.awayTeam.name), type: "win" }
   ].map((item) => {
     const percent = formatPastRecordPercent(item.count, record.total);
     const share = record.total ? (item.count / record.total) * 100 : 0;
@@ -24538,7 +26618,11 @@ function renderHistoricalPastScoreline(result, leadingTeamName = "") {
   const winner = getHistoricalWinner(result);
   const leftTeam = getHistoricalTeam(leftName) || { isSlot: true, name: leftName };
   const rightTeam = getHistoricalTeam(rightName) || { isSlot: true, name: rightName };
-  const scoreLabel = [localizeText(leftName), scoreText, localizeText(rightName)].filter(Boolean).join(" ");
+  const scoreLabel = [
+    getLocalizedHistoricalTeamName(leftName),
+    scoreText,
+    getLocalizedHistoricalTeamName(rightName)
+  ].filter(Boolean).join(" ");
   const scoreNoteLabel = scoreNote ? `, ${localizeText(scoreNote)}` : "";
 
   return `
@@ -24630,7 +26714,13 @@ function renderCurrentMatchContextKicker(match, label) {
 
   if (match.stage && match.stage !== "group") {
     const ariaLabel =
-      currentLanguage === "zh" ? "在淘汰赛对阵中查看这轮" : `View ${label} in the Tournament bracket`;
+      currentLanguage === "zh"
+        ? "在淘汰赛对阵中查看这轮"
+        : formatActiveLocaleMessage(
+            "view-bracket-round",
+            { label },
+            `View ${label} in the Tournament bracket`
+          );
     const matchNumber = Number(match.matchNumber);
     const targetAttribute = Number.isFinite(matchNumber)
       ? ` data-tournament-match-number="${escapeHtml(matchNumber)}"`
@@ -24934,21 +27024,32 @@ function isPastMatchPreviewReady(match, currentTime) {
   return Number.isFinite(kickoffTime) && currentTime >= kickoffTime + MATCH_LIVE_WINDOW_MS;
 }
 
-function shouldShowYesterdayMatchesForSelectedDay(currentTime) {
-  return selectedDayKey <= getDayKey(new Date(currentTime), selectedTimeZone);
-}
+function getRecentMatchesContext(currentTime = Date.now()) {
+  const fixturesByDay = new Map();
+  getCalendarFixtures().forEach((fixture) => {
+    const dayKey = getFixtureDayKey(fixture);
+    if (!dayKey || dayKey >= selectedDayKey) {
+      return;
+    }
 
-function getYesterdayMatches(currentTime = Date.now()) {
-  if (!shouldShowYesterdayMatchesForSelectedDay(currentTime)) {
-    return [];
+    if (!fixturesByDay.has(dayKey)) {
+      fixturesByDay.set(dayKey, []);
+    }
+    fixturesByDay.get(dayKey).push(fixture);
+  });
+
+  const recentDayKeys = [...fixturesByDay.keys()].sort((a, b) => b.localeCompare(a));
+  const dayKey = recentDayKeys[0] || "";
+  if (!dayKey) {
+    return { dayKey: "", matches: [] };
   }
 
-  const previousDayKey = getRelativeDayKey(selectedDayKey, -1);
-  return getCalendarFixtures()
-    .filter((fixture) => getFixtureDayKey(fixture) === previousDayKey)
+  const matches = fixturesByDay
+    .get(dayKey)
     .map(hydrateFixture)
     .filter((match) => isPastMatchPreviewReady(match, currentTime))
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+  return { dayKey, matches };
 }
 
 function renderCompactMatchScore(match, state) {
@@ -24996,7 +27097,9 @@ function createYesterdayMatchCard(match, currentTime, tournamentContext = null) 
   const contextLabel = getMatchAccessibilityContextLabel(match);
   const outcomeLabel = getMatchOutcomeAriaLabel(match, displayScore, displayTeams);
   const completionLabel = ["FT", "AET", "PEN"].includes(match.status)
-    ? `${currentLanguage === "zh" ? "全场结束" : "Final"}, `
+    ? `${currentLanguage === "zh"
+        ? "全场结束"
+        : formatActiveLocaleMessage("full-time-prefix", {}, localizeText("Final"))}, `
     : "";
   const label = `${completionLabel}${homeName} ${versusText} ${awayName}${contextLabel ? `, ${contextLabel}` : ""}${
     timeLabel ? `, ${timeLabel}` : ""
@@ -25021,43 +27124,56 @@ function createYesterdayMatchCard(match, currentTime, tournamentContext = null) 
   `;
 
   card.append(button);
-  card.addEventListener("pointerenter", (event) => {
-    if (!isRestoringHistoryState && shouldPreviewMatchInfoOnHover(event)) {
-      renderMatchInfo(match);
+  card.addEventListener("pointermove", (event) => {
+    if (
+      !isRestoringHistoryState &&
+      activeMatchId !== match.id &&
+      shouldPreviewMatchInfoOnHover(event)
+    ) {
+      void renderMatchInfoWhenLocaleReady(match, {
+        shouldRender: () => card.matches(":hover")
+      });
     }
   });
   card.addEventListener("focusin", () => {
     if (syncUrl && !isRestoringHistoryState) {
-      renderMatchInfo(match);
+      void renderMatchInfoWhenLocaleReady(match, {
+        shouldRender: () => card.contains(document.activeElement)
+      });
     }
   });
-  card.addEventListener("click", () => {
-    renderMatchInfo(match, { commit: true, reveal: true });
-    updateUrlState({ historyMode: "push" });
+  card.addEventListener("click", async () => {
+    const didRender = await renderMatchInfoWhenLocaleReady(match, {
+      commit: true,
+      reveal: true
+    });
+    if (didRender) {
+      updateUrlState({ historyMode: "push" });
+    }
   });
   return card;
 }
 
-function createYesterdayMatchesSection(matches, currentTime) {
-  if (!matches.length) {
+function createYesterdayMatchesSection(recentMatchesContext, currentTime) {
+  const { dayKey, matches } = recentMatchesContext;
+  if (!dayKey || !matches.length) {
     return null;
   }
 
-  const previousDayKey = getRelativeDayKey(selectedDayKey, -1);
-  const dateLabel = navDateFormatter.format(getDateFromKey(previousDayKey));
+  const dateLabel = navDateFormatter.format(getDateFromKey(dayKey));
   const section = document.createElement("section");
   const list = document.createElement("div");
-  const title = localizeText("Past 24 hours");
+  const title = localizeText("Recent matches");
   const tournamentContext = createTournamentProgressionContext();
   section.className = "yesterday-section";
   section.setAttribute(
     "aria-label",
-    `${title}, ${dateFormatter.format(getDateFromKey(previousDayKey))}`
+    `${title}, ${dateFormatter.format(getDateFromKey(dayKey))}`
   );
   section.innerHTML = `
     <div class="yesterday-section-header">
-      <h2>${escapeHtml(title)} <time datetime="${escapeHtml(previousDayKey)}">(${escapeHtml(dateLabel)})</time></h2>
-      <button class="yesterday-dismiss" type="button" aria-label="${escapeHtml(localizeText("Hide Past 24 hours"))}">
+      <h2>${escapeHtml(title)} <time datetime="${escapeHtml(dayKey)}">(${escapeHtml(dateLabel)})</time></h2>
+      <button class="yesterday-dismiss" type="button" aria-label="${escapeHtml(localizeText("Hide recent matches"))}">
         <span class="yesterday-dismiss-icon" aria-hidden="true"></span>
       </button>
     </div>
@@ -25100,7 +27216,14 @@ function getTeamSearchTextCandidates(team) {
       continue;
     }
 
-    for (const value of [text, translateTextToZh(text).trim()]) {
+    const localizedTeamName =
+      activeAppLocalePack?.helpers?.translateTeamName?.(text, team?.id || "") || "";
+    for (const value of [
+      text,
+      translateTextToZh(text).trim(),
+      localizedTeamName,
+      localizeText(text).trim()
+    ]) {
       if (value && !seen.has(value)) {
         seen.add(value);
         expandedCandidates.push(value);
@@ -25292,7 +27415,7 @@ function getTeamSearchMatches(query = getTeamSearchQuery()) {
 function getTeamSearchResultTitle(searchMatches, query) {
   const exactQueryTeam = getTeamSearchTeamForExactQuery(normalizeTextKey(query));
   if (exactQueryTeam) {
-    return exactQueryTeam.name || query;
+    return getLocalizedTeamName(exactQueryTeam) || query;
   }
 
   const matchedTeams = new Map();
@@ -25307,7 +27430,7 @@ function getTeamSearchResultTitle(searchMatches, query) {
 
   if (matchedTeams.size === 1) {
     const [team] = matchedTeams.values();
-    return team?.name || query;
+    return getLocalizedTeamName(team) || query;
   }
 
   return query;
@@ -25385,16 +27508,42 @@ function createOlderWorldCupsToggle(hiddenCount, isExpanded) {
   button.dataset.teamHistoryToggle = "true";
   button.setAttribute("aria-expanded", String(isExpanded));
   const actionLabel = isExpanded
-    ? "Hide previous World Cups"
-    : `See previous World Cups (${hiddenCount})`;
+    ? localizeText("Hide previous World Cups")
+    : formatActiveLocaleMessage(
+        "older-world-cups-toggle",
+        { count: hiddenCount },
+        localizeText(`See previous World Cups (${hiddenCount})`)
+      );
   button.innerHTML = `
     <span class="past-reveal-action">
-      ${escapeHtml(localizeText(actionLabel))}
+      ${escapeHtml(actionLabel)}
     </span>
   `;
   button.addEventListener("click", () => {
-    isShowingOlderTeamMatches = !isExpanded;
-    renderSchedule();
+    const showArchive = !isExpanded;
+    if (!showArchive) {
+      isShowingOlderTeamMatches = false;
+      renderSchedule();
+      return;
+    }
+    if (button.dataset.localeLoading === "true") {
+      return;
+    }
+    button.dataset.localeLoading = "true";
+    ensureActiveLocaleContentScope("archive")
+      .then((didLoadArchiveLocale) => {
+        if (!didLoadArchiveLocale) {
+          return;
+        }
+        isShowingOlderTeamMatches = true;
+        renderSchedule();
+      })
+      .catch((error) => {
+        console.warn("Unable to load the archive locale", error);
+      })
+      .finally(() => {
+        delete button.dataset.localeLoading;
+      });
   });
   section.append(button);
   return section;
@@ -25548,12 +27697,14 @@ function getLocalizedCatchUpCopyText(value) {
     return localizeDisplayText(value);
   }
 
-  const localized = String(value[currentLanguage] || value.en || "").trim();
-  if (localized || currentLanguage !== "zh") {
-    return localized;
+  const directTranslation = String(value[currentLanguage] || "").trim();
+  if (directTranslation) {
+    return localizeDisplayText(directTranslation);
   }
 
-  return localizeDisplayText(value.en);
+  return currentLanguage === "en"
+    ? String(value.en || "").trim()
+    : localizeDisplayText(value.en);
 }
 
 function normalizeCatchUpStandout(standout) {
@@ -25726,7 +27877,13 @@ function getGoldenBootStandings() {
 }
 
 function getGoldenBootPlayerDisplayName(player, language = "en") {
-  return language === "zh" ? translateResultPlayerNameToZh(player?.name) : player?.name || "";
+  if (language === "zh") {
+    return translateResultPlayerNameToZh(player?.name);
+  }
+  if (language === "es" || language === "ko") {
+    return replaceActivePlayerNames(player?.name || "");
+  }
+  return player?.name || "";
 }
 
 function formatGoldenBootPlayerList(players, language = "en") {
@@ -25737,10 +27894,32 @@ function formatGoldenBootPlayerList(players, language = "en") {
   if (language === "zh") {
     return names.length === 2 ? names.join("和") : `${names.slice(0, -1).join("、")}和${names.at(-1)}`;
   }
+  if (language === "es" || language === "ko") {
+    return new Intl.ListFormat(language === "es" ? "es-419" : "ko-KR", {
+      style: "long",
+      type: "conjunction"
+    }).format(names);
+  }
   if (names.length === 2) {
     return names.join(" and ");
   }
   return `${names.slice(0, -1).join(", ")}, and ${names.at(-1)}`;
+}
+
+function addActiveCatchUpLocale(copy, variant, data = {}) {
+  if (currentLanguage !== "es" && currentLanguage !== "ko") {
+    return copy;
+  }
+
+  const fallback = String(copy?.en || "");
+  return {
+    ...copy,
+    [currentLanguage]: formatActiveLocaleMessage(
+      "catch-up-tournament",
+      { ...data, variant },
+      fallback
+    )
+  };
 }
 
 function getGoldenBootChaserCopy(chasers, language = "en") {
@@ -25759,6 +27938,22 @@ function getGoldenBootChaserCopy(chasers, language = "en") {
       return `${firstClause}。`;
     }
     return `${firstClause}，${formatGoldenBootPlayerList(secondGroup, language)}同为${secondGroup[0].goals}球。`;
+  }
+
+  if (language === "es" || language === "ko") {
+    const secondNames = formatGoldenBootPlayerList(secondGroup, language);
+    return formatActiveLocaleMessage(
+      "catch-up-tournament",
+      {
+        firstCount: firstGroup.length,
+        firstGoals: firstGoalTotal,
+        firstNames,
+        secondGoals: secondGroup[0]?.goals,
+        secondNames,
+        variant: secondGroup.length ? "golden-boot-chasers-two-levels" : "golden-boot-chasers"
+      },
+      ""
+    );
   }
 
   const firstClause = `${firstNames} ${firstGroup.length === 1 ? "is" : "are"} next on ${firstGoalTotal}`;
@@ -25781,12 +27976,11 @@ function getGoldenBootRaceCopy(standings) {
   const chaserCopyEn = getGoldenBootChaserCopy(chasers, "en");
   const chaserCopyZh = getGoldenBootChaserCopy(chasers, "zh");
 
-  return {
-    body: {
+  const body = {
       en: `${leaderNamesEn} ${leaders.length === 1 ? "has" : "have"} ${topGoalTotal} goals${leaders.length === 1 ? "" : " each"}. ${chaserCopyEn}`.trim(),
       zh: `${leaderNamesZh}${leaders.length === 1 ? `以${topGoalTotal}球领跑。` : `同为${topGoalTotal}球。`}${chaserCopyZh}`
-    },
-    headline: {
+    };
+  const headline = {
       en:
         leaders.length === 1
           ? `${leaderNamesEn} leads the Golden Boot race with ${topGoalTotal} goals`
@@ -25795,7 +27989,37 @@ function getGoldenBootRaceCopy(standings) {
         leaders.length === 1
           ? `${leaderNamesZh}以${topGoalTotal}球领跑金靴奖竞争`
           : `${leaderNamesZh}并列领跑金靴奖竞争`
-    }
+    };
+
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    const leaderNames = formatGoldenBootPlayerList(leaders, currentLanguage);
+    const chaserCopy = getGoldenBootChaserCopy(chasers, currentLanguage);
+    body[currentLanguage] = formatActiveLocaleMessage(
+      "catch-up-tournament",
+      {
+        chaserCopy,
+        leaderCount: leaders.length,
+        leaderNames,
+        topGoalTotal,
+        variant: "golden-boot-race-body"
+      },
+      body.en
+    );
+    headline[currentLanguage] = formatActiveLocaleMessage(
+      "catch-up-tournament",
+      {
+        leaderCount: leaders.length,
+        leaderNames,
+        topGoalTotal,
+        variant: "golden-boot-race-headline"
+      },
+      headline.en
+    );
+  }
+
+  return {
+    body,
+    headline
   };
 }
 
@@ -25832,7 +28056,10 @@ function getQuietDayGoldenBootCatchUpItem() {
     headline: copy.headline,
     kind: "golden-boot-race",
     mentionPlayers: getProfileMentionPlayersFromText(mentionText),
-    meta: { en: "Golden Boot race", zh: "金靴奖竞争" },
+    meta: addActiveCatchUpLocale(
+      { en: "Golden Boot race", zh: "金靴奖竞争" },
+      "golden-boot-meta"
+    ),
     priority: 80,
     sortValue: new Date().toISOString(),
     ...getGeneratedTournamentCatchUpSourceFields("", /goal event|results|schedule/i)
@@ -25883,15 +28110,31 @@ function getTournamentWrapChampionItem(finalMatch) {
     : `${translateTextToZh(winner.name)}在决赛中以${scoreText}击败${translateTextToZh(loser.name)}。`;
 
   return {
-    body: { en: bodyEn, zh: bodyZh },
+    body: addActiveCatchUpLocale(
+      { en: bodyEn, zh: bodyZh },
+      penaltyText ? "champion-body-penalties" : "champion-body",
+      {
+        loser: loser.name,
+        penaltyText,
+        scoreText,
+        winner: winner.name
+      }
+    ),
     dateKey,
-    headline: {
-      en: `${winner.name} are 2026 world champions`,
-      zh: `${translateTextToZh(winner.name)}成为2026年世界杯冠军`
-    },
+    headline: addActiveCatchUpLocale(
+      {
+        en: `${winner.name} are 2026 world champions`,
+        zh: `${translateTextToZh(winner.name)}成为2026年世界杯冠军`
+      },
+      "champion-headline",
+      { winner: winner.name }
+    ),
     kind: "tournament-champion",
     mentionPlayers: [],
-    meta: { en: "Tournament wrap", zh: "赛事总结" },
+    meta: addActiveCatchUpLocale(
+      { en: "Tournament wrap", zh: "赛事总结" },
+      "tournament-wrap-meta"
+    ),
     priority: 4,
     sortValue: getFixtureSortValue(finalMatch),
     ...getGeneratedTournamentCatchUpSourceFields("", /results|schedule/i)
@@ -25912,27 +28155,50 @@ function getTournamentWrapGoldenBootItem(finalMatch) {
     const playerNameZh = getGoldenBootPlayerDisplayName(player, "zh");
     const assistCopyEn = Number.isInteger(award.assists) ? ` and ${award.assists} assists` : "";
     const assistCopyZh = Number.isInteger(award.assists) ? `、${award.assists}次助攻` : "";
-    headline = {
-      en: `${award.name} wins the Golden Boot`,
-      zh: `${playerNameZh}赢得世界杯金靴奖`
-    };
-    body = {
-      en: `${award.name} finished the tournament with ${award.goals} goals${assistCopyEn}.`,
-      zh: `${playerNameZh}以${award.goals}球${assistCopyZh}结束本届赛事。`
-    };
+    headline = addActiveCatchUpLocale(
+      {
+        en: `${award.name} wins the Golden Boot`,
+        zh: `${playerNameZh}赢得世界杯金靴奖`
+      },
+      "golden-boot-winner-headline",
+      { playerName: replaceActivePlayerNames(award.name) }
+    );
+    body = addActiveCatchUpLocale(
+      {
+        en: `${award.name} finished the tournament with ${award.goals} goals${assistCopyEn}.`,
+        zh: `${playerNameZh}以${award.goals}球${assistCopyZh}结束本届赛事。`
+      },
+      "golden-boot-winner-body",
+      {
+        assists: award.assists,
+        goals: award.goals,
+        playerName: replaceActivePlayerNames(award.name)
+      }
+    );
     sourceFields = getGeneratedTournamentCatchUpSourceFields(award.sourceId, /award|golden boot|results/i);
   } else {
     const leaderNamesEn = formatGoldenBootPlayerList(loadedLeaders, "en");
     const leaderNamesZh = formatGoldenBootPlayerList(loadedLeaders, "zh");
     const goalTotal = standings[0]?.goals || 0;
-    headline = {
-      en: "Golden Boot confirmation is pending",
-      zh: "金靴奖官方确认待载入"
-    };
-    body = {
-      en: `${leaderNamesEn} ${loadedLeaders.length === 1 ? "finished as the loaded top scorer" : "finished level in the loaded scoring data"} with ${goalTotal} goals. The official award has not been loaded yet.`,
-      zh: `${leaderNamesZh}在已载入的进球数据中以${goalTotal}球${loadedLeaders.length === 1 ? "排名第一" : "并列第一"}，官方奖项结果尚未载入。`
-    };
+    headline = addActiveCatchUpLocale(
+      {
+        en: "Golden Boot confirmation is pending",
+        zh: "金靴奖官方确认待载入"
+      },
+      "golden-boot-pending-headline"
+    );
+    body = addActiveCatchUpLocale(
+      {
+        en: `${leaderNamesEn} ${loadedLeaders.length === 1 ? "finished as the loaded top scorer" : "finished level in the loaded scoring data"} with ${goalTotal} goals. The official award has not been loaded yet.`,
+        zh: `${leaderNamesZh}在已载入的进球数据中以${goalTotal}球${loadedLeaders.length === 1 ? "排名第一" : "并列第一"}，官方奖项结果尚未载入。`
+      },
+      "golden-boot-pending-body",
+      {
+        goalTotal,
+        leaderCount: loadedLeaders.length,
+        leaderNames: formatGoldenBootPlayerList(loadedLeaders, currentLanguage)
+      }
+    );
     sourceFields = getGeneratedTournamentCatchUpSourceFields("", /goal event|results|schedule/i);
   }
 
@@ -25942,7 +28208,10 @@ function getTournamentWrapGoldenBootItem(finalMatch) {
     headline,
     kind: "tournament-golden-boot",
     mentionPlayers: getProfileMentionPlayersFromText(`${headline.en} ${body.en}`),
-    meta: { en: "Tournament wrap", zh: "赛事总结" },
+    meta: addActiveCatchUpLocale(
+      { en: "Tournament wrap", zh: "赛事总结" },
+      "tournament-wrap-meta"
+    ),
     priority: 5,
     sortValue: getFixtureSortValue(finalMatch),
     ...sourceFields
@@ -25960,18 +28229,28 @@ function getTournamentWrapNumbersItem(finalMatch) {
   const matchCount = completedMatches.length;
 
   return {
-    body: {
-      en: "The complete match archive remains available by date and team.",
-      zh: "完整比赛档案仍可按日期和球队查看。"
-    },
+    body: addActiveCatchUpLocale(
+      {
+        en: "The complete match archive remains available by date and team.",
+        zh: "完整比赛档案仍可按日期和球队查看。"
+      },
+      "tournament-numbers-body"
+    ),
     dateKey: getFixtureDayKey(finalMatch),
-    headline: {
-      en: `The 2026 World Cup: ${matchCount} matches, ${totalGoals} goals`,
-      zh: `2026年世界杯：${matchCount}场比赛，${totalGoals}个进球`
-    },
+    headline: addActiveCatchUpLocale(
+      {
+        en: `The 2026 World Cup: ${matchCount} matches, ${totalGoals} goals`,
+        zh: `2026年世界杯：${matchCount}场比赛，${totalGoals}个进球`
+      },
+      "tournament-numbers-headline",
+      { matchCount, totalGoals }
+    ),
     kind: "tournament-numbers",
     mentionPlayers: [],
-    meta: { en: "Tournament wrap", zh: "赛事总结" },
+    meta: addActiveCatchUpLocale(
+      { en: "Tournament wrap", zh: "赛事总结" },
+      "tournament-wrap-meta"
+    ),
     priority: 6,
     sortValue: getFixtureSortValue(finalMatch),
     ...getGeneratedTournamentCatchUpSourceFields("", /results|schedule/i)
@@ -26158,10 +28437,24 @@ function getResultCatchUpItem(match) {
 
   if (match.status === "LIVE") {
     if (!score) {
+      const headlineFallback = `${match.homeTeam.name} vs ${match.awayTeam.name} is underway`;
+      const bodyFallback = `${context} has moved from preview mode into live tournament business.`;
       return {
         dateKey,
-        headline: `${match.homeTeam.name} vs ${match.awayTeam.name} is underway`,
-        body: `${context} has moved from preview mode into live tournament business.`,
+        headline: formatActiveLocaleMessage(
+          "catch-up-result",
+          {
+            away: match.awayTeam.name,
+            home: match.homeTeam.name,
+            variant: "live-underway-headline"
+          },
+          headlineFallback
+        ),
+        body: formatActiveLocaleMessage(
+          "catch-up-result",
+          { context, variant: "live-underway-body" },
+          bodyFallback
+        ),
         mentionPlayers,
         meta,
         priority: 18,
@@ -26171,10 +28464,25 @@ function getResultCatchUpItem(match) {
 
     const leaderSide = getScoreWinnerSide(score.home, score.away);
     if (!leaderSide) {
+      const scoreText = `${score.home}-${score.away}`;
+      const headlineFallback = `${match.homeTeam.name} and ${match.awayTeam.name} are trading momentum`;
+      const bodyFallback = `It is ${scoreText} live, with both sides close enough for one moment to change the story.`;
       return {
         dateKey,
-        headline: `${match.homeTeam.name} and ${match.awayTeam.name} are trading momentum`,
-        body: `It is ${score.home}-${score.away} live, with both sides close enough for one moment to change the story.`,
+        headline: formatActiveLocaleMessage(
+          "catch-up-result",
+          {
+            away: match.awayTeam.name,
+            home: match.homeTeam.name,
+            variant: "live-even-headline"
+          },
+          headlineFallback
+        ),
+        body: formatActiveLocaleMessage(
+          "catch-up-result",
+          { scoreText, variant: "live-even-body" },
+          bodyFallback
+        ),
         mentionPlayers,
         meta,
         priority: 16,
@@ -26186,11 +28494,31 @@ function getResultCatchUpItem(match) {
     const chaser = leaderSide === "home" ? match.awayTeam : match.homeTeam;
     const leaderScore = leaderSide === "home" ? score.home : score.away;
     const chaserScore = leaderSide === "home" ? score.away : score.home;
+    const scoreText = `${leaderScore}-${chaserScore}`;
+    const headlineFallback = `${leader.name} lead ${chaser.name} for now`;
+    const bodyFallback = `${leader.name} lead ${scoreText}, but ${chaser.name} still have time to pull the match back.`;
 
     return {
       dateKey,
-      headline: `${leader.name} lead ${chaser.name} for now`,
-      body: `${leader.name} lead ${leaderScore}-${chaserScore}, but ${chaser.name} still have time to pull the match back.`,
+      headline: formatActiveLocaleMessage(
+        "catch-up-result",
+        {
+          chaser: chaser.name,
+          leader: leader.name,
+          variant: "live-lead-headline"
+        },
+        headlineFallback
+      ),
+      body: formatActiveLocaleMessage(
+        "catch-up-result",
+        {
+          chaser: chaser.name,
+          leader: leader.name,
+          scoreText,
+          variant: "live-lead-body"
+        },
+        bodyFallback
+      ),
       mentionPlayers,
       meta,
       priority: 16,
@@ -26206,12 +28534,30 @@ function getResultCatchUpItem(match) {
   const winnerSide = getResultWinnerSide(match, score);
 
   if (!winnerSide) {
-    const headline = isKnockout
+    const headlineFallback = isKnockout
       ? `${match.homeTeam.name} and ${match.awayTeam.name} await the knockout winner`
       : `${match.homeTeam.name} and ${match.awayTeam.name} split the points`;
-    const body = isKnockout
+    const bodyFallback = isKnockout
       ? `${score.home}-${score.away} is loaded for ${context}, but the knockout winner is not loaded yet.`
       : `${score.home}-${score.away} keeps ${context} open and gives both teams something to carry into the next match.`;
+    const headline = formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        away: match.awayTeam.name,
+        home: match.homeTeam.name,
+        variant: isKnockout ? "await-winner-headline" : "split-points-headline"
+      },
+      headlineFallback
+    );
+    const body = formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        context,
+        scoreText: `${score.home}-${score.away}`,
+        variant: isKnockout ? "await-winner-body" : "split-points-body"
+      },
+      bodyFallback
+    );
 
     return {
       dateKey,
@@ -26235,18 +28581,42 @@ function getResultCatchUpItem(match) {
   const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
   const scoreText = `${winnerScore}-${loserScore}`;
   const knockoutHeadline = getKnockoutResultCatchUpHeadline(match, winner, loser, margin, penaltyText, nextStage);
-  const headline =
-    isKnockout && knockoutHeadline
-      ? knockoutHeadline
-      : margin >= 3
+  let headline = knockoutHeadline;
+  if (!isKnockout || !headline) {
+    const headlineVariant = margin >= 3
+      ? "statement-headline"
+      : margin === 2
+        ? "sharp-headline"
+        : "narrow-headline";
+    const headlineFallback = margin >= 3
       ? `${winner.name} make a statement against ${loser.name}`
       : margin === 2
         ? `${winner.name} look sharp against ${loser.name}`
         : `${winner.name} narrowly beat ${loser.name}`;
+    headline = formatActiveLocaleMessage(
+      "catch-up-result",
+      {
+        loser: loser.name,
+        variant: headlineVariant,
+        winner: winner.name
+      },
+      headlineFallback
+    );
+  }
+  const groupBodyFallback = `${winner.name}'s ${scoreText} win gives them an early foothold in ${context}.`;
   const body =
     isKnockout
       ? getKnockoutResultCatchUpBody(match, winner, loser, score, scoreText, penaltyText, nextStage, context)
-      : `${winner.name}'s ${scoreText} win gives them an early foothold in ${context}.`;
+      : formatActiveLocaleMessage(
+          "catch-up-result",
+          {
+            context,
+            scoreText,
+            variant: "group-win-body",
+            winner: winner.name
+          },
+          groupBodyFallback
+        );
 
   return {
     dateKey,
@@ -26923,8 +29293,11 @@ function renderSchedule(options = {}) {
 
   const currentTime = Date.now();
   const todayMatches = getMatchesForSelectedDay();
-  const yesterdayMatches = shouldShowYesterdayMatches ? getYesterdayMatches(currentTime) : [];
-  const yesterdaySection = createYesterdayMatchesSection(yesterdayMatches, currentTime);
+  const recentMatchesContext = shouldShowYesterdayMatches
+    ? getRecentMatchesContext(currentTime)
+    : { dayKey: "", matches: [] };
+  const recentMatches = recentMatchesContext.matches;
+  const yesterdaySection = createYesterdayMatchesSection(recentMatchesContext, currentTime);
   setYesterdayLayoutOffset(!shouldShowYesterdayMatches && todayMatches.length > 0);
   const liveMatchIds = getLiveMatchIds(currentTime);
   const selectedIsToday = selectedDayKey === getDayKey(new Date(), selectedTimeZone);
@@ -26946,7 +29319,7 @@ function renderSchedule(options = {}) {
 
     setLiveTodayMatchFocus(false);
     matchList.replaceChildren(createEmptyStateElement(), yesterdaySection);
-    const activeMatch = yesterdayMatches.find((match) => match.id === activeMatchId);
+    const activeMatch = recentMatches.find((match) => match.id === activeMatchId);
     if (activeMatch) {
       renderMatchInfo(activeMatch);
     } else {
@@ -26969,7 +29342,7 @@ function renderSchedule(options = {}) {
     ...todayRows.map(({ match, state }) => renderMatchRow(match, state, currentTime, { tournamentContext })),
     ...(yesterdaySection ? [yesterdaySection] : [])
   );
-  const activeMatch = [...todayMatches, ...yesterdayMatches].find(
+  const activeMatch = [...todayMatches, ...recentMatches].find(
     (match) => match.id === activeMatchId
   );
 
@@ -27115,11 +29488,39 @@ function getReleaseNoteTitle(releaseNote) {
   if (currentLanguage === "zh") {
     return String(releaseNote?.titleZh || "").trim() || localizeText(releaseNote?.title || "Latest changes");
   }
+  if (
+    (currentLanguage === "es" || currentLanguage === "ko") &&
+    !activeLocaleContentScopes.has("release")
+  ) {
+    return localizeText("Latest changes");
+  }
 
-  return String(releaseNote?.title || "").trim() || "Latest changes";
+  return localizeText(String(releaseNote?.title || "").trim() || "Latest changes");
+}
+
+function getReleaseTooltipHeading(title) {
+  const label = {
+    es: "Notas de la versión",
+    ko: "릴리스 노트",
+    zh: "发布说明"
+  }[currentLanguage] || "Release notes";
+  const separator = currentLanguage === "zh" ? "：" : ": ";
+
+  return `${label}${separator}${title}`;
 }
 
 function getReleaseNoteHighlights(releaseNote) {
+  if (
+    (currentLanguage === "es" || currentLanguage === "ko") &&
+    !activeLocaleContentScopes.has("release")
+  ) {
+    return [
+      "Release notes explain app changes; Data refreshed only shows data freshness.",
+      "Data refreshed stays separate from app release notes.",
+      "Source links stay available inside the tooltip."
+    ].map(localizeText);
+  }
+
   const hasLocalizedHighlights = currentLanguage === "zh" && Array.isArray(releaseNote?.highlightsZh);
   const sourceHighlights = hasLocalizedHighlights ? releaseNote.highlightsZh : releaseNote?.highlights;
   const highlights = Array.isArray(sourceHighlights)
@@ -27127,7 +29528,9 @@ function getReleaseNoteHighlights(releaseNote) {
     : [];
 
   if (highlights.length) {
-    return currentLanguage === "zh" && !hasLocalizedHighlights ? highlights.map(localizeText) : highlights;
+    return currentLanguage === "zh" && hasLocalizedHighlights
+      ? highlights
+      : highlights.map(localizeDisplayText);
   }
 
   return [
@@ -27137,9 +29540,19 @@ function getReleaseNoteHighlights(releaseNote) {
   ].map(localizeText);
 }
 
+function getCreatorCreditMarkup() {
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
+  const creatorText =
+    currentLanguage === "zh"
+      ? `由 ${creatorLink} 制作`
+      : `${escapeHtml(localizeText("Made by"))} ${creatorLink}`;
+
+  return `<span class="release-tooltip-note">${creatorText}</span>`;
+}
+
 function getReleaseTooltipLoadingMarkup() {
   return `
-    <strong>${escapeHtml(localizeText("Latest changes"))}</strong>
+    <strong>${escapeHtml(getReleaseTooltipHeading(localizeText("Latest changes")))}</strong>
     <span class="release-tooltip-loading" role="status">
       <span class="visually-hidden">${escapeHtml(localizeText("Loading release notes"))}</span>
       ${Array.from({ length: 3 }, (_, index) => `
@@ -27149,6 +29562,7 @@ function getReleaseTooltipLoadingMarkup() {
         </span>
       `).join("")}
     </span>
+    ${getCreatorCreditMarkup()}
   `.trim();
 }
 
@@ -27164,6 +29578,48 @@ function renderReleaseTooltipLoadingState() {
   releaseTooltip.innerHTML = getReleaseTooltipLoadingMarkup();
 }
 
+function renderReleaseTooltipContent() {
+  const releaseTooltip = document.querySelector("#release-tooltip");
+  if (!releaseTooltip) {
+    return;
+  }
+
+  releaseTooltip.classList.toggle("is-loading", isReleaseNotesLoading);
+  releaseTooltip.setAttribute("aria-busy", String(isReleaseNotesLoading));
+  releaseTooltip.innerHTML = getReleaseTooltipMarkup();
+  const wrapper = releaseTooltip.closest(".release-tooltip-wrapper");
+  updateTooltipBounds(wrapper || releaseTooltip);
+  window.requestAnimationFrame(() => updateTooltipBounds(wrapper || releaseTooltip));
+}
+
+function ensureReleaseLocaleOnIntent(target) {
+  const targetElement = getEventTargetElement(target);
+  if (
+    !targetElement?.closest(".release-tooltip-wrapper") ||
+    isReleaseNotesLoading ||
+    currentLanguage === "en" ||
+    currentLanguage === "zh" ||
+    activeLocaleContentScopes.has("release")
+  ) {
+    return;
+  }
+
+  if (!releaseLocaleIntentPromise) {
+    releaseLocaleIntentPromise = ensureActiveLocaleContentScope("release")
+      .then((didLoadReleaseLocale) => {
+        if (didLoadReleaseLocale) {
+          renderReleaseTooltipContent();
+        }
+      })
+      .catch((error) => {
+        console.warn("Unable to load the release-note locale", error);
+      })
+      .finally(() => {
+        releaseLocaleIntentPromise = null;
+      });
+  }
+}
+
 function getReleaseTooltipMarkup() {
   if (isReleaseNotesLoading) {
     return getReleaseTooltipLoadingMarkup();
@@ -27174,66 +29630,63 @@ function getReleaseTooltipMarkup() {
   const releaseTooltipItems = getReleaseNoteHighlights(latestReleaseNote);
 
   return `
-    <strong>${escapeHtml(releaseTooltipTitle)}</strong>
+    <strong>${escapeHtml(getReleaseTooltipHeading(releaseTooltipTitle))}</strong>
     <ul>
       ${releaseTooltipItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
     </ul>
+    ${getCreatorCreditMarkup()}
   `.trim();
 }
 
 function renderSourceNote() {
-  const compactSourceLabels = {
-    "FIFA World Cup 2026 schedule": "FIFA schedule",
-    "FIFA World Cup 2026 schedule and results": "FIFA schedule",
-    "FIFA World Cup 2026 debutants": "debutants",
-    "FIFA/Coca-Cola Men's World Ranking": "ranking",
-    "FIFA World Cup 2026 standings": "standings"
+  const sourceUrls = {
+    fifa: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+    fifaHighlights: "https://www.youtube.com/channel/UCpcTrCXblq78GZrTUTLWeBw",
+    forecast: "https://theanalyst.com/articles/world-cup",
+    market: "https://www.oddschecker.com/football/world-cup",
+    transfermarkt: "https://github.com/dcaribou/transfermarkt-datasets",
+    wikipedia: "https://en.wikipedia.org/wiki/Category:Association_football_players",
+    wikimedia: "https://commons.wikimedia.org/wiki/Main_Page",
+    foxHighlights: "https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg"
   };
-  const coreSourceLabels = new Set(Object.keys(compactSourceLabels));
-  const coreOfficialSources = tournament.sources.filter(
-    (source) => source.type === "official" && coreSourceLabels.has(source.label)
-  );
-  const officialSourceLinks = coreOfficialSources.map((source) => {
-    const label = localizeDisplayText(compactSourceLabels[source.label] ?? source.label);
-    return source.url
-      ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
-      : escapeHtml(label);
-  });
+  const sourceLink = (url, label, className = "") =>
+    `<a${className ? ` class="${className}"` : ""} href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+  const sourceSeparator = `<span class="source-tooltip-separator" aria-hidden="true"> — </span>`;
+  const itemSeparator = `<span class="source-tooltip-item-separator" aria-hidden="true"> · </span>`;
+  const sourceTooltipRows = [
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Tournament facts"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Forecasts"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, "Oddschecker")}</span></span>`,
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Player information"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
+    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
+  ];
   const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
-  const sentenceEnd = currentLanguage === "zh" ? "。" : ".";
-  const predictionsText = localizeText("Predictions are unofficial.");
+  const predictionsText = localizeText("Predictions are unofficial.").replace(/[.。]$/u, "");
   const dataRefreshed = updatedAtText
-    ? currentLanguage === "zh"
-      ? `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}。`
-      : `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}.`
+    ? `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}`
     : "";
-  const reportIssueText = localizeText("Report issue");
   const seeSourcesText = localizeText("See sources");
   const releaseNotesText = localizeText("See release notes");
-  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
-  const creatorText = currentLanguage === "zh" ? `由 ${creatorLink} 制作` : `Made by ${creatorLink}`;
-
-  const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
-  const sourceTooltipTitle = currentLanguage === "zh" ? "来源" : "Sources";
   const sourceTooltip = `
     <span class="source-tooltip-wrapper">
-      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</button>${sentenceEnd}
+      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</button>
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
-        <strong>${escapeHtml(sourceTooltipTitle)}</strong>
-        <span>${officialSourceLinks.join(" ")}</span>
+        <span class="source-tooltip-list">${sourceTooltipRows.join("")}</span>
+        <span class="source-tooltip-note">${escapeHtml(localizeText("Exact sources vary by match."))}</span>
       </span>
     </span>
   `.trim();
   const releaseTooltipClass = isReleaseNotesLoading ? "release-tooltip is-loading" : "release-tooltip";
   const releaseTooltip = `
     <span class="release-tooltip-wrapper">
-      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</button>${sentenceEnd}
+      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</button>
       <span class="${releaseTooltipClass}" id="release-tooltip" role="tooltip" aria-busy="${isReleaseNotesLoading ? "true" : "false"}">
         ${getReleaseTooltipMarkup()}
       </span>
     </span>
   `.trim();
-  sourceNote.innerHTML = `${sourceTooltip} ${predictionsText}${dataRefreshed ? ` ${dataRefreshed}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}${sentenceEnd} ${releaseTooltip}`;
+  sourceNote.innerHTML = [sourceTooltip, predictionsText, dataRefreshed, releaseTooltip]
+    .filter(Boolean)
+    .join(" • ");
   updateTooltipBounds(sourceNote);
 }
 
@@ -27368,6 +29821,9 @@ function applyDataSnapshot({
   playerAvailabilityData = isPlainObject(nextPlayerAvailabilityData) ? nextPlayerAvailabilityData : { teams: {} };
   lineupRosterPlayersByTeamAndName = buildLineupRosterPlayerLookup(fixturesData, lineupData);
   const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData, expectedLineupsData);
+  fifaRankingYear = Number.isInteger(Number(teamsData.rankingYear))
+    ? Number(teamsData.rankingYear)
+    : null;
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
   coachProfilesByName = buildCoachProfileLookup(coachProfilesData.profiles);
@@ -27519,9 +29975,10 @@ function renderLoadedApp(options = {}) {
 
 async function setLanguage(language) {
   const nextLanguage = normalizeLanguage(language) || DEFAULT_LANGUAGE;
+  let failureMessage = "";
 
   if (pendingLanguage) {
-    return;
+    return false;
   }
 
   if (nextLanguage === currentLanguage) {
@@ -27530,22 +29987,23 @@ async function setLanguage(language) {
       renderCatchUp();
       positionCatchUpPopover();
     }
-    return;
+    return true;
   }
 
   const requestId = languageSwitchRequestId + 1;
   languageSwitchRequestId = requestId;
-  const pendingStartedAt = performance.now();
   setPendingLanguage(nextLanguage);
 
   try {
     await waitForLanguageSpinnerPaint();
+    const localeAssets = await loadAppLocaleAssets(nextLanguage);
 
     if (requestId !== languageSwitchRequestId) {
-      return;
+      return false;
     }
 
     currentLanguage = nextLanguage;
+    applyAppLocaleAssets(nextLanguage, localeAssets);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
     updateUrlState({ historyMode: "push" });
 
@@ -27560,10 +30018,20 @@ async function setLanguage(language) {
       renderCatchUp();
       positionCatchUpPopover();
     }
+    return true;
+  } catch (error) {
+    console.error(`Unable to load the ${nextLanguage} locale`, error);
+    failureMessage =
+      UI_TEXT[nextLanguage]?.languageLoadFailed ||
+      UI_TEXT.en.languageLoadFailed ||
+      "Unable to switch language";
+    return false;
   } finally {
-    await waitForLanguagePendingMinimum(pendingStartedAt);
     if (requestId === languageSwitchRequestId) {
       setPendingLanguage("");
+      if (failureMessage && languageStatus) {
+        languageStatus.textContent = failureMessage;
+      }
     }
   }
 }
@@ -27611,6 +30079,8 @@ async function loadInitialLiveData() {
 
 async function boot() {
   try {
+    const localeAssets = await loadAppLocaleAssets(currentLanguage);
+    applyAppLocaleAssets(currentLanguage, localeAssets);
     await loadStaticData();
     loadReleaseNotes();
   } catch (error) {
@@ -27620,6 +30090,7 @@ async function boot() {
 
   try {
     readUrlState({ forceToday: isReloadNavigation() });
+    await ensureRequiredActiveLocaleContentScopes();
     isInitialLiveDataLoading = true;
     renderLoadedApp({ syncActiveView: true });
     setInterval(renderSchedule, 60 * 1000);
@@ -27637,13 +30108,22 @@ viewTabs.forEach((tab) => {
   });
 });
 
-languageButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    setLanguage(button.dataset.language).catch((error) => {
-      console.error("Unable to switch language", error);
-      setPendingLanguage("");
-    });
+languageSelect?.addEventListener("change", () => {
+  const requestedLanguage = languageSelect.value;
+  setLanguage(requestedLanguage).then((didSwitch) => {
+    if (!didSwitch) {
+      languageSelect.value = currentLanguage;
+    }
   });
+});
+
+document.addEventListener("worldcup:languagerequest", (event) => {
+  const requestedLanguage = normalizeLanguage(event.detail?.language);
+  if (!requestedLanguage) {
+    return;
+  }
+  event.preventDefault();
+  setLanguage(requestedLanguage);
 });
 
 darkModeToggle?.addEventListener("change", () => {
@@ -27689,7 +30169,17 @@ standingsGrid.addEventListener("click", (event) => {
   if (showNextButton) {
     event.preventDefault();
     event.stopPropagation();
+    showNextButton.classList.add("is-click-dismissed", "is-target-visible");
+    showNextButton.disabled = true;
+    showNextButton.setAttribute("aria-hidden", "true");
     spotlightTournamentMatchCard(showNextButton.dataset.showNextTournamentMatch || "");
+    window.setTimeout(() => {
+      if (!showNextButton.isConnected) {
+        return;
+      }
+      showNextButton.classList.remove("is-click-dismissed");
+      updateTournamentShowNextButtonVisibility();
+    }, 1500);
     return;
   }
 
@@ -27710,7 +30200,20 @@ standingsGrid.addEventListener("pointerdown", handleTournamentBoardPointerDown);
 standingsGrid.addEventListener("pointermove", handleTournamentBoardPointerMove);
 standingsGrid.addEventListener("pointerup", finishTournamentBoardPointerGesture);
 standingsGrid.addEventListener("pointercancel", cancelTournamentBoardPointerGesture);
-standingsGrid.addEventListener("scroll", () => updateTournamentShowNextButtonVisibility(), true);
+standingsGrid.addEventListener(
+  "scroll",
+  (event) => {
+    updateTournamentShowNextButtonVisibility();
+    if (getEventTargetElement(event.target)?.matches(".tournament-progression")) {
+      if (!TOURNAMENT_SCROLL_TIMELINE_SUPPORTED) {
+        updateTournamentRoundHeaders();
+      }
+    } else {
+      scheduleTournamentRoundHeaderUpdate();
+    }
+  },
+  true
+);
 standingsGrid.addEventListener("keydown", (event) => {
   const matchCard = getEventTargetElement(event.target)?.closest(".progress-match[data-open-match-id]") || null;
 
@@ -27813,20 +30316,21 @@ calendarNextMonth.addEventListener("click", () => {
 });
 
 calendarTodayButton.addEventListener("click", () => {
-  if (getMatchCountForDay(getDayKey(new Date(), selectedTimeZone)) === 0) {
+  const shortcutDayKey = getCalendarTodayShortcutDayKey();
+  if (!shortcutDayKey) {
     return;
   }
 
-  selectCalendarDay(getDayKey(new Date(), selectedTimeZone));
+  selectCalendarDay(shortcutDayKey);
 });
 
 calendarYesterdayButton.addEventListener("click", () => {
-  const yesterdayKey = getRelativeDayKey(getDayKey(new Date(), selectedTimeZone), -1);
-  if (getMatchCountForDay(yesterdayKey) === 0) {
+  const shortcutDayKey = getCalendarPreviousShortcutDayKey();
+  if (!shortcutDayKey) {
     return;
   }
 
-  selectCalendarDay(yesterdayKey);
+  selectCalendarDay(shortcutDayKey);
 });
 
 calendarGrid.addEventListener("click", (event) => {
@@ -28106,12 +30610,18 @@ attachPlayerCardPositioning(catchUpPopover);
 
 document.addEventListener(
   "pointerover",
-  (event) => updateTooltipBoundsForTarget(event.target),
+  (event) => {
+    ensureReleaseLocaleOnIntent(event.target);
+    updateTooltipBoundsForTarget(event.target);
+  },
   true
 );
 document.addEventListener(
   "pointerdown",
-  (event) => updateTooltipBoundsForTarget(event.target),
+  (event) => {
+    ensureReleaseLocaleOnIntent(event.target);
+    updateTooltipBoundsForTarget(event.target);
+  },
   true
 );
 document.addEventListener("pointerdown", handleTouchTooltipPointerDown, true);
@@ -28119,7 +30629,10 @@ document.addEventListener("click", handleLivePillTooltipClick, true);
 document.addEventListener("keydown", handleLivePillTooltipKeydown, true);
 document.addEventListener(
   "focusin",
-  (event) => updateTooltipBoundsForTarget(event.target),
+  (event) => {
+    ensureReleaseLocaleOnIntent(event.target);
+    updateTooltipBoundsForTarget(event.target);
+  },
   true
 );
 
@@ -28273,6 +30786,7 @@ window.addEventListener(
     positionPlayerCards();
     updateTooltipBounds();
     updateTournamentShowNextButtonVisibility();
+    scheduleTournamentRoundHeaderUpdate();
     updateMatchInfoViewportDockState();
   },
   true
@@ -28347,16 +30861,24 @@ standingsModeTabs.forEach((tab, index) => {
   });
 });
 
-window.addEventListener("popstate", () => {
+window.addEventListener("popstate", async () => {
   clearPendingUrlStateUpdate();
   clearTransientInteractionState();
   syncUrl = false;
   isRestoringHistoryState = true;
+  const previousLanguage = currentLanguage;
   if (document.activeElement instanceof HTMLElement) {
     document.activeElement.blur();
   }
   try {
     readUrlState({ useUrlDefaults: true });
+    if (currentLanguage !== previousLanguage) {
+      setPendingLanguage(currentLanguage);
+      const localeAssets = await loadAppLocaleAssets(currentLanguage);
+      applyAppLocaleAssets(currentLanguage, localeAssets);
+    } else {
+      await ensureRequiredActiveLocaleContentScopes();
+    }
     updateTeamSearchControls();
     ensureSelectableSelectedDay();
     renderTimeZoneOptions();
@@ -28365,7 +30887,13 @@ window.addEventListener("popstate", () => {
     renderSchedule();
     renderSourceNote();
     updateSeoMetadataFromUrl();
+  } catch (error) {
+    console.error("Unable to restore language from browser history", error);
+    currentLanguage = previousLanguage;
+    const localeAssets = await loadAppLocaleAssets(previousLanguage);
+    applyAppLocaleAssets(previousLanguage, localeAssets);
   } finally {
+    setPendingLanguage("");
     syncUrl = true;
     window.setTimeout(() => {
       isRestoringHistoryState = false;
@@ -28373,10 +30901,22 @@ window.addEventListener("popstate", () => {
   }
 });
 
-const languageObserver = new MutationObserver(() => {
+const languageObserver = new MutationObserver((mutations) => {
   if (currentLanguage !== "zh" || isApplyingLanguage) {
     return;
   }
+
+  mutations.forEach((mutation) => {
+    if (mutation.type === "characterData") {
+      pendingLanguageObserverRoots.add(mutation.target);
+      return;
+    }
+    if (mutation.type === "attributes") {
+      pendingLanguageObserverRoots.add(mutation.target);
+      return;
+    }
+    mutation.addedNodes.forEach((node) => pendingLanguageObserverRoots.add(node));
+  });
 
   if (languageObserverFrameId) {
     return;
@@ -28385,10 +30925,15 @@ const languageObserver = new MutationObserver(() => {
   languageObserverFrameId = window.requestAnimationFrame(() => {
     languageObserverFrameId = 0;
     if (currentLanguage === "zh" && !isApplyingLanguage) {
+      const roots = [...pendingLanguageObserverRoots].filter((node) => node?.isConnected);
+      pendingLanguageObserverRoots.clear();
+      const outermostRoots = roots.filter(
+        (node) => !roots.some((candidate) => candidate !== node && candidate.contains?.(node))
+      );
       withLanguageObserverPaused(() => {
         isApplyingLanguage = true;
         try {
-          localizeRenderedText(document.body);
+          outermostRoots.forEach((root) => localizeRenderedText(root));
           updateWrappedMatchRows();
           updateTooltipBounds();
         } finally {

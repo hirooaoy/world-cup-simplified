@@ -29,9 +29,15 @@ export function buildFifaOfficialLayoutOverride({
   checkedAt = ""
 }) {
   const sourceId = sourceIdForFifaTacticalDocument(parsed.matchNumber, parsed.version, parsed.sha256);
-  const sourceDetail = archiveUrl
-    ? "Positioned text from an archived capture of FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet."
-    : "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.";
+  const observed = parsed.layoutPerspective === "observed";
+  const revised = parsed.layoutPerspective === "revised";
+  const sourceDetail = observed
+    ? "Positioned text from FIFA's updated post-observation Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet."
+    : revised
+      ? "Positioned text from FIFA's updated Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet."
+    : archiveUrl
+      ? "Positioned text from an archived capture of FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet."
+      : "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.";
   return {
     status: "verified",
     layoutSource: FIFA_OFFICIAL_LAYOUT_SOURCE,
@@ -54,11 +60,17 @@ export function buildFifaOfficialLayoutOverride({
         registrationId,
         documentVersion: parsed.version,
         publishedAt,
-        sha256: parsed.sha256
+        sha256: parsed.sha256,
+        layoutPerspective: parsed.layoutPerspective,
+        isUpdatedVersion: parsed.isUpdatedVersion,
+        ...(parsed.revisionComment ? { revisionComment: parsed.revisionComment } : {})
       }
     ],
-    note:
-      "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
+    note: observed
+      ? "FIFA's updated Tactical Line-up PDF, published after observation of the game, supplied the observed starting shape and exact player placement."
+      : revised
+        ? "FIFA's updated Tactical Line-up PDF supplied the latest official starting shape and exact player placement."
+      : "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
     home: {
       formation: parsed.home.formation,
       players: layoutPlayers(parsed.home.players)
@@ -105,7 +117,11 @@ function tournamentSourceForOverride(fixture, override) {
     url: source.url,
     type: "official",
     checkedAt: override.checkedAt,
-    note: `FIFA Tactical Line-up version ${source.documentVersion} supplied the nominal rows and left/right geometry for all 22 starters.`
+    note: source.layoutPerspective === "observed"
+      ? `FIFA Tactical Line-up version ${source.documentVersion}, updated after observation of the game, supplied the observed rows and left/right geometry for all 22 starters.`
+      : source.layoutPerspective === "revised"
+        ? `FIFA Tactical Line-up version ${source.documentVersion} supplied FIFA's latest revised rows and left/right geometry for all 22 starters.`
+      : `FIFA Tactical Line-up version ${source.documentVersion} supplied the nominal rows and left/right geometry for all 22 starters.`
   };
 }
 

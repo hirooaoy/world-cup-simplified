@@ -1,13 +1,13 @@
 {
   "schemaVersion": "2",
-  "generatedAt": "2026-07-16T06:27:10.842Z",
+  "generatedAt": "2026-07-16T17:30:12.660Z",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "2",
-    "runId": "lineup-prediction-2026-07-16-b41f0a0d5dd1",
-    "inputFingerprint": "b41f0a0d5dd1b9819e7e4bbbc94f7fdd86603aeabac2a1b8d2feaf45d538538b",
-    "modelFingerprint": "eb79163bdf904f7d41d36b022c65663111815c755f49d89249c4f9935df9794c",
-    "revisionId": "c349ed70c3b25a6fc062e97904ace0f63dfcdb721f35367f7942ce507ce09289"
+    "runId": "lineup-prediction-2026-07-16-00d3f1b60ef7",
+    "inputFingerprint": "00d3f1b60ef730b0370e694e6ef096a059e23b0d5e3d7fa01b531b175852470d",
+    "modelFingerprint": "0a7cb9061bf6dcbadb28cd27443ea6e64a535376a529ffdd9565807b659cf21c",
+    "revisionId": "34474c9ffcbed1709bef956d614357f3e3f46b9607b3585e0b01cd9bcffc0931"
   },
   "sources": [
     {
@@ -64,8 +64,28 @@
       "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-16T06:27:10.842Z",
+      "checkedAt": "2026-07-16T17:30:12.660Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
+    },
+    {
+      "id": "racing-post-france-england-preview-2026-07-16",
+      "label": "Racing Post France vs England team news and predicted XIs",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/france-vs-england-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-acFre6b3w30W/",
+      "note": "Independent current third-place preview with predicted XIs and injury context."
+    },
+    {
+      "id": "racing-post-spain-argentina-preview-2026-07-16",
+      "label": "Racing Post Spain vs Argentina team news and predicted XIs",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
+      "note": "Independent current final preview with predicted XIs and a more conservative Argentina shape."
     },
     {
       "id": "sports-mole-england-argentina-team-news-2026-07-14",
@@ -78,6 +98,16 @@
       "note": "Updated matchday preview rechecked at 16:53 UTC; it still returns John Stones at centre-back and keeps Ezri Konsa at right-back."
     },
     {
+      "id": "sports-mole-france-england-preview-2026-07-16",
+      "label": "Sports Mole France vs England third-place preview",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/preview/france-vs-england-prediction-team-news-lineups_601289.html",
+      "note": "Current third-place preview with predicted XIs for France and England."
+    },
+    {
       "id": "sports-mole-france-spain-team-news-2026-07-14",
       "label": "Sports Mole France vs Spain team news and predicted XIs",
       "type": "free-public-probable-lineup",
@@ -86,6 +116,16 @@
       "suppliesLineup": true,
       "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/team-news/france-vs-spain-injury-suspension-list-predicted-xis--world-cup-2026_601095.html",
       "note": "Matchday team-news update with current predicted XIs and France injury context."
+    },
+    {
+      "id": "sports-mole-spain-argentina-preview-2026-07-16",
+      "label": "Sports Mole Spain vs Argentina final predicted XIs",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
+      "note": "Current final prediction retaining the Messi-Alvarez partnership; Spain's XI is paired from Sports Mole's same-day Spain prediction."
     },
     {
       "id": "stats-zone-england-argentina-preview-2026-07-14",
@@ -119,18 +159,20 @@
   "fixtures": [
     {
       "fixtureId": "match-103-bronze-final-2026-07-18",
-      "mode": "expected",
+      "mode": "probable",
       "predictionClass": "forecast",
       "sourceIds": [
+        "sports-mole-france-england-preview-2026-07-16",
+        "racing-post-france-england-preview-2026-07-16",
         "lineup-prediction-official-history",
         "fifa-lineups-sync-2026-07-15",
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-16T06:27:10.842Z",
+      "lastUpdated": "2026-07-16T17:30:12.660Z",
       "confidence": {
-        "label": "medium",
-        "score": 0.58,
+        "label": "high",
+        "score": 0.812,
         "method": "evidence-strength-v2",
         "reason": "Average home/away evidence strength; this is not a calibrated probability."
       },
@@ -140,7 +182,7 @@
           "providerVersion": "1",
           "score": 0.853,
           "predictionClass": "forecast",
-          "recencyWeight": 0.848,
+          "recencyWeight": 0.723,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -150,18 +192,44 @@
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
             "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
           ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.965,
+          "predictionClass": "forecast",
+          "recencyWeight": 1,
+          "sourceReliability": 1,
+          "independenceKey": "source:sports-mole",
+          "updatedAt": "2026-07-16T17:30:00Z",
+          "sourceIds": [
+            "sports-mole-france-england-preview-2026-07-16"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.958,
+          "predictionClass": "forecast",
+          "recencyWeight": 1,
+          "sourceReliability": 1,
+          "independenceKey": "source:racing-post",
+          "updatedAt": "2026-07-16T17:30:00Z",
+          "sourceIds": [
+            "racing-post-france-england-preview-2026-07-16"
+          ]
         }
       ],
       "evidence": {
         "home": {
           "confidence": {
-            "label": "medium",
-            "score": 0.58,
+            "label": "high",
+            "score": 0.802,
             "method": "evidence-strength-v2",
-            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
           "semantics": "evidence-strength-not-calibrated-probability",
-          "independentSourceCount": 1,
+          "independentSourceCount": 3,
           "formationResolution": {
             "requestedFormation": "4-2-3-1",
             "displayedFormation": "4-2-3-1",
@@ -170,9 +238,11 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 0.647,
-              "independentVotes": 1,
+              "score": 2.422,
+              "independentVotes": 3,
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -180,24 +250,49 @@
               ]
             }
           ],
-          "disputedSlots": [],
+          "disputedSlots": [
+            {
+              "slotIndex": 5,
+              "position": "CM",
+              "assignmentRole": "RCM",
+              "selectedName": "Manu Koné",
+              "selectedEvidenceStrength": 0.296,
+              "alternatives": [
+                {
+                  "name": "N'Golo Kanté",
+                  "score": 0.952,
+                  "evidenceStrength": 0.292,
+                  "independentStarterVotes": 1,
+                  "sourceIds": [
+                    "racing-post-france-england-preview-2026-07-16",
+                    "lineup-prediction-official-history",
+                    "fifa-lineups-sync-2026-07-15",
+                    "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                    "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                  ]
+                }
+              ]
+            }
+          ],
           "notes": [
+            "Current third-place prediction keeps both captains starting while rotating selected supporting players.",
+            "0 availability exclusions checked",
+            "Independent preview also starts Mbappe and Kane while expecting broader rotation around them.",
             "Last verified XI: match 101",
             "Recent formation: 4-2-3-1",
             "0 last-XI players removed for explicit availability",
-            "Bronze-final rotation risk: latest-XI carryover is intentionally downweighted.",
-            "4 high-load starters rotated toward recent bench/minutes alternatives."
+            "Bronze-final selection uncertainty is reflected in confidence; rotation is not assumed without source evidence."
           ]
         },
         "away": {
           "confidence": {
-            "label": "medium",
-            "score": 0.58,
+            "label": "high",
+            "score": 0.822,
             "method": "evidence-strength-v2",
-            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
           "semantics": "evidence-strength-not-calibrated-probability",
-          "independentSourceCount": 1,
+          "independentSourceCount": 3,
           "formationResolution": {
             "requestedFormation": "4-2-3-1",
             "displayedFormation": "4-2-3-1",
@@ -206,9 +301,11 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 0.647,
-              "independentVotes": 1,
+              "score": 2.422,
+              "independentVotes": 3,
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -218,11 +315,13 @@
           ],
           "disputedSlots": [],
           "notes": [
+            "Current third-place prediction keeps both captains starting while rotating selected supporting players.",
+            "0 availability exclusions checked",
+            "Independent preview also starts Mbappe and Kane while expecting broader rotation around them.",
             "Last verified XI: match 102",
             "Recent formation: 4-2-3-1",
             "0 last-XI players removed for explicit availability",
-            "Bronze-final rotation risk: latest-XI carryover is intentionally downweighted.",
-            "4 high-load starters rotated toward recent bench/minutes alternatives."
+            "Bronze-final selection uncertainty is reflected in confidence; rotation is not assumed without source evidence."
           ]
         }
       },
@@ -267,9 +366,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -277,8 +378,8 @@
               ]
             },
             {
-              "name": "Aurélien Tchouaméni",
-              "number": "8",
+              "name": "Jules Koundé",
+              "number": "5",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -286,9 +387,32 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Ibrahima Konaté",
+              "number": "15",
+              "position": "CB",
+              "x": 62,
+              "y": 75,
+              "confidence": {
+                "label": "medium",
+                "score": 0.667,
+                "method": "evidence-strength-v2",
+                "reason": "2 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -299,72 +423,17 @@
               "name": "Maxence Lacroix",
               "number": "26",
               "position": "CB",
-              "x": 62,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.839,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "William Saliba",
-              "number": "17",
-              "position": "CB",
               "x": 38,
               "y": 75,
               "confidence": {
-                "label": "high",
-                "score": 0.92,
+                "label": "medium",
+                "score": 0.666,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Lucas Digne",
-              "number": "3",
-              "position": "LB",
-              "x": 15,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.92,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Michael Olise",
-              "number": "11",
-              "position": "CM",
-              "x": 66,
-              "y": 59,
-              "confidence": {
-                "label": "high",
-                "score": 0.92,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -374,16 +443,101 @@
             {
               "name": "Théo Hernandez",
               "number": "19",
+              "position": "LB",
+              "x": 15,
+              "y": 75,
+              "confidence": {
+                "label": "medium",
+                "score": 0.666,
+                "method": "evidence-strength-v2",
+                "reason": "2 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Manu Koné",
+              "number": "6",
               "position": "CM",
-              "x": 34,
+              "x": 66,
               "y": 59,
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.296,
                 "method": "evidence-strength-v2",
                 "reason": "1 independent starter source; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Warren Zaïre-Emery",
+              "number": "18",
+              "position": "CM",
+              "x": 34,
+              "y": 59,
+              "confidence": {
+                "label": "medium",
+                "score": 0.667,
+                "method": "evidence-strength-v2",
+                "reason": "2 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Rayan Cherki",
+              "number": "24",
+              "position": "RW",
+              "x": 82,
+              "y": 40,
+              "confidence": {
+                "label": "medium",
+                "score": 0.667,
+                "method": "evidence-strength-v2",
+                "reason": "2 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Michael Olise",
+              "number": "11",
+              "position": "AM",
+              "x": 50,
+              "y": 40,
+              "confidence": {
+                "label": "high",
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "3 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -393,52 +547,74 @@
             {
               "name": "Désiré Doué",
               "number": "20",
-              "position": "RW",
-              "x": 82,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.853,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Adrien Rabiot",
-              "number": "14",
-              "position": "AM",
-              "x": 50,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.92,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Bradley Barcola",
-              "number": "12",
               "position": "LW",
               "x": 18,
               "y": 40,
               "confidence": {
+                "label": "medium",
+                "score": 0.664,
+                "method": "evidence-strength-v2",
+                "reason": "2 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Kylian Mbappé",
+              "number": "10",
+              "position": "ST",
+              "x": 50,
+              "y": 20,
+              "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            }
+          ],
+          "bench": [
+            {
+              "name": "N'Golo Kanté",
+              "number": "13",
+              "position": "CM",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Brice Samba",
+              "number": "1",
+              "position": "GK",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -451,13 +627,11 @@
               "name": "Jean-Philippe Mateta",
               "number": "22",
               "position": "ST",
-              "x": 50,
-              "y": 20,
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -465,50 +639,99 @@
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
               ]
-            }
-          ],
-          "bench": [
+            },
+            {
+              "name": "Lucas Hernández",
+              "number": "21",
+              "position": "CB",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Maghnes Akliouche",
+              "number": "25",
+              "position": "AM",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Malo Gusto",
+              "number": "2",
+              "position": "RB",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Marcus Thuram",
+              "number": "9",
+              "position": "ST",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Robin Risser",
+              "number": "23",
+              "position": "GK",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
             {
               "name": "Dayot Upamecano",
               "number": "4",
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.878,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Jules Koundé",
-              "number": "5",
-              "position": "RB",
-              "confidence": {
-                "label": "high",
-                "score": 0.878,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Kylian Mbappé",
-              "number": "10",
-              "position": "ST",
-              "confidence": {
-                "label": "high",
-                "score": 0.878,
+                "score": 0.85,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -525,7 +748,7 @@
               "position": "RW",
               "confidence": {
                 "label": "high",
-                "score": 0.878,
+                "score": 0.85,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -537,12 +760,12 @@
               ]
             },
             {
-              "name": "Manu Koné",
-              "number": "6",
+              "name": "Aurélien Tchouaméni",
+              "number": "8",
               "position": "CM",
               "confidence": {
                 "label": "high",
-                "score": 0.867,
+                "score": 0.82,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -554,12 +777,12 @@
               ]
             },
             {
-              "name": "Brice Samba",
-              "number": "1",
-              "position": "GK",
+              "name": "Bradley Barcola",
+              "number": "12",
+              "position": "LW",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.82,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -571,148 +794,46 @@
               ]
             },
             {
-              "name": "Ibrahima Konaté",
-              "number": "15",
-              "position": "CB",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Lucas Hernández",
-              "number": "21",
-              "position": "CB",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Maghnes Akliouche",
-              "number": "25",
-              "position": "AM",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Malo Gusto",
-              "number": "2",
-              "position": "RB",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Marcus Thuram",
-              "number": "9",
-              "position": "ST",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "N'Golo Kanté",
-              "number": "13",
-              "position": "DM",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Rayan Cherki",
-              "number": "24",
-              "position": "AM",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Robin Risser",
-              "number": "23",
-              "position": "GK",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Warren Zaïre-Emery",
-              "number": "18",
+              "name": "Adrien Rabiot",
+              "number": "14",
               "position": "CM",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.81,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Lucas Digne",
+              "number": "3",
+              "position": "LB",
+              "confidence": {
+                "label": "high",
+                "score": 0.81,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "William Saliba",
+              "number": "17",
+              "position": "CB",
+              "confidence": {
+                "label": "high",
+                "score": 0.81,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -726,6 +847,8 @@
           ],
           "events": {},
           "sourceIds": [
+            "sports-mole-france-england-preview-2026-07-16",
+            "racing-post-france-england-preview-2026-07-16",
             "lineup-prediction-official-history",
             "fifa-lineups-sync-2026-07-15",
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -768,9 +891,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -778,37 +903,19 @@
               ]
             },
             {
-              "name": "Reece James",
-              "number": "24",
+              "name": "Djed Spence",
+              "number": "25",
               "position": "RB",
               "x": 85,
               "y": 75,
               "confidence": {
-                "label": "high",
-                "score": 0.909,
+                "label": "medium",
+                "score": 0.585,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            },
-            {
-              "name": "John Stones",
-              "number": "5",
-              "position": "CB",
-              "x": 62,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.92,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -819,15 +926,17 @@
               "name": "Ezri Konsa",
               "number": "2",
               "position": "CB",
-              "x": 38,
+              "x": 62,
               "y": 75,
               "confidence": {
-                "label": "high",
-                "score": 0.864,
+                "label": "medium",
+                "score": 0.663,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -835,18 +944,41 @@
               ]
             },
             {
-              "name": "Djed Spence",
-              "number": "25",
-              "position": "LB",
-              "x": 15,
+              "name": "Marc Guéhi",
+              "number": "6",
+              "position": "CB",
+              "x": 38,
               "y": 75,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            },
+            {
+              "name": "Nico O'Reilly",
+              "number": "3",
+              "position": "LB",
+              "x": 15,
+              "y": 75,
+              "confidence": {
+                "label": "medium",
+                "score": 0.663,
+                "method": "evidence-strength-v2",
+                "reason": "2 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -860,12 +992,13 @@
               "x": 66,
               "y": 59,
               "confidence": {
-                "label": "high",
-                "score": 0.92,
+                "label": "medium",
+                "score": 0.588,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -873,18 +1006,20 @@
               ]
             },
             {
-              "name": "Jordan Henderson",
-              "number": "14",
+              "name": "Elliot Anderson",
+              "number": "8",
               "position": "CM",
               "x": 34,
               "y": 59,
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -901,9 +1036,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -911,18 +1048,19 @@
               ]
             },
             {
-              "name": "Eberechi Eze",
-              "number": "21",
+              "name": "Jude Bellingham",
+              "number": "10",
               "position": "AM",
               "x": 50,
               "y": 40,
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "medium",
+                "score": 0.591,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -936,50 +1074,13 @@
               "x": 18,
               "y": 40,
               "confidence": {
-                "label": "high",
-                "score": 0.92,
+                "label": "medium",
+                "score": 0.588,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            },
-            {
-              "name": "Noni Madueke",
-              "number": "20",
-              "position": "ST",
-              "x": 50,
-              "y": 20,
-              "confidence": {
-                "label": "high",
-                "score": 0.853,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            }
-          ],
-          "bench": [
-            {
-              "name": "Elliot Anderson",
-              "number": "8",
-              "position": "CM",
-              "confidence": {
-                "label": "high",
-                "score": 0.878,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -990,13 +1091,37 @@
               "name": "Harry Kane",
               "number": "9",
               "position": "ST",
+              "x": 50,
+              "y": 20,
               "confidence": {
                 "label": "high",
-                "score": 0.878,
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "3 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-france-england-preview-2026-07-16",
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            }
+          ],
+          "bench": [
+            {
+              "name": "Jarell Quansah",
+              "number": "26",
+              "position": "RB",
+              "confidence": {
+                "label": "low",
+                "score": 0.194,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1004,50 +1129,17 @@
               ]
             },
             {
-              "name": "Jude Bellingham",
-              "number": "10",
-              "position": "AM",
+              "name": "Marcus Rashford",
+              "number": "11",
+              "position": "LW",
               "confidence": {
-                "label": "high",
-                "score": 0.878,
+                "label": "low",
+                "score": 0.194,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            },
-            {
-              "name": "Marc Guéhi",
-              "number": "6",
-              "position": "CB",
-              "confidence": {
-                "label": "high",
-                "score": 0.878,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            },
-            {
-              "name": "Nico O'Reilly",
-              "number": "3",
-              "position": "CB",
-              "confidence": {
-                "label": "high",
-                "score": 0.864,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1059,8 +1151,8 @@
               "number": "7",
               "position": "RW",
               "confidence": {
-                "label": "high",
-                "score": 0.853,
+                "label": "low",
+                "score": 0.194,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1072,12 +1164,12 @@
               ]
             },
             {
-              "name": "Jarell Quansah",
-              "number": "26",
-              "position": "RB",
+              "name": "Noni Madueke",
+              "number": "20",
+              "position": "RW",
               "confidence": {
-                "label": "high",
-                "score": 0.853,
+                "label": "low",
+                "score": 0.194,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1089,16 +1181,35 @@
               ]
             },
             {
-              "name": "Marcus Rashford",
-              "number": "11",
-              "position": "ST",
+              "name": "Eberechi Eze",
+              "number": "21",
+              "position": "AM",
               "confidence": {
-                "label": "high",
-                "score": 0.853,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
+                "racing-post-france-england-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            },
+            {
+              "name": "Kobbie Mainoo",
+              "number": "16",
+              "position": "CM",
+              "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "racing-post-france-england-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1110,8 +1221,8 @@
               "number": "15",
               "position": "CB",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1127,8 +1238,8 @@
               "number": "13",
               "position": "GK",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1144,8 +1255,8 @@
               "number": "22",
               "position": "ST",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1161,8 +1272,8 @@
               "number": "23",
               "position": "GK",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1174,12 +1285,12 @@
               ]
             },
             {
-              "name": "Kobbie Mainoo",
-              "number": "16",
+              "name": "Jordan Henderson",
+              "number": "14",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1195,8 +1306,8 @@
               "number": "19",
               "position": "ST",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.188,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1212,8 +1323,42 @@
               "number": "12",
               "position": "CB",
               "confidence": {
+                "label": "low",
+                "score": 0.188,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            },
+            {
+              "name": "John Stones",
+              "number": "5",
+              "position": "CB",
+              "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.78,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            },
+            {
+              "name": "Reece James",
+              "number": "24",
+              "position": "RB",
+              "confidence": {
+                "label": "medium",
+                "score": 0.74,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1227,13 +1372,15 @@
           ],
           "events": {},
           "sourceIds": [
+            "sports-mole-france-england-preview-2026-07-16",
+            "racing-post-france-england-preview-2026-07-16",
             "lineup-prediction-official-history",
             "fifa-lineups-sync-2026-07-15",
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
             "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
           ]
         },
-        "mode": "expected",
+        "mode": "probable",
         "predictionClass": "forecast",
         "teamSheetSource": "editorial",
         "eventSource": "editorial",
@@ -1242,38 +1389,42 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-16T06:27:10.842Z"
+          "checkedAt": "2026-07-16T17:30:12.660Z"
         },
         "confidence": {
-          "label": "medium",
-          "score": 0.58,
+          "label": "high",
+          "score": 0.812,
           "method": "evidence-strength-v2",
           "reason": "Average home/away evidence strength; this is not a calibrated probability."
         },
         "sourceIds": [
+          "sports-mole-france-england-preview-2026-07-16",
+          "racing-post-france-england-preview-2026-07-16",
           "lineup-prediction-official-history",
           "fifa-lineups-sync-2026-07-15",
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-16T06:27:10.842Z",
-        "updatedAt": "2026-07-16T06:27:10.842Z"
+        "checkedAt": "2026-07-16T17:30:12.660Z",
+        "updatedAt": "2026-07-16T17:30:12.660Z"
       }
     },
     {
       "fixtureId": "match-104-final-2026-07-19",
-      "mode": "expected",
+      "mode": "probable",
       "predictionClass": "forecast",
       "sourceIds": [
+        "sports-mole-spain-argentina-preview-2026-07-16",
+        "racing-post-spain-argentina-preview-2026-07-16",
         "lineup-prediction-official-history",
         "fifa-lineups-sync-2026-07-15",
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-16T06:27:10.842Z",
+      "lastUpdated": "2026-07-16T17:30:12.660Z",
       "confidence": {
-        "label": "medium",
-        "score": 0.72,
+        "label": "high",
+        "score": 0.865,
         "method": "evidence-strength-v2",
         "reason": "Average home/away evidence strength; this is not a calibrated probability."
       },
@@ -1281,9 +1432,9 @@
         {
           "providerId": "local-official-history",
           "providerVersion": "1",
-          "score": 0.91,
+          "score": 0.917,
           "predictionClass": "forecast",
-          "recencyWeight": 0.848,
+          "recencyWeight": 0.723,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -1293,27 +1444,62 @@
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
             "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
           ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.965,
+          "predictionClass": "forecast",
+          "recencyWeight": 1,
+          "sourceReliability": 1,
+          "independenceKey": "source:sports-mole",
+          "updatedAt": "2026-07-16T17:30:00Z",
+          "sourceIds": [
+            "sports-mole-spain-argentina-preview-2026-07-16"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.958,
+          "predictionClass": "forecast",
+          "recencyWeight": 1,
+          "sourceReliability": 1,
+          "independenceKey": "source:racing-post",
+          "updatedAt": "2026-07-16T17:30:00Z",
+          "sourceIds": [
+            "racing-post-spain-argentina-preview-2026-07-16"
+          ]
         }
       ],
       "evidence": {
         "home": {
           "confidence": {
-            "label": "medium",
-            "score": 0.72,
+            "label": "high",
+            "score": 0.897,
             "method": "evidence-strength-v2",
-            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
           "semantics": "evidence-strength-not-calibrated-probability",
-          "independentSourceCount": 1,
+          "independentSourceCount": 3,
           "formationResolution": {
-            "requestedFormation": "4-1-2-3",
-            "displayedFormation": "4-1-2-3",
+            "requestedFormation": "4-2-3-1",
+            "displayedFormation": "4-2-3-1",
             "method": "known-layout"
           },
           "formationScores": [
             {
+              "formation": "4-2-3-1",
+              "score": 1.87,
+              "independentVotes": 2,
+              "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16"
+              ]
+            },
+            {
               "formation": "4-1-2-3",
-              "score": 0.729,
+              "score": 0.627,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -1325,6 +1511,9 @@
           ],
           "disputedSlots": [],
           "notes": [
+            "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+            "0 availability exclusions checked",
+            "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
             "Last verified XI: match 101",
             "Recent formation: 4-1-2-3",
             "0 last-XI players removed for explicit availability"
@@ -1332,13 +1521,13 @@
         },
         "away": {
           "confidence": {
-            "label": "medium",
-            "score": 0.72,
+            "label": "high",
+            "score": 0.832,
             "method": "evidence-strength-v2",
-            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
           "semantics": "evidence-strength-not-calibrated-probability",
-          "independentSourceCount": 1,
+          "independentSourceCount": 3,
           "formationResolution": {
             "requestedFormation": "4-4-2",
             "displayedFormation": "4-4-2",
@@ -1347,18 +1536,30 @@
           "formationScores": [
             {
               "formation": "4-4-2",
-              "score": 0.715,
-              "independentVotes": 1,
+              "score": 1.562,
+              "independentVotes": 2,
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
               ]
+            },
+            {
+              "formation": "4-1-4-1",
+              "score": 0.929,
+              "independentVotes": 1,
+              "sourceIds": [
+                "racing-post-spain-argentina-preview-2026-07-16"
+              ]
             }
           ],
           "disputedSlots": [],
           "notes": [
+            "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+            "0 availability exclusions checked",
+            "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
             "Last verified XI: match 102",
             "Recent formation: 4-4-2",
             "0 last-XI players removed for explicit availability"
@@ -1372,7 +1573,7 @@
       "lineup": {
         "home": {
           "teamId": "ESP",
-          "formation": "4-1-2-3",
+          "formation": "4-2-3-1",
           "coach": {
             "name": "Luis De La Fuente",
             "teamId": "ESP",
@@ -1406,9 +1607,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1425,9 +1628,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1444,9 +1649,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1463,9 +1670,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1482,9 +1691,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1494,35 +1705,18 @@
             {
               "name": "Rodri",
               "number": "16",
-              "position": "DM",
-              "x": 50,
-              "y": 61,
-              "confidence": {
-                "label": "high",
-                "score": 0.92,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
-              ]
-            },
-            {
-              "name": "Dani Olmo",
-              "number": "10",
               "position": "CM",
-              "x": 64,
-              "y": 49,
+              "x": 66,
+              "y": 59,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1533,15 +1727,17 @@
               "name": "Fabián Ruiz",
               "number": "8",
               "position": "CM",
-              "x": 36,
-              "y": 49,
+              "x": 34,
+              "y": 59,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1553,14 +1749,16 @@
               "number": "19",
               "position": "RW",
               "x": 82,
-              "y": 31,
+              "y": 40,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1568,18 +1766,20 @@
               ]
             },
             {
-              "name": "Mikel Oyarzabal",
-              "number": "21",
-              "position": "ST",
+              "name": "Dani Olmo",
+              "number": "10",
+              "position": "AM",
               "x": 50,
-              "y": 21,
+              "y": 40,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1591,14 +1791,37 @@
               "number": "15",
               "position": "LW",
               "x": 18,
-              "y": 31,
+              "y": 40,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ]
+            },
+            {
+              "name": "Mikel Oyarzabal",
+              "number": "21",
+              "position": "ST",
+              "x": 50,
+              "y": 20,
+              "confidence": {
+                "label": "high",
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "3 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1612,8 +1835,8 @@
               "number": "20",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.867,
+                "label": "low",
+                "score": 0.218,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1629,8 +1852,8 @@
               "number": "5",
               "position": "RB",
               "confidence": {
-                "label": "high",
-                "score": 0.84,
+                "label": "low",
+                "score": 0.211,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1646,8 +1869,8 @@
               "number": "6",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.84,
+                "label": "low",
+                "score": 0.211,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1663,8 +1886,8 @@
               "number": "3",
               "position": "LB",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1680,8 +1903,8 @@
               "number": "26",
               "position": "ST",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1697,8 +1920,8 @@
               "number": "1",
               "position": "GK",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1714,8 +1937,8 @@
               "number": "4",
               "position": "CB",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1731,8 +1954,8 @@
               "number": "7",
               "position": "RW",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1748,8 +1971,8 @@
               "number": "9",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1765,8 +1988,8 @@
               "number": "13",
               "position": "GK",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1782,8 +2005,8 @@
               "number": "2",
               "position": "CB",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1799,8 +2022,8 @@
               "number": "18",
               "position": "DM",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1816,8 +2039,8 @@
               "number": "17",
               "position": "RW",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1833,8 +2056,8 @@
               "number": "25",
               "position": "LW",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1850,8 +2073,8 @@
               "number": "11",
               "position": "RW",
               "confidence": {
-                "label": "high",
-                "score": 0.824,
+                "label": "low",
+                "score": 0.207,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1865,6 +2088,8 @@
           ],
           "events": {},
           "sourceIds": [
+            "sports-mole-spain-argentina-preview-2026-07-16",
+            "racing-post-spain-argentina-preview-2026-07-16",
             "lineup-prediction-official-history",
             "fifa-lineups-sync-2026-07-15",
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
@@ -1907,9 +2132,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1923,12 +2150,13 @@
               "x": 85,
               "y": 75,
               "confidence": {
-                "label": "high",
-                "score": 0.92,
+                "label": "medium",
+                "score": 0.59,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1945,9 +2173,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1964,9 +2194,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1983,9 +2215,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -1999,12 +2233,13 @@
               "x": 82,
               "y": 52,
               "confidence": {
-                "label": "high",
-                "score": 0.92,
+                "label": "medium",
+                "score": 0.587,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "2 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -2021,9 +2256,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -2040,9 +2277,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "racing-post-spain-argentina-preview-2026-07-16",
+                "sports-mole-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -2059,28 +2298,11 @@
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            },
-            {
-              "name": "Julián Álvarez",
-              "number": "9",
-              "position": "ST",
-              "x": 59,
-              "y": 24,
-              "confidence": {
-                "label": "high",
-                "score": 0.92,
-                "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
-              },
-              "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -2091,15 +2313,38 @@
               "name": "Lionel Messi",
               "number": "10",
               "position": "ST",
+              "x": 59,
+              "y": 24,
+              "confidence": {
+                "label": "high",
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "3 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            },
+            {
+              "name": "Julián Álvarez",
+              "number": "9",
+              "position": "ST",
               "x": 41,
               "y": 24,
               "confidence": {
                 "label": "high",
                 "score": 0.92,
                 "method": "evidence-strength-v2",
-                "reason": "1 independent starter source; not a calibrated probability."
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "racing-post-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -2111,14 +2356,15 @@
             {
               "name": "Rodrigo De Paul",
               "number": "7",
-              "position": "CM",
+              "position": "RM",
               "confidence": {
-                "label": "high",
-                "score": 0.867,
+                "label": "low",
+                "score": 0.216,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
                 "lineup-prediction-official-history",
                 "fifa-lineups-sync-2026-07-15",
                 "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
@@ -2130,8 +2376,8 @@
               "number": "22",
               "position": "ST",
               "confidence": {
-                "label": "high",
-                "score": 0.853,
+                "label": "low",
+                "score": 0.213,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2147,8 +2393,8 @@
               "number": "14",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2164,8 +2410,8 @@
               "number": "25",
               "position": "CB",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2181,8 +2427,8 @@
               "number": "11",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2198,8 +2444,8 @@
               "number": "2",
               "position": "CB",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2215,8 +2461,8 @@
               "number": "18",
               "position": "ST",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2232,8 +2478,8 @@
               "number": "19",
               "position": "CB",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2249,25 +2495,8 @@
               "number": "16",
               "position": "RW",
               "confidence": {
-                "label": "high",
-                "score": 0.839,
-                "method": "evidence-strength-v2",
-                "reason": "Bench evidence strength; not a calibrated probability."
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history",
-                "fifa-lineups-sync-2026-07-15",
-                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
-                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
-              ]
-            },
-            {
-              "name": "Gerónimo Rulli",
-              "number": "12",
-              "position": "GK",
-              "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.209,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2283,8 +2512,26 @@
               "number": "4",
               "position": "RB",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.206,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-spain-argentina-preview-2026-07-16",
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+              ]
+            },
+            {
+              "name": "Gerónimo Rulli",
+              "number": "12",
+              "position": "GK",
+              "confidence": {
+                "label": "low",
+                "score": 0.206,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2300,8 +2547,8 @@
               "number": "21",
               "position": "ST",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.206,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2317,8 +2564,8 @@
               "number": "1",
               "position": "GK",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.206,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2334,8 +2581,8 @@
               "number": "15",
               "position": "LM",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.206,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2351,8 +2598,8 @@
               "number": "8",
               "position": "CM",
               "confidence": {
-                "label": "high",
-                "score": 0.825,
+                "label": "low",
+                "score": 0.206,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2366,13 +2613,15 @@
           ],
           "events": {},
           "sourceIds": [
+            "sports-mole-spain-argentina-preview-2026-07-16",
+            "racing-post-spain-argentina-preview-2026-07-16",
             "lineup-prediction-official-history",
             "fifa-lineups-sync-2026-07-15",
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
             "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
           ]
         },
-        "mode": "expected",
+        "mode": "probable",
         "predictionClass": "forecast",
         "teamSheetSource": "editorial",
         "eventSource": "editorial",
@@ -2381,28 +2630,30 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-16T06:27:10.842Z"
+          "checkedAt": "2026-07-16T17:30:12.660Z"
         },
         "confidence": {
-          "label": "medium",
-          "score": 0.72,
+          "label": "high",
+          "score": 0.865,
           "method": "evidence-strength-v2",
           "reason": "Average home/away evidence strength; this is not a calibrated probability."
         },
         "sourceIds": [
+          "sports-mole-spain-argentina-preview-2026-07-16",
+          "racing-post-spain-argentina-preview-2026-07-16",
           "lineup-prediction-official-history",
           "fifa-lineups-sync-2026-07-15",
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-16T06:27:10.842Z",
-        "updatedAt": "2026-07-16T06:27:10.842Z"
+        "checkedAt": "2026-07-16T17:30:12.660Z",
+        "updatedAt": "2026-07-16T17:30:12.660Z"
       }
     }
   ],
   "run": {
     "providerCount": 2,
-    "candidateCount": 2,
+    "candidateCount": 6,
     "fixtureCount": 2,
     "skippedFixtureCount": 0
   }

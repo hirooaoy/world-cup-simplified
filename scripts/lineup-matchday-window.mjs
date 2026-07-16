@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const beforeMinutes = Number(process.env.LINEUP_MATCHDAY_BEFORE_MINUTES || 90);
-const afterMinutes = Number(process.env.LINEUP_MATCHDAY_AFTER_MINUTES || 20);
+const afterMinutes = Number(process.env.LINEUP_MATCHDAY_AFTER_MINUTES || 180);
 const now = new Date(process.env.LINEUP_MATCHDAY_NOW || Date.now());
 
 if (
@@ -19,7 +19,7 @@ if (
 const fixturesData = JSON.parse(await readFile(path.join(root, "data", "fixtures.json"), "utf8"));
 const eligibleFixtures = (fixturesData.fixtures || []).filter((fixture) => {
   if (
-    !["SCHEDULED", "DELAYED", "LIVE"].includes(fixture?.status) ||
+    !["SCHEDULED", "DELAYED", "LIVE", "FT"].includes(fixture?.status) ||
     !fixture?.homeTeamId ||
     !fixture?.awayTeamId
   ) {

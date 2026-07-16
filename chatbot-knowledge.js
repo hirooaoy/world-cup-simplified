@@ -1,9 +1,17 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
+import {
+  LOCALE_PACK_VERSION,
+  loadLocaleDomain,
+  normalizeLanguage
+} from "./locales/locale-runtime.js?v=2026-07-16-5";
 
-const BALL_BOY_DATA_VERSION = "2026-07-14-player-watch-bullets-1";
+const BALL_BOY_DATA_VERSION = "2026-07-16-ranking-year-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
+  coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${BALL_BOY_DATA_VERSION}`,
+  historicalPlayerIndex: `data/ball-boy-historical-players.json?v=${BALL_BOY_DATA_VERSION}`,
+  historicalPlayerProfiles: `data/historical-player-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   liveData: `api/live-data?v=${BALL_BOY_DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   standings: `data/standings.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -731,28 +739,60 @@ const ZH_PERSONALITY_COPY = {
 let teamsPromise = null;
 let fixturesPromise = null;
 let chatbotH2hPromise = null;
+let coachProfilesPromise = null;
 let standingsPromise = null;
 let teamStyleProfilesPromise = null;
 let profilesPromise = null;
+let historicalPlayerIndexPromise = null;
+let historicalPlayerProfilesPromise = null;
 let teamsCache = [];
 let fixturesCache = [];
 let chatbotH2hCache = {};
+let coachProfilesCache = [];
 let standingsCache = {};
 let teamStyleProfilesCache = {};
 let teamAliasEntries = [];
 let playerIndexCache = null;
+let historicalPlayerIndexCache = null;
+let historicalPlayerProfilesCache = {};
+let profilesDataCache = {};
 let liveRefreshPromise = null;
+const localePackPromises = new Map();
+const localePacks = new Map();
+const localePlayerNameLoaders = Object.freeze({
+  es: {
+    archive: () =>
+      import(`./locales/es/player-names-archive.js?v=${LOCALE_PACK_VERSION}`),
+    current: () => import(`./locales/es/player-names.js?v=${LOCALE_PACK_VERSION}`)
+  },
+  ko: {
+    archive: () =>
+      import(`./locales/ko/player-names-archive.js?v=${LOCALE_PACK_VERSION}`),
+    current: () => import(`./locales/ko/player-names.js?v=${LOCALE_PACK_VERSION}`)
+  }
+});
+const localeCurrentContentLoaders = Object.freeze({
+  es: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
+  ko: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`)
+});
+const localePlayerNamePromises = new Map();
+const localePlayerNameMaps = new Map();
+const localePlayerNameLookupMaps = new Map();
+const localeCurrentEntityTranslations = new Map();
 let replyContext = {
   fixtureId: "",
+  historicalPlayerId: "",
   playerName: "",
   teamId: "",
-  teamIds: []
+  teamIds: [],
+  tournamentYears: []
 };
 
 export function normalizeBallBoyText(value) {
   return String(value || "")
     .normalize("NFKD")
     .replace(/\p{Mark}/gu, "")
+    .normalize("NFC")
     .toLocaleLowerCase()
     .replace(/&/g, " and ")
     .replace(/[^\p{Letter}\p{Number}]+/gu, " ")
@@ -760,7 +800,157 @@ export function normalizeBallBoyText(value) {
 }
 
 export function normalizeBallBoyLocale(value) {
-  return String(value || "").toLocaleLowerCase().startsWith("zh") ? "zh" : "en";
+  return normalizeLanguage(value);
+}
+
+function getLocalePlayerNameState(store, locale) {
+  const normalized = normalizeBallBoyLocale(locale);
+  if (!store.has(normalized)) {
+    store.set(normalized, {});
+  }
+  return store.get(normalized);
+}
+
+function getLocalePlayerNameTranslations(module, locale, scope) {
+  const code = locale.toUpperCase();
+  const exportName = `${code}_${scope === "archive" ? "ARCHIVE_" : ""}PLAYER_NAME_TRANSLATIONS`;
+  const translations = module?.[exportName];
+  if (
+    !translations ||
+    typeof translations !== "object" ||
+    Array.isArray(translations) ||
+    !Object.keys(translations).length
+  ) {
+    throw new TypeError(`Invalid Ball Boy player-name module: ${locale}/${scope}`);
+  }
+  return translations;
+}
+
+function getLocaleCurrentContentTranslations(module, locale) {
+  const metadata = module?.CONTENT_METADATA;
+  const translations = module?.CONTENT_TRANSLATIONS;
+  const structuredTranslations = module?.CONTENT_ENTITIES?.structuredTranslations;
+  if (
+    metadata?.schemaVersion !== 1 ||
+    metadata?.language !== locale ||
+    metadata?.scope !== "current" ||
+    !translations ||
+    typeof translations !== "object" ||
+    Array.isArray(translations) ||
+    !Object.keys(translations).length ||
+    !structuredTranslations ||
+    typeof structuredTranslations !== "object" ||
+    Array.isArray(structuredTranslations)
+  ) {
+    throw new TypeError(`Invalid Ball Boy current-content module: ${locale}`);
+  }
+  return Object.freeze({
+    ...structuredTranslations,
+    ...translations
+  });
+}
+
+function rebuildPlayerIndexForNameScope(scope) {
+  if (scope === "current" && Object.keys(profilesDataCache).length) {
+    playerIndexCache = buildPlayerIndex(profilesDataCache);
+    profilesPromise = Promise.resolve(playerIndexCache);
+  }
+  if (scope === "archive" && historicalPlayerIndexCache?.profiles?.length) {
+    historicalPlayerIndexCache = buildHistoricalPlayerIndex(
+      historicalPlayerIndexCache.profiles
+    );
+    historicalPlayerIndexPromise = Promise.resolve(historicalPlayerIndexCache);
+  }
+}
+
+async function ensureBallBoyPlayerNames(locale, scope = "current") {
+  const normalized = normalizeBallBoyLocale(locale);
+  if (["en", "zh"].includes(normalized)) {
+    return null;
+  }
+  const normalizedScope = scope === "archive" ? "archive" : "current";
+  const namesByScope = getLocalePlayerNameState(localePlayerNameMaps, normalized);
+  if (namesByScope[normalizedScope]) {
+    return namesByScope[normalizedScope];
+  }
+
+  const loader = localePlayerNameLoaders[normalized]?.[normalizedScope];
+  if (!loader) {
+    return null;
+  }
+  const requestKey = `${normalized}:${normalizedScope}`;
+  if (!localePlayerNamePromises.has(requestKey)) {
+    localePlayerNamePromises.set(
+      requestKey,
+      Promise.all([
+        loader(),
+        normalizedScope === "current"
+          ? localeCurrentContentLoaders[normalized]?.()
+          : Promise.resolve(null)
+      ])
+        .then(([module, currentContentModule]) => {
+          const names = Object.freeze(
+            getLocalePlayerNameTranslations(module, normalized, normalizedScope)
+          );
+          const lookup = new Map();
+          Object.entries(names).forEach(([sourceName, localizedName]) => {
+            const key = normalizeBallBoyText(sourceName);
+            if (key && localizedName && !lookup.has(key)) {
+              lookup.set(key, localizedName);
+            }
+          });
+          getLocalePlayerNameState(localePlayerNameMaps, normalized)[normalizedScope] = names;
+          getLocalePlayerNameState(localePlayerNameLookupMaps, normalized)[normalizedScope] = lookup;
+          if (currentContentModule) {
+            localeCurrentEntityTranslations.set(
+              normalized,
+              getLocaleCurrentContentTranslations(currentContentModule, normalized)
+            );
+          }
+          rebuildPlayerIndexForNameScope(normalizedScope);
+          return names;
+        })
+        .catch((error) => {
+          localePlayerNamePromises.delete(requestKey);
+          throw error;
+        })
+    );
+  }
+  return localePlayerNamePromises.get(requestKey);
+}
+
+async function ensureBallBoyLocalePack(locale) {
+  const normalized = normalizeBallBoyLocale(locale);
+  if (["en", "zh"].includes(normalized)) {
+    return null;
+  }
+  if (!localePackPromises.has(normalized)) {
+    localePackPromises.set(
+      normalized,
+      loadLocaleDomain(normalized, "chatbot").then((pack) => {
+        if (pack) {
+          localePacks.set(normalized, pack);
+          if (teamsCache.length) {
+            teamAliasEntries = buildTeamAliasEntries(teamsCache);
+          }
+        }
+        return pack;
+      })
+    );
+  }
+  return localePackPromises.get(normalized);
+}
+
+function getLocaleKnowledge(locale) {
+  return localePacks.get(normalizeBallBoyLocale(locale))?.knowledge || null;
+}
+
+function getLocaleTemplates(locale) {
+  return getLocaleKnowledge(locale)?.templates || null;
+}
+
+function getIntlLocale(locale) {
+  return { en: "en-US", es: "es-419", ko: "ko-KR", zh: "zh-CN" }[normalizeBallBoyLocale(locale)] || "en-US";
 }
 
 function isZhLocale(locale) {
@@ -768,20 +958,75 @@ function isZhLocale(locale) {
 }
 
 function getLocalizedTeamName(team, locale) {
-  return isZhLocale(locale) ? ZH_TEAM_NAMES[team?.id] || team?.name || "球队" : team?.name || "Team";
+  if (isZhLocale(locale)) {
+    return ZH_TEAM_NAMES[team?.id] || team?.name || "球队";
+  }
+  const knowledge = getLocaleKnowledge(locale);
+  return knowledge?.teamNames?.[team?.id] || team?.name || knowledge?.templates?.fallbackTeam || "Team";
 }
 
-function getLocalizedPlayerName(value, locale) {
+function getLocalizedPlayerName(value, locale, scope = "current") {
   const name = String(value || "").trim();
-  if (!isZhLocale(locale) || !name) {
+  if (!name) {
     return name;
   }
+  const normalized = normalizeBallBoyText(name);
+  const normalizedLocale = normalizeBallBoyLocale(locale);
+  const scopeOrder = scope === "archive" ? ["archive", "current"] : ["current"];
+  const namesByScope = localePlayerNameMaps.get(normalizedLocale) || {};
+  const lookupsByScope = localePlayerNameLookupMaps.get(normalizedLocale) || {};
+  for (const candidateScope of scopeOrder) {
+    const sharedDirect = namesByScope[candidateScope]?.[name];
+    if (sharedDirect) {
+      return sharedDirect;
+    }
+    const sharedMatch = lookupsByScope[candidateScope]?.get(normalized);
+    if (sharedMatch) {
+      return sharedMatch;
+    }
+  }
+  const knowledge = getLocaleKnowledge(locale);
+  if (knowledge) {
+    const direct = knowledge.playerNames?.[name];
+    if (direct) return direct;
+    const matchingEntry = Object.entries(knowledge.playerNames || {}).find(
+      ([candidate]) => normalizeBallBoyText(candidate) === normalized
+    );
+    return matchingEntry?.[1] || name;
+  }
+  if (!isZhLocale(locale)) return name;
   const direct = ZH_PLAYER_NAMES[name];
   if (direct) {
     return direct;
   }
-  const normalized = normalizeBallBoyText(name);
   const matchingEntry = Object.entries(ZH_PLAYER_NAMES).find(
+    ([candidate]) => normalizeBallBoyText(candidate) === normalized
+  );
+  return matchingEntry?.[1] || name;
+}
+
+function getLocalizedCoachName(value, locale) {
+  const name = String(value || "").trim();
+  if (!name) {
+    return name;
+  }
+  const normalized = normalizeBallBoyText(name);
+  const normalizedLocale = normalizeBallBoyLocale(locale);
+  const currentNames = localePlayerNameMaps.get(normalizedLocale)?.current;
+  const sharedDirect = currentNames?.[name];
+  if (sharedDirect) {
+    return sharedDirect;
+  }
+  const sharedMatch = localePlayerNameLookupMaps
+    .get(normalizedLocale)
+    ?.current?.get(normalized);
+  if (sharedMatch) {
+    return sharedMatch;
+  }
+  const knowledge = getLocaleKnowledge(locale);
+  const direct = knowledge?.coachNames?.[name];
+  if (direct) return direct;
+  const matchingEntry = Object.entries(knowledge?.coachNames || {}).find(
     ([candidate]) => normalizeBallBoyText(candidate) === normalized
   );
   return matchingEntry?.[1] || name;
@@ -789,9 +1034,44 @@ function getLocalizedPlayerName(value, locale) {
 
 function getLocalizedClubName(value, locale) {
   const name = String(value || "").trim();
-  if (!isZhLocale(locale) || !name) {
+  if (!name) {
     return name;
   }
+  const normalizedLocale = normalizeBallBoyLocale(locale);
+  const knowledge = getLocaleKnowledge(locale);
+  if (knowledge) {
+    if (knowledge.clubs?.[name]) return knowledge.clubs[name];
+    const loan = name.match(/^(.+?)\s*\((?:on\s+)?loan(?:\s+from)?\s+(.+?)\)$/i);
+    if (loan) {
+      const sharedLoanTranslation = localeCurrentEntityTranslations
+        .get(normalizedLocale)?.[name];
+      if (
+        normalizedLocale === "ko" &&
+        /\p{Script=Hangul}/u.test(sharedLoanTranslation || "")
+      ) {
+        return sharedLoanTranslation
+          .replace(/\s+\(/gu, "(")
+          .replace(/에서\s*대출|에서\s*빌려서|로부터\s*대출|에\s*대출/gu, "에서 임대");
+      }
+      const parents = loan[2]
+        .split(/,\s*/)
+        .map((club) => getLocalizedClubName(club, locale))
+        .join(", ");
+      return knowledge.templates?.loanClub?.(
+        getLocalizedClubName(loan[1], locale),
+        parents
+      ) || name;
+    }
+    if (normalizedLocale === "es") {
+      return name;
+    }
+    const sharedTranslation = localeCurrentEntityTranslations.get(normalizedLocale)?.[name];
+    if (sharedTranslation) {
+      return sharedTranslation;
+    }
+    return name;
+  }
+  if (!isZhLocale(locale)) return name;
   if (ZH_CLUB_NAMES[name]) {
     return ZH_CLUB_NAMES[name];
   }
@@ -809,9 +1089,22 @@ function getLocalizedClubName(value, locale) {
 
 function getLocalizedLeagueName(value, locale) {
   const name = String(value || "").trim();
-  if (!isZhLocale(locale) || !name) {
+  if (!name) {
     return name;
   }
+  const knowledge = getLocaleKnowledge(locale);
+  if (knowledge) {
+    if (knowledge.leagues?.[name]) return knowledge.leagues[name];
+    const lastClub = name.match(/^Last club:\s*(.+)$/i);
+    if (lastClub) {
+      return knowledge.templates?.lastClub?.(
+        getLocalizedClubName(lastClub[1], locale)
+      ) || name;
+    }
+    return localeCurrentEntityTranslations
+      .get(normalizeBallBoyLocale(locale))?.[name] || name;
+  }
+  if (!isZhLocale(locale)) return name;
   if (ZH_LEAGUE_NAMES[name]) {
     return ZH_LEAGUE_NAMES[name];
   }
@@ -821,11 +1114,30 @@ function getLocalizedLeagueName(value, locale) {
 
 function getLocalizedPosition(value, locale) {
   const position = formatPlayerPosition(value);
-  if (!isZhLocale(locale)) {
+  const knowledge = getLocaleKnowledge(locale);
+  if (!isZhLocale(locale) && !knowledge) {
     return position;
   }
   const translatePart = (part) => {
     const key = normalizeBallBoyText(part);
+    if (knowledge?.positions?.[key]) return knowledge.positions[key];
+    if (knowledge) {
+      const code = normalizeBallBoyLocale(locale);
+      if (/goalkeeper|keeper/.test(key)) return code === "ko" ? "골키퍼" : "portero";
+      if (/centre back|center back/.test(key)) return code === "ko" ? "센터백" : "defensa central";
+      if (/left back/.test(key)) return code === "ko" ? "왼쪽 풀백" : "lateral izquierdo";
+      if (/right back/.test(key)) return code === "ko" ? "오른쪽 풀백" : "lateral derecho";
+      if (/back|defender|defence|defense/.test(key)) return code === "ko" ? "수비수" : "defensa";
+      if (/defensive midfield/.test(key)) return code === "ko" ? "수비형 미드필더" : "mediocentro defensivo";
+      if (/attacking midfield/.test(key)) return code === "ko" ? "공격형 미드필더" : "mediapunta";
+      if (/midfield/.test(key)) return code === "ko" ? "미드필더" : "centrocampista";
+      if (/left wing/.test(key)) return code === "ko" ? "왼쪽 윙어" : "extremo izquierdo";
+      if (/right wing/.test(key)) return code === "ko" ? "오른쪽 윙어" : "extremo derecho";
+      if (/wing/.test(key)) return code === "ko" ? "윙어" : "extremo";
+      if (/centre forward|center forward|striker/.test(key)) return code === "ko" ? "최전방 공격수" : "delantero centro";
+      if (/forward|attack/.test(key)) return code === "ko" ? "공격수" : "delantero";
+      return code === "ko" ? "선수" : "jugador";
+    }
     if (ZH_POSITION_LABELS[key]) {
       return ZH_POSITION_LABELS[key];
     }
@@ -851,12 +1163,46 @@ function getLocalizedPosition(value, locale) {
     .join(" / ");
 }
 
+function getPlayerPositionLabel(value, locale = "en") {
+  const normalized = normalizeBallBoyText(value);
+  if (normalized && !["player", "unknown", "unavailable"].includes(normalized)) {
+    return getLocalizedPosition(value, locale);
+  }
+  if (isZhLocale(locale)) return "位置未细分";
+  if (normalizeBallBoyLocale(locale) === "es") return "Posición no disponible";
+  if (normalizeBallBoyLocale(locale) === "ko") return "세부 포지션 정보 없음";
+  return "Position unavailable";
+}
+
 function getLocalizedStyleLabel(value, locale) {
   const text = String(value || "").trim();
-  if (!isZhLocale(locale) || !text) {
+  if (!text) {
     return text;
   }
   const key = normalizeBallBoyText(text);
+  const knowledge = getLocaleKnowledge(locale);
+  if (knowledge) {
+    if (knowledge.styles?.[key]) return knowledge.styles[key];
+    const ko = normalizeBallBoyLocale(locale) === "ko";
+    if (/counter attack/.test(key)) return ko ? "역습" : "contraataque";
+    if (/counter press/.test(key)) return ko ? "즉시 압박" : "presión tras pérdida";
+    if (/defensive organization/.test(key)) return ko ? "수비 조직력" : "organización defensiva";
+    if (/attacking structure/.test(key)) return ko ? "공격 전개 구조" : "estructura ofensiva";
+    if (/possession control/.test(key)) return ko ? "점유율 관리" : "control de la posesión";
+    if (/positional discipline/.test(key)) return ko ? "위치 규율" : "disciplina posicional";
+    if (/direct transition/.test(key)) return ko ? "빠른 공수 전환" : "transiciones directas";
+    if (/wing overload/.test(key)) return ko ? "측면 수적 우위" : "superioridades en banda";
+    if (/youth pipeline/.test(key)) return ko ? "유소년 연계" : "integración de jóvenes";
+    if (/save|stopping|goalkeeper|keeper|cross handling/.test(key)) return ko ? "골키퍼 대응" : "acciones de portero";
+    if (/defend|defensive|cover|clearance|duel|screen/.test(key)) return ko ? "수비 보호" : "protección defensiva";
+    if (/pass|delivery|service|distribution/.test(key)) return ko ? "전진 패스" : "pase vertical";
+    if (/finish|shoot|goal|box movement/.test(key)) return ko ? "공격 마무리" : "definición";
+    if (/press/.test(key)) return ko ? "적극적인 압박" : "presión intensa";
+    if (/run|speed|pace|acceleration|carry|dribbl/.test(key)) return ko ? "돌파와 움직임" : "conducción y desmarque";
+    if (/set piece/.test(key)) return ko ? "세트피스" : "balón parado";
+    return ko ? "경기 이해" : "lectura del juego";
+  }
+  if (!isZhLocale(locale)) return text;
   if (ZH_STYLE_LABELS[key]) return ZH_STYLE_LABELS[key];
   if (/save|stopping|goalkeeper|keeper|cross handling/.test(key)) return "门将处理";
   if (/defend|defensive|cover|clearance|duel|screen/.test(key)) return "防守保护";
@@ -869,7 +1215,7 @@ function getLocalizedStyleLabel(value, locale) {
 }
 
 function localizeTeam(team, locale) {
-  if (!team || !isZhLocale(locale)) {
+  if (!team || (!isZhLocale(locale) && !getLocaleKnowledge(locale))) {
     return team;
   }
   return {
@@ -880,8 +1226,24 @@ function localizeTeam(team, locale) {
   };
 }
 
-function canonicalizeChineseQuestion(value) {
+function canonicalizeLocalizedQuestion(value, locale = "en") {
   const normalized = normalizeBallBoyText(value);
+  const localeIntents = getLocaleKnowledge(locale)?.intents;
+  if (localeIntents) {
+    const intentText = normalizeBallBoyLocale(locale) === "ko"
+      ? normalized.replace(/([\p{Letter}\p{Number}]+?)(?:은|는|이|가|을|를|의|에서|에게|와|과|도)(?=\s|$)/gu, "$1 ").replace(/\s+/g, " ").trim()
+      : normalized;
+    for (const [pattern, replacement] of localeIntents.exact || []) {
+      if (pattern.test(normalized) || pattern.test(intentText)) {
+        return replacement;
+      }
+    }
+    let canonical = ` ${intentText} `;
+    for (const [pattern, replacement] of localeIntents.replacements || []) {
+      canonical = canonical.replace(pattern, replacement);
+    }
+    return normalizeBallBoyText(canonical);
+  }
   if (!/[\p{Script=Han}]/u.test(normalized)) {
     return normalized;
   }
@@ -973,8 +1335,8 @@ function canonicalizeChineseQuestion(value) {
   return normalizeBallBoyText(canonical);
 }
 
-function normalizeBallBoyQuestion(value) {
-  return canonicalizeChineseQuestion(value)
+function normalizeBallBoyQuestion(value, locale = "en") {
+  return canonicalizeLocalizedQuestion(value, locale)
     .split(" ")
     .flatMap((token) => (BALL_BOY_SHORTHAND.get(token) || token).split(" "))
     .join(" ");
@@ -1017,12 +1379,15 @@ async function loadJson(url, fallback) {
 
 function buildTeamAliasEntries(teams) {
   const entries = [];
+  const loadedTeamNames = [...localePacks.values()]
+    .map((pack) => pack?.knowledge?.teamNames || {});
   for (const team of teams) {
     const aliases = new Set([
       team.id,
       team.name,
       team.officialName,
       ZH_TEAM_NAMES[team.id],
+      ...loadedTeamNames.map((names) => names[team.id]),
       ...(EXTRA_TEAM_ALIASES[team.id] || [])
     ]);
     for (const alias of aliases) {
@@ -1040,7 +1405,13 @@ function buildTeamAliasEntries(teams) {
 async function loadTeams() {
   if (!teamsPromise) {
     teamsPromise = loadJson(BALL_BOY_DATA_URLS.teams).then((data) => {
-      teamsCache = Array.isArray(data?.teams) ? data.teams : [];
+      const fifaRankingYear = Number(data?.rankingYear);
+      teamsCache = Array.isArray(data?.teams)
+        ? data.teams.map((team) => ({
+            ...team,
+            fifaRankingYear: Number.isInteger(fifaRankingYear) ? fifaRankingYear : null
+          }))
+        : [];
       teamAliasEntries = buildTeamAliasEntries(teamsCache);
       return teamsCache;
     });
@@ -1102,6 +1473,16 @@ async function loadChatbotH2h() {
   return chatbotH2hPromise;
 }
 
+async function loadCoachProfiles() {
+  if (!coachProfilesPromise) {
+    coachProfilesPromise = loadJson(BALL_BOY_DATA_URLS.coachProfiles, { profiles: {} }).then((data) => {
+      coachProfilesCache = Object.values(data?.profiles || {}).filter((profile) => profile?.teamId && profile?.name);
+      return coachProfilesCache;
+    });
+  }
+  return coachProfilesPromise;
+}
+
 async function loadStandings() {
   if (!standingsPromise) {
     standingsPromise = loadJson(BALL_BOY_DATA_URLS.standings, { groups: {} }).then((data) => {
@@ -1128,6 +1509,39 @@ function getProfileAliases(profile) {
     profile?.displayName,
     ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
   ].filter(Boolean);
+}
+
+function getLocalizedProfileAliases(profile, scope = "current") {
+  const canonicalName = profile?.displayName || profile?.name || "";
+  const localizedName = getLocalizedPlayerName(canonicalName, "zh");
+  const manualAliases = Object.entries(ZH_PLAYER_NAME_ALIASES)
+    .filter(([, candidate]) =>
+      normalizeBallBoyText(candidate) === normalizeBallBoyText(canonicalName)
+    )
+    .map(([alias]) => alias);
+  const localeAliases = [...localePacks.values()].flatMap((pack) => {
+    const knowledge = pack?.knowledge || {};
+    const localized = knowledge.playerNames?.[canonicalName];
+    const manual = Object.entries(knowledge.playerAliases || {})
+      .filter(([, candidate]) => normalizeBallBoyText(candidate) === normalizeBallBoyText(canonicalName))
+      .map(([alias]) => alias);
+    return [localized, ...manual].filter(Boolean);
+  });
+  const sharedLocaleAliases = [...localePlayerNameLookupMaps.values()]
+    .map((lookupsByScope) =>
+      lookupsByScope?.[scope]?.get(normalizeBallBoyText(canonicalName))
+    )
+    .filter(Boolean);
+  return uniqueBy(
+    [
+      ...getProfileAliases(profile),
+      localizedName,
+      ...manualAliases,
+      ...localeAliases,
+      ...sharedLocaleAliases
+    ],
+    normalizeBallBoyText
+  );
 }
 
 function getSurnameAlias(profile) {
@@ -1161,13 +1575,7 @@ function buildPlayerIndex(profilesData) {
   };
 
   for (const profile of profiles) {
-    const localizedName = getLocalizedPlayerName(profile.displayName || profile.name, "zh");
-    const manualAliases = Object.entries(ZH_PLAYER_NAME_ALIASES)
-      .filter(([, canonicalName]) =>
-        normalizeBallBoyText(canonicalName) === normalizeBallBoyText(profile.displayName || profile.name)
-      )
-      .map(([alias]) => alias);
-    for (const alias of [...getProfileAliases(profile), localizedName, ...manualAliases]) {
+    for (const alias of getLocalizedProfileAliases(profile, "current")) {
       addOwner(aliasOwners, alias, profile);
       const aliasKey = normalizeBallBoyText(alias);
       if (profile.teamId && aliasKey) {
@@ -1203,14 +1611,74 @@ function buildPlayerIndex(profilesData) {
   return { aliases, byTeamAndName, profiles };
 }
 
+function buildHistoricalPlayerIndex(players = []) {
+  const profiles = players.map((profile) => ({
+    ...profile,
+    displayName: profile?.displayName || profile?.name || "",
+    historical: true,
+    name: profile?.name || profile?.displayName || ""
+  }));
+  const aliasOwners = new Map();
+
+  for (const profile of profiles) {
+    for (const alias of getLocalizedProfileAliases(profile, "archive")) {
+      const key = normalizeBallBoyText(alias);
+      if (!key || (key.length < 3 && !/[\p{Script=Han}]/u.test(key))) {
+        continue;
+      }
+      const owners = aliasOwners.get(key) || [];
+      owners.push(profile);
+      aliasOwners.set(key, owners);
+    }
+  }
+
+  const aliases = [...aliasOwners.entries()]
+    .map(([key, owners]) => ({
+      key,
+      profiles: uniqueBy(owners, (profile) => profile.id)
+    }))
+    .sort((left, right) => right.key.length - left.key.length);
+  const byId = new Map(profiles.map((profile) => [profile.id, profile]));
+  return { aliases, byId, profiles };
+}
+
 async function loadProfiles() {
   if (!profilesPromise) {
     profilesPromise = loadJson(BALL_BOY_DATA_URLS.playerProfiles, { profiles: {} }).then((data) => {
-      playerIndexCache = buildPlayerIndex(data?.profiles || {});
+      profilesDataCache = data?.profiles || {};
+      playerIndexCache = buildPlayerIndex(profilesDataCache);
       return playerIndexCache;
     });
   }
   return profilesPromise;
+}
+
+async function loadHistoricalPlayerIndex() {
+  if (!historicalPlayerIndexPromise) {
+    historicalPlayerIndexPromise = loadJson(
+      BALL_BOY_DATA_URLS.historicalPlayerIndex,
+      { players: [] }
+    ).then((data) => {
+      historicalPlayerIndexCache = buildHistoricalPlayerIndex(
+        Array.isArray(data?.players) ? data.players : []
+      );
+      return historicalPlayerIndexCache;
+    });
+  }
+  return historicalPlayerIndexPromise;
+}
+
+async function loadHistoricalPlayerProfiles() {
+  if (!historicalPlayerProfilesPromise) {
+    historicalPlayerProfilesPromise = loadJson(
+      BALL_BOY_DATA_URLS.historicalPlayerProfiles,
+      { profiles: {} }
+    ).then((data) => {
+      historicalPlayerProfilesCache = data?.profiles || {};
+      return historicalPlayerProfilesCache;
+    });
+  }
+  return historicalPlayerProfilesPromise;
 }
 
 async function loadCoreData() {
@@ -1273,6 +1741,169 @@ function resolvePlayer(question, playerIndex, teamIds = []) {
   return { profile: null, candidates: [] };
 }
 
+function getRequestedTournamentYears(question) {
+  return uniqueBy(
+    (String(question || "").match(/\b(?:19|20)\d{2}\b/g) || [])
+      .map(Number)
+      .filter((year) => year >= 1930 && year <= 2026),
+    String
+  );
+}
+
+function getPlayerSearchTerm(question, teams = []) {
+  let normalized = normalizeBallBoyText(question);
+  for (const team of teams) {
+    for (const name of [team?.name, team?.officialName, team?.id]) {
+      const key = normalizeBallBoyText(name);
+      if (key) {
+        normalized = ` ${normalized} `.replace(` ${key} `, " ").trim();
+      }
+    }
+  }
+  const ignored = new Set([
+    "a",
+    "about",
+    "an",
+    "and",
+    "at",
+    "cup",
+    "cups",
+    "footballer",
+    "for",
+    "from",
+    "in",
+    "is",
+    "me",
+    "of",
+    "player",
+    "the",
+    "tell",
+    "who",
+    "world"
+  ]);
+  return normalized
+    .split(" ")
+    .filter((token) => token && !ignored.has(token) && !/^(?:19|20)\d{2}$/.test(token))
+    .join(" ")
+    .trim();
+}
+
+function getPartialPlayerMatchScore(profile, searchTerm, scope = "current") {
+  const query = normalizeBallBoyText(searchTerm);
+  if (query.length < 3) {
+    return null;
+  }
+  const queryTokens = query.split(" ").filter(Boolean);
+  let best = null;
+  for (const alias of getLocalizedProfileAliases(profile, scope)) {
+    const candidate = normalizeBallBoyText(alias);
+    const candidateTokens = candidate.split(" ").filter(Boolean);
+    let score = null;
+    if (candidate === query) {
+      score = 0;
+    } else if (candidate.startsWith(`${query} `)) {
+      score = 1;
+    } else if (candidate.startsWith(query)) {
+      score = 2;
+    } else if (
+      queryTokens.length > 1 &&
+      queryTokens.every((token, index) => candidateTokens[index]?.startsWith(token))
+    ) {
+      score = 3;
+    } else if (
+      queryTokens.length === 1 &&
+      candidateTokens.some((token) => token === query)
+    ) {
+      score = 4;
+    } else if (
+      queryTokens.length === 1 &&
+      query.length >= 4 &&
+      candidateTokens.some((token) => token.startsWith(query))
+    ) {
+      score = 5;
+    }
+    if (score !== null && (best === null || score < best)) {
+      best = score;
+    }
+  }
+  return best;
+}
+
+function findPartialPlayerCandidates(playerIndex, searchTerm, options = {}) {
+  const {
+    historical = false,
+    teamIds = [],
+    teamNames = [],
+    tournamentYears = []
+  } = options;
+  const normalizedTeams = teamNames.map(normalizeBallBoyText).filter(Boolean);
+  return playerIndex.profiles
+    .filter((profile) => {
+      if (!historical && teamIds.length && !teamIds.includes(profile.teamId)) {
+        return false;
+      }
+      if (
+        historical &&
+        normalizedTeams.length &&
+        !normalizedTeams.includes(normalizeBallBoyText(profile.teamName))
+      ) {
+        return false;
+      }
+      if (
+        historical &&
+        tournamentYears.length &&
+        !tournamentYears.some((year) => profile.tournamentYears?.includes(year))
+      ) {
+        return false;
+      }
+      return true;
+    })
+    .map((profile) => ({
+      profile,
+      score: getPartialPlayerMatchScore(
+        profile,
+        searchTerm,
+        historical ? "archive" : "current"
+      )
+    }))
+    .filter((match) => match.score !== null)
+    .sort((left, right) =>
+      left.score - right.score
+      || String(left.profile.displayName).localeCompare(String(right.profile.displayName))
+      || String(left.profile.teamName || left.profile.teamId).localeCompare(
+        String(right.profile.teamName || right.profile.teamId)
+      )
+    )
+    .map((match) => match.profile);
+}
+
+function resolveHistoricalPlayer(question, playerIndex, teamNames = [], tournamentYears = []) {
+  const normalized = normalizeBallBoyText(question);
+  const normalizedTeams = teamNames.map(normalizeBallBoyText).filter(Boolean);
+  for (const entry of playerIndex.aliases) {
+    if (!containsPhrase(normalized, entry.key)) {
+      continue;
+    }
+    const candidates = entry.profiles.filter((profile) => {
+      if (
+        normalizedTeams.length &&
+        !normalizedTeams.includes(normalizeBallBoyText(profile.teamName))
+      ) {
+        return false;
+      }
+      return !tournamentYears.length ||
+        tournamentYears.some((year) => profile.tournamentYears?.includes(year));
+    });
+    if (candidates.length === 1) {
+      return { profile: candidates[0], candidates: [] };
+    }
+    if (candidates.length > 1) {
+      return { profile: null, candidates };
+    }
+  }
+  return { profile: null, candidates: [] };
+}
+
 function getProfileByName(playerIndex, name, teamId = "") {
   const key = normalizeBallBoyText(name);
   if (teamId && playerIndex.byTeamAndName.has(`${teamId}:${key}`)) {
@@ -1280,6 +1911,103 @@ function getProfileByName(playerIndex, name, teamId = "") {
   }
   const entry = playerIndex.aliases.find((candidate) => candidate.key === key);
   return entry?.profiles?.[0] || null;
+}
+
+function getMostCommonValue(values = []) {
+  const counts = new Map();
+  values.filter(Boolean).forEach((value) => counts.set(value, (counts.get(value) || 0) + 1));
+  return [...counts.entries()].sort((left, right) =>
+    right[1] - left[1] || String(left[0]).localeCompare(String(right[0]))
+  )[0]?.[0] || "";
+}
+
+function getHistoricalTeam(profile, core) {
+  const teamName = normalizeBallBoyText(profile?.teamName);
+  return core.teams.find((team) =>
+    [team?.name, team?.officialName, ...(EXTRA_TEAM_ALIASES[team?.id] || [])]
+      .some((name) => normalizeBallBoyText(name) === teamName)
+  ) || {
+    flag: "",
+    id: "",
+    name: profile?.teamName || "",
+    officialName: profile?.teamName || ""
+  };
+}
+
+async function hydrateHistoricalPlayer(profile, requestedYears = []) {
+  const profilesData = await loadHistoricalPlayerProfiles();
+  const requested = new Set(requestedYears.map(Number));
+  const editions = (profile?.profileKeys || [])
+    .map((profileKey) => profilesData[profileKey])
+    .filter(Boolean)
+    .filter((edition) =>
+      !requested.size || requested.has(Number(edition.tournamentYear))
+    )
+    .sort((left, right) => Number(left.tournamentYear) - Number(right.tournamentYear));
+  const selectedEditions = editions.length
+    ? editions
+    : (profile?.profileKeys || []).map((profileKey) => profilesData[profileKey]).filter(Boolean);
+  const latest = selectedEditions.at(-1) || profile || {};
+  const tournamentYears = uniqueBy(
+    selectedEditions
+      .flatMap((edition) => [
+        Number(edition.tournamentYear),
+        ...(edition.tournamentYears || []).map(Number)
+      ])
+      .filter((year) => Number.isInteger(year)),
+    String
+  ).sort((left, right) => left - right);
+  const skills = uniqueBy(
+    selectedEditions
+      .flatMap((edition) => edition.skills || [])
+      .filter((skill) => !/^historical lens$/i.test(String(skill || "").trim())),
+    normalizeBallBoyText
+  ).slice(0, 3);
+  const newestWith = (field) =>
+    [...selectedEditions].reverse().find((edition) => edition?.[field])?.[field];
+  const firstWith = (field) =>
+    selectedEditions.find((edition) => edition?.[field])?.[field];
+  const shirtNumbers = uniqueBy(
+    selectedEditions
+      .map((edition) => Number(edition.uniformNumber))
+      .filter((number) => Number.isInteger(number) && number > 0),
+    String
+  );
+
+  return {
+    ...profile,
+    birthDate: firstWith("birthDate") || "",
+    displayName: latest.displayName || latest.name || profile.displayName,
+    editions: selectedEditions.map((edition) => ({
+      goals: Number(edition.goals) || 0,
+      position: edition.position || "Player",
+      uniformNumber: Number.isInteger(Number(edition.uniformNumber))
+        ? Number(edition.uniformNumber)
+        : "",
+      year: Number(edition.tournamentYear)
+    })),
+    featuredMatchCount: selectedEditions.reduce(
+      (total, edition) =>
+        total + Math.max(Number(edition.keyMatchCount) || 0, Number(edition.scorerMatchCount) || 0),
+      0
+    ),
+    goals: selectedEditions.reduce((total, edition) => total + (Number(edition.goals) || 0), 0),
+    historical: true,
+    imageUrl: newestWith("imageUrl") || "",
+    name: latest.name || latest.displayName || profile.name,
+    note: newestWith("styleNote") || newestWith("note") || "",
+    noteZh: newestWith("styleNoteZh") || newestWith("noteZh") || "",
+    peakMarketValueEurMillions: Number(firstWith("peakMarketValueEurMillions")) || undefined,
+    position: getMostCommonValue(selectedEditions.map((edition) => edition.position)) || profile.position || "Player",
+    shirtNumber: shirtNumbers.length === 1 ? shirtNumbers[0] : "",
+    skills,
+    sourceUrl: newestWith("imagePageUrl")
+      || newestWith("imageSourceUrl")
+      || newestWith("sourceUrl")
+      || "",
+    teamName: latest.teamName || latest.teams?.[0] || profile.teamName,
+    tournamentYears
+  };
 }
 
 function isCompletedFixture(fixture) {
@@ -1328,13 +2056,17 @@ function getStageLabel(fixture, locale = "en") {
   if (isZhLocale(locale)) {
     return ZH_STAGE_LABELS[key] || "比赛";
   }
+  const knowledge = getLocaleKnowledge(locale);
+  if (knowledge) {
+    return knowledge.stages?.[key] || String(key || (normalizeBallBoyLocale(locale) === "ko" ? "경기" : "Partido")).replaceAll("-", " ");
+  }
   return STAGE_LABELS[key] || String(key || "Match").replaceAll("-", " ");
 }
 
 function formatKickoff(kickoffUtc, locale = "en") {
   const date = new Date(kickoffUtc);
   if (Number.isNaN(date.getTime())) {
-    return isZhLocale(locale) ? "开球时间待确认" : "Kickoff time pending";
+    return isZhLocale(locale) ? "开球时间待确认" : getLocaleTemplates(locale)?.kickoffPending || "Kickoff time pending";
   }
   let timeZone;
   try {
@@ -1342,7 +2074,7 @@ function formatKickoff(kickoffUtc, locale = "en") {
   } catch {
     timeZone = undefined;
   }
-  const dateLocale = isZhLocale(locale) ? "zh-CN" : "en";
+  const dateLocale = getIntlLocale(locale);
   const formatOptions = {
       day: "numeric",
       hour: "numeric",
@@ -1351,7 +2083,7 @@ function formatKickoff(kickoffUtc, locale = "en") {
       timeZone,
       weekday: "short"
   };
-  if (isZhLocale(locale)) {
+  if (["zh", "ko"].includes(normalizeBallBoyLocale(locale))) {
     formatOptions.hour12 = false;
   }
   try {
@@ -1364,7 +2096,7 @@ function formatKickoff(kickoffUtc, locale = "en") {
       month: "short",
       weekday: "short"
     };
-    if (isZhLocale(locale)) {
+    if (["zh", "ko"].includes(normalizeBallBoyLocale(locale))) {
       fallbackOptions.hour12 = false;
     }
     return new Intl.DateTimeFormat(dateLocale, fallbackOptions).format(date);
@@ -1398,7 +2130,7 @@ function getGoalTimeline(fixture, locale = "en") {
       name: goal.ownGoal
         ? isZhLocale(locale)
           ? `${getLocalizedPlayerName(goal.name, locale)}（乌龙球）`
-          : `${goal.name} (own goal)`
+          : getLocaleTemplates(locale)?.ownGoal?.(getLocalizedPlayerName(goal.name, locale)) || `${goal.name} (own goal)`
         : getLocalizedPlayerName(goal.name, locale),
       penalty: Boolean(goal.penalty),
       side: goal.side
@@ -1517,6 +2249,12 @@ function formatBirthDate(birthDate, locale = "en") {
   if (isZhLocale(locale)) {
     return `${Number(match[1])}年${Number(match[2])}月${Number(match[3])}日`;
   }
+  if (getLocaleKnowledge(locale)) {
+    const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+    return new Intl.DateTimeFormat(getIntlLocale(locale), {
+      day: "numeric", month: "long", timeZone: "UTC", year: "numeric"
+    }).format(date);
+  }
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -1531,11 +2269,15 @@ function joinNaturalList(items, locale = "en") {
     return values[0] || "";
   }
   if (values.length === 2) {
-    return isZhLocale(locale) ? values.join("和") : `${values[0]} and ${values[1]}`;
+    if (isZhLocale(locale)) return values.join("和");
+    if (normalizeBallBoyLocale(locale) === "es") return `${values[0]} y ${values[1]}`;
+    if (normalizeBallBoyLocale(locale) === "ko") return `${values[0]}, ${values[1]}`;
+    return `${values[0]} and ${values[1]}`;
   }
-  return isZhLocale(locale)
-    ? `${values.slice(0, -1).join("、")}和${values.at(-1)}`
-    : `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
+  if (isZhLocale(locale)) return `${values.slice(0, -1).join("、")}和${values.at(-1)}`;
+  if (normalizeBallBoyLocale(locale) === "es") return `${values.slice(0, -1).join(", ")} y ${values.at(-1)}`;
+  if (normalizeBallBoyLocale(locale) === "ko") return values.join(", ");
+  return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
 }
 
 function getPlayerRole(profile, locale = "en") {
@@ -1571,6 +2313,10 @@ function getPlayerRole(profile, locale = "en") {
       summary: "Their job changes with the move, but the aim is simple: help the team control the next action.",
       zone: "create"
     };
+  }
+  const localizedRole = getLocaleTemplates(locale)?.playerRole?.[role.zone];
+  if (localizedRole) {
+    return { ...role, summary: localizedRole };
   }
   if (!isZhLocale(locale)) {
     return role;
@@ -1629,8 +2375,33 @@ function buildPlayerReply(profile, team, fixtures, question, locale = "en") {
                     ? "style"
                     : "overview";
   const positionArticle = /^[aeiou]/i.test(formattedPosition) ? "an" : "a";
+  const localeTemplates = getLocaleTemplates(locale);
+  const localizedWatchSkills = joinNaturalList(
+    (Array.isArray(profile.skills) ? profile.skills.slice(0, 3) : [])
+      .map((skill) => getLocalizedStyleLabel(skill, locale)),
+    locale
+  );
   let lead;
-  if (asksForPenaltyGoals) {
+  if (localeTemplates?.playerLead) {
+    lead = localeTemplates.playerLead(focus, {
+      age,
+      askBirth: asksForBirthDate,
+      assists: stats.assists,
+      birthday: formatBirthDate(profile.birthDate, locale),
+      club: getLocalizedClubName(profile.club, locale),
+      estimated: Boolean(marketValue?.estimated),
+      goals: stats.goals,
+      league: getLocalizedLeagueName(profile.league, locale),
+      marketValue: formatMarketValueEur(marketValue?.value),
+      name: localizedName,
+      number: profile.uniformNumber ?? "",
+      penaltyGoals: stats.penaltyGoals,
+      position: localizedPosition,
+      role: role.summary,
+      skills: localizedWatchSkills,
+      team: localizedTeam?.name || profile.teamId
+    });
+  } else if (asksForPenaltyGoals) {
     lead = isZh
       ? stats.penaltyGoals
         ? `本届世界杯，${localizedName}通过点球打进${stats.penaltyGoals}球。`
@@ -1710,21 +2481,30 @@ function buildPlayerReply(profile, team, fixtures, question, locale = "en") {
   }
 
   const followUps = [];
-  if (!asksForStats && !asksForPenaltyGoals) {
+  if (localeTemplates?.playerFollowUps) {
+    followUps.push(...localeTemplates.playerFollowUps({
+      name: localizedName,
+      team: localizedTeam?.name || ""
+    }));
+  } else if (!asksForStats && !asksForPenaltyGoals) {
     followUps.push(isZh
       ? `${localizedName}有多少进球和助攻？`
       : `How many goals and assists does ${profile.displayName} have?`);
   }
-  if (!asksForStyle) {
+  if (!localeTemplates?.playerFollowUps && !asksForStyle) {
     followUps.push(isZh ? `${localizedName}怎么踢？` : `How does ${profile.displayName} play?`);
   }
-  followUps.push(isZh
-    ? localizedTeam ? `${localizedTeam.name}怎么踢？` : "我可以问什么？"
-    : team ? `How does ${team.name} play?` : "What can I ask?");
+  if (!localeTemplates?.playerFollowUps) {
+    followUps.push(isZh
+      ? localizedTeam ? `${localizedTeam.name}怎么踢？` : "我可以问什么？"
+      : team ? `How does ${team.name} play?` : "What can I ask?");
+  }
 
   const localizedSkills = (Array.isArray(profile.skills) ? profile.skills.slice(0, 3) : [])
     .map((skill) => getLocalizedStyleLabel(skill, locale));
-  const note = isZh
+  const note = localeTemplates?.playerNote
+    ? localeTemplates.playerNote({ name: localizedName, skills: joinNaturalList(localizedSkills, locale) })
+    : isZh
     ? profile.noteZh || (localizedSkills.length
       ? `${localizedName}的比赛看点是${joinNaturalList(localizedSkills, locale)}。`
       : `${localizedName}会根据比赛阶段调整场上任务。`)
@@ -1755,6 +2535,221 @@ function buildPlayerReply(profile, team, fixtures, question, locale = "en") {
   };
 }
 
+function formatTournamentYearSeries(years = [], locale = "en") {
+  const values = uniqueBy(years.map(Number).filter(Number.isInteger), String).sort((a, b) => a - b);
+  if (!values.length) {
+    return "";
+  }
+  if (isZhLocale(locale)) {
+    return values.join("、");
+  }
+  if (normalizeBallBoyLocale(locale) === "ko") {
+    return values.join(", ");
+  }
+  return joinNaturalList(values.map(String), locale);
+}
+
+function getHistoricalPlayerPrompt(profile, locale = "en") {
+  const name = getLocalizedPlayerName(profile?.displayName, locale, "archive");
+  const team = getLocalizedTeamName(
+    getHistoricalTeam(profile, { teams: teamsCache }),
+    locale
+  );
+  const years = formatTournamentYearSeries(profile?.tournamentYears || [], locale);
+  if (isZhLocale(locale)) {
+    return `介绍一下${name}（${team}，${years}世界杯）`;
+  }
+  if (normalizeBallBoyLocale(locale) === "es") {
+    return `Háblame de ${name} (${team}, Mundial${profile?.tournamentYears?.length === 1 ? "" : "es"} ${years})`;
+  }
+  if (normalizeBallBoyLocale(locale) === "ko") {
+    return `${name}(${team}, ${years} 월드컵)를 알려 줘`;
+  }
+  return `Tell me about ${name} from ${team} at the ${years} World Cup${profile?.tournamentYears?.length === 1 ? "" : "s"}`;
+}
+
+function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
+  const isZh = isZhLocale(locale);
+  const localeCode = normalizeBallBoyLocale(locale);
+  const localizedName = getLocalizedPlayerName(profile.displayName, locale, "archive");
+  const localizedTeam = localizeTeam(team, locale);
+  const hasSpecificPosition = !["", "player", "unknown", "unavailable"]
+    .includes(normalizeBallBoyText(profile.position));
+  const localizedPosition = getPlayerPositionLabel(profile.position, locale);
+  const formattedPosition = formatPlayerPosition(profile.position);
+  const positionArticle = /^[aeiou]/i.test(formattedPosition) ? "an" : "a";
+  const years = formatTournamentYearSeries(profile.tournamentYears, locale);
+  const yearCount = profile.tournamentYears.length;
+  const asksForStats = /\b(goal|goals|stats|statistics|world cup|tournament)\b/.test(question);
+  const asksForStyle = /\b(style|play style|playstyle|how.*play|strength|skills|good at|watch)\b/.test(question);
+  const asksForValue = /\b(market value|value|valuation|worth)\b/.test(question);
+  const asksForNumber = /\b(shirt|jersey|squad) number\b|\bnumber\b/.test(question);
+  const asksForBirthDate = /\b(birthday|birth date|born)\b/.test(question);
+  const asksForAge = asksForBirthDate || /\b(age|how old)\b/.test(question);
+  const asksForClub = /\b(club|club team|league|competition)\b/.test(question);
+  const asksForPosition = /\b(position|role)\b/.test(question);
+  const focus = asksForStats
+    ? "stats"
+    : asksForValue
+      ? "value"
+      : asksForNumber
+        ? "number"
+        : asksForAge
+          ? "age"
+          : asksForClub
+            ? "club"
+            : asksForPosition
+              ? "position"
+              : asksForStyle
+                ? "style"
+                : "overview";
+  const localizedSkills = (profile.skills || [])
+    .slice(0, 3)
+    .map((skill) => getLocalizedStyleLabel(skill, locale));
+  const skills = joinNaturalList(localizedSkills, locale);
+  const marketValue = Number(profile.peakMarketValueEurMillions) > 0
+    ? Number(profile.peakMarketValueEurMillions)
+    : null;
+  const birthday = formatBirthDate(profile.birthDate, locale);
+  const shirtEditions = (profile.editions || [])
+    .filter((edition) => edition.uniformNumber)
+    .map((edition) => `${edition.year}: #${edition.uniformNumber}`);
+  let lead;
+
+  if (isZh) {
+    if (asksForStats) {
+      lead = `${localizedName}在本站收录的${years}年世界杯档案中共打进${profile.goals}球。`;
+    } else if (asksForPosition) {
+      lead = hasSpecificPosition
+        ? `${localizedName}代表${localizedTeam.name}参赛时主要司职${localizedPosition}。`
+        : `这份世界杯档案没有细分${localizedName}的位置。`;
+    } else if (asksForStyle) {
+      lead = `${localizedName}主要司职${localizedPosition}${skills ? `，特点包括${skills}` : ""}。`;
+    } else if (asksForNumber) {
+      lead = shirtEditions.length
+        ? `${localizedName}的世界杯号码记录：${shirtEditions.join("；")}。`
+        : `我没有查到${localizedName}经过确认的历史世界杯球衣号码。`;
+    } else if (asksForAge) {
+      lead = birthday
+        ? `${localizedName}出生于${birthday}。`
+        : `我没有查到${localizedName}经过核验的出生日期。`;
+    } else if (asksForValue) {
+      lead = marketValue
+        ? `${localizedName}的公开巅峰市场身价约为${formatMarketValueEur(marketValue)}。`
+        : `我没有查到${localizedName}经过核验的历史市场身价。`;
+    } else if (asksForClub) {
+      lead = `这份历史资料以世界杯表现为主，没有为${localizedName}提供稳定、逐届核验的俱乐部记录。`;
+    } else {
+      lead = hasSpecificPosition
+        ? `${localizedName}曾代表${localizedTeam.name}参加${years}年世界杯，主要司职${localizedPosition}。`
+        : `${localizedName}曾代表${localizedTeam.name}参加${years}年世界杯；这份档案未细分位置。`;
+    }
+  } else if (localeCode === "es") {
+    if (asksForStats) {
+      lead = `${localizedName} marcó ${profile.goals} goles en los Mundiales de ${years} incluidos en el archivo.`;
+    } else if (asksForPosition) {
+      lead = hasSpecificPosition
+        ? `${localizedName} figura principalmente como ${localizedPosition} con ${localizedTeam.name}.`
+        : `El archivo del Mundial no especifica la posición exacta de ${localizedName}.`;
+    } else if (asksForClub) {
+      lead = `Este archivo se centra en el Mundial y no mantiene un historial de clubes verificado para cada edición.`;
+    } else {
+      lead = hasSpecificPosition
+        ? `${localizedName} representó a ${localizedTeam.name} en ${yearCount === 1 ? "el Mundial" : "los Mundiales"} de ${years}, principalmente como ${localizedPosition}.`
+        : `${localizedName} representó a ${localizedTeam.name} en ${yearCount === 1 ? "el Mundial" : "los Mundiales"} de ${years}; el archivo no especifica su posición exacta.`;
+    }
+  } else if (localeCode === "ko") {
+    if (asksForStats) {
+      lead = `${localizedName}은(는) 기록에 포함된 ${years} 월드컵에서 ${profile.goals}골을 넣었습니다.`;
+    } else if (asksForPosition) {
+      lead = hasSpecificPosition
+        ? `${localizedName}은(는) ${localizedTeam.name}에서 주로 ${localizedPosition}(으)로 기록되어 있습니다.`
+        : `월드컵 기록에는 ${localizedName}의 세부 포지션이 나와 있지 않습니다.`;
+    } else if (asksForClub) {
+      lead = `이 기록은 월드컵 활약에 초점을 맞추며 대회별 소속 클럽을 일관되게 검증하지는 않습니다.`;
+    } else {
+      lead = hasSpecificPosition
+        ? `${localizedName}은(는) ${years} 월드컵에서 ${localizedTeam.name} 대표로 주로 ${localizedPosition}(으)로 뛰었습니다.`
+        : `${localizedName}은(는) ${years} 월드컵에서 ${localizedTeam.name} 대표로 뛰었으며 세부 포지션은 기록에 없습니다.`;
+    }
+  } else if (asksForStats) {
+    lead = `${localizedName} scored ${formatStatNoun(profile.goals, "goal")} across the ${years} World Cup archive records.`;
+  } else if (asksForPosition) {
+    lead = hasSpecificPosition
+      ? `${localizedName} was mainly listed as ${positionArticle} ${formattedPosition.toLocaleLowerCase("en-US")} for ${localizedTeam.name}.`
+      : `The World Cup archive does not specify a detailed position for ${localizedName}.`;
+  } else if (asksForStyle) {
+    lead = hasSpecificPosition
+      ? `${localizedName} was mainly ${positionArticle} ${formattedPosition.toLocaleLowerCase("en-US")}.${skills ? ` Watch for ${skills}.` : ""}`
+      : `The archive does not specify ${localizedName}'s detailed position.${skills ? ` Watch for ${skills}.` : ""}`;
+  } else if (asksForNumber) {
+    lead = shirtEditions.length
+      ? `${localizedName}'s recorded World Cup numbers: ${shirtEditions.join("; ")}.`
+      : `I do not have a confirmed historical World Cup shirt number for ${localizedName}.`;
+  } else if (asksForAge) {
+    lead = birthday
+      ? `${localizedName} was born on ${birthday}.`
+      : `I do not have a verified birth date for ${localizedName}.`;
+  } else if (asksForValue) {
+    lead = marketValue
+      ? `${localizedName}'s sourced peak market value was about ${formatMarketValueEur(marketValue)}.`
+      : `I do not have a verified historical market value for ${localizedName}.`;
+  } else if (asksForClub) {
+    lead = `This archive focuses on World Cup performances and does not keep a consistently verified club record for every edition.`;
+  } else {
+    lead = hasSpecificPosition
+      ? `${localizedName} represented ${localizedTeam.name} at the ${years} World Cup${yearCount === 1 ? "" : "s"}, mainly as ${positionArticle} ${formattedPosition.toLocaleLowerCase("en-US")}.`
+      : `${localizedName} represented ${localizedTeam.name} at the ${years} World Cup${yearCount === 1 ? "" : "s"}; the archive does not specify a detailed position.`;
+  }
+
+  const note = getLocaleTemplates(locale)?.playerNote
+    ? getLocaleTemplates(locale).playerNote({ name: localizedName, skills })
+    : isZh
+      ? profile.noteZh || `${localizedName}的历史比赛特点包括${skills || "比赛阅读"}。`
+      : profile.note || "";
+  const followUps = isZh
+    ? [`${localizedName}在世界杯进了多少球？`, `${localizedName}怎么踢？`]
+    : localeCode === "es"
+      ? [`¿Cuántos goles marcó ${localizedName} en el Mundial?`, `¿Cómo jugaba ${localizedName}?`]
+      : localeCode === "ko"
+        ? [`${localizedName}의 월드컵 득점은?`, `${localizedName}은(는) 어떻게 뛰었어?`]
+        : [`How many World Cup goals did ${localizedName} score?`, `How did ${localizedName} play?`];
+
+  return {
+    age: null,
+    contextHistoricalPlayerId: profile.id,
+    contextTournamentYears: profile.tournamentYears,
+    focus,
+    followUps,
+    historical: true,
+    kind: "player",
+    lead,
+    profile: {
+      canonicalName: profile.displayName,
+      club: "",
+      displayName: localizedName,
+      featuredMatchCount: profile.featuredMatchCount,
+      historical: true,
+      imageUrl: profile.imageUrl || "",
+      league: "",
+      marketValue: null,
+      note,
+      peakMarketValue: marketValue,
+      position: localizedPosition,
+      shirtNumber: profile.shirtNumber ?? "",
+      skills: localizedSkills,
+      tournamentYears: profile.tournamentYears
+    },
+    role: getPlayerRole(profile, locale),
+    stats: {
+      assists: 0,
+      goals: profile.goals,
+      penaltyGoals: 0
+    },
+    team: localizedTeam
+  };
+}
+
 function getTeamStyleSummary(team, styleProfiles = {}, locale = "en") {
   const profile = styleProfiles?.[team?.id];
   const toSentence = (value, ending = ".") => {
@@ -1766,6 +2761,22 @@ function getTeamStyleSummary(team, styleProfiles = {}, locale = "en") {
       toSentence(profile.planZh, "。"),
       profile.defensiveTaskZh ? `无球时，他们最需要${toSentence(profile.defensiveTaskZh, "。")}` : ""
     ].filter(Boolean).join("");
+  }
+  const localeTeamStyle = getLocaleTemplates(locale)?.teamStyle;
+  if (localeTeamStyle) {
+    const text = normalizeBallBoyText([team?.tagline, ...(team?.styleTags || [])].join(" "));
+    const kind = /press/.test(text)
+      ? "press"
+      : /block|compact|defend|cover/.test(text)
+        ? "compact"
+        : /possession|passing|control|tempo|circulation|rhythm/.test(text)
+          ? "possession"
+          : /wide|wing|cross|fullback/.test(text)
+            ? "wide"
+            : /box|aerial|target|set piece/.test(text)
+              ? "box"
+              : "default";
+    return localeTeamStyle(kind);
   }
   if (!isZhLocale(locale) && profile?.plan) {
     return [
@@ -1999,8 +3010,41 @@ function buildCountryReply(team, core, question, locale = "en") {
   const localizedTopScorer = topScorer
     ? { ...topScorer, name: getLocalizedPlayerName(topScorer.name, locale) }
     : null;
+  const localeTemplates = getLocaleTemplates(locale);
+  const countryOverview = localeTemplates?.countryOverview?.({
+    draws: record.draws,
+    goalsAgainst: record.goalsAgainst,
+    goalsFor: record.goalsFor,
+    losses: record.losses,
+    played: record.played,
+    team: localizedTeam.name,
+    wins: record.wins
+  });
   let lead;
-  if (asksNext && !nextMatch) {
+  if (localeTemplates?.countryLead && !asksStyle) {
+    const nextOpponent = nextMatch
+      ? localizeTeam(core.teamsById.get(nextMatch.homeTeamId === team.id ? nextMatch.awayTeamId : nextMatch.homeTeamId), locale)
+      : null;
+    const nextLead = nextMatch
+      ? normalizeBallBoyLocale(locale) === "ko"
+        ? `${localizedTeam.name}의 다음 상대는 ${nextOpponent?.name || "미정"}입니다. 경기는 ${formatKickoff(nextMatch.kickoffUtc, locale)}에 시작합니다.`
+        : `El próximo rival de ${localizedTeam.name} es ${nextOpponent?.name || "por definir"}. El partido comienza el ${formatKickoff(nextMatch.kickoffUtc, locale)}.`
+      : "";
+    lead = localeTemplates.countryLead(focus, {
+      goalDifference: record.goalsFor - record.goalsAgainst,
+      goalsAgainst: record.goalsAgainst,
+      goalsFor: record.goalsFor,
+      hasNext: Boolean(nextMatch),
+      hasShootout: Boolean(record.shootoutAdvances || record.shootoutExits),
+      nextLead,
+      overview: countryOverview,
+      played: record.played,
+      team: localizedTeam.name,
+      topGoals: localizedTopScorer?.goals || 0,
+      topScorer: localizedTopScorer?.name || "",
+      wins: record.wins
+    });
+  } else if (asksNext && !nextMatch) {
     lead = isZh
       ? `${localizedTeam.name}目前没有下一场比赛。`
       : `${team.name} do not currently have another match scheduled.`;
@@ -2035,15 +3079,22 @@ function buildCountryReply(team, core, question, locale = "en") {
     promptName: player.name
   }));
   const followUps = [];
-  if (keyPlayers[0]?.name) {
+  if (localeTemplates?.countryFollowUps) {
+    followUps.push(...localeTemplates.countryFollowUps({
+      hasLast: Boolean(lastMatch),
+      hasNext: Boolean(nextMatch),
+      player: keyPlayers[0]?.name || "",
+      team: localizedTeam.name
+    }));
+  } else if (keyPlayers[0]?.name) {
     followUps.push(isZh ? `介绍一下${keyPlayers[0].name}` : `Tell me about ${keyPlayers[0].name}`);
   }
-  if (lastMatch) {
+  if (!localeTemplates?.countryFollowUps && lastMatch) {
     followUps.push(isZh ? `${localizedTeam.name}上一场比赛发生了什么？` : `What happened in ${team.name}'s last match?`);
   }
-  if (nextMatch) {
+  if (!localeTemplates?.countryFollowUps && nextMatch) {
     followUps.push(isZh ? `${localizedTeam.name}下一场对谁？` : `Who do ${team.name} play next?`);
-  } else {
+  } else if (!localeTemplates?.countryFollowUps) {
     followUps.push(isZh ? `${localizedTeam.name}有哪些球员值得关注？` : `Who should I watch for ${team.name}?`);
   }
 
@@ -2135,6 +3186,60 @@ function didMatchGoToExtraTime(fixture, timeline) {
 }
 
 function buildMatchLead(fixture, teams, timeline, locale = "en") {
+  const localizedMatchLead = getLocaleTemplates(locale)?.matchLead;
+  if (localizedMatchLead) {
+    const status = String(fixture?.status || "").toUpperCase();
+    const home = teams.home?.name || getLocaleTemplates(locale)?.fallbackHome;
+    const away = teams.away?.name || getLocaleTemplates(locale)?.fallbackAway;
+    const homeScore = Number(fixture?.score?.home);
+    const awayScore = Number(fixture?.score?.away);
+    if (status === "LIVE") {
+      if (Number.isFinite(homeScore) && Number.isFinite(awayScore)) {
+        if (homeScore === awayScore) {
+          return localizedMatchLead("live-draw", { away, awayScore, home, homeScore });
+        }
+        const leader = homeScore > awayScore ? teams.home : teams.away;
+        return localizedMatchLead("live-lead", {
+          leader: leader?.name || getLocaleTemplates(locale)?.fallbackTeam,
+          leaderScore: Math.max(homeScore, awayScore),
+          trailingScore: Math.min(homeScore, awayScore)
+        });
+      }
+      return localizedMatchLead("live", { away, home });
+    }
+    if (!isCompletedFixture(fixture)) {
+      return localizedMatchLead("scheduled", { away, home, kickoff: formatKickoff(fixture.kickoffUtc, locale) });
+    }
+    const penalties = fixture?.scoreDetails?.penalties;
+    const winnerId = getFixtureWinnerId(fixture);
+    const winner = winnerId === fixture.homeTeamId ? teams.home : winnerId === fixture.awayTeamId ? teams.away : null;
+    const extraTime = didMatchGoToExtraTime(fixture, timeline);
+    if (Number.isFinite(penalties?.home) && Number.isFinite(penalties?.away) && winner) {
+      return localizedMatchLead("penalties", {
+        awayScore,
+        homeScore,
+        loserPen: winnerId === fixture.homeTeamId ? penalties.away : penalties.home,
+        winner: winner.name,
+        winnerPen: winnerId === fixture.homeTeamId ? penalties.home : penalties.away
+      });
+    }
+    if (winner && Number.isFinite(homeScore) && Number.isFinite(awayScore)) {
+      const firstGoal = timeline[0];
+      const firstScoringTeamId = firstGoal?.side === "home" ? fixture.homeTeamId : firstGoal?.side === "away" ? fixture.awayTeamId : "";
+      return localizedMatchLead("winner", {
+        comeback: Boolean(firstScoringTeamId && firstScoringTeamId !== winnerId),
+        extraTime,
+        firstTeam: firstScoringTeamId === fixture.homeTeamId ? teams.home?.name : teams.away?.name,
+        loserScore: winnerId === fixture.homeTeamId ? awayScore : homeScore,
+        winner: winner.name,
+        winnerScore: winnerId === fixture.homeTeamId ? homeScore : awayScore
+      });
+    }
+    if (Number.isFinite(homeScore) && Number.isFinite(awayScore)) {
+      return localizedMatchLead("draw", { away, awayScore, extraTime, home, homeScore });
+    }
+    return localizedMatchLead("unavailable", {});
+  }
   const isZh = isZhLocale(locale);
   const status = String(fixture?.status || "").toUpperCase();
   if (status === "LIVE") {
@@ -2242,6 +3347,15 @@ function getStructuredMatchRecap(fixture, teams, timeline, locale = "en") {
   if (!isCompletedFixture(fixture)) {
     return [];
   }
+  const localeTemplates = getLocaleTemplates(locale);
+  if (localeTemplates?.recapFirst) {
+    const firstGoal = timeline[0];
+    const finalGoal = timeline.length > 1 ? timeline.at(-1) : null;
+    return [
+      firstGoal ? localeTemplates.recapFirst(firstGoal) : "",
+      finalGoal ? localeTemplates.recapFinal(finalGoal) : ""
+    ].filter(Boolean).slice(0, 3);
+  }
   if (!isZh && Array.isArray(fixture?.resultStoryBullets)) {
     const specific = fixture.resultStoryBullets
       .filter((bullet) => bullet && !GENERIC_MATCH_STORY_PATTERN.test(bullet))
@@ -2269,6 +3383,26 @@ function getStructuredMatchRecap(fixture, teams, timeline, locale = "en") {
 function getMatchH2hSummary(fixture, teams, locale = "en") {
   if (isZhLocale(locale)) {
     return getZhH2hSummary(fixture, teams);
+  }
+  const templates = getLocaleTemplates(locale);
+  if (templates) {
+    const results = Array.isArray(fixture?.h2h?.results) ? fixture.h2h.results : [];
+    if (!results.length || !teams.home || !teams.away) {
+      return fixture?.h2h?.status === "verified-empty"
+        ? templates.h2hNone?.({ first: teams.home?.name || "", second: teams.away?.name || "", hasFixture: true })
+        : templates.h2hUnavailable;
+    }
+    const record = { draws: 0, firstWins: 0, goals: 0, secondWins: 0 };
+    for (const result of results) {
+      const homeScore = Number(result.homeScore);
+      const awayScore = Number(result.awayScore);
+      if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore)) continue;
+      record.goals += homeScore + awayScore;
+      if (homeScore === awayScore) record.draws += 1;
+      else if ((homeScore > awayScore ? result.homeTeamId : result.awayTeamId) === teams.home.id) record.firstWins += 1;
+      else record.secondWins += 1;
+    }
+    return templates.h2hRecord?.({ ...record, first: teams.home.name, hasFixture: true, second: teams.away.name });
   }
   if (fixture?.h2h?.status === "loaded" && fixture.h2h.summary) {
     return fixture.h2h.summary;
@@ -2338,7 +3472,8 @@ function getCompletedMatchupResults(teams, core, locale = "en") {
         awayTeamId: fixture.awayTeamId,
         competitionLabel: isZhLocale(locale)
           ? `2026年世界杯 · ${getStageLabel(fixture, locale)}`
-          : `World Cup 2026 · ${getStageLabel(fixture, locale)}`,
+          : getLocaleTemplates(locale)?.competition2026?.(getStageLabel(fixture, locale)) ||
+            `World Cup 2026 · ${getStageLabel(fixture, locale)}`,
         date: String(fixture.kickoffUtc || "").slice(0, 10),
         homeScore,
         homeTeamId: fixture.homeTeamId,
@@ -2368,7 +3503,9 @@ function getMatchupResultWinnerId(result) {
 }
 
 function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
+  const templates = getLocaleTemplates(locale);
   if (!h2h || !["loaded", "verified-empty"].includes(h2h.status)) {
+    if (templates) return templates.h2hUnavailable;
     return isZhLocale(locale)
       ? "双方经过核验的成年国家队交锋记录尚未载入。"
       : "Verified senior men's head-to-head history is not available yet.";
@@ -2377,6 +3514,9 @@ function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
   const [firstTeam, secondTeam] = teams;
   const results = Array.isArray(h2h.results) ? h2h.results : [];
   if (!results.length) {
+    if (templates) {
+      return templates.h2hNone?.({ first: firstTeam.name, hasFixture, second: secondTeam.name });
+    }
     if (isZhLocale(locale)) {
       return hasFixture
         ? `${firstTeam.name}与${secondTeam.name}此前从未在经过核验的成年国家队比赛中交手，因此这是双方首次交锋。`
@@ -2411,6 +3551,14 @@ function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
   if (isZhLocale(locale)) {
     return `此前经过核验的成年国家队交锋：${firstTeam.name}${record.firstWins}胜，平局${record.draws}场，${secondTeam.name}${record.secondWins}胜，共产生${record.goals}个进球。`;
   }
+  if (templates?.h2hRecord) {
+    return templates.h2hRecord({
+      ...record,
+      first: firstTeam.name,
+      hasFixture,
+      second: secondTeam.name
+    });
+  }
 
   const leader = record.firstWins > record.secondWins
     ? firstTeam.name
@@ -2429,7 +3577,7 @@ function formatMatchupHistoryDate(value, locale = "en") {
   if (Number.isNaN(date.getTime())) {
     return value || "";
   }
-  return new Intl.DateTimeFormat(isZhLocale(locale) ? "zh-CN" : "en", {
+  return new Intl.DateTimeFormat(getIntlLocale(locale), {
     day: "numeric",
     month: "short",
     timeZone: "UTC",
@@ -2439,6 +3587,17 @@ function formatMatchupHistoryDate(value, locale = "en") {
 
 function localizeMatchupCompetition(value, locale = "en") {
   const competition = String(value || "");
+  const templates = getLocaleTemplates(locale);
+  if (templates) {
+    if (competition === "Friendly") return templates.friendly;
+    const worldCupGroup = competition.match(/^World Cup (\d{4}) - Group (.+)$/);
+    if (worldCupGroup) {
+      return normalizeBallBoyLocale(locale) === "ko"
+        ? `${worldCupGroup[1]} 월드컵 · ${worldCupGroup[2]}조`
+        : `Mundial ${worldCupGroup[1]} · Grupo ${worldCupGroup[2]}`;
+    }
+    return competition.replace("World Cup", normalizeBallBoyLocale(locale) === "ko" ? "월드컵" : "Mundial");
+  }
   if (!isZhLocale(locale)) {
     return competition;
   }
@@ -2469,12 +3628,20 @@ function formatMatchupHistoryResult(result, core, locale = "en") {
 }
 
 function buildLastMeetingLead(result, locale = "en") {
+  const templates = getLocaleTemplates(locale);
   if (!result) {
+    if (templates) return templates.lastMeetingUnavailable;
     return isZhLocale(locale)
       ? "双方最近一次经过核验的成年国家队交锋记录尚未载入。"
       : "Their most recent verified senior men's meeting is not available yet.";
   }
   if (result.homeScore === result.awayScore) {
+    if (templates?.lastMeetingDraw) {
+      return templates.lastMeetingDraw({
+        away: result.away.name, date: result.dateLabel, home: result.home.name,
+        awayScore: result.awayScore, homeScore: result.homeScore
+      });
+    }
     return isZhLocale(locale)
       ? `双方最近一次经过核验的成年国家队交锋中，${result.home.name}与${result.away.name}在${result.dateLabel}以${result.homeScore}-${result.awayScore}战平。`
       : `${result.home.name} and ${result.away.name} drew ${result.homeScore}-${result.awayScore} on ${result.dateLabel} in their most recent verified senior men's meeting.`;
@@ -2483,24 +3650,38 @@ function buildLastMeetingLead(result, locale = "en") {
   const loser = result.winnerTeamId === result.home.id ? result.away : result.home;
   const winnerScore = result.winnerTeamId === result.home.id ? result.homeScore : result.awayScore;
   const loserScore = result.winnerTeamId === result.home.id ? result.awayScore : result.homeScore;
+  if (templates?.lastMeetingWin) {
+    return templates.lastMeetingWin({
+      date: result.dateLabel, loser: loser.name, loserScore, winner: winner.name, winnerScore
+    });
+  }
   return isZhLocale(locale)
     ? `双方最近一次经过核验的成年国家队交锋中，${winner.name}在${result.dateLabel}以${winnerScore}-${loserScore}击败${loser.name}。`
     : `${winner.name} beat ${loser.name} ${winnerScore}-${loserScore} on ${result.dateLabel} in their most recent verified senior men's meeting.`;
 }
 
 function buildHasBeatenLead(subject, opponent, result, hasVerifiedHistory, locale = "en") {
+  const templates = getLocaleTemplates(locale);
   if (result) {
     const subjectScore = result.home.id === subject.id ? result.homeScore : result.awayScore;
     const opponentScore = result.home.id === opponent.id ? result.homeScore : result.awayScore;
+    if (templates?.hasBeatenYes) {
+      return templates.hasBeatenYes({
+        date: result.dateLabel, opponent: opponent.name, opponentScore,
+        subject: subject.name, subjectScore
+      });
+    }
     return isZhLocale(locale)
       ? `${subject.name}曾在经过核验的成年国家队比赛中击败${opponent.name}。最近一次是在${result.dateLabel}以${subjectScore}-${opponentScore}获胜。`
       : `${subject.name} have beaten ${opponent.name} in a verified senior men's international. Their most recent win was ${subjectScore}-${opponentScore} on ${result.dateLabel}.`;
   }
   if (hasVerifiedHistory) {
+    if (templates?.hasBeatenNo) return templates.hasBeatenNo({ opponent: opponent.name, subject: subject.name });
     return isZhLocale(locale)
       ? `${subject.name}尚未在经过核验的成年国家队比赛中击败${opponent.name}。`
       : `${subject.name} have not beaten ${opponent.name} in the verified senior series.`;
   }
+  if (templates?.hasBeatenUnknown) return templates.hasBeatenUnknown({ opponent: opponent.name, subject: subject.name });
   return isZhLocale(locale)
     ? `目前没有足够的经过核验的交锋记录来确认${subject.name}是否击败过${opponent.name}。`
     : `There is not enough verified head-to-head history available to confirm whether ${subject.name} have beaten ${opponent.name}.`;
@@ -2519,7 +3700,7 @@ function getMatchupPrediction(fixture, core, locale = "en") {
   return {
     outcomes: [
       { id: home.id, label: home.name, value: homeValue },
-      { id: "draw", label: isZhLocale(locale) ? "平局" : "Draw", value: drawValue },
+      { id: "draw", label: isZhLocale(locale) ? "平局" : getLocaleTemplates(locale)?.drawLabel || "Draw", value: drawValue },
       { id: away.id, label: away.name, value: awayValue }
     ],
     sourceUrl: projection.sourceUrl || ""
@@ -2527,7 +3708,11 @@ function getMatchupPrediction(fixture, core, locale = "en") {
 }
 
 function buildPredictionLead(fixture, prediction, core, localizedTeams, locale = "en") {
+  const templates = getLocaleTemplates(locale);
   if (!fixture) {
+    if (templates?.predictionNoFixture) {
+      return templates.predictionNoFixture({ first: localizedTeams[0].name, second: localizedTeams[1].name });
+    }
     return isZhLocale(locale)
       ? `${localizedTeams[0].name}与${localizedTeams[1].name}目前没有安排在本届世界杯交手，因此没有经过核验的比赛预测。`
       : `${localizedTeams[0].name} and ${localizedTeams[1].name} are not currently scheduled to meet at this World Cup, so there is no verified match prediction.`;
@@ -2539,13 +3724,16 @@ function buildPredictionLead(fixture, prediction, core, localizedTeams, locale =
   };
   if (isCompletedFixture(fixture)) {
     const result = buildMatchLead(fixture, localizedFixtureTeams, getGoalTimeline(fixture, locale), locale);
+    if (templates?.predictionFinished) return templates.predictionFinished(result);
     return isZhLocale(locale) ? `这场比赛已经结束。${result}` : `This match has already been played. ${result}`;
   }
   if (String(fixture.status || "").toUpperCase() === "LIVE") {
     const live = buildMatchLead(fixture, localizedFixtureTeams, getGoalTimeline(fixture, locale), locale);
+    if (templates?.predictionLive) return templates.predictionLive(live);
     return isZhLocale(locale) ? `比赛已经开始。${live}` : `The match is already in progress. ${live}`;
   }
   if (!prediction) {
+    if (templates?.predictionUnavailable) return templates.predictionUnavailable;
     return isZhLocale(locale)
       ? "这场比赛暂时没有载入经过核验的预测。"
       : "No verified prediction is loaded for this fixture yet.";
@@ -2554,6 +3742,19 @@ function buildPredictionLead(fixture, prediction, core, localizedTeams, locale =
   const home = prediction.outcomes[0];
   const draw = prediction.outcomes[1];
   const away = prediction.outcomes[2];
+  if (templates?.predictionDraw && templates?.predictionWinner) {
+    if (highest.id === "draw") {
+      return templates.predictionDraw({
+        away: away.label, awayValue: away.value, draw: draw.value,
+        home: home.label, homeValue: home.value
+      });
+    }
+    const other = highest.id === home.id ? away : home;
+    return templates.predictionWinner({
+      draw: draw.value, highest: highest.label, highestValue: highest.value,
+      other: other.label, otherValue: other.value
+    });
+  }
   if (isZhLocale(locale)) {
     return highest.id === "draw"
       ? `经过核验的90分钟赛果预测中，平局概率最高，为${draw.value}%；${home.label}胜率${home.value}%，${away.label}胜率${away.value}%。预测为非官方内容。`
@@ -2565,6 +3766,7 @@ function buildPredictionLead(fixture, prediction, core, localizedTeams, locale =
 }
 
 function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overview") {
+  const templates = getLocaleTemplates(locale);
   const teams = requestedTeams.slice(0, 2);
   const localizedTeams = teams.map((team) => localizeTeam(team, locale));
   const fixture = getMatchupFixture(teams, core.fixtures);
@@ -2577,7 +3779,9 @@ function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overvi
     : null;
   let lead = fixture
     ? buildMatchLead(fixture, localizedFixtureTeams, getGoalTimeline(fixture, locale), locale)
-    : isZhLocale(locale)
+    : templates?.matchupNoFixture
+      ? templates.matchupNoFixture({ first: localizedTeams[0].name, second: localizedTeams[1].name })
+      : isZhLocale(locale)
       ? `${localizedTeams[0].name}与${localizedTeams[1].name}目前没有安排在本届世界杯交手。`
       : `${localizedTeams[0].name} and ${localizedTeams[1].name} are not currently scheduled to meet at this World Cup.`;
   const h2h = getMatchupH2h(teams, core);
@@ -2590,7 +3794,7 @@ function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overvi
   );
   let selectedResults = h2hResults.slice(0, 3);
   let historySummary = summarizeMatchupH2h(h2h, localizedTeams, Boolean(fixture), locale);
-  let historyLabel = isZhLocale(locale) ? "过往交锋" : "Past meetings";
+  let historyLabel = isZhLocale(locale) ? "过往交锋" : templates?.matchupLabels?.history || "Past meetings";
   let prediction = null;
 
   if (intent === "prediction") {
@@ -2605,8 +3809,12 @@ function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overvi
     lead = buildLastMeetingLead(latest, locale);
     historySummary = isZhLocale(locale)
       ? "这是双方最近一次经过核验的成年国家队交锋。"
-      : "This is their most recent verified senior men's international.";
-    historyLabel = isZhLocale(locale) ? "最近一次交锋" : "Last meeting";
+      : normalizeBallBoyLocale(locale) === "es"
+        ? "Este es su enfrentamiento verificado más reciente entre selecciones absolutas."
+        : normalizeBallBoyLocale(locale) === "ko"
+          ? "양 팀의 가장 최근 검증된 성인 국가대표 맞대결입니다."
+          : "This is their most recent verified senior men's international.";
+    historyLabel = isZhLocale(locale) ? "最近一次交锋" : templates?.matchupLabels?.last || "Last meeting";
   } else if (intent === "has-beaten") {
     const subject = localizedTeams[0];
     const opponent = localizedTeams[1];
@@ -2621,20 +3829,32 @@ function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overvi
       locale
     );
     historySummary = formattedWin
-      ? isZhLocale(locale) ? `${subject.name}最近一次战胜${opponent.name}。` : `${subject.name}'s most recent win over ${opponent.name}.`
+      ? isZhLocale(locale)
+        ? `${subject.name}最近一次战胜${opponent.name}。`
+        : normalizeBallBoyLocale(locale) === "es"
+          ? `La victoria más reciente de ${subject.name} sobre ${opponent.name}.`
+          : normalizeBallBoyLocale(locale) === "ko"
+            ? `${subject.name}의 ${opponent.name} 상대 최근 승리입니다.`
+            : `${subject.name}'s most recent win over ${opponent.name}.`
       : summarizeMatchupH2h(h2h, localizedTeams, Boolean(fixture), locale);
-    historyLabel = isZhLocale(locale) ? "交锋结果" : "Head-to-head answer";
+    historyLabel = isZhLocale(locale) ? "交锋结果" : templates?.matchupLabels?.answer || "Head-to-head answer";
   }
 
   const history = selectedResults.map((result) => formatMatchupHistoryResult(result, core, locale));
-  const hasBeatenPrompt = isZhLocale(locale)
+  const localizedPrompts = templates?.matchupPrompts?.({
+    first: localizedTeams[0].name,
+    second: localizedTeams[1].name
+  });
+  const hasBeatenPrompt = localizedPrompts?.beaten || (isZhLocale(locale)
     ? `${localizedTeams[0].name}赢过${localizedTeams[1].name}吗？`
-    : `Has ${localizedTeams[0].name} beaten ${localizedTeams[1].name}?`;
+    : `Has ${localizedTeams[0].name} beaten ${localizedTeams[1].name}?`);
+  const predictionPrompt = localizedPrompts?.prediction || (isZhLocale(locale) ? "谁会赢？" : "Who would win?");
+  const lastMeetingPrompt = localizedPrompts?.last || (isZhLocale(locale) ? "上次交手" : "Last meeting");
   const followUps = intent === "overview"
-    ? [isZhLocale(locale) ? "谁会赢？" : "Who would win?", isZhLocale(locale) ? "上次交手" : "Last meeting", hasBeatenPrompt]
+    ? [predictionPrompt, lastMeetingPrompt, hasBeatenPrompt]
     : intent === "prediction"
-      ? [isZhLocale(locale) ? "上次交手" : "Last meeting", hasBeatenPrompt]
-      : [isZhLocale(locale) ? "谁会赢？" : "Who would win?", intent === "has-beaten" ? (isZhLocale(locale) ? "上次交手" : "Last meeting") : hasBeatenPrompt];
+      ? [lastMeetingPrompt, hasBeatenPrompt]
+      : [predictionPrompt, intent === "has-beaten" ? lastMeetingPrompt : hasBeatenPrompt];
 
   return {
     comparison: teams.map((team, index) => ({
@@ -2662,6 +3882,7 @@ function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overvi
 
 function buildMatchReply(fixture, core, question, locale = "en") {
   const isZh = isZhLocale(locale);
+  const templates = getLocaleTemplates(locale);
   const rawTeams = getFixtureTeams(fixture, core.teamsById);
   const teams = {
     away: localizeTeam(rawTeams.away, locale),
@@ -2686,7 +3907,18 @@ function buildMatchReply(fixture, core, question, locale = "en") {
             : "overview";
   const resultLead = buildMatchLead(fixture, teams, timeline, locale);
   let lead = resultLead;
-  if (asksWhoScored) {
+  if (templates?.matchFocus) {
+    const scorers = uniqueBy(timeline, (goal) => normalizeBallBoyText(goal.name)).map((goal) => goal.name);
+    lead = templates.matchFocus(focus, {
+      away: teams.away?.name || templates.fallbackAway,
+      defaultLead: resultLead,
+      hasHighlights: Boolean(fixture.highlightVideo?.url),
+      home: teams.home?.name || templates.fallbackHome,
+      kickoff: formatKickoff(fixture.kickoffUtc, locale),
+      scorers,
+      scorersText: joinNaturalList(scorers, locale)
+    });
+  } else if (asksWhoScored) {
     const scorers = uniqueBy(timeline, (goal) => normalizeBallBoyText(goal.name)).map((goal) => goal.name);
     lead = scorers.length
       ? isZh
@@ -2705,7 +3937,13 @@ function buildMatchReply(fixture, core, question, locale = "en") {
       : isZh ? "这场比赛暂时没有经过核验的官方集锦。" : "No verified official highlights are available for this match yet.";
   }
   const followUps = [];
-  if (teams.home && teams.away) {
+  if (templates?.matchFollowUps && teams.home && teams.away) {
+    followUps.push(...templates.matchFollowUps({
+      away: teams.away.name,
+      completed: isCompletedFixture(fixture),
+      home: teams.home.name
+    }));
+  } else if (teams.home && teams.away) {
     if (isCompletedFixture(fixture)) {
       followUps.push(isZh
         ? `${teams.home.name}对${teams.away.name}是谁进球？`
@@ -2794,6 +4032,7 @@ function getWatchFixture(core, requestedTeams = []) {
 
 function buildWatchReply(core, playerIndex, requestedTeams = [], locale = "en") {
   const isZh = isZhLocale(locale);
+  const templates = getLocaleTemplates(locale);
   const fixture = getWatchFixture(core, requestedTeams);
   const rawFixtureTeams = fixture ? getFixtureTeams(fixture, core.teamsById) : { away: null, home: null };
   const fixtureTeams = {
@@ -2820,9 +4059,14 @@ function buildWatchReply(core, playerIndex, requestedTeams = [], locale = "en") 
     const rawTeam = core.teamsById.get(team?.id) || team;
     const profile = getProfileByName(playerIndex, entry.name, rawTeam?.id);
     const localizedName = getLocalizedPlayerName(profile?.displayName || entry.name, locale);
-    const localizedPosition = getLocalizedPosition(profile?.position || "Player", locale);
+    const localizedPosition = getPlayerPositionLabel(profile?.position || "Player", locale);
     return {
-      note: isZh
+      note: templates?.playerNote
+        ? templates.playerNote({
+            name: localizedName,
+            skills: getLocalizedStyleLabel(profile?.skills?.[0] || "", locale)
+          })
+        : isZh
         ? profile?.noteZh || `${localizedName}主要通过${getLocalizedStyleLabel(profile?.skills?.[0] || "", locale) || "阅读比赛"}影响比赛。`
         : entry.note || profile?.note || "",
       profile: profile
@@ -2834,7 +4078,7 @@ function buildWatchReply(core, playerIndex, requestedTeams = [], locale = "en") 
         : {
             displayName: localizedName,
             imageUrl: "",
-            position: isZh ? "球员" : "Player"
+            position: isZh ? "球员" : templates?.watch?.({ players: [] })?.fallbackPosition || "Player"
           },
       team
     };
@@ -2845,23 +4089,28 @@ function buildWatchReply(core, playerIndex, requestedTeams = [], locale = "en") 
       ? `${fixtureTeams.home.name}对${fixtureTeams.away.name}`
       : `${fixtureTeams.home.name} vs ${fixtureTeams.away.name}`
     : isZh ? "下一场比赛" : "the next match";
+  const localizedWatch = templates?.watch?.({
+    matchLabel,
+    players: players.map((player) => player.profile.displayName),
+    requestedTeam: requestedSide?.team?.name || ""
+  });
   return {
     fixtureId: fixture?.id || "",
-    followUps: players
+    followUps: localizedWatch?.prompts || players
       .map((player) => isZh
         ? `介绍一下${player.profile.displayName}`
         : `Tell me about ${player.profile.displayName}`)
       .slice(0, 3),
     kind: "player-list",
-    lead: requestedSide
+    lead: localizedWatch?.lead || (requestedSide
       ? isZh
         ? `这三名${requestedSide.team.name}球员值得关注。`
         : `These are three ${requestedSide.team.name} players to watch.`
       : isZh
         ? `这三名球员值得在${matchLabel}中关注。`
-        : `These are three players to watch for ${matchLabel}.`,
+        : `These are three players to watch for ${matchLabel}.`),
     players,
-    title: isZh ? "值得关注的球员" : "Players to watch"
+    title: localizedWatch?.title || (isZh ? "值得关注的球员" : "Players to watch")
   };
 }
 
@@ -2873,7 +4122,9 @@ function resolvePersonalityReply(question, locale = "en") {
     return null;
   }
 
-  const copy = isZhLocale(locale) ? ZH_PERSONALITY_COPY[entry.id] || entry : entry;
+  const copy = isZhLocale(locale)
+    ? ZH_PERSONALITY_COPY[entry.id] || entry
+    : getLocaleKnowledge(locale)?.personality?.[entry.id] || entry;
   return {
     contextPlayerName: entry.contextPlayerName || "",
     contextTeamId: entry.contextTeamId || "",
@@ -2887,6 +4138,10 @@ function resolvePersonalityReply(question, locale = "en") {
 }
 
 function getHelpReply(locale = "en") {
+  const localizedHelp = getLocaleTemplates(locale)?.help;
+  if (localizedHelp) {
+    return { ...localizedHelp, kind: "help" };
+  }
   if (isZhLocale(locale)) {
     return {
       categories: [
@@ -2923,7 +4178,9 @@ function resolveRule(question, locale = "en") {
   }
   for (const rule of RULE_CATALOG) {
     if (rule.keywords.some((keyword) => containsPhrase(question, keyword))) {
-      const localized = isZhLocale(locale) ? ZH_RULE_COPY[rule.id] : null;
+      const localized = isZhLocale(locale)
+        ? ZH_RULE_COPY[rule.id]
+        : getLocaleKnowledge(locale)?.rules?.[rule.id];
       return {
         kind: "rule",
         rule: localized ? { ...rule, ...localized } : rule
@@ -2961,27 +4218,68 @@ function isTeamAggregateQuestion(question, teams) {
 
 function getClarificationReply(candidates, locale = "en") {
   const isZh = isZhLocale(locale);
-  const prompts = candidates.slice(0, 3).map((profile) => {
-    const team = teamsCache.find((candidate) => candidate.id === profile.teamId);
-    const name = getLocalizedPlayerName(profile.displayName, locale);
-    return isZh
-      ? `介绍一下${name}${team ? `（${getLocalizedTeamName(team, locale)}）` : ""}`
-      : `Tell me about ${profile.displayName}${team ? ` from ${team.name}` : ""}`;
+  const currentCandidates = candidates
+    .filter((profile) => !profile.historical)
+    .slice(0, 3);
+  const historicalCandidates = candidates
+    .filter((profile) => profile.historical)
+    .sort((left, right) =>
+      Math.max(...(right.tournamentYears || [0])) - Math.max(...(left.tournamentYears || [0]))
+      || String(left.displayName).localeCompare(String(right.displayName))
+    )
+    .slice(0, 4);
+  const selectedCandidates = [...currentCandidates, ...historicalCandidates];
+  const optionData = selectedCandidates.map((profile) => {
+    const team = profile.historical
+      ? getHistoricalTeam(profile, { teams: teamsCache })
+      : teamsCache.find((candidate) => candidate.id === profile.teamId);
+    const name = getLocalizedPlayerName(
+      profile.displayName,
+      locale,
+      profile.historical ? "archive" : "current"
+    );
+    return {
+      era: profile.historical ? "past" : "current",
+      name,
+      position: getPlayerPositionLabel(profile.position, locale),
+      profile,
+      team: team ? getLocalizedTeamName(team, locale) : "",
+      tournamentYears: profile.historical ? profile.tournamentYears || [] : [2026]
+    };
   });
+  const localizedClarification = getLocaleTemplates(locale)?.clarification?.(optionData);
+  const prompts = localizedClarification?.prompts || optionData.map((option, index) => isZh
+    ? `介绍一下${option.name}${option.team ? `（${option.team}）` : ""}`
+    : `Tell me about ${selectedCandidates[index].displayName}${option.team ? ` from ${option.team}` : ""}`);
   return {
     kind: "clarify",
-    lead: isZh
+    lead: localizedClarification?.lead || (isZh
       ? "我找到了不止一名同名球员。你指哪一名？"
-      : "I found more than one player with that name. Which one?",
-    options: candidates.slice(0, 3).map((profile) => ({
-      name: getLocalizedPlayerName(profile.displayName, locale),
-      team: localizeTeam(teamsCache.find((candidate) => candidate.id === profile.teamId) || null, locale)
-    })),
-    followUps: prompts
+      : "Do you mean:"),
+    options: optionData.map((option, index) => {
+      const team = option.profile.historical
+        ? getHistoricalTeam(option.profile, { teams: teamsCache })
+        : teamsCache.find((candidate) => candidate.id === option.profile.teamId) || null;
+      return {
+        era: option.era,
+        name: option.name,
+        position: option.position,
+        prompt: option.profile.historical
+          ? getHistoricalPlayerPrompt(option.profile, locale)
+          : prompts[index],
+        team: localizeTeam(team, locale),
+        tournamentYears: option.tournamentYears
+      };
+    }),
+    followUps: []
   };
 }
 
 function getUnknownReply(locale = "en") {
+  const localizedUnknown = getLocaleTemplates(locale)?.unknown;
+  if (localizedUnknown) {
+    return { ...localizedUnknown, kind: "unknown" };
+  }
   if (isZhLocale(locale)) {
     return {
       followUps: ["介绍一下姆巴佩", "西班牙怎么踢？", "解释红牌"],
@@ -3000,44 +4298,153 @@ function getUnknownReply(locale = "en") {
   };
 }
 
+function getLocalizedCapabilityReply(rawQuestion, locale = "en") {
+  const templates = getLocaleTemplates(locale);
+  if (!templates) return null;
+  const normalized = normalizeBallBoyText(rawQuestion);
+  const years = normalized.match(/\b(?:19|20)\d{2}\b/g) || [];
+  const unsupportedYear = years.find((year) => year !== "2026");
+  if (unsupportedYear) {
+    return {
+      eye: "double-blink",
+      followUps: getLocaleTemplates(locale)?.help?.followUps?.slice(0, 2) || [],
+      kind: "personality",
+      text: templates.scopeUnsupported(unsupportedYear)
+    };
+  }
+  return null;
+}
+
+function isCoachQuestion(rawQuestion) {
+  const normalized = normalizeBallBoyText(rawQuestion);
+  return /\b(?:coach|manager|head coach|entrenador|seleccionador|director tecnico)\b/.test(normalized)
+    || /(?:감독|사령탑)/.test(normalized);
+}
+
+async function buildCoachReply(team, locale = "en") {
+  const templates = getLocaleTemplates(locale);
+  if (!templates?.coachReply || !team) return null;
+  const profiles = (await loadCoachProfiles()).filter((profile) => profile.teamId === team.id);
+  const uniqueProfiles = new Map();
+  for (const profile of profiles) {
+    const identity = profile.sourceUrl || normalizeBallBoyText(profile.name);
+    const existing = uniqueProfiles.get(identity);
+    if (!existing || String(profile.name).length > String(existing.name).length) {
+      uniqueProfiles.set(identity, profile);
+    }
+  }
+  if (uniqueProfiles.size !== 1) {
+    return {
+      contextTeamId: team.id,
+      eye: "double-blink",
+      followUps: templates.coachFollowUps?.({ team: getLocalizedTeamName(team, locale) }) || [],
+      kind: "personality",
+      text: templates.coachUnavailable(getLocalizedTeamName(team, locale))
+    };
+  }
+  const profile = [...uniqueProfiles.values()][0];
+  const localizedTeam = getLocalizedTeamName(team, locale);
+  const name = getLocalizedCoachName(profile.name, locale);
+  const styles = (profile.styles || []).slice(0, 3).map((style) => getLocalizedStyleLabel(style, locale));
+  return {
+    contextTeamId: team.id,
+    eye: "double-blink",
+    followUps: templates.coachFollowUps?.({ team: localizedTeam }) || [],
+    kind: "personality",
+    text: templates.coachReply({
+      name,
+      sinceYear: profile.sinceYear,
+      styles,
+      team: localizedTeam
+    })
+  };
+}
+
+function getTournamentStageIntent(question) {
+  if (/\b(?:semi final|semifinal)\b/.test(question)) return "semi-finals";
+  if (/\b(?:quarter final|quarterfinal)\b/.test(question)) return "quarter-finals";
+  if (/\b(?:third place|bronze final)\b/.test(question)) return "bronze-final";
+  if (/\b(?:world cup final|the final|final match)\b/.test(question)) return "final";
+  return "";
+}
+
+function buildTournamentStageReply(question, core, locale = "en") {
+  const templates = getLocaleTemplates(locale);
+  const stage = getTournamentStageIntent(question);
+  if (!templates?.stageSchedule || !stage) return null;
+  const fixtures = core.fixtures
+    .filter((fixture) => (fixture.stage || fixture.round) === stage)
+    .sort((left, right) => getFixtureTime(left) - getFixtureTime(right));
+  if (fixtures.length === 1) {
+    return buildMatchReply(fixtures[0], core, "when kickoff", locale);
+  }
+  const items = fixtures.map((fixture) => {
+    const teams = getFixtureTeams(fixture, core.teamsById);
+    const home = getLocalizedTeamName(teams.home, locale) || templates.fallbackHome;
+    const away = getLocalizedTeamName(teams.away, locale) || templates.fallbackAway;
+    return `${home} ${normalizeBallBoyLocale(locale) === "ko" ? "대" : "vs"} ${away} — ${formatKickoff(fixture.kickoffUtc, locale)}`;
+  });
+  return {
+    eye: "double-blink",
+    followUps: [],
+    kind: "personality",
+    text: templates.stageSchedule({ items, label: getStageLabel({ stage }, locale) })
+  };
+}
+
 function rememberReply(reply, source = {}) {
   if (reply.kind === "player") {
     replyContext = {
       fixtureId: "",
+      historicalPlayerId: reply.contextHistoricalPlayerId || "",
       playerName: reply.profile.displayName,
       teamId: reply.team?.id || source.teamId || "",
-      teamIds: []
+      teamIds: [],
+      tournamentYears: reply.contextTournamentYears || []
     };
     return;
   }
   if (reply.kind === "country") {
-    replyContext = { fixtureId: "", playerName: "", teamId: reply.team.id, teamIds: [] };
+    replyContext = {
+      fixtureId: "",
+      historicalPlayerId: "",
+      playerName: "",
+      teamId: reply.team.id,
+      teamIds: [],
+      tournamentYears: []
+    };
     return;
   }
   if (reply.kind === "match") {
     replyContext = {
       fixtureId: reply.fixture.id,
+      historicalPlayerId: "",
       playerName: "",
       teamId: source.teamId || "",
-      teamIds: []
+      teamIds: [],
+      tournamentYears: []
     };
     return;
   }
   if (reply.kind === "matchup") {
     replyContext = {
       fixtureId: reply.fixture?.id || "",
+      historicalPlayerId: "",
       playerName: "",
       teamId: "",
-      teamIds: reply.contextTeamIds || []
+      teamIds: reply.contextTeamIds || [],
+      tournamentYears: []
     };
     return;
   }
   if (reply.kind === "player-list") {
     replyContext = {
       fixtureId: reply.fixtureId || "",
+      historicalPlayerId: "",
       playerName: "",
       teamId: source.teamId || "",
-      teamIds: []
+      teamIds: [],
+      tournamentYears: []
     };
     return;
   }
@@ -3047,9 +4454,11 @@ function rememberReply(reply, source = {}) {
   ) {
     replyContext = {
       fixtureId: "",
+      historicalPlayerId: "",
       playerName: reply.contextPlayerName || "",
       teamId: reply.contextTeamId || "",
-      teamIds: []
+      teamIds: [],
+      tournamentYears: []
     };
   }
 }
@@ -3059,7 +4468,14 @@ export function rememberBallBoyReply(reply) {
 }
 
 export function resetBallBoyContext() {
-  replyContext = { fixtureId: "", playerName: "", teamId: "", teamIds: [] };
+  replyContext = {
+    fixtureId: "",
+    historicalPlayerId: "",
+    playerName: "",
+    teamId: "",
+    teamIds: [],
+    tournamentYears: []
+  };
 }
 
 export async function getBallBoyReply(rawQuestion, options = {}) {
@@ -3067,7 +4483,13 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
   const locale = normalizeBallBoyLocale(
     typeof options === "string" ? options : options?.locale || documentLocale
   );
-  const question = normalizeBallBoyQuestion(rawQuestion);
+  await ensureBallBoyLocalePack(locale);
+  const asksCoach = isCoachQuestion(rawQuestion);
+  const capabilityReply = getLocalizedCapabilityReply(rawQuestion, locale);
+  if (capabilityReply) {
+    return capabilityReply;
+  }
+  const question = normalizeBallBoyQuestion(rawQuestion, locale);
   if (!question) {
     return getUnknownReply(locale);
   }
@@ -3086,11 +4508,18 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
   }
 
   const core = await loadCoreData();
+  const stageReply = buildTournamentStageReply(question, core, locale);
+  if (stageReply) {
+    return stageReply;
+  }
   let teams = findTeamsInQuestion(question);
   const matchupIntent = getMatchupIntent(question);
   const contextTeam = getContextTeam(core);
   const contextFixtureId = getContextFixtureId(core);
   const asksWhoToWatch = /\b(who should i watch|players to watch|who to watch|key players|best players)\b/.test(question);
+  const asksForNamedPlayers =
+    asksWhoToWatch ||
+    /\b(who scored|scorer|top scorer|leading scorer|most goals|assists?)\b/.test(question);
 
   if (
     !teams.length &&
@@ -3111,7 +4540,20 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
     teams = replyContext.teamIds.map((teamId) => core.teamsById.get(teamId)).filter(Boolean);
   }
 
+  if (asksCoach) {
+    if (!teams.length && contextTeam && !contextFixtureId) {
+      teams = [contextTeam];
+    }
+    if (teams.length === 1) {
+      const coachReply = await buildCoachReply(teams[0], locale);
+      if (coachReply) {
+        return coachReply;
+      }
+    }
+  }
+
   if (asksWhoToWatch) {
+    await ensureBallBoyPlayerNames(locale, "current");
     const playerIndex = await loadProfiles();
     if (!teams.length && contextTeam) {
       teams = [contextTeam];
@@ -3135,6 +4577,9 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
   ) {
     const fixture = resolveFixture(question, teams, core.fixtures, contextFixtureId);
     if (fixture) {
+      if (asksForNamedPlayers) {
+        await ensureBallBoyPlayerNames(locale, "current");
+      }
       const reply = buildMatchReply(fixture, core, question, locale);
       reply.contextTeamId = teams[0]?.id || "";
       return reply;
@@ -3151,30 +4596,94 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
   ) {
     const fixture = core.fixtures.find((candidate) => candidate.id === contextFixtureId);
     if (fixture) {
+      if (asksForNamedPlayers) {
+        await ensureBallBoyPlayerNames(locale, "current");
+      }
       const reply = buildMatchReply(fixture, core, question, locale);
       return reply;
     }
   }
 
+  const playerIntentPattern =
+    /\b(player|who is|tell me|more|goal|goals|assist|assists|club|league|competition|position|role|age|birthday|born|value|valuation|worth|number|shirt|jersey|style|playstyle|strength|skills)\b/;
+  const teamScopedPlayerIntentPattern =
+    /\b(player|who is|tell me|goal|goals|assist|assists|club|league|competition|position|role|age|birthday|born|value|valuation|worth|number|shirt|jersey|strength|skills)\b/;
+  const historicalFollowUpPattern =
+    /\b(he|she|they|his|her|their|more|goal|goals|stats|style|play|club|league|competition|position|role|age|birthday|born|value|valuation|worth|number|shirt|jersey)\b/;
+  const hasExplicitPlayerIntent =
+    Boolean(replyContext.playerName || replyContext.historicalPlayerId) ||
+    (
+      teams.length
+        ? teamScopedPlayerIntentPattern.test(question)
+        : playerIntentPattern.test(question)
+    );
+  const likelyLocalizedBarePlayerIntent =
+    ["es", "ko"].includes(locale) &&
+    !teams.length &&
+    question.split(/\s+/).length <= 5 &&
+    /\p{Script=Hangul}/u.test(question);
   const shouldResolvePlayer =
     !teams.length ||
     Boolean(replyContext.playerName) ||
-    /\b(player|who is|tell me|more|goal|goals|assist|assists|club|league|competition|position|role|age|birthday|born|value|valuation|worth|number|shirt|jersey|style|playstyle|strength|skills)\b/.test(question);
+    teamScopedPlayerIntentPattern.test(question);
   if (shouldResolvePlayer) {
-    const playerIndex = await loadProfiles();
-    let playerMatch = resolvePlayer(question, playerIndex, teams.map((team) => team.id));
-    if (!playerMatch.profile && !playerMatch.candidates.length && teams.length) {
-      playerMatch = resolvePlayer(question, playerIndex);
-    }
+    const requestedYears = getRequestedTournamentYears(question);
+    const asksForHistoricalPlayer =
+      requestedYears.some((year) => year < 2026) ||
+      /\b(past|historical|archive)\b/.test(question) ||
+      (
+        Boolean(replyContext.historicalPlayerId) &&
+        !teams.length &&
+        historicalFollowUpPattern.test(question)
+      );
+    let playerIndex = asksForHistoricalPlayer
+      ? { aliases: [], byTeamAndName: new Map(), profiles: [] }
+      : await loadProfiles();
+    let currentNamesLoaded = false;
     if (
-      !playerMatch.profile &&
-      !playerMatch.candidates.length &&
-      !teams.length &&
-      replyContext.playerName &&
-      /\b(he|she|they|his|her|their|more|goal|goals|assist|assists|stats|style|play|club|league|competition|position|role|age|birthday|born|value|valuation|worth|number|shirt|jersey)\b/.test(question)
+      !asksForHistoricalPlayer &&
+      (hasExplicitPlayerIntent || likelyLocalizedBarePlayerIntent)
     ) {
-      const profile = getProfileByName(playerIndex, replyContext.playerName, replyContext.teamId);
-      playerMatch = { candidates: [], profile };
+      await ensureBallBoyPlayerNames(locale, "current");
+      playerIndex = await loadProfiles();
+      currentNamesLoaded = true;
+    }
+    const resolveCurrentPlayer = () => {
+      let match = resolvePlayer(question, playerIndex, teams.map((team) => team.id));
+      if (!match.profile && !match.candidates.length && teams.length) {
+        match = resolvePlayer(question, playerIndex);
+      }
+      if (
+        !match.profile &&
+        !match.candidates.length &&
+        !teams.length &&
+        replyContext.playerName &&
+        !replyContext.historicalPlayerId &&
+        historicalFollowUpPattern.test(question)
+      ) {
+        match = {
+          candidates: [],
+          profile: getProfileByName(
+            playerIndex,
+            replyContext.playerName,
+            replyContext.teamId
+          )
+        };
+      }
+      return match;
+    };
+    let playerMatch = asksForHistoricalPlayer
+      ? { candidates: [], profile: null }
+      : resolveCurrentPlayer();
+    if (
+      !asksForHistoricalPlayer &&
+      (playerMatch.profile || playerMatch.candidates.length) &&
+      !currentNamesLoaded
+    ) {
+      await ensureBallBoyPlayerNames(locale, "current");
+      playerIndex = await loadProfiles();
+      currentNamesLoaded = true;
+      playerMatch = resolveCurrentPlayer();
     }
     if (playerMatch.candidates.length) {
       return getClarificationReply(playerMatch.candidates, locale);
@@ -3184,12 +4693,106 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
       const reply = buildPlayerReply(playerMatch.profile, team, core.fixtures, question, locale);
       return reply;
     }
+
+    const shouldTryHistoricalPlayer =
+      asksForHistoricalPlayer ||
+      currentNamesLoaded ||
+      hasExplicitPlayerIntent ||
+      likelyLocalizedBarePlayerIntent;
+    if (shouldTryHistoricalPlayer) {
+      await ensureBallBoyPlayerNames(locale, "archive");
+      const historicalPlayerIndex = await loadHistoricalPlayerIndex();
+      if (
+        replyContext.historicalPlayerId &&
+        !teams.length &&
+        historicalFollowUpPattern.test(question)
+      ) {
+        const contextProfile = historicalPlayerIndex.byId.get(replyContext.historicalPlayerId);
+        if (contextProfile) {
+          const hydrated = await hydrateHistoricalPlayer(
+            contextProfile,
+            replyContext.tournamentYears
+          );
+          return buildHistoricalPlayerReply(
+            hydrated,
+            getHistoricalTeam(hydrated, core),
+            question,
+            locale
+          );
+        }
+      }
+
+      const searchTerm = getPlayerSearchTerm(question, teams);
+      const teamIds = teams.map((team) => team.id);
+      const teamNames = teams.flatMap((team) => [team.name, team.officialName]).filter(Boolean);
+      const currentPartialCandidates = asksForHistoricalPlayer
+        ? []
+        : findPartialPlayerCandidates(playerIndex, searchTerm, { teamIds });
+      const historicalPartialCandidates = findPartialPlayerCandidates(
+        historicalPlayerIndex,
+        searchTerm,
+        {
+          historical: true,
+          teamNames,
+          tournamentYears: requestedYears.filter((year) => year < 2026)
+        }
+      );
+      const partialCandidates = [
+        ...currentPartialCandidates,
+        ...historicalPartialCandidates
+      ];
+      if (partialCandidates.length > 1) {
+        return getClarificationReply(partialCandidates, locale);
+      }
+      if (partialCandidates.length === 1) {
+        const [profile] = partialCandidates;
+        if (profile.historical) {
+          const hydrated = await hydrateHistoricalPlayer(
+            profile,
+            requestedYears.filter((year) => year < 2026)
+          );
+          return buildHistoricalPlayerReply(
+            hydrated,
+            getHistoricalTeam(hydrated, core),
+            question,
+            locale
+          );
+        }
+        const team = core.teamsById.get(profile.teamId) || null;
+        return buildPlayerReply(profile, team, core.fixtures, question, locale);
+      }
+
+      const historicalMatch = resolveHistoricalPlayer(
+        question,
+        historicalPlayerIndex,
+        teamNames,
+        requestedYears.filter((year) => year < 2026)
+      );
+      if (historicalMatch.candidates.length) {
+        return getClarificationReply(historicalMatch.candidates, locale);
+      }
+      if (historicalMatch.profile) {
+        const hydrated = await hydrateHistoricalPlayer(
+          historicalMatch.profile,
+          requestedYears.filter((year) => year < 2026)
+        );
+        return buildHistoricalPlayerReply(
+          hydrated,
+          getHistoricalTeam(hydrated, core),
+          question,
+          locale
+        );
+      }
+    }
   }
 
   if (!teams.length && contextTeam && /\b(they|their|team|country|style|wins|record|next|last|more)\b/.test(question)) {
     teams = [contextTeam];
   }
   if (teams.length === 1) {
+    if (asksForNamedPlayers) {
+      await ensureBallBoyPlayerNames(locale, "current");
+    }
     const reply = buildCountryReply(teams[0], core, question, locale);
     return reply;
   }

@@ -977,6 +977,12 @@ for (const stage of tournamentData.stages || []) {
 }
 
 const teams = new Map();
+assert(
+  Number.isInteger(teamsData.rankingYear) &&
+    teamsData.rankingYear >= 1930 &&
+    teamsData.rankingYear <= 2100,
+  "teams.json must include a valid rankingYear"
+);
 for (const team of teamsData.teams || []) {
   assert(team.id, "Each team must have an id");
   assert(!teams.has(team.id), `Duplicate team id "${team.id}"`);

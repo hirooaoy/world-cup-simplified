@@ -170,6 +170,9 @@ function summarizeOverrideSources(sources) {
     ...(source.archiveUrl ? { archiveUrl: source.archiveUrl } : {}),
     ...(source.capturedAt ? { capturedAt: source.capturedAt } : {}),
     ...(source.sha256 ? { sha256: source.sha256 } : {}),
+    ...(source.layoutPerspective ? { layoutPerspective: source.layoutPerspective } : {}),
+    ...(source.isUpdatedVersion !== undefined ? { isUpdatedVersion: source.isUpdatedVersion } : {}),
+    ...(source.revisionComment ? { revisionComment: source.revisionComment } : {}),
     ...(source.note ? { note: source.note } : {})
   }));
 }
@@ -224,6 +227,26 @@ function getFifaTacticalSourceIssues(source, prefix) {
   }
   if (!/^[a-f0-9]{64}$/.test(String(source?.sha256 || ""))) {
     issues.push(`${prefix}.sha256 must be a lowercase SHA-256 digest`);
+  }
+  if (
+    source?.layoutPerspective !== undefined &&
+    !["nominal", "revised", "observed"].includes(source.layoutPerspective)
+  ) {
+    issues.push(`${prefix}.layoutPerspective must be nominal, revised, or observed when provided`);
+  }
+  if (source?.isUpdatedVersion !== undefined && typeof source.isUpdatedVersion !== "boolean") {
+    issues.push(`${prefix}.isUpdatedVersion must be a boolean when provided`);
+  }
+  if (source?.revisionComment !== undefined && !hasText(source.revisionComment)) {
+    issues.push(`${prefix}.revisionComment must be a non-empty string when provided`);
+  }
+  if (
+    source?.layoutPerspective === "observed" &&
+    !/\bobserv(?:ation|ations|ed)\b|shape change|position changes?|tactical line[- ]?up change following match/i.test(
+      String(source?.revisionComment || "")
+    )
+  ) {
+    issues.push(`${prefix}.observed layout must retain FIFA's observation or tactical-change comment`);
   }
   if (
     source?.archiveUrl !== undefined &&

@@ -1,10 +1,14 @@
 import {
   getBallBoyReply,
-  normalizeBallBoyLocale,
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-14-next-fixture-replies-1";
+} from "./chatbot-knowledge.js?v=2026-07-16-5";
+import {
+  getLanguageConfig,
+  loadLocaleDomain,
+  normalizeLanguage
+} from "./locales/locale-runtime.js?v=2026-07-16-5";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -23,8 +27,10 @@ const SCOUT_EYE_EXPRESSION_CLASSES = [
   "is-eye-wide",
   "is-eye-double-blink",
   "is-eye-side-glance",
+  "is-eye-downcast",
   "is-eye-pleased",
   "is-eye-record",
+  "is-eye-puzzled",
   "is-eye-amused"
 ];
 
@@ -57,11 +63,16 @@ const SCOUT_COPY = {
     tryAgain: "Try again",
     countryUnavailable: "Country unavailable",
     theirCountry: "their country",
+    currentWorldCup: "Current World Cup",
+    pastWorldCups: "Past World Cups",
     playerFallback: "Player",
     flag: "flag",
     officialLaw: "Read the official IFAB law ↗",
     worldCupStats: "World Cup statistics and player details",
     thisWorldCup: "This World Cup",
+    worldCupArchive: "World Cup archive",
+    worldCupEditions: "World Cups",
+    featuredMatches: "Featured matches",
     playerDetails: "Player details",
     goals: "Goals",
     assists: "Assists",
@@ -83,7 +94,7 @@ const SCOUT_COPY = {
     penaltiesScore: (home, away) => `Penalties ${home} to ${away}`,
     versus: "Versus",
     pens: "pens",
-    fifaRank: (rank) => `FIFA rank ${rank}`,
+    fifaRank: (rank, year) => `FIFA rank ${rank}${year ? ` (${year})` : ""}`,
     group: (group) => `Group ${group}`,
     groupPosition: (position, points) => `${position} in group · ${points} pts`,
     recentForm: "Recent tournament form",
@@ -149,7 +160,7 @@ const SCOUT_COPY = {
     timeZoneAlreadySet: (timeZone) => `You’re already using ${timeZone}. You can also change your time zone from the Settings icon in the top right.`,
     languageChanged: (language) => `Language changed to ${language}.`,
     timeZoneChanged: (timeZone) => `Time zone changed to ${timeZone}.`,
-    unsupportedLanguage: "I currently support English and Chinese.",
+    unsupportedLanguage: "I currently support English, Chinese, Spanish, and Korean.",
     unsupportedTimeZone: "That time zone isn’t available yet.",
     reportIssue: "Report issue",
     errorText: "I couldn’t load the data. Try again.",
@@ -183,11 +194,16 @@ const SCOUT_COPY = {
     tryAgain: "再试一次",
     countryUnavailable: "暂无国家队信息",
     theirCountry: "所属国家队",
+    currentWorldCup: "本届世界杯",
+    pastWorldCups: "历届世界杯",
     playerFallback: "球员",
     flag: "国旗",
     officialLaw: "阅读IFAB官方规则 ↗",
     worldCupStats: "世界杯数据和球员资料",
     thisWorldCup: "本届世界杯",
+    worldCupArchive: "世界杯档案",
+    worldCupEditions: "参赛届数",
+    featuredMatches: "重点比赛",
     playerDetails: "球员资料",
     goals: "进球",
     assists: "助攻",
@@ -209,7 +225,7 @@ const SCOUT_COPY = {
     penaltiesScore: (home, away) => `点球大战${home}比${away}`,
     versus: "对阵",
     pens: "点球",
-    fifaRank: (rank) => `FIFA排名第${rank}`,
+    fifaRank: (rank, year) => `FIFA排名第${rank}${year ? `（${year}）` : ""}`,
     group: (group) => `${group}组`,
     groupPosition: (position, points) => `小组第${position} · ${points}分`,
     recentForm: "近期世界杯战绩",
@@ -275,7 +291,7 @@ const SCOUT_COPY = {
     timeZoneAlreadySet: (timeZone) => `你已在使用${timeZone}。也可以通过右上角的设置图标更改时区。`,
     languageChanged: (language) => `语言已切换为${language}。`,
     timeZoneChanged: (timeZone) => `时区已切换为${timeZone}。`,
-    unsupportedLanguage: "我目前支持英文和中文。",
+    unsupportedLanguage: "我目前支持英文、中文、西班牙语和韩语。",
     unsupportedTimeZone: "目前还不支持这个时区。",
     reportIssue: "报告问题",
     errorText: "我无法载入数据。请再试一次。",
@@ -287,12 +303,31 @@ const SCOUT_LANGUAGE_ALIASES = {
   chinese: "zh",
   mandarin: "zh",
   "simplified chinese": "zh",
+  chino: "zh",
+  china: "zh",
+  중국어: "zh",
   中文: "zh",
   汉语: "zh",
   普通话: "zh",
   english: "en",
+  ingles: "en",
+  inglés: "en",
+  영어: "en",
   英文: "en",
-  英语: "en"
+  英语: "en",
+  spanish: "es",
+  espanol: "es",
+  español: "es",
+  castellano: "es",
+  스페인어: "es",
+  西班牙语: "es",
+  korean: "ko",
+  coreano: "ko",
+  coreana: "ko",
+  한국어: "ko",
+  조선말: "ko",
+  韩语: "ko",
+  韓語: "ko"
 };
 const SCOUT_UNSUPPORTED_LANGUAGE_NAMES = {
   arabic: "Arabic",
@@ -301,17 +336,38 @@ const SCOUT_UNSUPPORTED_LANGUAGE_NAMES = {
   hindi: "Hindi",
   italian: "Italian",
   japanese: "Japanese",
-  korean: "Korean",
   portuguese: "Portuguese",
   russian: "Russian",
-  spanish: "Spanish",
-  西班牙语: "西班牙语",
   法语: "法语",
   德语: "德语",
   日语: "日语",
-  韩语: "韩语",
   葡萄牙语: "葡萄牙语",
-  阿拉伯语: "阿拉伯语"
+  阿拉伯语: "阿拉伯语",
+  arabe: "árabe",
+  frances: "francés",
+  francés: "francés",
+  aleman: "alemán",
+  alemán: "alemán",
+  italiano: "italiano",
+  japones: "japonés",
+  japonés: "japonés",
+  portugues: "portugués",
+  portugués: "portugués",
+  ruso: "ruso",
+  아랍어: "아랍어",
+  프랑스어: "프랑스어",
+  독일어: "독일어",
+  이탈리아어: "이탈리아어",
+  일본어: "일본어",
+  포르투갈어: "포르투갈어",
+  러시아어: "러시아어"
+};
+
+const SCOUT_LANGUAGE_NAMES = {
+  en: { en: "English", es: "inglés", ko: "영어", zh: "英文" },
+  es: { en: "Spanish", es: "español", ko: "스페인어", zh: "西班牙语" },
+  ko: { en: "Korean", es: "coreano", ko: "한국어", zh: "韩语" },
+  zh: { en: "Chinese", es: "chino", ko: "중국어", zh: "中文" }
 };
 const SCOUT_TIME_ZONE_ALIASES = {
   utc: "UTC",
@@ -365,6 +421,10 @@ const SCOUT_TIME_ZONE_ALIASES = {
   eest: "Europe/Athens",
   china: "Asia/Shanghai",
   "china time": "Asia/Shanghai",
+  pekin: "Asia/Shanghai",
+  beijing: "Asia/Shanghai",
+  중국: "Asia/Shanghai",
+  베이징: "Asia/Shanghai",
   中国: "Asia/Shanghai",
   india: "Asia/Kolkata",
   "india time": "Asia/Kolkata",
@@ -376,6 +436,14 @@ const SCOUT_TIME_ZONE_ALIASES = {
   ict: "Asia/Bangkok",
   sgt: "Asia/Singapore",
   kst: "Asia/Seoul",
+  korea: "Asia/Seoul",
+  "korea time": "Asia/Seoul",
+  corea: "Asia/Seoul",
+  "hora de corea": "Asia/Seoul",
+  seoul: "Asia/Seoul",
+  한국: "Asia/Seoul",
+  한국시간: "Asia/Seoul",
+  서울: "Asia/Seoul",
   japan: "Asia/Tokyo",
   "japan time": "Asia/Tokyo",
   jst: "Asia/Tokyo",
@@ -393,11 +461,30 @@ const SCOUT_TIME_ZONE_ALIASES = {
   sast: "Africa/Johannesburg",
   wat: "Africa/Lagos",
   eat: "Africa/Nairobi",
-  日本: "Asia/Tokyo"
+  日本: "Asia/Tokyo",
+  japon: "Asia/Tokyo",
+  japón: "Asia/Tokyo",
+  tokio: "Asia/Tokyo",
+  일본: "Asia/Tokyo",
+  도쿄: "Asia/Tokyo",
+  espana: "Europe/Madrid",
+  españa: "Europe/Madrid",
+  madrid: "Europe/Madrid",
+  스페인: "Europe/Madrid",
+  마드리드: "Europe/Madrid",
+  mexico: "America/Mexico_City",
+  méxico: "America/Mexico_City",
+  "ciudad de mexico": "America/Mexico_City",
+  "ciudad de méxico": "America/Mexico_City",
+  멕시코: "America/Mexico_City"
 };
 const SCOUT_TIME_ZONE_GROUPS = [
   {
-    aliases: ["america", "us", "usa", "united states", "united states of america", "美国", "美利坚合众国"],
+    aliases: [
+      "america", "us", "usa", "united states", "united states of america",
+      "estados unidos", "estados unidos de america", "estados unidos de américa",
+      "ee uu", "eeuu", "美国", "美利坚合众国", "미국"
+    ],
     label: "United States",
     labelZh: "美国",
     options: [
@@ -411,7 +498,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["australia", "australian", "澳大利亚", "澳洲"],
+    aliases: ["australia", "australian", "澳大利亚", "澳洲", "호주", "오스트레일리아"],
     label: "Australian",
     labelZh: "澳大利亚",
     options: [
@@ -423,7 +510,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["canada", "canadian", "加拿大"],
+    aliases: ["canada", "canadian", "canadá", "加拿大", "캐나다"],
     label: "Canadian",
     labelZh: "加拿大",
     options: [
@@ -436,7 +523,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["brazil", "brazilian", "巴西"],
+    aliases: ["brazil", "brazilian", "brasil", "巴西", "브라질"],
     label: "Brazilian",
     labelZh: "巴西",
     options: [
@@ -448,7 +535,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["mexico", "mexican", "墨西哥"],
+    aliases: ["mexico", "mexican", "méxico", "墨西哥", "멕시코"],
     label: "Mexican",
     labelZh: "墨西哥",
     options: [
@@ -459,7 +546,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["indonesia", "indonesian", "印度尼西亚", "印尼"],
+    aliases: ["indonesia", "indonesian", "印度尼西亚", "印尼", "인도네시아"],
     label: "Indonesian",
     labelZh: "印度尼西亚",
     options: [
@@ -469,7 +556,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["russia", "russian federation", "俄罗斯"],
+    aliases: ["russia", "russian federation", "rusia", "俄罗斯", "러시아"],
     label: "Russian",
     labelZh: "俄罗斯",
     options: [
@@ -485,7 +572,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["chile", "chilean", "智利"],
+    aliases: ["chile", "chilean", "智利", "칠레"],
     label: "Chilean",
     labelZh: "智利",
     options: [
@@ -494,7 +581,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["ecuador", "ecuadorian", "厄瓜多尔"],
+    aliases: ["ecuador", "ecuadorian", "厄瓜多尔", "에콰도르"],
     label: "Ecuadorian",
     labelZh: "厄瓜多尔",
     options: [
@@ -503,7 +590,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["portugal", "portuguese time", "葡萄牙"],
+    aliases: ["portugal", "portuguese time", "葡萄牙", "포르투갈"],
     label: "Portuguese",
     labelZh: "葡萄牙",
     options: [
@@ -513,7 +600,7 @@ const SCOUT_TIME_ZONE_GROUPS = [
     ]
   },
   {
-    aliases: ["spain", "spanish time", "西班牙"],
+    aliases: ["spain", "spanish time", "españa", "西班牙", "스페인"],
     label: "Spanish",
     labelZh: "西班牙",
     options: [
@@ -523,30 +610,62 @@ const SCOUT_TIME_ZONE_GROUPS = [
   }
 ];
 const SCOUT_TIME_ZONE_GROUP_ALIASES = Object.fromEntries(
-  SCOUT_TIME_ZONE_GROUPS.flatMap((group) => group.aliases.map((alias) => [alias, group]))
+  SCOUT_TIME_ZONE_GROUPS.flatMap((group) =>
+    group.aliases.map((alias) => [normalizeScoutTimeZoneTarget(alias), group])
+  )
 );
-
+const SCOUT_TIME_ZONE_REGION_NAMES = {
+  Australian: { es: "Australia", ko: "호주" },
+  Brazilian: { es: "Brasil", ko: "브라질" },
+  Canadian: { es: "Canadá", ko: "캐나다" },
+  Chilean: { es: "Chile", ko: "칠레" },
+  Ecuadorian: { es: "Ecuador", ko: "에콰도르" },
+  Indonesian: { es: "Indonesia", ko: "인도네시아" },
+  Mexican: { es: "México", ko: "멕시코" },
+  Portuguese: { es: "Portugal", ko: "포르투갈" },
+  Russian: { es: "Rusia", ko: "러시아" },
+  Spanish: { es: "España", ko: "스페인" },
+  "United States": { es: "Estados Unidos", ko: "미국" }
+};
 function readScoutLocale() {
   try {
     const rawUrlLocale = new URLSearchParams(window.location.search).get("lang");
-    if (rawUrlLocale && /^(?:en|zh)(?:[-_][a-z]+)?$/i.test(rawUrlLocale)) {
-      return normalizeBallBoyLocale(rawUrlLocale);
+    if (rawUrlLocale && /^(?:en|zh|es|ko)(?:[-_][a-z]+)?$/i.test(rawUrlLocale)) {
+      return normalizeLanguage(rawUrlLocale);
     }
   } catch {
     // The document and saved preference below remain safe fallbacks.
   }
-  const documentLocale = normalizeBallBoyLocale(document.documentElement.lang);
-  if (documentLocale === "zh") {
-    return "zh";
+  const documentLocale = normalizeLanguage(document.documentElement.lang);
+  if (["zh", "es", "ko"].includes(documentLocale)) {
+    return documentLocale;
   }
   try {
-    return normalizeBallBoyLocale(localStorage.getItem("world-cup-simplified-language"));
+    return normalizeLanguage(localStorage.getItem("world-cup-simplified-language"));
   } catch {
     return documentLocale;
   }
 }
 
 let scoutLocale = readScoutLocale();
+let scoutLocalePack = null;
+let scoutLocaleTransition = null;
+let scoutLocaleTransitionId = 0;
+
+async function prepareScoutLocale(locale) {
+  const normalized = normalizeLanguage(locale);
+  const pack = await loadLocaleDomain(normalized, "chatbot");
+  if (pack?.copy) {
+    SCOUT_COPY[normalized] = pack.copy;
+  }
+  return pack;
+}
+
+try {
+  scoutLocalePack = await prepareScoutLocale(scoutLocale);
+} catch (error) {
+  console.error(`Unable to load the ${scoutLocale} Ball Boy locale pack`, error);
+}
 
 function scoutText(key, ...args) {
   const value = SCOUT_COPY[scoutLocale]?.[key] ?? SCOUT_COPY.en[key] ?? key;
@@ -565,23 +684,27 @@ function normalizeScoutSettingsText(value) {
 }
 
 function getScoutLanguageName(language, locale = scoutLocale) {
-  if (normalizeBallBoyLocale(locale) === "zh") {
-    return language === "zh" ? "中文" : "英文";
-  }
-  return language === "zh" ? "Chinese" : "English";
+  const normalizedLanguage = normalizeLanguage(language);
+  const normalizedLocale = normalizeLanguage(locale);
+  return SCOUT_LANGUAGE_NAMES[normalizedLanguage]?.[normalizedLocale] ||
+    SCOUT_LANGUAGE_NAMES[normalizedLanguage]?.en || normalizedLanguage;
 }
 
 function getScoutLanguageIntent(question) {
   const normalized = normalizeScoutSettingsText(question);
   const hasAction = /\b(?:change|set|switch|use)\b/.test(normalized) ||
-    /(?:切换|改成|换成|设置为|使用|用)/.test(normalized);
+    /\b(?:cambiar|cambia|cambie|poner|pon|usar|usa|establecer|configurar)\b/.test(normalized) ||
+    /(?:切换|改成|换成|设置为|使用|用|바꿔|바꾸기|변경|설정|사용)/.test(normalized);
   if (!hasAction) {
     return null;
   }
 
   const targetPatterns = [
     /^(?:please )?(?:change|set|switch|use)(?: my| the| app| site| page)*(?: language| locale)?(?: to| as)? (.+?)(?: language)?$/,
-    /^(?:请)?(?:把)?(?:语言|语种)?(?:切换|改成|换成|设置为|使用|用)(?:到|为)?(.+)$/
+    /^(?:请)?(?:把)?(?:语言|语种)?(?:切换|改成|换成|设置为|使用|用)(?:到|为)?(.+)$/,
+    /^(?:por favor )?(?:cambiar|cambia|cambie|poner|pon|usar|usa|establecer|configurar)(?: el| mi| este| la pagina| el sitio)*(?: idioma| lenguaje)?(?: a| en)? (.+?)(?: idioma)?$/,
+    /^(?:언어를?|사이트 언어를?|페이지 언어를?)?(.+?)(?:로|으로)?(?: 바꿔| 바꾸기| 변경| 설정| 사용)(?: 해 줘|해 줘| 해줘|해줘| 줘|줘|해|하기)?$/,
+    /^(?:언어를?|사이트 언어를?|페이지 언어를?)(?: 바꿔| 바꾸기| 변경| 설정)(?: 해 줘|해 줘| 해줘|해줘| 줘|줘|해)? (.+)$/
   ];
   const requestedTarget = targetPatterns
     .map((pattern) => normalized.match(pattern)?.[1]?.trim())
@@ -617,7 +740,8 @@ function getScoutLanguageIntent(question) {
 function normalizeScoutTimeZoneTarget(value) {
   return normalizeScoutSettingsText(value)
     .replace(/\b(?:please|my|the|app|site|page|timezone|time zone|time)\b/g, " ")
-    .replace(/(?:请|我的|网站|页面|时区|时间)/g, "")
+    .replace(/\b(?:por favor|mi|la|el|pagina|página|sitio|zona horaria|huso horario|hora)\b/g, " ")
+    .replace(/(?:请|我的|网站|页面|时区|时间|내|웹사이트|사이트|페이지|시간대|표준시)/g, "")
     .replace(/\([^)]*\)/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -690,7 +814,8 @@ function getScoutTimeZoneRequest(question) {
   const normalized = normalizeScoutSettingsText(question);
   const timeZoneFirstMatch = normalized.match(/^(?:time ?zone)(?: to| for)? (.+)$/);
   const hasAction = /\b(?:change|set|switch|use)\b/.test(normalized) ||
-    /(?:切换|改成|换成|设置为|使用|用)/.test(normalized) ||
+    /\b(?:cambiar|cambia|cambie|poner|pon|usar|usa|establecer|configurar)\b/.test(normalized) ||
+    /(?:切换|改成|换成|设置为|使用|用|바꿔|바꾸기|변경|설정|사용)/.test(normalized) ||
     Boolean(timeZoneFirstMatch);
   if (!hasAction) {
     return null;
@@ -698,7 +823,9 @@ function getScoutTimeZoneRequest(question) {
 
   const needsTimeZoneTarget =
     /^(?:please )?(?:change|set|switch)(?: my| the| this| app| site| page)*(?: time ?zone| timezone)$/.test(normalized) ||
-    /^(?:请)?(?:切换|更改|修改|设置)(?:我的|网站|页面)?时区$/.test(normalized);
+    /^(?:请)?(?:切换|更改|修改|设置)(?:我的|网站|页面)?时区$/.test(normalized) ||
+    /^(?:por favor )?(?:cambiar|cambia|cambie|configurar|configura)(?: mi| la| el)*(?: zona horaria| huso horario)$/.test(normalized) ||
+    /^(?:시간대|표준시)(?:를|을)?(?: 바꿔| 바꾸기| 변경| 설정)(?: 해 줘|해 줘| 해줘|해줘| 줘|줘|해|하기)?$/.test(normalized);
   if (needsTimeZoneTarget) {
     return {
       kind: "settings-action",
@@ -714,7 +841,12 @@ function getScoutTimeZoneRequest(question) {
     /^(?:please )?(?:change|set|switch|use)(?: to)? (.+?) (?:time|time ?zone|timezone)$/,
     /^(?:please )?(?:change|set|switch|use)(?: to)? (.+)$/,
     /(?:把)?(?:我的|网站|页面)?时区(?:切换|改成|换成|设置为|用)?(?:到|为)?(.+)$/,
-    /(?:切换|改成|换成|设置为|使用|用)(?:到|为)?(.+?)(?:时区|时间)$/
+    /(?:切换|改成|换成|设置为|使用|用)(?:到|为)?(.+?)(?:时区|时间)$/,
+    /^(?:zona horaria|huso horario)(?: de| para| a)? (.+)$/,
+    /^(?:por favor )?(?:cambiar|cambia|cambie|poner|pon|usar|usa|configurar)(?: mi| la| el)*(?: zona horaria| huso horario)(?: a| de| en)? (.+)$/,
+    /^(?:por favor )?(?:cambiar|cambia|cambie|poner|pon|usar|usa)(?: a| en)? (.+?)(?: como)?(?: zona horaria| huso horario)$/,
+    /^(?:시간대|표준시)(?:를|을)? (.+?)(?:로|으로)?(?: 바꿔| 변경| 설정| 사용)(?: 해 줘|해 줘| 해줘|해줘| 줘|줘|해)?$/,
+    /^(.+?)(?: 시간| 시간대| 표준시)(?:로|으로)?(?: 바꿔| 변경| 설정| 사용)(?: 해 줘|해 줘| 해줘|해줘| 줘|줘|해)?$/
   ];
   const matchedPattern = patterns
     .map((pattern) => normalized.match(pattern))
@@ -754,7 +886,8 @@ function getScoutTimeZoneRequest(question) {
   }
 
   const hasTimeZoneCue = /\b(?:time|time ?zone|timezone)\b/.test(normalized) ||
-    /(?:时区|时间)/.test(normalized);
+    /\b(?:zona horaria|huso horario)\b/.test(normalized) ||
+    /(?:时区|时间|시간대|표준시)/.test(normalized);
   if (hasTimeZoneCue) {
     return {
       kind: "settings-action",
@@ -773,7 +906,8 @@ function isScoutSettingsFollowUpCandidate(question) {
     return false;
   }
   return !/\b(?:who|what|when|where|why|how|match|game|player|team|country|rule|score|play|won|beat)\b/.test(normalized) &&
-    !/(谁|什么|何时|哪里|为什么|怎么|比赛|球员|球队|国家|规则|比分|踢|赢)/.test(normalized);
+    !/\b(?:quien|quién|que|qué|cuando|cuándo|donde|dónde|por que|por qué|como|cómo|partido|jugador|equipo|seleccion|selección|regla|marcador|jugar|gano|ganó)\b/.test(normalized) &&
+    !/(谁|什么|何时|哪里|为什么|怎么|比赛|球员|球队|国家|规则|比分|踢|赢|누구|무엇|언제|어디|왜|어떻게|경기|선수|팀|국가|규칙|스코어|득점|이겼)/.test(normalized);
 }
 
 function getScoutSettingsReply(question) {
@@ -819,7 +953,7 @@ function getScoutSuggestionsHtml() {
 const widget = document.createElement("aside");
 widget.className = "scout-widget";
 widget.id = "scout-widget";
-widget.lang = scoutLocale === "zh" ? "zh-Hans" : "en";
+widget.lang = getLanguageConfig(scoutLocale)?.htmlLang || (scoutLocale === "zh" ? "zh-Hans" : scoutLocale);
 widget.innerHTML = `
   <button class="scout-launcher" id="scout-launcher" type="button" aria-label="${scoutText("open")}" aria-expanded="false" aria-controls="scout-panel">
     <span class="scout-visually-hidden">${scoutText("open")}</span>
@@ -919,13 +1053,39 @@ let scoutVisualViewportFrame = 0;
 let canonicalTurns = [];
 let localeRenderToken = 0;
 let pendingScoutSettingsRequest = null;
+let pendingScoutLanguageAction = null;
 
 function isScoutZh() {
   return scoutLocale === "zh";
 }
 
+function getScoutPlayerPrompt(name, team = "") {
+  const playerName = String(name || "").trim();
+  const teamName = String(team || "").trim();
+  if (scoutLocale === "zh") return `介绍一下${playerName}${teamName ? `（${teamName}）` : ""}`;
+  if (scoutLocale === "es") return `Háblame de ${playerName}${teamName ? ` (${teamName})` : ""}`;
+  if (scoutLocale === "ko") {
+    const target = `${playerName}${teamName ? `(${teamName})` : ""}`;
+    const last = target.match(/[가-힣](?!.*[가-힣])/u)?.[0] || "";
+    const code = last.codePointAt(0) || 0;
+    const hasBatchim = code >= 0xac00 && code <= 0xd7a3 && (code - 0xac00) % 28 !== 0;
+    return `${target}${hasBatchim ? "을" : "를"} 알려 줘`;
+  }
+  return `Tell me about ${playerName}${teamName ? ` from ${teamName}` : ""}`;
+}
+
+function getScoutVersusLabel() {
+  if (scoutLocale === "zh") return "对";
+  if (scoutLocale === "ko") return "대";
+  return "vs";
+}
+
+function getScoutSentenceSeparator() {
+  return scoutLocale === "zh" || scoutLocale === "ko" ? "。" : ". ";
+}
+
 function applyScoutStaticLocale() {
-  widget.lang = isScoutZh() ? "zh-Hans" : "en";
+  widget.lang = getLanguageConfig(scoutLocale)?.htmlLang || (isScoutZh() ? "zh-Hans" : scoutLocale);
   launcher.setAttribute("aria-label", scoutText("open"));
   launcherHiddenLabel.textContent = scoutText("open");
   panel.setAttribute("aria-label", scoutText("chatLabel"));
@@ -1259,7 +1419,7 @@ function syncTournamentShowNextAvoidance() {
     widget.style.setProperty("--scout-obstacle-bottom", `${obstacleBottom}px`);
     widget.classList.add("has-tournament-show-next");
   } else {
-    clearTournamentShowNextAvoidance({ immediate: true });
+    clearTournamentShowNextAvoidance();
   }
 
   if (shouldAvoid && !isAvoidingTournamentShowNext) {
@@ -1431,19 +1591,19 @@ function finishJuggleEyeTracking() {
   }
 
   if (finalCount === 0) {
-    playEyeSequence([{ className: "is-eye-amused", duration: 900, pupil: { x: -1.4, y: 0.8 } }]);
+    playEyeSequence([{ className: "is-eye-puzzled", duration: 900, pupil: { x: -1.4, y: 0.8 } }]);
     return;
   }
 
   if (isNewBest) {
     playEyeSequence([
       { className: "is-eye-record", duration: 590 },
-      { className: "is-eye-pleased", duration: 560 }
+      { className: "is-eye-pleased", duration: 560, pupil: { x: 0, y: -0.35 } }
     ]);
     return;
   }
 
-  playEyeSequence([{ className: "is-eye-pleased", duration: 900 }]);
+  playEyeSequence([{ className: "is-eye-pleased", duration: 900, pupil: { x: 0, y: -0.35 } }]);
 }
 
 function reconcileJuggleState() {
@@ -1663,7 +1823,8 @@ function rememberScoutReplyContext(reply) {
 }
 
 function appendOffsideExplanation({ scroll = true } = {}) {
-  const copy = isScoutZh()
+  const localizedOffside = scoutLocalePack?.knowledge?.offside;
+  const copy = localizedOffside || (isScoutZh()
     ? {
         intro: "越位规则防止进攻球员守在对方球门前等传球。",
         summary: "看队友触球传球的一刻。如果进攻球员身处对方半场，而且比球和倒数第二名防守队员都更靠近球门，他就处于越位位置。",
@@ -1709,7 +1870,7 @@ function appendOffsideExplanation({ scroll = true } = {}) {
         involvement: "Position alone is not enough.",
         involvementText: "It becomes an offence only if A plays the ball, challenges an opponent, blocks a view, or otherwise affects play.",
         followUps: ["Explain a red card", "What is VAR?", "Explain a penalty kick"]
-      };
+      });
   const message = document.createElement("div");
   message.className = "scout-message is-assistant is-visual scout-answer is-offside";
   message.innerHTML = `
@@ -1917,7 +2078,7 @@ function finishScoutVisualMessage(message, { scroll = true } = {}) {
 
 function syncScoutMoreButton() {
   const remaining = conversation.scrollHeight - conversation.clientHeight - conversation.scrollTop;
-  const shouldShow = isOpen && remaining > 8;
+  const shouldShow = isOpen && !isReplyPending && remaining > 8;
   moreButton.hidden = !shouldShow;
   moreButton.tabIndex = shouldShow ? 0 : -1;
 }
@@ -1957,7 +2118,7 @@ function getOrdinal(value) {
   if (!Number.isInteger(number)) {
     return "";
   }
-  if (isScoutZh()) {
+  if (scoutLocale !== "en") {
     return String(number);
   }
   const mod100 = number % 100;
@@ -2008,8 +2169,12 @@ function renderScoutWatchList(note) {
 function appendPlayerReply(reply, options = {}) {
   const { age, profile, stats, team } = reply;
   const focus = reply.focus || "overview";
+  const historical = Boolean(reply.historical || profile.historical);
+  const tournamentYears = (profile.tournamentYears || []).join(", ");
   const shirt = profile.shirtNumber !== "" && focus !== "number" ? ` · #${profile.shirtNumber}` : "";
-  const clubLine = profile.club && !["club", "league"].includes(focus)
+  const clubLine = historical && tournamentYears
+    ? `${scoutText("worldCupEditions")}: ${tournamentYears}`
+    : profile.club && !["club", "league"].includes(focus)
     ? `${profile.club}${profile.league ? ` (${profile.league})` : ""}`
     : "";
   const marketValue = formatScoutMarketValue(profile.marketValue?.value);
@@ -2032,18 +2197,20 @@ function appendPlayerReply(reply, options = {}) {
     `
     : "";
   const showTournamentStats = ["overview", "stats", "penalty-goals"].includes(focus);
-  const showPlayerDetails = focus === "overview";
+  const showPlayerDetails = focus === "overview" && !historical;
   const showSkills = ["overview", "style"].includes(focus);
   const showNote = focus === "overview";
   const playerFacts = showTournamentStats || showPlayerDetails
     ? `
       <div class="scout-player-facts" aria-label="${escapeScoutHtml(scoutText("worldCupStats"))}">
         ${showTournamentStats ? `
-          <section class="scout-player-fact-section" aria-label="${escapeScoutHtml(scoutText("thisWorldCup"))}">
-            <p class="scout-section-label">${escapeScoutHtml(scoutText("thisWorldCup"))}</p>
+          <section class="scout-player-fact-section" aria-label="${escapeScoutHtml(scoutText(historical ? "worldCupArchive" : "thisWorldCup"))}">
+            <p class="scout-section-label">${escapeScoutHtml(scoutText(historical ? "worldCupArchive" : "thisWorldCup"))}</p>
             <div class="scout-player-fact-row">
               <div><strong>${stats.goals}</strong><span>${escapeScoutHtml(scoutText("goals"))}</span></div>
-              <div aria-label="${escapeScoutHtml(scoutText("recordedAssists", stats.assists))}" title="${escapeScoutHtml(scoutText("assistsTitle"))}"><strong>${stats.assists}</strong><span>${escapeScoutHtml(scoutText("assists"))}</span></div>
+              ${historical
+                ? `<div><strong>${profile.tournamentYears.length}</strong><span>${escapeScoutHtml(scoutText("worldCupEditions"))}</span></div>`
+                : `<div aria-label="${escapeScoutHtml(scoutText("recordedAssists", stats.assists))}" title="${escapeScoutHtml(scoutText("assistsTitle"))}"><strong>${stats.assists}</strong><span>${escapeScoutHtml(scoutText("assists"))}</span></div>`}
             </div>
           </section>
         ` : ""}
@@ -2071,12 +2238,12 @@ function appendPlayerReply(reply, options = {}) {
     : "";
 
   const body = `
-    <article class="scout-data-card scout-player-card is-focus-${escapeScoutHtml(focus)}">
+    <article class="scout-data-card scout-player-card is-focus-${escapeScoutHtml(focus)} ${historical ? "is-historical" : ""}">
       <header class="scout-entity-header">
         ${renderScoutAvatar(profile, team, "is-large")}
         <div class="scout-entity-copy">
           <h3>${escapeScoutHtml(profile.displayName)}</h3>
-          <p>${renderScoutFlag(team, "scout-inline-flag", { decorative: true })}<span>${escapeScoutHtml(team?.name || "")}${team ? " · " : ""}${escapeScoutHtml(profile.position)}${escapeScoutHtml(shirt)}</span></p>
+          <p>${renderScoutFlag(team, "scout-inline-flag", { decorative: true })}<span>${escapeScoutHtml(team?.name || "")}${team ? " · " : ""}${escapeScoutHtml(profile.position)}${historical && tournamentYears ? ` • ${escapeScoutHtml(tournamentYears)}` : escapeScoutHtml(shirt)}</span></p>
           ${clubLine ? `<small title="${escapeScoutHtml(clubLine)}">${escapeScoutHtml(clubLine)}</small>` : ""}
         </div>
       </header>
@@ -2102,10 +2269,10 @@ function renderCompactFixture(match, label) {
   const hasPenalties = Number.isFinite(match.penalties?.home) && Number.isFinite(match.penalties?.away);
   const center = hasScore
     ? `<strong>${Number(match.score.home)}–${Number(match.score.away)}</strong>${hasPenalties ? `<small>${escapeScoutHtml(scoutText("pens"))} ${Number(match.penalties.home)}–${Number(match.penalties.away)}</small>` : ""}`
-    : `<strong>${isScoutZh() ? "对" : "vs"}</strong><small>${escapeScoutHtml(match.kickoffLabel)}</small>`;
+    : `<strong>${escapeScoutHtml(getScoutVersusLabel())}</strong><small>${escapeScoutHtml(match.kickoffLabel)}</small>`;
   const centerLabel = hasScore
-    ? `${scoutText("score", Number(match.score.home), Number(match.score.away))}${hasPenalties ? `${isScoutZh() ? "。" : ". "}${scoutText("penaltiesScore", Number(match.penalties.home), Number(match.penalties.away))}` : ""}`
-    : `${scoutText("versus")}${isScoutZh() ? "。" : ". "}${match.kickoffLabel}`;
+    ? `${scoutText("score", Number(match.score.home), Number(match.score.away))}${hasPenalties ? `${getScoutSentenceSeparator()}${scoutText("penaltiesScore", Number(match.penalties.home), Number(match.penalties.away))}` : ""}`
+    : `${scoutText("versus")}${getScoutSentenceSeparator()}${match.kickoffLabel}`;
   return `
     <div class="scout-compact-fixture">
       <span class="scout-section-label">${escapeScoutHtml(label)}</span>
@@ -2129,7 +2296,9 @@ function appendCountryReply(reply, options = {}) {
   const shownLastMatch = focus === "overview" ? reply.lastMatch : null;
   const shownNextMatch = ["overview", "next"].includes(focus) ? reply.nextMatch : null;
   const groupMeta = [
-    Number.isFinite(Number(team.fifaRank)) ? scoutText("fifaRank", team.fifaRank) : "",
+    Number.isFinite(Number(team.fifaRank))
+      ? scoutText("fifaRank", team.fifaRank, team.fifaRankingYear)
+      : "",
     team.groupId ? scoutText("group", team.groupId) : "",
     groupStanding ? scoutText("groupPosition", getOrdinal(groupStanding.position), groupStanding.points) : ""
   ].filter(Boolean).join(" · ");
@@ -2141,9 +2310,12 @@ function appendCountryReply(reply, options = {}) {
           ${record.form
             .map((item) => {
               const title = scoutText("resultLabels")[item.result] || item.result;
-              const label = isScoutZh()
-                ? { draw: "平", loss: "负", "shootout-loss": "点负", "shootout-win": "点胜", win: "胜" }[item.result] || item.label
-                : item.label;
+              const compactLabels = {
+                es: { draw: "E", loss: "D", "shootout-loss": "P-P", "shootout-win": "G-P", win: "V" },
+                ko: { draw: "무", loss: "패", "shootout-loss": "승패", "shootout-win": "승승", win: "승" },
+                zh: { draw: "平", loss: "负", "shootout-loss": "点负", "shootout-win": "点胜", win: "胜" }
+              };
+              const label = compactLabels[scoutLocale]?.[item.result] || item.label;
               return `<span class="scout-form-result is-${escapeScoutHtml(item.result)}" title="${escapeScoutHtml(title)}" aria-label="${escapeScoutHtml(title)}">${escapeScoutHtml(label)}</span>`;
             })
             .join("")}
@@ -2169,7 +2341,7 @@ function appendCountryReply(reply, options = {}) {
         <div>
           ${reply.keyPlayers
             .map(
-              (player) => `<button type="button" data-scout-prompt="${isScoutZh() ? "介绍一下" : "Tell me about "}${escapeScoutHtml(player.name)}">${escapeScoutHtml(player.name)}</button>`
+              (player) => `<button type="button" data-scout-prompt="${escapeScoutHtml(getScoutPlayerPrompt(player.name))}">${escapeScoutHtml(player.name)}</button>`
             )
             .join("")}
         </div>
@@ -2193,7 +2365,7 @@ function appendCountryReply(reply, options = {}) {
       : ""
   ].filter(Boolean);
   const shootoutNote = shootoutResults.length
-    ? `<p class="scout-stat-note">${escapeScoutHtml(scoutText("onPenalties"))}：${escapeScoutHtml(shootoutResults.join(isScoutZh() ? "，" : " and "))}${isScoutZh() ? "。" : ". "}${escapeScoutHtml(scoutText("shootoutDrawNote"))}</p>`
+    ? `<p class="scout-stat-note">${escapeScoutHtml(scoutText("onPenalties"))}: ${escapeScoutHtml(shootoutResults.join(scoutLocale === "zh" ? "，" : scoutLocale === "ko" ? ", " : scoutLocale === "es" ? " y " : " and "))}${scoutLocale === "zh" || scoutLocale === "ko" ? "。" : ". "}${escapeScoutHtml(scoutText("shootoutDrawNote"))}</p>`
     : "";
   const fixtureCount = [shownLastMatch, shownNextMatch].filter(Boolean).length;
   const repeatsLead = getScoutPromptKey(reply.lead) === getScoutPromptKey(reply.beginnerStyle);
@@ -2214,9 +2386,7 @@ function appendCountryReply(reply, options = {}) {
           <div><strong>${record.losses}</strong><span>${escapeScoutHtml(scoutText("losses"))}</span></div>
         </div>
       ` : ""}
-      ${showGoals ? `<p class="scout-goal-balance">${isScoutZh()
-        ? `<strong>${record.goalsFor}</strong>进球 <span>·</span> <strong>${record.goalsAgainst}</strong>失球`
-        : `<strong>${record.goalsFor}</strong> scored <span>·</span> <strong>${record.goalsAgainst}</strong> conceded`}</p>` : ""}
+      ${showGoals ? `<p class="scout-goal-balance">${escapeScoutHtml(scoutText("goalsBalance", record.goalsFor, record.goalsAgainst))}</p>` : ""}
       ${showRecord ? shootoutNote : ""}
       ${showRecord ? form : ""}
       ${showStyle ? `<div class="scout-explainer">
@@ -2242,7 +2412,7 @@ function appendMatchupReply(reply, options = {}) {
   const comparison = reply.comparison
     .map(({ record, team }) => {
       const meta = Number.isFinite(Number(team.fifaRank))
-        ? scoutText("fifaRank", team.fifaRank)
+        ? scoutText("fifaRank", team.fifaRank, team.fifaRankingYear)
         : "";
       const styles = (team.styleTags || []).slice(0, 3).join(" · ");
       return `
@@ -2355,7 +2525,7 @@ function appendMatchReply(reply, options = {}) {
   const hasScore = Number.isFinite(fixture.score?.home) && Number.isFinite(fixture.score?.away);
   const score = (isFinished || isLive) && hasScore
     ? `${Number(fixture.score.home)}<span aria-hidden="true">–</span>${Number(fixture.score.away)}`
-    : `<span class="scout-versus">${isScoutZh() ? "对" : "vs"}</span>`;
+    : `<span class="scout-versus">${escapeScoutHtml(getScoutVersusLabel())}</span>`;
   const penalties = fixture.penalties
     ? `<p class="scout-shootout-line">${escapeScoutHtml(scoutText("penalties"))}：${Number(fixture.penalties.home)}–${Number(fixture.penalties.away)}</p>`
     : "";
@@ -2369,7 +2539,7 @@ function appendMatchReply(reply, options = {}) {
             return `
               <div class="scout-goal-row is-${escapeScoutHtml(goal.side)}">
                 <time>${escapeScoutHtml(goal.minute)}</time>
-                <span class="scout-goal-team" aria-label="${escapeScoutHtml(scoringTeam?.name || scoutText("scoringTeam"))}">${escapeScoutHtml(scoringTeam?.id || (isScoutZh() ? "球队" : "TEAM"))}</span>
+                <span class="scout-goal-team" aria-label="${escapeScoutHtml(scoringTeam?.name || scoutText("scoringTeam"))}">${escapeScoutHtml(scoringTeam?.id || (isScoutZh() ? "球队" : scoutLocale === "ko" ? "팀" : "TEAM"))}</span>
                 <span class="scout-goal-dot" aria-hidden="true">⚽</span>
                 <span><strong>${escapeScoutHtml(goal.name)}</strong>${goal.penalty ? ` (${escapeScoutHtml(scoutText("penaltyShort"))})` : ""}${goal.assistName ? `<small>${escapeScoutHtml(scoutText("assist"))}：${escapeScoutHtml(goal.assistName)}</small>` : ""}</span>
               </div>
@@ -2489,17 +2659,30 @@ function appendRuleReply(reply, options = {}) {
       ${sourceUrl ? `<a class="scout-source-link" href="${escapeScoutHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeScoutHtml(scoutText("officialLaw"))}</a>` : ""}
     </article>
   `;
-  createScoutVisualMessage("rule", rule.lead, body, isScoutZh()
+  const followUps = scoutLocale === "es"
     ? [
+        "Explícame el fuera de juego",
+        rule.id === "red-card" ? "Explícame una tarjeta amarilla" : "Explícame una tarjeta roja",
+        rule.id === "penalty-kick" ? "¿Qué es una tanda de penaltis?" : "Explícame un penalti"
+      ]
+    : scoutLocale === "ko"
+      ? [
+          "오프사이드를 설명해 줘",
+          rule.id === "red-card" ? "옐로카드를 설명해 줘" : "레드카드를 설명해 줘",
+          rule.id === "penalty-kick" ? "승부차기가 뭐야?" : "페널티킥을 설명해 줘"
+        ]
+      : isScoutZh()
+        ? [
         "解释越位",
         rule.id === "red-card" ? "解释黄牌" : "解释红牌",
         rule.id === "penalty-kick" ? "什么是点球大战？" : "解释点球"
       ]
-    : [
-        "Explain offside",
-        rule.id === "red-card" ? "Explain a yellow card" : "Explain a red card",
-        rule.id === "penalty-kick" ? "What is a penalty shootout?" : "Explain a penalty kick"
-      ], options);
+        : [
+            "Explain offside",
+            rule.id === "red-card" ? "Explain a yellow card" : "Explain a red card",
+            rule.id === "penalty-kick" ? "What is a penalty shootout?" : "Explain a penalty kick"
+          ];
+  createScoutVisualMessage("rule", rule.lead, body, followUps, options);
 }
 
 function appendHelpReply(reply, options = {}) {
@@ -2527,7 +2710,7 @@ function appendPlayerListReply(reply, options = {}) {
       ${reply.players
         .map(
           (player) => `
-            <button type="button" class="scout-watch-card" data-scout-prompt="${isScoutZh() ? "介绍一下" : "Tell me about "}${escapeScoutHtml(player.profile.displayName)}${isScoutZh() ? "（" : " from "}${escapeScoutHtml(player.team?.name || scoutText("theirCountry"))}${isScoutZh() ? "）" : ""}">
+            <button type="button" class="scout-watch-card" data-scout-prompt="${escapeScoutHtml(getScoutPlayerPrompt(player.profile.displayName, player.team?.name || scoutText("theirCountry")))}">
               ${renderScoutAvatar(player.profile, player.team, "", { showFlagBadge: true })}
               <span>
                 <strong>${escapeScoutHtml(player.profile.displayName)}</strong>
@@ -2544,17 +2727,37 @@ function appendPlayerListReply(reply, options = {}) {
 }
 
 function appendClarificationReply(reply, options = {}) {
+  const groups = [
+    {
+      id: "current",
+      label: scoutText("currentWorldCup"),
+      options: reply.options.filter((option) => option.era !== "past")
+    },
+    {
+      id: "past",
+      label: scoutText("pastWorldCups"),
+      options: reply.options.filter((option) => option.era === "past")
+    }
+  ].filter((group) => group.options.length);
   const body = `
     <div class="scout-clarify-list">
-      ${reply.options
-        .map(
-          (option) => `
-            <button type="button" data-scout-prompt="${isScoutZh() ? "介绍一下" : "Tell me about "}${escapeScoutHtml(option.name)}${isScoutZh() ? "（" : " from "}${escapeScoutHtml(option.team?.name || scoutText("theirCountry"))}${isScoutZh() ? "）" : ""}">
-              <strong>${escapeScoutHtml(option.name)}</strong>
-              <span>${renderScoutFlag(option.team, "scout-clarify-flag", { decorative: true })}<span>${escapeScoutHtml(option.team?.name || scoutText("countryUnavailable"))}</span></span>
-            </button>
-          `
-        )
+      ${groups
+        .map((group) => `
+          <section class="scout-clarify-group is-${escapeScoutHtml(group.id)}">
+            ${groups.length > 1 ? `<p class="scout-section-label">${escapeScoutHtml(group.label)}</p>` : ""}
+            ${group.options.map((option) => {
+              const years = (option.tournamentYears || []).join(", ");
+              return `
+                <button type="button" data-scout-prompt="${escapeScoutHtml(option.prompt || getScoutPlayerPrompt(option.name, option.team?.name || scoutText("theirCountry")))}">
+                  <span class="scout-clarify-option-copy">
+                    <strong>${escapeScoutHtml(option.name)}</strong>
+                    <span>— ${renderScoutFlag(option.team, "scout-clarify-flag", { decorative: true })}${escapeScoutHtml(option.team?.name || scoutText("countryUnavailable"))} · ${escapeScoutHtml(option.position || scoutText("playerFallback"))}${years ? ` • ${escapeScoutHtml(years)}` : ""}</span>
+                  </span>
+                </button>
+              `;
+            }).join("")}
+          </section>
+        `)
         .join("")}
     </div>
   `;
@@ -2565,19 +2768,29 @@ function appendPersonalityReply(reply, options = {}) {
   appendMessage(reply.text, "assistant", { ...options, className: "is-personality" });
 }
 
-function getScoutTimeZoneLabel(timeZone) {
+function getScoutTimeZoneLabel(timeZone, options = {}) {
   const option = [...(document.querySelector("#timezone-select")?.options || [])]
     .find((candidate) => candidate.value === timeZone);
-  return option?.textContent?.trim() || String(timeZone || "").replace(/_/g, " ");
+  const rawLabel = option?.textContent?.trim() || String(timeZone || "").replace(/_/g, " ");
+  const localizedName = scoutLocalePack?.knowledge?.timeZoneNames?.[timeZone];
+  if (!localizedName) return rawLabel;
+  if (options.includeOffset === false) {
+    return localizedName;
+  }
+  const offset = rawLabel.match(/\((?:GMT|UTC)[^)]+\)/i)?.[0] || "";
+  return `${localizedName}${offset ? ` ${offset}` : ""}`;
 }
 
 function getScoutReportIssueUrl(reply) {
+  const reportTemplate = scoutLocalePack?.knowledge?.templates?.reportUnsupported;
   const params = new URLSearchParams({
     type: "other",
     from: window.location.href,
-    details: isScoutZh()
-      ? `Ball Boy 暂不支持这个请求：${reply.originalQuestion}`
-      : `Ball Boy does not currently support this request: ${reply.originalQuestion}`
+    details: typeof reportTemplate === "function"
+      ? reportTemplate(reply.originalQuestion)
+      : isScoutZh()
+        ? `Ball Boy 暂不支持这个请求：${reply.originalQuestion}`
+        : `Ball Boy does not currently support this request: ${reply.originalQuestion}`
   });
   const timeZone = document.querySelector("#timezone-select")?.value;
   if (timeZone) {
@@ -2589,13 +2802,20 @@ function getScoutReportIssueUrl(reply) {
   return `report.html?${params.toString()}`;
 }
 
+function getScoutRequestedRegionLabel(reply) {
+  if (isScoutZh()) {
+    return reply.requestedLabelZh || reply.requestedLabel;
+  }
+  return SCOUT_TIME_ZONE_REGION_NAMES[reply.requestedLabel]?.[scoutLocale] || reply.requestedLabel;
+}
+
 function getScoutSettingsLead(reply) {
   const label = reply.setting === "language"
     ? getScoutLanguageName(reply.value)
     : getScoutTimeZoneLabel(reply.value);
   if (reply.status === "completed") {
     if (reply.originStatus === "choose-target") {
-      const region = isScoutZh() ? reply.requestedLabelZh : reply.requestedLabel;
+      const region = getScoutRequestedRegionLabel(reply);
       return scoutText("timeZoneRegionClarification", region);
     }
     return scoutText(reply.setting === "language" ? "languageActionIntro" : "timeZoneActionIntro");
@@ -2613,7 +2833,7 @@ function getScoutSettingsLead(reply) {
     return scoutText("timeZoneClarification");
   }
   if (reply.status === "choose-target") {
-    const region = isScoutZh() ? reply.requestedLabelZh : reply.requestedLabel;
+    const region = getScoutRequestedRegionLabel(reply);
     return scoutText("timeZoneRegionClarification", region);
   }
   return scoutText(reply.setting === "language" ? "languageActionIntro" : "timeZoneActionIntro");
@@ -2628,9 +2848,11 @@ function getScoutSettingsCompletion(reply) {
 
 function getScoutSettingsOptionLabel(reply, value) {
   if (reply.status === "choose-target") {
-    const localizedLabel = isScoutZh()
-      ? reply.optionLabelsZh?.[value]
-      : reply.optionLabels?.[value];
+    const localizedLabel = scoutLocale === "en"
+      ? reply.optionLabels?.[value]
+      : isScoutZh()
+        ? reply.optionLabelsZh?.[value]
+        : getScoutTimeZoneLabel(value, { includeOffset: false });
     if (localizedLabel) {
       return localizedLabel;
     }
@@ -2686,7 +2908,7 @@ function playPersonalityEyeReaction(eye) {
       { className: "is-eye-double-blink", duration: 540 }
     ],
     pleased: [
-      { className: "is-eye-pleased", duration: 760 }
+      { className: "is-eye-pleased", duration: 760, pupil: { x: 0, y: -0.35 } }
     ],
     "side-glance": [
       { className: "is-eye-side-glance", duration: 760, pupil: { x: -3.35, y: 0.35 } }
@@ -2695,7 +2917,7 @@ function playPersonalityEyeReaction(eye) {
       { className: "is-eye-wide", duration: 480 }
     ],
     amused: [
-      { className: "is-eye-amused", duration: 720, pupil: { x: 1.8, y: 0.2 } }
+      { className: "is-eye-amused", duration: 720, pupil: { x: 2.4, y: -0.15 } }
     ]
   };
   const sequence = sequences[eye];
@@ -2754,10 +2976,14 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
     }
     return;
   }
-  if (["unknown", "clarify"].includes(reply.kind)) {
+  if (reply.kind === "clarify") {
     playEyeSequence([
-      { className: "is-eye-side-glance", duration: 760, pupil: { x: -3.35, y: 0.35 } }
+      { className: "is-eye-puzzled", duration: 760, pupil: { x: 1.8, y: 0.2 } }
     ]);
+    return;
+  }
+  if (reply.kind === "unknown") {
+    playEyeSequence([{ className: "is-eye-downcast", duration: 760 }]);
     return;
   }
   syncEyeAttention();
@@ -2765,7 +2991,7 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
 }
 
 function getScoutErrorReply(locale = scoutLocale) {
-  const copy = SCOUT_COPY[normalizeBallBoyLocale(locale)] || SCOUT_COPY.en;
+  const copy = SCOUT_COPY[normalizeLanguage(locale)] || SCOUT_COPY.en;
   return {
     followUps: copy.errorFollowUps,
     kind: "error",
@@ -2816,21 +3042,87 @@ async function rerenderScoutConversation() {
   scheduleBlink();
 }
 
-async function setScoutLocale(nextLocale) {
-  const normalized = normalizeBallBoyLocale(nextLocale);
+function setScoutLocale(nextLocale) {
+  const normalized = normalizeLanguage(nextLocale);
+  if (scoutLocaleTransition?.locale === normalized) {
+    return scoutLocaleTransition.promise;
+  }
   if (normalized === scoutLocale) {
     applyScoutStaticLocale();
-    return;
+    return Promise.resolve(true);
   }
-  scoutLocale = normalized;
-  applyScoutStaticLocale();
-  await rerenderScoutConversation();
+
+  const transitionId = scoutLocaleTransitionId + 1;
+  scoutLocaleTransitionId = transitionId;
+  const previousLocale = scoutLocale;
+  const previousPack = scoutLocalePack;
+  const promise = (async () => {
+    let nextPack;
+    try {
+      nextPack = await prepareScoutLocale(normalized);
+    } catch (error) {
+      if (transitionId === scoutLocaleTransitionId) {
+        scoutLocale = previousLocale;
+        scoutLocalePack = previousPack;
+        applyScoutStaticLocale();
+      }
+      throw error;
+    }
+    if (transitionId !== scoutLocaleTransitionId) {
+      return false;
+    }
+
+    scoutLocale = normalized;
+    scoutLocalePack = nextPack;
+    applyScoutStaticLocale();
+    try {
+      await rerenderScoutConversation();
+      return transitionId === scoutLocaleTransitionId;
+    } catch (error) {
+      if (transitionId === scoutLocaleTransitionId) {
+        scoutLocale = previousLocale;
+        scoutLocalePack = previousPack;
+        applyScoutStaticLocale();
+        await rerenderScoutConversation().catch(() => {});
+      }
+      throw error;
+    }
+  })();
+  const trackedPromise = promise.finally(() => {
+    if (scoutLocaleTransition?.id === transitionId) {
+      scoutLocaleTransition = null;
+    }
+  });
+  scoutLocaleTransition = {
+    id: transitionId,
+    locale: normalized,
+    promise: trackedPromise
+  };
+  return trackedPromise;
 }
 
 function handleScoutLanguageChange(event) {
   const eventLocale = event?.detail?.language;
   const nextLocale = eventLocale || readScoutLocale();
+  const languageAction = pendingScoutLanguageAction;
+  if (languageAction) {
+    if (normalizeLanguage(nextLocale) === languageAction.value) {
+      languageAction.turn.reply.status = "completed";
+      languageAction.turn.reply.value = languageAction.value;
+      languageAction.turn.reply.originStatus = languageAction.originStatus;
+    } else {
+      languageAction.turn.reply.status = languageAction.originStatus;
+    }
+    window.clearTimeout(languageAction.timer);
+    pendingScoutLanguageAction = null;
+  }
   setScoutLocale(nextLocale).catch((error) => {
+    if (languageAction) {
+      languageAction.turn.reply.status = languageAction.originStatus;
+      languageAction.button.disabled = false;
+      languageAction.button.removeAttribute("aria-busy");
+      rerenderScoutConversation().catch(() => {});
+    }
     console.error("Unable to rerender Ball Boy after language change", error);
   });
 }
@@ -2917,17 +3209,47 @@ messages.addEventListener("click", (event) => {
     }
 
     if (setting === "language") {
-      const languageButton = document.querySelector(`.language-option[data-language="${CSS.escape(value)}"]`);
-      if (!languageButton) {
-        return;
-      }
-      matchingTurn.reply.originStatus = matchingTurn.reply.status;
-      matchingTurn.reply.status = "completed";
-      matchingTurn.reply.value = value;
+      const normalizedValue = normalizeLanguage(value);
+      const originStatus = matchingTurn.reply.status;
       pendingScoutSettingsRequest = null;
       settingsAction.disabled = true;
       settingsAction.setAttribute("aria-busy", "true");
-      languageButton.click();
+      const timeout = window.setTimeout(() => {
+        if (pendingScoutLanguageAction?.turn !== matchingTurn) {
+          return;
+        }
+        matchingTurn.reply.status = originStatus;
+        pendingScoutLanguageAction = null;
+        settingsAction.disabled = false;
+        settingsAction.removeAttribute("aria-busy");
+      }, 10000);
+      pendingScoutLanguageAction = {
+        button: settingsAction,
+        originStatus,
+        timer: timeout,
+        turn: matchingTurn,
+        value: normalizedValue
+      };
+      const requestEvent = new CustomEvent("worldcup:languagerequest", {
+        bubbles: true,
+        cancelable: true,
+        detail: { language: normalizedValue, source: "ball-boy" }
+      });
+      const appHandledRequest = !document.dispatchEvent(requestEvent);
+      if (!appHandledRequest) {
+        const languageSelect = document.querySelector("#language-select");
+        const hasOption = [...(languageSelect?.options || [])]
+          .some((option) => option.value === normalizedValue);
+        if (languageSelect && hasOption) {
+          languageSelect.value = normalizedValue;
+          languageSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        } else {
+          window.clearTimeout(timeout);
+          pendingScoutLanguageAction = null;
+          settingsAction.disabled = false;
+          settingsAction.removeAttribute("aria-busy");
+        }
+      }
       return;
     }
 

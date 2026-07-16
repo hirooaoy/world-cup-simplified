@@ -737,8 +737,8 @@ const franceSpainPrediction = await runLineupPredictionEngine({
   }
 });
 const medalFixtureAssignments = new Map([
-  ["match-103-bronze-final-2026-07-18", ["ESP", "ARG"]],
-  ["match-104-final-2026-07-19", ["FRA", "ENG"]]
+  ["match-103-bronze-final-2026-07-18", ["FRA", "ENG"]],
+  ["match-104-final-2026-07-19", ["ESP", "ARG"]]
 ]);
 const simulatedMedalFixtures = currentPredictionContext.fixturesData.fixtures
   .filter((fixture) => medalFixtureAssignments.has(fixture.id))
@@ -781,8 +781,29 @@ const simulatedBronze = simulatedMedalPrediction.document.fixtures.find((record)
 const simulatedFinal = simulatedMedalPrediction.document.fixtures.find((record) => record.fixtureId === "match-104-final-2026-07-19");
 assert(simulatedBronze.confidence.score <= 0.58, "Bronze-final rotation risk must carry a stricter evidence-strength cap");
 assert(
-  simulatedBronze.evidence.home.notes.some((note) => note.includes("rotation risk")),
-  "Bronze-final baseline must disclose rotation risk"
+  simulatedBronze.evidence.home.notes.some((note) => note.includes("rotation is not assumed")),
+  "Bronze-final baseline must disclose uncertainty without inventing rotation"
+);
+assert(
+  simulatedBronze.lineup.home.players.some((player) => player.name === "Kylian Mbappé") &&
+    !simulatedBronze.lineup.home.bench.some((player) => player.name === "Kylian Mbappé"),
+  "Bronze-final fallback must not automatically bench Mbappe without source or availability evidence"
+);
+assert(
+  simulatedBronze.lineup.away.players.some((player) => player.name === "Harry Kane") &&
+    !simulatedBronze.lineup.away.bench.some((player) => player.name === "Harry Kane"),
+  "Bronze-final fallback must not automatically bench Kane without source or availability evidence"
+);
+const simulatedArgentinaForwards = simulatedFinal.lineup.away.players
+  .filter((player) => ["Lionel Messi", "Julián Álvarez"].includes(player.name))
+  .map((player) => [player.name, player.x]);
+assert.deepEqual(
+  simulatedArgentinaForwards,
+  [
+    ["Lionel Messi", 59],
+    ["Julián Álvarez", 41]
+  ],
+  "Official striker-side evidence must keep Messi right of Alvarez in a two-forward layout"
 );
 assert(simulatedFinal.confidence.score <= 0.72 && simulatedFinal.confidence.score > simulatedBronze.confidence.score);
 const generatedFranceSpain = franceSpainPrediction.document.fixtures.find(

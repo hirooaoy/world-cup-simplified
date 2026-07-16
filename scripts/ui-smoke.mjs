@@ -538,6 +538,24 @@ assert(
     !chatbotCssSource.includes("scout-eye-touch-release"),
   "Ball Boy should use the calmer idle cadence and shared blink cooldown without a touch-release blink animation."
 );
+assert(
+  chatbotSource.includes('className: "is-eye-puzzled", duration: 900') &&
+    chatbotSource.includes('className: "is-eye-puzzled", duration: 760') &&
+    chatbotSource.includes('className: "is-eye-downcast", duration: 760') &&
+    chatbotSource.includes('className: "is-eye-amused", duration: 720') &&
+    chatbotSource.includes('className: "is-eye-pleased", duration: 760, pupil: { x: 0, y: -0.35 }') &&
+    chatbotSource.includes('widget.classList.add("is-eye-juggle-tap")') &&
+    chatbotCssSource.includes(".scout-widget.is-eye-downcast .scout-eye") &&
+    chatbotCssSource.includes(".scout-widget.is-eye-puzzled .scout-eye:first-child") &&
+    chatbotCssSource.includes(".scout-widget.is-eye-pleased .scout-eyes::before") &&
+    chatbotCssSource.includes(".scout-widget.is-eye-pleased .scout-pupil") &&
+    chatbotCssSource.includes("border-top: 3px solid #0a0a0a;") &&
+    chatbotCssSource.includes(".scout-widget.is-eye-amused .scout-eyes::before") &&
+    chatbotCssSource.includes(".scout-widget.is-eye-amused .scout-pupil") &&
+    chatbotCssSource.includes("transform: scale(1.12);") &&
+    chatbotCssSource.includes("animation: scout-eye-juggle-tap 150ms ease-out;"),
+  "Ball Boy should keep downcast and puzzled, use eyebrow-led pleased and larger-eye amused expressions, and preserve tap feedback while juggling."
+);
 const fixturesData = JSON.parse(await readFile(path.join(root, "data/fixtures.json"), "utf8"));
 const [playerAvailabilityData, freeLineupPredictionSourcesData] = await Promise.all(
   ["player-availability.json", "free-lineup-prediction-sources.json"].map(async (fileName) =>
@@ -591,8 +609,145 @@ const sourceNoteData = await Promise.all(
     "tournament.json"
   ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
 );
-const [, historyData, , , , releaseNotesData, teamsData, standingsData, tournamentData] = sourceNoteData;
+const [
+  ,
+  historyData,
+  lineupsData,
+  ,
+  playerProfilesData,
+  releaseNotesData,
+  teamsData,
+  standingsData,
+  tournamentData
+] = sourceNoteData;
 const sourceNoteRefreshData = sourceNoteData.filter((_, index) => ![3, 5].includes(index));
+
+function normalizeResultMentionName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function escapeResultMentionPattern(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getResultMentionPlayerName(player) {
+  if (Array.isArray(player)) {
+    return String(player[2] || player[1] || "").trim();
+  }
+  return String(player?.name || player?.fullName || player?.displayName || player?.label || "").trim();
+}
+
+const currentPlayerProfilesByName = new Map(
+  Object.values(playerProfilesData.profiles || {}).flatMap((profile) =>
+    [profile?.name, profile?.displayName]
+      .filter(Boolean)
+      .map((name) => [normalizeResultMentionName(name), profile])
+  )
+);
+
+function getCurrentResultLinkCoverageCases() {
+  const cases = [];
+
+  for (const fixture of fixturesData.fixtures || []) {
+    const bullets = Array.isArray(fixture.resultStoryBullets)
+      ? fixture.resultStoryBullets.filter((bullet) => typeof bullet === "string" && bullet.trim())
+      : [];
+    if (fixture.status !== "FT" || !bullets.length) {
+      continue;
+    }
+
+    const storyText = bullets.join(" ");
+    const lineup = lineupsData.lineups?.[fixture.id];
+    const keyPlayers = [...(fixture.keyPlayers?.home || []), ...(fixture.keyPlayers?.away || [])];
+    const goals = [...(fixture.goalsHome || []), ...(fixture.goalsAway || [])];
+    const scorers = goals.map((goal) => ({ name: goal?.name })).filter((player) => player.name);
+    const assists = goals.map((goal) => ({ name: goal?.assistName })).filter((player) => player.name);
+    const lineupPlayers = [lineup?.home, lineup?.away].flatMap((teamLineup) => [
+      ...(teamLineup?.players || []),
+      ...(teamLineup?.starters || []),
+      ...(teamLineup?.bench || [])
+    ]);
+    const playersByName = new Map();
+
+    for (const player of [...keyPlayers, ...scorers, ...assists, ...lineupPlayers]) {
+      const name = getResultMentionPlayerName(player);
+      const key = normalizeResultMentionName(name);
+      if (!key || playersByName.has(key)) {
+        continue;
+      }
+      const profile = currentPlayerProfilesByName.get(key);
+      playersByName.set(key, {
+        name,
+        displayName: String(profile?.displayName || profile?.name || name).trim()
+      });
+    }
+
+    const players = [...playersByName.values()];
+    const partCounts = new Map();
+    for (const player of players) {
+      const parts = player.name.split(/\s+/).filter(Boolean);
+      for (const part of new Set([parts[0], parts.at(-1)].filter(Boolean).map(normalizeResultMentionName))) {
+        partCounts.set(part, (partCounts.get(part) || 0) + 1);
+      }
+    }
+
+    const baselinePlayerKeys = new Set([
+      ...keyPlayers.map(getResultMentionPlayerName),
+      ...scorers.map(getResultMentionPlayerName),
+      ...players
+        .filter((player) => [player.name, player.displayName].some((name) => name.includes(" ") && storyText.includes(name)))
+        .map((player) => player.name)
+    ].map(normalizeResultMentionName).filter(Boolean));
+    const expectedLabels = new Set();
+
+    for (const player of players) {
+      if (baselinePlayerKeys.has(normalizeResultMentionName(player.name))) {
+        continue;
+      }
+
+      const aliases = [...new Set([player.name, player.displayName].flatMap((name) => {
+        const parts = name.split(/\s+/).filter(Boolean);
+        return [name, parts[0], parts.at(-1)];
+      }))]
+        .filter((alias) => alias && alias.length >= 3)
+        .filter((alias) => /\s/.test(alias) || partCounts.get(normalizeResultMentionName(alias)) === 1)
+        .sort((left, right) => right.length - left.length);
+
+      for (const alias of aliases) {
+        const mentionPattern = new RegExp(
+          `(^|[^A-Za-z])(${escapeResultMentionPattern(alias)})('s)?(?=$|[^A-Za-z])`,
+          "g"
+        );
+        for (const match of storyText.matchAll(mentionPattern)) {
+          expectedLabels.add(`${match[2]}${match[3] || ""}`);
+        }
+      }
+    }
+
+    if (expectedLabels.size) {
+      cases.push({
+        dayKey: String(fixture.kickoffUtc || "").slice(0, 10),
+        expectedLabels: [...expectedLabels],
+        fixtureId: fixture.id
+      });
+    }
+  }
+
+  return cases;
+}
+
+const currentResultPlayerLinkCoverageCases = getCurrentResultLinkCoverageCases();
+assert(
+  currentResultPlayerLinkCoverageCases.some(
+    (entry) => entry.fixtureId === "match-101-semi-final-2026-07-14" && entry.expectedLabels.includes("Olmo")
+  ),
+  `The all-current-results audit should include the assist-only Olmo mention. Measured ${JSON.stringify(currentResultPlayerLinkCoverageCases)}.`
+);
 
 function getExpectedHistoricalProjection(fixtureId) {
   const fixture = (historyData.fixtures || []).find((candidate) => candidate.id === fixtureId);
@@ -1817,7 +1972,7 @@ function getExpectedReleaseTooltipText(data) {
     ? release.highlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
     : [];
 
-  return [title, ...highlights].filter(Boolean).join(" ");
+  return [`Release notes: ${title}`, ...highlights, "Made by H"].filter(Boolean).join(" ");
 }
 
 async function useDesktopPointerMedia(context) {
@@ -2026,14 +2181,25 @@ try {
   const themeToggleOrder = await themeTogglePage.evaluate(() => {
     const yesterdaySetting = document.querySelector("#show-yesterday-toggle")?.closest(".settings-section");
     const darkModeSetting = document.querySelector("#dark-mode-toggle")?.closest(".settings-section");
+    const reportIssueSetting = document.querySelector("#settings-report-link");
+    const darkModeLabel = document.querySelector("#settings-dark-mode-label");
+    const reportIssueLabel = document.querySelector("#settings-report-label");
     return {
-      darkModeIsLast: darkModeSetting?.nextElementSibling === null,
-      darkModeIsNext: yesterdaySetting?.nextElementSibling === darkModeSetting
+      darkModeIsNext: yesterdaySetting?.nextElementSibling === darkModeSetting,
+      href: reportIssueSetting?.getAttribute("href") || "",
+      labelFontSizeMatches:
+        getComputedStyle(darkModeLabel).fontSize === getComputedStyle(reportIssueLabel).fontSize,
+      reportIssueIsLast: reportIssueSetting?.nextElementSibling === null,
+      reportIssueIsNext: darkModeSetting?.nextElementSibling === reportIssueSetting
     };
   });
   assert(
-    themeToggleOrder.darkModeIsLast && themeToggleOrder.darkModeIsNext,
-    `Dark mode should sit directly below Show past 24 hours as the final Settings row. Measured ${JSON.stringify(themeToggleOrder)}.`
+    themeToggleOrder.darkModeIsNext &&
+      themeToggleOrder.reportIssueIsNext &&
+      themeToggleOrder.reportIssueIsLast &&
+      themeToggleOrder.href === "report.html" &&
+      themeToggleOrder.labelFontSizeMatches,
+    `Settings should place a same-size Report issue link directly below Dark mode. Measured ${JSON.stringify(themeToggleOrder)}.`
   );
   await themeTogglePage
     .locator("label.settings-toggle-control:has(#dark-mode-toggle)")
@@ -2121,13 +2287,15 @@ try {
     "A saved dark preference should be restored on reload."
   );
   await themeTogglePage.locator("#settings-button").click();
-  await themeTogglePage.locator('[data-language="zh"]').click();
+  await themeTogglePage.locator("#language-select").selectOption("zh");
   await themeTogglePage.waitForFunction(() =>
     document.querySelector("#settings-dark-mode-label")?.textContent === "深色模式"
   );
   assert(
-    (await themeTogglePage.locator("#dark-mode-toggle").getAttribute("aria-label")) === "深色模式",
-    "The dark-mode setting should localize its visible and accessible name in Chinese."
+    (await themeTogglePage.locator("#dark-mode-toggle").getAttribute("aria-label")) === "深色模式" &&
+      (await themeTogglePage.locator("#settings-report-label").innerText()) === "报告问题" &&
+      (await themeTogglePage.locator("#settings-report-link").getAttribute("href")) === "report.html?lang=zh",
+    "The dark-mode and report settings should localize in Chinese, and the report link should preserve the language."
   );
   await themeToggleContext.close();
 
@@ -2279,7 +2447,7 @@ try {
     "The release notes tooltip should be marked busy while release notes are loading."
   );
   assert(
-    releaseNotesLoadingState.title === "Latest changes" &&
+    releaseNotesLoadingState.title === "Release notes: Latest changes" &&
       releaseNotesLoadingState.status === "Loading release notes" &&
       releaseNotesLoadingState.rows === 3 &&
       releaseNotesLoadingState.lines === 3,
@@ -2290,7 +2458,8 @@ try {
     const tooltip = document.querySelector("#source-note .release-tooltip");
     const tooltipText = [
       tooltip?.querySelector("strong")?.textContent?.trim(),
-      ...Array.from(tooltip?.querySelectorAll("li") || []).map((item) => item.textContent.trim())
+      ...Array.from(tooltip?.querySelectorAll("li") || []).map((item) => item.textContent.trim()),
+      tooltip?.querySelector(".release-tooltip-note")?.textContent?.trim()
     ]
       .filter(Boolean)
       .join(" ");
@@ -2816,11 +2985,13 @@ try {
       brazilJapanResultBlock.highlightTooltip === "Play highlights on YouTube" &&
       brazilJapanResultBlock.storyItems.length === 2 &&
       brazilJapanResultBlock.storyItems.every((item) => !/[⚽🌟📊]/u.test(item)) &&
-      brazilJapanResultBlock.storyItems[0].includes("Japan frustrated Brazil") &&
-      brazilJapanResultBlock.storyItems[1].includes("Gabriel Martinelli won it deep into stoppage time") &&
+      brazilJapanResultBlock.storyItems[0].includes("Kaishu Sano punished Brazil in the 29th minute") &&
+      brazilJapanResultBlock.storyItems[1].includes("Casemiro levelled at 56'") &&
+      brazilJapanResultBlock.storyItems[1].includes("Gabriel Martinelli won it for Brazil at 90+5'") &&
       brazilJapanResultBlock.storyItems.every((item) => !/chase the match/i.test(item)) &&
-      brazilJapanResultBlock.storyLinkTexts.includes("Takehiro Tomiyasu") &&
-      brazilJapanResultBlock.storyLinkTexts.includes("Zion Suzuki"),
+      brazilJapanResultBlock.storyLinkTexts.includes("Kaishu Sano") &&
+      brazilJapanResultBlock.storyLinkTexts.includes("Casemiro") &&
+      brazilJapanResultBlock.storyLinkTexts.includes("Gabriel Martinelli"),
     `Brazil-Japan result recap should render score, scorer timeline, official video, and plain story bullets. Measured ${JSON.stringify(brazilJapanResultBlock)}.`
   );
   const brazilJapanVideoTooltipContent = await brazilJapanRecapCheck.page
@@ -3420,6 +3591,55 @@ try {
     matchInfoRankTooltipContent.includes("FIFA world ranking used for this 2026 tournament view."),
     `FIFA ranking pills should expose the ranking source tooltip text. Measured content ${matchInfoRankTooltipContent}.`
   );
+  const originalTooltipTheme = await page.evaluate(() => document.documentElement.dataset.theme || "");
+  await page.evaluate(() => {
+    document.documentElement.dataset.theme = "dark";
+    document.querySelector("#match-info .standings-table .rank-pill")?.classList.add("is-touch-tooltip-open");
+  });
+  await page.waitForFunction(() => {
+    const sourceTooltip = document.querySelector("#source-note .source-tooltip");
+    const releaseTooltip = document.querySelector("#source-note .release-tooltip");
+    return (
+      sourceTooltip &&
+      releaseTooltip &&
+      getComputedStyle(sourceTooltip).backgroundColor === "rgb(26, 30, 36)" &&
+      getComputedStyle(releaseTooltip).backgroundColor === "rgb(26, 30, 36)"
+    );
+  });
+  const darkTooltipSurfaceState = await page.evaluate(() => {
+    const rankPill = document.querySelector("#match-info .standings-table .rank-pill");
+    const rankTooltipStyle = rankPill ? getComputedStyle(rankPill, "::after") : null;
+    const sourceTooltip = document.querySelector("#source-note .source-tooltip");
+    const releaseTooltip = document.querySelector("#source-note .release-tooltip");
+    const playerCard = document.querySelector("#match-info .player-card");
+
+    return {
+      playerCardBackground: playerCard ? getComputedStyle(playerCard).backgroundColor : "",
+      rankHostOpacity: rankPill ? getComputedStyle(rankPill).opacity : "",
+      rankTooltipBackground: rankTooltipStyle?.backgroundColor || "",
+      rankTooltipOpacity: rankTooltipStyle?.opacity || "",
+      releaseTooltipBackground: releaseTooltip ? getComputedStyle(releaseTooltip).backgroundColor : "",
+      sourceTooltipBackground: sourceTooltip ? getComputedStyle(sourceTooltip).backgroundColor : ""
+    };
+  });
+  assert(
+    darkTooltipSurfaceState.rankHostOpacity === "1" &&
+      darkTooltipSurfaceState.rankTooltipOpacity === "1" &&
+      darkTooltipSurfaceState.rankTooltipBackground === "rgb(39, 45, 54)" &&
+      darkTooltipSurfaceState.sourceTooltipBackground === "rgb(26, 30, 36)" &&
+      darkTooltipSurfaceState.releaseTooltipBackground === "rgb(26, 30, 36)" &&
+      darkTooltipSurfaceState.playerCardBackground === "rgb(26, 30, 36)",
+    `Dark-mode tooltip surfaces should remain fully opaque even when their trigger is normally muted. Measured ${JSON.stringify(darkTooltipSurfaceState)}.`
+  );
+  await page.evaluate((theme) => {
+    const rankPill = document.querySelector("#match-info .standings-table .rank-pill");
+    rankPill?.classList.remove("is-touch-tooltip-open");
+    if (theme) {
+      document.documentElement.dataset.theme = theme;
+    } else {
+      delete document.documentElement.dataset.theme;
+    }
+  }, originalTooltipTheme);
   const vozinhaLink = page.locator(".key-info-team .player-link", { hasText: "Vozinha" }).first();
   assert(
     (await vozinhaLink.count()) === 1,
@@ -3633,7 +3853,7 @@ try {
         Math.abs(singlePast24Layout.cardRightGap) <= 1 &&
         singlePast24Layout.gridScrollOverflow <= 1 &&
         singlePast24Layout.sectionScrollOverflow <= 1,
-      `A single Past 24 hours match should span the full available row at ${viewport.width}px. Measured ${JSON.stringify(singlePast24Layout)}.`
+      `A single Recent matches card should span the full available row at ${viewport.width}px. Measured ${JSON.stringify(singlePast24Layout)}.`
     );
   }
   await page.setViewportSize({ width: 1280, height: 720 });
@@ -3683,7 +3903,7 @@ try {
       new Set(stackedPast24Layout.cardRects.map((rect) => rect.top)).size === stackedPast24Layout.cardCount &&
       stackedPast24Layout.gridScrollOverflow <= 1 &&
       stackedPast24Layout.sectionScrollOverflow <= 1,
-    `Multiple Past 24 hours cards should stay stacked in one full-width column. Measured ${JSON.stringify(stackedPast24Layout)}.`
+    `Multiple Recent matches cards should stay stacked in one full-width column. Measured ${JSON.stringify(stackedPast24Layout)}.`
   );
   await stackedPast24Check.context.close();
 
@@ -4401,18 +4621,47 @@ try {
   assert(yesterdayBox && todayBox, "Calendar shortcut buttons should be visible.");
   assert(
     yesterdayBox.x < todayBox.x,
-    "The Yesterday shortcut should sit to the left of Today."
+    "The Previous shortcut should sit to the left of Today."
   );
   assert(
-    !(await yesterdayShortcut.isDisabled()),
-    "The Yesterday shortcut should be selectable when yesterday has matches."
+    (await yesterdayShortcut.innerText()).trim() === "Previous" &&
+      !(await yesterdayShortcut.isDisabled()),
+    "The Previous shortcut should be enabled when an earlier match day exists."
+  );
+  assert(
+    (await todayShortcut.innerText()).trim() === "Today" && !(await todayShortcut.isDisabled()),
+    "The Today shortcut should stay enabled and labeled Today when today has matches."
   );
   await yesterdayShortcut.click();
   assert(
     (await calendarShortcutCheck.page.locator("#day-label").innerText()).trim() === "Jun 17",
-    "The Yesterday shortcut should jump to the previous calendar day."
+    "The Previous shortcut should jump to the most recent earlier match day."
   );
   await calendarShortcutCheck.context.close();
+
+  const calendarUpNextShortcutCheck = await openPageAtTime(
+    "2026-07-16T18:08:00.000Z",
+    "/?view=matches&date=2026-07-15&tz=America%2FLos_Angeles"
+  );
+  await calendarUpNextShortcutCheck.page.locator("#day-label").click();
+  const previousShortcut = calendarUpNextShortcutCheck.page.locator("#calendar-yesterday");
+  const upNextShortcut = calendarUpNextShortcutCheck.page.locator("#calendar-today");
+  assert(
+    (await previousShortcut.innerText()).trim() === "Previous" &&
+      !(await previousShortcut.isDisabled()),
+    "The calendar should show an enabled Previous match-day shortcut."
+  );
+  assert(
+    (await upNextShortcut.innerText()).trim() === "Up next" &&
+      !(await upNextShortcut.isDisabled()),
+    "When today has no matches, the calendar shortcut should become an enabled Up next button."
+  );
+  await upNextShortcut.click();
+  assert(
+    (await calendarUpNextShortcutCheck.page.locator("#day-label").innerText()).trim() === "Jul 18",
+    "The Up next calendar shortcut should jump to the next available match day."
+  );
+  await calendarUpNextShortcutCheck.context.close();
 
   const historicalProfileLoadingContext = await browser.newContext();
   let releaseHistoricalProfiles;
@@ -5009,7 +5258,8 @@ try {
   await languageTimezonePage.waitForFunction(
     () =>
       document.documentElement.lang === "en" &&
-      document.querySelector(".language-option.is-active")?.dataset.language === "en" &&
+      document.querySelector("#language-select")?.value === "en" &&
+      document.querySelector("#language-select")?.disabled === false &&
       localStorage.getItem("world-cup-simplified-language") === "en"
   );
   const beforeTimeZoneText = await languageTimezonePage.locator("#day-label").innerText();
@@ -5029,55 +5279,72 @@ try {
     "Changing timezone should persist the selection for account-free reloads."
   );
   const languageSwitchWidthBefore = await languageTimezonePage
-    .locator("#language-switch")
+    .locator("#language-select")
     .evaluate((element) => Math.round(element.getBoundingClientRect().width));
-  await languageTimezonePage.locator('[data-language="zh"]').click({ trial: true });
+  let releaseSpanishLocaleModule;
+  const spanishLocaleModuleGate = new Promise((resolve) => {
+    releaseSpanishLocaleModule = resolve;
+  });
+  await languageTimezonePage.route("**/locales/es/app.js*", async (route) => {
+    await spanishLocaleModuleGate;
+    await route.continue();
+  });
+  await languageTimezonePage.locator("#language-select").selectOption("es");
+  await languageTimezonePage.waitForFunction(
+    () => document.querySelector(".language-control")?.getAttribute("aria-busy") === "true"
+  );
+  await languageTimezonePage.waitForTimeout(190);
   const pendingLanguageCheck = await languageTimezonePage.evaluate(() => {
-    const switchShell = document.querySelector("#language-switch");
-    const englishButton = document.querySelector('[data-language="en"]');
-    const chineseButton = document.querySelector('[data-language="zh"]');
-    chineseButton?.click();
-    const spinnerStyle = chineseButton ? window.getComputedStyle(chineseButton, "::after") : null;
+    const control = document.querySelector(".language-control");
+    const select = document.querySelector("#language-select");
+    const spinnerStyle = control ? window.getComputedStyle(control, "::after") : null;
 
     return {
-      chineseBusy: chineseButton?.getAttribute("aria-busy") || "",
-      chineseDisabled: Boolean(chineseButton?.disabled),
-      englishDisabled: Boolean(englishButton?.disabled),
-      pending: Boolean(chineseButton?.classList.contains("is-pending")),
+      disabled: Boolean(select?.disabled),
+      pending: Boolean(control?.classList.contains("is-pending")),
       spinnerOpacity: Number(spinnerStyle?.opacity || 0),
-      switchBusy: switchShell?.getAttribute("aria-busy") || "",
-      width: switchShell ? Math.round(switchShell.getBoundingClientRect().width) : 0
+      switchBusy: control?.getAttribute("aria-busy") || "",
+      width: select ? Math.round(select.getBoundingClientRect().width) : 0
     };
   });
   assert(
     pendingLanguageCheck.pending &&
       pendingLanguageCheck.switchBusy === "true" &&
-      pendingLanguageCheck.chineseBusy === "true" &&
-      pendingLanguageCheck.chineseDisabled &&
-      pendingLanguageCheck.englishDisabled &&
+      pendingLanguageCheck.disabled &&
       pendingLanguageCheck.spinnerOpacity > 0.5 &&
       Math.abs(pendingLanguageCheck.width - languageSwitchWidthBefore) <= 1,
-    `Switching language should show an in-tab pending spinner without resizing the control. Measured ${JSON.stringify(pendingLanguageCheck)} with starting width ${languageSwitchWidthBefore}.`
+    `A delayed locale should show the dropdown's pending spinner without resizing the control. Measured ${JSON.stringify(pendingLanguageCheck)} with starting width ${languageSwitchWidthBefore}.`
   );
-  await languageTimezonePage.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
+  releaseSpanishLocaleModule();
+  await languageTimezonePage.waitForFunction(
+    () =>
+      document.documentElement.lang === "es-419" &&
+      document.querySelector("#language-select")?.value === "es" &&
+      document.querySelector("#language-select")?.disabled === false
+  );
+  await languageTimezonePage.unroute("**/locales/es/app.js*");
+  await languageTimezonePage.locator("#language-select").selectOption("zh");
+  await languageTimezonePage.waitForFunction(
+    () =>
+      document.documentElement.lang === "zh-Hans" &&
+      document.querySelector("#language-select")?.disabled === false
+  );
   const chineseAppliedCheck = await languageTimezonePage.evaluate(() => ({
-    activeLanguage: document.querySelector(".language-option.is-active")?.dataset.language || "",
+    activeLanguage: document.querySelector("#language-select")?.value || "",
     documentLanguage: document.documentElement.lang,
-    languageOptions: [...document.querySelectorAll(".language-option")].map((button) => ({
-      ariaLabel: button.getAttribute("aria-label") || "",
-      language: button.dataset.language || "",
-      text: button.textContent.trim()
+    languageOptions: [...document.querySelectorAll("#language-select option")].map((option) => ({
+      language: option.value,
+      text: option.textContent.trim()
     })),
     savedLanguage: localStorage.getItem("world-cup-simplified-language") || "",
-    switchBusy: document.querySelector("#language-switch")?.getAttribute("aria-busy") || "",
-    width: Math.round(document.querySelector("#language-switch")?.getBoundingClientRect().width || 0)
+    switchBusy: document.querySelector(".language-control")?.getAttribute("aria-busy") || "",
+    width: Math.round(document.querySelector("#language-select")?.getBoundingClientRect().width || 0)
   }));
   const chineseEnglishOption = chineseAppliedCheck.languageOptions.find((option) => option.language === "en");
   assert(
     chineseAppliedCheck.activeLanguage === "zh" &&
       chineseAppliedCheck.documentLanguage === "zh-Hans" &&
       chineseEnglishOption?.text === "English" &&
-      chineseEnglishOption?.ariaLabel === "English" &&
       chineseAppliedCheck.savedLanguage === "zh" &&
       chineseAppliedCheck.switchBusy === "false" &&
       Math.abs(chineseAppliedCheck.width - languageSwitchWidthBefore) <= 1,
@@ -5092,16 +5359,16 @@ try {
     () => document.querySelectorAll(".standings-card[data-group-id] > h2").length === 12
   );
   const zhGroupLabelRegressionCheck = await zhLocalizationRegressionPage.evaluate(() => ({
-    badTokens: [...document.querySelectorAll(".language-option, .standings-card[data-group-id] > h2, #source-note a")]
+    badTokens: [...document.querySelectorAll("#language-select option, .standings-card[data-group-id] > h2, #source-note a")]
       .map((element) => element.textContent.trim())
       .filter((text) => /^(?:[阿布克德埃夫格赫伊杰勒]|恩格利什|菲法)$/.test(text)),
     footerLinks: [...document.querySelectorAll("#source-note a")].map((link) => link.textContent.trim()),
     groupHeadings: [...document.querySelectorAll(".standings-card[data-group-id] > h2")].map((heading) =>
       heading.textContent.trim()
     ),
-    languageOptions: [...document.querySelectorAll(".language-option")].map((button) => ({
-      language: button.dataset.language || "",
-      text: button.textContent.trim()
+    languageOptions: [...document.querySelectorAll("#language-select option")].map((option) => ({
+      language: option.value,
+      text: option.textContent.trim()
     }))
   }));
   assert(
@@ -5111,7 +5378,7 @@ try {
       zhGroupLabelRegressionCheck.languageOptions.some(
         (option) => option.language === "en" && option.text === "English"
       ) &&
-      zhGroupLabelRegressionCheck.footerLinks.includes("FIFA赛程") &&
+      zhGroupLabelRegressionCheck.footerLinks.includes("FIFA") &&
       zhGroupLabelRegressionCheck.footerLinks.includes("H"),
     `Chinese localization should not phonetically transliterate language tabs, group labels, FIFA, or creator initials. Measured ${JSON.stringify(zhGroupLabelRegressionCheck)}.`
   );
@@ -5152,13 +5419,15 @@ try {
     `Chinese historical group headings should keep group-letter labels instead of phonetic one-character fallbacks. Measured ${JSON.stringify(zhHistoricalGroupLabelRegressionCheck)}.`
   );
   await zhLocalizationRegressionPage.close();
-  await languageTimezonePage.locator('[data-language="en"]').click();
-  await languageTimezonePage.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
+  await languageTimezonePage.locator("#language-select").selectOption("en");
+  await languageTimezonePage.waitForFunction(
+    () => document.querySelector("#language-select")?.disabled === false
+  );
   assert(
     (await languageTimezonePage.evaluate(
       () =>
         document.documentElement.lang === "en" &&
-        document.querySelector(".language-option.is-active")?.dataset.language === "en" &&
+        document.querySelector("#language-select")?.value === "en" &&
         localStorage.getItem("world-cup-simplified-language") === "en"
     )) === true,
     "Switching back to English should clear the pending spinner and restore English before later smoke checks."
@@ -5182,24 +5451,47 @@ try {
   );
   assert(
     (await page.locator(".yesterday-section").count()) === 1,
-    "Past 24 hours banner should be shown by default when previous-day matches are available."
+    "Recent matches should be shown by default when previous-day matches are available."
   );
   assert(
-    (await page.locator(".yesterday-section-header h2").innerText()).includes("Past 24 hours (Jun 17)"),
-    "Previous-day match banner should use the Past 24 hours title with an abbreviated date."
+    (await page.locator(".yesterday-section-header h2").innerText()).includes("Recent matches (Jun 17)"),
+    "Previous-day match section should use the Recent matches title with an abbreviated date."
   );
+  const recentMatchesGapCheck = await openPageAtTime(
+    "2026-07-09T12:00:00-07:00",
+    "/?view=matches&date=2026-07-09&tz=America%2FLos_Angeles"
+  );
+  assert(
+    (await recentMatchesGapCheck.page.locator(".yesterday-section-header h2").innerText()).includes(
+      "Recent matches (Jul 7)"
+    ),
+    "Recent matches should use the latest earlier matchday when the previous calendar day had no matches."
+  );
+  await recentMatchesGapCheck.context.close();
+  const futureRecentMatchesCheck = await openPageAtTime(
+    "2026-07-16T09:29:00-07:00",
+    "/?view=matches&date=2026-07-18&tz=America%2FLos_Angeles"
+  );
+  const futureRecentMatchesTitle = await futureRecentMatchesCheck.page
+    .locator(".yesterday-section-header h2")
+    .innerText();
+  assert(
+    futureRecentMatchesTitle.includes("Recent matches (Jul 15)"),
+    `A future fixture page should still show the latest completed earlier matchday. Measured ${JSON.stringify(futureRecentMatchesTitle)}.`
+  );
+  await futureRecentMatchesCheck.context.close();
   assert(
     (await page.locator(".yesterday-dismiss-icon").count()) === 1,
-    "Past 24 hours dismiss control should render an icon glyph."
+    "Recent matches dismiss control should render an icon glyph."
   );
   await page.locator(".yesterday-dismiss").click();
   assert(
     (await page.evaluate(() => localStorage.getItem("world-cup-simplified-show-yesterday"))) === "false",
-    "Closing the Past 24 hours banner should persist the account-free display preference."
+    "Closing Recent matches should persist the account-free display preference."
   );
   assert(
     (await page.locator(".yesterday-section").count()) === 0,
-    "Closing the Past 24 hours banner should hide it immediately."
+    "Closing Recent matches should hide it immediately."
   );
   await page.goto(`${baseUrl}?view=matches&date=2026-06-18&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -5207,7 +5499,7 @@ try {
   await page.waitForSelector(".match-row");
   assert(
     (await page.locator(".yesterday-section").count()) === 0,
-    "A closed Past 24 hours banner should stay hidden on reload."
+    "Closed Recent matches should stay hidden on reload."
   );
   await page.setViewportSize({ width: 640, height: 720 });
   await page.waitForTimeout(480);
@@ -5234,12 +5526,12 @@ try {
   assert(
     suppressedYesterdayMobileGap &&
       Math.abs(suppressedYesterdayMobileGap.actual - suppressedYesterdayMobileGap.expected) <= 5,
-    `Dismissed Past 24 hours mobile layout should preserve the normal gap between today's rows and the match detail card. Measured ${JSON.stringify(suppressedYesterdayMobileGap)}.`
+    `Dismissed Recent matches mobile layout should preserve the normal gap between today's rows and the match detail card. Measured ${JSON.stringify(suppressedYesterdayMobileGap)}.`
   );
   await page.locator("#settings-button").click();
   assert(
     await page.evaluate(() => document.querySelector("#show-yesterday-toggle")?.checked === false),
-    "Closing the Past 24 hours banner should also turn off the Show past 24 hours setting."
+    "Closing Recent matches should also turn off the Show recent matches setting."
   );
   await page
     .locator("label.settings-toggle-control:has(#show-yesterday-toggle)")
@@ -5247,7 +5539,7 @@ try {
   assert(
     (await page.locator(".yesterday-section").count()) === 1 &&
       (await page.evaluate(() => localStorage.getItem("world-cup-simplified-show-yesterday"))) === "true",
-    "Turning Show past 24 hours back on should restore the Past 24 hours banner."
+    "Turning Show recent matches back on should restore the Recent matches section."
   );
   await page.keyboard.press("Escape");
   assert(
@@ -5482,11 +5774,20 @@ try {
         rowMarkers
       };
     });
+  const caboVerdeExactMarkers = new Map(
+    caboVerdeExactState.rowMarkers.map((marker) => [marker.name, marker])
+  );
   assert(
-    caboVerdeExactState.formation === "4-1-4-1" &&
+    caboVerdeExactState.formation === "4-1-2-3" &&
       caboVerdeExactState.rowMarkers.length === 4 &&
-      new Set(caboVerdeExactState.rowMarkers.map((marker) => marker.y)).size === 1,
-    `Verified source geometry should preserve Cabo Verde's four-player midfield row and source formation. Measured ${JSON.stringify(caboVerdeExactState)}.`
+      caboVerdeExactMarkers.get("Garry Rodrigues")?.position === "LW" &&
+      caboVerdeExactMarkers.get("Telmo Arcanjo")?.position === "RW" &&
+      caboVerdeExactMarkers.get("Jamiro Monteiro")?.position === "CM" &&
+      caboVerdeExactMarkers.get("Ryan Mendes")?.position === "CM" &&
+      caboVerdeExactMarkers.get("Garry Rodrigues")?.y === caboVerdeExactMarkers.get("Telmo Arcanjo")?.y &&
+      caboVerdeExactMarkers.get("Jamiro Monteiro")?.y === caboVerdeExactMarkers.get("Ryan Mendes")?.y &&
+      caboVerdeExactMarkers.get("Garry Rodrigues")?.y !== caboVerdeExactMarkers.get("Jamiro Monteiro")?.y,
+    `Verified FIFA observed geometry should preserve Cabo Verde's 4-1-2-3 wing and central-midfield rows. Measured ${JSON.stringify(caboVerdeExactState)}.`
   );
   await exactLineupGeometryCheck.context.close();
 
@@ -5889,6 +6190,7 @@ try {
   const focusedFormationPill = finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
     .first();
+  const focusedFormationLabel = (await focusedFormationPill.textContent())?.trim() || "";
   await focusedFormationPill.focus();
   await finalLineupModeCheck.page.waitForFunction(() =>
     [...document.querySelectorAll(".player-card")]
@@ -5992,7 +6294,7 @@ try {
     };
   });
   assert(
-    desktopLineupFormationCardState.activeHoverText !== "4-3-3" &&
+    desktopLineupFormationCardState.activeHoverText !== focusedFormationLabel &&
       desktopLineupFormationCardState.visibleCards.includes("Noah Sadiki"),
     `Desktop formation-card clicks should not block the next keyboard-opened player card. Measured ${JSON.stringify(desktopLineupFormationCardState)}.`
   );
@@ -6043,6 +6345,70 @@ try {
     desktopLineupPlayerCardState.activePlayerText !== "B. Cipenga" &&
       desktopLineupPlayerCardState.visibleCards.includes("Noah Sadiki"),
     `Desktop player-card clicks should not pin a clicked lineup card over the next keyboard-opened card. Measured ${JSON.stringify(desktopLineupPlayerCardState)}.`
+  );
+  await finalLineupModeCheck.page.evaluate(() => {
+    document.querySelector("#juggle-record")?.click();
+  });
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    document.body.classList.contains("is-juggle-active")
+  );
+  await sadikiLineupTrigger.dispatchEvent("pointerenter", {
+    bubbles: false,
+    pointerType: "mouse"
+  });
+  await sadikiLineupTrigger.focus();
+  await finalLineupModeCheck.page.keyboard.press("Enter");
+  const activeJugglePlayerCardState = await finalLineupModeCheck.page.evaluate(() => ({
+    activeElementIsPlayerTrigger: Boolean(
+      document.activeElement?.matches?.("[data-player-card-trigger='true']")
+    ),
+    activeRun: document.body.classList.contains("is-juggle-active"),
+    expandedTriggers: [...document.querySelectorAll("[data-player-card-trigger='true']")]
+      .filter((trigger) => trigger.getAttribute("aria-expanded") === "true")
+      .map((trigger) => trigger.textContent.replace(/\s+/g, " ").trim()),
+    openSources: document.querySelectorAll(".player-hover.is-card-open").length,
+    portaledSources: document.querySelectorAll(".player-hover.is-card-portaled").length,
+    visibleCards: [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "")
+  }));
+  assert(
+    activeJugglePlayerCardState.activeRun &&
+      !activeJugglePlayerCardState.activeElementIsPlayerTrigger &&
+      activeJugglePlayerCardState.expandedTriggers.length === 0 &&
+      activeJugglePlayerCardState.openSources === 0 &&
+      activeJugglePlayerCardState.portaledSources === 0 &&
+      activeJugglePlayerCardState.visibleCards.length === 0,
+    `Starting the soccer game should dismiss an already-open lineup card and block mouse or keyboard player-card reopening for the active run. Measured ${JSON.stringify(activeJugglePlayerCardState)}.`
+  );
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    !document.body.classList.contains("is-juggle-active")
+  );
+  await finalLineupModeCheck.page.mouse.move(8, 8);
+  await sadikiLineupTrigger.hover();
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")].some((card) => {
+      const style = getComputedStyle(card);
+      const rect = card.getBoundingClientRect();
+      return (
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        Number(style.opacity) > 0.8 &&
+        rect.width > 0 &&
+        rect.height > 0 &&
+        card.querySelector(".player-card-name")?.textContent.trim() === "Noah Sadiki"
+      );
+    })
   );
 
   await finalLineupModeCheck.page.goto(
@@ -7057,7 +7423,7 @@ try {
     });
   await desktopSearchRevealCheck.page
     .locator('[data-match-id="match-101-semi-final-2026-07-14"]')
-    .dispatchEvent("pointerenter", { pointerType: "mouse" });
+    .hover();
   await desktopSearchRevealCheck.page.waitForFunction(() => {
     const selectedRow = document.querySelector(".match-row.is-selected");
     const info = document.querySelector("#match-info");
@@ -7221,6 +7587,22 @@ try {
   await franceSearchCheck.page.setViewportSize({ width: 390, height: 844 });
   await franceSearchCheck.page.locator('[data-match-id="match-101-semi-final-2026-07-14"]').click();
   await franceSearchCheck.page.waitForSelector("#match-info:not(.is-hidden)");
+  const olmoResultLink = franceSearchCheck.page
+    .locator("#match-info .result-story-highlights .player-link", { hasText: /^Olmo$/ })
+    .first();
+  const olmoResultLinkDecoration = await olmoResultLink.evaluate((link) => {
+    const styles = getComputedStyle(link);
+    return {
+      line: styles.textDecorationLine,
+      style: styles.textDecorationStyle
+    };
+  });
+  assert(
+    (await olmoResultLink.count()) === 1 &&
+      olmoResultLinkDecoration.line.includes("underline") &&
+      olmoResultLinkDecoration.style === "dotted",
+    `Assist-only Result mentions such as Olmo should render as player links with the shared dotted underline. Measured ${JSON.stringify(olmoResultLinkDecoration)}.`
+  );
   await franceSearchCheck.page.waitForFunction(() => {
     const info = document.querySelector("#match-info")?.getBoundingClientRect();
     const list = document.querySelector("#match-list")?.getBoundingClientRect();
@@ -7251,6 +7633,32 @@ try {
       mobileSearchDetailMetrics.infoTop > mobileSearchDetailMetrics.listBottom &&
       mobileSearchDetailMetrics.gapAfterList >= 20,
     `Opening a mobile country-search match should place and reveal the detail card below the match list. Measured ${JSON.stringify(mobileSearchDetailMetrics)}.`
+  );
+  const currentResultPlayerLinkCoverageIssues = [];
+  for (const coverageCase of currentResultPlayerLinkCoverageCases) {
+    await franceSearchCheck.page.goto(
+      `${baseUrl}/?view=matches&date=${encodeURIComponent(coverageCase.dayKey)}&match=${encodeURIComponent(coverageCase.fixtureId)}&tz=UTC`,
+      { waitUntil: "load" }
+    );
+    await franceSearchCheck.page.waitForFunction(
+      (fixtureId) => document.querySelector(".match-row.is-selected")?.dataset.matchId === fixtureId,
+      coverageCase.fixtureId
+    );
+    await franceSearchCheck.page.waitForSelector("#match-info .result-story-highlights");
+    const actualLabels = await franceSearchCheck.page
+      .locator("#match-info .result-story-highlights .player-link")
+      .evaluateAll((links) => links.map((link) => link.textContent.trim()));
+    const missingLabels = coverageCase.expectedLabels.filter((label) => !actualLabels.includes(label));
+    if (missingLabels.length) {
+      currentResultPlayerLinkCoverageIssues.push({
+        fixtureId: coverageCase.fixtureId,
+        missingLabels
+      });
+    }
+  }
+  assert(
+    currentResultPlayerLinkCoverageIssues.length === 0,
+    `Every unambiguous current-World-Cup Result mention newly supplied by verified lineups or assists should render as a player link. Measured ${JSON.stringify(currentResultPlayerLinkCoverageIssues)}.`
   );
   await franceSearchCheck.context.close();
 
@@ -7578,7 +7986,7 @@ try {
       liveTodayFocusState.fadedOpacities.every((opacity) => opacity < 0.6) &&
       liveTodayFocusState.yesterdaySectionOpacity !== null &&
       liveTodayFocusState.yesterdaySectionOpacity < 0.6,
-    `When Today has a live match, non-live rows and the Past 24 hours section should fade while live rows stay full opacity. Measured ${JSON.stringify(liveTodayFocusState)}.`
+    `When Today has a live match, non-live rows and the Recent matches section should fade while live rows stay full opacity. Measured ${JSON.stringify(liveTodayFocusState)}.`
   );
   const liveDetailPredictionCheck = await openPageAtTime(
     "2026-07-01T20:05:00.000Z",
@@ -8895,7 +9303,7 @@ try {
     `Catch-up player cards should be placed within the viewport. Measured ${JSON.stringify(catchUpKaneCardState)}.`
   );
   await catchUpCheck.page.locator("#settings-button").click();
-  await catchUpCheck.page.locator('[data-language="zh"]').click();
+  await catchUpCheck.page.locator("#language-select").selectOption("zh");
   await openCatchUp(catchUpCheck.page);
   const catchUpChineseLinks = await catchUpCheck.page
     .locator(".catch-up-subtitle .player-link")
@@ -8945,6 +9353,23 @@ try {
     canadaCatchUpItem?.sourceHref.includes("canada-qatar-world-cup-2026-group-b-match-report"),
     "Generated Canada/Qatar result catch-up should link to its report source."
   );
+  const rangelCatchUpLink = latestCatchUpCheck.page
+    .locator(".catch-up-item", { hasText: "Mexico narrowly beat South Korea" })
+    .locator(".catch-up-subtitle .player-link", { hasText: "Raúl Rangel" })
+    .first();
+  const rangelCatchUpDecoration = await rangelCatchUpLink.evaluate((link) => {
+    const styles = getComputedStyle(link);
+    return {
+      line: styles.textDecorationLine,
+      style: styles.textDecorationStyle
+    };
+  });
+  assert(
+    (await rangelCatchUpLink.count()) === 1 &&
+      rangelCatchUpDecoration.line.includes("underline") &&
+      rangelCatchUpDecoration.style === "dotted",
+    `Catch Up should link lineup-only player mentions such as Raúl Rangel with the shared dotted underline. Measured ${JSON.stringify(rangelCatchUpDecoration)}.`
+  );
   await latestCatchUpCheck.context.close();
 
   const tournamentCatchUpCheck = await openPageAtTime(
@@ -8978,8 +9403,25 @@ try {
     messiLeaderboardItem?.sourceHref.includes("argentina-austria-match-report-highlights"),
     "Tournament-level catch-up should resolve source links from tournament source IDs."
   );
+  const tournamentMessiLink = tournamentCatchUpCheck.page
+    .locator(".catch-up-item", { hasText: "Messi leads all scorers" })
+    .locator(".catch-up-subtitle .player-link", { hasText: "Lionel Messi" })
+    .first();
+  const tournamentMessiDecoration = await tournamentMessiLink.evaluate((link) => {
+    const styles = getComputedStyle(link);
+    return {
+      line: styles.textDecorationLine,
+      style: styles.textDecorationStyle
+    };
+  });
+  assert(
+    (await tournamentMessiLink.count()) === 1 &&
+      tournamentMessiDecoration.line.includes("underline") &&
+      tournamentMessiDecoration.style === "dotted",
+    `Tournament-level Catch Up player mentions should remain linked and dotted-underlined. Measured ${JSON.stringify(tournamentMessiDecoration)}.`
+  );
   await tournamentCatchUpCheck.page.locator("#settings-button").click();
-  await tournamentCatchUpCheck.page.locator('[data-language="zh"]').click();
+  await tournamentCatchUpCheck.page.locator("#language-select").selectOption("zh");
   await openCatchUp(tournamentCatchUpCheck.page);
   const tournamentCatchUpChineseText = await tournamentCatchUpCheck.page.locator("#catch-up-popover").innerText();
   assert(
@@ -9023,7 +9465,7 @@ try {
     `A tournament rest day should replace the empty state with one sourced Golden Boot story. Measured ${JSON.stringify(quietDayCatchUpItem)}.`
   );
   await quietDayCatchUpCheck.page.locator("#settings-button").click();
-  await quietDayCatchUpCheck.page.locator('[data-language="zh"]').click();
+  await quietDayCatchUpCheck.page.locator("#language-select").selectOption("zh");
   await openCatchUp(quietDayCatchUpCheck.page);
   const quietDayChineseText = await quietDayCatchUpCheck.page.locator("#catch-up-popover").evaluate((popover) => {
     const clone = popover.cloneNode(true);
@@ -9183,7 +9625,7 @@ try {
     "/?view=matches&date=2026-06-29&tz=America%2FLos_Angeles"
   );
   await latestKnockoutChineseCheck.page.locator("#settings-button").click();
-  await latestKnockoutChineseCheck.page.locator('[data-language="zh"]').click();
+  await latestKnockoutChineseCheck.page.locator("#language-select").selectOption("zh");
   await openCatchUp(latestKnockoutChineseCheck.page);
   const latestKnockoutChineseItems = await latestKnockoutChineseCheck.page
     .locator(".catch-up-item")
@@ -9281,8 +9723,10 @@ try {
   const releaseTriggerHref = await sourceNote.locator(".release-tooltip-trigger").getAttribute("href");
   const sourceTooltipText = await sourceNote.locator(".source-tooltip").evaluate((tooltip) =>
     [
-      tooltip.querySelector("strong")?.textContent?.trim(),
-      ...Array.from(tooltip.querySelectorAll("a")).map((link) => link.textContent.trim())
+      ...Array.from(tooltip.querySelectorAll(".source-tooltip-row")).map((row) =>
+        row.textContent.replace(/\s+/g, " ").trim()
+      ),
+      tooltip.querySelector(".source-tooltip-note")?.textContent?.trim()
     ]
       .filter(Boolean)
       .join(" ")
@@ -9290,7 +9734,8 @@ try {
   const releaseTooltipText = await sourceNote.locator(".release-tooltip").evaluate((tooltip) =>
     [
       tooltip.querySelector("strong")?.textContent?.trim(),
-      ...Array.from(tooltip.querySelectorAll("li")).map((item) => item.textContent.trim())
+      ...Array.from(tooltip.querySelectorAll("li")).map((item) => item.textContent.trim()),
+      tooltip.querySelector(".release-tooltip-note")?.textContent?.trim()
     ]
       .filter(Boolean)
       .join(" ")
@@ -9311,7 +9756,6 @@ try {
       visibility: styles.visibility
     };
   });
-  const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
   const expectedSourceUpdatedAtPattern = expectedSourceUpdatedAt
@@ -9319,15 +9763,16 @@ try {
     .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
     .replace("__SOURCE_TIME__", "\\d{1,2}:\\d{2}\\s(?:AM|PM)");
   const expectedSourceNotePattern = new RegExp(
-    `^See sources\\. Predictions are unofficial\\. Data refreshed ${expectedSourceUpdatedAtPattern}\\. Report issue\\. Made by H\\. See release notes\\.$`
+    `^See sources • Predictions are unofficial • Data refreshed ${expectedSourceUpdatedAtPattern} • See release notes$`
   );
   assert(
     expectedSourceNotePattern.test(normalizedSourceNoteText),
     `The source note should stay short and separate data freshness from release notes. Expected to match ${expectedSourceNotePattern}, received "${normalizedSourceNoteText}".`
   );
   assert(
-    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|H",
-    "The source note should keep compact source tooltip links, report, and creator links."
+    sourceLinkLabels ===
+      "FIFA|Opta Analyst|Oddschecker|Wikipedia|Wikimedia Commons|Transfermarkt|FIFA|FOX Sports|H",
+    "The source note should link each main source family and the creator without repeating the Settings report link."
   );
   assert(
     sourceTriggerTag === "button" &&
@@ -9337,8 +9782,9 @@ try {
     "The source and release note triggers should be in-page tooltip buttons, not navigation links."
   );
   assert(
-    sourceTooltipText === "Sources FIFA schedule debutants ranking standings",
-    "The source tooltip should show the compact official source list."
+    sourceTooltipText ===
+      "Tournament facts — FIFA Forecasts — Opta Analyst · Oddschecker Player information — Wikipedia · Wikimedia Commons · Transfermarkt Official highlights — FIFA · FOX Sports Exact sources vary by match.",
+    "The source tooltip should explain the app's main source families without implying that one fixed list covers every match."
   );
   assert(
     releaseTooltipText === getExpectedReleaseTooltipText(releaseNotesData),
@@ -9410,10 +9856,9 @@ try {
       releaseTooltipStateAfterHover.visibility === "visible",
     "The release notes tooltip should appear on focus."
   );
-  assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
   assert(
     creatorHref === "https://www.linkedin.com/in/hirooaoy",
-    "The source note should link H to LinkedIn."
+    "The release notes tooltip should link H to LinkedIn."
   );
   assert(
     !sourceNoteText.includes("Core data") &&
@@ -9481,17 +9926,25 @@ try {
     "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
-        const liveFixture = data.fixtures.find(
-          (fixture) => fixture.id === "match-74-round-of-32-2026-06-29"
-        );
-        liveFixture.status = "LIVE";
-        liveFixture.score = { home: 0, away: 1 };
+        for (const fixture of data.fixtures || []) {
+          if (
+            fixture.id === "match-74-round-of-32-2026-06-29" ||
+            fixture.id === "match-76-round-of-32-2026-06-29"
+          ) {
+            fixture.status = "LIVE";
+            fixture.score = { home: 0, away: 1 };
+          }
+          if (fixture.id === "match-75-round-of-32-2026-06-29") {
+            fixture.status = "SCHEDULED";
+            delete fixture.score;
+          }
+        }
       }
     }
   );
   assert(
     (await tomorrowPast24DuringLive.page.locator(".yesterday-section").count()) === 0,
-    "A future date should not show a Past 24 hours banner while previous-day matches are still live."
+    "Recent matches should stay hidden when the latest earlier matchday has no completed matches yet."
   );
   await tomorrowPast24DuringLive.context.close();
 
@@ -11612,6 +12065,25 @@ try {
     !new URL(page.url()).searchParams.has("standingsMode"),
     "Archived standings should default to the Tournament tab."
   );
+  await page.locator("#standings-year-button").click();
+  const currentYearOptionState = await page
+    .locator('.standings-year-option[data-standings-year="2026"]')
+    .evaluate((button) => ({
+      ariaCurrent: button.getAttribute("aria-current"),
+      borderColor: getComputedStyle(button).borderColor,
+      borderWidth: Number.parseFloat(getComputedStyle(button).borderWidth),
+      isCurrent: button.classList.contains("is-current"),
+      isSelected: button.classList.contains("is-selected")
+    }));
+  assert(
+    currentYearOptionState.isCurrent &&
+      !currentYearOptionState.isSelected &&
+      currentYearOptionState.ariaCurrent === "date" &&
+      currentYearOptionState.borderColor !== "rgba(0, 0, 0, 0)" &&
+      currentYearOptionState.borderWidth > 0,
+    `The current year should stay outlined when a past year is selected. Measured ${JSON.stringify(currentYearOptionState)}.`
+  );
+  await page.keyboard.press("Escape");
   await page.waitForFunction(
     () =>
       document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
@@ -12985,7 +13457,7 @@ try {
   assert(
     !(await touchPage.locator("#match-info").isVisible()) &&
       (await touchPage.locator(".match-row.is-selected, .yesterday-match-card.is-selected").count()) === 0,
-    "On touch devices, today and Past 24 hours rows should not open match details from hover preview events."
+    "On touch devices, today and Recent matches rows should not open match details from hover preview events."
   );
   await touchTodayRow.click();
   await touchPage.waitForSelector("#match-info:not(.is-hidden)");
@@ -13020,7 +13492,7 @@ try {
     touchYesterdayDetailText.includes("England") &&
       touchYesterdayDetailText.includes("Croatia") &&
       (await touchYesterdayCard.locator(".yesterday-match-button").getAttribute("aria-pressed")) === "true",
-    "On touch devices, tapping a Past 24 hours card should open its match detail card."
+    "On touch devices, tapping a Recent matches card should open its match detail card."
   );
 
   await touchPage.goto(`${baseUrl}?view=matches&date=2026-07-01&tz=America%2FLos_Angeles&lineupPrototype=1`, {
@@ -14125,6 +14597,7 @@ try {
       labelsUseSentenceCase: [...card.querySelectorAll(".scout-section-label")]
         .every((item) => getComputedStyle(item).textTransform === "none"),
       lead,
+      meta: card.querySelector(".scout-country-header p")?.textContent.replace(/\s+/g, " ").trim() || "",
       recordCellCount: answer.querySelectorAll(".scout-stat-strip > div").length,
       topScorerCount: answer.querySelectorAll(".scout-top-scorer").length,
       widget: {
@@ -14140,6 +14613,7 @@ try {
       countryBallBoyMetrics.cardClass.includes("is-focus-style") &&
       countryBallBoyMetrics.countryFlags === 1 &&
       countryBallBoyMetrics.lead === "Argentina can keep the ball patiently, but they become much quicker after winning it. Julián Álvarez leads the press, Lionel Messi finds space behind midfield, and Enzo Fernández changes the angle with forward passes. Without the ball, their priority is closing central counters before they reach Emiliano Martinez's box." &&
+      countryBallBoyMetrics.meta.includes("FIFA rank 1 (2026)") &&
       countryBallBoyMetrics.flowStepCount === 3 &&
       countryBallBoyMetrics.flowIsPlain &&
       countryBallBoyMetrics.flowOverflow.every((overflow) => overflow <= 1) &&
@@ -14676,6 +15150,7 @@ try {
       fixtures: card.querySelectorAll(".scout-compact-fixture").length,
       keyPlayers: card.querySelectorAll(".scout-key-players").length,
       lead: answer.querySelector(".scout-answer-lead")?.textContent.replace(/\s+/g, " ").trim() || "",
+      meta: card.querySelector(".scout-country-header p")?.textContent.replace(/\s+/g, " ").trim() || "",
       overflow: card.scrollWidth - card.clientWidth,
       record: card.querySelectorAll(".scout-stat-strip").length,
       text: card.innerText.replace(/\s+/g, " ").trim()
@@ -14685,6 +15160,7 @@ try {
     zhCountryBallBoyMetrics.text.includes("阿根廷") &&
       zhCountryBallBoyMetrics.cardClass.includes("is-focus-style") &&
       zhCountryBallBoyMetrics.text.includes("他们怎么踢") &&
+      zhCountryBallBoyMetrics.meta.includes("FIFA排名第1（2026）") &&
       zhCountryBallBoyMetrics.lead.includes("胡利安·阿尔瓦雷斯负责带动逼抢") &&
       zhCountryBallBoyMetrics.lead.includes("无球时，他们最需要阻止对手摆脱第一层逼抢后从中路快速反击") &&
       zhCountryBallBoyMetrics.keyPlayers === 0 &&
@@ -14776,11 +15252,11 @@ try {
 
   await touchPage.locator("#scout-close").click();
   await touchPage.locator("#settings-button").click();
-  await touchPage.locator('[data-language="en"]').click();
+  await touchPage.locator("#language-select").selectOption("en");
   await touchPage.waitForFunction(
     () =>
       document.documentElement.lang === "en" &&
-      !document.querySelector(".language-option.is-pending") &&
+      document.querySelector("#language-select")?.disabled === false &&
       document.querySelector(".scout-title")?.textContent === "Ball Boy" &&
       document.querySelector(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")?.textContent.includes("I’m Ball Boy.")
   );
@@ -14803,11 +15279,11 @@ try {
 
   await touchPage.locator("#scout-close").click();
   await touchPage.locator("#settings-button").click();
-  await touchPage.locator('[data-language="zh"]').click();
+  await touchPage.locator("#language-select").selectOption("zh");
   await touchPage.waitForFunction(
     () =>
       document.documentElement.lang === "zh-Hans" &&
-      !document.querySelector(".language-option.is-pending") &&
+      document.querySelector("#language-select")?.disabled === false &&
       document.querySelector(".scout-title")?.textContent === "球童" &&
       document.querySelector(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")?.textContent.includes("我是球童。")
   );

@@ -22,6 +22,7 @@ Use this order when sources disagree:
 4. Editorial judgment only for previews, player notes, and projections.
 
 Do not mix official facts and editorial projections without labeling them. The app footer already separates those categories.
+`data/teams.json` must store one `rankingYear` for its FIFA ranking snapshot. Keep that year attached to full ranking labels so tournament records are never mistaken for a live ranking; compact `#` pills may stay short when their accessible tooltip includes the same year.
 Ranking-based projection baselines may use FIFA ranking data as input, but the model output remains an editorial preview.
 
 ## Lineup Lifecycle

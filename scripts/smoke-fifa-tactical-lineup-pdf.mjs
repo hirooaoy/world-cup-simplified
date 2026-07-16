@@ -112,6 +112,9 @@ assert.equal(
 assert.equal(parsed.matchNumber, 102);
 assert.equal(parsed.version, 1);
 assert.equal(parsed.publishedAt, "2026-07-15T17:41:00.000Z");
+assert.equal(parsed.layoutPerspective, "nominal");
+assert.equal(parsed.isUpdatedVersion, false);
+assert.equal(parsed.revisionComment, "");
 assert.equal(parsed.sourceUrl, FIFA_TACTICAL_LINEUP_R12549_URL);
 assert.equal(parsed.sha256, FIFA_TACTICAL_LINEUP_R12549_SHA256);
 assert.equal(parsed.home.teamCode, "ENG");
@@ -133,6 +136,35 @@ assert(byName("away", "Giuliano Simeone").x > byName("away", "Leandro Paredes").
 assert.equal(isFifaTacticalPlayerNameMatch("ALEX B.", "Alex Baena"), true);
 assert.equal(isFifaTacticalPlayerNameMatch("RODRIGO", "Rodri"), true);
 assert.equal(isFifaTacticalPlayerNameMatch("Alex Wrong", "Alex Baena"), false);
+
+const observedDocument = {
+  ...fifaTacticalLineupR12549Document,
+  items: [
+    ...fifaTacticalLineupR12549Document.items.map((item) =>
+      /\bVersion\s+1\b/i.test(item.str)
+        ? {
+            ...item,
+            str: item.str
+              .replace("15 July 2026 | 17:41 UTC | Version 1", "15 July 2026 | 19:29 UTC | Version 2")
+          }
+        : item
+    ),
+    { str: "Comment: Update to the tactical line up after observation of the game.", x: 12, y: 10, width: 240, height: 5 },
+    { str: "UPDATED VERSION", x: 500, y: 10, width: 70, height: 5 }
+  ]
+};
+const observed = parseFifaTacticalLineupDocument({
+  document: observedDocument,
+  fixture: { ...fixture, tacticalLineupVersion: undefined },
+  lineups
+});
+assert.equal(observed.version, 2);
+assert.equal(observed.layoutPerspective, "observed");
+assert.equal(observed.isUpdatedVersion, true);
+assert.equal(
+  observed.revisionComment,
+  "Update to the tactical line up after observation of the game."
+);
 
 for (const side of ["home", "away"]) {
   const parsedNumbers = parsed[side].players.map((entry) => entry.number).sort();

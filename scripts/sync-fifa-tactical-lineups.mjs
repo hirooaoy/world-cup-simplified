@@ -14,6 +14,10 @@ import {
   extractFifaTacticalLineupPdf,
   parseFifaTacticalLineupDocument
 } from "./fifa-tactical-lineup-pdf.mjs";
+import {
+  canAutoApplyFifaTacticalDocument,
+  fifaTacticalVersionDecision
+} from "./fifa-tactical-lineup-document-policy.mjs";
 import { enrichFifaTacticalLineupPlayerAliases } from "./fifa-tactical-lineup-player-aliases.mjs";
 import {
   applyFifaOfficialLayoutOverride,
@@ -32,11 +36,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const args = process.argv.slice(2);
 const shouldWrite = !args.includes("--check");
-const allowPostKickoffDocument = args.includes("--allow-post-kickoff-document");
+const allowUnmarkedPostKickoffDocument = args.includes("--allow-post-kickoff-document");
 const requestTimeoutMs = positiveNumber(process.env.FIFA_TACTICAL_TIMEOUT_MS, 15000);
 const maximumPdfBytes = positiveNumber(process.env.FIFA_TACTICAL_MAX_PDF_BYTES, 5 * 1024 * 1024);
 const windowBeforeMinutes = positiveNumber(process.env.FIFA_TACTICAL_WINDOW_BEFORE_MINUTES, 90);
-const windowAfterMinutes = positiveNumber(process.env.FIFA_TACTICAL_WINDOW_AFTER_MINUTES, 20);
+const windowAfterMinutes = positiveNumber(process.env.FIFA_TACTICAL_WINDOW_AFTER_MINUTES, 180);
 const auditNow = parseAuditNow();
 const runAt = auditNow.toISOString();
 const discoveryProbeBatchOffset = Math.floor(auditNow.getTime() / (5 * 60 * 1000));
@@ -199,11 +203,6 @@ function sameJson(left, right) {
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
-function newestOfficialVersion(override) {
-  const version = Number(officialFifaTacticalSourceFromOverride(override)?.documentVersion);
-  return Number.isInteger(version) && version > 0 ? version : 0;
-}
-
 function isUsableOfficialOverride(fixture, lineups, override) {
   return (
     isFifaOfficialLayoutOverride(override) &&
@@ -285,17 +284,6 @@ for (const fixture of targetFixtures) {
     continue;
   }
 
-  // Once play begins, the first captured official nominal board is immutable.
-  // FIFA may replace the same URL with an observational post-match version.
-  if (existingOfficial && auditNow.getTime() >= kickoffMs) {
-    try {
-      if (applyAndPersistOfficial(fixture, existingOfficial, previousOverride)) preservedCount += 1;
-    } catch (error) {
-      warnings.push(`${fixture.id}: ${error.message}`);
-    }
-    continue;
-  }
-
   const candidates = getFifaTacticalRegistrationCandidates(tacticalIndex, matchNumber, {
     probeBatchOffset: discoveryProbeBatchOffset
   });
@@ -366,7 +354,7 @@ for (const fixture of targetFixtures) {
     if (
       headerPublishedAt &&
       footerPublishedAt &&
-      Math.abs(new Date(headerPublishedAt).getTime() - new Date(footerPublishedAt).getTime()) > 2 * 60 * 1000
+      Math.abs(new Date(headerPublishedAt).getTime() - new Date(footerPublishedAt).getTime()) > 5 * 60 * 1000
     ) {
       warnings.push(
         `${fixture.id}: FIFA HTTP and PDF publication times disagreed (${headerPublishedAt} vs ${footerPublishedAt})`
@@ -374,26 +362,38 @@ for (const fixture of targetFixtures) {
       continue;
     }
     const publishedAt =
-      headerPublishedAt ||
       footerPublishedAt ||
+      headerPublishedAt ||
       knownPublishedAt(tacticalIndex, { matchNumber, url, sha256: parsed.sha256 });
     if (!publishedAt) {
       warnings.push(`${fixture.id}: FIFA tactical document had no trustworthy publication time`);
       continue;
     }
     if (
-      !allowPostKickoffDocument &&
-      new Date(publishedAt).getTime() > kickoffMs
+      !canAutoApplyFifaTacticalDocument({
+        publishedAt,
+        kickoffMs,
+        layoutPerspective: parsed.layoutPerspective
+      }) &&
+      !allowUnmarkedPostKickoffDocument
     ) {
       warnings.push(
-        `${fixture.id}: rejected FIFA Tactical Line-up published after kickoff (${publishedAt}); use --allow-post-kickoff-document for manual review`
+        `${fixture.id}: rejected an unmarked FIFA Tactical Line-up published after kickoff (${publishedAt}); use --allow-post-kickoff-document for manual review`
       );
       continue;
     }
-    if (existingOfficial && parsed.version < newestOfficialVersion(existingOfficial)) {
-      warnings.push(`${fixture.id}: ignored FIFA Tactical Line-up version ${parsed.version} because version ${newestOfficialVersion(existingOfficial)} is already stored`);
-      accepted = true;
-      break;
+    if (existingOfficial) {
+      const existingSource = officialFifaTacticalSourceFromOverride(existingOfficial);
+      const decision = fifaTacticalVersionDecision({ parsed, existingSource });
+      if (decision.action === "preserve") {
+        warnings.push(`${fixture.id}: ignored FIFA Tactical Line-up version ${parsed.version} because ${decision.reason}`);
+        accepted = true;
+        break;
+      }
+      if (decision.action === "reject") {
+        warnings.push(`${fixture.id}: rejected FIFA Tactical Line-up because ${decision.reason}`);
+        continue;
+      }
     }
 
     const override = buildFifaOfficialLayoutOverride({ fixture, parsed, registrationId, url, publishedAt });
@@ -472,7 +472,7 @@ const changeCount = [indexChanged, lineupsChanged, overridesChanged, tournamentC
 console.log(
   `${targetFixtures.length} FIFA tactical fixture${targetFixtures.length === 1 ? "" : "s"} checked; ` +
   `${acceptedCount} official layout${acceptedCount === 1 ? "" : "s"} accepted; ` +
-  `${preservedCount} post-kickoff layout${preservedCount === 1 ? "" : "s"} preserved.`
+  `${preservedCount} existing layout${preservedCount === 1 ? "" : "s"} preserved.`
 );
 console.log(`${changeCount} data file${changeCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "would change"}.`);
 for (const warning of warnings) console.warn(`Warning: ${warning}`);

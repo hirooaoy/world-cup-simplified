@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "language": "ko",
+  "scope": "archive",
+  "sourceFingerprint": "a4a638b43e443da19d2acc752a92bb0bc226d6c35d3639183ad28cfbe503c0d2",
+  "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
+  "translations": {
+    "Castro gives the attack a physical central reference without becoming static. He occupies centre-backs, protects direct passes, and turns toward goal when the second ball drops.": "카스트로는 자리에 고정되지 않으면서 공격의 강한 중앙 기준점이 된다. 센터백을 묶고 직선적인 패스를 지킨 뒤 세컨드볼이 떨어지면 골문 쪽으로 돌아선다.",
+    "Cea brings inside-forward movement from midfield into the penalty area. He begins outside the main marking line, arrives late, and gives the passer a second central target.": "세아는 중원에서 페널티지역으로 파고드는 인사이드 포워드 움직임을 보여준다. 주된 마크 라인 바깥에서 출발해 늦게 들어오며 패서에게 두 번째 중앙 목표를 제공한다.",
+    "Di María carries the ball from wide areas on his left foot and changes the angle of an attack. He can beat the first defender, deliver early, or continue inside for the next combination.": "디 마리아는 측면에서 왼발로 공을 운반하며 공격 각도를 바꾼다. 첫 수비수를 제치고 빠르게 크로스하거나 안쪽으로 계속 들어가 다음 연계를 만들 수 있다.",
+    "Griezmann links midfield and attack by finding pockets around the main striker. He receives on the half-turn, combines quickly, and begins the press by closing the easiest pass.": "그리즈만은 최전방 공격수 주변의 공간을 찾아 중원과 공격을 잇는다. 반턴 자세로 받아 빠르게 연계하고 가장 쉬운 패스 길을 막으며 압박을 시작한다.",
+    "Historical men's World Cup match data imported from the public-domain openfootball/worldcup.json project. Historical kickoff wall-clock times are synced from Wikidata match-item time-of-day qualifiers when available; date-only cancelled fixtures remain without kickoff time.": "남자 월드컵 역대 경기 데이터는 퍼블릭 도메인 프로젝트 openfootball/worldcup.json에서 가져왔습니다. 과거 경기의 현지 킥오프 시각은 이용 가능한 경우 Wikidata 경기 항목의 시각 한정자와 동기화하며, 날짜만 확인되는 취소 경기는 킥오프 시각 없이 표시됩니다.",
+    "Laurent plays as a forward who looks for the gap beside the central striker. He moves before the defense is set and tries to turn a loose attacking phase into a quick shot.": "로랑은 중앙 공격수 옆의 틈을 찾는 공격수다. 수비가 정렬되기 전에 움직여 느슨한 공격 국면을 빠른 슈팅으로 바꾸려 한다.",
+    "Martínez makes himself large in one-on-one chances and waits for the striker to reveal the finish. He also commands the box with the confidence that lets defenders hold a higher line.": "마르티네스는 일대일에서 몸을 크게 보이게 하며 공격수가 마무리 방향을 드러낼 때까지 기다린다. 수비가 높은 라인을 유지할 수 있을 만큼 자신 있게 페널티지역도 장악한다.",
+    "Mbappé attacks open grass with unusually quick acceleration and keeps control at top speed. He starts wide or off a striker, then races through the gap before the defense can turn.": "음바페는 열린 공간을 폭발적인 가속으로 공략하면서 최고 속도에서도 공을 지킨다. 측면이나 최전방 공격수 옆에서 출발해 수비가 돌아서기 전에 틈을 질주한다.",
+    "Mbappé's defining weapon is acceleration once a defender turns toward his own goal. He attacks from the left, changes pace after the challenge is set, and finishes before the cover arrives.": "음바페의 결정적 무기는 수비가 자기 골문 쪽으로 돌아선 순간의 가속이다. 왼쪽에서 공격해 수비의 대응이 정해진 뒤 속도를 바꾸고 커버가 오기 전에 마무리한다.",
+    "Messi controls attacks with close touches and an early picture of the next pass. He draws defenders toward the ball, then releases a runner or shifts into his own shooting lane.": "메시는 짧은 터치와 한발 빠른 시야로 공격을 지휘한다. 수비를 공 쪽으로 끌어낸 뒤 침투하는 동료에게 연결하거나 자신의 슈팅 통로로 이동한다.",
+    "Modrić escapes pressure with his first touch and keeps seeing forward angles from central midfield. He changes tempo without forcing the pass and follows the ball to offer support again.": "모드리치는 첫 터치로 압박을 벗어나며 중앙에서 계속 전진 패스 각도를 찾는다. 패스를 억지로 넣지 않고 속도를 바꾸며 공을 따라 움직여 다시 지원한다.",
+    "openfootball World Cup JSON": "openfootball 월드컵 JSON",
+    "Patenaude is a penalty-area striker whose main strength is arriving where the next touch will fall. He stays central, separates from his marker, and finishes without delaying the move.": "패트노드는 다음 터치가 떨어질 지점에 먼저 도착하는 페널티지역 공격수다. 중앙에 머물며 마크를 떼어낸 뒤 공격 흐름을 늦추지 않고 마무리한다.",
+    "Perišić is a two-footed wide attacker who can threaten outside or move into the box. He delivers early when the lane opens and attacks the far post when play develops opposite him.": "페리시치는 양발을 쓰며 바깥쪽과 페널티지역 안쪽을 모두 위협하는 측면 공격수다. 통로가 열리면 빠르게 크로스하고 반대편에서 공격이 전개되면 먼 골대를 공략한다.",
+    "Pogba combines physical strength with a passing range that can move an attack in one action. He protects the ball under pressure, looks up, and switches play beyond the nearest line.": "포그바는 강한 피지컬과 한 번에 공격 지점을 옮길 수 있는 넓은 패스 범위를 갖췄다. 압박 속에서 공을 지키고 고개를 든 뒤 가장 가까운 수비선 너머로 전환한다.",
+    "Stábile plays as a direct central forward who attacks space before defenders can settle. He stays ready between centre-backs and meets the final pass with minimal extra touches.": "스타빌레는 수비가 자리 잡기 전에 공간을 공략하는 직선적인 중앙 공격수다. 센터백 사이에서 준비한 뒤 불필요한 터치를 줄여 마지막 패스를 슈팅으로 연결한다."
+  }
+}

@@ -1,6 +1,7 @@
 {
   "updatedAt": "2026-06-21T13:53:27-07:00",
   "sourceIds": ["fifa-ranking-2026-06-11"],
+  "rankingYear": 2026,
   "teams": [
     { "id": "MEX", "name": "Mexico", "officialName": "Mexico", "flag": "🇲🇽", "fifaRank": 14, "groupId": "A", "tagline": "Vertical pressure around a sharp box finisher", "styleTags": ["High press", "Direct combinations", "Box entries"] },
     { "id": "KOR", "name": "South Korea", "officialName": "Korea Republic", "flag": "🇰🇷", "fifaRank": 25, "groupId": "A", "tagline": "Fast breaks backed by elite recovery defending", "styleTags": ["Transition speed", "Back-line command", "Wide counters"] },

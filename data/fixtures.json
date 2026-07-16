@@ -114,6 +114,10 @@
     "fifa-official-results-sync-2026-06-30",
     "national-football-teams-h2h-sync-2026-06-30",
     "fifa-official-results-sync-2026-07-01",
+    "ap-brazil-japan-result-2026-06-29",
+    "caf-argentina-egypt-result-2026-07-07",
+    "afc-france-morocco-result-2026-07-09",
+    "fifa-france-spain-result-2026-07-14",
     "ap-norway-cote-divoire-result-2026-06-30",
     "guardian-cote-divoire-norway-result-2026-06-30",
     "fifa-goal-events-sync-2026-07-01",
@@ -3117,7 +3121,7 @@
       "matchNumber": 14,
       "resultStoryBullets": [
         "Spain's 4-1-2-3 and Cabo Verde's 4-1-2-3 cancelled each other out through halftime.",
-        "Cabo Verde made the first change in the 61st minute, sending on Nuno da Costa, but the deadlock held.",
+        "Cabo Verde made 3 changes in the 61st minute, including Nuno da Costa, but the score stayed 0-0.",
         "Both teams moved to 1 point in Group H."
       ],
       "highlightVideo": {
@@ -3216,7 +3220,7 @@
       },
       "resultStoryBulletsZh": [
         "西班牙的4-1-2-3阵型与佛得角的4-1-2-3阵型在上半场相互抵消。",
-        "佛得角在第61分钟率先调整进攻，换上Nuno da Costa，但僵局依旧。",
+        "佛得角在第61分钟同时换上3人，其中包括Nuno da Costa，但比分仍是0比0。",
         "西班牙与佛得角最终0比0战平。"
       ]
     },
@@ -9191,7 +9195,7 @@
       "matchNumber": 39,
       "resultStoryBullets": [
         "Belgium's 4-2-3-1 and IR Iran's 5-2-3 cancelled each other out through halftime.",
-        "Belgium made the first change in the 58th minute, sending on Timothy Castagne, but the deadlock held.",
+        "Belgium made 3 changes in the 58th minute, including Timothy Castagne, but the score stayed 0-0.",
         "Both teams moved to 2 points in Group G."
       ],
       "highlightVideo": {
@@ -9302,7 +9306,7 @@
       },
       "resultStoryBulletsZh": [
         "比利时的4-2-3-1阵型与伊朗的5-2-3阵型在上半场相互抵消。",
-        "比利时在第58分钟率先调整进攻，换上蒂莫西·卡斯塔涅，但僵局依旧。",
+        "比利时在第58分钟同时换上3人，其中包括蒂莫西·卡斯塔涅，但比分仍是0比0。",
         "比利时与伊朗最终0比0战平。"
       ]
     },
@@ -11031,7 +11035,7 @@
       "matchNumber": 45,
       "resultStoryBullets": [
         "England's 4-2-3-1 and Ghana's 4-4-2 cancelled each other out through halftime.",
-        "England made the first change in the 65th minute, sending on Bukayo Saka, but the deadlock held.",
+        "England made 2 changes in the 65th minute, including Bukayo Saka, but the score stayed 0-0.",
         "Both teams moved to 4 points in Group L."
       ],
       "highlightVideo": {
@@ -11130,7 +11134,7 @@
       },
       "resultStoryBulletsZh": [
         "英格兰的4-2-3-1阵型与加纳的4-4-2阵型在上半场相互抵消。",
-        "英格兰在第65分钟率先调整进攻，换上布卡约·萨卡，但僵局依旧。",
+        "英格兰在第65分钟同时换上2人，其中包括布卡约·萨卡，但比分仍是0比0。",
         "英格兰与加纳最终0比0战平。"
       ]
     },
@@ -16445,7 +16449,7 @@
       ],
       "resultStoryBullets": [
         "Colombia's 4-1-2-3 and Portugal's 4-2-3-1 cancelled each other out through halftime.",
-        "Colombia made the first change in the 60th minute, sending on Richard Rios, but the deadlock held.",
+        "Colombia made 2 changes in the 60th minute, including Richard Rios, but the score stayed 0-0.",
         "Colombia moved to 7 points and Portugal to 5 points in Group K."
       ],
       "highlightVideo": {
@@ -16543,7 +16547,7 @@
       },
       "resultStoryBulletsZh": [
         "哥伦比亚的4-1-2-3阵型与葡萄牙的4-2-3-1阵型在上半场相互抵消。",
-        "哥伦比亚在第60分钟率先调整进攻，换上Richard Rios，但僵局依旧。",
+        "哥伦比亚在第60分钟同时换上2人，其中包括Richard Rios，但比分仍是0比0。",
         "哥伦比亚与葡萄牙最终0比0战平。"
       ]
     },
@@ -18244,9 +18248,17 @@
         "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Brazil, their Doan-Kamada combination speed has to beat Brazil's Neymar-Vinicius isolation speed. Kubo could play a part after the knee issue, so Ueda and Doan may carry the early threat. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       },
       "resultStoryBullets": [
-        "Japan frustrated Brazil for long spells, with Takehiro Tomiyasu keeping Vinicius Junior quiet and Zion Suzuki answering pressure.",
-        "Casemiro pulled Brazil level after halftime before Gabriel Martinelli won it deep into stoppage time."
+        "Kaishu Sano punished Brazil in the 29th minute, giving Japan a 1-0 halftime lead.",
+        "Casemiro levelled at 56', before Gabriel Martinelli won it for Brazil at 90+5'."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "ap-brazil-japan-result-2026-06-29"
+        ],
+        "checkedAt": "2026-07-16T08:35:12-07:00",
+        "note": "AP match report reviewed for Sano's opener, Casemiro's equalizer, and Martinelli's stoppage-time winner."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=QgUSOlN0Tt0",
@@ -18403,8 +18415,8 @@
         }
       },
       "resultStoryBulletsZh": [
-        "佐野海舟在第29分钟为日本首开纪录。",
-        "加布里埃尔·马丁内利在第90+5分钟打进巴西的最后一球。"
+        "佐野海舟在第29分钟破门，让日本1比0领先进入中场休息。",
+        "卡塞米罗在第56分钟扳平，随后加布里埃尔·马丁内利在第90+5分钟为巴西打进制胜球。"
       ]
     },
     {
@@ -23934,6 +23946,14 @@
         "Egypt also had a goal ruled out after VAR, a swing that kept Argentina close before the late comeback.",
         "Cristian Romero, Lionel Messi, and Enzo Fernández scored from 79' to 90+2' to turn the tie into a 3-2 Argentina win."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "caf-argentina-egypt-result-2026-07-07"
+        ],
+        "checkedAt": "2026-07-16T08:38:00-07:00",
+        "note": "CAF's match report was reviewed for Egypt's disallowed goal, 2-0 lead, and Argentina's three-goal late comeback."
+      },
       "resultStoryBulletsZh": [
         "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
         "埃及还有一粒进球在VAR介入后被判无效，这个转折让阿根廷仍留在比赛里，并为最后阶段的逆转留下空间。",
@@ -24540,6 +24560,14 @@
         "Mbappé broke the game open in the 60th minute, curling France ahead when the Moroccan block finally cracked.",
         "Dembélé struck six minutes later from Mbappé's pass, and France closed out the 2-0 win to reach the semi-finals."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "afc-france-morocco-result-2026-07-09"
+        ],
+        "checkedAt": "2026-07-16T08:38:00-07:00",
+        "note": "AFC's match report was reviewed for Bounou's penalty save, Mbappe's opener, and Dembele's second goal."
+      },
       "resultStoryBulletsZh": [
         "亚辛·布努上半场扑出点球，让摩洛哥带着平局进入中场，但法国在下半场继续施压。",
         "姆巴佩第60分钟打破僵局，在摩洛哥防线终于松动时弧线球帮助法国领先。",
@@ -26111,6 +26139,14 @@
         "Spain controlled midfield and isolated Mbappé, stopping France from building sustained pressure.",
         "Porro finished a slick one-two with Olmo, sealing Spain's 2-0 win and first World Cup final since 2010."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "fifa-france-spain-result-2026-07-14"
+        ],
+        "checkedAt": "2026-07-16T08:38:00-07:00",
+        "note": "FIFA's match report was reviewed for Spain's control, Mbappe's limited chances, the penalty, and Porro's one-two with Olmo."
+      },
       "resultStoryBulletsZh": [
         "亚马尔赢得第22分钟点球，奥亚萨瓦尔罚入个人本届赛事第五球。",
         "西班牙掌控中场并限制姆巴佩，让法国始终无法形成持续压力。",

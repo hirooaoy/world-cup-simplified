@@ -88,5 +88,11 @@ jobs:
           pnpm audit:tournament
           pnpm results:check
           pnpm cards:check
+          pnpm chatbot:history:index:check
+          pnpm locales:names:check
+          pnpm locales:content:check
+          pnpm audit:locales
           pnpm smoke:lineups
+          pnpm smoke:locales
+          pnpm smoke:ball-boy-player-search
           pnpm smoke

@@ -1,6 +1,25 @@
 {
-  "updatedAt": "2026-07-15T23:33:39-07:00",
+  "updatedAt": "2026-07-16T13:42:03-07:00",
   "releases": [
+    {
+      "date": "2026-07-16",
+      "title": "Spanish and Korean, lighter language loading, and fresher medal-match line-ups",
+      "titleZh": "新增西班牙语与韩语、更轻量的语言加载及更新的奖牌赛阵容",
+      "highlights": [
+        "Spanish (Latin America) and Korean now cover the full app, including matches, standings, tournament paths, search, Catch Up, player and coach cards, country views, past and future World Cups, Ball Boy, Report issue, and release notes.",
+        "Language packs load only when selected and reuse structured football templates for current and historical content, keeping English visits unchanged and first-switch transfers to about 90 KB for Spanish and 119 KB for Korean.",
+        "Player names follow broadcast conventions: familiar official spellings in Spanish and sourced Korean newsroom names, with all 4,052 current and historical player records covered.",
+        "All 2,826 historical result recaps, 209 archive venues, and 104 current head-to-head summaries now use reviewed structured locale formatters instead of runtime machine translation.",
+        "Third-place and final probable line-ups now combine same-day independent previews with official FIFA history, backed by revised tactical-document versioning and stricter regression checks."
+      ],
+      "highlightsZh": [
+        "拉丁美洲西班牙语和韩语现已覆盖整个应用，包括比赛、积分榜、淘汰赛路径、搜索、“追上进度”、球员与教练卡片、国家队视图、往届与未来世界杯、Ball Boy、“报告问题”和发布说明。",
+        "语言包只会在用户选择后加载，并为当前与历史内容复用结构化足球模板；英语访问的加载量保持不变，首次切换约需传输90 KB的西班牙语资源或119 KB的韩语资源。",
+        "球员姓名遵循电视转播惯例：西班牙语采用熟悉的官方拼写，韩语采用有来源依据的新闻编辑室常用姓名，现役与历史共4,052条球员记录已全部覆盖。",
+        "全部2,826条历史赛果回顾、209个往届赛事场地和104条当前交锋摘要现已采用经审核的结构化本地化格式器，不再依赖运行时机器翻译。",
+        "季军赛与决赛的预计阵容现会结合比赛当天的独立前瞻和FIFA官方历史资料，并由改进的战术文件版本管理及更严格的回归检查提供保障。"
+      ]
+    },
     {
       "date": "2026-07-15",
       "title": "Clearer tooltips, smoother match selection, and stronger football visuals",
@@ -20,7 +39,8 @@
         "Argentina's 2-1 semi-final win over England now includes the official final line-up, goals, cards, substitutions, official highlight, and a concise bilingual three-bullet recap.",
         "The bracket now confirms France vs England for third place and Spain vs Argentina for the final, with a sourced 44/20/36 scenario for the former and a current Betfair/PokerStars 40/31/29 regulation consensus for the latter.",
         "Future result syncs now promote an exact conditional medal-match forecast as soon as both participants are known, preserve extra-time substitution markers, and keep final-state browser checks aligned with confirmed fixtures; the editorial gate now makes missing direct odds or probable-lineup research blocking inside 48 hours of kickoff.",
-        "Ball Boy's offside explainer removes the redundant 'The one check' and 'Attacking' heading row, leaving the rule, direction graphic, and legend to explain the idea without decorative duplication."
+        "Ball Boy's offside explainer removes the redundant 'The one check' and 'Attacking' heading row, leaving the rule, direction graphic, and legend to explain the idea without decorative duplication.",
+        "See sources now groups the app's trust model into FIFA facts, forecast inputs, player information, and official highlights, with an exact-source caveat and matching English, Chinese, Spanish, and Korean footer copy."
       ],
       "highlightsZh": [
         "桌面端比赛详情滚动卡片内的信息提示现在会检测上下裁切；上方空间不足时会在触发按钮下方打开，有足够空间时仍保持原本的向上展示。",
@@ -37,7 +57,8 @@
         "阿根廷2比1击败英格兰的半决赛现已补齐官方最终阵容、进球、黄牌、换人、官方集锦，以及简洁的中英双语三点赛果回顾。",
         "淘汰赛对阵现已确认法国对英格兰的季军赛和西班牙对阿根廷的决赛：前者采用有来源支持的44/20/36情景预测，后者采用当前Betfair与PokerStars综合得出的40/31/29常规时间预测。",
         "今后的赛果同步会在双方确定后自动采用完全匹配的奖牌赛条件预测，同时保留加时赛换人标记，并让浏览器检查与已确认的比赛状态保持一致；编辑门槛现在会在开球前48小时内把缺少直接赔率或预计阵容研究视为阻断项。",
-        "Ball Boy 的越位说明移除了重复的“只看一个时刻”和“进攻方向”标题行，只保留规则、方向图和图例来解释概念，避免装饰性重复。"
+        "Ball Boy 的越位说明移除了重复的“只看一个时刻”和“进攻方向”标题行，只保留规则、方向图和图例来解释概念，避免装饰性重复。",
+        "“查看来源”现在会按 FIFA 官方事实、预测输入、球员信息和官方集锦整理应用的可信来源，并注明每场比赛的具体来源可能不同；页脚文案已同步支持英语、中文、西班牙语和韩语。"
       ]
     },
     {

@@ -138,6 +138,49 @@ export function validateFifaTacticalLineupIndex(index) {
         ) {
           issues.push(`${prefix}.capturedAt must be a valid timestamp when provided`);
         }
+        if (document.history !== undefined) {
+          if (!Array.isArray(document.history)) {
+            issues.push(`${prefix}.history must be an array when provided`);
+          } else {
+            const identities = new Set();
+            for (const [historyIndex, historical] of document.history.entries()) {
+              const historyPrefix = `${prefix}.history[${historyIndex}]`;
+              if (!historical || typeof historical !== "object" || Array.isArray(historical)) {
+                issues.push(`${historyPrefix} must be an object`);
+                continue;
+              }
+              if (historical.fixtureId !== document.fixtureId) {
+                issues.push(`${historyPrefix}.fixtureId must match the selected document`);
+              }
+              if (positiveInteger(historical.registrationId) !== registrationId) {
+                issues.push(`${historyPrefix}.registrationId must match the selected document`);
+              }
+              if (historical.url !== document.url) {
+                issues.push(`${historyPrefix}.url must match the selected document`);
+              }
+              if (!positiveInteger(historical.version)) {
+                issues.push(`${historyPrefix}.version must be a positive integer`);
+              }
+              if (
+                typeof historical.publishedAt !== "string" ||
+                !Number.isFinite(Date.parse(historical.publishedAt))
+              ) {
+                issues.push(`${historyPrefix}.publishedAt must be a valid timestamp`);
+              }
+              if (!/^[a-f0-9]{64}$/.test(String(historical.sha256 || ""))) {
+                issues.push(`${historyPrefix}.sha256 must be a lowercase SHA-256 digest`);
+              }
+              const identity = `${historical.version}:${historical.sha256}`;
+              if (identities.has(identity)) {
+                issues.push(`${historyPrefix} duplicates another historical document`);
+              }
+              if (identity === `${document.version}:${document.sha256}`) {
+                issues.push(`${historyPrefix} duplicates the selected document`);
+              }
+              identities.add(identity);
+            }
+          }
+        }
       }
     }
   }
@@ -275,8 +318,44 @@ export function recordFifaTacticalDocument(index, {
   };
   const matchKey = String(positiveInteger(matchNumber));
   const documents = index.documents || (index.documents = {});
-  if (JSON.stringify(documents[matchKey] || null) !== JSON.stringify(documentRecord)) {
-    documents[matchKey] = documentRecord;
+  const existing = documents[matchKey] || null;
+  const snapshot = (record) => record ? {
+    fixtureId: record.fixtureId,
+    registrationId: record.registrationId,
+    url: record.url,
+    version: record.version,
+    publishedAt: record.publishedAt,
+    sha256: record.sha256,
+    ...(record.archiveUrl ? { archiveUrl: record.archiveUrl } : {}),
+    ...(record.capturedAt ? { capturedAt: record.capturedAt } : {})
+  } : null;
+  const sameDocument = existing &&
+    Number(existing.version) === Number(documentRecord.version) &&
+    existing.sha256 === documentRecord.sha256;
+  const history = [
+    ...(Array.isArray(existing?.history) ? existing.history : []),
+    ...(!sameDocument && existing ? [snapshot(existing)] : [])
+  ]
+    .filter(Boolean)
+    .filter((record, index, records) =>
+      records.findIndex((candidate) =>
+        Number(candidate.version) === Number(record.version) && candidate.sha256 === record.sha256
+      ) === index
+    )
+    .filter((record) =>
+      Number(record.version) !== Number(documentRecord.version) || record.sha256 !== documentRecord.sha256
+    )
+    .sort((left, right) =>
+      new Date(left.publishedAt).getTime() - new Date(right.publishedAt).getTime() ||
+      Number(left.version) - Number(right.version)
+    );
+  const nextDocument = {
+    ...(sameDocument ? existing : {}),
+    ...documentRecord,
+    ...(history.length ? { history } : {})
+  };
+  if (JSON.stringify(existing) !== JSON.stringify(nextDocument)) {
+    documents[matchKey] = nextDocument;
     changed = true;
   }
   return changed;

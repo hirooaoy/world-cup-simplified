@@ -35,8 +35,8 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
-    <link rel="stylesheet" href="styles.css?v=2026-07-15-dark-mode-4" />
-    <link rel="stylesheet" href="chatbot.css?v=2026-07-15-full-flags" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-16-3" />
+    <link rel="stylesheet" href="chatbot.css?v=2026-07-16-3" />
   </head>
   <body>
     <header class="site-header">
@@ -95,19 +95,22 @@
             </svg>
           </button>
           <div class="settings-popover is-hidden" id="settings-popover" role="dialog" aria-label="Settings">
-            <section class="settings-section" aria-labelledby="settings-language-label">
-              <p class="settings-label" id="settings-language-label">Language</p>
-              <div class="language-switch" id="language-switch" role="group" aria-labelledby="settings-language-label">
-                <button class="language-option is-active" type="button" data-language="en" aria-pressed="true">English</button>
-                <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
-              </div>
-            </section>
+            <label class="settings-section language-control">
+              <span class="settings-label" id="settings-language-label">Language</span>
+              <select class="timezone-select language-select" id="language-select" aria-labelledby="settings-language-label" aria-describedby="language-status">
+                <option value="en" lang="en">English</option>
+                <option value="zh" lang="zh-Hans">中文</option>
+                <option value="es" lang="es-419">Español</option>
+                <option value="ko" lang="ko">한국어</option>
+              </select>
+              <span class="visually-hidden" id="language-status" aria-live="polite"></span>
+            </label>
             <label class="settings-section timezone-control">
               <span class="settings-label timezone-label">Time zone</span>
               <select class="timezone-select" id="timezone-select"></select>
             </label>
             <label class="settings-section settings-toggle-control">
-              <span class="settings-label" id="settings-yesterday-label">Show past 24 hours</span>
+              <span class="settings-label" id="settings-yesterday-label">Show recent matches</span>
               <input class="settings-toggle-input" id="show-yesterday-toggle" type="checkbox" checked>
               <span class="settings-toggle-track" aria-hidden="true"></span>
             </label>
@@ -116,6 +119,13 @@
               <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox">
               <span class="settings-toggle-track" aria-hidden="true"></span>
             </label>
+            <a class="settings-section settings-link-control" id="settings-report-link" href="report.html" aria-labelledby="settings-report-label">
+              <span class="settings-label" id="settings-report-label">Report issue</span>
+              <svg class="settings-link-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5" />
+                <path d="M6 5h5v5" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
@@ -167,7 +177,7 @@
             </div>
             <div class="calendar-grid" id="calendar-grid"></div>
             <div class="calendar-footer">
-              <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Yesterday</button>
+              <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Previous</button>
               <button class="calendar-shortcut-button" id="calendar-today" type="button">Today</button>
             </div>
           </div>
@@ -302,24 +312,25 @@
     <footer class="site-footer">
       <div class="source-note" id="source-note">
         <span class="source-tooltip-wrapper">
-          <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">See sources</button>.
+          <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">See sources</button>
           <span class="source-tooltip" id="source-tooltip" role="tooltip">
-            <strong>Sources</strong>
-            <span>
-              <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank" rel="noreferrer">FIFA schedule</a>
-              <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan" target="_blank" rel="noreferrer">debutants</a>
-              <a href="https://inside.fifa.com/fifa-world-ranking/men" target="_blank" rel="noreferrer">ranking</a>
-              <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings" target="_blank" rel="noreferrer">standings</a>
+            <span class="source-tooltip-list">
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Tournament facts</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank" rel="noreferrer">FIFA</a></span></span>
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Forecasts</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://theanalyst.com/articles/world-cup" target="_blank" rel="noreferrer">Opta Analyst</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://www.oddschecker.com/football/world-cup" target="_blank" rel="noreferrer">Oddschecker</a></span></span>
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Player information</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://en.wikipedia.org/wiki/Category:Association_football_players" target="_blank" rel="noreferrer">Wikipedia</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank" rel="noreferrer">Wikimedia Commons</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://github.com/dcaribou/transfermarkt-datasets" target="_blank" rel="noreferrer">Transfermarkt</a></span></span>
+              <span class="source-tooltip-row"><b class="source-tooltip-category">Official highlights</b><span class="source-tooltip-separator" aria-hidden="true"> — </span><span class="source-tooltip-description"><a href="https://www.youtube.com/channel/UCpcTrCXblq78GZrTUTLWeBw" target="_blank" rel="noreferrer">FIFA</a><span class="source-tooltip-item-separator" aria-hidden="true"> · </span><a href="https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg" target="_blank" rel="noreferrer">FOX Sports</a></span></span>
             </span>
+            <span class="source-tooltip-note">Exact sources vary by match.</span>
           </span>
-        </span>. Predictions are unofficial. Data refreshed Jun 23, 2026, 8:04 AM PDT. <a href="report.html">Report issue</a>. Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>.
+        </span> • Predictions are unofficial • Data refreshed Jun 23, 2026, 8:04 AM PDT •
         <span class="release-tooltip-wrapper">
-          <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">See release notes</button>.
+          <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">See release notes</button>
           <span class="release-tooltip" id="release-tooltip" role="tooltip">
-            <strong>Latest changes</strong>
+            <strong>Release notes: Latest changes</strong>
             <ul>
               <li>Release notes load from data/release-notes.json.</li>
             </ul>
+            <span class="release-tooltip-note">Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a></span>
           </span>
         </span>
       </div>
@@ -327,7 +338,7 @@
 
     <script type="module" src="clarity.js"></script>
     <script type="module" src="analytics.js"></script>
-    <script type="module" src="app.js?v=2026-07-15-dark-mode-2"></script>
-    <script type="module" src="chatbot.js?v=2026-07-15-offside-cleanup"></script>
+    <script type="module" src="app.js?v=2026-07-16-5"></script>
+    <script type="module" src="chatbot.js?v=2026-07-16-5"></script>
   </body>
 </html>

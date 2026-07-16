@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORLD_CUP_TZ: America/Los_Angeles
+      LINEUP_MATCHDAY_AFTER_MINUTES: "180"
+      FIFA_TACTICAL_WINDOW_AFTER_MINUTES: "180"
     steps:
       - name: Check out repository
         uses: actions/checkout@v5

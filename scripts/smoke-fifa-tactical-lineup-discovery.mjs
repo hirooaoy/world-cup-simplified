@@ -3,9 +3,14 @@ import assert from "node:assert/strict";
 import {
   buildFifaTacticalLineupUrl,
   getFifaTacticalRegistrationCandidates,
+  recordFifaTacticalDocument,
   recordFifaTacticalRegistration,
   validateFifaTacticalLineupIndex
 } from "./fifa-tactical-lineup-discovery.mjs";
+import {
+  canAutoApplyFifaTacticalDocument,
+  fifaTacticalVersionDecision
+} from "./fifa-tactical-lineup-document-policy.mjs";
 
 const index = {
   schemaVersion: "1.0",
@@ -75,6 +80,85 @@ invalidDocumentIndex.documents = {
 assert(
   validateFifaTacticalLineupIndex(invalidDocumentIndex).some((issue) => issue.includes("canonical official")),
   "Stored tactical documents must retain their canonical FIFA URL."
+);
+
+const versionedIndex = {
+  schemaVersion: "1.0",
+  updatedAt: "2026-07-15T17:41:37.000Z",
+  competitionEditionId: "281",
+  minimumRegistrationId: 12549,
+  maximumKnownRegistrationId: 12549,
+  registrationsByMatchNumber: { "102": 12549 },
+  documents: {}
+};
+const commonDocument = {
+  fixtureId: "match-102",
+  matchNumber: 102,
+  registrationId: 12549,
+  url: buildFifaTacticalLineupUrl({ competitionEditionId: "281", registrationId: 12549 })
+};
+recordFifaTacticalDocument(versionedIndex, {
+  ...commonDocument,
+  version: 1,
+  publishedAt: "2026-07-15T17:41:00.000Z",
+  sha256: "a".repeat(64)
+});
+recordFifaTacticalDocument(versionedIndex, {
+  ...commonDocument,
+  version: 2,
+  publishedAt: "2026-07-15T19:29:00.000Z",
+  sha256: "b".repeat(64)
+});
+assert.equal(versionedIndex.documents["102"].version, 2);
+assert.deepEqual(
+  versionedIndex.documents["102"].history.map(({ version, sha256 }) => ({ version, sha256 })),
+  [{ version: 1, sha256: "a".repeat(64) }],
+  "Selecting FIFA's observed update must retain the superseded nominal document."
+);
+assert.deepEqual(validateFifaTacticalLineupIndex(versionedIndex), []);
+
+const kickoffMs = Date.parse("2026-07-19T19:00:00.000Z");
+assert.equal(
+  canAutoApplyFifaTacticalDocument({
+    publishedAt: "2026-07-19T17:40:00.000Z",
+    kickoffMs,
+    layoutPerspective: "nominal"
+  }),
+  true,
+  "The latest nominal FIFA board should apply before kickoff."
+);
+assert.equal(
+  canAutoApplyFifaTacticalDocument({
+    publishedAt: "2026-07-19T19:20:00.000Z",
+    kickoffMs,
+    layoutPerspective: "observed"
+  }),
+  true,
+  "FIFA's marked post-observation update should replace the nominal board."
+);
+assert.equal(
+  canAutoApplyFifaTacticalDocument({
+    publishedAt: "2026-07-19T19:20:00.000Z",
+    kickoffMs,
+    layoutPerspective: "nominal"
+  }),
+  false,
+  "An unmarked post-kickoff document must not replace a trusted board automatically."
+);
+assert.deepEqual(
+  fifaTacticalVersionDecision({
+    parsed: { version: 2, sha256: "b".repeat(64) },
+    existingSource: { documentVersion: 1, sha256: "a".repeat(64) }
+  }),
+  { action: "accept", reason: "" }
+);
+assert.equal(
+  fifaTacticalVersionDecision({
+    parsed: { version: 2, sha256: "c".repeat(64) },
+    existingSource: { documentVersion: 2, sha256: "b".repeat(64) }
+  }).action,
+  "reject",
+  "FIFA content must not mutate silently without a document-version increase."
 );
 
 console.log("FIFA tactical document discovery smoke passed: cached mappings and bounded gap scans are deterministic.");
