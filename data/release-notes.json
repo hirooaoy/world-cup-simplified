@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T23:04:00-07:00",
+  "updatedAt": "2026-07-15T23:33:39-07:00",
   "releases": [
     {
       "date": "2026-07-15",
@@ -7,7 +7,7 @@
       "titleZh": "提示信息更清晰、比赛选择更顺畅、足球视觉更稳健",
       "highlights": [
         "Info tooltips inside the desktop match-detail scroll card now detect vertical clipping and open below their trigger when there is not enough room above, while preserving the normal upward placement when space allows.",
-        "Jarell Quansah's suspended bench row now keeps the status in its accessibility label and red-card tooltip instead of repeating “Suspended” inside the pill; the long explanation wraps cleanly and stays within the viewport.",
+        "Jarell Quansah's suspended bench row now keeps the status in its accessibility label and red-card tooltip instead of repeating “Suspended” inside the pill; the long explanation wraps cleanly, stays within the viewport, and opens from keyboard focus even on touch-capable devices.",
         "Compact country-search results now smoothly scroll to the selected match details, while reduced-motion mode keeps the transition instant.",
         "Dark-mode substitution pills now stay fully opaque after revealing the incoming player, preventing the portrait underneath from bleeding through.",
         "Ball Boy match scoreboards keep both team flags fully opaque; winner and loser emphasis now changes only the team-name text.",
@@ -24,7 +24,7 @@
       ],
       "highlightsZh": [
         "桌面端比赛详情滚动卡片内的信息提示现在会检测上下裁切；上方空间不足时会在触发按钮下方打开，有足够空间时仍保持原本的向上展示。",
-        "贾雷尔·宽萨的停赛替补行不再在胶囊内重复显示“停赛”，状态仍保留在无障碍标签和红牌提示中；较长的说明会自动换行并保持在视口范围内。",
+        "贾雷尔·宽萨的停赛替补行不再在胶囊内重复显示“停赛”，状态仍保留在无障碍标签和红牌提示中；较长的说明会自动换行并保持在视口范围内，即使设备支持触控，也能通过键盘聚焦打开。",
         "紧凑布局下从国家搜索结果选择比赛时，现在会平滑滚动到比赛详情；减少动态效果模式仍会立即跳转。",
         "深色模式下展开新上场球员后，换人胶囊会保持完全不透明，避免下方球员头像透出。",
         "Ball Boy 的比赛记分板现在会让双方国旗都保持完整不透明；胜负强调只作用于球队名称文字。",

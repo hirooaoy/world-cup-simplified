@@ -28016,10 +28016,6 @@ function attachPlayerCardPositioning(root) {
   );
 
   root?.addEventListener("focusin", (event) => {
-    if (isTouchPlayerCardMode()) {
-      return;
-    }
-
     const lineupEventBadge = getLineupEventBadge(event.target);
     if (lineupEventBadge) {
       showFloatingLineupEventTooltip(lineupEventBadge);
@@ -28033,10 +28029,6 @@ function attachPlayerCardPositioning(root) {
   });
 
   root?.addEventListener("focusout", (event) => {
-    if (isTouchPlayerCardMode()) {
-      return;
-    }
-
     const lineupEventBadge = getLineupEventBadge(event.target);
     if (lineupEventBadge) {
       queueFloatingLineupEventTooltipHide();

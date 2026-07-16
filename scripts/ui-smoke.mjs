@@ -10926,6 +10926,26 @@ try {
   const quansahSuspensionBadge = page.locator(
     '#match-info [data-lineup-player-name="Jarell Quansah"] .lineup-bench-availability-icon.is-red'
   );
+  await page.evaluate(() => {
+    const originalMatchMedia = window.matchMedia.bind(window);
+    window.__uiSmokeOriginalMatchMedia = window.matchMedia;
+    window.matchMedia = (query) => {
+      const result = originalMatchMedia(query);
+      if (query !== "(hover: none), (pointer: coarse)") {
+        return result;
+      }
+
+      return new Proxy(result, {
+        get(target, property) {
+          if (property === "matches") {
+            return true;
+          }
+          const value = Reflect.get(target, property, target);
+          return typeof value === "function" ? value.bind(target) : value;
+        }
+      });
+    };
+  });
   await quansahSuspensionBadge.scrollIntoViewIfNeeded();
   await quansahSuspensionBadge.focus();
   assert(
@@ -10936,6 +10956,10 @@ try {
   await page.waitForFunction(() =>
     document.querySelector(".lineup-event-tooltip-floating.is-visible")?.textContent.includes("Red-card suspension")
   );
+  await page.evaluate(() => {
+    window.matchMedia = window.__uiSmokeOriginalMatchMedia;
+    delete window.__uiSmokeOriginalMatchMedia;
+  });
   const suspensionTooltipState = await page.evaluate(() => {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating.is-visible");
     const bounds = tooltip?.getBoundingClientRect();
