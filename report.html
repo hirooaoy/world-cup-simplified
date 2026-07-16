@@ -36,8 +36,8 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
-    <link rel="stylesheet" href="styles.css?v=2026-07-16-3" />
-    <link rel="stylesheet" href="chatbot.css?v=2026-07-16-3" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-16-6" />
+    <link rel="stylesheet" href="chatbot.css?v=2026-07-16-4" />
   </head>
   <body class="report-page">
     <header class="site-header report-header">
@@ -59,6 +59,33 @@
         </svg>
         <span class="brand-label" id="back-link-label">Back</span>
       </a>
+      <div class="settings-shell report-settings">
+        <button class="settings-button" id="settings-button" type="button" aria-label="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-popover">
+          <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 0 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.3 7A2 2 0 0 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10 3V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 0 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 0 1 0 4H21a1.7 1.7 0 0 0-1.6.9Z" />
+          </svg>
+        </button>
+        <div class="settings-popover is-hidden" id="settings-popover" role="dialog" aria-label="Settings">
+          <label class="settings-section language-control">
+            <span class="settings-label" id="settings-language-label">Language</span>
+            <select class="timezone-select language-select" id="language-select" aria-labelledby="settings-language-label">
+              <option value="en" lang="en">English</option>
+              <option value="zh" lang="zh-Hans">中文</option>
+              <option value="es" lang="es-419">Español</option>
+              <option value="ko" lang="ko">한국어</option>
+            </select>
+          </label>
+          <label class="settings-section settings-toggle-control">
+            <span class="settings-label" id="settings-dark-mode-label">Dark mode</span>
+            <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox">
+            <span class="settings-toggle-track" aria-hidden="true"></span>
+          </label>
+          <a class="settings-section settings-link-control" id="settings-home-link" href="./" aria-labelledby="settings-home-label">
+            <span class="settings-label" id="settings-home-label">Back to Home</span>
+          </a>
+        </div>
+      </div>
     </header>
 
     <main class="report-shell">
@@ -149,7 +176,7 @@
 
     <script type="module" src="clarity.js"></script>
     <script type="module" src="analytics.js"></script>
-    <script type="module" src="report.js?v=2026-07-16-5"></script>
-    <script type="module" src="chatbot.js?v=2026-07-16-5"></script>
+    <script type="module" src="report.js?v=2026-07-16-6"></script>
+    <script type="module" src="chatbot.js?v=2026-07-16-8"></script>
   </body>
 </html>

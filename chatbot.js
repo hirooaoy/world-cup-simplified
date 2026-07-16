@@ -3,12 +3,12 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-16-5";
+} from "./chatbot-knowledge.js?v=2026-07-16-6";
 import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-5";
+} from "./locales/locale-runtime.js?v=2026-07-16-6";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -45,7 +45,7 @@ const SCOUT_COPY = {
     newChat: "New chat",
     close: "Close Ball Boy",
     suggestedQuestions: "Suggested questions",
-    suggestions: ["Explain offside", "Change timezone", "How does Argentina play?"],
+    suggestions: ["Explain offside", "Change timezone", "How does Argentina play?", "Report issue"],
     showMore: "Show more of Ball Boy's answer",
     moreBelow: "More below",
     askLabel: "Ask Ball Boy a question",
@@ -66,6 +66,7 @@ const SCOUT_COPY = {
     currentWorldCup: "Current World Cup",
     pastWorldCups: "Past World Cups",
     playerFallback: "Player",
+    playerOverviewIntro: (name) => `Here’s more about ${name}.`,
     flag: "flag",
     officialLaw: "Read the official IFAB law ↗",
     worldCupStats: "World Cup statistics and player details",
@@ -176,7 +177,7 @@ const SCOUT_COPY = {
     newChat: "新对话",
     close: "关闭球童聊天",
     suggestedQuestions: "推荐问题",
-    suggestions: ["解释越位", "更改时区", "阿根廷怎么踢？"],
+    suggestions: ["解释越位", "更改时区", "阿根廷怎么踢？", "报告问题"],
     showMore: "显示球童回答的更多内容",
     moreBelow: "下方还有内容",
     askLabel: "向球童提问",
@@ -197,6 +198,7 @@ const SCOUT_COPY = {
     currentWorldCup: "本届世界杯",
     pastWorldCups: "历届世界杯",
     playerFallback: "球员",
+    playerOverviewIntro: (name) => `下面是更多关于${name}的信息。`,
     flag: "国旗",
     officialLaw: "阅读IFAB官方规则 ↗",
     worldCupStats: "世界杯数据和球员资料",
@@ -946,7 +948,7 @@ function getScoutInitialMessageHtml() {
 
 function getScoutSuggestionsHtml() {
   return scoutText("suggestions")
-    .map((prompt) => `<button class="scout-chip" type="button" data-scout-prompt="${prompt}">${prompt}</button>`)
+    .map((prompt) => renderScoutPromptControl(prompt, "scout-chip"))
     .join("");
 }
 
@@ -1018,11 +1020,15 @@ const composerLabel = widget.querySelector("label[for='scout-input']");
 const moreLabel = widget.querySelector(".scout-more-label");
 const juggleRecord = document.querySelector("#juggle-record");
 const tournamentView = document.querySelector("#standings-view");
+const footerSourceNote = document.querySelector(".site-footer .source-note");
+const scoutMobileMedia = window.matchMedia("(max-width: 560px)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const SCOUT_FOOTER_COLLISION_GAP = 8;
 
 panel.inert = true;
 
 let isOpen = false;
+let scoutFooterCollisionFrame = 0;
 let pointerFrame = 0;
 let latestPointer = null;
 let blinkTimer = 0;
@@ -1700,6 +1706,94 @@ function queueScoutVisualViewportSync() {
   scoutVisualViewportFrame = window.requestAnimationFrame(syncScoutVisualViewport);
 }
 
+function clearScoutFooterAvoidance() {
+  if (!footerSourceNote) {
+    return;
+  }
+
+  footerSourceNote.classList.remove("has-scout-collision");
+  footerSourceNote.style.removeProperty("--scout-footer-exclusion-width");
+  footerSourceNote.style.removeProperty("--scout-footer-exclusion-height");
+}
+
+function syncScoutFooterAvoidance() {
+  scoutFooterCollisionFrame = 0;
+
+  if (!footerSourceNote || isOpen || !scoutMobileMedia.matches) {
+    clearScoutFooterAvoidance();
+    return;
+  }
+
+  const noteBounds = footerSourceNote.getBoundingClientRect();
+  const widgetBounds = widget.getBoundingClientRect();
+  const gap = SCOUT_FOOTER_COLLISION_GAP;
+  const intersects =
+    widgetBounds.width > 0 &&
+    widgetBounds.height > 0 &&
+    widgetBounds.right + gap > noteBounds.left &&
+    widgetBounds.left - gap < noteBounds.right &&
+    widgetBounds.bottom + gap > noteBounds.top &&
+    widgetBounds.top - gap < noteBounds.bottom;
+
+  if (!intersects) {
+    clearScoutFooterAvoidance();
+    return;
+  }
+
+  const exclusionLeft = Math.max(noteBounds.left, widgetBounds.left - gap);
+  const exclusionWidth = Math.max(0, noteBounds.right - exclusionLeft);
+  const exclusionHeight = noteBounds.height;
+
+  footerSourceNote.style.setProperty(
+    "--scout-footer-exclusion-width",
+    `${Math.ceil(exclusionWidth)}px`
+  );
+  footerSourceNote.style.setProperty(
+    "--scout-footer-exclusion-height",
+    `${Math.ceil(exclusionHeight)}px`
+  );
+  footerSourceNote.classList.add("has-scout-collision");
+}
+
+function queueScoutFooterAvoidance() {
+  if (!scoutFooterCollisionFrame) {
+    scoutFooterCollisionFrame = window.requestAnimationFrame(syncScoutFooterAvoidance);
+  }
+}
+
+function initializeScoutFooterAvoidance() {
+  if (!footerSourceNote) {
+    return;
+  }
+
+  window.addEventListener("scroll", queueScoutFooterAvoidance, { passive: true });
+  window.addEventListener("resize", queueScoutFooterAvoidance, { passive: true });
+  window.visualViewport?.addEventListener("resize", queueScoutFooterAvoidance, {
+    passive: true
+  });
+  window.visualViewport?.addEventListener("scroll", queueScoutFooterAvoidance, {
+    passive: true
+  });
+  window.addEventListener("worldcup:languagechange", queueScoutFooterAvoidance);
+  scoutMobileMedia.addEventListener?.("change", queueScoutFooterAvoidance);
+  widget.addEventListener("transitionend", queueScoutFooterAvoidance);
+
+  if (typeof ResizeObserver !== "undefined") {
+    const footerObserver = new ResizeObserver(queueScoutFooterAvoidance);
+    footerObserver.observe(footerSourceNote);
+  }
+
+  if (typeof MutationObserver !== "undefined") {
+    const widgetObserver = new MutationObserver(queueScoutFooterAvoidance);
+    widgetObserver.observe(widget, {
+      attributes: true,
+      attributeFilter: ["class", "style"]
+    });
+  }
+
+  queueScoutFooterAvoidance();
+}
+
 function setOpen(nextOpen, { focus = true } = {}) {
   if (isOpen === nextOpen) {
     return;
@@ -1989,6 +2083,14 @@ function getScoutPromptKey(value) {
     .replace(/\s+/g, " ");
 }
 
+function renderScoutPromptControl(prompt, className) {
+  const escapedPrompt = escapeScoutHtml(prompt);
+  if (getScoutPromptKey(prompt) === getScoutPromptKey(scoutText("reportIssue"))) {
+    return `<a class="${className}" href="${escapeScoutHtml(getScoutReportIssueUrl())}" data-scout-prompt="${escapedPrompt}" data-scout-report-issue>${escapedPrompt}</a>`;
+  }
+  return `<button class="${className}" type="button" data-scout-prompt="${escapedPrompt}">${escapedPrompt}</button>`;
+}
+
 function renderScoutFollowUps(prompts = [], excludedPrompts = []) {
   const excludedKeys = new Set(
     [currentAnswerPrompt, ...excludedPrompts].map(getScoutPromptKey).filter(Boolean)
@@ -2013,9 +2115,7 @@ function renderScoutFollowUps(prompts = [], excludedPrompts = []) {
       ${uniquePrompts
         .map(
           (prompt) => `
-            <button class="scout-followup" type="button" data-scout-prompt="${escapeScoutHtml(prompt)}">
-              ${escapeScoutHtml(prompt)}
-            </button>
+            ${renderScoutPromptControl(prompt, "scout-followup")}
           `
         )
         .join("")}
@@ -2169,6 +2269,9 @@ function renderScoutWatchList(note) {
 function appendPlayerReply(reply, options = {}) {
   const { age, profile, stats, team } = reply;
   const focus = reply.focus || "overview";
+  const lead = focus === "overview"
+    ? scoutText("playerOverviewIntro", profile.displayName)
+    : reply.lead;
   const historical = Boolean(reply.historical || profile.historical);
   const tournamentYears = (profile.tournamentYears || []).join(", ");
   const shirt = profile.shirtNumber !== "" && focus !== "number" ? ` · #${profile.shirtNumber}` : "";
@@ -2254,7 +2357,7 @@ function appendPlayerReply(reply, options = {}) {
   `;
   createScoutVisualMessage(
     "player",
-    reply.focus === "overview" ? "" : reply.lead,
+    lead,
     body,
     reply.followUps,
     options
@@ -2781,17 +2884,21 @@ function getScoutTimeZoneLabel(timeZone, options = {}) {
   return `${localizedName}${offset ? ` ${offset}` : ""}`;
 }
 
-function getScoutReportIssueUrl(reply) {
+function getScoutReportIssueUrl(reply = {}) {
   const reportTemplate = scoutLocalePack?.knowledge?.templates?.reportUnsupported;
-  const params = new URLSearchParams({
-    type: "other",
-    from: window.location.href,
-    details: typeof reportTemplate === "function"
-      ? reportTemplate(reply.originalQuestion)
-      : isScoutZh()
-        ? `Ball Boy 暂不支持这个请求：${reply.originalQuestion}`
-        : `Ball Boy does not currently support this request: ${reply.originalQuestion}`
-  });
+  const originalQuestion = String(reply.originalQuestion || "").trim();
+  const params = new URLSearchParams({ from: window.location.href });
+  if (originalQuestion) {
+    params.set("type", "other");
+    params.set(
+      "details",
+      typeof reportTemplate === "function"
+        ? reportTemplate(originalQuestion)
+        : isScoutZh()
+          ? `Ball Boy 暂不支持这个请求：${originalQuestion}`
+          : `Ball Boy does not currently support this request: ${originalQuestion}`
+    );
+  }
   const timeZone = document.querySelector("#timezone-select")?.value;
   if (timeZone) {
     params.set("tz", timeZone);
@@ -3185,7 +3292,7 @@ input.addEventListener("focus", queueScoutVisualViewportSync);
 input.addEventListener("blur", queueScoutVisualViewportSync);
 suggestions.addEventListener("click", (event) => {
   const promptButton = event.target.closest("[data-scout-prompt]");
-  if (promptButton) {
+  if (promptButton && !promptButton.hasAttribute("data-scout-report-issue")) {
     submitQuestion(promptButton.dataset.scoutPrompt);
   }
 });
@@ -3283,7 +3390,7 @@ messages.addEventListener("click", (event) => {
     return;
   }
   const promptButton = event.target.closest("[data-scout-prompt]");
-  if (promptButton) {
+  if (promptButton && !promptButton.hasAttribute("data-scout-report-issue")) {
     submitQuestion(promptButton.dataset.scoutPrompt);
   }
 });
@@ -3379,5 +3486,6 @@ window.visualViewport?.addEventListener(
 
 initializeJuggleEyeReactions();
 initializeTournamentShowNextAvoidance();
+initializeScoutFooterAvoidance();
 applyScoutStaticLocale();
 scheduleBlink();

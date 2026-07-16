@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-5";
+} from "./locales/locale-runtime.js?v=2026-07-16-6";
 
 const DATA_VERSION = "2026-07-16-ranking-year-1";
 const DATA_URLS = {
@@ -3104,8 +3104,6 @@ const languageSelect = document.querySelector("#language-select");
 const languageStatus = document.querySelector("#language-status");
 const settingsLanguageLabel = document.querySelector("#settings-language-label");
 const settingsDarkModeLabel = document.querySelector("#settings-dark-mode-label");
-const settingsReportLink = document.querySelector("#settings-report-link");
-const settingsReportLabel = document.querySelector("#settings-report-label");
 const darkModeToggle = document.querySelector("#dark-mode-toggle");
 const timezoneLabel = document.querySelector(".timezone-label");
 const settingsYesterdayLabel = document.querySelector("#settings-yesterday-label");
@@ -7116,15 +7114,6 @@ function renderStaticText() {
   }
   if (settingsLanguageLabel) {
     settingsLanguageLabel.textContent = t("language");
-  }
-  if (settingsReportLabel) {
-    settingsReportLabel.textContent = t("reportIssue");
-  }
-  if (settingsReportLink) {
-    settingsReportLink.href =
-      currentLanguage === DEFAULT_LANGUAGE
-        ? "report.html"
-        : `report.html?lang=${encodeURIComponent(currentLanguage)}`;
   }
   renderLanguageControls();
 
@@ -14956,7 +14945,7 @@ function renderTournamentProgressRound(round, context, roundIndex, options = {})
   const roundLabel = localizeStageLabel(round.label);
   return `
     <section class="progress-round is-${escapeHtml(round.id)}" data-round-id="${escapeHtml(round.id)}" data-round-index="${escapeHtml(roundIndex)}" aria-label="${escapeHtml(roundLabel)}">
-      <h3>${escapeHtml(roundLabel)}</h3>
+      <h3><button class="tournament-round-jump" type="button">${escapeHtml(roundLabel)}</button></h3>
       <div class="progress-match-list">
         ${round.matchNumbers
           .map((matchNumber, index) =>
@@ -15398,7 +15387,7 @@ function renderHistoricalTournamentRound(round, context, roundIndex, rowCount) {
 
   return `
     <section class="progress-round is-${escapeHtml(roundClassName)}" data-round-id="${escapeHtml(round.key)}" data-round-index="${escapeHtml(roundIndex)}" aria-label="${escapeHtml(roundLabel)}">
-      <h3>${escapeHtml(roundLabel)}</h3>
+      <h3><button class="tournament-round-jump" type="button">${escapeHtml(roundLabel)}</button></h3>
       <div class="progress-match-list">
         ${round.fixtures
           .map((match, matchIndex) =>
@@ -27499,14 +27488,17 @@ function createTeamSearchSection(title, items, stateForMatch, options = {}) {
   return section;
 }
 
-function createOlderWorldCupsToggle(hiddenCount, isExpanded) {
-  const section = document.createElement("section");
-  section.className = "team-search-section team-search-archive-toggle";
-  const button = document.createElement("button");
-  button.className = "past-reveal-button team-search-history-button";
-  button.type = "button";
-  button.dataset.teamHistoryToggle = "true";
+function updateOlderWorldCupsToggle(button, hiddenCount, isExpanded, isLoading = false) {
   button.setAttribute("aria-expanded", String(isExpanded));
+  button.classList.toggle("is-loading", isLoading);
+  if (isLoading) {
+    button.setAttribute("aria-busy", "true");
+    button.setAttribute("aria-disabled", "true");
+  } else {
+    button.removeAttribute("aria-busy");
+    button.removeAttribute("aria-disabled");
+  }
+
   const actionLabel = isExpanded
     ? localizeText("Hide previous World Cups")
     : formatActiveLocaleMessage(
@@ -27514,36 +27506,86 @@ function createOlderWorldCupsToggle(hiddenCount, isExpanded) {
         { count: hiddenCount },
         localizeText(`See previous World Cups (${hiddenCount})`)
       );
-  button.innerHTML = `
-    <span class="past-reveal-action">
-      ${escapeHtml(actionLabel)}
-    </span>
-  `;
-  button.addEventListener("click", () => {
-    const showArchive = !isExpanded;
-    if (!showArchive) {
-      isShowingOlderTeamMatches = false;
-      renderSchedule();
-      return;
+  const action = button.querySelector(".past-reveal-action");
+  if (action) {
+    action.textContent = actionLabel;
+  }
+}
+
+function createOlderWorldCupsToggle(hiddenCount, isExpanded, options = {}) {
+  const section = document.createElement("section");
+  section.className = "team-search-section team-search-archive-toggle";
+  const button = document.createElement("button");
+  button.className = "past-reveal-button team-search-history-button";
+  button.type = "button";
+  button.dataset.teamHistoryToggle = "true";
+  button.innerHTML = '<span class="past-reveal-action"></span>';
+
+  let archiveSection = options.archiveSection || null;
+  let isArchiveExpanded = isExpanded;
+
+  const setArchiveExpanded = (showArchive) => {
+    if (showArchive) {
+      if (!archiveSection) {
+        archiveSection = createTeamSearchSection(
+          "Previous World Cups",
+          options.items || [],
+          options.stateForMatch,
+          {
+            className: "is-archive",
+            currentTime: options.currentTime
+          }
+        );
+        updateWrappedMatchRows(archiveSection);
+        updateTruncatedTeamTooltips(archiveSection);
+        updateTooltipBounds(archiveSection);
+      }
+      section.before(archiveSection);
+    } else {
+      archiveSection?.remove();
     }
+
+    isArchiveExpanded = showArchive;
+    isShowingOlderTeamMatches = showArchive;
+    updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded);
+  };
+
+  updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded);
+  button.addEventListener("click", async () => {
     if (button.dataset.localeLoading === "true") {
       return;
     }
+
+    if (isArchiveExpanded) {
+      setArchiveExpanded(false);
+      return;
+    }
+
+    const needsArchiveLocale =
+      currentLanguage !== "en" &&
+      currentLanguage !== "zh" &&
+      !activeLocaleContentScopes.has("archive");
+    if (!needsArchiveLocale) {
+      setArchiveExpanded(true);
+      return;
+    }
+
     button.dataset.localeLoading = "true";
-    ensureActiveLocaleContentScope("archive")
-      .then((didLoadArchiveLocale) => {
-        if (!didLoadArchiveLocale) {
-          return;
-        }
-        isShowingOlderTeamMatches = true;
-        renderSchedule();
-      })
-      .catch((error) => {
-        console.warn("Unable to load the archive locale", error);
-      })
-      .finally(() => {
-        delete button.dataset.localeLoading;
-      });
+    updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded, true);
+    try {
+      const didLoadArchiveLocale = await ensureActiveLocaleContentScope("archive");
+      if (!didLoadArchiveLocale || !button.isConnected) {
+        return;
+      }
+      setArchiveExpanded(true);
+    } catch (error) {
+      console.warn("Unable to load the archive locale", error);
+    } finally {
+      delete button.dataset.localeLoading;
+      if (button.isConnected) {
+        updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded);
+      }
+    }
   });
   section.append(button);
   return section;
@@ -27613,16 +27655,24 @@ function renderTeamSearchResults(options = {}) {
     nodes.push(createTeamSearchSection("Previous matches", previousCurrentMatches, stateForMatch, { currentTime }));
   }
 
-  if (olderWorldCupMatches.length && isShowingOlderTeamMatches) {
+  if (olderWorldCupMatches.length) {
+    const archiveSection = isShowingOlderTeamMatches
+      ? createTeamSearchSection("Previous World Cups", olderWorldCupMatches, stateForMatch, {
+          className: "is-archive",
+          currentTime
+        })
+      : null;
+    if (archiveSection) {
+      nodes.push(archiveSection);
+    }
     nodes.push(
-      createTeamSearchSection("Previous World Cups", olderWorldCupMatches, stateForMatch, {
-        className: "is-archive",
-        currentTime
+      createOlderWorldCupsToggle(olderWorldCupMatches.length, isShowingOlderTeamMatches, {
+        archiveSection,
+        currentTime,
+        items: olderWorldCupMatches,
+        stateForMatch
       })
     );
-    nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length, true));
-  } else if (olderWorldCupMatches.length) {
-    nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length, false));
   }
 
   const activeSearchMatch = searchMatches.find(({ match }) => match.id === activeMatchId)?.match || null;
@@ -30161,6 +30211,18 @@ standingsGrid.addEventListener("click", (event) => {
   ) {
     event.preventDefault();
     tournamentBoardSuppressClickUntil = 0;
+    return;
+  }
+
+  const roundJumpButton = targetElement?.closest(".tournament-round-jump");
+
+  if (roundJumpButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    const firstMatch = roundJumpButton
+      .closest(".progress-round")
+      ?.querySelector('.progress-match[data-match-index="0"], .progress-match');
+    spotlightDrillTarget(firstMatch);
     return;
   }
 

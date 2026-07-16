@@ -3,7 +3,7 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-5";
+} from "./locales/locale-runtime.js?v=2026-07-16-6";
 
 const BALL_BOY_DATA_VERSION = "2026-07-16-ranking-year-1";
 const BALL_BOY_DATA_URLS = {
@@ -4282,16 +4282,16 @@ function getUnknownReply(locale = "en") {
   }
   if (isZhLocale(locale)) {
     return {
-      followUps: ["介绍一下姆巴佩", "西班牙怎么踢？", "解释红牌"],
+      followUps: ["报告问题", "介绍一下姆巴佩", "西班牙怎么踢？"],
       kind: "unknown",
       text: "我没看懂。试试问一名球员、一支国家队、一场比赛或一条规则。"
     };
   }
   return {
     followUps: [
+      "Report issue",
       "Tell me about Kylian Mbappe",
-      "How does Spain play?",
-      "Explain a red card"
+      "How does Spain play?"
     ],
     kind: "unknown",
     text: "I didn’t understand that. Try a player, team, match, or rule."

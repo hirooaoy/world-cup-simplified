@@ -72,6 +72,17 @@ try {
   const input = page.locator("#scout-input");
   const send = page.locator(".scout-send");
 
+  await input.fill("messi");
+  await send.click();
+  const messiAnswer = page.locator(".scout-answer.is-player").last();
+  await messiAnswer.getByRole("heading", { name: "Lionel Messi" }).waitFor({ state: "visible" });
+  assert(
+    (await messiAnswer.locator(".scout-answer-lead").textContent())?.trim() ===
+      "Here’s more about Lionel Messi.",
+    "A shorthand player search should introduce the player before rendering the card."
+  );
+
+  await page.locator("#scout-reset").click();
   await input.fill("who is raul");
   await send.click();
   const clarification = page.locator(".scout-answer.is-clarify").last();
@@ -126,10 +137,12 @@ try {
         value: fact.querySelector("strong")?.textContent.trim() || ""
       })),
     header: card.querySelector(".scout-entity-header")?.textContent.replace(/\s+/g, " ").trim() || "",
-    hasPlayerDetails: Boolean(card.querySelector('[aria-label="Player details"]'))
+    hasPlayerDetails: Boolean(card.querySelector('[aria-label="Player details"]')),
+    lead: card.closest(".scout-answer")?.querySelector(".scout-answer-lead")?.textContent.trim() || ""
   }));
   assert(
-    historicalMetrics.header.includes("Raúl") &&
+    historicalMetrics.lead === "Here’s more about Raúl." &&
+      historicalMetrics.header.includes("Raúl") &&
       historicalMetrics.header.includes("Spain · Forward • 1998, 2002, 2006") &&
       historicalMetrics.factValues.some((fact) => fact.label === "Goals" && fact.value === "5") &&
       historicalMetrics.factValues.some((fact) => fact.label === "World Cups" && fact.value === "3") &&

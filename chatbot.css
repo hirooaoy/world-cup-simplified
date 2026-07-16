@@ -1384,6 +1384,8 @@ body.is-juggle-active .scout-pupil {
 }
 
 .scout-followup {
+  display: inline-flex;
+  align-items: center;
   min-height: 40px;
   border: 1px solid rgba(10, 10, 10, 0.12);
   border-radius: 999px;
@@ -1395,6 +1397,7 @@ body.is-juggle-active .scout-pupil {
   font-weight: 680;
   line-height: 1.2;
   text-align: left;
+  text-decoration: none;
   transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
 }
 
@@ -2836,6 +2839,8 @@ body.is-juggle-active .scout-pupil {
 }
 
 .scout-chip {
+  display: inline-flex;
+  align-items: center;
   min-height: 40px;
   border: 1px solid rgba(10, 10, 10, 0.11);
   border-radius: 999px;
@@ -2848,6 +2853,7 @@ body.is-juggle-active .scout-pupil {
   font-weight: 650;
   line-height: 1.2;
   text-align: left;
+  text-decoration: none;
   transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
 }
 

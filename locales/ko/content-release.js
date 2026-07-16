@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "cd96d0038934012e41dfb3558df90152e071ab76937f8fb80d81b1aa6de89580"
+  "sourceFingerprint": "ab46cac4885c2b890be0f3e84bb2d3d7c1197a2aca57b1004f008d7d81affffa"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
   "Language packs load only when selected and reuse structured football templates for current and historical content, keeping English visits unchanged and first-switch transfers to about 90 KB for Spanish and 119 KB for Korean.": "언어 팩은 선택할 때만 불러오며 현재·역대 콘텐츠에 구조화된 축구 템플릿을 재사용합니다. 영어 방문의 로딩은 그대로이고 첫 전환 전송량은 스페인어 약 90 KB, 한국어 약 119 KB입니다.",
   "Player names follow broadcast conventions: familiar official spellings in Spanish and sourced Korean newsroom names, with all 4,052 current and historical player records covered.": "선수 이름은 방송 표기를 따릅니다. 스페인어는 익숙한 공식 철자를 유지하고 한국어는 출처가 확인된 뉴스룸 표기를 사용하며, 현역·역대 선수 4,052명을 모두 다룹니다.",
   "Spanish (Latin America) and Korean now cover the full app, including matches, standings, tournament paths, search, Catch Up, player and coach cards, country views, past and future World Cups, Ball Boy, Report issue, and release notes.": "중남미 스페인어와 한국어가 경기, 순위, 토너먼트 대진, 검색, 한눈에 보기, 선수·감독 카드, 국가별 화면, 역대·향후 월드컵, Ball Boy, 문제 신고와 릴리스 노트까지 앱 전체를 지원합니다.",
-  "Spanish and Korean, lighter language loading, and fresher medal-match line-ups": "스페인어·한국어 지원, 더 가벼운 언어 로딩과 최신 메달 결정전 라인업"
+  "Spanish and Korean, faster history browsing, and polished controls": "스페인어·한국어 지원, 더 빠른 역대 기록 탐색과 세련된 조작"
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

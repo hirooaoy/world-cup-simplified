@@ -46,7 +46,7 @@ const localeCases = [
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
     latestReleaseTitle:
-      "Español y coreano, carga de idiomas más ligera y alineaciones actualizadas para los partidos por las medallas",
+      "Español y coreano, navegación histórica más rápida y controles más pulidos",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -114,7 +114,7 @@ const localeCases = [
     catchUpBody: "아르헨티나의 2-1 승리로 결승 진출이 확정됐다.",
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "스페인어·한국어 지원, 더 가벼운 언어 로딩과 최신 메달 결정전 라인업",
+    latestReleaseTitle: "스페인어·한국어 지원, 더 빠른 역대 기록 탐색과 세련된 조작",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:

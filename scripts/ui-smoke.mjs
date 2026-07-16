@@ -2181,25 +2181,17 @@ try {
   const themeToggleOrder = await themeTogglePage.evaluate(() => {
     const yesterdaySetting = document.querySelector("#show-yesterday-toggle")?.closest(".settings-section");
     const darkModeSetting = document.querySelector("#dark-mode-toggle")?.closest(".settings-section");
-    const reportIssueSetting = document.querySelector("#settings-report-link");
-    const darkModeLabel = document.querySelector("#settings-dark-mode-label");
-    const reportIssueLabel = document.querySelector("#settings-report-label");
     return {
       darkModeIsNext: yesterdaySetting?.nextElementSibling === darkModeSetting,
-      href: reportIssueSetting?.getAttribute("href") || "",
-      labelFontSizeMatches:
-        getComputedStyle(darkModeLabel).fontSize === getComputedStyle(reportIssueLabel).fontSize,
-      reportIssueIsLast: reportIssueSetting?.nextElementSibling === null,
-      reportIssueIsNext: darkModeSetting?.nextElementSibling === reportIssueSetting
+      darkModeIsLast: darkModeSetting?.nextElementSibling === null,
+      hasReportIssue: Boolean(document.querySelector("#settings-report-link"))
     };
   });
   assert(
     themeToggleOrder.darkModeIsNext &&
-      themeToggleOrder.reportIssueIsNext &&
-      themeToggleOrder.reportIssueIsLast &&
-      themeToggleOrder.href === "report.html" &&
-      themeToggleOrder.labelFontSizeMatches,
-    `Settings should place a same-size Report issue link directly below Dark mode. Measured ${JSON.stringify(themeToggleOrder)}.`
+      themeToggleOrder.darkModeIsLast &&
+      !themeToggleOrder.hasReportIssue,
+    `Settings should end with Dark mode and leave Report issue to Ball Boy. Measured ${JSON.stringify(themeToggleOrder)}.`
   );
   await themeTogglePage
     .locator("label.settings-toggle-control:has(#dark-mode-toggle)")
@@ -2293,9 +2285,8 @@ try {
   );
   assert(
     (await themeTogglePage.locator("#dark-mode-toggle").getAttribute("aria-label")) === "深色模式" &&
-      (await themeTogglePage.locator("#settings-report-label").innerText()) === "报告问题" &&
-      (await themeTogglePage.locator("#settings-report-link").getAttribute("href")) === "report.html?lang=zh",
-    "The dark-mode and report settings should localize in Chinese, and the report link should preserve the language."
+      (await themeTogglePage.locator("#settings-report-link").count()) === 0,
+    "The dark-mode setting should localize in Chinese while Report issue stays out of Settings."
   );
   await themeToggleContext.close();
 
@@ -7254,6 +7245,9 @@ try {
   await japanSearchCheck.page.setViewportSize({ width: 390, height: 844 });
   const japanHistoryToggle = japanSearchCheck.page.locator('[data-team-history-toggle="true"]');
   const japanCollapsedHistoryLabel = (await japanHistoryToggle.innerText()).trim();
+  await japanHistoryToggle.evaluate((button) => {
+    button.dataset.smokeToggleIdentity = "preserved";
+  });
   const japanCollapsedHistoryChevron = await japanHistoryToggle
     .locator(".past-reveal-action")
     .evaluate((action) => getComputedStyle(action, "::after").transform);
@@ -7263,6 +7257,7 @@ try {
     "Collapsed country history should offer to show the number of previous World Cup matches."
   );
   await japanHistoryToggle.click();
+  await japanSearchCheck.page.waitForTimeout(200);
   const japanArchiveRows = await japanSearchCheck.page
     .locator(".team-search-section.is-archive .match-row")
     .evaluateAll((rows) =>
@@ -7290,6 +7285,8 @@ try {
   assert(
     (await japanHistoryToggle.innerText()).trim() === "Hide previous World Cups" &&
       (await japanHistoryToggle.getAttribute("aria-expanded")) === "true" &&
+      (await japanHistoryToggle.getAttribute("data-smoke-toggle-identity")) === "preserved" &&
+      (await japanHistoryToggle.getAttribute("aria-busy")) === null &&
       (await japanHistoryToggle
         .locator(".past-reveal-action")
         .evaluate((action) => getComputedStyle(action, "::after").transform)) !==
@@ -7300,7 +7297,8 @@ try {
   assert(
     (await japanSearchCheck.page.locator(".team-search-section.is-archive").count()) === 0 &&
       (await japanHistoryToggle.innerText()).trim() === japanCollapsedHistoryLabel &&
-      (await japanHistoryToggle.getAttribute("aria-expanded")) === "false",
+      (await japanHistoryToggle.getAttribute("aria-expanded")) === "false" &&
+      (await japanHistoryToggle.getAttribute("data-smoke-toggle-identity")) === "preserved",
     "Hiding country history should collapse the archive and restore the See action."
   );
   await japanSearchCheck.context.close();
@@ -14102,9 +14100,10 @@ try {
     JSON.stringify(initialBallBoyPrompts) === JSON.stringify([
       "Explain offside",
       "Change timezone",
-      "How does Argentina play?"
+      "How does Argentina play?",
+      "Report issue"
     ]),
-    `Ball Boy should open with the three curated questions in order. Measured ${JSON.stringify(initialBallBoyPrompts)}.`
+    `Ball Boy should open with the four curated actions in order. Measured ${JSON.stringify(initialBallBoyPrompts)}.`
   );
   const initialBallBoySheetState = await touchPage.evaluate(() => {
     const widget = document.querySelector("#scout-widget")?.getBoundingClientRect();
@@ -14296,7 +14295,6 @@ try {
       ballBoyKeyboardState.widgetTop >= 0 &&
       ballBoyKeyboardState.widgetBottom <= ballBoyKeyboardState.visualBottom + 1 &&
       ballBoyKeyboardState.composerBottom <= ballBoyKeyboardState.visualBottom + 1 &&
-      Math.abs(ballBoyKeyboardState.leftGap - 12) <= 1 &&
       Math.abs(ballBoyKeyboardState.rightGap - 12) <= 1 &&
       Math.abs(ballBoyKeyboardState.widgetWidth - (390 - 24)) <= 1 &&
       ballBoyKeyboardState.restoredHeight &&
@@ -14355,7 +14353,7 @@ try {
     };
   });
   assert(
-    haalandBallBoyMetrics.lead === "" &&
+    haalandBallBoyMetrics.lead === "Here’s more about Erling Haaland." &&
       haalandBallBoyMetrics.club === "Manchester City (Premier League)" &&
       JSON.stringify(haalandBallBoyMetrics.scopes) === JSON.stringify(["This World Cup", "Player details"]) &&
       haalandBallBoyMetrics.statCells[0] === "7 Goals" &&
@@ -14971,20 +14969,28 @@ try {
   await touchPage.locator(".scout-answer.is-unknown").waitFor({ state: "visible" });
   const unknownBallBoyMetrics = await touchPage.evaluate(() => {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
-    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
-      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const promptItems = [...answer.querySelectorAll("[data-scout-prompt]")];
+    const prompts = promptItems.map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const reportLink = promptItems[0];
     return {
       decorationCount: answer.querySelectorAll(".scout-answer-type, .scout-unknown-mark").length,
       overflow: answer.scrollWidth - answer.clientWidth,
       promptCount: prompts.length,
+      prompts,
       promptUniqueCount: new Set(prompts).size,
+      reportHref: reportLink?.getAttribute("href") || "",
+      reportIsLink: reportLink?.tagName === "A",
       text: answer.querySelector(".scout-answer-lead")?.textContent.trim() || ""
     };
   });
   assert(
     unknownBallBoyMetrics.decorationCount === 0 &&
       unknownBallBoyMetrics.text === "I didn’t understand that. Try a player, team, match, or rule." &&
+      unknownBallBoyMetrics.promptCount === 3 &&
       unknownBallBoyMetrics.promptCount === unknownBallBoyMetrics.promptUniqueCount &&
+      unknownBallBoyMetrics.prompts[0] === "report issue" &&
+      unknownBallBoyMetrics.reportIsLink &&
+      unknownBallBoyMetrics.reportHref.startsWith("report.html?") &&
       unknownBallBoyMetrics.overflow <= 1,
     `Ball Boy's fallback should stay direct without an answer-type pill or decorative face. Measured ${JSON.stringify(unknownBallBoyMetrics)}.`
   );
@@ -15051,7 +15057,8 @@ try {
       JSON.stringify(zhBallBoyShell.prompts) === JSON.stringify([
         "解释越位",
         "更改时区",
-        "阿根廷怎么踢？"
+        "阿根廷怎么踢？",
+        "报告问题"
       ]) &&
       (await zhBallBoySend.isDisabled()),
     `Chinese Ball Boy shell, curated prompts, and accessibility copy should render together. Measured ${JSON.stringify(zhBallBoyShell)}.`
@@ -15092,6 +15099,7 @@ try {
     const card = answer.querySelector(".scout-player-card");
     const noteBlock = [...card.querySelectorAll(".scout-explainer")].at(-1);
     return {
+      lead: answer.querySelector(".scout-answer-lead")?.textContent.trim() || "",
       labels: [...card.querySelectorAll(".scout-section-label")].map((item) => item.textContent.trim()),
       noteBullets: [...(noteBlock?.querySelectorAll(".scout-player-watch-points li") || [])]
         .map((item) => item.textContent.trim()),
@@ -15102,7 +15110,8 @@ try {
     };
   });
   assert(
-    zhPlayerBallBoyMetrics.text.includes("基利安·姆巴佩") &&
+    zhPlayerBallBoyMetrics.lead === "下面是更多关于基利安·姆巴佩的信息。" &&
+      zhPlayerBallBoyMetrics.text.includes("基利安·姆巴佩") &&
       zhPlayerBallBoyMetrics.text.includes("法国") &&
       zhPlayerBallBoyMetrics.labels.includes("本届世界杯") &&
       zhPlayerBallBoyMetrics.labels.includes("球员资料") &&

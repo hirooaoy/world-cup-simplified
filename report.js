@@ -1,8 +1,9 @@
 import {
   getLanguageConfig,
+  getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-5";
+} from "./locales/locale-runtime.js?v=2026-07-16-6";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
@@ -40,6 +41,14 @@ const backLink = document.querySelector("#back-link");
 const backLinkLabel = document.querySelector("#back-link-label");
 const reportHeading = document.querySelector("#report-heading");
 const sourceNote = document.querySelector("#source-note");
+const settingsButton = document.querySelector("#settings-button");
+const settingsPopover = document.querySelector("#settings-popover");
+const settingsLanguageLabel = document.querySelector("#settings-language-label");
+const languageSelect = document.querySelector("#language-select");
+const settingsDarkModeLabel = document.querySelector("#settings-dark-mode-label");
+const darkModeToggle = document.querySelector("#dark-mode-toggle");
+const settingsHomeLink = document.querySelector("#settings-home-link");
+const settingsHomeLabel = document.querySelector("#settings-home-label");
 
 const requestedReportType = params.get("type") || "";
 const reportType = LEGACY_REPORT_TYPE_ALIASES[requestedReportType] || requestedReportType;
@@ -108,6 +117,13 @@ const text = {
   }
 };
 const t = activeLocalePack?.text || text[currentLanguage] || text.en;
+const shellText = getLocaleShellMessages(currentLanguage);
+const backToHomeText = {
+  en: "Back to Home",
+  es: "Volver al inicio",
+  ko: "홈으로 돌아가기",
+  zh: "返回首页"
+}[currentLanguage] || "Back to Home";
 const footerText = {
   en: {
     dataRefreshed: "Data refreshed",
@@ -202,6 +218,12 @@ if (backParams.size) {
   backLink.href = `./?${backParams.toString()}`;
 }
 
+const homeParams = new URLSearchParams();
+if (currentLanguage !== "en") {
+  homeParams.set("lang", currentLanguage);
+}
+settingsHomeLink.href = homeParams.size ? `./?${homeParams.toString()}` : "./";
+
 function getCurrentLanguage() {
   const resolveSupportedLanguage = (value) => {
     const rawLanguage = String(value || "").trim().toLowerCase();
@@ -259,6 +281,15 @@ function renderStaticText() {
   if (reportHeading) {
     reportHeading.textContent = t.reportHeading;
   }
+  settingsButton.setAttribute("aria-label", shellText.settings);
+  settingsButton.setAttribute("title", shellText.settings);
+  settingsPopover.setAttribute("aria-label", shellText.settings);
+  settingsLanguageLabel.textContent = shellText.language;
+  languageSelect.value = currentLanguage;
+  settingsDarkModeLabel.textContent = shellText.darkMode;
+  darkModeToggle.checked = window.worldCupTheme?.getTheme() === "dark";
+  darkModeToggle.setAttribute("aria-label", shellText.darkMode);
+  settingsHomeLabel.textContent = backToHomeText;
   reportForm.querySelector("[data-report-label='issue']").textContent = t.issue;
   reportForm.querySelector("[data-report-label='details']").textContent = t.details;
   reportForm.querySelector("[data-report-label='email']").firstChild.textContent = `${t.replyEmail} `;
@@ -662,3 +693,49 @@ reportForm.addEventListener("submit", async (event) => {
 
 issueType.addEventListener("change", updateSubmitState);
 issueDetails.addEventListener("input", updateSubmitState);
+
+function setSettingsOpen(isOpen) {
+  settingsPopover.classList.toggle("is-hidden", !isOpen);
+  settingsButton.setAttribute("aria-expanded", String(isOpen));
+}
+
+settingsButton.addEventListener("click", () => {
+  setSettingsOpen(settingsButton.getAttribute("aria-expanded") !== "true");
+});
+
+languageSelect.addEventListener("change", () => {
+  const nextLanguage = normalizeLanguage(languageSelect.value);
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
+  const nextUrl = new URL(window.location.href);
+  if (nextLanguage === "en") {
+    nextUrl.searchParams.delete("lang");
+  } else {
+    nextUrl.searchParams.set("lang", nextLanguage);
+  }
+  window.location.assign(`${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+});
+
+darkModeToggle.addEventListener("change", () => {
+  window.worldCupTheme?.setTheme(darkModeToggle.checked ? "dark" : "light");
+});
+
+window.worldCupTheme?.subscribe(({ theme }) => {
+  darkModeToggle.checked = theme === "dark";
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    settingsButton.getAttribute("aria-expanded") === "true" &&
+    !settingsPopover.contains(event.target) &&
+    !settingsButton.contains(event.target)
+  ) {
+    setSettingsOpen(false);
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && settingsButton.getAttribute("aria-expanded") === "true") {
+    setSettingsOpen(false);
+    settingsButton.focus();
+  }
+});
