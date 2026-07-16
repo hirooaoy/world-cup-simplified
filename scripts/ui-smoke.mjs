@@ -5549,6 +5549,51 @@ try {
     `Finished matches should not keep a prediction lineup heading, and team tabs should use compact visible codes. Measured ${JSON.stringify(finalLineupState)}.`
   );
 
+  const lineupInfoButton = finalLineupModeCheck.page.locator(
+    "#match-info .lineup-heading .info-tooltip-button"
+  );
+  await lineupInfoButton.evaluate((button) => {
+    const matchInfo = button.closest("#match-info");
+    const cardTop = matchInfo.getBoundingClientRect().top;
+    const buttonTop = button.getBoundingClientRect().top;
+    matchInfo.scrollTop += buttonTop - cardTop - 4;
+  });
+  const lineupInfoButtonBounds = await lineupInfoButton.boundingBox();
+  await finalLineupModeCheck.page.mouse.move(
+    lineupInfoButtonBounds.x + lineupInfoButtonBounds.width / 2,
+    lineupInfoButtonBounds.y + lineupInfoButtonBounds.height / 2
+  );
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    document
+      .querySelector("#match-info .lineup-heading .info-tooltip-button")
+      ?.classList.contains("is-tooltip-below")
+  );
+  const clippedLineupInfoTooltipState = await lineupInfoButton.evaluate((button) => {
+    const matchInfo = button.closest("#match-info");
+    const buttonBounds = button.getBoundingClientRect();
+    const cardBounds = matchInfo.getBoundingClientRect();
+    const tooltipStyle = getComputedStyle(button, "::after");
+    const tooltipTop = buttonBounds.top + (Number.parseFloat(tooltipStyle.top) || 0);
+
+    return {
+      buttonTopGap: Math.round((buttonBounds.top - cardBounds.top) * 10) / 10,
+      cardTop: Math.round(cardBounds.top * 10) / 10,
+      isBelow: button.classList.contains("is-tooltip-below"),
+      overflowY: getComputedStyle(matchInfo).overflowY,
+      tooltipBottom: tooltipStyle.bottom,
+      tooltipTop: Math.round(tooltipTop * 10) / 10,
+      tooltipTopProperty: tooltipStyle.top
+    };
+  });
+  assert(
+    clippedLineupInfoTooltipState.buttonTopGap <= 6 &&
+      clippedLineupInfoTooltipState.isBelow &&
+      clippedLineupInfoTooltipState.overflowY === "auto" &&
+      clippedLineupInfoTooltipState.tooltipTopProperty !== "auto" &&
+      clippedLineupInfoTooltipState.tooltipTop > clippedLineupInfoTooltipState.cardTop,
+    `A line-up info tooltip near the top of the desktop scroll card should flip below its trigger instead of being clipped. Measured ${JSON.stringify(clippedLineupInfoTooltipState)}.`
+  );
+
   await finalLineupModeCheck.page.locator('[data-match-id="match-80-round-of-32-2026-07-01"]').click();
   const lineupCornerEventState = await finalLineupModeCheck.page
     .locator("#match-info .lineup-preview-block")
@@ -7176,6 +7221,19 @@ try {
   await franceSearchCheck.page.setViewportSize({ width: 390, height: 844 });
   await franceSearchCheck.page.locator('[data-match-id="match-101-semi-final-2026-07-14"]').click();
   await franceSearchCheck.page.waitForSelector("#match-info:not(.is-hidden)");
+  await franceSearchCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info")?.getBoundingClientRect();
+    const list = document.querySelector("#match-list")?.getBoundingClientRect();
+
+    return Boolean(
+      info &&
+        list &&
+        info.top >= 0 &&
+        info.top < window.innerHeight * 0.25 &&
+        info.top > list.bottom &&
+        info.top - list.bottom >= 20
+    );
+  });
   const mobileSearchDetailMetrics = await franceSearchCheck.page.evaluate(() => {
     const info = document.querySelector("#match-info")?.getBoundingClientRect();
     const list = document.querySelector("#match-list")?.getBoundingClientRect();
@@ -10839,7 +10897,7 @@ try {
       rowAriaLabel: quansah?.getAttribute("aria-label") || "",
       rowColor: styles?.color || "",
       rowCount: rows.length,
-      status: quansah?.querySelector(".lineup-bench-availability-status")?.textContent.trim() || "",
+      visibleStatusCount: quansah?.querySelectorAll(".lineup-bench-availability-status").length || 0,
       substitutionControls: quansah?.querySelectorAll("[data-lineup-substitution-toggle]").length || 0,
       unavailableRows: unavailableRows.length,
       uniformNumber: quansah?.querySelector(".lineup-bench-number")?.textContent.trim() || ""
@@ -10854,7 +10912,7 @@ try {
       englandSuspendedBenchState.lastPlayerName === "Jarell Quansah" &&
       englandSuspendedBenchState.uniformNumber === "26" &&
       englandSuspendedBenchState.position === "CB" &&
-      englandSuspendedBenchState.status === "Suspended" &&
+      englandSuspendedBenchState.visibleStatusCount === 0 &&
       englandSuspendedBenchState.substitutionControls === 0 &&
       englandSuspendedBenchState.playerCardTriggers === 1 &&
       englandSuspendedBenchState.cardAriaLabel.includes("Jarell Quansah") &&
@@ -10863,8 +10921,47 @@ try {
       englandSuspendedBenchState.redCardTooltip ===
         "Red-card suspension • Sent off against Mexico • Second of two matches; ends after England vs Argentina" &&
       englandSuspendedBenchState.rowColor === "rgba(10, 10, 10, 0.38)",
-    `England's semifinal bench should announce 14 eligible substitutes and append Quansah as a grey suspended, unavailable player with profile access. Measured ${JSON.stringify(englandSuspendedBenchState)}.`
+    `England's semifinal bench should announce 14 eligible substitutes and append Quansah as a grey unavailable player whose suspension stays in the tooltip and accessibility copy. Measured ${JSON.stringify(englandSuspendedBenchState)}.`
   );
+  const quansahSuspensionBadge = page.locator(
+    '#match-info [data-lineup-player-name="Jarell Quansah"] .lineup-bench-availability-icon.is-red'
+  );
+  await quansahSuspensionBadge.focus();
+  await page.waitForFunction(() =>
+    document.querySelector(".lineup-event-tooltip-floating.is-visible")?.textContent.includes("Red-card suspension")
+  );
+  const suspensionTooltipState = await page.evaluate(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating.is-visible");
+    const bounds = tooltip?.getBoundingClientRect();
+    const styles = tooltip ? getComputedStyle(tooltip) : null;
+    return {
+      bounds: bounds
+        ? {
+            bottom: Math.round(bounds.bottom),
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top)
+          }
+        : null,
+      clientWidth: tooltip?.clientWidth || 0,
+      scrollWidth: tooltip?.scrollWidth || 0,
+      text: tooltip?.textContent.trim() || "",
+      viewport: { height: window.innerHeight, width: window.innerWidth },
+      whiteSpace: styles?.whiteSpace || ""
+    };
+  });
+  assert(
+    suspensionTooltipState.text ===
+      "Red-card suspension • Sent off against Mexico • Second of two matches; ends after England vs Argentina" &&
+      suspensionTooltipState.whiteSpace === "normal" &&
+      suspensionTooltipState.scrollWidth <= suspensionTooltipState.clientWidth + 1 &&
+      suspensionTooltipState.bounds?.left >= 0 &&
+      suspensionTooltipState.bounds?.right <= suspensionTooltipState.viewport.width &&
+      suspensionTooltipState.bounds?.top >= 0 &&
+      suspensionTooltipState.bounds?.bottom <= suspensionTooltipState.viewport.height,
+    `The suspension tooltip should wrap inside its floating box and stay within the viewport. Measured ${JSON.stringify(suspensionTooltipState)}.`
+  );
+  await page.keyboard.press("Escape");
   const quansahBenchProfileTrigger = page.locator(
     '#match-info [data-lineup-player-name="Jarell Quansah"] [data-player-card-trigger="true"]'
   );
@@ -12186,6 +12283,30 @@ try {
     "Mobile match rows should vertically center time and status chips against wrapped matchup text."
   );
 
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.locator("#team-search-toggle").click();
+  await page.locator("#team-search-input").fill("England");
+  await page.waitForFunction(
+    () => document.querySelector(".team-search-summary h2")?.textContent.trim() === "England"
+  );
+  await page.evaluate(() => {
+    window.__matchInfoScrollBehavior = null;
+    const originalScrollIntoView = Element.prototype.scrollIntoView;
+
+    Element.prototype.scrollIntoView = function scrollIntoView(options) {
+      if (this.id === "match-info") {
+        window.__matchInfoScrollBehavior = options?.behavior || null;
+      }
+      return originalScrollIntoView.call(this, options);
+    };
+  });
+  await page.locator("#match-list .match-row").first().click();
+  await page.waitForFunction(() => window.__matchInfoScrollBehavior !== null);
+  assert(
+    (await page.evaluate(() => window.__matchInfoScrollBehavior)) === "smooth",
+    "Choosing a country-search result in the stacked match layout should smoothly scroll to match details."
+  );
+
   await page.setViewportSize({ width: 640, height: 844 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -13190,6 +13311,18 @@ try {
       ),
     `On touch devices, tapping a line-up sub pill should swap the player without auto-opening the player card, and the return pill should stay above the portrait edge. Measured ${JSON.stringify(touchLineupSubstitutionState)}.`
   );
+  await touchPage.evaluate(() => {
+    document.documentElement.dataset.theme = "dark";
+  });
+  const darkPressedSubBackground = await touchPage
+    .locator(
+      '#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"] [data-lineup-substitution-toggle]'
+    )
+    .evaluate((button) => getComputedStyle(button).backgroundColor);
+  assert(
+    darkPressedSubBackground === "rgb(39, 53, 69)",
+    `The dark-mode pressed substitution pill should stay opaque so the player portrait cannot bleed through it. Measured ${darkPressedSubBackground}.`
+  );
   await touchPage.waitForTimeout(350);
   const touchFormationPill = touchPage
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
@@ -14052,6 +14185,11 @@ try {
       highlightLinks: answer?.querySelectorAll(".scout-highlight-link").length || 0,
       lead: answer?.querySelector(".scout-answer-lead")?.textContent.trim() || "",
       matchCards: answer?.querySelectorAll(".scout-match-card").length || 0,
+      teamVisuals: [...(answer?.querySelectorAll(".scout-scoreboard > div:not(.scout-score-value)") || [])]
+        .map((team) => ({
+          columnOpacity: getComputedStyle(team).opacity,
+          nameOpacity: getComputedStyle(team.querySelector("strong")).opacity
+        })),
       teams: [...(answer?.querySelectorAll(".scout-scoreboard strong") || [])]
         .map((team) => team.textContent.trim()),
       unrelatedSections: answer?.querySelectorAll(".scout-match-timeline, .scout-match-plans, .scout-match-recap, .scout-match-card > .scout-explainer").length || 0
@@ -14065,6 +14203,8 @@ try {
       : expectedArgentinaNextFixture &&
         nextFixtureMetrics.lead.startsWith(`${expectedArgentinaNextTeams.join(" vs ")}:`) &&
         JSON.stringify(nextFixtureMetrics.teams) === JSON.stringify(expectedArgentinaNextTeams) &&
+        nextFixtureMetrics.teamVisuals.length === 2 &&
+        nextFixtureMetrics.teamVisuals.every((team) => team.columnOpacity === "1" && team.nameOpacity === "0.58") &&
         nextFixtureMetrics.highlightLinks === 0 &&
         nextFixtureMetrics.unrelatedSections === 0,
     `Ball Boy should answer the exact Argentina next-match question for the current fixture state without crashing on a missing highlight. Measured ${JSON.stringify(nextFixtureMetrics)}.`
@@ -14086,6 +14226,11 @@ try {
         const bounds = flag.getBoundingClientRect();
         return { height: bounds.height, width: bounds.width };
       }),
+      teamVisuals: [...answer.querySelectorAll(".scout-scoreboard > div:not(.scout-score-value)")]
+        .map((team) => ({
+          columnOpacity: getComputedStyle(team).opacity,
+          nameOpacity: getComputedStyle(team.querySelector("strong")).opacity
+        })),
       overflow: answer.scrollWidth - answer.clientWidth,
       recapCount: answer.querySelectorAll(".scout-match-recap").length,
       promptCount: prompts.length,
@@ -14099,6 +14244,9 @@ try {
     matchBallBoyMetrics.cardClass.includes("is-focus-result") &&
       matchBallBoyMetrics.flagSizes.length === 2 &&
       matchBallBoyMetrics.flagSizes.every((flag) => flag.width > 0 && flag.height > 0) &&
+      matchBallBoyMetrics.teamVisuals.every((team) => team.columnOpacity === "1") &&
+      matchBallBoyMetrics.teamVisuals.some((team) => team.nameOpacity === "1") &&
+      matchBallBoyMetrics.teamVisuals.some((team) => team.nameOpacity === "0.58") &&
       matchBallBoyMetrics.englandFlag &&
       matchBallBoyMetrics.status.includes("After extra time") &&
       matchBallBoyMetrics.recapCount === 1 &&

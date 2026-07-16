@@ -2779,6 +2779,11 @@ h1 {
   white-space: pre-line;
 }
 
+.info-tooltip-button.is-tooltip-below::after {
+  top: calc(100% + 9px);
+  bottom: auto;
+}
+
 .info-tooltip-button:hover,
 .info-tooltip-button:focus {
   border-color: rgba(10, 10, 10, 0.24);
@@ -4916,6 +4921,9 @@ h1 {
 }
 
 .progress-round h3 {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   min-height: 30px;
@@ -6181,12 +6189,6 @@ h1 {
   color: rgba(10, 10, 10, 0.3);
 }
 
-.lineup-bench-availability-status {
-  color: rgba(10, 10, 10, 0.42);
-  font-size: 9px;
-  font-weight: 750;
-}
-
 .lineup-bench-availability-icon.lineup-event-card {
   min-width: 19px;
   width: 19px;
@@ -6252,7 +6254,8 @@ h1 {
   transform: translateY(4px);
   transition: opacity 140ms ease, transform 140ms ease;
   visibility: hidden;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .lineup-event-tooltip-floating.is-visible {
@@ -10603,8 +10606,7 @@ html[data-theme="dark"] .lineup-bench-player.is-unavailable {
 
 html[data-theme="dark"] .lineup-bench-player.is-unavailable :is(
   .lineup-bench-number,
-  .lineup-bench-position,
-  .lineup-bench-availability-status
+  .lineup-bench-position
 ) {
   color: rgba(245, 247, 250, 0.34);
 }
@@ -10677,7 +10679,7 @@ html[data-theme="dark"] .lineup-substitution-toggle:focus-visible {
 }
 
 html[data-theme="dark"] .lineup-substitution-toggle[aria-pressed="true"] {
-  background: rgba(115, 183, 255, 0.15);
+  background: #273545;
   color: var(--text);
 }
 

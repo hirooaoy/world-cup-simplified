@@ -8933,6 +8933,7 @@ function getTransformTranslateX(value) {
 
 function getTooltipClipRect(element) {
   const viewportRight = document.documentElement.clientWidth || window.innerWidth;
+  const viewportBottom = document.documentElement.clientHeight || window.innerHeight;
   const knockoutCard = element.matches(".knockout-likelihood[data-tooltip], .knockout-slot-odds[data-tooltip]")
     ? element.closest(".progress-match")
     : null;
@@ -8942,34 +8943,57 @@ function getTooltipClipRect(element) {
     if (rect.width > 0) {
       return {
         left: Math.max(0, rect.left),
-        right: Math.min(viewportRight, rect.right)
+        right: Math.min(viewportRight, rect.right),
+        top: 0,
+        bottom: viewportBottom
       };
     }
   }
 
+  let horizontalClip = null;
+  let verticalClip = null;
   let node = element.parentElement;
 
   while (node && node !== document.documentElement) {
     const style = getComputedStyle(node);
-    if (style.overflowX !== "visible") {
+    if (!horizontalClip && style.overflowX !== "visible") {
       const rect = node.getBoundingClientRect();
       if (rect.width > 0) {
-        return {
+        horizontalClip = {
           left: Math.max(0, rect.left),
           right: Math.min(viewportRight, rect.right)
         };
       }
     }
+
+    if (!verticalClip && style.overflowY !== "visible") {
+      const rect = node.getBoundingClientRect();
+      if (rect.height > 0) {
+        verticalClip = {
+          top: Math.max(0, rect.top),
+          bottom: Math.min(viewportBottom, rect.bottom)
+        };
+      }
+    }
+
+    if (horizontalClip && verticalClip) {
+      break;
+    }
     node = node.parentElement;
   }
 
-  return { left: 0, right: viewportRight };
+  return {
+    left: horizontalClip?.left ?? 0,
+    right: horizontalClip?.right ?? viewportRight,
+    top: verticalClip?.top ?? 0,
+    bottom: verticalClip?.bottom ?? viewportBottom
+  };
 }
 
-function measureTooltipOuterWidth(element, style) {
+function measureTooltipOuterSize(element, style) {
   const tooltipText = element?.getAttribute("data-tooltip") || "";
   if (!tooltipText || !document.body) {
-    return 0;
+    return { width: 0, height: 0 };
   }
 
   const probe = document.createElement("span");
@@ -8998,13 +9022,16 @@ function measureTooltipOuterWidth(element, style) {
   });
 
   document.body.append(probe);
-  const width = probe.getBoundingClientRect().width;
+  const bounds = probe.getBoundingClientRect();
   probe.remove();
 
-  return Number.isFinite(width) ? width : 0;
+  return {
+    width: Number.isFinite(bounds.width) ? bounds.width : 0,
+    height: Number.isFinite(bounds.height) ? bounds.height : 0
+  };
 }
 
-function getTooltipOuterWidth(style, element = null) {
+function getTooltipOuterWidth(style, element = null, measuredSize = null) {
   const width = getPixelValue(style.width);
   if (width) {
     return (
@@ -9016,7 +9043,7 @@ function getTooltipOuterWidth(style, element = null) {
     );
   }
 
-  return element ? measureTooltipOuterWidth(element, style) : 0;
+  return element ? (measuredSize || measureTooltipOuterSize(element, style)).width : 0;
 }
 
 function getTooltipBaseBounds(element, style, tooltipWidth) {
@@ -9068,6 +9095,7 @@ function getBoundedElementTooltipElements(root = document) {
 
 function updateTooltipBounds(root = document) {
   getBoundedTooltipElements(root).forEach((element) => {
+    element.classList.remove("is-tooltip-below");
     element.style.removeProperty("--tooltip-shift-x");
     element.style.removeProperty("--tooltip-left-x");
     element.style.removeProperty("--tooltip-transform-x");
@@ -9078,7 +9106,12 @@ function updateTooltipBounds(root = document) {
     }
 
     const style = getComputedStyle(element, "::after");
-    const tooltipWidth = getTooltipOuterWidth(style, element);
+    const isInfoTooltip = element.matches(".info-tooltip-button[data-tooltip]");
+    const needsMeasuredWidth = !getPixelValue(style.width);
+    const measuredSize = isInfoTooltip || needsMeasuredWidth
+      ? measureTooltipOuterSize(element, style)
+      : null;
+    const tooltipWidth = getTooltipOuterWidth(style, element, measuredSize);
     if (!tooltipWidth) {
       return;
     }
@@ -9108,6 +9141,16 @@ function updateTooltipBounds(root = document) {
       element.style.setProperty("--tooltip-transform-x", "0px");
     } else if (Math.abs(shift) > 0.5) {
       element.style.setProperty("--tooltip-shift-x", `${shift.toFixed(2)}px`);
+    }
+
+    if (isInfoTooltip && measuredSize?.height > 0) {
+      const tooltipGap = 9;
+      const availableAbove = rect.top - clipRect.top - tooltipGap;
+      const availableBelow = clipRect.bottom - rect.bottom - tooltipGap;
+      const cannotFitAbove = measuredSize.height > availableAbove;
+      const hasMoreRoomBelow = availableBelow > availableAbove;
+
+      element.classList.toggle("is-tooltip-below", cannotFitAbove && hasMoreRoomBelow);
     }
   });
 
@@ -19717,7 +19760,6 @@ function renderLineupBenchUnavailablePlayer(entry, team, teamLineup) {
       ${numberLabel ? `<span class="lineup-bench-number">${escapeHtml(numberLabel)}</span>` : ""}
       <span class="lineup-bench-name">${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer)}</span>
       <span class="lineup-bench-position">${escapeHtml(positionLabel)}</span>
-      <span class="lineup-bench-availability-status">${escapeHtml(statusLabel)}</span>
       ${renderLineupBenchAvailabilityBadge(availability, lineupPlayer.name)}
     </li>
   `;
@@ -23024,12 +23066,11 @@ function revealMatchInfoAfterSelection() {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
-  const shouldRevealImmediately = prefersReducedMotion || hasTeamSearchQuery();
 
   window.requestAnimationFrame(() => {
     matchInfo.scrollIntoView({
       block: "start",
-      behavior: shouldRevealImmediately ? "auto" : "smooth"
+      behavior: prefersReducedMotion ? "auto" : "smooth"
     });
   });
 }

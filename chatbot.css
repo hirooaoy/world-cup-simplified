@@ -2287,12 +2287,15 @@ body.is-juggle-active .scout-pupil {
   justify-items: center;
   gap: 5px;
   min-width: 0;
-  opacity: 0.58;
   text-align: center;
 }
 
-.scout-scoreboard > div.is-winner,
-.scout-scoreboard > div:not(.scout-score-value):only-child {
+.scout-scoreboard > div:not(.scout-score-value) strong {
+  opacity: 0.58;
+}
+
+.scout-scoreboard > div.is-winner strong,
+.scout-scoreboard > div:not(.scout-score-value):only-child strong {
   opacity: 1;
 }
 

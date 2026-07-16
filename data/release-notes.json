@@ -1,11 +1,16 @@
 {
-  "updatedAt": "2026-07-15T16:27:00-07:00",
+  "updatedAt": "2026-07-15T23:04:00-07:00",
   "releases": [
     {
       "date": "2026-07-15",
-      "title": "Verified line-up placement and visible player faces",
-      "titleZh": "阵容站位全面验证、球员面孔清晰可见",
+      "title": "Clearer tooltips, smoother match selection, and stronger football visuals",
+      "titleZh": "提示信息更清晰、比赛选择更顺畅、足球视觉更稳健",
       "highlights": [
+        "Info tooltips inside the desktop match-detail scroll card now detect vertical clipping and open below their trigger when there is not enough room above, while preserving the normal upward placement when space allows.",
+        "Jarell Quansah's suspended bench row now keeps the status in its accessibility label and red-card tooltip instead of repeating “Suspended” inside the pill; the long explanation wraps cleanly and stays within the viewport.",
+        "Compact country-search results now smoothly scroll to the selected match details, while reduced-motion mode keeps the transition instant.",
+        "Dark-mode substitution pills now stay fully opaque after revealing the incoming player, preventing the portrait underneath from bleeding through.",
+        "Ball Boy match scoreboards keep both team flags fully opaque; winner and loser emphasis now changes only the team-name text.",
         "All 102 completed tournament line-ups have now been audited match by match and saved with permanent exact placement: 42 use FIFA tactical documents, 17 use unanimous exact-source agreement, 34 use a strict source majority, and 9 individually reviewed ties preserve their evidence.",
         "Player-card photos now use a face-biased crop that keeps unusually tall portraits visible on desktop and mobile; the image audit covered all 1,248 current-player dimensions, face-checked 446 portraits, and adds a browser regression check for the crop position.",
         "England's expanded semi-final bench still counts only its 14 eligible substitutes, then shows Jarell Quansah as an additional greyed-out suspended player without making him available for substitution.",
@@ -18,6 +23,11 @@
         "Ball Boy's offside explainer removes the redundant 'The one check' and 'Attacking' heading row, leaving the rule, direction graphic, and legend to explain the idea without decorative duplication."
       ],
       "highlightsZh": [
+        "桌面端比赛详情滚动卡片内的信息提示现在会检测上下裁切；上方空间不足时会在触发按钮下方打开，有足够空间时仍保持原本的向上展示。",
+        "贾雷尔·宽萨的停赛替补行不再在胶囊内重复显示“停赛”，状态仍保留在无障碍标签和红牌提示中；较长的说明会自动换行并保持在视口范围内。",
+        "紧凑布局下从国家搜索结果选择比赛时，现在会平滑滚动到比赛详情；减少动态效果模式仍会立即跳转。",
+        "深色模式下展开新上场球员后，换人胶囊会保持完全不透明，避免下方球员头像透出。",
+        "Ball Boy 的比赛记分板现在会让双方国旗都保持完整不透明；胜负强调只作用于球队名称文字。",
         "本届赛事已完成的102场阵容现已逐场审核并永久保存准确站位：42场采用 FIFA 官方战术阵容文件，17场采用完全一致的精确来源，34场采用严格来源多数结论，另有9场分歧比赛完成单独复核并保留证据。",
         "球员卡照片现在采用更偏向面部的裁切位置，让异常修长的人像在桌面端和移动端都能清晰显示；图像审查覆盖全部1,248名现役球员的照片尺寸，并对446张人像完成面部检查，同时新增浏览器回归检查来锁定裁切位置。",
         "英格兰半决赛的展开替补席仍只统计14名可出场替补，随后额外显示灰色的停赛球员贾雷尔·宽萨，并且不会让他进入可替换名单。",
