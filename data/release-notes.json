@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T14:37:00-07:00",
+  "updatedAt": "2026-07-16T14:50:46-07:00",
   "releases": [
     {
       "date": "2026-07-16",
@@ -10,14 +10,16 @@
         "Language packs load only when selected and reuse structured football templates for current and historical content, keeping English visits unchanged and first-switch transfers to about 90 KB for Spanish and 119 KB for Korean.",
         "Player names follow broadcast conventions: familiar official spellings in Spanish and sourced Korean newsroom names, with all 4,052 current and historical player records covered.",
         "All 2,826 historical result recaps, 209 archive venues, and 104 current head-to-head summaries now use reviewed structured locale formatters instead of runtime machine translation.",
-        "Third-place and final probable line-ups now combine same-day independent previews with official FIFA history; France vs England's confirmed forecast also replaces the earlier scenario model with a fresh 50/25/25 regulation consensus from direct Betfair and bet365 prices."
+        "Third-place and final probable line-ups now combine same-day independent previews with official FIFA history; France vs England's confirmed forecast also replaces the earlier scenario model with a fresh 50/25/25 regulation consensus from direct Betfair and bet365 prices.",
+        "Clarity analytics now runs only on the canonical production host, keeping local and automated locale checks lighter and isolated from third-party script errors without changing production tracking."
       ],
       "highlightsZh": [
         "拉丁美洲西班牙语和韩语现已覆盖整个应用，包括比赛、积分榜、淘汰赛路径、搜索、“追上进度”、球员与教练卡片、国家队视图、往届与未来世界杯、Ball Boy、“报告问题”和发布说明。",
         "语言包只会在用户选择后加载，并为当前与历史内容复用结构化足球模板；英语访问的加载量保持不变，首次切换约需传输90 KB的西班牙语资源或119 KB的韩语资源。",
         "球员姓名遵循电视转播惯例：西班牙语采用熟悉的官方拼写，韩语采用有来源依据的新闻编辑室常用姓名，现役与历史共4,052条球员记录已全部覆盖。",
         "全部2,826条历史赛果回顾、209个往届赛事场地和104条当前交锋摘要现已采用经审核的结构化本地化格式器，不再依赖运行时机器翻译。",
-        "季军赛与决赛的预计阵容现会结合比赛当天的独立前瞻和FIFA官方历史资料；法国对英格兰的已确认预测也已用Betfair与bet365的直接赔率更新为50/25/25常规时间综合预测，取代先前的情景模型。"
+        "季军赛与决赛的预计阵容现会结合比赛当天的独立前瞻和FIFA官方历史资料；法国对英格兰的已确认预测也已用Betfair与bet365的直接赔率更新为50/25/25常规时间综合预测，取代先前的情景模型。",
+        "Clarity分析现在只会在正式生产域名上运行，让本地与自动化语言检查更轻量，并与第三方脚本错误隔离，同时不改变生产环境中的统计。"
       ]
     },
     {

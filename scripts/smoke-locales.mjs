@@ -496,10 +496,17 @@ async function assertBallBoyLazyLoading(locale, browser) {
 async function assertLocale(locale, browser) {
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await context.newPage();
+  const clarityRequests = [];
   const pageErrors = [];
   const requestedPaths = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
-  page.on("request", (request) => requestedPaths.push(new URL(request.url()).pathname));
+  page.on("request", (request) => {
+    const url = new URL(request.url());
+    requestedPaths.push(url.pathname);
+    if (/(?:^|\.)clarity\.ms$/u.test(url.hostname)) {
+      clarityRequests.push(url.href);
+    }
+  });
   await page.route("**/data/admin-message.json*", async (route) => {
     await route.fulfill({
       json: {
@@ -525,6 +532,10 @@ async function assertLocale(locale, browser) {
   );
   await waitForApp(page, { code: "en", htmlLang: "en" });
   await assertLanguageControlContract(page);
+  assert(
+    clarityRequests.length === 0,
+    `Local locale smoke should not load production Clarity analytics. Measured ${JSON.stringify(clarityRequests)}.`
+  );
   const initialLanguagePackRequests = requestedPaths.filter((pathname) =>
     /^\/locales\/(?:es|ko)\//u.test(pathname)
   );
