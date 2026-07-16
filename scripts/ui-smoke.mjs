@@ -10947,24 +10947,14 @@ try {
     };
   });
   await quansahSuspensionBadge.scrollIntoViewIfNeeded();
-  await quansahSuspensionBadge.focus();
-  assert(
-    await quansahSuspensionBadge.evaluate((badge) => document.activeElement === badge),
-    "Suspension event badges should accept keyboard focus."
-  );
-  await quansahSuspensionBadge.dispatchEvent("focusin", { bubbles: true });
-  await page.waitForFunction(() =>
-    document.querySelector(".lineup-event-tooltip-floating.is-visible")?.textContent.includes("Red-card suspension")
-  );
-  await page.evaluate(() => {
-    window.matchMedia = window.__uiSmokeOriginalMatchMedia;
-    delete window.__uiSmokeOriginalMatchMedia;
-  });
-  const suspensionTooltipState = await page.evaluate(() => {
+  const suspensionTooltipState = await quansahSuspensionBadge.evaluate((badge) => {
+    badge.focus();
+    badge.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
     const tooltip = document.querySelector(".lineup-event-tooltip-floating.is-visible");
     const bounds = tooltip?.getBoundingClientRect();
     const styles = tooltip ? getComputedStyle(tooltip) : null;
     return {
+      badgeFocused: document.activeElement === badge,
       bounds: bounds
         ? {
             bottom: Math.round(bounds.bottom),
@@ -10980,8 +10970,13 @@ try {
       whiteSpace: styles?.whiteSpace || ""
     };
   });
+  await page.evaluate(() => {
+    window.matchMedia = window.__uiSmokeOriginalMatchMedia;
+    delete window.__uiSmokeOriginalMatchMedia;
+  });
   assert(
-    suspensionTooltipState.text ===
+    suspensionTooltipState.badgeFocused &&
+      suspensionTooltipState.text ===
       "Red-card suspension • Sent off against Mexico • Second of two matches; ends after England vs Argentina" &&
       suspensionTooltipState.whiteSpace === "normal" &&
       suspensionTooltipState.scrollWidth <= suspensionTooltipState.clientWidth + 1 &&
