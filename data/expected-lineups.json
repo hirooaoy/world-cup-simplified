@@ -1,13 +1,13 @@
 {
   "schemaVersion": "2",
-  "generatedAt": "2026-07-15T21:26:31.260Z",
+  "generatedAt": "2026-07-16T06:27:10.842Z",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "2",
-    "runId": "lineup-prediction-2026-07-15-8069189df459",
-    "inputFingerprint": "8069189df4597d00f568f2e939a498c22f05cac86f377c6a414daee442a4328e",
+    "runId": "lineup-prediction-2026-07-16-b41f0a0d5dd1",
+    "inputFingerprint": "b41f0a0d5dd1b9819e7e4bbbc94f7fdd86603aeabac2a1b8d2feaf45d538538b",
     "modelFingerprint": "eb79163bdf904f7d41d36b022c65663111815c755f49d89249c4f9935df9794c",
-    "revisionId": "7a322b81def47121198ef43a999781f2b46bf74b7c1d62657e6959fdd32a023e"
+    "revisionId": "c349ed70c3b25a6fc062e97904ace0f63dfcdb721f35367f7942ce507ce09289"
   },
   "sources": [
     {
@@ -64,7 +64,7 @@
       "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-15T21:26:31.260Z",
+      "checkedAt": "2026-07-16T06:27:10.842Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
     },
     {
@@ -127,7 +127,7 @@
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-15T21:26:31.260Z",
+      "lastUpdated": "2026-07-16T06:27:10.842Z",
       "confidence": {
         "label": "medium",
         "score": 0.58,
@@ -140,7 +140,7 @@
           "providerVersion": "1",
           "score": 0.853,
           "predictionClass": "forecast",
-          "recencyWeight": 0.965,
+          "recencyWeight": 0.848,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -170,7 +170,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 0.737,
+              "score": 0.647,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -206,7 +206,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 0.737,
+              "score": 0.647,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -823,7 +823,7 @@
               "y": 75,
               "confidence": {
                 "label": "high",
-                "score": 0.863,
+                "score": 0.864,
                 "method": "evidence-strength-v2",
                 "reason": "1 independent starter source; not a calibrated probability."
               },
@@ -1043,7 +1043,7 @@
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.863,
+                "score": 0.864,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1242,7 +1242,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-15T21:26:31.260Z"
+          "checkedAt": "2026-07-16T06:27:10.842Z"
         },
         "confidence": {
           "label": "medium",
@@ -1256,8 +1256,8 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-15T21:26:31.260Z",
-        "updatedAt": "2026-07-15T21:26:31.260Z"
+        "checkedAt": "2026-07-16T06:27:10.842Z",
+        "updatedAt": "2026-07-16T06:27:10.842Z"
       }
     },
     {
@@ -1270,7 +1270,7 @@
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-15T21:26:31.260Z",
+      "lastUpdated": "2026-07-16T06:27:10.842Z",
       "confidence": {
         "label": "medium",
         "score": 0.72,
@@ -1281,9 +1281,9 @@
         {
           "providerId": "local-official-history",
           "providerVersion": "1",
-          "score": 0.917,
+          "score": 0.91,
           "predictionClass": "forecast",
-          "recencyWeight": 0.965,
+          "recencyWeight": 0.848,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -1313,7 +1313,7 @@
           "formationScores": [
             {
               "formation": "4-1-2-3",
-              "score": 0.836,
+              "score": 0.729,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -1347,7 +1347,7 @@
           "formationScores": [
             {
               "formation": "4-4-2",
-              "score": 0.829,
+              "score": 0.715,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -1630,7 +1630,7 @@
               "position": "RB",
               "confidence": {
                 "label": "high",
-                "score": 0.839,
+                "score": 0.84,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1647,7 +1647,7 @@
               "position": "CM",
               "confidence": {
                 "label": "high",
-                "score": 0.839,
+                "score": 0.84,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1664,7 +1664,7 @@
               "position": "LB",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1681,7 +1681,7 @@
               "position": "ST",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1698,7 +1698,7 @@
               "position": "GK",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1715,7 +1715,7 @@
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1732,7 +1732,7 @@
               "position": "RW",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1749,7 +1749,7 @@
               "position": "CM",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1766,7 +1766,7 @@
               "position": "GK",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1783,7 +1783,7 @@
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1800,7 +1800,7 @@
               "position": "DM",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1817,7 +1817,7 @@
               "position": "RW",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1834,7 +1834,7 @@
               "position": "LW",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1851,7 +1851,7 @@
               "position": "RW",
               "confidence": {
                 "label": "high",
-                "score": 0.825,
+                "score": 0.824,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2148,7 +2148,7 @@
               "position": "CM",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2165,7 +2165,7 @@
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2182,7 +2182,7 @@
               "position": "CM",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2199,7 +2199,7 @@
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2216,7 +2216,7 @@
               "position": "ST",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2233,7 +2233,7 @@
               "position": "CB",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2250,7 +2250,7 @@
               "position": "RW",
               "confidence": {
                 "label": "high",
-                "score": 0.84,
+                "score": 0.839,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2381,7 +2381,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-15T21:26:31.260Z"
+          "checkedAt": "2026-07-16T06:27:10.842Z"
         },
         "confidence": {
           "label": "medium",
@@ -2395,8 +2395,8 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-15T21:26:31.260Z",
-        "updatedAt": "2026-07-15T21:26:31.260Z"
+        "checkedAt": "2026-07-16T06:27:10.842Z",
+        "updatedAt": "2026-07-16T06:27:10.842Z"
       }
     }
   ],
