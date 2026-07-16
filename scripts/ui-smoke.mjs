@@ -10926,7 +10926,13 @@ try {
   const quansahSuspensionBadge = page.locator(
     '#match-info [data-lineup-player-name="Jarell Quansah"] .lineup-bench-availability-icon.is-red'
   );
+  await quansahSuspensionBadge.scrollIntoViewIfNeeded();
   await quansahSuspensionBadge.focus();
+  assert(
+    await quansahSuspensionBadge.evaluate((badge) => document.activeElement === badge),
+    "Suspension event badges should accept keyboard focus."
+  );
+  await quansahSuspensionBadge.dispatchEvent("focusin", { bubbles: true });
   await page.waitForFunction(() =>
     document.querySelector(".lineup-event-tooltip-floating.is-visible")?.textContent.includes("Red-card suspension")
   );
