@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T16:29:09.561Z",
+  "updatedAt": "2026-07-16T21:37:00.000Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -322,6 +322,22 @@
       "type": "market-odds",
       "checkedAt": "2026-07-14T17:17:44-07:00",
       "note": "Captured current +170 / +187 / +200 full-time-result prices and normalized away the bookmaker margin."
+    },
+    {
+      "id": "betfair-france-england-odds-2026-07-16",
+      "label": "Betfair France vs England current 1X2 exchange odds",
+      "url": "https://www.betfair.com/exchange/plus/en/football/fifa-world-cup/france-v-england-betting-35828094",
+      "type": "market-odds",
+      "checkedAt": "2026-07-16T14:37:00-07:00",
+      "note": "Captured current 1.97 / 4.00 / 4.00 best-back regulation prices from a 100.8% exchange book and normalized the margin to 50/25/25."
+    },
+    {
+      "id": "bet365-france-england-odds-2026-07-16",
+      "label": "bet365 France vs England full-time-result odds",
+      "url": "https://www.bet365.com/hub/en-gb/football/football-competitions/world-cup/france-v-england",
+      "type": "market-odds",
+      "checkedAt": "2026-07-16T14:37:00-07:00",
+      "note": "Captured current 10/11 / 14/5 / 14/5 full-time-result prices and normalized the bookmaker margin to 50/25/25."
     },
     {
       "id": "fox-england-argentina-odds-2026-07-14",

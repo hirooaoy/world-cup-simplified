@@ -84,9 +84,17 @@ function fixtureName(fixture, teamsById) {
 }
 
 function fixtureSourceIds(fixture) {
+  const activeProjectionSourceIds =
+    Array.isArray(fixture.projection?.sourceIds) && fixture.projection.sourceIds.length
+      ? fixture.projection.sourceIds
+      : [fixture.projection?.sourceId];
+  const conditionalProjectionSourceIds = fixture.projection
+    ? []
+    : (fixture.conditionalProjections || []).flatMap((projection) => projection.sourceIds || []);
+
   return [
-    fixture.projection?.sourceId,
-    ...(fixture.conditionalProjections || []).flatMap((projection) => projection.sourceIds || []),
+    ...activeProjectionSourceIds,
+    ...conditionalProjectionSourceIds,
     fixture.keyPlayers?.sourceId,
     fixture.keyInformation?.sourceId,
     ...(fixture.keyInformation?.researchSourceIds || []),

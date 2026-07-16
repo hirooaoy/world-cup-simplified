@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T21:33:10.951Z",
+  "updatedAt": "2026-07-16T21:37:00.000Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -183,6 +183,8 @@
     "statszone-third-place-history-2026-04-14",
     "betfair-spain-argentina-odds-2026-07-15",
     "pokerstars-spain-argentina-odds-2026-07-15",
+    "betfair-france-england-odds-2026-07-16",
+    "bet365-france-england-odds-2026-07-16",
     "fifa-official-results-sync-2026-07-15",
     "fifa-goal-events-sync-2026-07-15",
     "fifa-match-events-sync-2026-07-15",
@@ -27067,56 +27069,31 @@
         }
       },
       "projection": {
-        "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+        "sourceId": "betfair-france-england-odds-2026-07-16",
         "sourceIds": [
-          "opta-world-cup-semifinal-projections-2026-07-12",
-          "fifa-official-results-sync-2026-07-14",
-          "fifa-ranking-2026-06-11",
-          "statszone-third-place-history-2026-04-14",
-          "worldcupbracket-draw-model-2026-07-14",
-          "oddschecker-england-argentina-odds-2026-07-14"
+          "betfair-france-england-odds-2026-07-16",
+          "bet365-france-england-odds-2026-07-16"
         ],
-        "method": "online-calibrated-scenario-model",
-        "basis": "Projected regulation forecast: online team strength blended with official tournament form and ranking, then calibrated to the historically open third-place draw profile",
-        "capturedAt": "2026-07-14T17:17:44-07:00",
-        "home": 44,
-        "draw": 20,
-        "away": 36,
+        "method": "online-source-consensus",
+        "basis": "Rounded consensus of current margin-normalized Betfair Exchange and bet365 regulation 1X2 prices",
+        "capturedAt": "2026-07-16T14:37:00-07:00",
+        "home": 50,
+        "draw": 25,
+        "away": 25,
         "inputs": [
           {
-            "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
-            "home": 58,
-            "away": 42,
-            "basis": "Relative Opta knockout strength normalized from each team's tournament-win and final-reach simulation rates"
+            "sourceId": "betfair-france-england-odds-2026-07-16",
+            "home": 50,
+            "draw": 25,
+            "away": 25,
+            "basis": "Margin-normalized 1.97 / 4.00 / 4.00 Betfair Exchange best-back regulation prices"
           },
           {
-            "sourceId": "fifa-official-results-sync-2026-07-14",
-            "home": 56,
-            "away": 44,
-            "basis": "Recency-weighted 2026 tournament form through France's semifinal, using official results and per-match goal difference"
-          },
-          {
-            "sourceId": "fifa-ranking-2026-06-11",
-            "home": 51,
-            "away": 49,
-            "basis": "Small ranking component from France #3 and England #4; ranking is one of three strength inputs, not the forecast"
-          }
-        ],
-        "drawInputs": [
-          {
-            "sourceId": "statszone-third-place-history-2026-04-14",
-            "draw": 5,
-            "basis": "One of the 20 men's World Cup third-place matches through 2022 was tied after 90 minutes"
-          },
-          {
-            "sourceId": "worldcupbracket-draw-model-2026-07-14",
-            "draw": 22,
-            "basis": "Published neutral-team Elo draw anchor"
-          },
-          {
-            "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
-            "draw": 32,
-            "basis": "Current margin-normalized semifinal draw probability as the live tournament-market anchor"
+            "sourceId": "bet365-france-england-odds-2026-07-16",
+            "home": 50,
+            "draw": 25,
+            "away": 25,
+            "basis": "Margin-normalized 10/11 / 14/5 / 14/5 bet365 regulation prices"
           }
         ]
       }
