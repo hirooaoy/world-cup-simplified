@@ -460,7 +460,7 @@ function updateReportFooterTooltipBounds(root = sourceNote) {
     root.querySelectorAll(".source-tooltip, .release-tooltip").forEach((tooltip) => {
       tooltip.style.removeProperty("--tooltip-shift-x");
       const rect = tooltip.getBoundingClientRect();
-      const viewportInset = 6;
+      const viewportInset = 10;
       let shift = 0;
 
       if (rect.left < viewportInset) {
