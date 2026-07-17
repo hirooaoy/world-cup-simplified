@@ -11,6 +11,7 @@
   --surface-muted: #f7f7f8;
   --surface-hover: rgba(10, 10, 10, 0.05);
   --surface-selected: rgba(10, 10, 10, 0.045);
+  --match-row-selected-surface: #f4f4f4;
   --text-secondary: #5f6067;
   --text-tertiary: #72737b;
   --text-disabled: #a3a4aa;
@@ -50,6 +51,7 @@ html[data-theme="dark"] {
   --surface-muted: #181c22;
   --surface-hover: rgba(245, 247, 250, 0.07);
   --surface-selected: rgba(115, 183, 255, 0.12);
+  --match-row-selected-surface: #17212d;
   --text-secondary: #b8c0cb;
   --text-tertiary: #8f99a6;
   --text-disabled: #68727f;
@@ -1829,7 +1831,7 @@ h1 {
   color: var(--text);
   cursor: pointer;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 550;
 }
 
 .calendar-shortcut-button:hover {
@@ -2286,18 +2288,19 @@ h1 {
 .match-row.is-selected {
   z-index: 0;
   border-radius: 8px;
-}
-
-.match-row.is-selected::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset-block: -6px;
-  inset-inline-start: calc(-1 * var(--match-row-selected-leading-overhang));
-  inset-inline-end: 0;
-  border-radius: 8px;
-  background: var(--surface-selected);
-  pointer-events: none;
+  background: var(--match-row-selected-surface);
+  box-shadow:
+    calc(-1 * var(--match-row-selected-leading-overhang)) -6px 0
+      var(--match-row-selected-surface),
+    calc(-1 * var(--match-row-selected-leading-overhang)) 0 0
+      var(--match-row-selected-surface),
+    calc(-1 * var(--match-row-selected-leading-overhang)) 6px 0
+      var(--match-row-selected-surface),
+    0 -6px 0 var(--match-row-selected-surface),
+    0 6px 0 var(--match-row-selected-surface),
+    var(--match-row-selected-leading-overhang) -6px 0 var(--match-row-selected-surface),
+    var(--match-row-selected-leading-overhang) 0 0 var(--match-row-selected-surface),
+    var(--match-row-selected-leading-overhang) 6px 0 var(--match-row-selected-surface);
 }
 
 .live-pill,
@@ -2513,11 +2516,6 @@ h1 {
 @media (min-width: 521px) {
   .match-row.has-wrapped-matchup {
     justify-content: flex-start;
-  }
-
-  .match-row.has-wrapped-matchup .match-row-meta {
-    justify-content: flex-start;
-    margin-left: 0;
   }
 
   .match-row.has-wrapped-matchup .match-teams {
@@ -9085,9 +9083,12 @@ button.lineup-event-sub,
   }
 
   .match-layout {
-    width: calc(100% + var(--match-row-selected-leading-overhang));
-    margin-inline-start: calc(-1 * var(--match-row-selected-leading-overhang));
-    padding-inline-start: var(--match-row-selected-leading-overhang);
+    width: calc(
+      100% + var(--match-row-selected-leading-overhang) +
+        var(--match-row-selected-leading-overhang)
+    );
+    margin-inline: calc(-1 * var(--match-row-selected-leading-overhang));
+    padding-inline: var(--match-row-selected-leading-overhang);
     overflow-x: clip;
     overflow-clip-margin: 8px;
   }
@@ -10032,6 +10033,14 @@ button.lineup-event-sub,
 }
 
 @media (max-width: 320px) {
+  .match-layout {
+    width: calc(100% + var(--match-row-selected-leading-overhang));
+    margin-inline: 0;
+    margin-inline-start: calc(-1 * var(--match-row-selected-leading-overhang));
+    padding-inline: 0;
+    padding-inline-start: var(--match-row-selected-leading-overhang);
+  }
+
   .match-teams {
     flex-wrap: wrap;
   }
