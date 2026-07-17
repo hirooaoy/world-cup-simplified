@@ -4720,6 +4720,32 @@ try {
       emptyStateTypography.matchupUnderlineStyle === "none",
     "The no-match state should show a compact heading, plain next-match copy with flags, and a dedicated CTA."
   );
+  await calendarRestDayCheck.page.setViewportSize({ width: 390, height: 844 });
+  const mobileEmptyStateStyle = await calendarRestDayCheck.page.locator(".empty-state").evaluate((root) => {
+    const action = root.querySelector(".empty-state-next-action");
+    const actionStyle = getComputedStyle(action);
+    const actionHitAreaStyle = getComputedStyle(action, "::after");
+    return {
+      actionFontSize: actionStyle.fontSize,
+      actionHeight: actionStyle.height,
+      actionHitAreaBottom: actionHitAreaStyle.bottom,
+      actionHitAreaTop: actionHitAreaStyle.top,
+      actionMinHeight: actionStyle.minHeight,
+      actionPaddingLeft: actionStyle.paddingLeft,
+      actionPaddingRight: actionStyle.paddingRight,
+      descriptionFontSize: getComputedStyle(root.querySelector(".empty-state-next-description")).fontSize
+    };
+  });
+  assert(
+    mobileEmptyStateStyle.actionHeight === "34px" &&
+      mobileEmptyStateStyle.actionMinHeight === "34px" &&
+      mobileEmptyStateStyle.actionFontSize === "12px" &&
+      mobileEmptyStateStyle.actionPaddingLeft === "14px" &&
+      mobileEmptyStateStyle.actionPaddingRight === "14px" &&
+      mobileEmptyStateStyle.actionHitAreaTop === "-5px" &&
+      mobileEmptyStateStyle.actionHitAreaBottom === "-5px",
+    `The mobile CTA should use a compact 34px capsule with a 44px hit area. Measured ${JSON.stringify(mobileEmptyStateStyle)}.`
+  );
   const restDayUrlBeforeHover = calendarRestDayCheck.page.url();
   await nextMatchDescription.hover();
   await calendarRestDayCheck.page.waitForTimeout(200);
@@ -4741,7 +4767,7 @@ try {
   assert(
       (await calendarRestDayCheck.page.locator("#day-label").innerText()).trim() === "Jul 18" &&
       (await calendarRestDayCheck.page.locator(".match-row").count()) === 4 &&
-      emptyStateTypography.descriptionFontSize === nextMatchRowFontSize &&
+      mobileEmptyStateStyle.descriptionFontSize === nextMatchRowFontSize &&
       (await calendarRestDayCheck.page.locator("#match-info").innerText()).includes("France") &&
       (await calendarRestDayCheck.page.locator("#match-info").innerText()).includes("England") &&
       new URL(calendarRestDayCheck.page.url()).searchParams.get("match") ===
