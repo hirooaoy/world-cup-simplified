@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T22:40:44-07:00",
+  "updatedAt": "2026-07-16T22:57:27-07:00",
   "releases": [
     {
       "date": "2026-07-16",
@@ -13,7 +13,7 @@
         "Third-place and final probable line-ups now combine same-day independent previews with official FIFA history; France vs England's confirmed forecast also replaces the earlier scenario model with a fresh 50/25/25 regulation consensus from direct Betfair and bet365 prices.",
         "Clarity analytics now runs only on the canonical production host, keeping local and automated locale checks lighter and isolated from third-party script errors without changing production tracking.",
         "See or hide previous World Cups now updates the existing country-search view instead of rebuilding every result, making loaded archives feel immediate while Spanish and Korean cold loads show an accessible busy indicator.",
-        "Tournament round headings now work as keyboard-accessible jump controls that spotlight the first match in that round, and selected match rows keep their highlight within the list edges while extending cleanly toward the leading gutter.",
+        "Tournament round headings now work as keyboard-accessible jump controls that spotlight the first match in that round, and selected match rows keep their highlight within the list edges while extending cleanly toward the leading gutter with a fully rounded corner.",
         "On small screens, the collapsed Ball Boy mascot now gives footer copy a curved exclusion area so source, release-note, and report links remain readable and tappable.",
         "Ball Boy player answers now open with a short localized introduction naming the player before the card, giving shorthand searches and follow-up details a more natural conversational handoff.",
         "The Report issue page now has localized Settings for language, dark mode, and returning home, with tighter spacing and the same state carried back to the main app. Report issue has moved out of the main Settings panel and into Ball Boy as a fourth starter action and the first recovery option when a question is not understood.",
@@ -29,7 +29,7 @@
         "季军赛与决赛的预计阵容现会结合比赛当天的独立前瞻和FIFA官方历史资料；法国对英格兰的已确认预测也已用Betfair与bet365的直接赔率更新为50/25/25常规时间综合预测，取代先前的情景模型。",
         "Clarity分析现在只会在正式生产域名上运行，让本地与自动化语言检查更轻量，并与第三方脚本错误隔离，同时不改变生产环境中的统计。",
         "在国家队搜索中显示或隐藏往届世界杯时，现在会直接更新现有视图，不再重建全部结果；已加载的历史记录几乎会立即响应，而西班牙语和韩语首次加载时会显示支持无障碍的忙碌状态。",
-        "赛事轮次标题现在可通过键盘操作，并能直接聚焦该轮首场比赛；选中比赛行的高亮会保持在列表边缘以内，同时干净地延伸到起始侧留白。",
+        "赛事轮次标题现在可通过键盘操作，并能直接聚焦该轮首场比赛；选中比赛行的高亮会保持在列表边缘以内，同时以完整圆角干净地延伸到起始侧留白。",
         "在小屏幕上，收起状态的 Ball Boy 吉祥物会为页脚文字留出弧形空间，让来源、发布说明和问题报告链接保持清晰且可点击。",
         "Ball Boy 的球员回答现在会在卡片前先用本地化的简短句子点名球员，让简写搜索和后续资料之间的对话衔接更自然。",
         "“报告问题”页面现在提供本地化设置，可切换语言、深色模式并返回首页，同时采用更紧凑的间距并把状态带回主应用。“报告问题”已从主设置面板移至 Ball Boy，作为第四个初始操作，并在无法理解问题时优先提供。",

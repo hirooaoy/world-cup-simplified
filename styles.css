@@ -1829,7 +1829,7 @@ h1 {
   color: var(--text);
   cursor: pointer;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .calendar-shortcut-button:hover {
@@ -1846,6 +1846,7 @@ h1 {
 }
 
 .match-layout {
+  --match-row-selected-leading-overhang: clamp(8px, 2vw, 16px);
   display: contents;
 }
 
@@ -2283,7 +2284,6 @@ h1 {
 }
 
 .match-row.is-selected {
-  --match-row-selected-leading-overhang: clamp(8px, 2vw, 16px);
   z-index: 0;
   border-radius: 8px;
 }
@@ -9085,6 +9085,9 @@ button.lineup-event-sub,
   }
 
   .match-layout {
+    width: calc(100% + var(--match-row-selected-leading-overhang));
+    margin-inline-start: calc(-1 * var(--match-row-selected-leading-overhang));
+    padding-inline-start: var(--match-row-selected-leading-overhang);
     overflow-x: clip;
     overflow-clip-margin: 8px;
   }
