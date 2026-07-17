@@ -49,7 +49,7 @@ jobs:
           pnpm validate:profiles
 
       - name: Upload synchronized data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: synchronized-data-${{ github.sha }}
           path: data
@@ -93,7 +93,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: Download synchronized data
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: synchronized-data-${{ github.sha }}
           path: data
