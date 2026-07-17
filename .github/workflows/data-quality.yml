@@ -12,87 +12,99 @@ on:
 permissions:
   contents: read
 
+env:
+  H2H_SOURCE_OPTIONAL: "1"
+  H2H_WARN_ONLY: "1"
+  MATCHDAY_LINEUP_RESEARCH_REQUIRED_HOURS: "48"
+  WORLD_CUP_TZ: America/Los_Angeles
+
 jobs:
-  test:
-    name: Validate data and UI
+  prepare:
+    name: Prepare synchronized data
     runs-on: ubuntu-latest
-    env:
-      H2H_SOURCE_OPTIONAL: "1"
-      H2H_WARN_ONLY: "1"
-      MATCHDAY_LINEUP_RESEARCH_REQUIRED_HOURS: "48"
-      WORLD_CUP_TZ: America/Los_Angeles
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: "24"
-          package-manager-cache: false
-
-      - name: Set up pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@11.0.7 --activate
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Set up project
+        uses: ./.github/actions/setup-project
 
       - name: Check release notes
         run: pnpm release-notes:check
 
-      - name: Sync FIFA results snapshot
-        run: pnpm sync:fifa
+      - name: Sync release-candidate data
+        run: |
+          pnpm sync:fifa
+          pnpm sync:fifa:lineups
+          pnpm lineups:predict -- --if-needed
+          pnpm projections
+          pnpm matchups
+          pnpm sync:h2h
+          pnpm matchday:readiness
+          pnpm sync:fifa:goals
+          pnpm results
+          pnpm sync:youtube
+          pnpm validate:profiles
 
-      - name: Sync FIFA final lineups for completed fixtures
-        run: pnpm sync:fifa:lineups
+      - name: Upload synchronized data
+        uses: actions/upload-artifact@v4
+        with:
+          name: synchronized-data-${{ github.sha }}
+          path: data
+          if-no-files-found: error
+          retention-days: 1
 
-      - name: Refresh expected lineups when inputs changed
-        run: pnpm lineups:predict -- --if-needed
+  verify:
+    name: Verify ${{ matrix.name }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: core data and copy
+            install_browser: false
+            command: >-
+              pnpm validate &&
+              pnpm run audit &&
+              pnpm audit:tournament &&
+              pnpm results:check &&
+              pnpm cards:check &&
+              pnpm chatbot:history:index:check &&
+              pnpm locales:names:check &&
+              pnpm locales:content:check &&
+              pnpm audit:locales
+          - name: smoke shard 1 of 3
+            install_browser: true
+            command: pnpm smoke:shard -- --shard=1/3
+          - name: smoke shard 2 of 3
+            install_browser: true
+            command: pnpm smoke:shard -- --shard=2/3
+          - name: smoke shard 3 of 3
+            install_browser: true
+            command: pnpm smoke:shard -- --shard=3/3
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
 
-      - name: Refresh confirmed-fixture projections
-        run: pnpm projections
+      - name: Set up project
+        uses: ./.github/actions/setup-project
 
-      - name: Refresh matchup key information
-        run: pnpm matchups
-
-      - name: Sync H2H results
-        run: pnpm sync:h2h
-
-      - name: Enforce matchday editorial readiness
-        run: pnpm matchday:readiness
-
-      - name: Sync FIFA goal events
-        run: pnpm sync:fifa:goals
-
-      - name: Refresh result highlights
-        run: pnpm results
-
-      - name: Sync official highlight videos
-        run: pnpm sync:youtube
+      - name: Download synchronized data
+        uses: actions/download-artifact@v4
+        with:
+          name: synchronized-data-${{ github.sha }}
+          path: data
 
       - name: Install Chromium
+        if: matrix.install_browser
         run: |
           pnpm exec playwright install --with-deps chromium || {
             echo "::warning title=Playwright dependency install failed::Falling back to browser-only Chromium install."
             pnpm exec playwright install chromium
           }
 
-      - name: Run data and UI checks
-        run: |
-          pnpm validate:profiles
-          pnpm run audit
-          pnpm audit:tournament
-          pnpm results:check
-          pnpm cards:check
-          pnpm chatbot:history:index:check
-          pnpm locales:names:check
-          pnpm locales:content:check
-          pnpm audit:locales
-          pnpm smoke:lineups
-          pnpm smoke:locales
-          pnpm smoke:ball-boy-player-search
-          pnpm smoke
+      - name: Run ${{ matrix.name }}
+        run: ${{ matrix.command }}

@@ -32,22 +32,9 @@ jobs:
         id: window
         run: node scripts/lineup-matchday-window.mjs --github-output
 
-      - name: Set up Node.js
+      - name: Set up project
         if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
-        uses: actions/setup-node@v5
-        with:
-          node-version: "24"
-          package-manager-cache: false
-
-      - name: Set up pnpm
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
-        run: |
-          corepack enable
-          corepack prepare pnpm@11.0.7 --activate
-
-      - name: Install dependencies
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
-        run: pnpm install --frozen-lockfile
+        uses: ./.github/actions/setup-project
 
       - name: Sync FIFA official matchday lineups
         if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
