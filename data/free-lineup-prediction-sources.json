@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T17:30:00Z",
+  "updatedAt": "2026-07-17T19:36:45Z",
   "defaultLateralOrder": "right-to-left",
   "sources": [
     {
@@ -137,7 +137,7 @@
       "label": "Sports Mole France vs England third-place preview",
       "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/preview/france-vs-england-prediction-team-news-lineups_601289.html",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00Z",
+      "checkedAt": "2026-07-17T19:36:45Z",
       "outlet": "sports-mole",
       "independenceKey": "sports-mole",
       "note": "Current third-place preview with predicted XIs for France and England."
@@ -147,7 +147,7 @@
       "label": "Racing Post France vs England team news and predicted XIs",
       "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/france-vs-england-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-acFre6b3w30W/",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00Z",
+      "checkedAt": "2026-07-17T19:36:45Z",
       "outlet": "racing-post",
       "independenceKey": "racing-post",
       "note": "Independent current third-place preview with predicted XIs and injury context."
@@ -157,7 +157,7 @@
       "label": "Sports Mole Spain vs Argentina final predicted XIs",
       "url": "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00Z",
+      "checkedAt": "2026-07-17T19:36:45Z",
       "outlet": "sports-mole",
       "independenceKey": "sports-mole",
       "note": "Current final prediction retaining the Messi-Alvarez partnership; Spain's XI is paired from Sports Mole's same-day Spain prediction."
@@ -167,7 +167,7 @@
       "label": "Racing Post Spain vs Argentina team news and predicted XIs",
       "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00Z",
+      "checkedAt": "2026-07-17T19:36:45Z",
       "outlet": "racing-post",
       "independenceKey": "racing-post",
       "note": "Independent current final preview with predicted XIs and a more conservative Argentina shape."
@@ -848,7 +848,7 @@
         {
           "sourceId": "sports-mole-france-england-preview-2026-07-16",
           "confidence": 0.9,
-          "checkedAt": "2026-07-16T17:30:00Z",
+          "checkedAt": "2026-07-17T19:36:45Z",
           "note": "Current third-place prediction keeps both captains starting while rotating selected supporting players.",
           "teams": {
             "home": {
@@ -890,7 +890,7 @@
         {
           "sourceId": "racing-post-france-england-preview-2026-07-16",
           "confidence": 0.88,
-          "checkedAt": "2026-07-16T17:30:00Z",
+          "checkedAt": "2026-07-17T19:36:45Z",
           "note": "Independent preview also starts Mbappe and Kane while expecting broader rotation around them.",
           "teams": {
             "home": {
@@ -937,7 +937,7 @@
         {
           "sourceId": "sports-mole-spain-argentina-preview-2026-07-16",
           "confidence": 0.9,
-          "checkedAt": "2026-07-16T17:30:00Z",
+          "checkedAt": "2026-07-17T19:36:45Z",
           "note": "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
           "teams": {
             "home": {
@@ -979,7 +979,7 @@
         {
           "sourceId": "racing-post-spain-argentina-preview-2026-07-16",
           "confidence": 0.88,
-          "checkedAt": "2026-07-16T17:30:00Z",
+          "checkedAt": "2026-07-17T19:36:45Z",
           "note": "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
           "teams": {
             "home": {

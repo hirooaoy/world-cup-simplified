@@ -1,13 +1,13 @@
 {
   "schemaVersion": "2",
-  "generatedAt": "2026-07-17T17:41:06.655Z",
+  "generatedAt": "2026-07-17T19:36:51.903Z",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "2",
-    "runId": "lineup-prediction-2026-07-17-00d3f1b60ef7",
-    "inputFingerprint": "00d3f1b60ef730b0370e694e6ef096a059e23b0d5e3d7fa01b531b175852470d",
+    "runId": "lineup-prediction-2026-07-17-faf2757086ee",
+    "inputFingerprint": "faf2757086eea9f802ef8b51096d9974637ccfd23f926f08aaf37ae018e1a393",
     "modelFingerprint": "0a7cb9061bf6dcbadb28cd27443ea6e64a535376a529ffdd9565807b659cf21c",
-    "revisionId": "eda950e7b2c6641a768d098699fd50d7c08b82176fda31c889b99b1e5727652f"
+    "revisionId": "53de5ce2fb4b6a776ca09a52c19b96f10905a1c1d79f7d4ccec7de209e5b66e8"
   },
   "sources": [
     {
@@ -64,14 +64,14 @@
       "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-17T17:41:06.655Z",
+      "checkedAt": "2026-07-17T19:36:51.903Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
     },
     {
       "id": "racing-post-france-england-preview-2026-07-16",
       "label": "Racing Post France vs England team news and predicted XIs",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "checkedAt": "2026-07-17T19:36:45.000Z",
       "sourceRole": "lineup-candidate",
       "suppliesLineup": true,
       "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/france-vs-england-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-acFre6b3w30W/",
@@ -81,7 +81,7 @@
       "id": "racing-post-spain-argentina-preview-2026-07-16",
       "label": "Racing Post Spain vs Argentina team news and predicted XIs",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "checkedAt": "2026-07-17T19:36:45.000Z",
       "sourceRole": "lineup-candidate",
       "suppliesLineup": true,
       "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
@@ -101,7 +101,7 @@
       "id": "sports-mole-france-england-preview-2026-07-16",
       "label": "Sports Mole France vs England third-place preview",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "checkedAt": "2026-07-17T19:36:45.000Z",
       "sourceRole": "lineup-candidate",
       "suppliesLineup": true,
       "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/preview/france-vs-england-prediction-team-news-lineups_601289.html",
@@ -121,7 +121,7 @@
       "id": "sports-mole-spain-argentina-preview-2026-07-16",
       "label": "Sports Mole Spain vs Argentina final predicted XIs",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-16T17:30:00.000Z",
+      "checkedAt": "2026-07-17T19:36:45.000Z",
       "sourceRole": "lineup-candidate",
       "suppliesLineup": true,
       "url": "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
@@ -169,10 +169,10 @@
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-17T17:41:06.655Z",
+      "lastUpdated": "2026-07-17T19:36:51.903Z",
       "confidence": {
         "label": "high",
-        "score": 0.812,
+        "score": 0.83,
         "method": "evidence-strength-v2",
         "reason": "Average home/away evidence strength; this is not a calibrated probability."
       },
@@ -182,7 +182,7 @@
           "providerVersion": "1",
           "score": 0.853,
           "predictionClass": "forecast",
-          "recencyWeight": 0.51,
+          "recencyWeight": 0.496,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -198,10 +198,10 @@
           "providerVersion": "1",
           "score": 0.965,
           "predictionClass": "forecast",
-          "recencyWeight": 0.705,
+          "recencyWeight": 1,
           "sourceReliability": 1,
           "independenceKey": "source:sports-mole",
-          "updatedAt": "2026-07-16T17:30:00Z",
+          "updatedAt": "2026-07-17T19:36:45Z",
           "sourceIds": [
             "sports-mole-france-england-preview-2026-07-16"
           ]
@@ -211,10 +211,10 @@
           "providerVersion": "1",
           "score": 0.958,
           "predictionClass": "forecast",
-          "recencyWeight": 0.705,
+          "recencyWeight": 1,
           "sourceReliability": 1,
           "independenceKey": "source:racing-post",
-          "updatedAt": "2026-07-16T17:30:00Z",
+          "updatedAt": "2026-07-17T19:36:45Z",
           "sourceIds": [
             "racing-post-france-england-preview-2026-07-16"
           ]
@@ -224,7 +224,7 @@
         "home": {
           "confidence": {
             "label": "high",
-            "score": 0.802,
+            "score": 0.835,
             "method": "evidence-strength-v2",
             "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
@@ -238,7 +238,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 1.707,
+              "score": 2.249,
               "independentVotes": 3,
               "sourceIds": [
                 "sports-mole-france-england-preview-2026-07-16",
@@ -256,12 +256,12 @@
               "position": "CM",
               "assignmentRole": "RCM",
               "selectedName": "Manu Koné",
-              "selectedEvidenceStrength": 0.296,
+              "selectedEvidenceStrength": 0.346,
               "alternatives": [
                 {
                   "name": "N'Golo Kanté",
-                  "score": 0.669,
-                  "evidenceStrength": 0.292,
+                  "score": 1.03,
+                  "evidenceStrength": 0.34,
                   "independentStarterVotes": 1,
                   "sourceIds": [
                     "racing-post-france-england-preview-2026-07-16",
@@ -287,7 +287,7 @@
         "away": {
           "confidence": {
             "label": "high",
-            "score": 0.822,
+            "score": 0.825,
             "method": "evidence-strength-v2",
             "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
@@ -301,7 +301,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 1.707,
+              "score": 2.249,
               "independentVotes": 3,
               "sourceIds": [
                 "sports-mole-france-england-preview-2026-07-16",
@@ -406,7 +406,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.667,
+                "score": 0.743,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -427,7 +427,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.666,
+                "score": 0.743,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -448,7 +448,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.666,
+                "score": 0.743,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -469,7 +469,7 @@
               "y": 59,
               "confidence": {
                 "label": "low",
-                "score": 0.296,
+                "score": 0.346,
                 "method": "evidence-strength-v2",
                 "reason": "1 independent starter source; not a calibrated probability."
               },
@@ -489,7 +489,7 @@
               "y": 59,
               "confidence": {
                 "label": "medium",
-                "score": 0.667,
+                "score": 0.743,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -510,7 +510,7 @@
               "y": 40,
               "confidence": {
                 "label": "medium",
-                "score": 0.667,
+                "score": 0.743,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -552,7 +552,7 @@
               "y": 40,
               "confidence": {
                 "label": "medium",
-                "score": 0.664,
+                "score": 0.741,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -594,7 +594,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -612,7 +612,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -629,7 +629,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -646,7 +646,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -663,7 +663,7 @@
               "position": "AM",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -680,7 +680,7 @@
               "position": "RB",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -697,7 +697,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -714,7 +714,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -910,7 +910,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.585,
+                "score": 0.559,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -930,7 +930,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.663,
+                "score": 0.741,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -972,7 +972,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.663,
+                "score": 0.741,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -993,7 +993,7 @@
               "y": 59,
               "confidence": {
                 "label": "medium",
-                "score": 0.588,
+                "score": 0.561,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -1055,7 +1055,7 @@
               "y": 40,
               "confidence": {
                 "label": "medium",
-                "score": 0.591,
+                "score": 0.563,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -1075,7 +1075,7 @@
               "y": 40,
               "confidence": {
                 "label": "medium",
-                "score": 0.588,
+                "score": 0.562,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -1116,7 +1116,7 @@
               "position": "RB",
               "confidence": {
                 "label": "low",
-                "score": 0.194,
+                "score": 0.144,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1134,7 +1134,7 @@
               "position": "LW",
               "confidence": {
                 "label": "low",
-                "score": 0.194,
+                "score": 0.144,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1152,7 +1152,7 @@
               "position": "RW",
               "confidence": {
                 "label": "low",
-                "score": 0.194,
+                "score": 0.144,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1169,7 +1169,7 @@
               "position": "RW",
               "confidence": {
                 "label": "low",
-                "score": 0.194,
+                "score": 0.144,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1186,7 +1186,7 @@
               "position": "AM",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1204,7 +1204,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1222,7 +1222,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1239,7 +1239,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1256,7 +1256,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1273,7 +1273,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1290,7 +1290,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1307,7 +1307,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1324,7 +1324,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.188,
+                "score": 0.139,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1389,11 +1389,11 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-17T17:41:06.655Z"
+          "checkedAt": "2026-07-17T19:36:51.903Z"
         },
         "confidence": {
           "label": "high",
-          "score": 0.812,
+          "score": 0.83,
           "method": "evidence-strength-v2",
           "reason": "Average home/away evidence strength; this is not a calibrated probability."
         },
@@ -1405,8 +1405,8 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-17T17:41:06.655Z",
-        "updatedAt": "2026-07-17T17:41:06.655Z"
+        "checkedAt": "2026-07-17T19:36:51.903Z",
+        "updatedAt": "2026-07-17T19:36:51.903Z"
       }
     },
     {
@@ -1421,7 +1421,7 @@
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-17T17:41:06.655Z",
+      "lastUpdated": "2026-07-17T19:36:51.903Z",
       "confidence": {
         "label": "high",
         "score": 0.865,
@@ -1434,7 +1434,7 @@
           "providerVersion": "1",
           "score": 0.917,
           "predictionClass": "forecast",
-          "recencyWeight": 0.51,
+          "recencyWeight": 0.496,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -1450,10 +1450,10 @@
           "providerVersion": "1",
           "score": 0.965,
           "predictionClass": "forecast",
-          "recencyWeight": 0.705,
+          "recencyWeight": 1,
           "sourceReliability": 1,
           "independenceKey": "source:sports-mole",
-          "updatedAt": "2026-07-16T17:30:00Z",
+          "updatedAt": "2026-07-17T19:36:45Z",
           "sourceIds": [
             "sports-mole-spain-argentina-preview-2026-07-16"
           ]
@@ -1463,10 +1463,10 @@
           "providerVersion": "1",
           "score": 0.958,
           "predictionClass": "forecast",
-          "recencyWeight": 0.705,
+          "recencyWeight": 1,
           "sourceReliability": 1,
           "independenceKey": "source:racing-post",
-          "updatedAt": "2026-07-16T17:30:00Z",
+          "updatedAt": "2026-07-17T19:36:45Z",
           "sourceIds": [
             "racing-post-spain-argentina-preview-2026-07-16"
           ]
@@ -1476,7 +1476,7 @@
         "home": {
           "confidence": {
             "label": "high",
-            "score": 0.897,
+            "score": 0.909,
             "method": "evidence-strength-v2",
             "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
@@ -1490,7 +1490,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 1.318,
+              "score": 1.87,
               "independentVotes": 2,
               "sourceIds": [
                 "sports-mole-spain-argentina-preview-2026-07-16",
@@ -1499,7 +1499,7 @@
             },
             {
               "formation": "4-1-2-3",
-              "score": 0.442,
+              "score": 0.43,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -1522,7 +1522,7 @@
         "away": {
           "confidence": {
             "label": "high",
-            "score": 0.832,
+            "score": 0.822,
             "method": "evidence-strength-v2",
             "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
           },
@@ -1536,7 +1536,7 @@
           "formationScores": [
             {
               "formation": "4-4-2",
-              "score": 1.101,
+              "score": 1.367,
               "independentVotes": 2,
               "sourceIds": [
                 "sports-mole-spain-argentina-preview-2026-07-16",
@@ -1548,7 +1548,7 @@
             },
             {
               "formation": "4-1-4-1",
-              "score": 0.655,
+              "score": 0.929,
               "independentVotes": 1,
               "sourceIds": [
                 "racing-post-spain-argentina-preview-2026-07-16"
@@ -1836,7 +1836,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.218,
+                "score": 0.162,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1853,7 +1853,7 @@
               "position": "RB",
               "confidence": {
                 "label": "low",
-                "score": 0.211,
+                "score": 0.157,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1870,7 +1870,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.211,
+                "score": 0.157,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1887,7 +1887,7 @@
               "position": "LB",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1904,7 +1904,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1921,7 +1921,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1938,7 +1938,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1955,7 +1955,7 @@
               "position": "RW",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1972,7 +1972,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -1989,7 +1989,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2006,7 +2006,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2023,7 +2023,7 @@
               "position": "DM",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2040,7 +2040,7 @@
               "position": "RW",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2057,7 +2057,7 @@
               "position": "LW",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2074,7 +2074,7 @@
               "position": "RW",
               "confidence": {
                 "label": "low",
-                "score": 0.207,
+                "score": 0.154,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2151,7 +2151,7 @@
               "y": 75,
               "confidence": {
                 "label": "medium",
-                "score": 0.59,
+                "score": 0.561,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -2234,7 +2234,7 @@
               "y": 52,
               "confidence": {
                 "label": "medium",
-                "score": 0.587,
+                "score": 0.559,
                 "method": "evidence-strength-v2",
                 "reason": "2 independent starter sources; not a calibrated probability."
               },
@@ -2359,7 +2359,7 @@
               "position": "RM",
               "confidence": {
                 "label": "low",
-                "score": 0.216,
+                "score": 0.161,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2377,7 +2377,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.213,
+                "score": 0.158,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2394,7 +2394,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2411,7 +2411,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2428,7 +2428,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2445,7 +2445,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2462,7 +2462,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2479,7 +2479,7 @@
               "position": "CB",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2496,7 +2496,7 @@
               "position": "RW",
               "confidence": {
                 "label": "low",
-                "score": 0.209,
+                "score": 0.155,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2513,7 +2513,7 @@
               "position": "RB",
               "confidence": {
                 "label": "low",
-                "score": 0.206,
+                "score": 0.153,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2531,7 +2531,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.206,
+                "score": 0.153,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2548,7 +2548,7 @@
               "position": "ST",
               "confidence": {
                 "label": "low",
-                "score": 0.206,
+                "score": 0.153,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2565,7 +2565,7 @@
               "position": "GK",
               "confidence": {
                 "label": "low",
-                "score": 0.206,
+                "score": 0.153,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2582,7 +2582,7 @@
               "position": "LM",
               "confidence": {
                 "label": "low",
-                "score": 0.206,
+                "score": 0.153,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2599,7 +2599,7 @@
               "position": "CM",
               "confidence": {
                 "label": "low",
-                "score": 0.206,
+                "score": 0.153,
                 "method": "evidence-strength-v2",
                 "reason": "Bench evidence strength; not a calibrated probability."
               },
@@ -2630,7 +2630,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-17T17:41:06.655Z"
+          "checkedAt": "2026-07-17T19:36:51.903Z"
         },
         "confidence": {
           "label": "high",
@@ -2646,8 +2646,8 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-17T17:41:06.655Z",
-        "updatedAt": "2026-07-17T17:41:06.655Z"
+        "checkedAt": "2026-07-17T19:36:51.903Z",
+        "updatedAt": "2026-07-17T19:36:51.903Z"
       }
     }
   ],
