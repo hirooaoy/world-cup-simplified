@@ -537,6 +537,7 @@ const EXACT = {
   "Prime": "전성기",
   "Loading archive player profile": "과거 대회 선수 프로필 불러오는 중",
   "Historic World Cup record": "역대 월드컵 기록",
+  "Hide matches": "경기 숨기기",
   "Hide previous World Cups": "이전 월드컵 숨기기",
   "Peak value": "최고 가치",
   "Estimated market value, shaped by public valuations, age, club level, role, and recent form.":
@@ -780,8 +781,12 @@ Object.assign(EXACT, {
   "See release notes": "업데이트 내역 보기",
   "See sources": "출처 보기",
   "Tournament facts": "대회 공식 정보",
+  "Tournament facts & confirmed lineups": "대회 공식 정보 및 확정 라인업",
   Forecasts: "예측",
+  "public betting markets": "공개 베팅 시장",
+  "Predicted lineups & team news": "예상 라인업 및 팀 소식",
   "Player information": "선수 정보",
+  "Head-to-head records": "상대 전적",
   "Official highlights": "공식 하이라이트",
   "Exact sources vary by match.": "경기별 세부 출처는 다를 수 있습니다.",
   "Show all matches": "모든 경기 보기",
@@ -1465,9 +1470,11 @@ export function formatAppMessage(type, data = {}) {
 
   switch (type) {
     case "h2h-none":
-      return `${withKoreanParticle(data.home, "과", "와")} ${withKoreanParticle(data.away, "은", "는")} 확인된 남자 A매치에서 만난 적이 없습니다. 이번이 첫 맞대결입니다.`;
+      return "이 출처에서 이전 맞대결이 반환되지 않았습니다. 전체 역사가 완전한지는 확인되지 않았습니다.";
     case "h2h-record":
-      return `이 경기 전 확인된 남자 A매치 상대 전적은 ${data.home} ${data.homeWins}승, 무승부 ${data.draws}회, ${data.away} ${data.awayWins}승이었고 총 ${data.goals}골이 나왔습니다.`;
+      return data.coverageStatus === "complete"
+        ? `확인된 남자 A매치 ${data.total}경기: ${data.home} ${data.homeWins}승, ${data.away} ${data.awayWins}승, 무승부 ${data.draws}회.`
+        : `데이터셋에서 확인할 수 있는 남자 A매치 ${data.total}경기: ${data.home} ${data.homeWins}승, ${data.away} ${data.awayWins}승, 무승부 ${data.draws}회. 전체 역사가 완전한지는 확인되지 않았습니다.`;
     case "player-note-fallback":
       return `선수 핵심 강점: ${(data.skills || []).join(" · ")}.`;
     case "flag-label":

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -163,6 +163,7 @@ async function fetchTournament(year) {
 const duplicateCounts = new Map();
 const tournaments = [];
 const fixtures = [];
+const existingHistory = JSON.parse(await readFile(historyPath, "utf8"));
 
 for (const year of years) {
   const tournament = await fetchTournament(year);
@@ -188,15 +189,24 @@ for (const year of years) {
   fixtures.push(...normalizedFixtures);
 }
 
+const existing2026Tournament = (existingHistory.tournaments || []).find((tournament) => tournament.year === 2026);
+const existing2026Fixtures = (existingHistory.fixtures || []).filter((fixture) => fixture.tournamentYear === 2026);
+if (existing2026Tournament && existing2026Fixtures.length === 104) {
+  tournaments.push(existing2026Tournament);
+  fixtures.push(...existing2026Fixtures);
+}
+
 fixtures.sort((a, b) => a.sortKey.localeCompare(b.sortKey));
 
 const history = {
   updatedAt: "2026-06-17T15:08:00-07:00",
-  sourceIds: [sourceId],
+  sourceIds: [...new Set([sourceId, ...(existing2026Fixtures.length === 104 ? existingHistory.sourceIds || [] : [])])],
   coverage: {
-    status: "complete-men-1930-2022",
+    status: existing2026Fixtures.length === 104 ? "complete-men-1930-2026" : "complete-men-1930-2022",
     note:
-      "Historical men's World Cup match data imported from the public-domain openfootball/worldcup.json project. Date-only matches are preserved on their tournament local date."
+      existing2026Fixtures.length === 104
+        ? "Historical men's World Cup data through 2022 was refreshed from openfootball without deleting the finalized, versioned 2026 archive."
+        : "Historical men's World Cup match data imported from the public-domain openfootball/worldcup.json project. Date-only matches are preserved on their tournament local date."
   },
   source: {
     id: sourceId,

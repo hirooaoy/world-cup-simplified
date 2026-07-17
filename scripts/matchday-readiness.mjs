@@ -98,7 +98,8 @@ function fixtureSourceIds(fixture) {
     fixture.keyPlayers?.sourceId,
     fixture.keyInformation?.sourceId,
     ...(fixture.keyInformation?.researchSourceIds || []),
-    fixture.h2h?.sourceId
+    fixture.h2h?.sourceId,
+    fixture.h2h?.aggregateSourceId
   ].filter(Boolean);
 }
 
@@ -260,6 +261,16 @@ for (const fixture of focusFixtures) {
 
   if (fixture.status === "FT" && !fixture.score) {
     blockers.push(`${label} is FT but has no score.`);
+  }
+
+  if (
+    ["semi-finals", "bronze-final", "final"].includes(fixture.stage) &&
+    fixture.h2h?.coverageStatus === "complete" &&
+    fixture.h2h.loadedMeetingCount !== fixture.h2h.officialAggregateCount
+  ) {
+    blockers.push(
+      `${label} is marked as complete H2H coverage but has ${fixture.h2h.loadedMeetingCount} loaded meetings versus ${fixture.h2h.officialAggregateCount} in the official aggregate.`
+    );
   }
 
   if (

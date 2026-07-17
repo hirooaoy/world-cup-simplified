@@ -3,7 +3,7 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-7";
+} from "./locales/locale-runtime.js?v=2026-07-17-10";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
@@ -137,8 +137,12 @@ const footerText = {
     seeSources: "See sources",
     sources: "Sources",
     tournamentFacts: "Tournament facts",
+    tournamentFactsAndConfirmedLineups: "Tournament facts & confirmed lineups",
     forecasts: "Forecasts",
+    publicBettingMarkets: "public betting markets",
+    predictedLineupsAndTeamNews: "Predicted lineups & team news",
     playerInformation: "Player information",
+    headToHeadRecords: "Head-to-head records",
     officialHighlights: "Official highlights",
     exactSources: "Exact sources vary by match."
   },
@@ -154,8 +158,12 @@ const footerText = {
     seeSources: "查看来源",
     sources: "来源",
     tournamentFacts: "赛事事实",
+    tournamentFactsAndConfirmedLineups: "赛事信息与已确认阵容",
     forecasts: "预测",
+    publicBettingMarkets: "公开博彩市场",
+    predictedLineupsAndTeamNews: "预测阵容与球队消息",
     playerInformation: "球员信息",
+    headToHeadRecords: "交锋记录",
     officialHighlights: "官方集锦",
     exactSources: "每场比赛的具体来源可能不同。"
   }
@@ -400,17 +408,24 @@ function renderReportFooter() {
     transfermarkt: "https://github.com/dcaribou/transfermarkt-datasets",
     wikipedia: "https://en.wikipedia.org/wiki/Category:Association_football_players",
     wikimedia: "https://commons.wikimedia.org/wiki/Main_Page",
-    foxHighlights: "https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg"
+    foxHighlights: "https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg",
+    nationalFootballTeams: "https://www.national-football-teams.com/",
+    elevenVeleven: "https://www.11v11.com/",
+    sportsMole: "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
+    racingPost: "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
+    skySports: "https://www.skysports.com/football/news/11095/13563231/england-vs-argentina-declan-rice-fit-for-world-cup-semi-final-as-thomas-tuchels-squad-issues-begin-to-ease"
   };
   const sourceLink = (url, label, className = "") =>
     `<a${className ? ` class="${className}"` : ""} href="${url}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
   const sourceSeparator = `<span class="source-tooltip-separator" aria-hidden="true"> — </span>`;
   const itemSeparator = `<span class="source-tooltip-item-separator" aria-hidden="true"> · </span>`;
   const sourceTooltipRows = [
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.tournamentFacts)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.forecasts)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, "Oddschecker")}</span></span>`,
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.playerInformation)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(ft.officialHighlights)}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.tournamentFactsAndConfirmedLineups)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.forecasts)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, ft.publicBettingMarkets)}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.predictedLineupsAndTeamNews)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.sportsMole, "Sports Mole")}${itemSeparator}${sourceLink(sourceUrls.racingPost, "Racing Post")}${itemSeparator}${sourceLink(sourceUrls.skySports, "Sky Sports")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.playerInformation)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.headToHeadRecords)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.nationalFootballTeams, "National Football Teams")}${itemSeparator}${sourceLink(sourceUrls.elevenVeleven, "11v11")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.officialHighlights)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
   const updatedAtText = formatFooterUpdatedAt(footerUpdatedAt);
   const dataRefreshed = updatedAtText
@@ -425,10 +440,14 @@ function renderReportFooter() {
       : `${escapeHtml(ft.madeBy)} ${creatorLink}`;
   const creatorCredit = `<span class="release-tooltip-note">${creatorText}</span>`;
   const releaseContent = getFooterReleaseContent();
+  const sourceHeadingSeparator = (
+    activeLocalePack?.formatting?.labelSeparator || (currentLanguage === "zh" ? "：" : ":")
+  ).trimEnd();
   const sourceTooltip = `
     <span class="source-tooltip-wrapper">
       <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(ft.seeSources)}</button>
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
+        <strong>${escapeHtml(ft.sources)}${escapeHtml(sourceHeadingSeparator)}</strong>
         <span class="source-tooltip-list">${sourceTooltipRows.join("")}</span>
         <span class="source-tooltip-note">${escapeHtml(ft.exactSources)}</span>
       </span>
@@ -459,8 +478,34 @@ function updateReportFooterTooltipBounds(root = sourceNote) {
   window.requestAnimationFrame(() => {
     root.querySelectorAll(".source-tooltip, .release-tooltip").forEach((tooltip) => {
       tooltip.style.removeProperty("--tooltip-shift-x");
-      const rect = tooltip.getBoundingClientRect();
+      tooltip.style.removeProperty("--tooltip-avoid-width");
+      let rect = tooltip.getBoundingClientRect();
       const viewportInset = 10;
+      const scoutCollisionGap = 8;
+      const scout = document
+        .querySelector("#scout-widget:not(.is-open)")
+        ?.getBoundingClientRect();
+      const overlapsScoutVertically = Boolean(
+        scout?.width > 0 &&
+        scout?.height > 0 &&
+        rect.bottom + scoutCollisionGap > scout.top &&
+        rect.top - scoutCollisionGap < scout.bottom
+      );
+
+      if (overlapsScoutVertically) {
+        const availableBeforeScout = Math.max(
+          0,
+          scout.left - scoutCollisionGap - viewportInset
+        );
+        if (rect.width > availableBeforeScout && availableBeforeScout > 0) {
+          tooltip.style.setProperty(
+            "--tooltip-avoid-width",
+            `${availableBeforeScout.toFixed(2)}px`
+          );
+          rect = tooltip.getBoundingClientRect();
+        }
+      }
+
       let shift = 0;
 
       if (rect.left < viewportInset) {
@@ -468,6 +513,15 @@ function updateReportFooterTooltipBounds(root = sourceNote) {
       }
       if (rect.right + shift > window.innerWidth - viewportInset) {
         shift -= rect.right + shift - (window.innerWidth - viewportInset);
+      }
+      if (
+        overlapsScoutVertically &&
+        rect.right + shift > scout.left - scoutCollisionGap
+      ) {
+        const shiftBeforeScout = scout.left - scoutCollisionGap - rect.right;
+        if (rect.left + shiftBeforeScout >= viewportInset - 0.5) {
+          shift = shiftBeforeScout;
+        }
       }
       if (Math.abs(shift) > 0.5) {
         tooltip.style.setProperty("--tooltip-shift-x", `${shift.toFixed(2)}px`);

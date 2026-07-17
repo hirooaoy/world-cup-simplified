@@ -1,0 +1,87 @@
+{
+  "updatedAt": "2026-07-17T21:00:00Z",
+  "pairs": {
+    "ENG-FRA": {
+      "teamIds": [
+        "ENG",
+        "FRA"
+      ],
+      "officialAggregateCount": 32,
+      "aggregate": {
+        "ENG": 17,
+        "FRA": 10,
+        "draws": 5
+      },
+      "aggregateSourceId": "uefa-england-france-h2h-2026-07-17",
+      "aggregateSource": {
+        "label": "UEFA England team profile and head-to-head record",
+        "url": "https://editorial.uefa.com/resources/02a2-1fe6ccf35a2e-07e2c98e122b-1000/202627_unl_qualifying_draw_presskit_20260211184312.pdf",
+        "type": "official",
+        "checkedAt": "2026-07-17T21:00:00Z",
+        "note": "UEFA records 32 England-France senior meetings: England 17 wins, France 10 wins and five draws."
+      },
+      "resultsSourceId": "rsssf-england-france-results-2026-07-17",
+      "resultsSource": {
+        "label": "RSSSF England-France full international results list",
+        "url": "https://www.rsssf.org/tablese/engfrares.html",
+        "type": "cross-check",
+        "checkedAt": "2026-07-17T21:00:00Z",
+        "note": "Detailed 32-match list reconciled to UEFA's official aggregate; England amateur and wartime Victory internationals are listed separately and excluded."
+      },
+      "additionalResults": [
+        { "date": "1969-03-12", "competition": "Friendly", "homeTeamId": "ENG", "awayTeamId": "FRA", "homeScore": 5, "awayScore": 0, "venue": "Wembley Stadium", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1963-02-27", "competition": "European Championship qualifier", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 5, "awayScore": 2, "venue": "Parc des Princes", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1962-10-03", "competition": "European Championship qualifier", "homeTeamId": "ENG", "awayTeamId": "FRA", "homeScore": 1, "awayScore": 1, "venue": "Hillsborough", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1957-11-27", "competition": "Friendly", "homeTeamId": "ENG", "awayTeamId": "FRA", "homeScore": 4, "awayScore": 0, "venue": "Wembley Stadium", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1955-05-15", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 1, "awayScore": 0, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1951-10-03", "competition": "Friendly", "homeTeamId": "ENG", "awayTeamId": "FRA", "homeScore": 2, "awayScore": 2, "venue": "Highbury", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1949-05-22", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 1, "awayScore": 3, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1947-05-03", "competition": "Friendly", "homeTeamId": "ENG", "awayTeamId": "FRA", "homeScore": 3, "awayScore": 0, "venue": "Highbury", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1938-05-26", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 2, "awayScore": 4, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1933-12-06", "competition": "Friendly", "homeTeamId": "ENG", "awayTeamId": "FRA", "homeScore": 4, "awayScore": 1, "venue": "White Hart Lane", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1931-05-14", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 5, "awayScore": 2, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1929-05-09", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 1, "awayScore": 4, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1928-05-17", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 1, "awayScore": 5, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1927-05-26", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 0, "awayScore": 6, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1925-05-21", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 2, "awayScore": 3, "venue": "Stade Olympique Yves-du-Manoir", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" },
+        { "date": "1924-05-17", "competition": "Friendly", "homeTeamId": "FRA", "awayTeamId": "ENG", "homeScore": 1, "awayScore": 3, "venue": "Stade Pershing", "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html" }
+      ]
+    },
+    "ARG-ESP": {
+      "teamIds": [
+        "ARG",
+        "ESP"
+      ],
+      "officialAggregateCount": 14,
+      "aggregate": {
+        "ARG": 6,
+        "ESP": 6,
+        "draws": 2
+      },
+      "aggregateSourceId": "fifa-argentina-spain-h2h-2026-07-17",
+      "aggregateSource": {
+        "label": "FIFA Argentina-Spain head-to-head history",
+        "url": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados",
+        "type": "official",
+        "checkedAt": "2026-07-17T21:00:00Z",
+        "note": "FIFA lists all 14 senior meetings: six wins each and two draws."
+      },
+      "resultsSourceId": "fifa-argentina-spain-h2h-2026-07-17",
+      "resultsSource": {
+        "label": "FIFA Argentina-Spain head-to-head history",
+        "url": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados",
+        "type": "official",
+        "checkedAt": "2026-07-17T21:00:00Z",
+        "note": "FIFA's article provides the date and score of all 14 senior meetings."
+      },
+      "additionalResults": [
+        { "date": "1974-10-12", "competition": "Friendly", "homeTeamId": "ARG", "awayTeamId": "ESP", "homeScore": 1, "awayScore": 1, "venue": "Buenos Aires", "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados" },
+        { "date": "1972-10-11", "competition": "Friendly", "homeTeamId": "ESP", "awayTeamId": "ARG", "homeScore": 1, "awayScore": 0, "venue": "Madrid", "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados" },
+        { "date": "1961-06-11", "competition": "Friendly", "homeTeamId": "ESP", "awayTeamId": "ARG", "homeScore": 2, "awayScore": 0, "venue": "Seville", "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados" },
+        { "date": "1960-07-24", "competition": "Friendly", "homeTeamId": "ARG", "awayTeamId": "ESP", "homeScore": 2, "awayScore": 0, "venue": "Buenos Aires", "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados" },
+        { "date": "1953-07-05", "competition": "Friendly", "homeTeamId": "ARG", "awayTeamId": "ESP", "homeScore": 1, "awayScore": 0, "venue": "Buenos Aires", "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados" },
+        { "date": "1952-12-07", "competition": "Friendly", "homeTeamId": "ESP", "awayTeamId": "ARG", "homeScore": 0, "awayScore": 1, "venue": "Madrid", "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados" }
+      ]
+    }
+  }
+}

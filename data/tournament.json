@@ -2885,6 +2885,38 @@
       "type": "official",
       "checkedAt": "2026-07-07T16:10:00.000Z",
       "note": "FIFA Tactical Line-up version 2, updated after observation of the game, supplied the observed rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "national-football-teams-h2h-sync-2026-07-17",
+      "label": "National Football Teams H2H sync",
+      "url": "https://www.national-football-teams.com",
+      "type": "cross-check",
+      "checkedAt": "2026-07-17T21:06:18.172Z",
+      "note": "106 fixture H2H updates merged from National Football Teams encounter pages."
+    },
+    {
+      "id": "uefa-england-france-h2h-2026-07-17",
+      "label": "UEFA England team profile and head-to-head record",
+      "url": "https://editorial.uefa.com/resources/02a2-1fe6ccf35a2e-07e2c98e122b-1000/202627_unl_qualifying_draw_presskit_20260211184312.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-17T21:00:00Z",
+      "note": "UEFA records 32 England-France senior meetings: England 17 wins, France 10 wins and five draws."
+    },
+    {
+      "id": "rsssf-england-france-results-2026-07-17",
+      "label": "RSSSF England-France full international results list",
+      "url": "https://www.rsssf.org/tablese/engfrares.html",
+      "type": "cross-check",
+      "checkedAt": "2026-07-17T21:00:00Z",
+      "note": "Detailed 32-match list reconciled to UEFA's official aggregate; England amateur and wartime Victory internationals are listed separately and excluded."
+    },
+    {
+      "id": "fifa-argentina-spain-h2h-2026-07-17",
+      "label": "FIFA Argentina-Spain head-to-head history",
+      "url": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados",
+      "type": "official",
+      "checkedAt": "2026-07-17T21:00:00Z",
+      "note": "FIFA's article provides the date and score of all 14 senior meetings."
     }
   ],
   "groups": [

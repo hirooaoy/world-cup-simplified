@@ -3312,8 +3312,8 @@ function buildMatchLead(fixture, teams, timeline, locale = "en") {
 function getZhH2hSummary(fixture, teams) {
   const results = Array.isArray(fixture?.h2h?.results) ? fixture.h2h.results : [];
   if (!results.length || !teams.home || !teams.away) {
-    return fixture?.h2h?.status === "verified-empty"
-      ? "这场比赛前，双方没有经过核验的成年国家队交锋记录。"
+    return fixture?.h2h?.status === "loaded"
+      ? "该来源未返回此前的交锋记录。完整历史覆盖尚未确认。"
       : "双方过往交锋记录仍在核验中。";
   }
   const record = { draws: 0, homeWins: 0, awayWins: 0 };
@@ -3334,7 +3334,9 @@ function getZhH2hSummary(fixture, teams) {
       record.awayWins += 1;
     }
   }
-  return `此前经过核验的成年国家队交锋：${teams.home.name}${record.homeWins}胜，平局${record.draws}场，${teams.away.name}${record.awayWins}胜。`;
+  const prefix = fixture.h2h.coverageStatus === "complete" ? "已核验的完整成年国家队交锋" : "数据集中所选成年国家队交锋";
+  const caveat = fixture.h2h.coverageStatus === "complete" ? "" : "完整历史覆盖尚未确认。";
+  return `${prefix}${results.length}场：${teams.home.name}${record.homeWins}胜，平局${record.draws}场，${teams.away.name}${record.awayWins}胜。${caveat}`;
 }
 
 const GENERIC_MATCH_STORY_PATTERN = /\b(?:chase the match|pulled away|trading momentum|kept trading momentum|rescued a point|settled a tight match|finished the scoring|shaped the contest|shaped the match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned)\b/i;
@@ -3388,7 +3390,7 @@ function getMatchH2hSummary(fixture, teams, locale = "en") {
   if (templates) {
     const results = Array.isArray(fixture?.h2h?.results) ? fixture.h2h.results : [];
     if (!results.length || !teams.home || !teams.away) {
-      return fixture?.h2h?.status === "verified-empty"
+      return fixture?.h2h?.status === "loaded"
         ? templates.h2hNone?.({ first: teams.home?.name || "", second: teams.away?.name || "", hasFixture: true })
         : templates.h2hUnavailable;
     }
@@ -3402,13 +3404,20 @@ function getMatchH2hSummary(fixture, teams, locale = "en") {
       else if ((homeScore > awayScore ? result.homeTeamId : result.awayTeamId) === teams.home.id) record.firstWins += 1;
       else record.secondWins += 1;
     }
-    return templates.h2hRecord?.({ ...record, first: teams.home.name, hasFixture: true, second: teams.away.name });
+    return templates.h2hRecord?.({
+      ...record,
+      coverageStatus: fixture.h2h.coverageStatus || "unknown",
+      first: teams.home.name,
+      hasFixture: true,
+      second: teams.away.name,
+      total: results.length
+    });
   }
   if (fixture?.h2h?.status === "loaded" && fixture.h2h.summary) {
     return fixture.h2h.summary;
   }
-  return fixture?.h2h?.status === "verified-empty"
-    ? "No verified previous senior meetings before this fixture."
+  return fixture?.h2h?.status === "loaded"
+    ? "No previous meetings were returned by this source. Complete historical coverage has not been confirmed."
     : "Previous-meeting history is still being checked.";
 }
 
@@ -3440,7 +3449,7 @@ function getMatchupFixture(teams, fixtures) {
 
 function getMatchupH2h(teams, core) {
   const cached = core.chatbotH2h?.[getTeamPairKey(teams)];
-  if (cached && ["loaded", "verified-empty"].includes(cached.status)) {
+  if (cached?.status === "loaded") {
     return cached;
   }
 
@@ -3449,7 +3458,7 @@ function getMatchupH2h(teams, core) {
     core.fixtures.filter((fixture) => {
       const fixtureIds = [fixture.homeTeamId, fixture.awayTeamId];
       return fixtureIds.every((teamId) => teamIds.has(teamId)) &&
-        ["loaded", "verified-empty"].includes(fixture.h2h?.status);
+        fixture.h2h?.status === "loaded";
     })
   )[0]?.h2h || null;
 }
@@ -3504,7 +3513,7 @@ function getMatchupResultWinnerId(result) {
 
 function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
   const templates = getLocaleTemplates(locale);
-  if (!h2h || !["loaded", "verified-empty"].includes(h2h.status)) {
+  if (!h2h || h2h.status !== "loaded") {
     if (templates) return templates.h2hUnavailable;
     return isZhLocale(locale)
       ? "双方经过核验的成年国家队交锋记录尚未载入。"
@@ -3518,11 +3527,9 @@ function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
       return templates.h2hNone?.({ first: firstTeam.name, hasFixture, second: secondTeam.name });
     }
     if (isZhLocale(locale)) {
-      return hasFixture
-        ? `${firstTeam.name}与${secondTeam.name}此前从未在经过核验的成年国家队比赛中交手，因此这是双方首次交锋。`
-        : `${firstTeam.name}与${secondTeam.name}此前从未在经过核验的成年国家队比赛中交手。未来如果交手，将是双方首次碰面。`;
+      return "该来源未返回此前的交锋记录。完整历史覆盖尚未确认。";
     }
-    return `${firstTeam.name} and ${secondTeam.name} have never met in a verified senior men's international. ${hasFixture ? "This is their first head-to-head meeting." : "A future match would be their first head-to-head meeting."}`;
+    return "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.";
   }
 
   const record = results.reduce(
@@ -3549,27 +3556,26 @@ function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
   );
 
   if (isZhLocale(locale)) {
-    return `此前经过核验的成年国家队交锋：${firstTeam.name}${record.firstWins}胜，平局${record.draws}场，${secondTeam.name}${record.secondWins}胜，共产生${record.goals}个进球。`;
+    const prefix = h2h.coverageStatus === "complete" ? "已核验的完整成年国家队交锋" : "数据集中所选成年国家队交锋";
+    const caveat = h2h.coverageStatus === "complete" ? "" : "完整历史覆盖尚未确认。";
+    return `${prefix}${results.length}场：${firstTeam.name}${record.firstWins}胜，平局${record.draws}场，${secondTeam.name}${record.secondWins}胜，共产生${record.goals}个进球。${caveat}`;
   }
   if (templates?.h2hRecord) {
     return templates.h2hRecord({
       ...record,
+      coverageStatus: h2h.coverageStatus || "unknown",
       first: firstTeam.name,
       hasFixture,
-      second: secondTeam.name
+      second: secondTeam.name,
+      total: results.length
     });
   }
 
-  const leader = record.firstWins > record.secondWins
-    ? firstTeam.name
-    : record.secondWins > record.firstWins
-      ? secondTeam.name
-      : "";
-  const prefix = leader
-    ? `${leader} had the edge in the verified senior series`
-    : "The verified senior series was level";
-  const fixturePrefix = hasFixture ? "Before this fixture, " : "";
-  return `${fixturePrefix}${prefix}: ${record.firstWins} ${firstTeam.name} ${record.firstWins === 1 ? "win" : "wins"}, ${record.draws} ${record.draws === 1 ? "draw" : "draws"}, ${record.secondWins} ${secondTeam.name} ${record.secondWins === 1 ? "win" : "wins"}, ${record.goals} total ${record.goals === 1 ? "goal" : "goals"}.`;
+  const coverage = h2h.coverageStatus === "complete"
+    ? `${results.length} verified senior meetings`
+    : `${results.length} selected senior meetings available in our dataset`;
+  const caveat = h2h.coverageStatus === "complete" ? "" : " Complete historical coverage has not been confirmed.";
+  return `${coverage}: ${record.firstWins} ${firstTeam.name} ${record.firstWins === 1 ? "win" : "wins"}, ${record.draws} ${record.draws === 1 ? "draw" : "draws"}, ${record.secondWins} ${secondTeam.name} ${record.secondWins === 1 ? "win" : "wins"}.${caveat}`;
 }
 
 function formatMatchupHistoryDate(value, locale = "en") {
@@ -3825,7 +3831,7 @@ function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overvi
       subject,
       opponent,
       formattedWin,
-      Boolean(allResults.length || (h2h && ["loaded", "verified-empty"].includes(h2h.status))),
+      Boolean(allResults.length || h2h?.coverageStatus === "complete"),
       locale
     );
     historySummary = formattedWin

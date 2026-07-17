@@ -5,11 +5,11 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "e0ade7bb70104b97e9909c921f9bc04b1ba67e5ebde3a569e1b5ac21bc9995c1"
+  "sourceFingerprint": "76b0c335c25e6a25e53b7c320d1822854b09791382656d01a45443e21ac12792"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "A steadier Ball Boy opening and clearer next-match copy": "Una apertura de Ball Boy más estable y un texto más claro para el próximo partido",
   "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.": "Ball Boy ahora se abre como una sola superficie coordinada: el panel, el título, los controles del encabezado y la conversación aparecen al mismo tiempo, mientras que el campo para escribir se muestra sin demora adicional.",
+  "Correct knockout scores, honest H2H, and faster loading": "Marcadores correctos en eliminatorias, historiales transparentes y carga más rápida",
   "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "En pantallas pequeñas, el aviso del pie de página conserva el ajuste de línea y el espacio que evitan a Ball Boy mientras se abre o se cierra, en lugar de moverse durante la animación.",
   "Rest-day guidance now presents the next match as a normal sentence with standard spacing around the flags, team names, and versus text while keeping every item vertically aligned.": "En los días sin partido, la indicación del próximo encuentro ahora se lee como una frase normal, con espaciado estándar entre las banderas, los nombres de las selecciones y el texto de versus, y con todos los elementos alineados verticalmente."
 });

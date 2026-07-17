@@ -43,8 +43,12 @@ const reportLocale = {
     seeSources: "Ver fuentes",
     sources: "Fuentes",
     tournamentFacts: "Datos del torneo",
+    tournamentFactsAndConfirmedLineups: "Datos del torneo y alineaciones confirmadas",
     forecasts: "Pronósticos",
+    publicBettingMarkets: "mercados públicos de apuestas",
+    predictedLineupsAndTeamNews: "Alineaciones previstas y noticias de los equipos",
     playerInformation: "Información de jugadores",
+    headToHeadRecords: "Historial de enfrentamientos",
     officialHighlights: "Resúmenes oficiales",
     exactSources: "Las fuentes exactas varían según el partido."
   },

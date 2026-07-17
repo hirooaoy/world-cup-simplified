@@ -5,11 +5,11 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "e0ade7bb70104b97e9909c921f9bc04b1ba67e5ebde3a569e1b5ac21bc9995c1"
+  "sourceFingerprint": "76b0c335c25e6a25e53b7c320d1822854b09791382656d01a45443e21ac12792"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "A steadier Ball Boy opening and clearer next-match copy": "더 안정적인 Ball Boy 열림과 더 명확한 다음 경기 안내",
   "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.": "Ball Boy가 이제 하나의 화면처럼 자연스럽게 열립니다. 패널, 제목, 상단 컨트롤과 대화 영역이 같은 시점에 나타나며 입력창은 추가 지연 없이 표시됩니다.",
+  "Correct knockout scores, honest H2H, and faster loading": "정확한 토너먼트 점수, 정직한 상대 전적, 더 빠른 로딩",
   "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "작은 화면에서는 Ball Boy가 열리거나 닫히는 동안에도 바닥글 안내 문구가 겹침을 피하는 줄바꿈과 간격을 유지해 애니메이션 중 움직이지 않습니다.",
   "Rest-day guidance now presents the next match as a normal sentence with standard spacing around the flags, team names, and versus text while keeping every item vertically aligned.": "경기가 없는 날의 다음 경기 안내가 이제 일반 문장처럼 표시됩니다. 국기, 팀 이름과 대진 문구 사이에는 기본 간격을 사용하고 모든 요소의 세로 정렬을 유지합니다."
 });

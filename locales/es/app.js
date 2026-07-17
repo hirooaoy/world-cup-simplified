@@ -541,6 +541,7 @@ const EXACT = {
   "Prime": "Máximo",
   "Loading archive player profile": "Cargando perfil histórico del jugador",
   "Historic World Cup record": "Historial mundialista",
+  "Hide matches": "Ocultar partidos",
   "Hide previous World Cups": "Ocultar Mundiales anteriores",
   "Peak value": "Valor máximo",
   "Estimated market value, shaped by public valuations, age, club level, role, and recent form.":
@@ -788,8 +789,12 @@ Object.assign(EXACT, {
   "See release notes": "Ver notas de la versión",
   "See sources": "Ver fuentes",
   "Tournament facts": "Datos del torneo",
+  "Tournament facts & confirmed lineups": "Datos del torneo y alineaciones confirmadas",
   Forecasts: "Pronósticos",
+  "public betting markets": "mercados públicos de apuestas",
+  "Predicted lineups & team news": "Alineaciones previstas y noticias de los equipos",
   "Player information": "Información de jugadores",
+  "Head-to-head records": "Historial de enfrentamientos",
   "Official highlights": "Resúmenes oficiales",
   "Exact sources vary by match.": "Las fuentes exactas varían según el partido.",
   "Show all matches": "Mostrar todos los partidos",
@@ -1507,12 +1512,14 @@ export function formatAppMessage(type, data = {}) {
 
   switch (type) {
     case "h2h-none":
-      return `${data.home} y ${data.away} nunca se habían enfrentado en un partido verificado de selecciones absolutas. Este es su primer duelo.`;
+      return "Esta fuente no devolvió enfrentamientos anteriores. No se ha confirmado que el registro histórico esté completo.";
     case "h2h-record": {
       const wins = (value) => `${value} ${Number(value) === 1 ? "victoria" : "victorias"}`;
       const draws = `${data.draws} ${Number(data.draws) === 1 ? "empate" : "empates"}`;
-      const goals = `${data.goals} ${Number(data.goals) === 1 ? "gol" : "goles"}`;
-      return `Antes de este partido, el historial verificado entre selecciones absolutas era: ${data.home}, ${wins(data.homeWins)}; ${draws}; ${data.away}, ${wins(data.awayWins)}. Hubo ${goals} en total.`;
+      const record = `${data.home}, ${wins(data.homeWins)}; ${data.away}, ${wins(data.awayWins)}; ${draws}`;
+      return data.coverageStatus === "complete"
+        ? `${data.total} enfrentamientos verificados entre selecciones absolutas: ${record}.`
+        : `${data.total} enfrentamientos seleccionados entre selecciones absolutas disponibles en nuestros datos: ${record}. No se ha confirmado que el registro histórico esté completo.`;
     }
     case "player-note-fallback":
       return `Claves del jugador: ${(data.skills || []).join(", ")}.`;

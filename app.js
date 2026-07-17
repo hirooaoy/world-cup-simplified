@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-9";
+} from "./locales/locale-runtime.js?v=2026-07-17-10";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -47,7 +47,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-17-modules-1";
+} from "./app-config.js?v=2026-07-17-modules-2";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -446,6 +446,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Shown in current table order. Group ties use FIFA head-to-head before overall goal difference.":
       "按当前积分榜顺序显示；小组同分时先按 FIFA 交锋规则，再看总净胜球。",
     "Show all matches": "显示全部比赛",
+    "Hide matches": "隐藏比赛",
     "See all": "查看全部",
     "See release notes": "查看发布说明",
     "See sources": "查看来源",
@@ -1656,8 +1657,12 @@ Object.entries({
   "Checked": "核验于",
   "Sources": "来源",
   "Tournament facts": "赛事事实",
+  "Tournament facts & confirmed lineups": "赛事信息与已确认阵容",
   Forecasts: "预测",
+  "public betting markets": "公开博彩市场",
+  "Predicted lineups & team news": "预测阵容与球队消息",
   "Player information": "球员信息",
+  "Head-to-head records": "交锋记录",
   "Official highlights": "官方集锦",
   "Exact sources vary by match.": "每场比赛的具体来源可能不同。"
 }).forEach(([text, translation]) => {
@@ -2058,6 +2063,28 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^Head-to-head record across (\d+) match(?:es)?$/,
     replace: (_, count) => `${count}场交锋记录`
+  },
+  {
+    pattern: /^Head-to-head record across (\d+) verified meeting(?:s)?$/,
+    replace: (_, count) => `${count}场已核验交锋记录`
+  },
+  {
+    pattern: /^Record across (\d+) selected meeting(?:s)?$/,
+    replace: (_, count) => `${count}场数据集中所选交锋记录`
+  },
+  {
+    pattern: /^(\d+) verified senior meeting(?:s)?: (.+) (\d+) wins?, (.+) (\d+), (\d+) draws?\.$/,
+    replace: (_, count, firstTeam, firstWins, secondTeam, secondWins, draws) =>
+      `${count}场已核验成年国家队交锋：${translateTextToZh(firstTeam)}${firstWins}胜，${translateTextToZh(secondTeam)}${secondWins}胜，${draws}平。`
+  },
+  {
+    pattern: /^(\d+) selected senior meeting(?:s)? available in our dataset: (.+) (\d+) wins?, (.+) (\d+), (\d+) draws?\. Complete historical coverage has not been confirmed\.$/,
+    replace: (_, count, firstTeam, firstWins, secondTeam, secondWins, draws) =>
+      `数据集中有${count}场所选成年国家队交锋：${translateTextToZh(firstTeam)}${firstWins}胜，${translateTextToZh(secondTeam)}${secondWins}胜，${draws}平。完整历史覆盖尚未确认。`
+  },
+  {
+    pattern: /^No previous meetings were returned by this source\. Complete historical coverage has not been confirmed\.$/,
+    replace: () => "该来源未返回此前的交锋记录。完整历史覆盖尚未确认。"
   },
   {
     pattern: /^World Cup head-to-head record across (\d+) matches$/,
@@ -3866,6 +3893,7 @@ let isStandingsYearOpen = false;
 let isTeamSearchOpen = false;
 let isShowingOlderTeamMatches = false;
 let fixtures = [];
+let activeFixturesData = { fixtures: [] };
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
 let playerTournamentStatsByKey = null;
@@ -3886,6 +3914,7 @@ let playerProfilesByTeamAndName = new Map();
 let lineupData = { lineups: {} };
 let expectedLineupsData = { fixtures: [] };
 let playerAvailabilityData = { teams: {} };
+let editionLifecycle = { edition: 2026, state: "live" };
 let lineupRosterPlayersByTeamAndName = new Map();
 const lastKnownOfficialLineupsByFixtureId = new Map();
 const lineupSubstitutionPreviewState = new Set();
@@ -3911,6 +3940,7 @@ let syncUrl = true;
 let isRestoringHistoryState = false;
 let isInitialDataLoading = true;
 let isInitialLiveDataLoading = false;
+let isDeferredDataLoading = true;
 let teamSearchIndex = [];
 let teamSearchExactKeySetsByQueryKey = new Map();
 let pendingTeamSearchRenderFrame = 0;
@@ -8202,7 +8232,7 @@ function escapeRegExp(value) {
   }
 
   async function loadJson(url, options = {}) {
-  const { timeoutMs = 0 } = options;
+  const { cache = String(url).startsWith("api/") ? "no-store" : "default", timeoutMs = 0 } = options;
   const controller =
     timeoutMs > 0 && typeof AbortController !== "undefined" ? new AbortController() : null;
   const timeoutId = controller
@@ -8211,7 +8241,7 @@ function escapeRegExp(value) {
 
   try {
     const response = await fetch(url, {
-      cache: "no-store",
+      cache,
       signal: controller?.signal
     });
 
@@ -9982,8 +10012,9 @@ function updateTooltipBounds(root = document) {
 
   getBoundedElementTooltipElements(root).forEach((element) => {
     element.style.removeProperty("--tooltip-shift-x");
+    element.style.removeProperty("--tooltip-avoid-width");
 
-    const rect = element.getBoundingClientRect();
+    let rect = element.getBoundingClientRect();
     if (!rect.width || !rect.height) {
       return;
     }
@@ -9992,6 +10023,31 @@ function updateTooltipBounds(root = document) {
     const edgeGap = 6;
     const minLeft = edgeGap;
     const maxRight = Math.max(minLeft, viewportRight - edgeGap);
+    const scoutCollisionGap = 8;
+    const scoutWidget = document.querySelector("#scout-widget:not(.is-open)");
+    const scoutBounds = scoutWidget?.getBoundingClientRect();
+    const overlapsScoutVertically = Boolean(
+      scoutBounds?.width > 0 &&
+      scoutBounds?.height > 0 &&
+      rect.bottom + scoutCollisionGap > scoutBounds.top &&
+      rect.top - scoutCollisionGap < scoutBounds.bottom
+    );
+
+    if (overlapsScoutVertically) {
+      const availableBeforeScout = Math.max(
+        0,
+        scoutBounds.left - scoutCollisionGap - minLeft
+      );
+
+      if (rect.width > availableBeforeScout && availableBeforeScout > 0) {
+        element.style.setProperty(
+          "--tooltip-avoid-width",
+          `${availableBeforeScout.toFixed(2)}px`
+        );
+        rect = element.getBoundingClientRect();
+      }
+    }
+
     let shift = 0;
 
     if (rect.left < minLeft) {
@@ -10000,6 +10056,16 @@ function updateTooltipBounds(root = document) {
 
     if (rect.right + shift > maxRight) {
       shift -= rect.right + shift - maxRight;
+    }
+
+    if (
+      overlapsScoutVertically &&
+      rect.right + shift > scoutBounds.left - scoutCollisionGap
+    ) {
+      const shiftBeforeScout = scoutBounds.left - scoutCollisionGap - rect.right;
+      if (rect.left + shiftBeforeScout >= minLeft - 0.5) {
+        shift = shiftBeforeScout;
+      }
     }
 
     if (Math.abs(shift) > 0.5) {
@@ -14840,22 +14906,15 @@ function getTournamentParticipantSide(participants, team) {
   return "";
 }
 
-function getTournamentResultScorePairForSide(match, side, key = "score") {
+function getTournamentResultScorePair(match, key = "score") {
   const pair = key === "penalties" ? match?.scoreDetails?.penalties : match?.score;
 
-  if (!pair) {
-    return "";
-  }
-
-  return side === "away"
-    ? formatScorePair({ home: pair.away, away: pair.home })
-    : formatScorePair(pair);
+  return pair ? formatScorePair(pair) : "";
 }
 
 function formatTournamentResultPillText(match, participants, winner) {
-  const winnerSide = getTournamentParticipantSide(participants, winner) || getTournamentScoreWinnerSide(match);
-  const scoreText = getTournamentResultScorePairForSide(match, winnerSide || "home");
-  const penaltyText = getTournamentResultScorePairForSide(match, winnerSide || "home", "penalties");
+  const scoreText = getTournamentResultScorePair(match);
+  const penaltyText = getTournamentResultScorePair(match, "penalties");
 
   if (scoreText && penaltyText) {
     return `${scoreText} (${penaltyText} ${localizeText("pens")})`;
@@ -16081,7 +16140,10 @@ function getFixedViewportBottomCompensation(visualBottom) {
   return Math.max(0, Math.round(fixedBottom - visualBottom));
 }
 
+let visualViewportInsetFrameId = 0;
+
 function updateVisualViewportInsets() {
+  visualViewportInsetFrameId = 0;
   const viewport = window.visualViewport;
   const layoutHeight = window.innerHeight || document.documentElement.clientHeight || 0;
   const visualBottom =
@@ -16092,6 +16154,14 @@ function updateVisualViewportInsets() {
   const bottomInset = viewportGap > 0 ? getFixedViewportBottomCompensation(visualBottom) : 0;
 
   document.documentElement.style.setProperty("--visual-viewport-bottom-inset", `${bottomInset}px`);
+}
+
+function queueVisualViewportInsetUpdate() {
+  if (visualViewportInsetFrameId) {
+    return;
+  }
+
+  visualViewportInsetFrameId = window.requestAnimationFrame(updateVisualViewportInsets);
 }
 
 function handleTournamentBoardPointerDown(event) {
@@ -24242,15 +24312,14 @@ function getPastSummaryText(match, h2h, hasResolvedTeams) {
       return formatActiveLocaleMessage("h2h-record", {
         ...messageData,
         awayWins: record.awayWins,
+        coverageStatus: h2h.coverageStatus || "unknown",
         draws: record.draws,
         goals: record.goals,
-        homeWins: record.homeWins
+        homeWins: record.homeWins,
+        total: record.total
       });
     }
-    if (
-      h2h.status === "verified-empty" ||
-      /never met|first head-to-head/i.test(sourceSummary)
-    ) {
+    if (h2h.status === "loaded") {
       return formatActiveLocaleMessage("h2h-none", messageData);
     }
   }
@@ -24274,7 +24343,7 @@ function formatPastRecordCount(count, type) {
   return `${count} ${count === 1 ? "win" : "wins"}`;
 }
 
-function renderPastRecord(match, results) {
+function renderPastRecord(match, results, h2h = {}) {
   const record = getPastRecord(match, results);
   const items = [
     { count: record.homeWins, label: getLocalizedTeamName(match.homeTeam), type: "win" },
@@ -24300,9 +24369,11 @@ function renderPastRecord(match, results) {
           : `${label}: ${countLabel}, ${percent}`
     };
   });
-  const recordLabel = localizeText(`Head-to-head record across ${record.total} ${
-    record.total === 1 ? "match" : "matches"
-  }`);
+  const recordLabel = localizeText(
+    h2h.coverageStatus === "complete"
+      ? `Head-to-head record across ${record.total} verified ${record.total === 1 ? "meeting" : "meetings"}`
+      : `Record across ${record.total} selected ${record.total === 1 ? "meeting" : "meetings"}`
+  );
 
   return `
     <div class="past-record" aria-label="${escapeHtml(recordLabel)}">
@@ -24365,7 +24436,7 @@ function renderPastResults(match) {
   }
 
   if (!h2h.results.length) {
-    return summary || `<p class="past-empty">${escapeHtml(localizeText("No verified senior meetings found before this match."))}</p>`;
+    return summary || `<p class="past-empty">${escapeHtml(localizeText("No previous meetings were returned by this source. Complete historical coverage has not been confirmed."))}</p>`;
   }
 
   const visibleResults = h2h.results.slice(0, 3);
@@ -24373,9 +24444,11 @@ function renderPastResults(match) {
   const totalResults = h2h.results.length;
   const hiddenCount = hiddenResults.length;
   const hiddenResultsId = `past-results-${match.id}`;
+  const visibleSummary = h2h.coverageStatus === "complete" ? "" : summary;
 
   return `
-    ${renderPastRecord(match, h2h.results)}
+    ${visibleSummary}
+    ${renderPastRecord(match, h2h.results, h2h)}
     ${renderPastResultList(visibleResults, match.homeTeamId, {
       className: hiddenCount ? "has-hidden-results" : ""
     })}
@@ -24383,12 +24456,12 @@ function renderPastResults(match) {
       hiddenCount
         ? `
           <div class="past-reveal">
-            <button class="past-reveal-button" type="button" data-past-reveal aria-controls="${escapeHtml(hiddenResultsId)}" aria-label="${escapeHtml(localizeText(`Show all ${totalResults} matches`))}">
-              <span class="past-reveal-action">${escapeHtml(localizeText("Show all matches"))}</span>
-            </button>
             <div class="past-hidden-results" id="${escapeHtml(hiddenResultsId)}" hidden>
               ${renderPastResultList(hiddenResults, match.homeTeamId)}
             </div>
+            <button class="past-reveal-button" type="button" data-past-reveal data-past-total-results="${escapeHtml(String(totalResults))}" aria-controls="${escapeHtml(hiddenResultsId)}" aria-expanded="false" aria-label="${escapeHtml(localizeText(`Show all ${totalResults} matches`))}">
+              <span class="past-reveal-action">${escapeHtml(localizeText("Show all matches"))}</span>
+            </button>
           </div>
         `
         : ""
@@ -29866,6 +29939,14 @@ function setActiveView(view, options = {}) {
   updateUrlState(options);
 }
 
+function shouldPreserveDeferredStandingsState(requestedYear) {
+  if (!String(requestedYear ?? "").trim()) {
+    return false;
+  }
+  const year = Number(requestedYear);
+  return isDeferredDataLoading && Number.isInteger(year) && year !== CURRENT_STANDINGS_YEAR;
+}
+
 function readInitialChromeState() {
   const params = new URLSearchParams(window.location.search);
   const requestedTimeZone = params.get("tz");
@@ -29886,12 +29967,17 @@ function readInitialChromeState() {
   }
 
   activeView = requestedView === "standings" ? "standings" : "matches";
-  selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
-  selectedStandingsMode = getValidStandingsMode(
-    requestedStandingsMode,
-    null,
-    selectedStandingsYear
-  );
+  if (shouldPreserveDeferredStandingsState(requestedStandingsYear)) {
+    selectedStandingsYear = Number(requestedStandingsYear);
+    selectedStandingsMode = requestedStandingsMode === "groups" ? "groups" : "tournament";
+  } else {
+    selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
+    selectedStandingsMode = getValidStandingsMode(
+      requestedStandingsMode,
+      null,
+      selectedStandingsYear
+    );
+  }
 }
 
 function readUrlState(options = {}) {
@@ -29948,12 +30034,17 @@ function readUrlState(options = {}) {
   isShowingOlderTeamMatches = false;
   activeMatchId = activeView === "matches" && !isTeamSearchOpen ? requestedMatch?.id || "" : "";
   committedMatchId = activeMatchId;
-  selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
-  selectedStandingsMode = getValidStandingsMode(
-    requestedStandingsMode,
-    null,
-    selectedStandingsYear
-  );
+  if (shouldPreserveDeferredStandingsState(requestedStandingsYear)) {
+    selectedStandingsYear = Number(requestedStandingsYear);
+    selectedStandingsMode = requestedStandingsMode === "groups" ? "groups" : "tournament";
+  } else {
+    selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
+    selectedStandingsMode = getValidStandingsMode(
+      requestedStandingsMode,
+      null,
+      selectedStandingsYear
+    );
+  }
 }
 
 function getLatestReleaseNote() {
@@ -30126,17 +30217,24 @@ function renderSourceNote() {
     transfermarkt: "https://github.com/dcaribou/transfermarkt-datasets",
     wikipedia: "https://en.wikipedia.org/wiki/Category:Association_football_players",
     wikimedia: "https://commons.wikimedia.org/wiki/Main_Page",
-    foxHighlights: "https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg"
+    foxHighlights: "https://www.youtube.com/channel/UCwNqHDsnBCKT-olwJwIFyfg",
+    nationalFootballTeams: "https://www.national-football-teams.com/",
+    elevenVeleven: "https://www.11v11.com/",
+    sportsMole: "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
+    racingPost: "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
+    skySports: "https://www.skysports.com/football/news/11095/13563231/england-vs-argentina-declan-rice-fit-for-world-cup-semi-final-as-thomas-tuchels-squad-issues-begin-to-ease"
   };
   const sourceLink = (url, label, className = "") =>
     `<a${className ? ` class="${className}"` : ""} href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
   const sourceSeparator = `<span class="source-tooltip-separator" aria-hidden="true"> — </span>`;
   const itemSeparator = `<span class="source-tooltip-item-separator" aria-hidden="true"> · </span>`;
   const sourceTooltipRows = [
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Tournament facts"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Forecasts"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, "Oddschecker")}</span></span>`,
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Player information"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
-    `<span class="source-tooltip-row"><b class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</b>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Tournament facts & confirmed lineups"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Forecasts"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, localizeText("public betting markets"))}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Predicted lineups & team news"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.sportsMole, "Sports Mole")}${itemSeparator}${sourceLink(sourceUrls.racingPost, "Racing Post")}${itemSeparator}${sourceLink(sourceUrls.skySports, "Sky Sports")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Player information"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Head-to-head records"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.nationalFootballTeams, "National Football Teams")}${itemSeparator}${sourceLink(sourceUrls.elevenVeleven, "11v11")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
   const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
   const predictionsText = localizeText("Predictions are unofficial.").replace(/[.。]$/u, "");
@@ -30149,7 +30247,8 @@ function renderSourceNote() {
     <span class="source-tooltip-wrapper">
       <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</button>
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
-        <span class="source-tooltip-list">${sourceTooltipRows.join("")}</span>
+        <strong>${escapeHtml(localizeText("Sources:"))}</strong>
+        <span class="source-tooltip-list">${sourceTooltipRows.join(" ")}</span>
         <span class="source-tooltip-note">${escapeHtml(localizeText("Exact sources vary by match."))}</span>
       </span>
     </span>
@@ -30285,6 +30384,7 @@ function applyDataSnapshot({
   historyData,
   lineupsData,
   expectedLineupsData: nextExpectedLineupsData = null,
+  editionLifecycleData: nextEditionLifecycleData = null,
   playerAvailabilityData: nextPlayerAvailabilityData = null,
   coachProfilesData,
   playerProfilesData,
@@ -30298,6 +30398,10 @@ function applyDataSnapshot({
       : { lineups: {} };
   expectedLineupsData = isPlainObject(nextExpectedLineupsData) ? nextExpectedLineupsData : { fixtures: [] };
   playerAvailabilityData = isPlainObject(nextPlayerAvailabilityData) ? nextPlayerAvailabilityData : { teams: {} };
+  editionLifecycle = isPlainObject(nextEditionLifecycleData)
+    ? nextEditionLifecycleData
+    : { edition: 2026, state: "live" };
+  activeFixturesData = fixturesData;
   lineupRosterPlayersByTeamAndName = buildLineupRosterPlayerLookup(fixturesData, lineupData);
   const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData, expectedLineupsData);
   fifaRankingYear = Number.isInteger(Number(teamsData.rankingYear))
@@ -30330,6 +30434,7 @@ function applyDataSnapshot({
     historyData,
     lineupData,
     expectedLineupsData,
+    editionLifecycle,
     playerAvailabilityData,
     coachProfilesData,
     playerProfilesData,
@@ -30341,6 +30446,7 @@ function applyDataSnapshot({
 }
 
 function applyLiveDataSnapshot(liveData) {
+  activeFixturesData = liveData.fixturesData;
   const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData, lineupData, expectedLineupsData);
   fixtures = fixturesWithLineups.fixtures;
   clearPlayerTournamentStatsCache();
@@ -30359,28 +30465,48 @@ function applyLiveDataSnapshot(liveData) {
   buildTeamSearchIndex();
 }
 
+function applyDeferredDataSnapshot({ historyData, lineupsData, coachProfilesData, playerProfilesData }) {
+  lineupData = isPlainObject(lineupsData) ? lineupsData : { lineups: {} };
+  lineupRosterPlayersByTeamAndName = buildLineupRosterPlayerLookup(activeFixturesData, lineupData);
+  const fixturesWithLineups = mergeFixtureLineups(activeFixturesData, lineupData, expectedLineupsData);
+  fixtures = fixturesWithLineups.fixtures;
+  coachProfilesByName = buildCoachProfileLookup(coachProfilesData.profiles);
+  coachProfilesByTeamAndName = buildCoachProfileTeamLookup(coachProfilesData.profiles);
+  playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
+  playerProfilesByTeamAndName = buildTeamPlayerProfileLookup(playerProfilesData.profiles);
+  shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
+  history = historyData;
+  historicalFixtures = historyData.fixtures || [];
+  clearPlayerTournamentStatsCache();
+  clearCalendarFixtureCaches();
+  historicalProjectionCache.clear();
+  siteUpdatedAt = getLatestUpdatedAt([
+    { updatedAt: siteUpdatedAt },
+    fixturesWithLineups,
+    historyData,
+    lineupData,
+    coachProfilesData,
+    playerProfilesData
+  ]);
+  buildTeamSearchIndex();
+}
+
 async function loadStaticData() {
   const [
     adminMessageData,
+    editionLifecycleData,
     fixturesData,
-    historyData,
-    lineupsData,
     expectedLineupsFileData,
     playerAvailabilityFileData,
-    coachProfilesData,
-    playerProfilesData,
     teamsData,
     standingsData,
     tournamentData
   ] = await Promise.all([
     loadOptionalJson(DATA_URLS.adminMessage, { messages: [] }),
+    loadJson(DATA_URLS.editionLifecycle),
     loadJson(DATA_URLS.fixtures),
-    loadJson(DATA_URLS.history),
-    loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
     loadOptionalJson(DATA_URLS.expectedLineups, { fixtures: [] }),
     loadOptionalJson(DATA_URLS.playerAvailability, { teams: {} }),
-    loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
-    loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
     loadJson(DATA_URLS.tournament)
@@ -30392,17 +30518,31 @@ async function loadStaticData() {
       : { messages: [] };
   applyDataSnapshot({
     fixturesData,
-    historyData,
-    lineupsData,
+    editionLifecycleData,
+    historyData: { coverage: {}, fixtures: [], source: null, tournaments: [] },
+    lineupsData: { lineups: {} },
     expectedLineupsData: expectedLineupsFileData,
     playerAvailabilityData: playerAvailabilityFileData,
-    coachProfilesData,
-    playerProfilesData,
+    coachProfilesData: { profiles: {} },
+    playerProfilesData: { profiles: {} },
     standingsData,
     teamsData,
     tournamentData
   });
   isInitialDataLoading = false;
+}
+
+async function loadDeferredData() {
+  const [historyData, lineupsData, coachProfilesData, playerProfilesData] = await Promise.all([
+    loadOptionalJson(DATA_URLS.history, { coverage: {}, fixtures: [], source: null, tournaments: [] }),
+    loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
+    loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
+    loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} })
+  ]);
+
+  applyDeferredDataSnapshot({ historyData, lineupsData, coachProfilesData, playerProfilesData });
+  isDeferredDataLoading = false;
+  renderLoadedApp({ syncActiveView: true });
 }
 
 async function loadReleaseNotes() {
@@ -30429,14 +30569,19 @@ async function loadLiveData() {
 
 function renderLoadedApp(options = {}) {
   withLanguageObserverPaused(() => {
+    document.body.dataset.editionState = editionLifecycle.state === "archived" ? "review" : editionLifecycle.state;
     clearTransientInteractionState();
-    ensureSelectableSelectedDay();
-    selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
-    selectedStandingsMode = getValidStandingsMode(
-      selectedStandingsMode,
-      getDefaultStandingsModeForYear(selectedStandingsYear),
-      selectedStandingsYear
-    );
+    if (!(isDeferredDataLoading && selectedDayKey.slice(0, 4) !== "2026")) {
+      ensureSelectableSelectedDay();
+    }
+    if (!shouldPreserveDeferredStandingsState(selectedStandingsYear)) {
+      selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
+      selectedStandingsMode = getValidStandingsMode(
+        selectedStandingsMode,
+        getDefaultStandingsModeForYear(selectedStandingsYear),
+        selectedStandingsYear
+      );
+    }
     renderTimeZoneOptions();
     setHeaderControlsLoading(false);
     updateTeamSearchControls();
@@ -30576,6 +30721,9 @@ async function boot() {
     setInterval(renderAdminMessage, 60 * 1000);
     setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
     loadInitialLiveData();
+    loadDeferredData().catch((error) => {
+      console.warn("Unable to load optional history, lineup, or profile enrichment", error);
+    });
   } catch (error) {
     renderAppError(error);
   }
@@ -31152,9 +31300,23 @@ matchInfo.addEventListener("click", (event) => {
     return;
   }
 
-  hiddenResults.hidden = false;
-  revealBlock.classList.add("is-open");
-  revealButton.remove();
+  const isExpanded = revealButton.getAttribute("aria-expanded") === "true";
+  const nextExpanded = !isExpanded;
+  const totalResults = Number(revealButton.dataset.pastTotalResults) || 0;
+  const action = revealButton.querySelector(".past-reveal-action");
+
+  hiddenResults.hidden = !nextExpanded;
+  revealBlock.classList.toggle("is-open", nextExpanded);
+  revealButton.setAttribute("aria-expanded", String(nextExpanded));
+  revealButton.setAttribute(
+    "aria-label",
+    nextExpanded
+      ? localizeText("Hide matches")
+      : localizeText(totalResults ? `Show all ${totalResults} matches` : "Show all matches")
+  );
+  if (action) {
+    action.textContent = localizeText(nextExpanded ? "Hide matches" : "Show all matches");
+  }
 });
 
 catchUpPopover.addEventListener("click", (event) => {
@@ -31343,12 +31505,12 @@ window.addEventListener("resize", () => {
     updateMatchInfoViewportDockState();
   });
 });
-window.visualViewport?.addEventListener?.("resize", updateVisualViewportInsets);
-window.visualViewport?.addEventListener?.("scroll", updateVisualViewportInsets);
+window.visualViewport?.addEventListener?.("resize", queueVisualViewportInsetUpdate);
+window.visualViewport?.addEventListener?.("scroll", queueVisualViewportInsetUpdate);
 window.addEventListener(
   "scroll",
   () => {
-    updateVisualViewportInsets();
+    queueVisualViewportInsetUpdate();
     clearActiveTouchTooltip();
     if (
       floatingLineupEventTooltipSource?.isConnected &&

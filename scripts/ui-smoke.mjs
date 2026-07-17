@@ -4796,8 +4796,12 @@ try {
   await historicalProfileLoadingPage.goto(`${baseUrl}?view=matches&date=2022-11-20&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
-  await historicalProfileLoadingPage.waitForSelector(".match-row");
-  await historicalProfileLoadingPage.locator(".match-row").first().click();
+  await historicalProfileLoadingPage.waitForSelector(
+    '[data-match-id="wc-2022-2022-11-20-matchday-1-qatar-ecuador"]'
+  );
+  await historicalProfileLoadingPage
+    .locator('[data-match-id="wc-2022-2022-11-20-matchday-1-qatar-ecuador"]')
+    .click();
   const pendingHistoricalCard = historicalProfileLoadingPage
     .locator("#match-info .player-card.is-profile-loading[aria-busy='true']")
     .first();
@@ -5141,7 +5145,7 @@ try {
   });
   await page.waitForSelector('[data-match-id="canada-bosnia-2026-06-12"]');
   await page.locator('[data-match-id="canada-bosnia-2026-06-12"]').click();
-  const currentVerifiedEmptyPast = await page.locator("#match-info").evaluate((root) => {
+  const currentUnknownCoveragePast = await page.locator("#match-info").evaluate((root) => {
     const pastSection = [...root.querySelectorAll(":scope > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Past matches"
     );
@@ -5149,12 +5153,12 @@ try {
     return pastSection?.textContent.replace(/\s+/g, " ").trim() || "";
   });
   assert(
-    currentVerifiedEmptyPast.includes(
-      "Canada and Bosnia and Herzegovina have never met in a verified senior men's international. This is their first head-to-head meeting."
+    currentUnknownCoveragePast.includes(
+      "No previous meetings were returned by this source. Complete historical coverage has not been confirmed."
     ) &&
-      !currentVerifiedEmptyPast.includes("men's World Cup") &&
-      !currentVerifiedEmptyPast.includes("loaded before this match"),
-    `Current verified-empty H2H should keep senior-international copy separate from archive World Cup history. Measured ${JSON.stringify(currentVerifiedEmptyPast)}.`
+      !/never met|first (?:head-to-head )?meeting/i.test(currentUnknownCoveragePast) &&
+      !currentUnknownCoveragePast.includes("men's World Cup"),
+    `An empty current H2H source must remain an unknown coverage state, not become a first-meeting football fact. Measured ${JSON.stringify(currentUnknownCoveragePast)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2014-07-08&tz=America%2FLos_Angeles`, {
@@ -8960,13 +8964,18 @@ try {
           ballBoyRect && rect && ballBoyRect.bottom <= rect.top - 10
         ),
         ballBoyHasAvoidance: Boolean(ballBoy?.classList.contains("has-tournament-show-next")),
-        ballBoyObstacleBottom:
-          ballBoy?.style.getPropertyValue("--scout-obstacle-bottom") || "",
+        ballBoyObstacleTranslateY:
+          ballBoy?.style.getPropertyValue("--scout-obstacle-translate-y") || "",
+        ballBoyTransformTransitionDuration: ballBoy
+          ? getComputedStyle(ballBoy).transitionDuration.split(",").map((value) => value.trim())[2] || ""
+          : "",
         bottomGapToLayoutViewport: rect ? Math.round(window.innerHeight - rect.bottom) : null,
         bottomGapToVisualViewport: rect ? Math.round(viewportBottom - rect.bottom) : null,
         buttonInsideProgression: Boolean(button?.closest(".tournament-progression")),
         buttonParentClass: button?.parentElement?.className || "",
         buttonPosition: style?.position || "",
+        buttonTransformTransitionDuration:
+          style?.transitionDuration.split(",").map((value) => value.trim())[0] || "",
         label: button?.textContent.replace(/\s+/g, " ").trim() || "",
         progressionContainsButton: Boolean(button && progression?.contains(button)),
         rightGap: rect ? Math.round(window.innerWidth - rect.right) : null,
@@ -8980,12 +8989,14 @@ try {
       tournamentShowNextFloatingState.label === "Show next" &&
         tournamentShowNextFloatingState.ballBoyClearsButton &&
         tournamentShowNextFloatingState.ballBoyHasAvoidance &&
-        Boolean(tournamentShowNextFloatingState.ballBoyObstacleBottom) &&
+        Boolean(tournamentShowNextFloatingState.ballBoyObstacleTranslateY) &&
         nextScheduledKnockoutMatchNumbers.includes(tournamentShowNextFloatingState.targetMatchNumber) &&
         tournamentShowNextFloatingState.buttonParentClass.includes("tournament-view") &&
         !tournamentShowNextFloatingState.buttonInsideProgression &&
         !tournamentShowNextFloatingState.progressionContainsButton &&
         tournamentShowNextFloatingState.buttonPosition === "fixed" &&
+        tournamentShowNextFloatingState.buttonTransformTransitionDuration === "0.18s" &&
+        tournamentShowNextFloatingState.ballBoyTransformTransitionDuration === "0.18s" &&
         tournamentShowNextFloatingState.visualViewportBottomInset >= 0 &&
         tournamentShowNextFloatingState.bottomGapToVisualViewport >= 10 &&
         tournamentShowNextFloatingState.bottomGapToVisualViewport <= 22 &&
@@ -9004,14 +9015,15 @@ try {
       return {
         bottomGap: rect ? Math.round(window.innerHeight - rect.bottom) : null,
         hasAvoidance: Boolean(ballBoy?.classList.contains("has-tournament-show-next")),
-        obstacleBottom: ballBoy?.style.getPropertyValue("--scout-obstacle-bottom") || "",
+        obstacleTranslateY:
+          ballBoy?.style.getPropertyValue("--scout-obstacle-translate-y") || "",
         standingsHidden: Boolean(document.querySelector("#standings-view")?.hidden)
       };
     });
     assert(
-      ballBoyAfterTournamentState.standingsHidden &&
+        ballBoyAfterTournamentState.standingsHidden &&
         !ballBoyAfterTournamentState.hasAvoidance &&
-        ballBoyAfterTournamentState.obstacleBottom === "" &&
+        ballBoyAfterTournamentState.obstacleTranslateY === "" &&
         ballBoyAfterTournamentState.bottomGap >= 10 &&
         ballBoyAfterTournamentState.bottomGap <= 14,
       `Closed Ball Boy should snap back to its normal mobile bottom edge as soon as Tournament is hidden. Measured ${JSON.stringify(ballBoyAfterTournamentState)}.`
@@ -9936,6 +9948,7 @@ try {
   const releaseTriggerHref = await sourceNote.locator(".release-tooltip-trigger").getAttribute("href");
   const sourceTooltipText = await sourceNote.locator(".source-tooltip").evaluate((tooltip) =>
     [
+      tooltip.querySelector("strong")?.textContent?.trim(),
       ...Array.from(tooltip.querySelectorAll(".source-tooltip-row")).map((row) =>
         row.textContent.replace(/\s+/g, " ").trim()
       ),
@@ -9984,7 +9997,7 @@ try {
   );
   assert(
     sourceLinkLabels ===
-      "FIFA|Opta Analyst|Oddschecker|Wikipedia|Wikimedia Commons|Transfermarkt|FIFA|FOX Sports|H",
+      "FIFA|Opta Analyst|public betting markets|FIFA|Sports Mole|Racing Post|Sky Sports|Wikipedia|Wikimedia Commons|Transfermarkt|National Football Teams|11v11|FIFA|FOX Sports|H",
     "The source note should link each main source family and the creator without repeating the Settings report link."
   );
   assert(
@@ -9996,7 +10009,7 @@ try {
   );
   assert(
     sourceTooltipText ===
-      "Tournament facts — FIFA Forecasts — Opta Analyst · Oddschecker Player information — Wikipedia · Wikimedia Commons · Transfermarkt Official highlights — FIFA · FOX Sports Exact sources vary by match.",
+      "Sources: Tournament facts & confirmed lineups — FIFA Forecasts — Opta Analyst · public betting markets Predicted lineups & team news — FIFA · Sports Mole · Racing Post · Sky Sports Player information — Wikipedia · Wikimedia Commons · Transfermarkt Head-to-head records — National Football Teams · 11v11 Official highlights — FIFA · FOX Sports Exact sources vary by match.",
     "The source tooltip should explain the app's main source families without implying that one fixed list covers every match."
   );
   assert(
@@ -11187,9 +11200,9 @@ try {
     ["m73OpenMatchId", tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28"],
     ["m74OpenMatchId", tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId],
     ["m74Winner", tournamentCheck.m74Winner === "PAR"],
-    ["m74ResultPills", tournamentCheck.m74ResultPills.join("|") === "1-1 (4-3 pens)"],
+    ["m74ResultPills", tournamentCheck.m74ResultPills.join("|") === "1-1 (3-4 pens)"],
     ["m75Winner", tournamentCheck.m75Winner === "MAR"],
-    ["m75ResultPills", tournamentCheck.m75ResultPills.join("|") === "1-1 (3-2 pens)"],
+    ["m75ResultPills", tournamentCheck.m75ResultPills.join("|") === "1-1 (2-3 pens)"],
     ["m73NoRoundOf32", !tournamentCheck.m73ProgressText.includes("Round of 32")],
     ["likelihoodCount", tournamentCheck.likelihoodCount === expectedOutcomePillCount],
     ["likelihoodNonNeutralCount", tournamentCheck.likelihoodNonNeutralCount === 0],
@@ -11814,7 +11827,7 @@ try {
       (check) =>
         check.seedLines.length === 0 &&
         check.match74OutcomeKeys.length === 0 &&
-        check.match74ResultPills.join("|") === "1-1 (4-3 pens)" &&
+        check.match74ResultPills.join("|") === "1-1 (3-4 pens)" &&
         check.match74TieFlagCount === 0 &&
         check.match74PairJustifyContent === "flex-start" &&
         check.match74VenueCursor === "help" &&
@@ -12116,7 +12129,7 @@ try {
   });
   assert(
     canadaPathState.m73Winner === "CAN" &&
-      canadaPathState.m73ResultPills.join("|") === "2-1" &&
+      canadaPathState.m73ResultPills.join("|") === "1-2" &&
       canadaPathState.m73OutcomePillCount === 0 &&
       canadaPathState.m73Projected === false &&
       canadaPathState.canada73.className.includes("is-winner") &&
@@ -14301,6 +14314,48 @@ try {
       (await riceTouchLink.getAttribute("aria-expanded")) === "true",
     "On touch devices, England-Ghana player taps should render only one floating player card with no inline source card."
   );
+
+  const compactBallBoyContext = await browser.newContext({
+    viewport: { width: 595, height: 382 }
+  });
+  const compactBallBoyPage = await compactBallBoyContext.newPage();
+  await compactBallBoyPage.goto(`${baseUrl}?ballBoySmoke=1`, { waitUntil: "load" });
+  await compactBallBoyPage.locator("#source-note").scrollIntoViewIfNeeded();
+  await compactBallBoyPage.waitForFunction(() =>
+    document.querySelector("#source-note")?.classList.contains("has-scout-collision")
+  );
+  await compactBallBoyPage.locator(".release-tooltip-trigger").focus();
+  await compactBallBoyPage.waitForTimeout(100);
+  const compactBallBoyCollision = await compactBallBoyPage.evaluate(() => {
+    const tooltip = document.querySelector(".release-tooltip")?.getBoundingClientRect();
+    const scout = document.querySelector("#scout-widget")?.getBoundingClientRect();
+    if (!tooltip || !scout) {
+      return null;
+    }
+
+    return {
+      gap: scout.left - tooltip.right,
+      scout: { left: scout.left, top: scout.top },
+      tooltip: {
+        bottom: tooltip.bottom,
+        left: tooltip.left,
+        right: tooltip.right,
+        top: tooltip.top
+      },
+      overlaps:
+        tooltip.right > scout.left &&
+        tooltip.left < scout.right &&
+        tooltip.bottom > scout.top &&
+        tooltip.top < scout.bottom
+    };
+  });
+  assert(
+    compactBallBoyCollision &&
+      !compactBallBoyCollision.overlaps &&
+      compactBallBoyCollision.gap >= 7.5,
+    `At the compact 595x382 desktop viewport, the release-notes card should clear Ball Boy. Measured ${JSON.stringify(compactBallBoyCollision)}.`
+  );
+  await compactBallBoyContext.close();
 
   await touchPage.setViewportSize({ width: 390, height: 844 });
   await touchPage.goto(`${baseUrl}?ballBoySmoke=1`, { waitUntil: "load" });

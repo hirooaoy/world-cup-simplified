@@ -8,7 +8,7 @@ import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-7";
+} from "./locales/locale-runtime.js?v=2026-07-17-10";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -957,6 +957,10 @@ function getScoutSuggestionsHtml() {
     .join("");
 }
 
+const backdrop = document.createElement("div");
+backdrop.className = "scout-backdrop";
+backdrop.setAttribute("aria-hidden", "true");
+
 const widget = document.createElement("aside");
 widget.className = "scout-widget";
 widget.id = "scout-widget";
@@ -1004,7 +1008,7 @@ widget.innerHTML = `
   </section>
 `;
 
-document.body.append(widget);
+document.body.append(backdrop, widget);
 
 const launcher = widget.querySelector("#scout-launcher");
 const panel = widget.querySelector("#scout-panel");
@@ -1026,7 +1030,7 @@ const moreLabel = widget.querySelector(".scout-more-label");
 const juggleRecord = document.querySelector("#juggle-record");
 const tournamentView = document.querySelector("#standings-view");
 const footerSourceNote = document.querySelector(".site-footer .source-note");
-const scoutMobileMedia = window.matchMedia("(max-width: 560px)");
+const scoutFooterCollisionMedia = window.matchMedia("(max-width: 700px)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const SCOUT_FOOTER_COLLISION_GAP = 8;
 const SCOUT_FOOTER_SETTLE_MS = 440;
@@ -1407,9 +1411,9 @@ function clearTournamentShowNextAvoidance({ immediate = false } = {}) {
   const hadAvoidance =
     isAvoidingTournamentShowNext ||
     widget.classList.contains("has-tournament-show-next") ||
-    widget.style.getPropertyValue("--scout-obstacle-bottom");
+    widget.style.getPropertyValue("--scout-obstacle-translate-y");
   const clear = () => {
-    widget.style.removeProperty("--scout-obstacle-bottom");
+    widget.style.removeProperty("--scout-obstacle-translate-y");
     widget.classList.remove("has-tournament-show-next");
   };
 
@@ -1427,10 +1431,10 @@ function syncTournamentShowNextAvoidance() {
   const shouldAvoid = Boolean(result);
 
   if (result) {
-    const obstacleBottom = Math.ceil(
-      window.innerHeight - result.bounds.top + SCOUT_SHOW_NEXT_GAP
+    widget.style.setProperty(
+      "--scout-obstacle-translate-y",
+      `calc(var(--scout-bottom) - var(--tournament-show-next-resting-bottom) - 50px - ${SCOUT_SHOW_NEXT_GAP}px - var(--visual-viewport-bottom-inset, 0px))`
     );
-    widget.style.setProperty("--scout-obstacle-bottom", `${obstacleBottom}px`);
     widget.classList.add("has-tournament-show-next");
   } else {
     clearTournamentShowNextAvoidance();
@@ -1727,7 +1731,7 @@ function clearScoutFooterAvoidance() {
 function syncScoutFooterAvoidance() {
   scoutFooterCollisionFrame = 0;
 
-  if (!footerSourceNote || !scoutMobileMedia.matches) {
+  if (!footerSourceNote || !scoutFooterCollisionMedia.matches) {
     clearScoutFooterAvoidance();
     return;
   }
@@ -1797,7 +1801,7 @@ function initializeScoutFooterAvoidance() {
     passive: true
   });
   window.addEventListener("worldcup:languagechange", queueScoutFooterAvoidance);
-  scoutMobileMedia.addEventListener?.("change", queueScoutFooterAvoidance);
+  scoutFooterCollisionMedia.addEventListener?.("change", queueScoutFooterAvoidance);
   widget.addEventListener("transitionend", queueScoutFooterAvoidance);
 
   if (typeof ResizeObserver !== "undefined") {
@@ -1823,6 +1827,7 @@ function setOpen(nextOpen, { focus = true } = {}) {
 
   holdScoutFooterAvoidanceWhileWidgetSettles();
   isOpen = nextOpen;
+  backdrop.classList.toggle("is-visible", isOpen);
   widget.classList.toggle("is-open", isOpen);
   launcher.setAttribute("aria-expanded", String(isOpen));
   launcher.tabIndex = isOpen ? -1 : 0;
@@ -2703,9 +2708,7 @@ function appendMatchReply(reply, options = {}) {
   if (fixture.h2h) {
     const h2hText = fixture.h2h.status === "loaded"
       ? fixture.h2h.summary
-      : fixture.h2h.status === "verified-empty"
-        ? scoutText("noH2h")
-        : scoutText("checkingH2h");
+      : scoutText("checkingH2h");
     h2h = `
       <div class="scout-explainer">
         <p class="scout-section-label">${escapeScoutHtml(scoutText("beforeMatch"))}</p>
@@ -3502,7 +3505,6 @@ window.visualViewport?.addEventListener(
   "resize",
   () => {
     queueScoutVisualViewportSync();
-    queueTournamentShowNextSync();
   },
   { passive: true }
 );
@@ -3510,7 +3512,6 @@ window.visualViewport?.addEventListener(
   "scroll",
   () => {
     queueScoutVisualViewportSync();
-    queueTournamentShowNextSync();
   },
   { passive: true }
 );

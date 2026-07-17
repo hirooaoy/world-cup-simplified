@@ -1,4 +1,4 @@
-export const DATA_VERSION = "2026-07-16-ranking-year-1";
+export const DATA_VERSION = "2026-07-17-h2h-lifecycle-1";
 
 export const DATA_URLS = Object.freeze({
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
@@ -6,6 +6,7 @@ export const DATA_URLS = Object.freeze({
   history: `data/history.json?v=${DATA_VERSION}`,
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${DATA_VERSION}`,
+  editionLifecycle: `data/edition-lifecycle.json?v=${DATA_VERSION}`,
   lineups: `data/lineups.json?v=${DATA_VERSION}`,
   expectedLineups: `data/expected-lineups.json?v=${DATA_VERSION}`,
   playerAvailability: `data/player-availability.json?v=${DATA_VERSION}`,

@@ -793,7 +793,9 @@ function applyGroupResult(table, fixture) {
 
 const [
   fixturesData,
+  h2hAuthoritativeCoverageData,
   historyData,
+  editionLifecycleData,
   lineupsData,
   expectedLineupsData,
   lineupLayoutOverridesData,
@@ -812,7 +814,9 @@ const [
   tournamentData
 ] = await Promise.all([
   readJson("fixtures.json"),
+  readJson("h2h-authoritative-coverage.json"),
   readJson("history.json"),
+  readJson("edition-lifecycle.json"),
   readJson("lineups.json"),
   readOptionalJson("expected-lineups.json"),
   readOptionalJson("lineup-layout-overrides.json"),
@@ -834,6 +838,40 @@ const [
 const sourceIds = new Set();
 for (const source of tournamentData.sources || []) {
   registerSource(source, sourceIds, "Tournament source");
+}
+
+assert(editionLifecycleData.edition === 2026, "edition-lifecycle.json must identify edition 2026");
+assert(
+  ["live", "archived"].includes(editionLifecycleData.state),
+  "edition-lifecycle.json state must be live or archived"
+);
+for (const key of ["tournamentStartsAt", "liveSyncEndsAt", "archiveEligibleAfter"]) {
+  assert(isValidDateTime(editionLifecycleData[key]), `edition-lifecycle.json ${key} must be a valid timestamp`);
+}
+if (editionLifecycleData.state === "archived") {
+  assert(isValidDateTime(editionLifecycleData.archivedAt), "Archived edition lifecycle requires archivedAt");
+  assert(editionLifecycleData.archiveVersion, "Archived edition lifecycle requires archiveVersion");
+}
+
+assert(isPlainObject(h2hAuthoritativeCoverageData.pairs), "h2h-authoritative-coverage.json must include pairs");
+for (const [pairKey, record] of Object.entries(h2hAuthoritativeCoverageData.pairs || {})) {
+  assert(Array.isArray(record.teamIds) && record.teamIds.length === 2, `${pairKey} authoritative H2H must identify two teams`);
+  assert(
+    [...record.teamIds].sort().join("-") === pairKey,
+    `${pairKey} authoritative H2H key must match its sorted team ids`
+  );
+  assert(
+    Number.isInteger(record.officialAggregateCount) && record.officialAggregateCount >= 0,
+    `${pairKey} authoritative H2H must include officialAggregateCount`
+  );
+  assert(sourceIds.has(record.aggregateSourceId), `${pairKey} authoritative H2H references an unknown aggregate source`);
+  assert(isValidDateTime(record.aggregateSource?.checkedAt), `${pairKey} authoritative H2H requires an aggregate check timestamp`);
+  assert(Array.isArray(record.additionalResults), `${pairKey} authoritative H2H additionalResults must be an array`);
+  assert(
+    record.teamIds.reduce((total, teamId) => total + Number(record.aggregate?.[teamId] || 0), 0) +
+      Number(record.aggregate?.draws || 0) === record.officialAggregateCount,
+    `${pairKey} authoritative H2H wins and draws must total officialAggregateCount`
+  );
 }
 
 const tournamentCatchUpItems = [tournamentData.catchUp, tournamentData.news].flatMap((items) =>
@@ -3270,7 +3308,7 @@ for (const fixture of fixturesData.fixtures || []) {
 
   assert(fixture.h2h, `Fixture "${fixture.id}" must include h2h status`);
   assert(
-    ["loaded", "verified-empty", "not-loaded", "research-pending"].includes(fixture.h2h.status),
+    ["loaded", "not-loaded", "research-pending"].includes(fixture.h2h.status),
     `Fixture "${fixture.id}" has invalid h2h status`
   );
   if (hasConfirmedTeams) {
@@ -3283,7 +3321,7 @@ for (const fixture of fixturesData.fixtures || []) {
     } else {
       assert(
         !hasPendingH2h,
-        `Confirmed fixture "${fixture.id}" must include loaded or verified-empty H2H; run pnpm sync:h2h or add verified senior results`
+        `Confirmed fixture "${fixture.id}" must include loaded H2H with an explicit coverage state; run pnpm sync:h2h`
       );
     }
   }
@@ -3294,6 +3332,87 @@ for (const fixture of fixturesData.fixtures || []) {
     fixture.h2h.results === null || Array.isArray(fixture.h2h.results),
     `Fixture "${fixture.id}" h2h.results must be null or an array`
   );
+
+  if (fixture.h2h.status === "loaded") {
+    const coverageStatus = fixture.h2h.coverageStatus;
+    const loadedMeetingCount = fixture.h2h.loadedMeetingCount;
+    const officialAggregateCount = fixture.h2h.officialAggregateCount;
+    const authoritativeRecord = h2hAuthoritativeCoverageData.pairs?.[
+      [fixture.homeTeamId, fixture.awayTeamId].filter(Boolean).sort().join("-")
+    ];
+    const firstMeetingClaim = /\b(?:first (?:head-to-head )?meeting|have never met)\b/i.test(
+      fixture.h2h.summary || ""
+    );
+
+    assert(
+      ["complete", "partial", "unknown"].includes(coverageStatus),
+      `Fixture "${fixture.id}" h2h must use coverageStatus complete, partial, or unknown`
+    );
+    assert(
+      Number.isInteger(loadedMeetingCount) && loadedMeetingCount >= 0,
+      `Fixture "${fixture.id}" h2h.loadedMeetingCount must be a non-negative integer`
+    );
+    if (Array.isArray(fixture.h2h.results)) {
+      assert(
+        loadedMeetingCount === fixture.h2h.results.length,
+        `Fixture "${fixture.id}" h2h loaded count does not match its result rows`
+      );
+    }
+
+    if (coverageStatus === "complete" || coverageStatus === "partial") {
+      assert(
+        Number.isInteger(officialAggregateCount) && officialAggregateCount >= 0,
+        `Fixture "${fixture.id}" ${coverageStatus} H2H requires officialAggregateCount`
+      );
+      assert(
+        typeof fixture.h2h.aggregateSourceId === "string" && fixture.h2h.aggregateSourceId.length > 0,
+        `Fixture "${fixture.id}" ${coverageStatus} H2H requires aggregateSourceId`
+      );
+      assert(
+        sourceIds.has(fixture.h2h.aggregateSourceId),
+        `Fixture "${fixture.id}" H2H references unknown aggregate source`
+      );
+      assert(
+        isValidDateTime(fixture.h2h.aggregateCheckedAt),
+        `Fixture "${fixture.id}" ${coverageStatus} H2H requires a valid aggregateCheckedAt`
+      );
+      assert(
+        coverageStatus === "complete"
+          ? loadedMeetingCount === officialAggregateCount
+          : loadedMeetingCount !== officialAggregateCount,
+        `Fixture "${fixture.id}" H2H coverageStatus must reconcile loaded and official counts`
+      );
+      assert(
+        authoritativeRecord &&
+          officialAggregateCount === authoritativeRecord.officialAggregateCount &&
+          fixture.h2h.aggregateSourceId === authoritativeRecord.aggregateSourceId,
+        `Fixture "${fixture.id}" H2H aggregate must match h2h-authoritative-coverage.json`
+      );
+    }
+
+    if (coverageStatus === "unknown") {
+      assert(
+        officialAggregateCount === null &&
+          fixture.h2h.aggregateSourceId === null &&
+          fixture.h2h.aggregateCheckedAt === null,
+        `Fixture "${fixture.id}" unknown H2H coverage cannot imply an official aggregate`
+      );
+    }
+
+    if (firstMeetingClaim) {
+      assert(
+        coverageStatus === "complete" && officialAggregateCount === 0,
+        `Fixture "${fixture.id}" cannot claim a first meeting without an authoritative aggregate of zero`
+      );
+    }
+
+    if (["semi-finals", "bronze-final", "final"].includes(fixture.stage) && coverageStatus === "complete") {
+      assert(
+        loadedMeetingCount === officialAggregateCount,
+        `Featured fixture "${fixture.id}" cannot pass the editorial gate with unreconciled complete H2H coverage`
+      );
+    }
+  }
 
   if (Array.isArray(fixture.h2h.results)) {
     const fixtureDayKey = getFixtureDayKey(fixture);

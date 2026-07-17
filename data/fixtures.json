@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T21:37:00.000Z",
+  "updatedAt": "2026-07-17T21:06:18.172Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -188,7 +188,11 @@
     "fifa-official-results-sync-2026-07-15",
     "fifa-goal-events-sync-2026-07-15",
     "fifa-match-events-sync-2026-07-15",
-    "national-football-teams-h2h-sync-2026-07-15"
+    "national-football-teams-h2h-sync-2026-07-15",
+    "national-football-teams-h2h-sync-2026-07-17",
+    "uefa-england-france-h2h-2026-07-17",
+    "rsssf-england-france-results-2026-07-17",
+    "fifa-argentina-spain-h2h-2026-07-17"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -215,8 +219,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Mexico had the edge in the verified senior series: 2 Mexico wins, 1 draw, 1 South Africa win, 15 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: Mexico 2 wins, South Africa 1, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2010-06-11",
@@ -479,8 +488,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 1 South Korea win, 1 draw, 1 Czechia win, 12 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: South Korea 1 win, Czechia 1, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2016-06-05",
@@ -707,9 +721,14 @@
         "away": 1
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Canada and Bosnia and Herzegovina have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/36/26/Canada_vs_Bosnia_Herzegovina.html"
       },
@@ -932,8 +951,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, United States had the edge in the verified senior series: 5 United States wins, 2 draws, 2 Paraguay wins, 19 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 9,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "9 selected senior meetings available in our dataset: United States 5 wins, Paraguay 2, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-11-15",
@@ -1264,8 +1288,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Qatar had the edge in the verified senior series: 1 Qatar win, 0 draws, 0 Switzerland wins, 1 total goal.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Qatar 1 win, Switzerland 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2018-11-14",
@@ -1488,8 +1517,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 2 Brazil wins, 0 draws, 1 Morocco win, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Brazil 2 wins, Morocco 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2023-03-25",
@@ -1723,9 +1757,14 @@
         "away": 1
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Haiti and Scotland have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/81/162/Haiti_vs_Scotland.html"
       },
@@ -1923,8 +1962,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Türkiye had the edge in the verified senior series: 0 Australia wins, 0 draws, 2 Türkiye wins, 5 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Türkiye 2 wins, Australia 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2004-05-24",
@@ -2140,9 +2184,14 @@
         "away": 1
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Curaçao is playing its first World Cup match. Germany and Curaçao have never met in a verified senior men's international, making this their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/71/280/Germany_vs_Curacao.html"
       },
@@ -2351,8 +2400,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-ned-jpn-h2h-2026-06-17",
-        "summary": "Before the 2026 draw, Netherlands led the verified senior series: 2 wins, 1 draw, 0 Japan wins, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Netherlands 2 wins, Japan 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2009-09-05",
@@ -2598,9 +2652,14 @@
         "away": 0
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Côte d'Ivoire and Ecuador have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/209/56/Ivory_Coast_vs_Ecuador.html"
       },
@@ -2805,8 +2864,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Sweden had the edge in the verified senior series: 2 Sweden wins, 0 draws, 1 Tunisia win, 3 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Sweden 2 wins, Tunisia 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2003-02-12",
@@ -3054,9 +3118,14 @@
         "away": 0
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Cabo Verde is playing its first World Cup match. Spain and Cabo Verde have never met in a verified senior men's international, making this their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/37/Spain_vs_Cape_Verde.html"
       },
@@ -3242,8 +3311,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Egypt had the edge in the verified senior series: 1 Belgium win, 0 draws, 3 Egypt wins, 11 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: Egypt 3 wins, Belgium 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2022-11-18",
@@ -3501,8 +3575,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 1 Saudi Arabia win, 1 draw, 1 Uruguay win, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Saudi Arabia 1 win, Uruguay 1, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2018-06-20",
@@ -3729,8 +3808,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, IR Iran had the edge in the verified senior series: 1 IR Iran win, 0 draws, 0 New Zealand wins, 3 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: IR Iran 1 win, New Zealand 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2003-10-12",
@@ -3952,8 +4036,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Senegal had the edge in the verified senior series: 0 France wins, 0 draws, 1 Senegal win, 1 total goal.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Senegal 1 win, France 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2002-05-31",
@@ -4147,9 +4236,14 @@
         "away": 4
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Iraq and Norway have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/89/138/Iraq_vs_Norway.html"
       },
@@ -4372,8 +4466,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 1 Argentina win, 0 draws, 0 Algeria wins, 7 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Argentina 1 win, Algeria 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2007-06-05",
@@ -4577,9 +4676,14 @@
         "away": 1
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Jordan is playing its first World Cup match. Austria and Jordan have never met in a verified senior men's international, making this their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/13/95/Austria_vs_Jordan.html"
       },
@@ -4798,9 +4902,14 @@
         }
       ],
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Portugal and DR Congo have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/55/Portugal_vs_Dr_Congo.html"
       },
@@ -5024,7 +5133,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "summary": "England lead the verified senior series: 6 wins, 2 draws, 3 Croatia wins, 35 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 11,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "11 selected senior meetings available in our dataset: England 6 wins, Croatia 3, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2021",
@@ -5347,9 +5462,14 @@
         }
       ],
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Ghana and Panama have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/72/142/Ghana_vs_Panama.html"
       },
@@ -5558,9 +5678,14 @@
         }
       ],
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Uzbekistan is playing its first World Cup match. Uzbekistan and Colombia have never met in a verified senior men's international, making this their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/201/43/Uzbekistan_vs_Colombia.html"
       },
@@ -5786,8 +5911,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 Czechia wins, 1 draw, 0 South Africa wins, 4 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Czechia 0 wins, South Africa 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "1997-12-13",
@@ -6007,8 +6137,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Bosnia and Herzegovina had the edge in the verified senior series: 0 Switzerland wins, 0 draws, 1 Bosnia and Herzegovina win, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Bosnia and Herzegovina 1 win, Switzerland 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2016-03-29",
@@ -6255,8 +6390,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Canada had the edge in the verified senior series: 1 Canada win, 0 draws, 0 Qatar wins, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Canada 1 win, Qatar 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2022-09-23",
@@ -6502,8 +6642,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Mexico had the edge in the verified senior series: 8 Mexico wins, 3 draws, 3 South Korea wins, 43 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 14,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "14 selected senior meetings available in our dataset: Mexico 8 wins, South Korea 3, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-09-09",
@@ -6837,8 +6982,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, United States had the edge in the verified senior series: 2 United States wins, 1 draw, 1 Australia win, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: United States 2 wins, Australia 1, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-10-14",
@@ -7113,8 +7263,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Morocco had the edge in the verified senior series: 0 Scotland wins, 0 draws, 1 Morocco win, 3 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Morocco 1 win, Scotland 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "1998-06-23",
@@ -7319,8 +7474,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 2 Brazil wins, 0 draws, 0 Haiti wins, 14 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Brazil 2 wins, Haiti 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2016-06-08",
@@ -7563,8 +7723,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 Türkiye wins, 1 draw, 0 Paraguay wins, 0 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Türkiye 0 wins, Paraguay 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "1995-06-17",
@@ -7795,8 +7960,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Netherlands had the edge in the verified senior series: 8 Netherlands wins, 5 draws, 4 Sweden wins, 66 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 17,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "17 selected senior meetings available in our dataset: Netherlands 8 wins, Sweden 4, 5 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2017-10-10",
@@ -8198,8 +8368,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 Germany wins, 1 draw, 0 Côte d'Ivoire wins, 4 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Germany 0 wins, Côte d'Ivoire 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2009-11-18",
@@ -8406,9 +8581,14 @@
         "away": 0
       },
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Ecuador and Curaçao have never met in a verified senior men's international. This is their first head-to-head meeting, during Curaçao's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/56/280/Ecuador_vs_Curacao.html"
       },
@@ -8619,8 +8799,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Japan had the edge in the verified senior series: 1 Tunisia win, 0 draws, 5 Japan wins, 11 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 6,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "6 selected senior meetings available in our dataset: Japan 5 wins, Tunisia 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2023-10-17",
@@ -8882,8 +9067,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 3 Spain wins, 0 draws, 0 Saudi Arabia wins, 11 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Spain 3 wins, Saudi Arabia 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2012-09-07",
@@ -9123,9 +9313,14 @@
       "venue": "Los Angeles Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Belgium and IR Iran have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/20/88/Belgium_vs_Iran.html"
       },
@@ -9323,9 +9518,14 @@
       "venue": "Miami Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Uruguay and Cabo Verde have never met in a verified senior men's international. This is their first head-to-head meeting, during Cabo Verde's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/198/37/Uruguay_vs_Cape_Verde.html"
       },
@@ -9539,8 +9739,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Egypt had the edge in the verified senior series: 0 New Zealand wins, 1 draw, 2 Egypt wins, 4 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Egypt 2 wins, New Zealand 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2024-03-22",
@@ -9831,8 +10036,13 @@
       ],
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 1 Argentina win, 1 draw, 0 Austria wins, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Argentina 1 win, Austria 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "1990-05-03",
@@ -10085,9 +10295,14 @@
         }
       ],
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "France and Iraq have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/89/France_vs_Iraq.html"
       },
@@ -10265,8 +10480,13 @@
       "liveStatusSourceId": "guardian-norway-senegal-live-2026-06-22",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Senegal had the edge in the verified senior series: 0 Norway wins, 0 draws, 1 Senegal win, 3 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Senegal 1 win, Norway 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2006-03-01",
@@ -10491,8 +10711,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 Jordan wins, 1 draw, 0 Algeria wins, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Jordan 0 wins, Algeria 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2004-05-30",
@@ -10719,9 +10944,14 @@
       "venue": "Houston Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Portugal and Uzbekistan have never met in a verified senior men's international. This is their first head-to-head meeting, during Uzbekistan's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/201/Portugal_vs_Uzbekistan.html"
       },
@@ -10946,8 +11176,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 England wins, 1 draw, 0 Ghana wins, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: England 0 wins, Ghana 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2011-03-29",
@@ -11151,9 +11386,14 @@
       "venue": "Toronto Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Panama and Croatia have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/142/47/Panama_vs_Croatia.html"
       },
@@ -11352,9 +11592,14 @@
       "venue": "Estadio Guadalajara",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Colombia and DR Congo have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/55/Colombia_vs_Dr_Congo.html"
       },
@@ -11555,8 +11800,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Canada had the edge in the verified senior series: 0 Switzerland wins, 0 draws, 1 Canada win, 4 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Canada 1 win, Switzerland 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2002-05-15",
@@ -11790,8 +12040,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Qatar had the edge in the verified senior series: 0 Bosnia and Herzegovina wins, 1 draw, 1 Qatar win, 4 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Qatar 1 win, Bosnia and Herzegovina 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2010-08-10",
@@ -12034,8 +12289,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 0 Scotland wins, 1 draw, 5 Brazil wins, 13 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 6,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "6 selected senior meetings available in our dataset: Brazil 5 wins, Scotland 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2011-03-27",
@@ -12318,9 +12578,14 @@
       "venue": "Atlanta Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Morocco and Haiti have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/125/81/Morocco_vs_Haiti.html"
       },
@@ -12557,8 +12822,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Czechia had the edge in the verified senior series: 1 Czechia win, 0 draws, 0 Mexico wins, 3 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Czechia 1 win, Mexico 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2000-02-08",
@@ -12778,9 +13048,14 @@
       "venue": "Estadio Monterrey",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "South Africa and South Korea have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/172/173/South_Africa_vs_South_Korea.html"
       },
@@ -12974,8 +13249,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Germany had the edge in the verified senior series: 0 Ecuador wins, 0 draws, 2 Germany wins, 9 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Germany 2 wins, Ecuador 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2013-05-29",
@@ -13218,9 +13498,14 @@
       "venue": "Philadelphia Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Curaçao and Côte d'Ivoire have never met in a verified senior men's international. This is their first head-to-head meeting, during Curaçao's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/280/209/Curacao_vs_Ivory_Coast.html"
       },
@@ -13431,8 +13716,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Sweden had the edge in the verified senior series: 0 Japan wins, 3 draws, 1 Sweden win, 9 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: Sweden 1 win, Japan 0, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2002-05-25",
@@ -13685,8 +13975,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 Tunisia wins, 2 draws, 0 Netherlands wins, 6 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Tunisia 0 wins, Netherlands 0, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2009-02-11",
@@ -13909,8 +14204,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 2 Türkiye wins, 1 draw, 2 United States wins, 14 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 5,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "5 selected senior meetings available in our dataset: Türkiye 2 wins, United States 2, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-06-07",
@@ -14174,8 +14474,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Australia had the edge in the verified senior series: 0 Paraguay wins, 3 draws, 2 Australia wins, 6 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 5,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "5 selected senior meetings available in our dataset: Australia 2 wins, Paraguay 0, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2010-10-09",
@@ -14407,8 +14712,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, France had the edge in the verified senior series: 4 Norway wins, 4 draws, 5 France wins, 29 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 13,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "13 selected senior meetings available in our dataset: France 5 wins, Norway 4, 4 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2014-05-27",
@@ -14760,9 +15070,14 @@
       "venue": "Toronto Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Senegal and Iraq have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/163/89/Senegal_vs_Iraq.html"
       },
@@ -14999,9 +15314,14 @@
       "venue": "Houston Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Cabo Verde and Saudi Arabia have never met in a verified senior men's international. This is their first head-to-head meeting, during Cabo Verde's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/37/161/Cape_Verde_vs_Saudi_Arabia.html"
       },
@@ -15206,8 +15526,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 0 Uruguay wins, 3 draws, 4 Spain wins, 20 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 7,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "7 selected senior meetings available in our dataset: Spain 4 wins, Uruguay 0, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2013-06-16",
@@ -15490,8 +15815,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, the verified senior series was level: 0 Egypt wins, 1 draw, 0 IR Iran wins, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Egypt 0 wins, IR Iran 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2000-06-07",
@@ -15724,9 +16054,14 @@
       "venue": "BC Place Vancouver",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "New Zealand and Belgium have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/132/20/New_Zealand_vs_Belgium.html"
       },
@@ -15949,8 +16284,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, England had the edge in the verified senior series: 0 Panama wins, 0 draws, 1 England win, 7 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: England 1 win, Panama 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2018-06-24",
@@ -16171,9 +16511,14 @@
       "venue": "Philadelphia Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Croatia and Ghana have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/47/72/Croatia_vs_Ghana.html"
       },
@@ -16377,9 +16722,14 @@
       "venue": "Miami Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Colombia and Portugal have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/148/Colombia_vs_Portugal.html"
       },
@@ -16564,9 +16914,14 @@
       "venue": "Atlanta Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "DR Congo and Uzbekistan have never met in a verified senior men's international. This is their first head-to-head meeting, during Uzbekistan's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/55/201/Dr_Congo_vs_Uzbekistan.html"
       },
@@ -16800,8 +17155,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Before this fixture, Austria had the edge in the verified senior series: 0 Algeria wins, 0 draws, 1 Austria win, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: Austria 1 win, Algeria 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "1982-06-21",
@@ -17025,9 +17385,14 @@
       "venue": "Dallas Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "Jordan and Argentina have never met in a verified senior men's international. This is their first head-to-head meeting, during Jordan's first World Cup tournament.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/95/9/Jordan_vs_Argentina.html"
       },
@@ -17246,8 +17611,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-can-rsa-h2h-2026-06-25",
-        "summary": "Before this fixture, South Africa had the edge in the verified senior series: 1 South Africa win, 0 draws, 0 Canada wins, 2 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 1,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "1 selected senior meeting available in our dataset: South Africa 1 win, Canada 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2007-11-20",
@@ -17459,8 +17829,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Germany had the edge in the verified senior series: 1 Germany win, 1 draw, 0 Paraguay wins, 7 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Germany 1 win, Paraguay 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2013-08-14",
@@ -17770,8 +18145,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Netherlands had the edge in the verified senior series: 2 Netherlands wins, 0 draws, 1 Morocco win, 9 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: Netherlands 2 wins, Morocco 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2017-05-31",
@@ -18039,8 +18419,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 11 Brazil wins, 2 draws, 1 Japan win, 45 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 14,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "14 selected senior meetings available in our dataset: Brazil 11 wins, Japan 1, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-10-14",
@@ -18433,8 +18818,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, France had the edge in the verified senior series: 9 France wins, 4 draws, 3 Sweden wins, 42 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 16,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "16 selected senior meetings available in our dataset: France 9 wins, Sweden 3, 4 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2020-11-17",
@@ -18815,9 +19205,14 @@
       "venue": "Dallas Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Côte d'Ivoire and Norway have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/209/138/Ivory_Coast_vs_Norway.html"
       },
@@ -19032,8 +19427,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Mexico had the edge in the verified senior series: 14 Mexico wins, 8 draws, 4 Ecuador wins, 65 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 26,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "26 selected senior meetings available in our dataset: Mexico 14 wins, Ecuador 4, 8 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-10-14",
@@ -19534,9 +19934,14 @@
       "venue": "Atlanta Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "England and DR Congo have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/59/55/England_vs_Dr_Congo.html"
       },
@@ -19765,8 +20170,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, United States had the edge in the verified senior series: 2 United States wins, 1 draw, 0 Bosnia and Herzegovina wins, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 3,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "3 selected senior meetings available in our dataset: United States 2 wins, Bosnia and Herzegovina 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2021-12-18",
@@ -20019,9 +20429,14 @@
       "venue": "Seattle Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Belgium and Senegal have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/20/163/Belgium_vs_Senegal.html"
       },
@@ -20285,8 +20700,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Portugal had the edge in the verified senior series: 7 Portugal wins, 2 draws, 1 Croatia win, 27 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 10,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "10 selected senior meetings available in our dataset: Portugal 7 wins, Croatia 1, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2024-11-18",
@@ -20613,8 +21033,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 6 Spain wins, 3 draws, 2 Austria wins, 40 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 11,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "11 selected senior meetings available in our dataset: Spain 6 wins, Austria 2, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2009-11-18",
@@ -20944,8 +21369,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Switzerland had the edge in the verified senior series: 2 Switzerland wins, 0 draws, 0 Algeria wins, 5 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Switzerland 2 wins, Algeria 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "1986-05-06",
@@ -21185,9 +21615,14 @@
       "venue": "Miami Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Argentina and Cabo Verde have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/37/Argentina_vs_Cape_Verde.html"
       },
@@ -21427,9 +21862,14 @@
       "venue": "Kansas City Stadium",
       "status": "FT",
       "h2h": {
-        "status": "verified-empty",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Colombia and Ghana have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "status": "loaded",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 0,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/72/Colombia_vs_Ghana.html"
       },
@@ -21655,8 +22095,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Egypt had the edge in the verified senior series: 0 Australia wins, 1 draw, 1 Egypt win, 3 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Egypt 1 win, Australia 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2010-11-17",
@@ -21931,8 +22376,13 @@
       },
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, France had the edge in the verified senior series: 0 Paraguay wins, 2 draws, 3 France wins, 18 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 5,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "5 selected senior meetings available in our dataset: France 3 wins, Paraguay 0, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2017-06-02",
@@ -22184,8 +22634,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Morocco had the edge in the verified senior series: 0 Canada wins, 1 draw, 3 Morocco wins, 14 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: Morocco 3 wins, Canada 0, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2022-12-01",
@@ -22491,8 +22946,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Norway had the edge in the verified senior series: 0 Brazil wins, 2 draws, 2 Norway wins, 13 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: Norway 2 wins, Brazil 0, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2006-08-16",
@@ -22740,8 +23200,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-01",
-        "summary": "Before this fixture, England had the edge in the verified senior series: 1 Mexico win, 0 draws, 5 England wins, 16 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 6,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "6 selected senior meetings available in our dataset: England 5 wins, Mexico 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2010-05-24",
@@ -23060,8 +23525,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-03",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 3 Portugal wins, 12 draws, 9 Spain wins, 66 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 24,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "24 selected senior meetings available in our dataset: Spain 9 wins, Portugal 3, 12 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-06-08",
@@ -23519,8 +23989,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-02",
-        "summary": "Before this fixture, Belgium had the edge in the verified senior series: 1 United States win, 0 draws, 6 Belgium wins, 23 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 7,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "7 selected senior meetings available in our dataset: Belgium 6 wins, United States 1, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2026-03-28",
@@ -23825,8 +24300,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-04",
-        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 2 Argentina wins, 0 draws, 0 Egypt wins, 8 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 2,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "2 selected senior meetings available in our dataset: Argentina 2 wins, Egypt 0, 0 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2008-03-26",
@@ -24122,8 +24602,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-04",
-        "summary": "Before this fixture, Colombia had the edge in the verified senior series: 1 Switzerland win, 1 draw, 2 Colombia wins, 15 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 4,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "4 selected senior meetings available in our dataset: Colombia 2 wins, Switzerland 1, 1 draw. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2007-03-25",
@@ -24419,8 +24904,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-05",
-        "summary": "Before this fixture, France had the edge in the verified senior series: 4 France wins, 2 draws, 0 Morocco wins, 20 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 6,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "6 selected senior meetings available in our dataset: France 4 wins, Morocco 0, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2022-12-14",
@@ -24697,8 +25187,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-07",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 10 Spain wins, 3 draws, 4 Belgium wins, 46 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 17,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "17 selected senior meetings available in our dataset: Spain 10 wins, Belgium 4, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2016-09-01",
@@ -25101,8 +25596,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-07",
-        "summary": "Before this fixture, England had the edge in the verified senior series: 2 Norway wins, 3 draws, 3 England wins, 13 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 8,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "8 selected senior meetings available in our dataset: England 3 wins, Norway 2, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2014-09-03",
@@ -25426,8 +25926,13 @@
       "homeTeamId": "ARG",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-07",
-        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 5 Argentina wins, 2 draws, 0 Switzerland wins, 18 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 7,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "7 selected senior meetings available in our dataset: Argentina 5 wins, Switzerland 0, 2 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2014-07-01",
@@ -25765,8 +26270,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-11",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 9 France wins, 3 draws, 11 Spain wins, 61 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 23,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "23 selected senior meetings available in our dataset: Spain 11 wins, France 9, 3 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2025-06-05",
@@ -26273,8 +26783,13 @@
       "status": "FT",
       "h2h": {
         "status": "loaded",
-        "sourceId": "11v11-england-argentina-h2h-2026-07-11",
-        "summary": "Before this fixture, England had the edge in the verified senior series: 2 Argentina wins, 6 draws, 6 England wins, 36 total goals.",
+        "coverageStatus": "unknown",
+        "loadedMeetingCount": 14,
+        "officialAggregateCount": null,
+        "aggregateSourceId": null,
+        "aggregateCheckedAt": null,
+        "sourceId": "national-football-teams-h2h-sync-2026-07-17",
+        "summary": "14 selected senior meetings available in our dataset: England 6 wins, Argentina 2, 6 draws. Complete historical coverage has not been confirmed.",
         "results": [
           {
             "date": "2005-11-12",
@@ -26720,8 +27235,13 @@
       "status": "SCHEDULED",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-15",
-        "summary": "Before this fixture, France had the edge in the verified senior series: 7 France wins, 3 draws, 6 England wins, 39 total goals.",
+        "coverageStatus": "complete",
+        "loadedMeetingCount": 32,
+        "officialAggregateCount": 32,
+        "aggregateSourceId": "uefa-england-france-h2h-2026-07-17",
+        "aggregateCheckedAt": "2026-07-17T21:00:00Z",
+        "sourceId": "rsssf-england-france-results-2026-07-17",
+        "summary": "32 verified senior meetings: England 17 wins, France 10, 5 draws.",
         "results": [
           {
             "date": "2022-12-10",
@@ -26864,6 +27384,16 @@
             "sourceUrl": "https://www.national-football-teams.com/matches/report/15333/England_France.html"
           },
           {
+            "date": "1969-03-12",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 5,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
             "date": "1966-07-20",
             "competition": "World Cup 1966 - Group 1",
             "homeTeamId": "ENG",
@@ -26872,6 +27402,156 @@
             "awayScore": 0,
             "venue": "Wembley Stadium",
             "sourceUrl": "https://www.national-football-teams.com/matches/report/15071/England_France.html"
+          },
+          {
+            "date": "1963-02-27",
+            "competition": "European Championship qualifier",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 5,
+            "awayScore": 2,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1962-10-03",
+            "competition": "European Championship qualifier",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Hillsborough",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1957-11-27",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1955-05-15",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1951-10-03",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Highbury",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1949-05-22",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 3,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1947-05-03",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Highbury",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1938-05-26",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 4,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1933-12-06",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 4,
+            "awayScore": 1,
+            "venue": "White Hart Lane",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1931-05-14",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 5,
+            "awayScore": 2,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1929-05-09",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 4,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1928-05-17",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 5,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1927-05-26",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 6,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1925-05-21",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Stade Olympique Yves-du-Manoir",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
+          },
+          {
+            "date": "1924-05-17",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 3,
+            "venue": "Stade Pershing",
+            "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
           },
           {
             "date": "1923-05-10",
@@ -26884,7 +27564,7 @@
             "sourceUrl": "https://www.national-football-teams.com/matches/report/34035/France_England.html"
           }
         ],
-        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/59/France_vs_England.html"
+        "sourceUrl": "https://www.rsssf.org/tablese/engfrares.html"
       },
       "providerIds": {
         "fifa": {
@@ -27110,8 +27790,13 @@
       "status": "SCHEDULED",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-15",
-        "summary": "Before this fixture, Spain had the edge in the verified senior series: 4 Spain wins, 1 draw, 3 Argentina wins, 28 total goals.",
+        "coverageStatus": "complete",
+        "loadedMeetingCount": 14,
+        "officialAggregateCount": 14,
+        "aggregateSourceId": "fifa-argentina-spain-h2h-2026-07-17",
+        "aggregateCheckedAt": "2026-07-17T21:00:00Z",
+        "sourceId": "fifa-argentina-spain-h2h-2026-07-17",
+        "summary": "14 verified senior meetings: Spain 6 wins, Argentina 6, 2 draws.",
         "results": [
           {
             "date": "2018-03-27",
@@ -27184,6 +27869,26 @@
             "sourceUrl": "https://www.national-football-teams.com/matches/report/33411/Spain_Argentina.html"
           },
           {
+            "date": "1974-10-12",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Buenos Aires",
+            "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
+          },
+          {
+            "date": "1972-10-11",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Madrid",
+            "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
+          },
+          {
             "date": "1966-07-13",
             "competition": "World Cup 1966 - Group 2",
             "homeTeamId": "ARG",
@@ -27192,9 +27897,49 @@
             "awayScore": 1,
             "venue": "Villa Park",
             "sourceUrl": "https://www.national-football-teams.com/matches/report/15073/Argentina_Spain.html"
+          },
+          {
+            "date": "1961-06-11",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Seville",
+            "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
+          },
+          {
+            "date": "1960-07-24",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Buenos Aires",
+            "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
+          },
+          {
+            "date": "1953-07-05",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Buenos Aires",
+            "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
+          },
+          {
+            "date": "1952-12-07",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Madrid",
+            "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
           }
         ],
-        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/9/Spain_vs_Argentina.html"
+        "sourceUrl": "https://www.fifa.com/es/articles/historial-argentina-espana-partidos-resultados"
       },
       "providerIds": {
         "fifa": {

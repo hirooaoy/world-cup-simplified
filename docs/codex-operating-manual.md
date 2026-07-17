@@ -28,6 +28,9 @@ continuous delivery by a solo developer using multiple Codex threads.
 - One publishing task waits for relevant World Cup tasks to become idle, then
   ships the settled repository batch. Do not keep restarting a valid push for
   work that finishes after validation begins; that work goes in the next push.
+- A shared dirty checkout is normal during parallel work. Do not treat the
+  presence of changes as evidence that they are unfinished; task activity and
+  the settled diff determine whether the batch is ready.
 - Coordinate only with tasks editing this repository. Never wait for, inspect,
   or poll unrelated Codex or ChatGPT tasks.
 - When the user names a specific World Cup thread, wait only for that thread. If
@@ -40,17 +43,28 @@ continuous delivery by a solo developer using multiple Codex threads.
 
 ### `push latest`
 
-This is the normal fast path:
+This is the default workflow for fast, frequent solo development across
+multiple World Cup Codex threads. A shared dirty checkout is normal while
+relevant threads are working.
 
-1. Wait for relevant World Cup tasks to become idle.
-2. Inspect the settled diff and exclude unfinished experiments, unrelated
-   projects, and obvious temporary debris.
-3. Run the checks appropriate to the changed areas.
-4. Commit and push the settled batch.
-5. Let Git-triggered Vercel deploy it, verify the exact release, and stop.
+1. Wait quietly until all relevant World Cup repository tasks are idle.
+2. Ignore unrelated ChatGPT or Codex tasks.
+3. Inspect the settled combined World Cup diff.
+4. Include all completed and approved work unless something is explicitly
+   unfinished, experimental, conflicting, or excluded.
+5. Run tests according to risk.
+6. Update release notes only for meaningful user-visible changes.
+7. Commit the settled batch.
+8. Push without force.
+9. Rely on the existing Git-triggered Vercel deployment.
+10. Verify CI, production, commit alignment, and remaining local state.
+11. Stop.
 
-Do not require a release manifest, hash inventory, temporary worktree, staged
-diff approval, or patch extraction for an ordinary settled batch.
+Do not repeatedly ask what to include when `push latest` or `push all` is clear.
+Do not use temporary worktrees, hash inventories, partial patch extraction,
+release manifests, or staged-hunk approval as the default. Reserve those tools
+for partial releases, unfinished conflicts, mixed experimental work, or
+explicit review.
 
 ### `ship everything`
 
@@ -85,17 +99,17 @@ After relevant World Cup tasks are idle, the settled tree at the start of final
 validation is the release. Work that arrives later belongs to the next frequent
 push unless it fixes a confirmed blocker in the current candidate.
 
-## Careful Release Mode
+## Exceptional Release Tools
 
-Use a more explicit review only when the batch includes unusually high-risk or
-hard-to-separate work, such as forecast or lineup methodology, localization or
-application architecture, CI restructuring, a broad refactor, conflicting
-parallel edits, or a requested partial release from a mixed checkout.
+Settled forecast or lineup methodology, localization, application architecture,
+CI, and broad-refactor work still uses the normal publishing path. Increase the
+testing depth to match the risk without automatically adding release ceremony.
 
-In careful mode, use only the extra safeguards the situation needs: a scoped
-manifest, clean worktree, patch extraction, hash comparison, staged-diff review,
-or separate approvals. These are recovery and review tools, not the everyday
-publishing workflow.
+Use a scoped manifest, clean worktree, patch extraction, hash comparison,
+staged-diff review, or separate approval only when work is unfinished or
+conflicting, the user requests a partial release from a mixed checkout, or the
+user explicitly asks for that review. These are recovery and separation tools,
+not the everyday publishing workflow.
 
 ## Risk-Based Testing
 
@@ -160,9 +174,10 @@ previous complete run. For a narrow late change, rerun only affected checks.
 1. Wait for relevant World Cup tasks to become idle and inspect the settled
    repository diff.
 2. If nothing changed, report current status and stop.
-3. Choose routine or careful mode from the actual risk, update release notes
-   only when user-visible behavior or content changed, and run appropriate
-   checks.
+3. Update release notes only when user-visible behavior or content changed and
+   run checks appropriate to the actual risk. Use exceptional release tools
+   only for unfinished conflicts, requested partial releases, or explicit
+   review.
 4. Commit and push the settled batch without losing unfinished or unrelated
    work. If `origin/main` moved, integrate it safely and rerun affected checks.
 5. Treat exact-SHA GitHub CI as the comprehensive remote gate.
@@ -178,13 +193,20 @@ or recovery/rollback.
 
 - Classify a publishing failure as release-candidate code, pre-existing code,
   parallel work, stale data, CI infrastructure, or a third party before editing.
-- Clearly identify problems outside the original release scope.
-- Fix only genuine release blockers in the publishing thread. Defer optional
-  improvements to another thread or the next micro-release.
+- The publishing thread may fix a regression when it is directly caused by, or
+  clearly part of, the settled release batch.
+- Publishing recovery is limited to one root cause. Investigate, repair, and
+  revalidate that cause until it is resolved or genuinely blocked. Do not
+  expand the publishing pass to unrelated failures. If validation reveals a
+  different root cause, stop and move it to a separate implementation task. Do
+  not continue feature development inside the publishing task.
+- If validation discovers an unrelated issue, optional improvement, new
+  methodology decision, or broad refactor, stop and report it for a separate
+  implementation task.
+- Fix direct release regressions. Do not turn publishing into open-ended
+  feature development.
 - For CI failures, inspect the exact run, job log, SHA, and workflow steps. Do
   not infer the cause from an email summary alone.
-- When reproducing CI, use a clean worktree when practical and preserve all
-  unrelated local edits.
 - After integration or a blocker fix, rerun the checks materially affected by
   that change; rerun the full local suite only when the risk category requires
   it.
@@ -203,9 +225,10 @@ or recovery/rollback.
 
 ## Communication and Final Record
 
-Give progress updates for meaningful discoveries, scope or methodology
-decisions, blockers, review milestones, major test results, deployment status,
-and completion. Do not narrate every command, poll, retry, or minor edge case.
+While waiting for relevant threads, do not repeatedly narrate polling or task
+details. Use concise updates only when relevant work is still active, final
+validation begins, a blocker is found, the release is pushed, or production and
+CI are verified.
 
 The final release record should contain:
 

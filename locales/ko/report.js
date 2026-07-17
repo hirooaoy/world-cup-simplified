@@ -43,8 +43,12 @@ const reportLocale = {
     seeSources: "출처 보기",
     sources: "출처",
     tournamentFacts: "대회 공식 정보",
+    tournamentFactsAndConfirmedLineups: "대회 공식 정보 및 확정 라인업",
     forecasts: "예측",
+    publicBettingMarkets: "공개 베팅 시장",
+    predictedLineupsAndTeamNews: "예상 라인업 및 팀 소식",
     playerInformation: "선수 정보",
+    headToHeadRecords: "상대 전적",
     officialHighlights: "공식 하이라이트",
     exactSources: "경기별 세부 출처는 다를 수 있습니다."
   },

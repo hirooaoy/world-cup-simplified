@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-17T13:18:41-07:00",
+  "updatedAt": "2026-07-17T15:06:31-07:00",
   "releases": [
     {
       "date": "2026-07-17",
-      "title": "A steadier Ball Boy opening and clearer next-match copy",
-      "titleZh": "Ball Boy 打开更稳定，下一场比赛文案更清晰",
+      "title": "Correct knockout scores, honest H2H, and faster loading",
+      "titleZh": "正确的淘汰赛比分、更诚实的交锋记录与更快加载",
       "highlights": [
         "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.",
         "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.",
@@ -12,7 +12,12 @@
         "On small screens, the Report issue source tooltip now keeps extra breathing room from the viewport edge across browser font and layout differences.",
         "On rest days, hiding Recent matches now applies the same desktop spacing adjustment as match days, so the Today empty state stays aligned with the normal schedule layout.",
         "Selected match rows now use a tighter, consistent 6-pixel leading overhang so their highlight stays balanced at desktop and phone widths.",
-        "Historical World Cup forecasts now use a chronologically trained regulation-time model that improved both Brier score and log loss on an untouched 2006–2022 holdout, while lineup source weights remain neutral until the prediction archive is large enough to calibrate them safely."
+        "Historical World Cup forecasts now use a chronologically trained regulation-time model that improved both Brier score and log loss on an untouched 2006–2022 holdout, while lineup source weights remain neutral until the prediction archive is large enough to calibrate them safely.",
+        "Knockout result pills now keep the official home-away score order, including penalty shootouts, even when the away team wins.",
+        "Head-to-head summaries now say whether their historical coverage is complete, selected, or unconfirmed; England-France and Argentina-Spain are reconciled to complete authoritative totals before the final weekend.",
+        "Expanded head-to-head match histories can now be hidden again with the same localized, keyboard-accessible control kept below the list.",
+        "Tournament odds, venue, and team tooltips now display reliably when opened by touch, without triggering the parent match card.",
+        "The match-day core now appears before optional history and player-profile enrichment finishes loading, while repeat visits can reuse fresh static data."
       ],
       "highlightsZh": [
         "Ball Boy 现在会作为一个协调一致的界面打开：面板、标题、顶部控件和对话区采用相同的显示时机，输入框不再额外延迟出现。",
@@ -21,7 +26,12 @@
         "在小屏幕上，“报告问题”页面的来源提示会在不同浏览器字体和布局下与视口边缘保持更充足的留白。",
         "在无比赛日隐藏“最近比赛”后，桌面端会采用与比赛日相同的间距调整，让“今天”的空状态与常规赛程布局保持对齐。",
         "选中比赛行现在统一使用更紧凑的6像素左侧延伸，让高亮区域在桌面端和手机宽度下都保持均衡。",
-        "往届世界杯预测现在采用按时间顺序训练的常规时间模型，并在未参与训练的2006–2022年留出数据上同时改善了Brier分数和对数损失；阵容来源权重则会在预测存档足够大、可安全校准前保持中性。"
+        "往届世界杯预测现在采用按时间顺序训练的常规时间模型，并在未参与训练的2006–2022年留出数据上同时改善了Brier分数和对数损失；阵容来源权重则会在预测存档足够大、可安全校准前保持中性。",
+        "淘汰赛结果标签现在始终按官方主客队顺序显示比分，包括点球大战；即使客队获胜也不会颠倒。",
+        "交锋摘要现在会说明历史覆盖是完整、所选还是尚未确认；英格兰对法国和阿根廷对西班牙已在决赛周末前与权威总数完成核对。",
+        "展开交锋比赛记录后，现在可通过列表下方同一个已本地化、支持键盘操作的控件再次隐藏记录。",
+        "赛事赔率、场地和球队提示现在可通过触摸可靠显示，且不会误触打开上层比赛卡片。",
+        "比赛日核心内容现在会在可选的历史和球员资料加载完成前先显示，回访时也可复用仍然新鲜的静态数据。"
       ]
     },
     {

@@ -3,6 +3,7 @@
   --scout-bottom-duration: 390ms;
   --scout-content-delay: 110ms;
   --scout-ease: cubic-bezier(0.22, 0.8, 0.2, 1);
+  --scout-position-translate-y: 0px;
   position: fixed;
   right: 22px;
   bottom: calc(var(--scout-bottom) + var(--scout-visual-bottom-inset, 0px));
@@ -16,17 +17,22 @@
   box-shadow: 0 10px 28px rgba(10, 10, 10, 0.2);
   color: #ffffff;
   isolation: isolate;
-  transform: translateZ(0);
+  transform: translate3d(0, var(--scout-position-translate-y), 0);
   transform-origin: right bottom;
   transition:
     right 360ms var(--scout-ease),
     bottom var(--scout-bottom-duration) var(--scout-ease),
+    transform var(--scout-bottom-duration) var(--scout-ease),
     width 360ms var(--scout-ease),
     height 380ms var(--scout-ease),
     border-radius 340ms var(--scout-ease),
     border-width 220ms ease,
     box-shadow 280ms ease;
-  will-change: right, bottom, width, height, border-radius;
+  will-change: right, bottom, transform, width, height, border-radius;
+}
+
+.scout-backdrop {
+  display: none;
 }
 
 .scout-widget.is-bottom-resetting {
@@ -46,7 +52,8 @@
 }
 
 .scout-widget.has-tournament-show-next:not(.is-open) {
-  bottom: var(--scout-obstacle-bottom, var(--scout-bottom));
+  --scout-bottom-duration: var(--tournament-show-next-motion-duration, 180ms);
+  --scout-position-translate-y: var(--scout-obstacle-translate-y, 0px);
 }
 
 .scout-widget.is-open {
@@ -2867,14 +2874,12 @@ body.is-juggle-active .scout-pupil {
   gap: 8px;
   padding: 12px;
   border-top: 1px solid rgba(10, 10, 10, 0.09);
-  background: rgba(255, 255, 255, 0.97);
-  opacity: 0;
+  background: #ffffff;
   transform: translateY(8px);
-  transition: opacity 180ms ease, transform 280ms var(--scout-ease);
+  transition: transform 280ms var(--scout-ease);
 }
 
 .scout-widget.is-open .scout-composer {
-  opacity: 1;
   transform: translateY(0);
 }
 
@@ -2936,6 +2941,21 @@ body.is-juggle-active .scout-pupil {
 }
 
 @media (max-width: 560px) {
+  .scout-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 170;
+    display: block;
+    background: rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 240ms cubic-bezier(0.22, 0.8, 0.2, 1);
+  }
+
+  .scout-backdrop.is-visible {
+    opacity: 1;
+  }
+
   .scout-widget {
     --scout-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     right: 12px;
@@ -3120,6 +3140,7 @@ body.is-juggle-active .scout-pupil {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .scout-backdrop,
   .scout-widget,
   .scout-face,
   .scout-eyes,
@@ -3808,7 +3829,7 @@ html[data-theme="dark"] .scout-clarify-list span {
 
 html[data-theme="dark"] .scout-composer {
   border-top-color: var(--scout-dark-border-subtle);
-  background: rgba(19, 22, 27, 0.98);
+  background: var(--scout-dark-surface);
 }
 
 html[data-theme="dark"] .scout-input {

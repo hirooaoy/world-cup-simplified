@@ -22,7 +22,7 @@ It puts the schedule, standings, team guides, predictions, results, and official
 - See what matters in each matchup.
 - See match predictions and qualification chances when there is enough data.
 - Watch official highlights after FIFA publishes them.
-- Use the app in English or Chinese.
+- Use the app in English, Chinese, Spanish, or Korean.
 
 ## Quick Start
 
@@ -49,7 +49,7 @@ flowchart TD
   Static --> Browser
 ```
 
-Most of the site is static. The browser loads the app from `index.html`, `styles.css`, `app.js`, and the JSON files in `data/`.
+Most of the site is static. The browser loads the match-day core first from `index.html`, `styles.css`, `app.js`, and the essential JSON files in `data/`; historical and profile enrichment can load afterward without blocking the first useful screen.
 
 In production, the app tries `/api/live-data` first. If that route is unavailable, it uses the committed JSON files instead.
 
@@ -134,12 +134,29 @@ do not also run a separate `vercel --prod` deployment for the same release.
 Use a manual deployment only for an explicit redeploy, a failed Git-triggered
 deployment, promotion of a verified deployment, or recovery/rollback.
 
-For routine solo development, `push latest` is intentionally short: wait for
-relevant World Cup tasks to become idle, inspect the settled diff, run the
-checks appropriate to that diff, commit and push it, then verify GitHub and
-production. Use the more careful release path only for unusual high-risk or
-mixed work such as methodology changes, localization or architecture work, CI
-restructuring, broad refactors, or partial releases from a mixed checkout.
+For routine solo development, `push latest` means: wait quietly until relevant
+World Cup repository tasks are idle; ignore unrelated tasks; inspect the
+settled combined diff; include all completed and approved work except anything
+explicitly unfinished, experimental, conflicting, or excluded; test according
+to risk; update release notes only for meaningful user-visible changes; commit
+and push without force; rely on the Git-triggered Vercel deployment; verify CI,
+production, commit alignment, and remaining local state; then stop. A shared
+dirty checkout is normal while relevant tasks are working.
+
+Do not repeatedly ask what to include when `push latest` or `push all` is clear.
+Temporary worktrees, hash inventories, partial patch extraction, release
+manifests, and staged-hunk approval are reserved for partial releases,
+unfinished conflicts, mixed experimental work, or explicit review. The
+publishing task may fix a regression directly caused by or clearly part of the
+settled release batch. If validation finds an unrelated issue, optional
+improvement, new methodology decision, or broad refactor, stop and report it as
+separate work.
+
+Publishing recovery is limited to one root cause. Investigate, repair, and
+revalidate that cause until it is resolved or genuinely blocked. Do not expand
+the publishing pass to unrelated failures. If validation reveals a different
+root cause, stop and move it to a separate implementation task. Do not continue
+feature development inside the publishing task.
 
 Static pages are served from the repo root. `/api/live-data` refreshes match
 data. `/api/report-issue` handles the report form.

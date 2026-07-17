@@ -17,7 +17,17 @@ if (
 }
 
 const fixturesData = JSON.parse(await readFile(path.join(root, "data", "fixtures.json"), "utf8"));
+const lifecycle = JSON.parse(await readFile(path.join(root, "data", "edition-lifecycle.json"), "utf8"));
+const liveSyncEndsAt = new Date(lifecycle.liveSyncEndsAt || "");
+const lifecycleActive =
+  lifecycle.edition === 2026 &&
+  lifecycle.state === "live" &&
+  !Number.isNaN(liveSyncEndsAt.getTime()) &&
+  now <= liveSyncEndsAt;
 const eligibleFixtures = (fixturesData.fixtures || []).filter((fixture) => {
+  if (!lifecycleActive) {
+    return false;
+  }
   if (
     !["SCHEDULED", "DELAYED", "LIVE", "FT"].includes(fixture?.status) ||
     !fixture?.homeTeamId ||
@@ -40,7 +50,9 @@ const fixtureIds = eligibleFixtures.map((fixture) => fixture.id).join(",");
 console.log(
   eligible
     ? `Lineup matchday window is open for ${fixtureIds}.`
-    : `No fixture is between ${beforeMinutes} minutes before and ${afterMinutes} minutes after kickoff.`
+    : lifecycleActive
+      ? `No fixture is between ${beforeMinutes} minutes before and ${afterMinutes} minutes after kickoff.`
+      : `The 2026 live lineup lifecycle is closed or outside its edition window.`
 );
 
 if (process.argv.includes("--github-output")) {

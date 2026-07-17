@@ -397,6 +397,7 @@ const APP_SURFACE_PROBES = {
     { source: "No loaded World Cup matches found." },
     { source: "Previous World Cups" },
     { source: "Show all matches" },
+    { source: "Hide matches" },
     { source: "Hide previous World Cups" }
   ],
   "past World Cups": [
@@ -3600,10 +3601,12 @@ function auditStructuredH2hLocalization(
     const recordSample = formatter?.("h2h-record", {
       away: language === "es" ? "Corea del Sur" : "대한민국",
       awayWins: 3,
+      coverageStatus: "unknown",
       draws: 1,
       goals: 14,
       home: language === "es" ? "México" : "멕시코",
-      homeWins: 2
+      homeWins: 2,
+      total: 6
     });
     const emptySample = formatter?.("h2h-none", {
       away: language === "es" ? "Corea del Sur" : "대한민국",
@@ -3611,20 +3614,20 @@ function auditStructuredH2hLocalization(
     });
     const hasReviewedRecord =
       language === "es"
-        ? /México, 2 victorias; 1 empate; Corea del Sur, 3 victorias\..*14 goles/u.test(
+        ? /6 enfrentamientos seleccionados.*México, 2 victorias; Corea del Sur, 3 victorias; 1 empate.*registro histórico esté completo/u.test(
             recordSample || ""
           )
-        : /멕시코 2승, 무승부 1회, 대한민국 3승.*총 14골/u.test(
+        : /남자 A매치 6경기.*멕시코 2승, 대한민국 3승, 무승부 1회.*전체 역사가 완전한지는 확인되지/u.test(
             recordSample || ""
           );
     const hasReviewedEmpty =
       language === "es"
-        ? /nunca se habían enfrentado.*primer duelo/u.test(emptySample || "")
-        : /만난 적이 없습니다.*첫 맞대결/u.test(emptySample || "");
+        ? /no devolvió enfrentamientos anteriores.*registro histórico esté completo/iu.test(emptySample || "")
+        : /이전 맞대결이 반환되지 않았습니다.*전체 역사가 완전한지는 확인되지/u.test(emptySample || "");
     check(
       "structured H2H localization",
       hasReviewedRecord && hasReviewedEmpty,
-      `${language} H2H newsroom formatter failed its record/first-meeting samples: ${formatSamples([recordSample, emptySample])}`
+      `${language} H2H newsroom formatter failed its selected-record/unknown-empty samples: ${formatSamples([recordSample, emptySample])}`
     );
   }
 

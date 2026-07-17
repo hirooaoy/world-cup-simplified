@@ -47,7 +47,7 @@ const localeCases = [
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
     latestReleaseTitle:
-      "Una apertura de Ball Boy más estable y un texto más claro para el próximo partido",
+      "Marcadores correctos en eliminatorias, historiales transparentes y carga más rápida",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -116,7 +116,7 @@ const localeCases = [
     catchUpDynamicPattern: /골든부트/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "더 안정적인 Ball Boy 열림과 더 명확한 다음 경기 안내",
+    latestReleaseTitle: "정확한 토너먼트 점수, 정직한 상대 전적, 더 빠른 로딩",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:

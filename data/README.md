@@ -113,7 +113,7 @@ Run this after fixture updates to populate known-team group fixtures with team w
 node scripts/populate-enrichment-baselines.mjs
 ```
 
-The script preserves curated player notes, loaded H2H results, and verified-empty H2H records by default. Pass `--overwrite` only when intentionally regenerating all known-team group fixture enrichment baselines.
+The script preserves curated player notes and loaded H2H results by default. Pass `--overwrite` only when intentionally regenerating all known-team group fixture enrichment baselines.
 
 Run this after player-note or fixture updates to refresh opponent-specific key-information blurbs for each group fixture:
 
@@ -306,13 +306,26 @@ Use these fixture statuses:
 
 Use these H2H statuses:
 
-- `loaded`: verified past senior meetings are attached.
-- `verified-empty`: research found no prior senior meetings.
+- `loaded`: past senior meetings are attached with an explicit coverage state.
 - `research-pending`: verified historical records are not attached yet; the UI should show a concise not-loaded message.
 - `not-loaded`: no H2H state has been loaded; this should not remain on known-team group fixtures before sharing.
+
+Every loaded H2H record must include `coverageStatus`, `loadedMeetingCount`, `officialAggregateCount`, `aggregateSourceId`, and `aggregateCheckedAt`. Allowed coverage states are:
+
+- `complete`: an authoritative aggregate and check timestamp exist, and the loaded result count equals the official aggregate count.
+- `partial`: an authoritative aggregate exists, but the loaded and official counts differ.
+- `unknown`: completeness has not been confirmed. Aggregate fields must be `null`.
+
+A count mismatch always downgrades `complete` to `partial`. An empty provider response remains `unknown` and must say only that the source returned no previous meetings; it is not evidence that the teams have never met. The product may say `first meeting` only when a complete authoritative aggregate explicitly confirms zero prior meetings. Run `pnpm sync:h2h` to reconcile curated aggregates and `pnpm validate` to enforce this contract.
 
 ## Known Current Limitation
 
 The fixture skeleton now covers the full tournament date range in `data/fixtures.json`.
 Knockout matches intentionally use bracket-slot labels until the qualified teams are known.
 Rich previews, H2H records, live status, final scores, and standings still need update discipline on match days.
+
+## Edition lifecycle and the 2026 archive
+
+`data/edition-lifecycle.json` is the explicit guard for live-era scheduled jobs. The recurring result and lineup workflows run only while the 2026 lifecycle is `live` and within its timestamp window; a manual dispatch remains available for a late official correction.
+
+After all 104 fixtures, including the third-place match and final, are official and the archive eligibility time has passed, run `pnpm archive:2026:check`. It is a non-writing preflight and deliberately fails while either remaining match is unfinished. Review the final snapshot, then run `pnpm archive:2026` to create the versioned `data/archives/world-cup-2026.json`, append edition 23 to `history.json`, preserve pre-match prediction and lineup evidence, switch the app lifecycle to review, and close recurring live jobs. Later official corrections require the finalizer's explicit `--late-correction` flag.

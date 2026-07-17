@@ -340,8 +340,23 @@ function auditHistoricalArchive(historyData) {
     fixturesByYear.set(fixture.tournamentYear, entries);
   }
 
-  check((historyData.tournaments || []).length === 22, "Historical archive must contain all 22 editions from 1930 through 2022.");
-  check(fixtures.length === 965, `Historical archive has ${fixtures.length} fixtures; expected 965 source records.`);
+  const hasFinalized2026 = (historyData.tournaments || []).some((tournament) => tournament.year === 2026);
+  const expectedEditionCount = hasFinalized2026 ? 23 : 22;
+  const expectedFixtureCount = hasFinalized2026 ? 1069 : 965;
+  check(
+    (historyData.tournaments || []).length === expectedEditionCount,
+    `Historical archive must contain ${expectedEditionCount} editions through ${hasFinalized2026 ? 2026 : 2022}.`
+  );
+  check(
+    fixtures.length === expectedFixtureCount,
+    `Historical archive has ${fixtures.length} fixtures; expected ${expectedFixtureCount} for its edition lifecycle.`
+  );
+  if (hasFinalized2026) {
+    check(
+      (fixturesByYear.get(2026) || []).length === 104,
+      "Finalized 2026 archive must contain all 104 fixtures."
+    );
+  }
 
   for (const tournament of historyData.tournaments || []) {
     const editionFixtures = (fixturesByYear.get(tournament.year) || []).sort((a, b) => Number(a.matchNumber) - Number(b.matchNumber));

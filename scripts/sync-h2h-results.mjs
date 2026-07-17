@@ -102,7 +102,11 @@ function fixtureHasConfirmedTeams(fixture, teamIds) {
   return Boolean(fixture?.homeTeamId && fixture?.awayTeamId && teamIds.has(fixture.homeTeamId) && teamIds.has(fixture.awayTeamId));
 }
 
-function shouldSyncFixture(fixture, teamIds) {
+function matchupKey(fixture) {
+  return [fixture?.homeTeamId, fixture?.awayTeamId].filter(Boolean).sort().join("-");
+}
+
+function shouldSyncFixture(fixture, teamIds, authoritativePairs) {
   if (fixtureFilter.size && !fixtureFilter.has(fixture.id) && !fixtureFilter.has(String(fixture.matchNumber))) {
     return false;
   }
@@ -112,6 +116,17 @@ function shouldSyncFixture(fixture, teamIds) {
   }
 
   if (overwrite) {
+    return true;
+  }
+
+  const authoritative = authoritativePairs?.[matchupKey(fixture)];
+  if (
+    authoritative &&
+    (
+      fixture.h2h?.coverageStatus !== "complete" ||
+      fixture.h2h?.loadedMeetingCount !== authoritative.officialAggregateCount
+    )
+  ) {
     return true;
   }
 
@@ -193,11 +208,19 @@ function parseMatchRows(html) {
   const tableStart = html.indexOf('<table class="table countries matches');
 
   if (tableStart === -1) {
-    return [];
+    const parseError = new Error("National Football Teams encounter table was not found; provider markup may have changed");
+    parseError.h2hParseError = true;
+    throw parseError;
   }
 
   const tableEnd = html.indexOf("</table>", tableStart);
-  const table = tableEnd === -1 ? html.slice(tableStart) : html.slice(tableStart, tableEnd + "</table>".length);
+  if (tableEnd === -1) {
+    const parseError = new Error("National Football Teams encounter table did not close; provider markup may have changed");
+    parseError.h2hParseError = true;
+    throw parseError;
+  }
+
+  const table = html.slice(tableStart, tableEnd + "</table>".length);
   return [...table.matchAll(/<tr itemscope[\s\S]*?<\/tr>/g)].map((match) => match[0]);
 }
 
@@ -248,8 +271,10 @@ function penaltyScoreNote(score, rowHomeTeamId, rowAwayTeamId, teamsById) {
 
 function parseEncounterResults({ awayCountry, awayTeam, fixtureDayKey, homeCountry, homeTeam, html, teamsById, url }) {
   const providerIdToTeamId = sourceTeamMap(homeTeam, awayTeam, homeCountry, awayCountry);
+  const rows = parseMatchRows(html);
+  let invalidRowCount = 0;
 
-  return parseMatchRows(html)
+  const results = rows
     .map((row) => {
       const dateLink = row.match(/<td class="date[\s\S]*?<a href="([^"]+)">([^<]+)<\/a>/);
       const countryIds = parseCountryIds(row);
@@ -260,6 +285,7 @@ function parseEncounterResults({ awayCountry, awayTeam, fixtureDayKey, homeCount
       const stadium = row.match(/<td class="stadium">[\s\S]*?<span itemprop="name">([^<]+)<\/span>/)?.[1] || "";
 
       if (!dateLink || !rowHomeTeamId || !rowAwayTeamId || !score) {
+        invalidRowCount += 1;
         return null;
       }
 
@@ -288,6 +314,16 @@ function parseEncounterResults({ awayCountry, awayTeam, fixtureDayKey, homeCount
     })
     .filter(Boolean)
     .sort((left, right) => right.date.localeCompare(left.date));
+
+  if (invalidRowCount || (rows.length && !results.length)) {
+    const parseError = new Error(
+      `National Football Teams returned ${rows.length} match rows, with ${invalidRowCount} structurally invalid and ${results.length} trustworthy prior results`
+    );
+    parseError.h2hParseError = true;
+    throw parseError;
+  }
+
+  return results;
 }
 
 function plural(count, singular, pluralValue = `${singular}s`) {
@@ -302,19 +338,11 @@ function resultWinnerTeamId(result) {
   return result.homeScore > result.awayScore ? result.homeTeamId : result.awayTeamId;
 }
 
-function summarizeH2h(fixture, results, teamsById) {
-  const homeName = teamName(fixture.homeTeamId, teamsById);
-  const awayName = teamName(fixture.awayTeamId, teamsById);
-
-  if (!results.length) {
-    return `${homeName} and ${awayName} have never met in a verified senior men's international. This is their first head-to-head meeting.`;
-  }
-
-  const record = results.reduce(
+function calculateRecord(fixture, results) {
+  return results.reduce(
     (summary, result) => {
       const winnerTeamId = resultWinnerTeamId(result);
 
-      summary.goals += result.homeScore + result.awayScore;
       if (!winnerTeamId) {
         summary.draws += 1;
       } else if (winnerTeamId === fixture.homeTeamId) {
@@ -325,29 +353,91 @@ function summarizeH2h(fixture, results, teamsById) {
 
       return summary;
     },
-    { awayWins: 0, draws: 0, goals: 0, homeWins: 0 }
+    { awayWins: 0, draws: 0, homeWins: 0 }
   );
-  const leader =
-    record.homeWins > record.awayWins
-      ? homeName
-      : record.awayWins > record.homeWins
-        ? awayName
-        : "";
-  const prefix = leader
-    ? `${leader} had the edge in the verified senior series`
-    : "the verified senior series was level";
-
-  return `Before this fixture, ${prefix}: ${record.homeWins} ${homeName} ${plural(record.homeWins, "win")}, ${record.draws} ${plural(record.draws, "draw")}, ${record.awayWins} ${awayName} ${plural(record.awayWins, "win")}, ${record.goals} total ${plural(record.goals, "goal")}.`;
 }
 
-function buildH2h(fixture, results, sourceUrl, teamsById) {
+function recordText(fixture, results, teamsById) {
+  const homeName = teamName(fixture.homeTeamId, teamsById);
+  const awayName = teamName(fixture.awayTeamId, teamsById);
+  const record = calculateRecord(fixture, results);
+  const order = record.homeWins >= record.awayWins
+    ? [[homeName, record.homeWins], [awayName, record.awayWins]]
+    : [[awayName, record.awayWins], [homeName, record.homeWins]];
+
+  return `${order[0][0]} ${order[0][1]} ${plural(order[0][1], "win")}, ${order[1][0]} ${order[1][1]}, ${record.draws} ${plural(record.draws, "draw")}`;
+}
+
+function summarizeH2h(fixture, results, teamsById, coverageStatus) {
+  const loadedMeetingCount = results.length;
+
+  if (!loadedMeetingCount) {
+    return "No previous meetings were returned by this source. Complete historical coverage has not been confirmed.";
+  }
+
+  const record = recordText(fixture, results, teamsById);
+
+  if (coverageStatus === "complete") {
+    return `${loadedMeetingCount} verified senior ${plural(loadedMeetingCount, "meeting")}: ${record}.`;
+  }
+
+  return `${loadedMeetingCount} selected senior ${plural(loadedMeetingCount, "meeting")} available in our dataset: ${record}. Complete historical coverage has not been confirmed.`;
+}
+
+function buildH2h(fixture, results, sourceUrl, teamsById, authoritative = null) {
+  const officialAggregateCount = authoritative?.officialAggregateCount ?? null;
+  const coverageStatus = authoritative
+    ? results.length === officialAggregateCount ? "complete" : "partial"
+    : "unknown";
+
   return {
-    status: results.length ? "loaded" : "verified-empty",
-    sourceId,
-    summary: summarizeH2h(fixture, results, teamsById),
+    status: "loaded",
+    coverageStatus,
+    loadedMeetingCount: results.length,
+    officialAggregateCount,
+    aggregateSourceId: authoritative?.aggregateSourceId ?? null,
+    aggregateCheckedAt: authoritative?.aggregateSource?.checkedAt ?? null,
+    sourceId: authoritative?.resultsSourceId || sourceId,
+    summary: summarizeH2h(fixture, results, teamsById, coverageStatus),
     results,
-    sourceUrl
+    sourceUrl: authoritative?.resultsSource?.url || sourceUrl
   };
+}
+
+function resultIdentity(result) {
+  return [result.date, result.homeTeamId, result.awayTeamId, result.homeScore, result.awayScore].join("|");
+}
+
+function mergeResults(...collections) {
+  const results = new Map();
+  for (const result of collections.flat()) {
+    if (result) {
+      results.set(resultIdentity(result), result);
+    }
+  }
+  return [...results.values()].sort((left, right) => right.date.localeCompare(left.date));
+}
+
+function normalizeExistingCoverage(fixture, teamsById) {
+  if (!fixture.h2h || ["not-loaded", "research-pending"].includes(fixture.h2h.status)) {
+    return false;
+  }
+
+  if (
+    fixture.h2h.status === "loaded" &&
+    ["complete", "partial", "unknown"].includes(fixture.h2h.coverageStatus) &&
+    Number.isInteger(fixture.h2h.loadedMeetingCount)
+  ) {
+    return false;
+  }
+
+  const results = Array.isArray(fixture.h2h.results) ? fixture.h2h.results : [];
+  const nextH2h = buildH2h(fixture, results, fixture.h2h.sourceUrl, teamsById);
+  if (sameJson(fixture.h2h, nextH2h)) {
+    return false;
+  }
+  fixture.h2h = nextH2h;
+  return true;
 }
 
 function sameJson(left, right) {
@@ -367,29 +457,54 @@ function upsertSource(tournamentData, note) {
 }
 
 async function main() {
-  const [fixturesData, teamsData, tournamentData] = await Promise.all([
+  const [fixturesData, teamsData, tournamentData, coverageData] = await Promise.all([
     readJson("fixtures.json"),
     readJson("teams.json"),
-    readJson("tournament.json")
+    readJson("tournament.json"),
+    readJson("h2h-authoritative-coverage.json")
   ]);
   const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
   const teamIds = new Set(teamsById.keys());
-  const targetFixtures = (fixturesData.fixtures || []).filter((fixture) => shouldSyncFixture(fixture, teamIds));
+  const authoritativePairs = coverageData.pairs || {};
   const warnings = [];
   let updatedCount = 0;
   let loadedCount = 0;
-  let emptyCount = 0;
+  let unknownCount = 0;
 
-  if (!targetFixtures.length) {
-    console.log(
-      `National Football Teams H2H sync: 0 updates ${shouldWrite ? "written" : "detected"} (0 loaded, 0 verified empty).`
-    );
-    return;
+  for (const fixture of fixturesData.fixtures || []) {
+    if (normalizeExistingCoverage(fixture, teamsById)) {
+      updatedCount += 1;
+    }
   }
 
-  const countryIndex = await loadNationalFootballTeamsIndex();
+  const targetFixtures = (fixturesData.fixtures || []).filter((fixture) =>
+    shouldSyncFixture(fixture, teamIds, authoritativePairs)
+  );
+
+  if (!targetFixtures.length) {
+    if (!updatedCount) {
+      console.log(`H2H coverage sync: 0 updates ${shouldWrite ? "written" : "detected"}.`);
+      return;
+    }
+  }
+
+  const providerTargets = targetFixtures.filter((fixture) => !authoritativePairs[matchupKey(fixture)]);
+  const countryIndex = providerTargets.length ? await loadNationalFootballTeamsIndex() : null;
 
   for (const fixture of targetFixtures) {
+    const authoritative = authoritativePairs[matchupKey(fixture)] || null;
+    if (authoritative) {
+      const results = mergeResults(fixture.h2h?.results || [], authoritative.additionalResults || []);
+      const nextH2h = buildH2h(fixture, results, authoritative.resultsSource?.url, teamsById, authoritative);
+
+      if (!sameJson(fixture.h2h, nextH2h)) {
+        fixture.h2h = nextH2h;
+        updatedCount += 1;
+        loadedCount += 1;
+      }
+      continue;
+    }
+
     const homeTeam = teamsById.get(fixture.homeTeamId);
     const awayTeam = teamsById.get(fixture.awayTeamId);
     const homeCountry = resolveSourceCountry(homeTeam, countryIndex);
@@ -417,21 +532,31 @@ async function main() {
     if (!sameJson(fixture.h2h, nextH2h)) {
       fixture.h2h = nextH2h;
       updatedCount += 1;
-      if (results.length) {
-        loadedCount += 1;
-      } else {
-        emptyCount += 1;
-      }
+      results.length ? loadedCount += 1 : unknownCount += 1;
     }
   }
 
   if (updatedCount) {
-    fixturesData.sourceIds = [...new Set([...(fixturesData.sourceIds || []), sourceId])];
+    const coverageSourceIds = Object.values(authoritativePairs).flatMap((record) => [
+      record.aggregateSourceId,
+      record.resultsSourceId
+    ]).filter(Boolean);
+    fixturesData.sourceIds = [...new Set([...(fixturesData.sourceIds || []), sourceId, ...coverageSourceIds])];
     fixturesData.updatedAt = checkedAt;
     upsertSource(
       tournamentData,
       `${updatedCount} fixture H2H update${updatedCount === 1 ? "" : "s"} merged from National Football Teams encounter pages.`
     );
+    for (const record of Object.values(authoritativePairs)) {
+      for (const source of [record.aggregateSource, record.resultsSource]) {
+        if (!source) continue;
+        tournamentData.sources = (tournamentData.sources || []).filter((item) => item.id !== (source === record.aggregateSource ? record.aggregateSourceId : record.resultsSourceId));
+        tournamentData.sources.push({
+          id: source === record.aggregateSource ? record.aggregateSourceId : record.resultsSourceId,
+          ...source
+        });
+      }
+    }
   }
 
   if (updatedCount && shouldWrite) {
@@ -439,7 +564,7 @@ async function main() {
   }
 
   console.log(
-    `National Football Teams H2H sync: ${updatedCount} update${updatedCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"} (${loadedCount} loaded, ${emptyCount} verified empty).`
+    `H2H coverage sync: ${updatedCount} update${updatedCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"} (${loadedCount} reconciled, ${unknownCount} empty with unknown coverage).`
   );
 
   for (const warning of warnings) {
@@ -452,8 +577,8 @@ async function main() {
 }
 
 main().catch((error) => {
-  if (warnOnly && error.h2hFetchError) {
-    console.warn(`Warning: H2H sync skipped because the source was unavailable: ${error.message}`);
+  if (warnOnly && (error.h2hFetchError || error.h2hParseError)) {
+    console.warn(`Warning: H2H sync skipped because the source could not be trusted: ${error.message}`);
     return;
   }
 
