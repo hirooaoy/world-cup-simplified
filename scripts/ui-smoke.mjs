@@ -8905,33 +8905,6 @@ try {
           isMobile: true,
           viewport: { width: 390, height: 844 }
         },
-        initScript() {
-          Object.defineProperty(window, "visualViewport", {
-            configurable: true,
-            value: {
-              addEventListener() {},
-              removeEventListener() {},
-              get height() {
-                return Math.max(0, window.innerHeight - 112);
-              },
-              get offsetTop() {
-                return 0;
-              },
-              get pageLeft() {
-                return window.scrollX;
-              },
-              get pageTop() {
-                return window.scrollY;
-              },
-              get scale() {
-                return 1;
-              },
-              get width() {
-                return window.innerWidth;
-              }
-            }
-          });
-        },
         fixtureTransform(data) {
           for (const fixture of data.fixtures || []) {
             if (fixture.status === "LIVE") {
@@ -8954,9 +8927,6 @@ try {
       const rect = button?.getBoundingClientRect();
       const ballBoyRect = ballBoy?.getBoundingClientRect();
       const style = button ? getComputedStyle(button) : null;
-      const rootStyle = getComputedStyle(document.documentElement);
-      const viewportBottom =
-        (window.visualViewport?.offsetTop || 0) + (window.visualViewport?.height || window.innerHeight);
 
       return {
         ballBoyBottom: ballBoyRect ? Math.round(ballBoyRect.bottom) : null,
@@ -8966,23 +8936,24 @@ try {
         ballBoyHasAvoidance: Boolean(ballBoy?.classList.contains("has-tournament-show-next")),
         ballBoyObstacleTranslateY:
           ballBoy?.style.getPropertyValue("--scout-obstacle-translate-y") || "",
+        ballBoyShowNextHeight:
+          ballBoy?.style.getPropertyValue("--tournament-show-next-height") || "",
         ballBoyTransformTransitionDuration: ballBoy
           ? getComputedStyle(ballBoy).transitionDuration.split(",").map((value) => value.trim())[2] || ""
           : "",
         bottomGapToLayoutViewport: rect ? Math.round(window.innerHeight - rect.bottom) : null,
-        bottomGapToVisualViewport: rect ? Math.round(viewportBottom - rect.bottom) : null,
         buttonInsideProgression: Boolean(button?.closest(".tournament-progression")),
         buttonParentClass: button?.parentElement?.className || "",
         buttonPosition: style?.position || "",
-        buttonTransformTransitionDuration:
+        buttonOpacityTransitionDuration:
           style?.transitionDuration.split(",").map((value) => value.trim())[0] || "",
+        buttonTransform: style?.transform || "",
         label: button?.textContent.replace(/\s+/g, " ").trim() || "",
+        pairGap: rect && ballBoyRect ? Math.round(rect.top - ballBoyRect.bottom) : null,
         progressionContainsButton: Boolean(button && progression?.contains(button)),
         rightGap: rect ? Math.round(window.innerWidth - rect.right) : null,
+        rightEdgeDelta: rect && ballBoyRect ? Math.round(Math.abs(rect.right - ballBoyRect.right)) : null,
         targetMatchNumber: button?.dataset.showNextTournamentMatch || "",
-        visualViewportBottomInset: Math.round(
-          Number.parseFloat(rootStyle.getPropertyValue("--visual-viewport-bottom-inset")) || 0
-        )
       };
     });
     assert(
@@ -8990,21 +8961,43 @@ try {
         tournamentShowNextFloatingState.ballBoyClearsButton &&
         tournamentShowNextFloatingState.ballBoyHasAvoidance &&
         Boolean(tournamentShowNextFloatingState.ballBoyObstacleTranslateY) &&
+        tournamentShowNextFloatingState.ballBoyShowNextHeight === "50px" &&
         nextScheduledKnockoutMatchNumbers.includes(tournamentShowNextFloatingState.targetMatchNumber) &&
         tournamentShowNextFloatingState.buttonParentClass.includes("tournament-view") &&
         !tournamentShowNextFloatingState.buttonInsideProgression &&
         !tournamentShowNextFloatingState.progressionContainsButton &&
         tournamentShowNextFloatingState.buttonPosition === "fixed" &&
-        tournamentShowNextFloatingState.buttonTransformTransitionDuration === "0.18s" &&
+        tournamentShowNextFloatingState.buttonOpacityTransitionDuration === "0.18s" &&
+        tournamentShowNextFloatingState.buttonTransform === "none" &&
         tournamentShowNextFloatingState.ballBoyTransformTransitionDuration === "0.18s" &&
-        tournamentShowNextFloatingState.visualViewportBottomInset >= 0 &&
-        tournamentShowNextFloatingState.bottomGapToVisualViewport >= 10 &&
-        tournamentShowNextFloatingState.bottomGapToVisualViewport <= 22 &&
-        tournamentShowNextFloatingState.bottomGapToLayoutViewport >=
-          tournamentShowNextFloatingState.bottomGapToVisualViewport &&
-        tournamentShowNextFloatingState.rightGap >= 10 &&
-        tournamentShowNextFloatingState.rightGap <= 18,
-      `Mobile Show next should float from the page bottom-right, outside the bracket canvas, and clear bottom browser chrome. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
+        tournamentShowNextFloatingState.bottomGapToLayoutViewport >= 12 &&
+        tournamentShowNextFloatingState.bottomGapToLayoutViewport <= 16 &&
+        tournamentShowNextFloatingState.pairGap >= 12 &&
+        tournamentShowNextFloatingState.pairGap <= 16 &&
+        tournamentShowNextFloatingState.rightGap >= 12 &&
+        tournamentShowNextFloatingState.rightGap <= 16 &&
+        tournamentShowNextFloatingState.rightEdgeDelta <= 1,
+      `Mobile Show next and Ball Boy should form one native fixed dock at the page bottom-right without a duplicate viewport offset. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
+    );
+
+    const tournamentStaleInsetState = await tournamentShowNextFloatingCheck.page.evaluate(async () => {
+      const button = document.querySelector(".tournament-show-next-button");
+      const ballBoy = document.querySelector(".scout-widget");
+      const beforeButton = button?.getBoundingClientRect();
+      const beforeBallBoy = ballBoy?.getBoundingClientRect();
+      document.documentElement.style.setProperty("--visual-viewport-bottom-inset", "180px");
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const afterButton = button?.getBoundingClientRect();
+      const afterBallBoy = ballBoy?.getBoundingClientRect();
+      document.documentElement.style.removeProperty("--visual-viewport-bottom-inset");
+      return {
+        ballBoyShift: beforeBallBoy && afterBallBoy ? Math.round(afterBallBoy.top - beforeBallBoy.top) : null,
+        buttonShift: beforeButton && afterButton ? Math.round(afterButton.top - beforeButton.top) : null
+      };
+    });
+    assert(
+      tournamentStaleInsetState.buttonShift === 0 && tournamentStaleInsetState.ballBoyShift === 0,
+      `A stale or over-reported visual viewport inset must not lift the closed Tournament dock. Measured ${JSON.stringify(tournamentStaleInsetState)}.`
     );
 
     await tournamentShowNextFloatingCheck.page.click("#matches-tab");

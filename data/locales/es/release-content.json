@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "76b0c335c25e6a25e53b7c320d1822854b09791382656d01a45443e21ac12792",
+  "sourceFingerprint": "341ceebfb64a7c81746198b135fd152cc7e5d2c94df9b407e6c6e99a2eeea706",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
     "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.": "Ball Boy ahora se abre como una sola superficie coordinada: el panel, el título, los controles del encabezado y la conversación aparecen al mismo tiempo, mientras que el campo para escribir se muestra sin demora adicional.",
     "Correct knockout scores, honest H2H, and faster loading": "Marcadores correctos en eliminatorias, historiales transparentes y carga más rápida",
-    "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "En pantallas pequeñas, el aviso del pie de página conserva el ajuste de línea y el espacio que evitan a Ball Boy mientras se abre o se cierra, en lugar de moverse durante la animación.",
-    "Rest-day guidance now presents the next match as a normal sentence with standard spacing around the flags, team names, and versus text while keeping every item vertically aligned.": "En los días sin partido, la indicación del próximo encuentro ahora se lee como una frase normal, con espaciado estándar entre las banderas, los nombres de las selecciones y el texto de versus, y con todos los elementos alineados verticalmente."
+    "On mobile, Tournament's Show next button and Ball Boy now form one bottom-right dock that stays close to the browser edge instead of being lifted into the bracket by a duplicated viewport offset.": "En dispositivos móviles, el botón Mostrar siguiente del Torneo y Ball Boy ahora forman una sola zona fija en la esquina inferior derecha, cerca del borde del navegador, en vez de desplazarse hacia arriba sobre el cuadro por una compensación duplicada del área visible.",
+    "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "En pantallas pequeñas, el aviso del pie de página conserva el ajuste de línea y el espacio que evitan a Ball Boy mientras se abre o se cierra, en lugar de moverse durante la animación."
   }
 }

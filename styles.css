@@ -5143,14 +5143,14 @@ h1 {
 }
 
 :root {
+  --tournament-floating-edge: 18px;
   --tournament-show-next-resting-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-  --tournament-show-next-translate-y: calc(0px - var(--visual-viewport-bottom-inset, 0px));
   --tournament-show-next-motion-duration: 180ms;
 }
 
 .tournament-show-next-button {
   position: fixed;
-  right: 18px;
+  right: var(--tournament-floating-edge);
   bottom: var(--tournament-show-next-resting-bottom);
   z-index: 80;
   display: inline-flex;
@@ -5172,13 +5172,11 @@ h1 {
   line-height: 1;
   opacity: 1;
   touch-action: manipulation;
-  transform: translate3d(0, var(--tournament-show-next-translate-y), 0);
   transition:
-    transform var(--tournament-show-next-motion-duration) cubic-bezier(0.22, 0.8, 0.2, 1),
     opacity 180ms ease,
     background 160ms ease,
     box-shadow 160ms ease;
-  will-change: transform;
+  will-change: opacity;
   white-space: nowrap;
 }
 
@@ -9377,6 +9375,7 @@ button.lineup-event-sub,
 
 @media (max-width: 520px) {
   :root {
+    --tournament-floating-edge: 14px;
     --tournament-show-next-resting-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   }
 
@@ -9404,10 +9403,6 @@ button.lineup-event-sub,
     height: 13px;
     flex-basis: 16px;
     font-size: 13px;
-  }
-
-  .tournament-show-next-button {
-    right: 14px;
   }
 
   .match-summary h2 {

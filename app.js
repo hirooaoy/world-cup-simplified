@@ -16116,54 +16116,6 @@ function getWindowMaxScrollY() {
   return Math.max(0, scrollHeight - window.innerHeight);
 }
 
-function getFixedViewportBottomCompensation(visualBottom) {
-  if (!document.body || !Number.isFinite(visualBottom)) {
-    return 0;
-  }
-
-  const probe = document.createElement("span");
-  probe.setAttribute("aria-hidden", "true");
-  probe.style.cssText = [
-    "position: fixed",
-    "right: 0",
-    "bottom: 0",
-    "width: 1px",
-    "height: 1px",
-    "opacity: 0",
-    "pointer-events: none",
-    "contain: strict"
-  ].join(";");
-  document.body.appendChild(probe);
-  const fixedBottom = probe.getBoundingClientRect().bottom;
-  probe.remove();
-
-  return Math.max(0, Math.round(fixedBottom - visualBottom));
-}
-
-let visualViewportInsetFrameId = 0;
-
-function updateVisualViewportInsets() {
-  visualViewportInsetFrameId = 0;
-  const viewport = window.visualViewport;
-  const layoutHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-  const visualBottom =
-    viewport && Number.isFinite(viewport.height)
-      ? (Number(viewport.offsetTop) || 0) + Number(viewport.height)
-      : layoutHeight;
-  const viewportGap = Math.max(0, Math.round(layoutHeight - visualBottom));
-  const bottomInset = viewportGap > 0 ? getFixedViewportBottomCompensation(visualBottom) : 0;
-
-  document.documentElement.style.setProperty("--visual-viewport-bottom-inset", `${bottomInset}px`);
-}
-
-function queueVisualViewportInsetUpdate() {
-  if (visualViewportInsetFrameId) {
-    return;
-  }
-
-  visualViewportInsetFrameId = window.requestAnimationFrame(updateVisualViewportInsets);
-}
-
 function handleTournamentBoardPointerDown(event) {
   const progression = getTournamentProgressionFromEvent(event);
 
@@ -31475,7 +31427,6 @@ document.addEventListener(
 );
 
 window.addEventListener("resize", () => {
-  updateVisualViewportInsets();
   updateMatchInfoViewportDockState();
   updateTabIndicators();
   updateTimeZoneLabelForViewport();
@@ -31499,18 +31450,14 @@ window.addEventListener("resize", () => {
     if (floatingLineupEventTooltipSource?.isConnected) {
       positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
     }
-    updateVisualViewportInsets();
     updateTournamentBoardLayout();
     updateTabIndicators();
     updateMatchInfoViewportDockState();
   });
 });
-window.visualViewport?.addEventListener?.("resize", queueVisualViewportInsetUpdate);
-window.visualViewport?.addEventListener?.("scroll", queueVisualViewportInsetUpdate);
 window.addEventListener(
   "scroll",
   () => {
-    queueVisualViewportInsetUpdate();
     clearActiveTouchTooltip();
     if (
       floatingLineupEventTooltipSource?.isConnected &&
@@ -31696,7 +31643,6 @@ const languageObserver = new MutationObserver((mutations) => {
 });
 
 readInitialChromeState();
-updateVisualViewportInsets();
 renderStaticText();
 renderTimeZoneOptions();
 setHeaderControlsLoading(false);

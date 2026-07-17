@@ -1414,6 +1414,7 @@ function clearTournamentShowNextAvoidance({ immediate = false } = {}) {
     widget.style.getPropertyValue("--scout-obstacle-translate-y");
   const clear = () => {
     widget.style.removeProperty("--scout-obstacle-translate-y");
+    widget.style.removeProperty("--tournament-show-next-height");
     widget.classList.remove("has-tournament-show-next");
   };
 
@@ -1432,8 +1433,12 @@ function syncTournamentShowNextAvoidance() {
 
   if (result) {
     widget.style.setProperty(
+      "--tournament-show-next-height",
+      `${Math.round(result.bounds.height)}px`
+    );
+    widget.style.setProperty(
       "--scout-obstacle-translate-y",
-      `calc(var(--scout-bottom) - var(--tournament-show-next-resting-bottom) - 50px - ${SCOUT_SHOW_NEXT_GAP}px - var(--visual-viewport-bottom-inset, 0px))`
+      `calc(var(--scout-bottom) - var(--tournament-show-next-resting-bottom) - var(--tournament-show-next-height, 50px) - ${SCOUT_SHOW_NEXT_GAP}px)`
     );
     widget.classList.add("has-tournament-show-next");
   } else {

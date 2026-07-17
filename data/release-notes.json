@@ -1,11 +1,12 @@
 {
-  "updatedAt": "2026-07-17T15:06:31-07:00",
+  "updatedAt": "2026-07-17T15:39:27-07:00",
   "releases": [
     {
       "date": "2026-07-17",
       "title": "Correct knockout scores, honest H2H, and faster loading",
       "titleZh": "正确的淘汰赛比分、更诚实的交锋记录与更快加载",
       "highlights": [
+        "On mobile, Tournament's Show next button and Ball Boy now form one bottom-right dock that stays close to the browser edge instead of being lifted into the bracket by a duplicated viewport offset.",
         "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.",
         "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.",
         "Rest-day guidance now presents the next match as a normal sentence with standard spacing around the flags, team names, and versus text while keeping every item vertically aligned.",
@@ -20,6 +21,7 @@
         "The match-day core now appears before optional history and player-profile enrichment finishes loading, while repeat visits can reuse fresh static data."
       ],
       "highlightsZh": [
+        "在移动端，淘汰赛的“显示下一场”按钮与 Ball Boy 现在会组成统一的右下角停靠区，紧贴浏览器边缘，不再因重复的视口偏移而被抬到对阵图中间。",
         "Ball Boy 现在会作为一个协调一致的界面打开：面板、标题、顶部控件和对话区采用相同的显示时机，输入框不再额外延迟出现。",
         "在小屏幕上，Ball Boy 打开或关闭时，页脚免责声明会保持避让吉祥物后的换行和间距，不再随着动画移动。",
         "无比赛日的提示现在会以普通句子展示下一场比赛，国旗、球队名称和对阵文字之间使用标准间距，同时保持各元素垂直对齐。",

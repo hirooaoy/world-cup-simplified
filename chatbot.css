@@ -54,6 +54,7 @@
 .scout-widget.has-tournament-show-next:not(.is-open) {
   --scout-bottom-duration: var(--tournament-show-next-motion-duration, 180ms);
   --scout-position-translate-y: var(--scout-obstacle-translate-y, 0px);
+  right: var(--tournament-floating-edge, 18px);
 }
 
 .scout-widget.is-open {
