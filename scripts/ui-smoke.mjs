@@ -9171,6 +9171,7 @@ try {
       tournamentLiveCheckTime.toISOString(),
       "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
       {
+        contextOptions: { hasTouch: true },
         fixtureTransform(data) {
           for (const fixture of data.fixtures || []) {
             if (fixture.status === "LIVE") {
@@ -9208,7 +9209,7 @@ try {
     );
     const tournamentPageCountBeforeLiveClick = tournamentLiveTooltipCheck.context.pages().length;
     const tournamentUrlBeforeLiveClick = tournamentLiveTooltipCheck.page.url();
-    await tournamentLivePill.click();
+    await tournamentLivePill.tap();
     await tournamentLiveTooltipCheck.page.waitForFunction((selector) => {
       const pill = document.querySelector(selector);
       const styles = pill ? getComputedStyle(pill, "::after") : null;
