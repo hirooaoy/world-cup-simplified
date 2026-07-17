@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-6";
+} from "./locales/locale-runtime.js?v=2026-07-16-9";
 
 const DATA_VERSION = "2026-07-16-ranking-year-1";
 const DATA_URLS = {
@@ -43,6 +43,9 @@ const HOME_SEO = {
   }
 };
 const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
+const TIMEZONE_MODE_STORAGE_KEY = "world-cup-simplified-timezone-mode";
+const DEVICE_TIMEZONE_STORAGE_VALUE = "device";
+const RECENT_TIMEZONES_STORAGE_KEY = "world-cup-simplified-recent-timezones";
 const SHOW_YESTERDAY_STORAGE_KEY = "world-cup-simplified-show-yesterday";
 const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
 const ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX = "world-cup-simplified-admin-message-dismissed:";
@@ -3066,6 +3069,16 @@ const siteHeader = document.querySelector(".site-header");
 const siteFooter = document.querySelector(".site-footer");
 const timezoneSelect = document.querySelector("#timezone-select");
 const timezoneControl = document.querySelector(".timezone-control");
+const timezonePickerTrigger = document.querySelector("#timezone-picker-trigger");
+const timezonePickerValue = document.querySelector("#timezone-picker-value");
+const timezonePickerMeta = document.querySelector("#timezone-picker-meta");
+const timezonePicker = document.querySelector("#timezone-picker");
+const timezonePickerTitle = document.querySelector("#timezone-picker-title");
+const timezonePickerClose = document.querySelector("#timezone-picker-close");
+const timezonePickerBackdrop = document.querySelector("#timezone-picker-backdrop");
+const timezoneSearchInput = document.querySelector("#timezone-search-input");
+const timezonePickerResults = document.querySelector("#timezone-picker-results");
+const timezonePickerEmpty = document.querySelector("#timezone-picker-empty");
 const dayLabel = document.querySelector("#day-label");
 const datePopover = document.querySelector("#date-popover");
 const teamSearch = document.querySelector("#team-search");
@@ -3117,8 +3130,11 @@ const viewPanels = {
   standings: document.querySelector("#standings-view")
 };
 
-const defaultTimeZone =
-  Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
+function resolveDeviceTimeZone() {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
+}
+
+let defaultTimeZone = resolveDeviceTimeZone();
 const preferredTimeZones = [
   "UTC",
   "America/Los_Angeles",
@@ -3143,6 +3159,37 @@ const preferredTimeZones = [
   "Asia/Tokyo",
   "Australia/Sydney"
 ];
+const timeZoneSearchAliases = {
+  UTC: ["gmt", "coordinated universal time", "universal time"],
+  "America/Los_Angeles": ["california", "bay area", "pacific time", "west coast", "usa", "united states", "加州", "美国西海岸"],
+  "America/Vancouver": ["british columbia", "canada", "pacific time"],
+  "America/Denver": ["colorado", "mountain time", "usa", "united states"],
+  "America/Chicago": ["illinois", "central time", "usa", "united states"],
+  "America/Mexico_City": ["mexico", "méxico", "central time"],
+  "America/New_York": ["eastern time", "east coast", "usa", "united states", "美国东海岸"],
+  "America/Toronto": ["ontario", "canada", "eastern time"],
+  "America/Sao_Paulo": ["brazil", "brasil", "巴西"],
+  "America/Anchorage": ["alaska", "usa", "united states"],
+  "Pacific/Honolulu": ["hawaii", "usa", "united states"],
+  "Europe/London": ["uk", "united kingdom", "britain", "england", "英国"],
+  "Europe/Paris": ["france", "francia", "法国"],
+  "Europe/Madrid": ["spain", "españa", "西班牙"],
+  "Europe/Berlin": ["germany", "deutschland", "alemania", "德国"],
+  "Africa/Casablanca": ["morocco", "marruecos", "摩洛哥"],
+  "Africa/Lagos": ["nigeria", "尼日利亚"],
+  "Africa/Johannesburg": ["south africa", "sudáfrica", "南非"],
+  "Asia/Dubai": ["uae", "united arab emirates", "emirates", "阿联酋"],
+  "Asia/Kolkata": ["india", "印度"],
+  "Asia/Bangkok": ["thailand", "泰国"],
+  "Asia/Shanghai": ["china", "beijing", "中国", "中国时间"],
+  "Asia/Tokyo": ["japan", "japon", "japón", "日本", "日本時間"],
+  "Asia/Seoul": ["korea", "south korea", "한국", "한국시간", "韩国"],
+  "Asia/Singapore": ["singapore", "新加坡"],
+  "Australia/Sydney": ["australia", "australian eastern time", "澳大利亚"],
+  "Australia/Perth": ["western australia", "australia"],
+  "Pacific/Auckland": ["new zealand", "nz", "新西兰"]
+};
+const timeZoneMetaCache = new Map();
 const browserTimeZones = (() => {
   try {
     return typeof Intl.supportedValuesOf === "function"
@@ -3523,14 +3570,33 @@ if (!timeZones.includes(defaultTimeZone)) {
   timeZones.unshift(defaultTimeZone);
 }
 
-function getStoredTimeZone() {
+function getStoredTimeZonePreference() {
   const storedTimeZone = String(localStorage.getItem(TIMEZONE_STORAGE_KEY) || "");
-  return timeZones.includes(storedTimeZone) ? storedTimeZone : "";
+  const storedMode = String(localStorage.getItem(TIMEZONE_MODE_STORAGE_KEY) || "");
+  if (storedMode === "device" || !storedTimeZone || storedTimeZone === DEVICE_TIMEZONE_STORAGE_VALUE) {
+    return { mode: "device", timeZone: defaultTimeZone };
+  }
+  if (storedMode === "manual" && timeZones.includes(storedTimeZone)) {
+    return { mode: "manual", timeZone: storedTimeZone };
+  }
+  if (timeZones.includes(storedTimeZone)) {
+    return {
+      mode: storedTimeZone === defaultTimeZone ? "device" : "manual",
+      timeZone: storedTimeZone
+    };
+  }
+  return { mode: "device", timeZone: defaultTimeZone };
 }
 
-function storeTimeZone(timeZone) {
+function storeTimeZone(timeZone, options = {}) {
+  if (options.mode === "device") {
+    localStorage.setItem(TIMEZONE_STORAGE_KEY, DEVICE_TIMEZONE_STORAGE_VALUE);
+    localStorage.setItem(TIMEZONE_MODE_STORAGE_KEY, "device");
+    return;
+  }
   if (timeZones.includes(timeZone)) {
     localStorage.setItem(TIMEZONE_STORAGE_KEY, timeZone);
+    localStorage.setItem(TIMEZONE_MODE_STORAGE_KEY, "manual");
   }
 }
 
@@ -3803,7 +3869,9 @@ function setShowYesterdayMatches(value, options = {}) {
 }
 
 const initialDate = new Date();
-let selectedTimeZone = getStoredTimeZone() || defaultTimeZone;
+const initialTimeZonePreference = getStoredTimeZonePreference();
+let timeZoneSelectionMode = initialTimeZonePreference.mode;
+let selectedTimeZone = initialTimeZonePreference.timeZone;
 let selectedDayKey = getDayKey(initialDate, selectedTimeZone);
 let shouldShowYesterdayMatches = getStoredShowYesterday();
 let activeMatchId = "";
@@ -3824,6 +3892,7 @@ let catchUpRenderFrameId = 0;
 let catchUpRenderTimeoutId = 0;
 let catchUpRenderToken = 0;
 let isSettingsOpen = false;
+let isTimeZonePickerOpen = false;
 let isStandingsYearOpen = false;
 let isTeamSearchOpen = false;
 let isShowingOlderTeamMatches = false;
@@ -7133,6 +7202,17 @@ function renderStaticText() {
   if (timezoneLabel) {
     timezoneLabel.textContent = t("timeZone");
   }
+  if (timezonePickerTitle) {
+    timezonePickerTitle.textContent = t("timeZoneChoose");
+  }
+  timezonePickerClose?.setAttribute("aria-label", t("timeZoneClose"));
+  if (timezoneSearchInput) {
+    timezoneSearchInput.placeholder = t("timeZoneSearchPlaceholder");
+  }
+  if (timezonePickerEmpty) {
+    timezonePickerEmpty.textContent = t("timeZoneNoResults");
+  }
+  updateTimeZonePickerTrigger();
   if (settingsYesterdayLabel) {
     settingsYesterdayLabel.textContent = t("showYesterday");
   }
@@ -7147,7 +7227,7 @@ function renderStaticText() {
   datePopover?.setAttribute("aria-label", t("chooseMatchDate"));
   calendarPrevMonth?.setAttribute("aria-label", t("calendarPreviousMonth"));
   calendarNextMonth?.setAttribute("aria-label", t("calendarNextMonth"));
-  calendarYesterdayButton.textContent = t("calendarPrevious");
+  calendarYesterdayButton.textContent = t("calendarYesterday");
   calendarTodayButton.textContent = t("calendarToday");
   calendarWeekdayLabels.forEach((label, index) => {
     label.textContent = t("calendarWeekdays")[index] || label.textContent;
@@ -8352,6 +8432,306 @@ function getTimeZoneLabel(timeZone) {
   return `${label} (${getTimeZoneAbbreviation(timeZone)})`;
 }
 
+function getTimeZoneDisplayName(timeZone) {
+  const localizedName = currentLanguage === "zh"
+    ? zhTimeZoneNames[timeZone]
+    : activeAppLocalePack?.entities?.timeZones?.[timeZone];
+  if (localizedName) {
+    return localizedName;
+  }
+  if (timeZone === "UTC") {
+    return "UTC";
+  }
+
+  const [, ...locationParts] = String(timeZone).split("/");
+  const displayParts = (locationParts.length ? locationParts : [timeZone])
+    .map((part) => part.replace(/_/g, " "));
+  return displayParts.join(" / ");
+}
+
+function getTimeZoneUtcOffset(timeZone, date = new Date()) {
+  try {
+    const offset = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      timeZoneName: "shortOffset"
+    }).formatToParts(date).find((part) => part.type === "timeZoneName")?.value || "";
+    return offset.replace(/^GMT$/, "UTC").replace(/^GMT/, "UTC").replace(/-/g, "−");
+  } catch {
+    return "";
+  }
+}
+
+function isGenericTimeZoneOffsetLabel(value) {
+  return /^(?:GMT|UTC)(?:[+\-−]\d{1,2}(?::?\d{2})?)?$/.test(
+    String(value || "").replace(/\s+/g, "")
+  );
+}
+
+function getTimeZoneMeta(timeZone) {
+  const cacheKey = `${currentLanguage}:${timeZone}`;
+  if (timeZoneMetaCache.has(cacheKey)) {
+    return timeZoneMetaCache.get(cacheKey);
+  }
+  const abbreviation = getTimeZoneAbbreviation(timeZone);
+  const offset = getTimeZoneUtcOffset(timeZone);
+  const localizedAbbreviation = isGenericTimeZoneOffsetLabel(abbreviation) ? "" : abbreviation;
+  const meta = [...new Set([localizedAbbreviation, offset].filter(Boolean))].join(" · ");
+  timeZoneMetaCache.set(cacheKey, meta);
+  return meta;
+}
+
+function normalizeTimeZoneSearchText(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("en-US")
+    .replace(/[_/()+·−-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getTimeZoneSearchText(timeZone) {
+  return normalizeTimeZoneSearchText([
+    timeZone,
+    getTimeZoneDisplayName(timeZone),
+    getTimeZoneAbbreviation(timeZone),
+    getTimeZoneUtcOffset(timeZone),
+    ...(timeZoneSearchAliases[timeZone] || [])
+  ].join(" "));
+}
+
+function getRecentTimeZones() {
+  try {
+    const storedTimeZones = JSON.parse(localStorage.getItem(RECENT_TIMEZONES_STORAGE_KEY) || "[]");
+    if (!Array.isArray(storedTimeZones)) {
+      return [];
+    }
+    return [...new Set(storedTimeZones)]
+      .filter((timeZone) => timeZones.includes(timeZone))
+      .slice(0, 3);
+  } catch {
+    return [];
+  }
+}
+
+function storeRecentTimeZone(timeZone) {
+  if (!timeZones.includes(timeZone)) {
+    return;
+  }
+  try {
+    localStorage.setItem(
+      RECENT_TIMEZONES_STORAGE_KEY,
+      JSON.stringify([timeZone, ...getRecentTimeZones().filter((item) => item !== timeZone)].slice(0, 3))
+    );
+  } catch {
+    // The picker still works when storage is unavailable.
+  }
+}
+
+function updateTimeZonePickerTrigger() {
+  if (!timezonePickerTrigger || !timezonePickerValue || !timezonePickerMeta) {
+    return;
+  }
+  const displayName = getTimeZoneDisplayName(selectedTimeZone);
+  const meta = getTimeZoneMeta(selectedTimeZone);
+  timezonePickerValue.textContent = displayName;
+  timezonePickerMeta.textContent = meta;
+  timezonePickerTrigger.setAttribute("aria-label", `${t("timeZone")}: ${displayName}, ${meta}`);
+}
+
+function createTimeZonePickerOption(timeZone, options = {}) {
+  const button = document.createElement("button");
+  const displayName = getTimeZoneDisplayName(timeZone);
+  const meta = getTimeZoneMeta(timeZone);
+  const optionMode = options.device ? "device" : "manual";
+  button.className = "timezone-picker-option";
+  button.type = "button";
+  button.setAttribute("role", "option");
+  button.dataset.timeZone = timeZone;
+  button.dataset.timeZoneMode = optionMode;
+  button.setAttribute(
+    "aria-selected",
+    String(timeZone === selectedTimeZone && optionMode === timeZoneSelectionMode)
+  );
+  button.setAttribute("aria-label", options.device
+    ? `${t("timeZoneDefault")}: ${displayName}, ${meta}`
+    : `${displayName}, ${meta}`);
+
+  const copy = document.createElement("span");
+  copy.className = "timezone-picker-option-copy";
+  const name = document.createElement("span");
+  name.className = "timezone-picker-option-name";
+  name.textContent = displayName;
+  const details = document.createElement("span");
+  details.className = "timezone-picker-option-meta";
+  details.textContent = meta;
+  copy.append(name, details);
+
+  const check = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  check.classList.add("timezone-picker-option-check");
+  check.setAttribute("viewBox", "0 0 16 16");
+  check.setAttribute("aria-hidden", "true");
+  const checkPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  checkPath.setAttribute("d", "m3 8.5 3.1 3.1L13 4.8");
+  check.append(checkPath);
+  button.append(copy, check);
+  return button;
+}
+
+function createTimeZonePickerGroup(label, items, options = {}) {
+  if (!items.length) {
+    return null;
+  }
+  const group = document.createElement("section");
+  group.className = "timezone-picker-group";
+  group.setAttribute("role", "group");
+  if (label) {
+    group.setAttribute("aria-label", label);
+    const heading = document.createElement("p");
+    heading.className = "timezone-picker-group-label";
+    heading.textContent = label;
+    group.append(heading);
+  }
+  group.append(...items.map((timeZone) => createTimeZonePickerOption(timeZone, {
+    device: options.device === true && timeZone === defaultTimeZone
+  })));
+  return group;
+}
+
+function getMatchingTimeZones(query) {
+  const normalizedQuery = normalizeTimeZoneSearchText(query);
+  if (!normalizedQuery) {
+    return [];
+  }
+  return timeZones
+    .filter((timeZone) => getTimeZoneSearchText(timeZone).includes(normalizedQuery))
+    .sort((left, right) => {
+      const leftText = getTimeZoneSearchText(left);
+      const rightText = getTimeZoneSearchText(right);
+      const leftStarts = leftText.startsWith(normalizedQuery) ? 0 : 1;
+      const rightStarts = rightText.startsWith(normalizedQuery) ? 0 : 1;
+      if (leftStarts !== rightStarts) {
+        return leftStarts - rightStarts;
+      }
+      const leftPreferred = preferredTimeZoneSet.has(left) ? 0 : 1;
+      const rightPreferred = preferredTimeZoneSet.has(right) ? 0 : 1;
+      return leftPreferred - rightPreferred || left.localeCompare(right, "en");
+    })
+    .slice(0, 80);
+}
+
+function renderTimeZonePicker() {
+  if (!timezonePickerResults || !timezoneSearchInput || !timezonePickerEmpty) {
+    return;
+  }
+  updateTimeZonePickerTrigger();
+  const query = timezoneSearchInput.value.trim();
+  let groups = [];
+  if (query) {
+    groups = [createTimeZonePickerGroup(t("timeZoneSearchResults"), getMatchingTimeZones(query))];
+  } else {
+    const recentTimeZones = [selectedTimeZone, ...getRecentTimeZones()]
+      .filter((timeZone, index, items) => timeZone !== defaultTimeZone && items.indexOf(timeZone) === index);
+    const usedTimeZones = new Set([defaultTimeZone, ...recentTimeZones]);
+    const popularTimeZones = preferredTimeZones.filter((timeZone) => !usedTimeZones.has(timeZone));
+    groups = [
+      createTimeZonePickerGroup(t("timeZoneDefault"), [defaultTimeZone], { device: true }),
+      createTimeZonePickerGroup(t("timeZoneRecent"), recentTimeZones),
+      createTimeZonePickerGroup(t("timeZonePopular"), popularTimeZones)
+    ];
+  }
+  const visibleGroups = groups.filter(Boolean);
+  timezonePickerResults.replaceChildren(...visibleGroups);
+  const hasOptions = Boolean(timezonePickerResults.querySelector(".timezone-picker-option"));
+  timezonePickerResults.classList.toggle("is-hidden", !hasOptions);
+  timezonePickerEmpty.classList.toggle("is-hidden", hasOptions);
+  positionTimeZonePicker();
+}
+
+function positionTimeZonePicker() {
+  if (!isTimeZonePickerOpen || !timezonePicker || !timezonePickerTrigger) {
+    return;
+  }
+  if (window.matchMedia("(max-width: 700px)").matches) {
+    return;
+  }
+  const viewportGap = 18;
+  const triggerRect = timezonePickerTrigger.getBoundingClientRect();
+  const pickerRect = timezonePicker.getBoundingClientRect();
+  const maxLeft = Math.max(viewportGap, window.innerWidth - pickerRect.width - viewportGap);
+  const left = Math.min(Math.max(triggerRect.right - pickerRect.width, viewportGap), maxLeft);
+  let top = triggerRect.bottom + 8;
+  if (top + pickerRect.height > window.innerHeight - viewportGap) {
+    top = Math.max(viewportGap, triggerRect.top - pickerRect.height - 8);
+  }
+  timezonePicker.style.setProperty("--timezone-picker-left", `${left}px`);
+  timezonePicker.style.setProperty("--timezone-picker-top", `${top}px`);
+}
+
+function setTimeZonePickerOpen(isOpen, options = {}) {
+  if (!timezonePicker || !timezonePickerTrigger || !timezonePickerBackdrop) {
+    return;
+  }
+  isTimeZonePickerOpen = isOpen;
+  timezonePicker.classList.toggle("is-hidden", !isOpen);
+  timezonePickerBackdrop.classList.toggle("is-hidden", !isOpen);
+  timezonePickerTrigger.setAttribute("aria-expanded", String(isOpen));
+  if (isOpen) {
+    timezoneSearchInput.value = "";
+    renderTimeZonePicker();
+    positionTimeZonePicker();
+    window.requestAnimationFrame(positionTimeZonePicker);
+    window.setTimeout(() => timezoneSearchInput?.focus(), 0);
+  } else if (options.focus === true) {
+    timezonePickerTrigger.focus();
+  }
+}
+
+function selectTimeZoneFromPicker(timeZone, options = {}) {
+  if (!timeZones.includes(timeZone) || !timezoneSelect) {
+    return;
+  }
+  timezoneSelect.value = timeZone;
+  timezoneSelect.dispatchEvent(new CustomEvent("change", {
+    bubbles: true,
+    detail: { mode: options.mode === "device" ? "device" : "manual" }
+  }));
+  setTimeZonePickerOpen(false, { focus: true });
+}
+
+function refreshDeviceTimeZone() {
+  const nextDeviceTimeZone = resolveDeviceTimeZone();
+  if (!nextDeviceTimeZone || nextDeviceTimeZone === defaultTimeZone) {
+    return;
+  }
+
+  const previousTimeZone = selectedTimeZone;
+  const wasViewingToday = selectedDayKey === getDayKey(new Date(), previousTimeZone);
+  defaultTimeZone = nextDeviceTimeZone;
+  if (!timeZones.includes(defaultTimeZone)) {
+    timeZones.unshift(defaultTimeZone);
+  }
+
+  if (timeZoneSelectionMode !== "device") {
+    renderTimeZoneOptions();
+    return;
+  }
+
+  selectedTimeZone = defaultTimeZone;
+  clearCalendarFixtureCaches();
+  if (wasViewingToday) {
+    selectedDayKey = getDayKey(new Date(), selectedTimeZone);
+    calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
+    activeMatchId = "";
+    committedMatchId = "";
+  }
+  ensureSelectableSelectedDay();
+  renderTimeZoneOptions();
+  updateUrlState();
+  renderSchedule();
+  renderSourceNote();
+}
+
 function getEstimatedTimeZoneLabelWidth(label) {
   return Array.from(label).reduce((width, character) => {
     if (CJK_CHARACTER_PATTERN.test(character)) {
@@ -8640,8 +9020,9 @@ function getAdjacentCalendarMonthKey(direction) {
 
 function getNearestAvailableDayKey(dayKey) {
   const availableDayKeys = getAvailableDayKeys();
+  const todayKey = getDayKey(new Date(), selectedTimeZone);
 
-  if (!availableDayKeys.length || availableDayKeys.includes(dayKey)) {
+  if (!availableDayKeys.length || availableDayKeys.includes(dayKey) || dayKey === todayKey) {
     return dayKey;
   }
 
@@ -8674,18 +9055,6 @@ function getAdjacentMatchDay(direction) {
 
 function getMatchCountForDay(dayKey) {
   return getCalendarDayMatchCounts().get(dayKey) || 0;
-}
-
-function getCalendarPreviousShortcutDayKey(todayKey = getDayKey(new Date(), selectedTimeZone)) {
-  return [...getAvailableDayKeys()].reverse().find((dayKey) => dayKey < todayKey) || "";
-}
-
-function getCalendarTodayShortcutDayKey(todayKey = getDayKey(new Date(), selectedTimeZone)) {
-  if (getMatchCountForDay(todayKey) > 0) {
-    return todayKey;
-  }
-
-  return getAvailableDayKeys().find((dayKey) => dayKey > todayKey) || "";
 }
 
 function getSelectedDateLabel() {
@@ -8735,6 +9104,7 @@ function renderCalendar() {
   }
 
   const todayKey = getDayKey(new Date(), selectedTimeZone);
+  const yesterdayKey = getRelativeDayKey(todayKey, -1);
   const previousMonthKey = getAdjacentCalendarMonthKey(-1);
   const nextMonthKey = getAdjacentCalendarMonthKey(1);
   const monthDate = getDateFromMonthKey(calendarMonthKey);
@@ -8757,14 +9127,10 @@ function renderCalendar() {
         )
       : localizeText("No next World Cup month")
   );
-  calendarYesterdayButton.textContent = t("calendarPrevious");
-  calendarYesterdayButton.disabled = !getCalendarPreviousShortcutDayKey(todayKey);
-  const todayShortcutDayKey = getCalendarTodayShortcutDayKey(todayKey);
-  calendarTodayButton.textContent =
-    todayShortcutDayKey && todayShortcutDayKey !== todayKey
-      ? localizeText("Up next")
-      : t("calendarToday");
-  calendarTodayButton.disabled = !todayShortcutDayKey;
+  calendarYesterdayButton.textContent = t("calendarYesterday");
+  calendarYesterdayButton.disabled = getMatchCountForDay(yesterdayKey) === 0;
+  calendarTodayButton.textContent = t("calendarToday");
+  calendarTodayButton.disabled = false;
   calendarGrid.replaceChildren(
     ...getCalendarDayKeys(calendarMonthKey).map((dayKey) => {
       const dayDate = getDateFromKey(dayKey);
@@ -8799,7 +9165,7 @@ function renderCalendar() {
         .filter(Boolean)
         .join(" ");
       button.dataset.dayKey = dayKey;
-      button.disabled = !isMatchDay;
+      button.disabled = !isMatchDay && !isToday;
       button.setAttribute("aria-label", labelParts.join(", "));
       button.setAttribute("aria-pressed", String(isSelected));
       if (isToday) {
@@ -9025,6 +9391,10 @@ function renderTimeZoneOptions() {
     })
   );
   updateTimeZoneControlWidth();
+  updateTimeZonePickerTrigger();
+  if (isTimeZonePickerOpen) {
+    renderTimeZonePicker();
+  }
 }
 
 function setHeaderControlsLoading(isLoading) {
@@ -15624,7 +15994,6 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
   if (!overlay) {
     overlay = document.createElement("div");
     overlay.className = "tournament-sticky-round-overlay";
-    overlay.setAttribute("aria-hidden", "true");
     overlay.innerHTML = '<div class="tournament-sticky-round-track"></div>';
     progression.append(overlay);
   }
@@ -15639,8 +16008,11 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
     track.dataset.labelSignature = labelSignature;
     track.replaceChildren(
       ...headings.map((heading) => {
-        const label = document.createElement("div");
-        label.className = "tournament-sticky-round-label";
+        const label = document.createElement("button");
+        label.className = "tournament-sticky-round-label tournament-round-jump";
+        label.type = "button";
+        label.dataset.tournamentRoundIndex =
+          heading.closest(".progress-round")?.dataset.roundIndex || "";
         label.textContent = heading.textContent.trim();
         return label;
       })
@@ -26915,23 +27287,107 @@ function renderMatchInfoPrompt() {
   matchInfo.hidden = true;
 }
 
+function getNextCalendarMatchesAfterDay(dayKey) {
+  const futureFixtures = getCalendarFixtures()
+    .filter((fixture) => getFixtureDayKey(fixture) > dayKey)
+    .sort((left, right) => getFixtureSortValue(left).localeCompare(getFixtureSortValue(right)));
+  const nextDayKey = futureFixtures[0] ? getFixtureDayKey(futureFixtures[0]) : "";
+
+  return futureFixtures
+    .filter((fixture) => getFixtureDayKey(fixture) === nextDayKey)
+    .map((fixture) => hydrateFixture(fixture));
+}
+
+function getEmptyStateNextMatchCopy(match, additionalMatchCount = 0) {
+  const matchDayKey = getFixtureDayKey(match);
+  const currentYear = getDayKey(new Date(), selectedTimeZone).slice(0, 4);
+  const dateLabel =
+    matchDayKey.slice(0, 4) === currentYear
+      ? matchRowDateFormatter.format(getDateFromKey(matchDayKey))
+      : matchRowDateWithYearFormatter.format(getDateFromKey(matchDayKey));
+  const homeName = getLocalizedTeamName(match.homeTeam);
+  const awayName = getLocalizedTeamName(match.awayTeam);
+  const versusText = localizeText("vs");
+  const matchup = `${homeName} ${versusText} ${awayName}`;
+  const sharedCopy = { homeName, awayName, versusText, matchup };
+
+  if (currentLanguage === "zh") {
+    return {
+      ...sharedCopy,
+      before: `下一场比赛将于${dateLabel}进行：`,
+      after: additionalMatchCount ? `，另有${additionalMatchCount}场比赛` : "",
+      action: "前往下一场比赛"
+    };
+  }
+  if (currentLanguage === "es") {
+    return {
+      ...sharedCopy,
+      before: `El próximo partido es el ${dateLabel}: `,
+      after: additionalMatchCount ? ` y ${additionalMatchCount} más` : "",
+      action: "Ir al próximo partido"
+    };
+  }
+  if (currentLanguage === "ko") {
+    return {
+      ...sharedCopy,
+      before: `다음 경기는 ${dateLabel}: `,
+      after: additionalMatchCount ? ` 외 ${additionalMatchCount}경기` : "",
+      action: "다음 경기로 이동"
+    };
+  }
+
+  return {
+    ...sharedCopy,
+    before: `Next match is on ${dateLabel} for `,
+    after: additionalMatchCount ? ` and ${additionalMatchCount} more` : "",
+    action: "View next match"
+  };
+}
+
 function createEmptyStateElement() {
   const selectedDate = dateFormatter.format(getDateFromKey(selectedDayKey));
   const reportUrl = getReportIssueUrl("no-matches");
-  const message =
-    dataCoverage.status === "partial"
-      ? `Verified fixture data is not loaded for ${selectedDate}. This avoids showing a false no-match day.`
-      : `No matches were found for ${selectedDate}.`;
+  const isPartialCoverage = dataCoverage.status === "partial";
+  const nextDayMatches = isPartialCoverage ? [] : getNextCalendarMatchesAfterDay(selectedDayKey);
+  const nextMatch = nextDayMatches[0] || null;
+  const nextMatchDayKey = nextMatch ? getFixtureDayKey(nextMatch) : "";
 
   const article = document.createElement("article");
   article.className = "empty-state";
+  if (isPartialCoverage) {
+    const message = `Verified fixture data is not loaded for ${selectedDate}. This avoids showing a false no-match day.`;
+    article.innerHTML = `
+      <h2>${escapeHtml(localizeText("Not loaded"))}</h2>
+      <p>${escapeHtml(localizeText(message))}</p>
+      <div class="empty-actions">
+        <a class="secondary-button" href="${escapeHtml(reportUrl)}">${escapeHtml(localizeText("Report issue"))}</a>
+      </div>
+    `;
+    return article;
+  }
+
+  const nextMatchCopy = nextMatch
+    ? getEmptyStateNextMatchCopy(nextMatch, Math.max(0, nextDayMatches.length - 1))
+    : null;
   article.innerHTML = `
-    <h2>${escapeHtml(localizeText(dataCoverage.status === "partial" ? "Not loaded" : "No matches"))}</h2>
-    <p>${escapeHtml(localizeText(message))}</p>
-    <div class="empty-actions">
-      <a class="secondary-button" href="${escapeHtml(reportUrl)}">${escapeHtml(localizeText("Report issue"))}</a>
-    </div>
+    ${nextMatchCopy ? `
+      <p class="empty-state-next-description">${escapeHtml(nextMatchCopy.before)}<span class="empty-state-next-matchup">${renderFlag(nextMatch.homeTeam)}<span class="empty-state-next-team">${escapeHtml(nextMatchCopy.homeName)}</span><span class="empty-state-next-versus">${escapeHtml(nextMatchCopy.versusText)}</span>${renderFlag(nextMatch.awayTeam)}<span class="empty-state-next-team">${escapeHtml(nextMatchCopy.awayName)}</span></span>${escapeHtml(nextMatchCopy.after)}</p>
+      <div class="empty-actions">
+        <button class="primary-button empty-state-next-action" type="button" data-select-calendar-day="${escapeHtml(nextMatchDayKey)}" aria-controls="match-info">${escapeHtml(nextMatchCopy.action)}</button>
+      </div>
+    ` : ""}
   `;
+  const nextMatchButton = article.querySelector("[data-select-calendar-day]");
+  nextMatchButton?.addEventListener("click", async () => {
+    selectCalendarDay(nextMatchDayKey);
+    const didRender = await renderMatchInfoWhenLocaleReady(nextMatch, {
+      commit: true,
+      reveal: true
+    });
+    if (didRender) {
+      updateUrlState({ historyMode: "replace" });
+    }
+  });
   return article;
 }
 
@@ -29115,6 +29571,8 @@ function setSettingsOpen(isOpen) {
     setStandingsYearOpen(false);
     setTeamSearchOpen(false, { focus: false });
     queueTabIndicatorUpdate();
+  } else {
+    setTimeZonePickerOpen(false, { focus: false });
   }
 }
 
@@ -29260,7 +29718,7 @@ function applyUrlState(options = {}) {
     params.set("match", committedMatchId);
   }
 
-  if (selectedTimeZone !== defaultTimeZone) {
+  if (timeZoneSelectionMode === "manual" && selectedTimeZone !== defaultTimeZone) {
     params.set("tz", selectedTimeZone);
   }
 
@@ -29449,8 +29907,9 @@ function readInitialChromeState() {
   const previousTimeZone = selectedTimeZone;
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
+    timeZoneSelectionMode = "manual";
     selectedTimeZone = requestedTimeZone;
-    storeTimeZone(selectedTimeZone);
+    storeTimeZone(selectedTimeZone, { mode: timeZoneSelectionMode });
     selectedDayKey = getDayKey(initialDate, selectedTimeZone);
     calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
   }
@@ -29487,11 +29946,13 @@ function readUrlState(options = {}) {
   const previousTimeZone = selectedTimeZone;
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
+    timeZoneSelectionMode = "manual";
     selectedTimeZone = requestedTimeZone;
-    storeTimeZone(selectedTimeZone);
+    storeTimeZone(selectedTimeZone, { mode: timeZoneSelectionMode });
   } else if (shouldUseUrlDefaults) {
+    timeZoneSelectionMode = "device";
     selectedTimeZone = defaultTimeZone;
-    storeTimeZone(selectedTimeZone);
+    storeTimeZone(selectedTimeZone, { mode: timeZoneSelectionMode });
   }
   if (selectedTimeZone !== previousTimeZone) {
     clearCalendarFixtureCaches();
@@ -30219,9 +30680,18 @@ standingsGrid.addEventListener("click", (event) => {
   if (roundJumpButton) {
     event.preventDefault();
     event.stopPropagation();
-    const firstMatch = roundJumpButton
-      .closest(".progress-round")
-      ?.querySelector('.progress-match[data-match-index="0"], .progress-match');
+    const roundIndex = roundJumpButton.dataset.tournamentRoundIndex || "";
+    const progression = roundJumpButton.closest(".tournament-progression");
+    const round =
+      roundJumpButton.closest(".progress-round") ||
+      (roundIndex
+        ? progression?.querySelector(
+            `.progress-round[data-round-index="${CSS.escape(roundIndex)}"]`
+          )
+        : null);
+    const firstMatch = round?.querySelector(
+      '.progress-match[data-match-index="0"], .progress-match'
+    );
     spotlightDrillTarget(firstMatch);
     return;
   }
@@ -30360,6 +30830,68 @@ settingsButton?.addEventListener("click", () => {
   setSettingsOpen(!isSettingsOpen);
 });
 
+timezonePickerTrigger?.addEventListener("click", () => {
+  setTimeZonePickerOpen(!isTimeZonePickerOpen);
+});
+
+timezonePickerClose?.addEventListener("click", () => {
+  setTimeZonePickerOpen(false, { focus: true });
+});
+
+timezonePickerBackdrop?.addEventListener("click", () => {
+  setTimeZonePickerOpen(false, { focus: true });
+});
+
+timezoneSearchInput?.addEventListener("input", () => {
+  renderTimeZonePicker();
+});
+
+timezoneSearchInput?.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    event.stopPropagation();
+    setTimeZonePickerOpen(false, { focus: true });
+    return;
+  }
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    timezonePickerResults?.querySelector(".timezone-picker-option")?.focus();
+  }
+});
+
+timezonePickerResults?.addEventListener("click", (event) => {
+  const option = getEventTargetElement(event.target)?.closest(".timezone-picker-option[data-time-zone]");
+  if (option) {
+    selectTimeZoneFromPicker(option.dataset.timeZone, { mode: option.dataset.timeZoneMode });
+  }
+});
+
+timezonePickerResults?.addEventListener("keydown", (event) => {
+  const option = getEventTargetElement(event.target)?.closest(".timezone-picker-option[data-time-zone]");
+  if (!option) {
+    return;
+  }
+  if (event.key === "Escape") {
+    event.preventDefault();
+    event.stopPropagation();
+    setTimeZonePickerOpen(false, { focus: true });
+    return;
+  }
+  const options = [...timezonePickerResults.querySelectorAll(".timezone-picker-option[data-time-zone]")];
+  const currentIndex = options.indexOf(option);
+  const keyActions = {
+    ArrowDown: () => (currentIndex + 1) % options.length,
+    ArrowUp: () => (currentIndex + options.length - 1) % options.length,
+    Home: () => 0,
+    End: () => options.length - 1
+  };
+  const getNextIndex = keyActions[event.key];
+  if (getNextIndex) {
+    event.preventDefault();
+    options[getNextIndex()]?.focus();
+  }
+});
+
 adminMessageDismiss?.addEventListener("click", () => {
   const messageId = adminMessageDismiss.dataset.adminMessageId || "";
   if (messageId) {
@@ -30378,21 +30910,16 @@ calendarNextMonth.addEventListener("click", () => {
 });
 
 calendarTodayButton.addEventListener("click", () => {
-  const shortcutDayKey = getCalendarTodayShortcutDayKey();
-  if (!shortcutDayKey) {
-    return;
-  }
-
-  selectCalendarDay(shortcutDayKey);
+  selectCalendarDay(getDayKey(new Date(), selectedTimeZone));
 });
 
 calendarYesterdayButton.addEventListener("click", () => {
-  const shortcutDayKey = getCalendarPreviousShortcutDayKey();
-  if (!shortcutDayKey) {
+  const yesterdayKey = getRelativeDayKey(getDayKey(new Date(), selectedTimeZone), -1);
+  if (getMatchCountForDay(yesterdayKey) === 0) {
     return;
   }
 
-  selectCalendarDay(shortcutDayKey);
+  selectCalendarDay(yesterdayKey);
 });
 
 calendarGrid.addEventListener("click", (event) => {
@@ -30728,9 +31255,22 @@ document.addEventListener("pointerdown", (event) => {
     settingsPopover &&
     settingsButton &&
     !settingsPopover.contains(event.target) &&
-    !settingsButton.contains(event.target)
+    !settingsButton.contains(event.target) &&
+    !timezonePicker?.contains(event.target) &&
+    !timezonePickerBackdrop?.contains(event.target)
   ) {
     setSettingsOpen(false);
+  }
+
+  if (
+    isTimeZonePickerOpen &&
+    timezonePicker &&
+    timezonePickerTrigger &&
+    !timezonePicker.contains(event.target) &&
+    !timezonePickerTrigger.contains(event.target) &&
+    !timezonePickerBackdrop?.contains(event.target)
+  ) {
+    setTimeZonePickerOpen(false, { focus: false });
   }
 
   if (
@@ -30757,6 +31297,11 @@ document.addEventListener("keydown", (event) => {
   }
 
   clearTransientInteractionState();
+
+  if (isTimeZonePickerOpen) {
+    setTimeZonePickerOpen(false, { focus: true });
+    return;
+  }
 
   if (isCalendarOpen) {
     setCalendarOpen(false);
@@ -30804,6 +31349,7 @@ window.addEventListener("resize", () => {
   updateMatchInfoViewportDockState();
   updateTabIndicators();
   updateTimeZoneLabelForViewport();
+  positionTimeZonePicker();
   positionCatchUpPopover();
   positionPlayerCards();
   if (floatingLineupEventTooltipSource?.isConnected) {
@@ -30845,6 +31391,7 @@ window.addEventListener(
       hideFloatingLineupEventTooltip();
     }
     positionCatchUpPopover();
+    positionTimeZonePicker();
     positionPlayerCards();
     updateTooltipBounds();
     updateTournamentShowNextButtonVisibility();
@@ -30854,12 +31401,18 @@ window.addEventListener(
   true
 );
 
-timezoneSelect.addEventListener("change", () => {
+timezoneSelect.addEventListener("change", (event) => {
   clearTransientInteractionState();
   const wasViewingToday =
     selectedDayKey === getDayKey(new Date(), selectedTimeZone);
+  timeZoneSelectionMode = event instanceof CustomEvent && event.detail?.mode === "device"
+    ? "device"
+    : "manual";
   selectedTimeZone = timezoneSelect.value;
-  storeTimeZone(selectedTimeZone);
+  storeTimeZone(selectedTimeZone, { mode: timeZoneSelectionMode });
+  if (timeZoneSelectionMode === "manual") {
+    storeRecentTimeZone(selectedTimeZone);
+  }
   clearCalendarFixtureCaches();
   if (wasViewingToday) {
     selectedDayKey = getDayKey(new Date(), selectedTimeZone);
@@ -30872,6 +31425,12 @@ timezoneSelect.addEventListener("change", () => {
   updateUrlState({ historyMode: "push" });
   renderSchedule();
   renderSourceNote();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    refreshDeviceTimeZone();
+  }
 });
 
 viewTabs.forEach((tab, index) => {

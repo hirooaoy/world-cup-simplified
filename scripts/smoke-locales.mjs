@@ -254,18 +254,12 @@ async function assertLanguageControlContract(page) {
   const contract = await page.evaluate(() => {
     const language = document.querySelector("#language-select");
     const timeZone = document.querySelector("#timezone-select");
+    const timeZoneTrigger = document.querySelector("#timezone-picker-trigger");
+    const timeZoneTriggerValue = document.querySelector("#timezone-picker-value");
+    const timeZoneSearch = document.querySelector("#timezone-search-input");
     const languageStyles = getComputedStyle(language);
-    const timeZoneStyles = getComputedStyle(timeZone);
-    const styleKeys = [
-      "backgroundColor",
-      "borderBottomLeftRadius",
-      "borderTopLeftRadius",
-      "color",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "height"
-    ];
+    const timeZoneValueStyles = getComputedStyle(timeZoneTriggerValue);
+    const typographyKeys = ["fontFamily", "fontSize", "fontWeight", "letterSpacing", "lineHeight"];
 
     return {
       classes: [...language.classList],
@@ -273,9 +267,18 @@ async function assertLanguageControlContract(page) {
         label: option.textContent.trim(),
         value: option.value
       })),
-      sameStyles: styleKeys.every((key) => languageStyles[key] === timeZoneStyles[key]),
       tagName: language.tagName,
-      timeZoneTagName: timeZone.tagName
+      timeZoneAriaHidden: timeZone.getAttribute("aria-hidden"),
+      timeZoneHidden: timeZone.hidden,
+      timeZoneSearchTagName: timeZoneSearch?.tagName || "",
+      timeZoneTabIndex: timeZone.tabIndex,
+      timeZoneTagName: timeZone.tagName,
+      timeZoneTriggerControls: timeZoneTrigger?.getAttribute("aria-controls") || "",
+      timeZoneTriggerHasPopup: timeZoneTrigger?.getAttribute("aria-haspopup") || "",
+      timeZoneTriggerTagName: timeZoneTrigger?.tagName || "",
+      typographyMatches: typographyKeys.every(
+        (key) => languageStyles[key] === timeZoneValueStyles[key]
+      )
     };
   });
 
@@ -284,14 +287,21 @@ async function assertLanguageControlContract(page) {
       contract.timeZoneTagName === "SELECT" &&
       contract.classes.includes("timezone-select") &&
       contract.classes.includes("language-select") &&
-      contract.sameStyles &&
+      contract.timeZoneAriaHidden === "true" &&
+      contract.timeZoneHidden &&
+      contract.timeZoneTabIndex === -1 &&
+      contract.timeZoneTriggerTagName === "BUTTON" &&
+      contract.timeZoneTriggerControls === "timezone-picker" &&
+      contract.timeZoneTriggerHasPopup === "dialog" &&
+      contract.timeZoneSearchTagName === "INPUT" &&
+      contract.typographyMatches &&
       JSON.stringify(contract.options) === JSON.stringify([
         { label: "English", value: "en" },
         { label: "中文", value: "zh" },
         { label: "Español", value: "es" },
         { label: "한국어", value: "ko" }
       ]),
-    `Language should reuse the timezone-select control and expose all native language names. Measured ${JSON.stringify(contract)}.`
+    `Language should stay a native select while timezone uses a searchable picker backed by the native timezone values. Measured ${JSON.stringify(contract)}.`
   );
 }
 
@@ -313,7 +323,7 @@ async function getMobileLocaleLayout(page) {
       main: getRect("main"),
       overflow: document.documentElement.scrollWidth - window.innerWidth,
       settingsButton: getRect("#settings-button"),
-      timeZone: getRect("#timezone-select")
+      timeZone: getRect("#timezone-picker-trigger")
     };
   });
 }
@@ -347,7 +357,9 @@ async function assertMobileLocale(locale, browser) {
       after.overflow <= 0 &&
       before.language?.height === after.language?.height &&
       before.language?.width === after.language?.width &&
-      after.language?.height === after.timeZone?.height &&
+      before.timeZone?.height === after.timeZone?.height &&
+      before.timeZone?.width === after.timeZone?.width &&
+      after.language?.width === after.timeZone?.width &&
       Math.abs((before.main?.top || 0) - (after.main?.top || 0)) <= 1 &&
       Math.abs(
         (before.settingsButton?.left || 0) - (after.settingsButton?.left || 0)

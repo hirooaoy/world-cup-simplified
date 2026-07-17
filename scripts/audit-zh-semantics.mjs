@@ -312,6 +312,15 @@ async function auditBallBoyChineseIntents(dataByPath) {
         expected: "player intent with whos shorthand"
       },
       {
+        question: "top player in argentina",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "player-list" &&
+          reply?.players?.length >= 1 &&
+          reply.players.every((player) => player?.team?.id === "ARG"),
+        expected: "top player as an Argentina key-player list"
+      },
+      {
         question: "wats ur prediction france vs spain",
         locale: "en",
         matches: (reply) =>
@@ -456,6 +465,16 @@ async function auditBallBoyChineseIntents(dataByPath) {
         `${JSON.stringify(sample.question)} resolved to ${reply?.kind || "nothing"}; expected ${sample.expected}`
       );
     }
+
+    ballBoy.resetBallBoyContext();
+    const keyPlayerReply = await ballBoy.getBallBoyReply("key player in argentina", { locale: "en" });
+    ballBoy.resetBallBoyContext();
+    const topPlayerReply = await ballBoy.getBallBoyReply("top player in argentina", { locale: "en" });
+    check(
+      "ball-boy-intent",
+      JSON.stringify(topPlayerReply) === JSON.stringify(keyPlayerReply),
+      "top player in argentina should return the same reply as key player in argentina"
+    );
   } catch (error) {
     check("ball-boy-intent", false, `Chinese intent samples could not run: ${error?.stack || error}`);
   }

@@ -149,6 +149,7 @@ const copy = {
   unsupportedLanguage: "현재 영어, 중국어, 스페인어, 한국어를 지원합니다.",
   unsupportedTimeZone: "아직 지원하지 않는 시간대입니다.",
   reportIssue: "오류 제보",
+  reportIssueIntro: "오류를 제보할 수 있는 양식입니다.",
   errorText: "데이터를 불러오지 못했어요. 다시 시도해 주세요.",
   errorFollowUps: []
 };

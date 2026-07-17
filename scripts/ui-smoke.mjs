@@ -2060,7 +2060,9 @@ async function openPageAtTime(
   const mockedPage = await context.newPage();
   await mockedPage.goto(`${baseUrl}${path}`, { waitUntil: "load" });
   await mockedPage.waitForSelector(
-    path.includes("view=standings") ? ".standings-card, .third-place-table, .tournament-view" : ".match-row",
+    path.includes("view=standings")
+      ? ".standings-card, .third-place-table, .tournament-view"
+      : ".match-row, #match-list > .empty-state",
     { state: "attached" }
   );
   await mockedPage.waitForFunction(() => {
@@ -2319,7 +2321,7 @@ try {
     "Toggling Show yesterday during initial data load should keep the match skeleton visible."
   );
   releaseFixtures();
-  await loadingPage.waitForSelector(".match-row");
+  await loadingPage.waitForSelector(".match-row, .empty-state");
   await loadingContext.close();
 
   const thirdPlaceLoadingContext = await browser.newContext();
@@ -2425,7 +2427,7 @@ try {
   });
   const releaseNotesLoadingPage = await releaseNotesLoadingContext.newPage();
   await releaseNotesLoadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
-  await releaseNotesLoadingPage.waitForSelector(".match-row");
+  await releaseNotesLoadingPage.waitForSelector(".match-row, .empty-state");
   const releaseNotesLoadingTooltip = releaseNotesLoadingPage.locator("#source-note .release-tooltip");
   const releaseNotesLoadingState = await releaseNotesLoadingTooltip.evaluate((tooltip) => ({
     title: tooltip.querySelector("strong")?.textContent?.trim(),
@@ -4612,12 +4614,12 @@ try {
   assert(yesterdayBox && todayBox, "Calendar shortcut buttons should be visible.");
   assert(
     yesterdayBox.x < todayBox.x,
-    "The Previous shortcut should sit to the left of Today."
+    "The Yesterday shortcut should sit to the left of Today."
   );
   assert(
-    (await yesterdayShortcut.innerText()).trim() === "Previous" &&
+    (await yesterdayShortcut.innerText()).trim() === "Yesterday" &&
       !(await yesterdayShortcut.isDisabled()),
-    "The Previous shortcut should be enabled when an earlier match day exists."
+    "The Yesterday shortcut should be enabled when yesterday has a match."
   );
   assert(
     (await todayShortcut.innerText()).trim() === "Today" && !(await todayShortcut.isDisabled()),
@@ -4626,33 +4628,127 @@ try {
   await yesterdayShortcut.click();
   assert(
     (await calendarShortcutCheck.page.locator("#day-label").innerText()).trim() === "Jun 17",
-    "The Previous shortcut should jump to the most recent earlier match day."
+    "The Yesterday shortcut should jump to yesterday."
   );
   await calendarShortcutCheck.context.close();
 
-  const calendarUpNextShortcutCheck = await openPageAtTime(
+  const calendarRestDayCheck = await openPageAtTime(
     "2026-07-16T18:08:00.000Z",
-    "/?view=matches&date=2026-07-15&tz=America%2FLos_Angeles"
+    "/?view=matches&date=2026-07-15&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const nextFixture = data.fixtures.find(
+          (fixture) => fixture.id === "match-103-bronze-final-2026-07-18"
+        );
+        if (!nextFixture) {
+          return;
+        }
+        ["22:00:00Z", "23:00:00Z", "00:00:00Z"].forEach((kickoffTime, index) => {
+          const extraFixture = JSON.parse(JSON.stringify(nextFixture));
+          extraFixture.id = `${nextFixture.id}-extra-${index + 1}`;
+          extraFixture.matchNumber = Number(nextFixture.matchNumber) + index + 1;
+          extraFixture.kickoffUtc = `${index === 2 ? "2026-07-19" : "2026-07-18"}T${kickoffTime}`;
+          data.fixtures.push(extraFixture);
+        });
+      }
+    }
   );
-  await calendarUpNextShortcutCheck.page.locator("#day-label").click();
-  const previousShortcut = calendarUpNextShortcutCheck.page.locator("#calendar-yesterday");
-  const upNextShortcut = calendarUpNextShortcutCheck.page.locator("#calendar-today");
+  await calendarRestDayCheck.page.locator("#day-label").click();
+  const previousShortcut = calendarRestDayCheck.page.locator("#calendar-yesterday");
+  const todayRestDayShortcut = calendarRestDayCheck.page.locator("#calendar-today");
+  const todayRestDayCell = calendarRestDayCheck.page.locator(
+    '#calendar-grid [data-day-key="2026-07-16"]'
+  );
+  const disabledRestDayCell = calendarRestDayCheck.page.locator(
+    '#calendar-grid [data-day-key="2026-07-17"]'
+  );
+  const [todayRestDayColor, disabledRestDayColor] = await Promise.all([
+    todayRestDayCell.evaluate((button) => getComputedStyle(button).color),
+    disabledRestDayCell.evaluate((button) => getComputedStyle(button).color)
+  ]);
   assert(
-    (await previousShortcut.innerText()).trim() === "Previous" &&
+    (await previousShortcut.innerText()).trim() === "Yesterday" &&
       !(await previousShortcut.isDisabled()),
-    "The calendar should show an enabled Previous match-day shortcut."
+    "The calendar should keep the literal Yesterday shortcut when yesterday has a match."
   );
   assert(
-    (await upNextShortcut.innerText()).trim() === "Up next" &&
-      !(await upNextShortcut.isDisabled()),
-    "When today has no matches, the calendar shortcut should become an enabled Up next button."
+    (await todayRestDayShortcut.innerText()).trim() === "Today" &&
+      !(await todayRestDayShortcut.isDisabled()) &&
+      !(await todayRestDayCell.isDisabled()) &&
+      (await todayRestDayCell.getAttribute("class"))?.includes("is-disabled") &&
+      todayRestDayColor === disabledRestDayColor,
+    "Today should stay selectable on a rest day while retaining the disabled-looking calendar style."
   );
-  await upNextShortcut.click();
+  await todayRestDayCell.click();
   assert(
-    (await calendarUpNextShortcutCheck.page.locator("#day-label").innerText()).trim() === "Jul 18",
-    "The Up next calendar shortcut should jump to the next available match day."
+    (await calendarRestDayCheck.page.locator("#day-label").innerText()).trim() === "Today" &&
+      (await calendarRestDayCheck.page.locator(".empty-state h2").count()) === 0,
+    "Selecting a rest-day Today should show the no-match state."
   );
-  await calendarUpNextShortcutCheck.context.close();
+  const nextMatchButton = calendarRestDayCheck.page.locator(
+    '.empty-state [data-select-calendar-day="2026-07-18"]'
+  );
+  const nextMatchDescription = calendarRestDayCheck.page.locator(".empty-state-next-description");
+  const emptyStateTypography = await calendarRestDayCheck.page.locator(".empty-state").evaluate((root) => {
+    const description = root.querySelector(".empty-state-next-description");
+    const descriptionStyle = getComputedStyle(description);
+    const matchupStyle = getComputedStyle(root.querySelector(".empty-state-next-matchup"));
+    const action = root.querySelector(".empty-state-next-action");
+    return {
+      action: action?.textContent.trim() || "",
+      actionUsesPrimaryUi: action?.classList.contains("primary-button") || false,
+      descriptionFontSize: descriptionStyle.fontSize,
+      descriptionFontWeight: descriptionStyle.fontWeight,
+      descriptionText: description?.textContent.replace(/\s+/g, " ").trim() || "",
+      daysPillCount: root.querySelectorAll(".empty-state-days-pill").length,
+      flagCount: root.querySelectorAll(".empty-state-next-matchup .flag").length,
+      matchupGap: matchupStyle.gap,
+      matchupUnderlineStyle: matchupStyle.borderBottomStyle
+    };
+  });
+  assert(
+    emptyStateTypography.descriptionText.includes("Next match is on July 18 for") &&
+      emptyStateTypography.descriptionText.includes("France") &&
+      emptyStateTypography.descriptionText.includes("England") &&
+      emptyStateTypography.descriptionText.endsWith("and 3 more") &&
+      emptyStateTypography.descriptionFontWeight === "400" &&
+      emptyStateTypography.action === "View next match" &&
+      emptyStateTypography.actionUsesPrimaryUi &&
+      emptyStateTypography.daysPillCount === 0 &&
+      emptyStateTypography.flagCount === 2 &&
+      emptyStateTypography.matchupGap === "6px" &&
+      emptyStateTypography.matchupUnderlineStyle === "none",
+    "The no-match state should show a compact heading, plain next-match copy with flags, and a dedicated CTA."
+  );
+  const restDayUrlBeforeHover = calendarRestDayCheck.page.url();
+  await nextMatchDescription.hover();
+  await calendarRestDayCheck.page.waitForTimeout(200);
+  assert(
+    !(await calendarRestDayCheck.page.locator("#match-info").isVisible()) &&
+      calendarRestDayCheck.page.url() === restDayUrlBeforeHover &&
+      (await calendarRestDayCheck.page.locator("#day-label").innerText()).trim() === "Today",
+    "Hovering the plain next-match sentence should not open match information or leave Today."
+  );
+  await nextMatchButton.click();
+  await calendarRestDayCheck.page.locator("#match-info:not(.is-hidden)").waitFor({ state: "visible" });
+  await calendarRestDayCheck.page
+    .locator('.match-row.is-selected[data-match-id="match-103-bronze-final-2026-07-18"]')
+    .waitFor({ state: "attached" });
+  const nextMatchRowFontSize = await calendarRestDayCheck.page
+    .locator(".match-row .match-teams")
+    .first()
+    .evaluate((matchTeams) => getComputedStyle(matchTeams).fontSize);
+  assert(
+      (await calendarRestDayCheck.page.locator("#day-label").innerText()).trim() === "Jul 18" &&
+      (await calendarRestDayCheck.page.locator(".match-row").count()) === 4 &&
+      emptyStateTypography.descriptionFontSize === nextMatchRowFontSize &&
+      (await calendarRestDayCheck.page.locator("#match-info").innerText()).includes("France") &&
+      (await calendarRestDayCheck.page.locator("#match-info").innerText()).includes("England") &&
+      new URL(calendarRestDayCheck.page.url()).searchParams.get("match") ===
+        "match-103-bronze-final-2026-07-18",
+    "The View next match button should jump to that date and preselect the specific next match."
+  );
+  await calendarRestDayCheck.context.close();
 
   const historicalProfileLoadingContext = await browser.newContext();
   let releaseHistoricalProfiles;
@@ -5260,7 +5356,38 @@ try {
     await languageTimezonePage.locator("#settings-popover").isVisible(),
     "Settings should reveal language and timezone controls."
   );
-  await languageTimezonePage.locator("#timezone-select").selectOption("Asia/Tokyo");
+  await languageTimezonePage.locator("#timezone-picker-trigger").click();
+  assert(
+    await languageTimezonePage.locator("#timezone-picker").isVisible(),
+    "The time zone setting should open a searchable picker."
+  );
+  assert(
+    (await languageTimezonePage.locator("#timezone-picker-results .timezone-picker-group-label").first().innerText()).trim() === "DEFAULT",
+    "The device time zone should appear in a clearly labeled Default section."
+  );
+  assert(
+    !(await languageTimezonePage.locator("#timezone-picker-results").innerText()).includes("ALL TIME ZONES"),
+    "The picker should keep the full timezone list behind search instead of exposing an oversized All section."
+  );
+  assert(
+    (await languageTimezonePage.locator("#timezone-search-input").getAttribute("placeholder")) ===
+      "Search city, country, or abbreviation",
+    "The time zone picker should explain that city, country, and abbreviation searches are supported."
+  );
+  await languageTimezonePage.locator("#timezone-search-input").fill("Japan");
+  const tokyoTimeZoneOption = languageTimezonePage.locator(
+    '.timezone-picker-option[data-time-zone="Asia/Tokyo"]'
+  );
+  assert(
+    await tokyoTimeZoneOption.isVisible(),
+    "Searching for Japan should reveal the canonical Tokyo time zone."
+  );
+  const tokyoTimeZoneMeta = await tokyoTimeZoneOption.locator(".timezone-picker-option-meta").innerText();
+  assert(
+    /^UTC\+9$/.test(tokyoTimeZoneMeta.trim()),
+    `Generic GMT offsets should not repeat the equivalent UTC offset. Measured ${JSON.stringify(tokyoTimeZoneMeta)}.`
+  );
+  await tokyoTimeZoneOption.click();
   assert(
     (await languageTimezonePage.locator("#day-label").innerText()).trim() === "Today",
     "Changing timezone while viewing Today should keep the view on Today."
@@ -5428,6 +5555,30 @@ try {
   assert(
     (await languageTimezonePage.locator("#timezone-select").inputValue()) === "Asia/Tokyo",
     "A saved timezone should be restored on a clean visit without requiring an account."
+  );
+  const resolvedDeviceTimeZone = await languageTimezonePage.evaluate(
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
+  await languageTimezonePage.locator("#settings-button").click();
+  await languageTimezonePage.locator("#timezone-picker-trigger").click();
+  await languageTimezonePage
+    .locator('.timezone-picker-option[data-time-zone-mode="device"]')
+    .click();
+  const storedDeviceTimeZonePreference = await languageTimezonePage.evaluate(() => ({
+    mode: localStorage.getItem("world-cup-simplified-timezone-mode"),
+    timeZone: localStorage.getItem("world-cup-simplified-timezone")
+  }));
+  assert(
+    storedDeviceTimeZonePreference.mode === "device" &&
+      storedDeviceTimeZonePreference.timeZone === "device" &&
+      (await languageTimezonePage.locator("#timezone-select").inputValue()) === resolvedDeviceTimeZone,
+    "The Default timezone should persist a device mode instead of freezing the currently resolved city."
+  );
+  await languageTimezonePage.reload({ waitUntil: "load" });
+  await languageTimezonePage.waitForSelector(".match-row");
+  assert(
+    (await languageTimezonePage.locator("#timezone-select").inputValue()) === resolvedDeviceTimeZone,
+    "Device timezone mode should resolve the browser's current timezone again on a later visit."
   );
   await languageTimezoneCheck.context.close();
 
@@ -9967,7 +10118,7 @@ try {
   await cleanTodayUrlCheck.context.close();
 
   await page.goto(baseUrl, { waitUntil: "load" });
-  await page.waitForSelector(".match-row");
+  await page.waitForSelector(".match-row, #match-list > .empty-state");
 
   await page.locator("#standings-tab").click();
   assert(
@@ -14096,13 +14247,18 @@ try {
   const initialBallBoyPrompts = await touchPage
     .locator("#scout-suggestions [data-scout-prompt]")
     .evaluateAll((buttons) => buttons.map((button) => button.dataset.scoutPrompt));
+  const initialReportIssueControl = await touchPage
+    .locator('#scout-suggestions [data-scout-prompt="Report issue"]')
+    .evaluate((control) => ({ href: control.getAttribute("href"), tagName: control.tagName }));
   assert(
     JSON.stringify(initialBallBoyPrompts) === JSON.stringify([
       "Explain offside",
       "Change timezone",
       "How does Argentina play?",
       "Report issue"
-    ]),
+    ]) &&
+      initialReportIssueControl.tagName === "BUTTON" &&
+      initialReportIssueControl.href === null,
     `Ball Boy should open with the four curated actions in order. Measured ${JSON.stringify(initialBallBoyPrompts)}.`
   );
   const initialBallBoySheetState = await touchPage.evaluate(() => {
@@ -14971,15 +15127,14 @@ try {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const promptItems = [...answer.querySelectorAll("[data-scout-prompt]")];
     const prompts = promptItems.map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
-    const reportLink = promptItems[0];
+    const reportControl = promptItems[0];
     return {
       decorationCount: answer.querySelectorAll(".scout-answer-type, .scout-unknown-mark").length,
       overflow: answer.scrollWidth - answer.clientWidth,
       promptCount: prompts.length,
       prompts,
       promptUniqueCount: new Set(prompts).size,
-      reportHref: reportLink?.getAttribute("href") || "",
-      reportIsLink: reportLink?.tagName === "A",
+      reportIsButton: reportControl?.tagName === "BUTTON",
       text: answer.querySelector(".scout-answer-lead")?.textContent.trim() || ""
     };
   });
@@ -14989,10 +15144,29 @@ try {
       unknownBallBoyMetrics.promptCount === 3 &&
       unknownBallBoyMetrics.promptCount === unknownBallBoyMetrics.promptUniqueCount &&
       unknownBallBoyMetrics.prompts[0] === "report issue" &&
-      unknownBallBoyMetrics.reportIsLink &&
-      unknownBallBoyMetrics.reportHref.startsWith("report.html?") &&
+      unknownBallBoyMetrics.reportIsButton &&
       unknownBallBoyMetrics.overflow <= 1,
     `Ball Boy's fallback should stay direct without an answer-type pill or decorative face. Measured ${JSON.stringify(unknownBallBoyMetrics)}.`
+  );
+  await touchPage
+    .locator('.scout-answer.is-unknown [data-scout-prompt="Report issue"]')
+    .last()
+    .click();
+  await touchPage.locator(".scout-answer.is-report-issue").last().waitFor({ state: "visible" });
+  const reportIssueBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-report-issue")].at(-1);
+    const cta = answer?.querySelector(".scout-settings-report");
+    return {
+      ctaHref: cta?.getAttribute("href") || "",
+      ctaText: cta?.textContent.trim() || "",
+      lead: answer?.querySelector(".scout-answer-lead")?.textContent.trim() || ""
+    };
+  });
+  assert(
+    reportIssueBallBoyMetrics.lead === "Here is the form to report issue." &&
+      reportIssueBallBoyMetrics.ctaText === "Report issue" &&
+      reportIssueBallBoyMetrics.ctaHref.startsWith("report.html?"),
+    `Ball Boy should introduce the report form before showing its CTA. Measured ${JSON.stringify(reportIssueBallBoyMetrics)}.`
   );
 
   await touchPage.setViewportSize({ width: 568, height: 320 });

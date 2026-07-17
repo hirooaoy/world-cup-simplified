@@ -3,12 +3,12 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-16-6";
+} from "./chatbot-knowledge.js?v=2026-07-16-7";
 import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-6";
+} from "./locales/locale-runtime.js?v=2026-07-16-7";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -164,6 +164,7 @@ const SCOUT_COPY = {
     unsupportedLanguage: "I currently support English, Chinese, Spanish, and Korean.",
     unsupportedTimeZone: "That time zone isn’t available yet.",
     reportIssue: "Report issue",
+    reportIssueIntro: "Here is the form to report issue.",
     errorText: "I couldn’t load the data. Try again.",
     errorFollowUps: []
   },
@@ -296,6 +297,7 @@ const SCOUT_COPY = {
     unsupportedLanguage: "我目前支持英文、中文、西班牙语和韩语。",
     unsupportedTimeZone: "目前还不支持这个时区。",
     reportIssue: "报告问题",
+    reportIssueIntro: "这是报告问题的表单。",
     errorText: "我无法载入数据。请再试一次。",
     errorFollowUps: []
   }
@@ -934,6 +936,9 @@ function getScoutSettingsReply(question) {
 }
 
 async function getScoutReply(question, options = {}) {
+  if (getScoutPromptKey(question) === getScoutPromptKey(scoutText("reportIssue"))) {
+    return { kind: "report-issue", text: scoutText("reportIssueIntro") };
+  }
   return getScoutSettingsReply(question) || getBallBoyReply(question, options);
 }
 
@@ -2085,9 +2090,6 @@ function getScoutPromptKey(value) {
 
 function renderScoutPromptControl(prompt, className) {
   const escapedPrompt = escapeScoutHtml(prompt);
-  if (getScoutPromptKey(prompt) === getScoutPromptKey(scoutText("reportIssue"))) {
-    return `<a class="${className}" href="${escapeScoutHtml(getScoutReportIssueUrl())}" data-scout-prompt="${escapedPrompt}" data-scout-report-issue>${escapedPrompt}</a>`;
-  }
   return `<button class="${className}" type="button" data-scout-prompt="${escapedPrompt}">${escapedPrompt}</button>`;
 }
 
@@ -3045,6 +3047,15 @@ function appendUnknownReply(reply, options = {}) {
   );
 }
 
+function appendReportIssueReply(reply, options = {}) {
+  const action = `
+    <div class="scout-settings-actions">
+      <a class="scout-settings-report" href="${escapeScoutHtml(getScoutReportIssueUrl())}">${escapeScoutHtml(scoutText("reportIssue"))}</a>
+    </div>
+  `;
+  createScoutVisualMessage("report-issue", reply.text, action, [], options);
+}
+
 function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
   const options = { scroll };
   if (reply.kind === "offside") {
@@ -3069,6 +3080,8 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
     appendPersonalityReply(reply, options);
   } else if (reply.kind === "settings-action") {
     appendSettingsActionReply(reply, options);
+  } else if (reply.kind === "report-issue") {
+    appendReportIssueReply(reply, options);
   } else {
     appendUnknownReply(reply, options);
   }
@@ -3292,7 +3305,7 @@ input.addEventListener("focus", queueScoutVisualViewportSync);
 input.addEventListener("blur", queueScoutVisualViewportSync);
 suggestions.addEventListener("click", (event) => {
   const promptButton = event.target.closest("[data-scout-prompt]");
-  if (promptButton && !promptButton.hasAttribute("data-scout-report-issue")) {
+  if (promptButton) {
     submitQuestion(promptButton.dataset.scoutPrompt);
   }
 });
@@ -3390,7 +3403,7 @@ messages.addEventListener("click", (event) => {
     return;
   }
   const promptButton = event.target.closest("[data-scout-prompt]");
-  if (promptButton && !promptButton.hasAttribute("data-scout-report-issue")) {
+  if (promptButton) {
     submitQuestion(promptButton.dataset.scoutPrompt);
   }
 });

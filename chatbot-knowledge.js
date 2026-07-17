@@ -3,7 +3,7 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-6";
+} from "./locales/locale-runtime.js?v=2026-07-16-7";
 
 const BALL_BOY_DATA_VERSION = "2026-07-16-ranking-year-1";
 const BALL_BOY_DATA_URLS = {
@@ -4516,7 +4516,7 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
   const matchupIntent = getMatchupIntent(question);
   const contextTeam = getContextTeam(core);
   const contextFixtureId = getContextFixtureId(core);
-  const asksWhoToWatch = /\b(who should i watch|players to watch|who to watch|key players|best players)\b/.test(question);
+  const asksWhoToWatch = /\b(who should i watch|players to watch|who to watch|key players?|top players?|best players)\b/.test(question);
   const asksForNamedPlayers =
     asksWhoToWatch ||
     /\b(who scored|scorer|top scorer|leading scorer|most goals|assists?)\b/.test(question);

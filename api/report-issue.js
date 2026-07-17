@@ -200,7 +200,6 @@ function normalizeReport(payload) {
     reporterEmail: limitedString(payload.reporterEmail, MAX_REPORTER_EMAIL_LENGTH).trim(),
     date,
     dateLabel: limitedString(payload.dateLabel, 120),
-    timeZone: limitedString(payload.timeZone, 80),
     sourceUrl: limitedString(payload.sourceUrl, MAX_TEXT_FIELD_LENGTH),
     reportPageUrl: limitedString(payload.reportPageUrl, MAX_TEXT_FIELD_LENGTH),
     userAgent: limitedString(payload.userAgent, MAX_USER_AGENT_LENGTH),
@@ -212,7 +211,6 @@ function renderPlainTextEmail(report) {
   return [
     `Issue: ${report.typeLabel}`,
     `Date: ${report.dateLabel || report.date || "Not provided"}`,
-    `Timezone: ${report.timeZone || "Not provided"}`,
     `Reporter email: ${report.reporterEmail || "Not provided"}`,
     "",
     "Details:",
@@ -229,7 +227,6 @@ function renderHtmlEmail(report) {
   const rows = [
     ["Issue", report.typeLabel],
     ["Date", report.dateLabel || report.date || "Not provided"],
-    ["Timezone", report.timeZone || "Not provided"],
     ["Reporter email", report.reporterEmail || "Not provided"],
     ["Source URL", linkOrText(report.sourceUrl)],
     ["Report page", linkOrText(report.reportPageUrl)],

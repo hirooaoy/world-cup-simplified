@@ -133,6 +133,7 @@ const copy = {
   unsupportedLanguage: "Actualmente admito inglés, chino, español y coreano.",
   unsupportedTimeZone: "Esa zona horaria todavía no está disponible.",
   reportIssue: "Reportar un problema",
+  reportIssueIntro: "Aquí tienes el formulario para reportar un problema.",
   errorText: "No pude cargar los datos. Inténtalo de nuevo.",
   errorFollowUps: []
 };

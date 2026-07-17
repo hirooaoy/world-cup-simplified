@@ -3,7 +3,7 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-16-6";
+} from "./locales/locale-runtime.js?v=2026-07-16-7";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
@@ -626,10 +626,6 @@ function renderAttachedContext() {
     contextItems.push(`${t.date}${separator}${dateLabel}`);
   }
 
-  if (reportTimeZone) {
-    contextItems.push(`${t.timezone}${separator}${formatTimeZoneLabel(reportTimeZone)}`);
-  }
-
   reportSummary.replaceChildren(
     ...contextItems.map((item) => {
       const pill = document.createElement("span");
@@ -648,7 +644,6 @@ function getPayload() {
     website: website.value.trim(),
     date: reportDate,
     dateLabel,
-    timeZone: reportTimeZone,
     sourceUrl,
     reportPageUrl: window.location.href,
     userAgent: navigator.userAgent,

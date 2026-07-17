@@ -51,6 +51,14 @@ const UI = {
     "Los dos primeros de cada grupo avanzan. Los ocho mejores terceros también pasan a dieciseisavos de final.",
   thirdPlaceRace: "Clasificación de terceros",
   timeZone: "Zona horaria",
+  timeZoneChoose: "Elegir zona horaria",
+  timeZoneClose: "Cerrar selector de zona horaria",
+  timeZoneDefault: "Predeterminado",
+  timeZoneNoResults: "No hay zonas horarias coincidentes",
+  timeZonePopular: "Populares",
+  timeZoneRecent: "Recientes",
+  timeZoneSearchPlaceholder: "Buscar ciudad, país o abreviatura",
+  timeZoneSearchResults: "Resultados de búsqueda",
   tournament: "Fase eliminatoria",
   worldCupViews: "Secciones del Mundial"
 };

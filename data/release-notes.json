@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T16:23:11-07:00",
+  "updatedAt": "2026-07-16T22:20:48-07:00",
   "releases": [
     {
       "date": "2026-07-16",
@@ -16,7 +16,10 @@
         "Tournament round headings now work as keyboard-accessible jump controls that spotlight the first match in that round, and selected match rows keep their highlight within the list edges.",
         "On small screens, the collapsed Ball Boy mascot now gives footer copy a curved exclusion area so source, release-note, and report links remain readable and tappable.",
         "Ball Boy player answers now open with a short localized introduction naming the player before the card, giving shorthand searches and follow-up details a more natural conversational handoff.",
-        "The Report issue page now has localized Settings for language, dark mode, and returning home, with tighter spacing and the same state carried back to the main app. Report issue has moved out of the main Settings panel and into Ball Boy as a fourth starter action and the first recovery option when a question is not understood."
+        "The Report issue page now has localized Settings for language, dark mode, and returning home, with tighter spacing and the same state carried back to the main app. Report issue has moved out of the main Settings panel and into Ball Boy as a fourth starter action and the first recovery option when a question is not understood.",
+        "Settings now uses a searchable, keyboard-accessible time-zone picker with localized city names, abbreviations, UTC offsets, recent and popular choices, and a mobile bottom sheet. Choosing Default follows the device time zone on future visits instead of freezing the current city.",
+        "Rest days remain selectable in the calendar: Yesterday is enabled only when that day has a match, while an empty Today shows the next match date and teams plus a Go to up next action that opens the correct day and match.",
+        "Ball Boy now introduces the Report issue form before showing its button, recognizes top player questions like key player requests, and uses a calmer translucent conversation surface; report submissions also omit the redundant time-zone field."
       ],
       "highlightsZh": [
         "拉丁美洲西班牙语和韩语现已覆盖整个应用，包括比赛、积分榜、淘汰赛路径、搜索、“追上进度”、球员与教练卡片、国家队视图、往届与未来世界杯、Ball Boy、“报告问题”和发布说明。",
@@ -29,7 +32,10 @@
         "赛事轮次标题现在可通过键盘操作，并能直接聚焦该轮首场比赛；选中比赛行的高亮也会保持在列表边缘以内。",
         "在小屏幕上，收起状态的 Ball Boy 吉祥物会为页脚文字留出弧形空间，让来源、发布说明和问题报告链接保持清晰且可点击。",
         "Ball Boy 的球员回答现在会在卡片前先用本地化的简短句子点名球员，让简写搜索和后续资料之间的对话衔接更自然。",
-        "“报告问题”页面现在提供本地化设置，可切换语言、深色模式并返回首页，同时采用更紧凑的间距并把状态带回主应用。“报告问题”已从主设置面板移至 Ball Boy，作为第四个初始操作，并在无法理解问题时优先提供。"
+        "“报告问题”页面现在提供本地化设置，可切换语言、深色模式并返回首页，同时采用更紧凑的间距并把状态带回主应用。“报告问题”已从主设置面板移至 Ball Boy，作为第四个初始操作，并在无法理解问题时优先提供。",
+        "设置中的时区选择现已升级为可搜索且支持键盘操作的选择器，提供本地化城市名称、缩写、UTC 偏移、最近使用与常用选项，并在移动端以底部面板显示。选择“默认”后，今后访问时会继续跟随设备时区，而不会固定在当前城市。",
+        "日历中的无比赛日仍可选择：只有昨天有比赛时“昨天”按钮才会启用；当天无比赛时会显示下一场比赛的日期与双方球队，并提供“前往下一场比赛”操作，直接打开正确的日期和比赛。",
+        "Ball Boy 现在会先介绍“报告问题”表单，再显示操作按钮；询问“顶尖球员”时会按“关键球员”请求处理，对话界面也采用更平静的半透明表面。问题报告提交内容同时移除了重复的时区字段。"
       ]
     },
     {

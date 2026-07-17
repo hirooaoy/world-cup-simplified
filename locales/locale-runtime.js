@@ -1,6 +1,6 @@
 const DEFAULT_LANGUAGE = "en";
 export const LOCALE_SCHEMA_VERSION = 1;
-export const LOCALE_PACK_VERSION = "2026-07-16-6";
+export const LOCALE_PACK_VERSION = "2026-07-16-9";
 
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {
@@ -61,6 +61,14 @@ export const SHELL_MESSAGES = deepFreeze({
       "Top two in each group advance. The best eight third-place teams also reach the Round of 32.",
     thirdPlaceRace: "Third-Place Race",
     timeZone: "Time zone",
+    timeZoneChoose: "Choose time zone",
+    timeZoneClose: "Close time zone picker",
+    timeZoneDefault: "Default",
+    timeZoneNoResults: "No matching time zones",
+    timeZonePopular: "Popular",
+    timeZoneRecent: "Recent",
+    timeZoneSearchPlaceholder: "Search city, country, or abbreviation",
+    timeZoneSearchResults: "Search results",
     tournament: "Tournament",
     worldCupViews: "World Cup views"
   },
@@ -110,6 +118,14 @@ export const SHELL_MESSAGES = deepFreeze({
     standingsSummary: "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
     thirdPlaceRace: "最佳小组第三排名",
     timeZone: "时区",
+    timeZoneChoose: "选择时区",
+    timeZoneClose: "关闭时区选择器",
+    timeZoneDefault: "默认",
+    timeZoneNoResults: "没有匹配的时区",
+    timeZonePopular: "常用",
+    timeZoneRecent: "最近使用",
+    timeZoneSearchPlaceholder: "搜索城市、国家或缩写",
+    timeZoneSearchResults: "搜索结果",
     tournament: "淘汰赛",
     worldCupViews: "世界杯视图"
   },
@@ -160,6 +176,14 @@ export const SHELL_MESSAGES = deepFreeze({
       "Los dos primeros de cada grupo avanzan. Los ocho mejores terceros también pasan a dieciseisavos de final.",
     thirdPlaceRace: "Clasificación de terceros",
     timeZone: "Zona horaria",
+    timeZoneChoose: "Elegir zona horaria",
+    timeZoneClose: "Cerrar selector de zona horaria",
+    timeZoneDefault: "Predeterminado",
+    timeZoneNoResults: "No hay zonas horarias coincidentes",
+    timeZonePopular: "Populares",
+    timeZoneRecent: "Recientes",
+    timeZoneSearchPlaceholder: "Buscar ciudad, país o abreviatura",
+    timeZoneSearchResults: "Resultados de búsqueda",
     tournament: "Fase eliminatoria",
     worldCupViews: "Secciones del Mundial"
   },
@@ -209,6 +233,14 @@ export const SHELL_MESSAGES = deepFreeze({
     standingsSummary: "각 조 1·2위가 진출합니다. 성적이 좋은 조 3위 8개 팀도 32강에 오릅니다.",
     thirdPlaceRace: "조 3위 순위",
     timeZone: "시간대",
+    timeZoneChoose: "시간대 선택",
+    timeZoneClose: "시간대 선택기 닫기",
+    timeZoneDefault: "기본값",
+    timeZoneNoResults: "일치하는 시간대가 없습니다",
+    timeZonePopular: "자주 사용하는 시간대",
+    timeZoneRecent: "최근 사용",
+    timeZoneSearchPlaceholder: "도시, 국가 또는 약어 검색",
+    timeZoneSearchResults: "검색 결과",
     tournament: "토너먼트",
     worldCupViews: "월드컵 메뉴"
   }

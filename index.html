@@ -35,8 +35,8 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
-    <link rel="stylesheet" href="styles.css?v=2026-07-16-5" />
-    <link rel="stylesheet" href="chatbot.css?v=2026-07-16-4" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-16-20" />
+    <link rel="stylesheet" href="chatbot.css?v=2026-07-16-5" />
   </head>
   <body>
     <header class="site-header">
@@ -105,10 +105,19 @@
               </select>
               <span class="visually-hidden" id="language-status" aria-live="polite"></span>
             </label>
-            <label class="settings-section timezone-control">
-              <span class="settings-label timezone-label">Time zone</span>
-              <select class="timezone-select" id="timezone-select"></select>
-            </label>
+            <div class="settings-section timezone-control">
+              <span class="settings-label timezone-label" id="settings-timezone-label">Time zone</span>
+              <button class="timezone-picker-trigger" id="timezone-picker-trigger" type="button" aria-labelledby="settings-timezone-label timezone-picker-value timezone-picker-meta" aria-haspopup="dialog" aria-expanded="false" aria-controls="timezone-picker">
+                <span class="timezone-picker-trigger-copy">
+                  <span class="timezone-picker-trigger-value" id="timezone-picker-value">Los Angeles</span>
+                  <span class="timezone-picker-trigger-meta" id="timezone-picker-meta">PDT · UTC−7</span>
+                </span>
+                <svg class="timezone-picker-chevron" viewBox="0 0 12 8" aria-hidden="true">
+                  <path d="m2 2 4 4 4-4" />
+                </svg>
+              </button>
+              <select class="timezone-select timezone-native-select" id="timezone-select" aria-hidden="true" tabindex="-1" hidden></select>
+            </div>
             <label class="settings-section settings-toggle-control">
               <span class="settings-label" id="settings-yesterday-label">Show recent matches</span>
               <input class="settings-toggle-input" id="show-yesterday-toggle" type="checkbox" checked>
@@ -119,6 +128,26 @@
               <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox">
               <span class="settings-toggle-track" aria-hidden="true"></span>
             </label>
+          </div>
+          <button class="timezone-picker-backdrop is-hidden" id="timezone-picker-backdrop" type="button" tabindex="-1" aria-hidden="true"></button>
+          <div class="timezone-picker is-hidden" id="timezone-picker" role="dialog" aria-labelledby="timezone-picker-title">
+            <div class="timezone-picker-header">
+              <strong class="timezone-picker-title" id="timezone-picker-title">Choose time zone</strong>
+              <button class="timezone-picker-close" id="timezone-picker-close" type="button" aria-label="Close time zone picker">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="m3 3 10 10M13 3 3 13" />
+                </svg>
+              </button>
+            </div>
+            <label class="timezone-search-shell" for="timezone-search-input">
+              <svg class="timezone-search-icon" viewBox="0 0 20 20" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="5.5" />
+                <path d="m12.5 12.5 4 4" />
+              </svg>
+              <input class="timezone-search-input" id="timezone-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="timezone-picker-results" autocomplete="off" spellcheck="false" placeholder="Search city, country, or abbreviation" />
+            </label>
+            <div class="timezone-picker-results" id="timezone-picker-results" role="listbox"></div>
+            <p class="timezone-picker-empty is-hidden" id="timezone-picker-empty">No matching time zones</p>
           </div>
         </div>
       </div>
@@ -170,7 +199,7 @@
             </div>
             <div class="calendar-grid" id="calendar-grid"></div>
             <div class="calendar-footer">
-              <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Previous</button>
+              <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Yesterday</button>
               <button class="calendar-shortcut-button" id="calendar-today" type="button">Today</button>
             </div>
           </div>
@@ -331,7 +360,7 @@
 
     <script type="module" src="clarity.js"></script>
     <script type="module" src="analytics.js"></script>
-    <script type="module" src="app.js?v=2026-07-16-6"></script>
-    <script type="module" src="chatbot.js?v=2026-07-16-8"></script>
+    <script type="module" src="app.js?v=2026-07-16-21"></script>
+    <script type="module" src="chatbot.js?v=2026-07-16-9"></script>
   </body>
 </html>
