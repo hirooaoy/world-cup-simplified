@@ -5655,6 +5655,36 @@ try {
     `A future fixture page should still show the latest completed earlier matchday. Measured ${JSON.stringify(futureRecentMatchesTitle)}.`
   );
   await futureRecentMatchesCheck.context.close();
+  const noMatchTodayPositionCheck = await openPageAtTime(
+    "2026-07-17T10:00:00-07:00",
+    "/?view=matches&date=2026-07-17&tz=America%2FLos_Angeles",
+    {
+      contextOptions: { viewport: { width: 1280, height: 900 } },
+      initScript: () => {
+        localStorage.setItem("world-cup-simplified-language", "en");
+        localStorage.setItem("world-cup-simplified-show-yesterday", "true");
+      }
+    }
+  );
+  const noMatchTodayList = noMatchTodayPositionCheck.page.locator("#match-list");
+  const noMatchTodayTopWithRecent = await noMatchTodayList.evaluate((list) =>
+    Math.round(list.getBoundingClientRect().top)
+  );
+  await noMatchTodayPositionCheck.page.locator("#settings-button").click();
+  await noMatchTodayPositionCheck.page
+    .locator("label.settings-toggle-control:has(#show-yesterday-toggle)")
+    .click();
+  await noMatchTodayPositionCheck.page.waitForTimeout(460);
+  const noMatchTodayHiddenState = await noMatchTodayList.evaluate((list) => ({
+    isOffset: list.closest("#matches-view")?.classList.contains("is-yesterday-suppressed") || false,
+    top: Math.round(list.getBoundingClientRect().top)
+  }));
+  assert(
+    noMatchTodayHiddenState.isOffset &&
+      noMatchTodayHiddenState.top - noMatchTodayTopWithRecent >= 40,
+    `Hiding Recent matches should apply the usual desktop positioning adjustment even when Today has no matches. Measured ${JSON.stringify({ noMatchTodayHiddenState, noMatchTodayTopWithRecent })}.`
+  );
+  await noMatchTodayPositionCheck.context.close();
   assert(
     (await page.locator(".yesterday-dismiss-icon").count()) === 1,
     "Recent matches dismiss control should render an icon glyph."

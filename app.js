@@ -29806,7 +29806,7 @@ function renderSchedule(options = {}) {
     : { dayKey: "", matches: [] };
   const recentMatches = recentMatchesContext.matches;
   const yesterdaySection = createYesterdayMatchesSection(recentMatchesContext, currentTime);
-  setYesterdayLayoutOffset(!shouldShowYesterdayMatches && todayMatches.length > 0);
+  setYesterdayLayoutOffset(!shouldShowYesterdayMatches);
   const liveMatchIds = getLiveMatchIds(currentTime);
   const selectedIsToday = selectedDayKey === getDayKey(new Date(), selectedTimeZone);
   const nextMatchIds = getNextMatchIds(currentTime, liveMatchIds);
@@ -29818,7 +29818,6 @@ function renderSchedule(options = {}) {
 
   if (todayMatches.length === 0) {
     if (!yesterdaySection) {
-      setYesterdayLayoutOffset(false);
       setLiveTodayMatchFocus(false);
       renderEmptyState();
       updateUrlState(options);
