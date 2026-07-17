@@ -77,6 +77,18 @@ Use risk-based checks while developing:
 Do not rerun the complete suite when the settled tree has not materially
 changed. A narrow late fix only needs its affected checks rerun.
 
+Run a focused browser/data smoke group, or one of the three stable CI shards:
+
+```sh
+pnpm smoke:group -- --list
+pnpm smoke:group -- --group=ball-boy
+pnpm smoke:shard -- --shard=2/3
+```
+
+`pnpm smoke:full` preserves the complete existing smoke coverage. The fixed
+shards split lineup checks, locale/Ball Boy/tournament checks, and the full app
+shell/UI suite so CI can run them concurrently without silently dropping tests.
+
 On match days, refresh the static snapshot first:
 
 ```sh
