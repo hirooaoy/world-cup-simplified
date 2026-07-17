@@ -2860,14 +2860,17 @@ h1 {
 }
 
 .empty-state-next-matchup {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   white-space: nowrap;
 }
 
 .empty-state-next-versus {
-  margin-inline: 3px;
+  margin: 0;
+}
+
+.empty-state-next-matchup .flag,
+.empty-state-next-team,
+.empty-state-next-versus {
+  vertical-align: middle;
 }
 
 .empty-actions {

@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "ab46cac4885c2b890be0f3e84bb2d3d7c1197a2aca57b1004f008d7d81affffa",
+  "sourceFingerprint": "e0ade7bb70104b97e9909c921f9bc04b1ba67e5ebde3a569e1b5ac21bc9995c1",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Language packs load only when selected and reuse structured football templates for current and historical content, keeping English visits unchanged and first-switch transfers to about 90 KB for Spanish and 119 KB for Korean.": "Los paquetes de idioma solo se cargan al seleccionarlos y reutilizan plantillas futbolísticas estructuradas para el contenido actual e histórico; las visitas en inglés no cambian y la primera carga ronda los 90 KB en español y 119 KB en coreano.",
-    "Player names follow broadcast conventions: familiar official spellings in Spanish and sourced Korean newsroom names, with all 4,052 current and historical player records covered.": "Los nombres de los jugadores siguen las convenciones televisivas: grafías oficiales y reconocibles en español y nombres periodísticos coreanos con fuentes, con cobertura de los 4.052 registros actuales e históricos.",
-    "Spanish (Latin America) and Korean now cover the full app, including matches, standings, tournament paths, search, Catch Up, player and coach cards, country views, past and future World Cups, Ball Boy, Report issue, and release notes.": "El español de Latinoamérica y el coreano ya cubren toda la aplicación: partidos, clasificación, cuadro eliminatorio, búsqueda, Ponte al día, tarjetas de jugadores y técnicos, vistas de selecciones, Mundiales anteriores y futuros, Ball Boy, Reportar un problema y notas de la versión.",
-    "Spanish and Korean, faster history browsing, and polished controls": "Español y coreano, navegación histórica más rápida y controles más pulidos"
+    "A steadier Ball Boy opening and clearer next-match copy": "Una apertura de Ball Boy más estable y un texto más claro para el próximo partido",
+    "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.": "Ball Boy ahora se abre como una sola superficie coordinada: el panel, el título, los controles del encabezado y la conversación aparecen al mismo tiempo, mientras que el campo para escribir se muestra sin demora adicional.",
+    "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "En pantallas pequeñas, el aviso del pie de página conserva el ajuste de línea y el espacio que evitan a Ball Boy mientras se abre o se cierra, en lugar de moverse durante la animación.",
+    "Rest-day guidance now presents the next match as a normal sentence with standard spacing around the flags, team names, and versus text while keeping every item vertically aligned.": "En los días sin partido, la indicación del próximo encuentro ahora se lee como una frase normal, con espaciado estándar entre las banderas, los nombres de las selecciones y el texto de versus, y con todos los elementos alineados verticalmente."
   }
 }

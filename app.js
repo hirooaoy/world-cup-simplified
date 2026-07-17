@@ -27338,7 +27338,7 @@ function getEmptyStateNextMatchCopy(match, additionalMatchCount = 0) {
 
   return {
     ...sharedCopy,
-    before: `Next match is on ${dateLabel} for `,
+    before: `The next match is on ${dateLabel} for `,
     after: additionalMatchCount ? ` and ${additionalMatchCount} more` : "",
     action: "View next match"
   };
@@ -27371,7 +27371,7 @@ function createEmptyStateElement() {
     : null;
   article.innerHTML = `
     ${nextMatchCopy ? `
-      <p class="empty-state-next-description">${escapeHtml(nextMatchCopy.before)}<span class="empty-state-next-matchup">${renderFlag(nextMatch.homeTeam)}<span class="empty-state-next-team">${escapeHtml(nextMatchCopy.homeName)}</span><span class="empty-state-next-versus">${escapeHtml(nextMatchCopy.versusText)}</span>${renderFlag(nextMatch.awayTeam)}<span class="empty-state-next-team">${escapeHtml(nextMatchCopy.awayName)}</span></span>${escapeHtml(nextMatchCopy.after)}</p>
+      <p class="empty-state-next-description">${escapeHtml(nextMatchCopy.before)}<span class="empty-state-next-matchup">${renderFlag(nextMatch.homeTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.homeName)}</span> <span class="empty-state-next-versus">${escapeHtml(nextMatchCopy.versusText)}</span> ${renderFlag(nextMatch.awayTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.awayName)}</span></span>${escapeHtml(nextMatchCopy.after)}</p>
       <div class="empty-actions">
         <button class="primary-button empty-state-next-action" type="button" data-select-calendar-day="${escapeHtml(nextMatchDayKey)}" aria-controls="match-info">${escapeHtml(nextMatchCopy.action)}</button>
       </div>

@@ -1029,11 +1029,14 @@ const footerSourceNote = document.querySelector(".site-footer .source-note");
 const scoutMobileMedia = window.matchMedia("(max-width: 560px)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const SCOUT_FOOTER_COLLISION_GAP = 8;
+const SCOUT_FOOTER_SETTLE_MS = 440;
 
 panel.inert = true;
 
 let isOpen = false;
 let scoutFooterCollisionFrame = 0;
+let scoutFooterSettleTimer = 0;
+let isScoutFooterAvoidanceSettling = false;
 let pointerFrame = 0;
 let latestPointer = null;
 let blinkTimer = 0;
@@ -1724,8 +1727,12 @@ function clearScoutFooterAvoidance() {
 function syncScoutFooterAvoidance() {
   scoutFooterCollisionFrame = 0;
 
-  if (!footerSourceNote || isOpen || !scoutMobileMedia.matches) {
+  if (!footerSourceNote || !scoutMobileMedia.matches) {
     clearScoutFooterAvoidance();
+    return;
+  }
+
+  if (isOpen || isScoutFooterAvoidanceSettling) {
     return;
   }
 
@@ -1766,6 +1773,16 @@ function queueScoutFooterAvoidance() {
   }
 }
 
+function holdScoutFooterAvoidanceWhileWidgetSettles() {
+  window.clearTimeout(scoutFooterSettleTimer);
+  isScoutFooterAvoidanceSettling = true;
+  scoutFooterSettleTimer = window.setTimeout(() => {
+    scoutFooterSettleTimer = 0;
+    isScoutFooterAvoidanceSettling = false;
+    queueScoutFooterAvoidance();
+  }, reducedMotion.matches ? 0 : SCOUT_FOOTER_SETTLE_MS);
+}
+
 function initializeScoutFooterAvoidance() {
   if (!footerSourceNote) {
     return;
@@ -1804,6 +1821,7 @@ function setOpen(nextOpen, { focus = true } = {}) {
     return;
   }
 
+  holdScoutFooterAvoidanceWhileWidgetSettles();
   isOpen = nextOpen;
   widget.classList.toggle("is-open", isOpen);
   launcher.setAttribute("aria-expanded", String(isOpen));

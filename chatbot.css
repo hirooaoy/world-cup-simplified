@@ -1,6 +1,7 @@
 .scout-widget {
   --scout-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
   --scout-bottom-duration: 390ms;
+  --scout-content-delay: 110ms;
   --scout-ease: cubic-bezier(0.22, 0.8, 0.2, 1);
   position: fixed;
   right: 22px;
@@ -467,7 +468,7 @@ body.is-juggle-active .scout-pupil {
 .scout-widget.is-open .scout-panel {
   opacity: 1;
   pointer-events: auto;
-  transition-delay: 110ms;
+  transition-delay: var(--scout-content-delay);
 }
 
 .scout-header {
@@ -489,7 +490,7 @@ body.is-juggle-active .scout-pupil {
 .scout-widget.is-open .scout-heading {
   opacity: 1;
   transform: translateX(0);
-  transition-delay: 180ms;
+  transition-delay: var(--scout-content-delay);
 }
 
 .scout-title,
@@ -576,11 +577,11 @@ body.is-juggle-active .scout-pupil {
 }
 
 .scout-widget.is-open .scout-reset {
-  transition-delay: 180ms;
+  transition-delay: var(--scout-content-delay);
 }
 
 .scout-widget.is-open .scout-close {
-  transition-delay: 200ms;
+  transition-delay: var(--scout-content-delay);
 }
 
 .scout-conversation {
@@ -599,7 +600,7 @@ body.is-juggle-active .scout-pupil {
 .scout-widget.is-open .scout-conversation {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 220ms;
+  transition-delay: var(--scout-content-delay);
 }
 
 .scout-more {
@@ -2875,7 +2876,6 @@ body.is-juggle-active .scout-pupil {
 .scout-widget.is-open .scout-composer {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 250ms;
 }
 
 .scout-input {

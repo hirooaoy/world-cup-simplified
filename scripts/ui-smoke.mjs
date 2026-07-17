@@ -4693,6 +4693,9 @@ try {
     const description = root.querySelector(".empty-state-next-description");
     const descriptionStyle = getComputedStyle(description);
     const matchupStyle = getComputedStyle(root.querySelector(".empty-state-next-matchup"));
+    const flagStyle = getComputedStyle(root.querySelector(".empty-state-next-matchup .flag"));
+    const teamStyle = getComputedStyle(root.querySelector(".empty-state-next-team"));
+    const versusStyle = getComputedStyle(root.querySelector(".empty-state-next-versus"));
     const action = root.querySelector(".empty-state-next-action");
     return {
       action: action?.textContent.trim() || "",
@@ -4702,23 +4705,27 @@ try {
       descriptionText: description?.textContent.replace(/\s+/g, " ").trim() || "",
       daysPillCount: root.querySelectorAll(".empty-state-days-pill").length,
       flagCount: root.querySelectorAll(".empty-state-next-matchup .flag").length,
-      matchupGap: matchupStyle.gap,
-      matchupUnderlineStyle: matchupStyle.borderBottomStyle
+      flagVerticalAlign: flagStyle.verticalAlign,
+      matchupDisplay: matchupStyle.display,
+      matchupUnderlineStyle: matchupStyle.borderBottomStyle,
+      teamVerticalAlign: teamStyle.verticalAlign,
+      versusVerticalAlign: versusStyle.verticalAlign
     };
   });
   assert(
-    emptyStateTypography.descriptionText.includes("Next match is on July 18 for") &&
-      emptyStateTypography.descriptionText.includes("France") &&
-      emptyStateTypography.descriptionText.includes("England") &&
-      emptyStateTypography.descriptionText.endsWith("and 3 more") &&
+    emptyStateTypography.descriptionText ===
+      "The next match is on July 18 for 🇫🇷 France vs England and 3 more" &&
       emptyStateTypography.descriptionFontWeight === "400" &&
       emptyStateTypography.action === "View next match" &&
       emptyStateTypography.actionUsesPrimaryUi &&
       emptyStateTypography.daysPillCount === 0 &&
       emptyStateTypography.flagCount === 2 &&
-      emptyStateTypography.matchupGap === "6px" &&
-      emptyStateTypography.matchupUnderlineStyle === "none",
-    "The no-match state should show a compact heading, plain next-match copy with flags, and a dedicated CTA."
+      emptyStateTypography.flagVerticalAlign === "middle" &&
+      emptyStateTypography.matchupDisplay === "inline" &&
+      emptyStateTypography.matchupUnderlineStyle === "none" &&
+      emptyStateTypography.teamVerticalAlign === "middle" &&
+      emptyStateTypography.versusVerticalAlign === "middle",
+    `The no-match state should preserve the approved wording, use normal spacing around vs, keep both flags, and show a dedicated CTA. Measured ${JSON.stringify(emptyStateTypography)}.`
   );
   await calendarRestDayCheck.page.setViewportSize({ width: 390, height: 844 });
   const mobileEmptyStateStyle = await calendarRestDayCheck.page.locator(".empty-state").evaluate((root) => {
@@ -14266,7 +14273,27 @@ try {
 
   await touchPage.setViewportSize({ width: 390, height: 844 });
   await touchPage.goto(`${baseUrl}?ballBoySmoke=1`, { waitUntil: "load" });
+  await touchPage.locator("#source-note").scrollIntoViewIfNeeded();
+  await touchPage.waitForFunction(() =>
+    document.querySelector("#source-note")?.classList.contains("has-scout-collision")
+  );
+  const ballBoyFooterBeforeOpen = await touchPage.locator("#source-note").evaluate((note) => ({
+    height: note.getBoundingClientRect().height,
+    paddingLeft: getComputedStyle(note).paddingLeft
+  }));
   await touchPage.locator("#scout-launcher").click();
+  await touchPage.waitForTimeout(500);
+  const ballBoyFooterAfterOpen = await touchPage.locator("#source-note").evaluate((note) => ({
+    hasCollision: note.classList.contains("has-scout-collision"),
+    height: note.getBoundingClientRect().height,
+    paddingLeft: getComputedStyle(note).paddingLeft
+  }));
+  assert(
+    ballBoyFooterAfterOpen.hasCollision &&
+      Math.abs(ballBoyFooterAfterOpen.height - ballBoyFooterBeforeOpen.height) < 1 &&
+      ballBoyFooterAfterOpen.paddingLeft === ballBoyFooterBeforeOpen.paddingLeft,
+    `Opening Ball Boy should keep the mobile disclaimer locked in its collision-safe layout. Measured ${JSON.stringify({ before: ballBoyFooterBeforeOpen, after: ballBoyFooterAfterOpen })}.`
+  );
   const ballBoySend = touchPage.locator(".scout-send");
   const ballBoyInput = touchPage.locator("#scout-input");
   assert(await ballBoySend.isDisabled(), "Ball Boy send should begin disabled when its input is empty.");
