@@ -64,11 +64,18 @@ In production, the app tries `/api/live-data` first. If that route is unavailabl
 
 ## Development
 
-Run the full local gate before shipping code or data changes:
+Use risk-based checks while developing:
 
-```sh
-pnpm test
-```
+- Small isolated changes: run focused checks for the affected area and the
+  relevant browser check for visual or interactive behavior. Let exact-SHA CI
+  provide the comprehensive release gate.
+- Factual or generated-data changes: verify the source and methodology, then run
+  the relevant data, integrity, forecast, lineup, or historical checks.
+- Large or cross-cutting changes: run focused checks while working, then run
+  `pnpm test` once against the final settled tree.
+
+Do not rerun the complete suite when the settled tree has not materially
+changed. A narrow late fix only needs its affected checks rerun.
 
 On match days, refresh the static snapshot first:
 
@@ -90,20 +97,32 @@ pnpm profiles:country -- --teams=CRO
 
 That workflow builds only the selected squad cards, merges them into the existing profile file, and runs the card checks. Use `--skip-smoke` only for a quick local pass.
 
-Update `data/release-notes.json` when a user-facing app, API, or UI change ships. CI runs `pnpm release-notes:check` for that.
+Update `data/release-notes.json` only when a meaningful user-facing behavior or
+content change ships. Test-harness fixes, CI stabilization, invisible
+refactoring, workflow-only changes, deployment retries, and unchanged redeploys
+do not need public release notes. CI runs `pnpm release-notes:check` as a guard.
 
 ## Deployment
 
-The site is set up for Vercel. Static pages are served from the repo root. `/api/live-data` refreshes match data. `/api/report-issue` handles the report form.
+The Vercel project is linked to this GitHub repository with `main` as its
+production branch. A normal push to `main` creates the production deployment;
+do not also run a separate `vercel --prod` deployment for the same release.
+Use a manual deployment only for an explicit redeploy, a failed Git-triggered
+deployment, promotion of a verified deployment, or recovery/rollback.
+
+Static pages are served from the repo root. `/api/live-data` refreshes match
+data. `/api/report-issue` handles the report form.
 
 Before launch:
 
 1. Confirm the production origin. The current metadata, `robots.txt`, and `sitemap.xml` use `https://world-cup-simplified.vercel.app/`.
-2. Deploy on Vercel so the API routes are available.
+2. Confirm the Git-triggered Vercel production deployment is healthy so the API
+   routes are available.
 3. Create a Resend API key.
 4. Add the environment variables below in Vercel.
 5. Use a verified sender or domain for `REPORT_FROM_EMAIL`.
-6. Run `pnpm test` before promoting a data update.
+6. Run the relevant factual and generated-data checks before promoting a data
+   update; use the complete suite for large or cross-cutting changes.
 
 ## Environment Variables
 
@@ -195,7 +214,9 @@ In GitHub, make sure **Settings -> Actions -> General -> Workflow permissions** 
 
 Before opening a PR:
 
-1. Run `pnpm test`.
-2. Update `data/release-notes.json` for user-facing app, API, or UI changes.
+1. Run focused checks appropriate to the change; run `pnpm test` for large or
+   cross-cutting changes.
+2. Update `data/release-notes.json` only for meaningful user-facing behavior or
+   content changes.
 3. Keep provider keys and local `.env` files out of git.
 4. Use verified official data and highlight sources whenever possible.

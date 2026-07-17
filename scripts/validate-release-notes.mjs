@@ -64,7 +64,7 @@ function getGithubEventBase() {
   return null;
 }
 
-function getFallbackBase() {
+function getFallbackBase({ includeWorkingTree = false } = {}) {
   const explicitBase = args.get("base") || process.env.RELEASE_NOTES_BASE_REF;
   if (isUsableRef(explicitBase)) {
     return { mode: args.get("mode") === "merge-base" ? "merge-base" : "range", ref: explicitBase };
@@ -73,6 +73,15 @@ function getFallbackBase() {
   const eventBase = getGithubEventBase();
   if (eventBase) {
     return eventBase;
+  }
+
+  // A local pending-change check should describe only the batch that is about
+  // to be committed. Including HEAD~1 here can let an older release-note edit
+  // mask a new product change, or make an invisible workflow-only fix look as
+  // though it needs to reuse that public entry. Callers can still combine an
+  // explicit committed range with the working tree by passing --base=<ref>.
+  if (includeWorkingTree) {
+    return null;
   }
 
   const previousCommit = git(["rev-parse", "--verify", "HEAD~1"], { allowFailure: true });
@@ -106,9 +115,9 @@ function formatFiles(files) {
 }
 
 function main() {
-  const base = getFallbackBase();
   const includeWorkingTree =
     args.has("include-working-tree") || process.env.RELEASE_NOTES_INCLUDE_WORKING_TREE === "1";
+  const base = getFallbackBase({ includeWorkingTree });
   const warnOnly = args.has("warn-only") || process.env.RELEASE_NOTES_WARN_ONLY === "1";
   const changedFiles = new Set(getRangeFiles(base));
 
