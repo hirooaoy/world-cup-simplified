@@ -134,6 +134,13 @@ do not also run a separate `vercel --prod` deployment for the same release.
 Use a manual deployment only for an explicit redeploy, a failed Git-triggered
 deployment, promotion of a verified deployment, or recovery/rollback.
 
+For routine solo development, `push latest` is intentionally short: wait for
+relevant World Cup tasks to become idle, inspect the settled diff, run the
+checks appropriate to that diff, commit and push it, then verify GitHub and
+production. Use the more careful release path only for unusual high-risk or
+mixed work such as methodology changes, localization or architecture work, CI
+restructuring, broad refactors, or partial releases from a mixed checkout.
+
 Static pages are served from the repo root. `/api/live-data` refreshes match
 data. `/api/report-issue` handles the report form.
 

@@ -16,37 +16,41 @@ continuous delivery by a solo developer using multiple Codex threads.
   complete and review translated meaning, not only key coverage.
 - Review user-visible work at the actual affected desktop and mobile surfaces.
   Visual or interactive changes require a relevant browser check.
-- Prefer frequent, narrow micro-releases over release ceremony. Do not add a
-  PR-heavy workflow for routine solo development.
+- Optimize for shipping frequency: safe, small releases should be easy enough
+  to make throughout the day. Release ceremony is the exception, not the
+  default.
 
-## Parallel Work and Ownership
+## Parallel Work
 
-- Keep independent World Cup tasks narrow and single-purpose.
-- Use isolated Git worktrees or short-lived branches when parallel threads may
-  overlap in the same files. Small sequential fixes may use the main checkout
-  when no other World Cup task is actively modifying it.
-- One designated integration/publishing thread normally owns the combined
-  commit, push to `main`, exact-SHA release gate, and production verification.
-- Feature threads should hand off:
-  - ready to ship: yes or no;
-  - branch, worktree, commit, or settled diff;
-  - concise scope and completed tests;
-  - whether the change is user-visible;
-  - whether public release notes are needed;
-  - remaining risk or uncertainty.
+- Develop in parallel and keep independent World Cup tasks narrow.
+- When a task is finished, leave its settled changes alone and briefly record
+  what changed and what was tested.
+- One publishing task waits for relevant World Cup tasks to become idle, then
+  ships the settled repository batch. Do not keep restarting a valid push for
+  work that finishes after validation begins; that work goes in the next push.
 - Coordinate only with tasks editing this repository. Never wait for, inspect,
   or poll unrelated Codex or ChatGPT tasks.
 - When the user names a specific World Cup thread, wait only for that thread. If
   the shipment reference is genuinely ambiguous, ask once.
+- Worktrees and short-lived branches are rescue tools for overlapping edits,
+  mixed partial releases, or other unusual integration problems. They are not
+  required for a routine `push latest`.
 
 ## Publishing Commands
 
 ### `push latest`
 
-Include all completed and settled World Cup work available when final release
-validation begins. Preserve completed parallel work, exclude unfinished
-experiments and obvious temporary build debris, and do not start optional new
-feature work during publishing.
+This is the normal fast path:
+
+1. Wait for relevant World Cup tasks to become idle.
+2. Inspect the settled diff and exclude unfinished experiments, unrelated
+   projects, and obvious temporary debris.
+3. Run the checks appropriate to the changed areas.
+4. Commit and push the settled batch.
+5. Let Git-triggered Vercel deploy it, verify the exact release, and stop.
+
+Do not require a release manifest, hash inventory, temporary worktree, staged
+diff approval, or patch extraction for an ordinary settled batch.
 
 ### `ship everything`
 
@@ -75,12 +79,23 @@ unhealthy.
 
 Wait only for the specific World Cup repository thread identified by the user.
 
-## Micro-Release Cutoff
+## Release Cutoff
 
-The completed and settled tree at the start of final release validation is the
-current micro-release. Work that settles later belongs to the next frequent
-push unless it fixes a confirmed blocker in the current candidate. Do not keep
-restarting a valid release merely to remain continuously latest.
+After relevant World Cup tasks are idle, the settled tree at the start of final
+validation is the release. Work that arrives later belongs to the next frequent
+push unless it fixes a confirmed blocker in the current candidate.
+
+## Careful Release Mode
+
+Use a more explicit review only when the batch includes unusually high-risk or
+hard-to-separate work, such as forecast or lineup methodology, localization or
+application architecture, CI restructuring, a broad refactor, conflicting
+parallel edits, or a requested partial release from a mixed checkout.
+
+In careful mode, use only the extra safeguards the situation needs: a scoped
+manifest, clean worktree, patch extraction, hash comparison, staged-diff review,
+or separate approvals. These are recovery and review tools, not the everyday
+publishing workflow.
 
 ## Risk-Based Testing
 
@@ -142,22 +157,18 @@ previous complete run. For a narrow late change, rerun only affected checks.
 
 ## Integration and Publishing Path
 
-1. Inspect branch, dirty state, settled diffs, unfinished artifacts, and whether
-   a specifically named World Cup thread still owns relevant edits.
-2. Set the micro-release cutoff and classify the batch by risk.
-3. Short-circuit a no-change `again` before release-note edits or broad tests.
-4. Assess release-note need and run the selected focused or complete local path.
-5. Integrate without losing work. If `origin/main` moved, use a safe rebase or
-   merge appropriate to the current tree, then rerun checks affected by the
-   integration.
-6. Commit and push the settled batch once through the designated publishing
-   thread.
-7. Treat exact-SHA GitHub CI as the comprehensive remote gate.
-8. Let the repository's Vercel Git integration deploy pushes to production from
-   `main`; do not also run `vercel --prod` during a normal release.
-9. Verify production serves the intended exact commit and that relevant assets
-   and APIs are healthy.
-10. Once the exact release is verified, stop changing files.
+1. Wait for relevant World Cup tasks to become idle and inspect the settled
+   repository diff.
+2. If nothing changed, report current status and stop.
+3. Choose routine or careful mode from the actual risk, update release notes
+   only when user-visible behavior or content changed, and run appropriate
+   checks.
+4. Commit and push the settled batch without losing unfinished or unrelated
+   work. If `origin/main` moved, integrate it safely and rerun affected checks.
+5. Treat exact-SHA GitHub CI as the comprehensive remote gate.
+6. Let the repository's Vercel Git integration deploy `main`; do not also run
+   `vercel --prod` for the same release.
+7. Verify the exact production commit and relevant assets or APIs, then stop.
 
 Use a manual Vercel deployment only for an explicitly requested redeploy, a
 failed Git-triggered deployment, promotion of a specific verified deployment,
@@ -203,5 +214,6 @@ The final release record should contain:
 - included scope and excluded temporary artifacts;
 - blocker fixes added during publishing;
 - remaining non-blocking warnings;
-- confirmation that the working tree, local `main`, `origin/main`, and
-  production are aligned.
+- an honest report of the staged and remaining local state, plus whether local
+  `main`, `origin/main`, and production are aligned. Never call a checkout clean
+  when unfinished work remains.
