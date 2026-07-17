@@ -1,13 +1,13 @@
 {
   "schemaVersion": "2",
-  "generatedAt": "2026-07-16T17:30:12.660Z",
+  "generatedAt": "2026-07-17T17:41:06.655Z",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "2",
-    "runId": "lineup-prediction-2026-07-16-00d3f1b60ef7",
+    "runId": "lineup-prediction-2026-07-17-00d3f1b60ef7",
     "inputFingerprint": "00d3f1b60ef730b0370e694e6ef096a059e23b0d5e3d7fa01b531b175852470d",
     "modelFingerprint": "0a7cb9061bf6dcbadb28cd27443ea6e64a535376a529ffdd9565807b659cf21c",
-    "revisionId": "34474c9ffcbed1709bef956d614357f3e3f46b9607b3585e0b01cd9bcffc0931"
+    "revisionId": "eda950e7b2c6641a768d098699fd50d7c08b82176fda31c889b99b1e5727652f"
   },
   "sources": [
     {
@@ -64,7 +64,7 @@
       "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-16T17:30:12.660Z",
+      "checkedAt": "2026-07-17T17:41:06.655Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
     },
     {
@@ -169,7 +169,7 @@
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-16T17:30:12.660Z",
+      "lastUpdated": "2026-07-17T17:41:06.655Z",
       "confidence": {
         "label": "high",
         "score": 0.812,
@@ -182,7 +182,7 @@
           "providerVersion": "1",
           "score": 0.853,
           "predictionClass": "forecast",
-          "recencyWeight": 0.723,
+          "recencyWeight": 0.51,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -198,7 +198,7 @@
           "providerVersion": "1",
           "score": 0.965,
           "predictionClass": "forecast",
-          "recencyWeight": 1,
+          "recencyWeight": 0.705,
           "sourceReliability": 1,
           "independenceKey": "source:sports-mole",
           "updatedAt": "2026-07-16T17:30:00Z",
@@ -211,7 +211,7 @@
           "providerVersion": "1",
           "score": 0.958,
           "predictionClass": "forecast",
-          "recencyWeight": 1,
+          "recencyWeight": 0.705,
           "sourceReliability": 1,
           "independenceKey": "source:racing-post",
           "updatedAt": "2026-07-16T17:30:00Z",
@@ -238,7 +238,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 2.422,
+              "score": 1.707,
               "independentVotes": 3,
               "sourceIds": [
                 "sports-mole-france-england-preview-2026-07-16",
@@ -260,7 +260,7 @@
               "alternatives": [
                 {
                   "name": "N'Golo Kanté",
-                  "score": 0.952,
+                  "score": 0.669,
                   "evidenceStrength": 0.292,
                   "independentStarterVotes": 1,
                   "sourceIds": [
@@ -301,7 +301,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 2.422,
+              "score": 1.707,
               "independentVotes": 3,
               "sourceIds": [
                 "sports-mole-france-england-preview-2026-07-16",
@@ -1389,7 +1389,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-16T17:30:12.660Z"
+          "checkedAt": "2026-07-17T17:41:06.655Z"
         },
         "confidence": {
           "label": "high",
@@ -1405,8 +1405,8 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-16T17:30:12.660Z",
-        "updatedAt": "2026-07-16T17:30:12.660Z"
+        "checkedAt": "2026-07-17T17:41:06.655Z",
+        "updatedAt": "2026-07-17T17:41:06.655Z"
       }
     },
     {
@@ -1421,7 +1421,7 @@
         "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "lastUpdated": "2026-07-16T17:30:12.660Z",
+      "lastUpdated": "2026-07-17T17:41:06.655Z",
       "confidence": {
         "label": "high",
         "score": 0.865,
@@ -1434,7 +1434,7 @@
           "providerVersion": "1",
           "score": 0.917,
           "predictionClass": "forecast",
-          "recencyWeight": 0.723,
+          "recencyWeight": 0.51,
           "sourceReliability": 1,
           "independenceKey": "source:lineup-prediction-official-history",
           "updatedAt": "2026-07-15T19:00:00Z",
@@ -1450,7 +1450,7 @@
           "providerVersion": "1",
           "score": 0.965,
           "predictionClass": "forecast",
-          "recencyWeight": 1,
+          "recencyWeight": 0.705,
           "sourceReliability": 1,
           "independenceKey": "source:sports-mole",
           "updatedAt": "2026-07-16T17:30:00Z",
@@ -1463,7 +1463,7 @@
           "providerVersion": "1",
           "score": 0.958,
           "predictionClass": "forecast",
-          "recencyWeight": 1,
+          "recencyWeight": 0.705,
           "sourceReliability": 1,
           "independenceKey": "source:racing-post",
           "updatedAt": "2026-07-16T17:30:00Z",
@@ -1490,7 +1490,7 @@
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 1.87,
+              "score": 1.318,
               "independentVotes": 2,
               "sourceIds": [
                 "sports-mole-spain-argentina-preview-2026-07-16",
@@ -1499,7 +1499,7 @@
             },
             {
               "formation": "4-1-2-3",
-              "score": 0.627,
+              "score": 0.442,
               "independentVotes": 1,
               "sourceIds": [
                 "lineup-prediction-official-history",
@@ -1536,7 +1536,7 @@
           "formationScores": [
             {
               "formation": "4-4-2",
-              "score": 1.562,
+              "score": 1.101,
               "independentVotes": 2,
               "sourceIds": [
                 "sports-mole-spain-argentina-preview-2026-07-16",
@@ -1548,7 +1548,7 @@
             },
             {
               "formation": "4-1-4-1",
-              "score": 0.929,
+              "score": 0.655,
               "independentVotes": 1,
               "sourceIds": [
                 "racing-post-spain-argentina-preview-2026-07-16"
@@ -2630,7 +2630,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-16T17:30:12.660Z"
+          "checkedAt": "2026-07-17T17:41:06.655Z"
         },
         "confidence": {
           "label": "high",
@@ -2646,8 +2646,8 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "checkedAt": "2026-07-16T17:30:12.660Z",
-        "updatedAt": "2026-07-16T17:30:12.660Z"
+        "checkedAt": "2026-07-17T17:41:06.655Z",
+        "updatedAt": "2026-07-17T17:41:06.655Z"
       }
     }
   ],
