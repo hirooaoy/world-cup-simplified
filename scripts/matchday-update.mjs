@@ -2,8 +2,35 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  createPipelineFingerprint,
+  readPipelineCache,
+  writePipelineCache
+} from "./pipeline-fingerprint.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const verificationCachePath = path.join(root, ".tmp-data", "pipeline-cache.json");
+const verificationCacheKey = "matchday-verification-v1";
+const verificationInputs = [
+  "app-config.js",
+  "app.js",
+  "chatbot-knowledge.js",
+  "chatbot.css",
+  "chatbot.js",
+  "data",
+  "football-locale-zh.js",
+  "index.html",
+  "locales",
+  "package.json",
+  "pnpm-lock.yaml",
+  "report.html",
+  "report.js",
+  "scripts",
+  "styles",
+  "styles.css",
+  "theme-init.js"
+];
+const forceVerification = process.argv.includes("--force-verify") || process.env.CI === "true";
 const steps = [
   {
     label: "Sync FIFA scores and statuses",
@@ -191,6 +218,37 @@ async function runValidatedProfileRefresh(stepIndex) {
   return stepIndex + 3;
 }
 
+async function runVerificationSteps(stepIndex) {
+  const current = await createPipelineFingerprint({ inputs: verificationInputs, root });
+  const cached = await readPipelineCache({
+    cachePath: verificationCachePath,
+    key: verificationCacheKey
+  });
+
+  if (!forceVerification && cached?.fingerprint === current.fingerprint) {
+    console.log(
+      formatStep(
+        stepIndex,
+        `Skip unchanged verification (${current.fileCount} input files match the last successful run)`
+      )
+    );
+    return stepIndex + 1;
+  }
+
+  for (const step of verificationSteps) {
+    console.log(formatStep(stepIndex, step.label));
+    await runNodeScript(step);
+    stepIndex += 1;
+  }
+
+  await writePipelineCache({
+    cachePath: verificationCachePath,
+    key: verificationCacheKey,
+    entry: current
+  });
+  return stepIndex;
+}
+
 async function main() {
   let stepIndex = 1;
 
@@ -225,11 +283,7 @@ async function main() {
   });
   stepIndex += 1;
 
-  for (const step of verificationSteps) {
-    console.log(formatStep(stepIndex, step.label));
-    await runNodeScript(step);
-    stepIndex += 1;
-  }
+  stepIndex = await runVerificationSteps(stepIndex);
 
   console.log("\nMatchday update complete. Review the data diff, then commit and deploy if it looks sane.");
 }

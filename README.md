@@ -104,6 +104,11 @@ pnpm matchday:update
 
 `pnpm matchday:update` refreshes scores, status, goal events, player cards when needed, result facts, and official highlight links. It also runs the same checks as `pnpm test`.
 
+Live/source refresh steps always run. Locally, the expensive deterministic
+verification tail is skipped when its full data, script, app, locale, and style
+fingerprint matches the last successful run. Use `pnpm matchday:update:verify`
+to force the complete verification tail; CI always forces it.
+
 The command does not write current-match story bullets. Add those only after a source-backed post-match research pass.
 
 Use `pnpm results:research` to find finished matches that still need sourced story bullets. It reports what needs work. It does not call paid APIs or write prose.
