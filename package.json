@@ -45,6 +45,7 @@
     "results": "node scripts/populate-result-highlights.mjs",
     "results:check": "node scripts/audit-result-enrichment.mjs",
     "results:research": "node scripts/sync-result-story-research.mjs",
+    "release:status": "node scripts/release-status.mjs",
     "sync:h2h": "node scripts/sync-h2h-results.mjs",
     "sync:fifa:events": "node scripts/sync-fifa-match-events.mjs",
     "sync:fifa:goals": "node scripts/sync-fifa-goal-events.mjs",

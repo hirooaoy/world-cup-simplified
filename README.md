@@ -77,6 +77,13 @@ Use risk-based checks while developing:
 Do not rerun the complete suite when the settled tree has not materially
 changed. A narrow late fix only needs its affected checks rerun.
 
+Inspect the current local, GitHub, CI, Vercel, and production state without
+changing it:
+
+```sh
+pnpm release:status
+```
+
 Run a focused browser/data smoke group, or one of the three stable CI shards:
 
 ```sh

@@ -55,9 +55,9 @@ make unfinished or unreviewed experiments part of the release.
 
 ### `again`
 
-1. Check the working tree, live `origin/main`, exact-SHA Data Quality run,
-   GitHub-reported Vercel deployment, and production reachability without
-   changing repository or deployment state.
+1. Run `pnpm release:status` to check the working tree, live `origin/main`,
+   exact-SHA Data Quality run, GitHub-reported Vercel deployment, and production
+   reachability without changing repository or deployment state.
 2. If a new settled World Cup batch exists, ship it.
 3. If nothing new exists and production already matches the current commit,
    report that everything is current and stop.
