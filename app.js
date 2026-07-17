@@ -8,77 +8,46 @@ import {
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
 } from "./locales/locale-runtime.js?v=2026-07-16-9";
-
-const DATA_VERSION = "2026-07-16-ranking-year-1";
-const DATA_URLS = {
-  adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
-  fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
-  history: `data/history.json?v=${DATA_VERSION}`,
-  historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
-  coachProfiles: `data/coach-profiles.json?v=${DATA_VERSION}`,
-  lineups: `data/lineups.json?v=${DATA_VERSION}`,
-  expectedLineups: `data/expected-lineups.json?v=${DATA_VERSION}`,
-  playerAvailability: `data/player-availability.json?v=${DATA_VERSION}`,
-  liveData: `api/live-data?v=${DATA_VERSION}`,
-  playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
-  releaseNotes: `data/release-notes.json?v=${DATA_VERSION}`,
-  standings: `data/standings.json?v=${DATA_VERSION}`,
-  teams: `data/teams.json?v=${DATA_VERSION}`,
-  tournament: `data/tournament.json?v=${DATA_VERSION}`
-};
-
-const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
-const SITE_ORIGIN = "https://world-cup-simplified.vercel.app";
-const SITE_SOCIAL_IMAGE = `${SITE_ORIGIN}/assets/site-thumbnail.png?v=2026-06-17-1213`;
-const HOME_SEO = {
-  en: {
-    title: "World Cup Simplified",
-    description:
-      "Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
-  },
-  zh: {
-    title: "2026世界杯赛程、赛果、积分榜与阵容 | 世界杯简明指南",
-    description:
-      "按你的时区查看2026世界杯赛程、已验证阵容、实时赛果、积分榜、预测、简明回顾和官方集锦。"
-  }
-};
-const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
-const TIMEZONE_MODE_STORAGE_KEY = "world-cup-simplified-timezone-mode";
-const DEVICE_TIMEZONE_STORAGE_VALUE = "device";
-const RECENT_TIMEZONES_STORAGE_KEY = "world-cup-simplified-recent-timezones";
-const SHOW_YESTERDAY_STORAGE_KEY = "world-cup-simplified-show-yesterday";
-const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
-const ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX = "world-cup-simplified-admin-message-dismissed:";
-const ADMIN_MESSAGE_COLLAPSE_DURATION_MS = 280;
-const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
-  ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
-  ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
-]);
-const FIFA_SCHEDULE_RESULTS_URL =
-  "https://www.fifa.com";
-const TEAM_SEARCH_URL_UPDATE_DELAY_MS = 180;
-const JUGGLE_BALL_EMOJI = "⚽";
-const JUGGLE_FALL_SPEED = 420;
-const JUGGLE_GRAVITY = 1060;
-const JUGGLE_POINTER_HIT_RADIUS_MULTIPLIER = 1.55;
-const JUGGLE_TOUCH_HIT_RADIUS_MULTIPLIER = 1.72;
-const JUGGLE_HIT_LEAD_SECONDS = 0.05;
-const JUGGLE_CLICK_BLOCK_MS = 650;
-const JUGGLE_DIFFICULTY_STEP = 5;
-const JUGGLE_MAX_DIFFICULTY_LEVEL = 7;
-const JUGGLE_GRAVITY_LEVEL_MULTIPLIER = 0.08;
-const JUGGLE_KICK_LEVEL_MULTIPLIER = 0.03;
-const JUGGLE_LATERAL_LEVEL_MULTIPLIER = 0.06;
-const JUGGLE_WALL_BOUNCE_BASE_MULTIPLIER = 0.82;
-const JUGGLE_WALL_BOUNCE_LEVEL_MULTIPLIER = 0.028;
-const JUGGLE_WALL_BOUNCE_DRIFT = 32;
-const JUGGLE_WALL_BOUNCE_LEVEL_DRIFT = 8;
-const JUGGLE_WALL_BOUNCE_DROP_SPEED = 18;
-const JUGGLE_WALL_BOUNCE_LEVEL_DROP_SPEED = 3;
-const JUGGLE_WALL_BOUNCE_SPIN = 185;
-const JUGGLE_WALL_BOUNCE_LEVEL_SPIN = 22;
-const JUGGLE_MAX_FRAME_SECONDS = 0.04;
-const JUGGLE_SOUND_DURATION_SECONDS = 0.08;
+import {
+  ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
+  ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
+  DATA_URLS,
+  DEVICE_TIMEZONE_STORAGE_VALUE,
+  FIFA_SCHEDULE_RESULTS_URL,
+  HOME_SEO,
+  JUGGLE_BALL_EMOJI,
+  JUGGLE_CLICK_BLOCK_MS,
+  JUGGLE_DIFFICULTY_STEP,
+  JUGGLE_FALL_SPEED,
+  JUGGLE_GRAVITY,
+  JUGGLE_GRAVITY_LEVEL_MULTIPLIER,
+  JUGGLE_HIT_LEAD_SECONDS,
+  JUGGLE_KICK_LEVEL_MULTIPLIER,
+  JUGGLE_LATERAL_LEVEL_MULTIPLIER,
+  JUGGLE_MAX_DIFFICULTY_LEVEL,
+  JUGGLE_MAX_FRAME_SECONDS,
+  JUGGLE_POINTER_HIT_RADIUS_MULTIPLIER,
+  JUGGLE_RECORD_STORAGE_KEY,
+  JUGGLE_SOUND_DURATION_SECONDS,
+  JUGGLE_TOUCH_HIT_RADIUS_MULTIPLIER,
+  JUGGLE_WALL_BOUNCE_BASE_MULTIPLIER,
+  JUGGLE_WALL_BOUNCE_DRIFT,
+  JUGGLE_WALL_BOUNCE_DROP_SPEED,
+  JUGGLE_WALL_BOUNCE_LEVEL_DRIFT,
+  JUGGLE_WALL_BOUNCE_LEVEL_DROP_SPEED,
+  JUGGLE_WALL_BOUNCE_LEVEL_MULTIPLIER,
+  JUGGLE_WALL_BOUNCE_LEVEL_SPIN,
+  JUGGLE_WALL_BOUNCE_SPIN,
+  LANGUAGE_STORAGE_KEY,
+  OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS,
+  RECENT_TIMEZONES_STORAGE_KEY,
+  SHOW_YESTERDAY_STORAGE_KEY,
+  SITE_ORIGIN,
+  SITE_SOCIAL_IMAGE,
+  TEAM_SEARCH_URL_UPDATE_DELAY_MS,
+  TIMEZONE_MODE_STORAGE_KEY,
+  TIMEZONE_STORAGE_KEY
+} from "./app-config.js?v=2026-07-17-modules-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -16793,19 +16762,19 @@ function getHistoricalProjectionModel() {
     : fallback;
 
   return {
-    version: configured.version || "historical-world-cup-form-v2-regulation",
+    version: configured.version || "historical-world-cup-form-v4-chronological-holdout",
     market: configured.market || "regulation",
     initialRating: numberValue("initialRating", 1500),
     eloScale: numberValue("eloScale", 400),
-    kFactor: numberValue("kFactor", 28),
+    kFactor: numberValue("kFactor", 48),
     marginStep: numberValue("marginStep", 0.25),
     marginCap: numberValue("marginCap", 2),
-    groupDrawBase: numberValue("groupDrawBase", 28),
-    knockoutDrawBase: numberValue("knockoutDrawBase", 24),
+    groupDrawBase: numberValue("groupDrawBase", 26),
+    knockoutDrawBase: numberValue("knockoutDrawBase", 26),
     drawFloor: numberValue("drawFloor", 18),
-    drawGapDivisor: numberValue("drawGapDivisor", 60),
+    drawGapDivisor: numberValue("drawGapDivisor", 80),
     drawGapCap: numberValue("drawGapCap", 8),
-    winLogisticScale: numberValue("winLogisticScale", 190)
+    winLogisticScale: numberValue("winLogisticScale", 160)
   };
 }
 

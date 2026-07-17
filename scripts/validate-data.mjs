@@ -1075,7 +1075,7 @@ assert(
   "tournament.json must define forecastModels.historicalWorldCupForm"
 );
 assert(
-  historicalForecastModel?.version === "historical-world-cup-form-v2-regulation" &&
+  historicalForecastModel?.version === "historical-world-cup-form-v4-chronological-holdout" &&
     historicalForecastModel?.market === "regulation",
   "Historical forecast model must explicitly use the versioned regulation-time contract"
 );

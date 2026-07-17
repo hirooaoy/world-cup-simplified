@@ -1,19 +1,19 @@
 import { createHash } from "node:crypto";
 
 export const DEFAULT_HISTORICAL_FORECAST_MODEL = Object.freeze({
-  version: "historical-world-cup-form-v2-regulation",
+  version: "historical-world-cup-form-v4-chronological-holdout",
   market: "regulation",
   initialRating: 1500,
   eloScale: 400,
-  kFactor: 28,
+  kFactor: 48,
   marginStep: 0.25,
   marginCap: 2,
-  groupDrawBase: 28,
-  knockoutDrawBase: 24,
+  groupDrawBase: 26,
+  knockoutDrawBase: 26,
   drawFloor: 18,
-  drawGapDivisor: 60,
+  drawGapDivisor: 80,
   drawGapCap: 8,
-  winLogisticScale: 190
+  winLogisticScale: 160
 });
 
 function finiteNumber(value, fallback) {
@@ -109,8 +109,10 @@ export function getHistoricalOutcomeFingerprint(fixtures) {
   return createHash("sha256").update(JSON.stringify(rows)).digest("hex");
 }
 
-export function auditHistoricalForecasts(fixtures, modelInput = {}) {
+export function auditHistoricalForecasts(fixtures, modelInput = {}, options = {}) {
   const model = normalizeHistoricalForecastModel(modelInput);
+  const scoreFromYear = Number(options.scoreFromYear) || Number.NEGATIVE_INFINITY;
+  const scoreThroughYear = Number(options.scoreThroughYear) || Number.POSITIVE_INFINITY;
   const ratings = new Map();
   const orderedFixtures = [...(fixtures || [])].sort((a, b) =>
     String(a?.sortKey || "").localeCompare(String(b?.sortKey || ""))
@@ -130,27 +132,39 @@ export function auditHistoricalForecasts(fixtures, modelInput = {}) {
     const awayRating = ratings.get(fixture.awaySlot) ?? model.initialRating;
     const projection = buildHistoricalProjection(homeRating, awayRating, Boolean(fixture.group), model);
     const outcome = score.home > score.away ? "home" : score.home < score.away ? "away" : "draw";
+    const tournamentYear = Number(fixture.tournamentYear) || Number(String(fixture.sortKey || "").slice(0, 4));
+    const scoreFixture = tournamentYear >= scoreFromYear && tournamentYear <= scoreThroughYear;
     const probabilities = {
       home: projection.home / 100,
       draw: projection.draw / 100,
       away: projection.away / 100
     };
 
-    for (const key of ["home", "draw", "away"]) {
-      brierTotal += (probabilities[key] - (key === outcome ? 1 : 0)) ** 2;
+    if (scoreFixture) {
+      for (const key of ["home", "draw", "away"]) {
+        brierTotal += (probabilities[key] - (key === outcome ? 1 : 0)) ** 2;
+      }
+      logLossTotal -= Math.log(Math.max(0.0001, probabilities[outcome]));
+      const favorite = Object.entries(probabilities).sort((a, b) => b[1] - a[1])[0][0];
+      if (favorite === outcome) {
+        correctFavorites += 1;
+      }
+      predictions += 1;
     }
-    logLossTotal -= Math.log(Math.max(0.0001, probabilities[outcome]));
-    const favorite = Object.entries(probabilities).sort((a, b) => b[1] - a[1])[0][0];
-    if (favorite === outcome) {
-      correctFavorites += 1;
-    }
-    predictions += 1;
     applyHistoricalRegulationResult(ratings, fixture, model);
+  }
+
+  if (!predictions) {
+    throw new Error("Historical forecast audit window contains no scoreable fixtures.");
   }
 
   return {
     schemaVersion: 1,
     model,
+    evaluationWindow: {
+      scoreFromYear: Number.isFinite(scoreFromYear) ? scoreFromYear : null,
+      scoreThroughYear: Number.isFinite(scoreThroughYear) ? scoreThroughYear : null
+    },
     outcomeFingerprint: getHistoricalOutcomeFingerprint(fixtures),
     predictions,
     metrics: {

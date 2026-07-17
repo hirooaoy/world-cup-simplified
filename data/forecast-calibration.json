@@ -1,26 +1,30 @@
 {
-  "generatedAt": "2026-07-15T00:54:59.389Z",
+  "generatedAt": "2026-07-17T18:16:10.705Z",
   "schemaVersion": 1,
   "model": {
-    "version": "historical-world-cup-form-v2-regulation",
+    "version": "historical-world-cup-form-v4-chronological-holdout",
     "market": "regulation",
     "initialRating": 1500,
     "eloScale": 400,
-    "kFactor": 28,
+    "kFactor": 48,
     "marginStep": 0.25,
     "marginCap": 2,
-    "groupDrawBase": 28,
-    "knockoutDrawBase": 24,
+    "groupDrawBase": 26,
+    "knockoutDrawBase": 26,
     "drawFloor": 18,
-    "drawGapDivisor": 60,
+    "drawGapDivisor": 80,
     "drawGapCap": 8,
-    "winLogisticScale": 190
+    "winLogisticScale": 160
+  },
+  "evaluationWindow": {
+    "scoreFromYear": null,
+    "scoreThroughYear": null
   },
   "outcomeFingerprint": "d1f92d572851538423b5de1bb680dad7a085114332ea0aa999dfcef89a0f46c3",
   "predictions": 964,
   "metrics": {
-    "brier": 0.6184,
-    "logLoss": 1.0313,
+    "brier": 0.6115,
+    "logLoss": 1.021,
     "favoriteAccuracy": 0.5083,
     "uniformBrier": 0.6667,
     "uniformLogLoss": 1.0986

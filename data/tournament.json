@@ -33,19 +33,19 @@
   },
   "forecastModels": {
     "historicalWorldCupForm": {
-      "version": "historical-world-cup-form-v2-regulation",
+      "version": "historical-world-cup-form-v4-chronological-holdout",
       "market": "regulation",
       "initialRating": 1500,
       "eloScale": 400,
-      "kFactor": 28,
+      "kFactor": 48,
       "marginStep": 0.25,
       "marginCap": 2,
-      "groupDrawBase": 28,
-      "knockoutDrawBase": 24,
+      "groupDrawBase": 26,
+      "knockoutDrawBase": 26,
       "drawFloor": 18,
-      "drawGapDivisor": 60,
+      "drawGapDivisor": 80,
       "drawGapCap": 8,
-      "winLogisticScale": 190
+      "winLogisticScale": 160
     }
   },
   "sources": [
