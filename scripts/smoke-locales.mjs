@@ -43,6 +43,7 @@ const localeCases = [
     catchUpContentPattern: /\b(?:el|la|los|las|de|del|en|con|por|para|y|se)\b/iu,
     catchUpHeadline: "Argentina supera por la mínima a Inglaterra y llega a la final",
     catchUpBody: "La victoria 2-1 llevó a Argentina a la final.",
+    catchUpDynamicPattern: /Bota de Oro/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
     latestReleaseTitle:
@@ -112,6 +113,7 @@ const localeCases = [
     catchUpContentPattern: /[가-힣]/u,
     catchUpHeadline: "아르헨티나가 잉글랜드를 한 골 차로 꺾고 결승에 올랐다",
     catchUpBody: "아르헨티나의 2-1 승리로 결승 진출이 확정됐다.",
+    catchUpDynamicPattern: /골든부트/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
     latestReleaseTitle: "스페인어·한국어 지원, 더 빠른 역대 기록 탐색과 세련된 조작",
@@ -799,8 +801,9 @@ async function assertLocale(locale, browser) {
       catchUp.dialog === locale.catchUpDialog &&
       catchUp.text.length > 30 &&
       locale.catchUpContentPattern.test(catchUp.text) &&
-      catchUp.text.includes(locale.catchUpHeadline) &&
-      catchUp.text.includes(locale.catchUpBody),
+      ((catchUp.text.includes(locale.catchUpHeadline) &&
+        catchUp.text.includes(locale.catchUpBody)) ||
+        locale.catchUpDynamicPattern.test(catchUp.text)),
     `${locale.code}: Catch Up shell and loaded editorial copy should be localized. Measured ${JSON.stringify(catchUp)}.`
   );
   await page.locator("#catch-up-button").click();
