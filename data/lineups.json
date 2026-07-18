@@ -50395,7 +50395,7 @@
         "fifa-lineups-sync-2026-07-18",
         "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
       ],
-      "checkedAt": "2026-07-18T19:51:01.010Z",
+      "checkedAt": "2026-07-18T22:26:54.775Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -50590,7 +50590,28 @@
         "events": {
           "cards": [],
           "staffCards": [],
-          "substitutions": []
+          "substitutions": [
+            {
+              "offName": "Ibrahima Konate",
+              "onName": "Dayot Upamecano",
+              "minute": "HT"
+            },
+            {
+              "offName": "Desire Doue",
+              "onName": "Bradley Barcola",
+              "minute": "HT"
+            },
+            {
+              "offName": "Theo Hernandez",
+              "onName": "Lucas Digne",
+              "minute": "HT"
+            },
+            {
+              "offName": "Rayan Cherki",
+              "onName": "Ousmane Dembele",
+              "minute": "HT"
+            }
+          ]
         }
       },
       "away": {
@@ -50781,10 +50802,16 @@
         "events": {
           "cards": [],
           "staffCards": [],
-          "substitutions": []
+          "substitutions": [
+            {
+              "offName": "Marcus Rashford",
+              "onName": "Ollie Watkins",
+              "minute": "HT"
+            }
+          ]
         }
       }
     }
   },
-  "updatedAt": "2026-07-18T21:27:45.282Z"
+  "updatedAt": "2026-07-18T22:26:54.775Z"
 }

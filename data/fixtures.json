@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T21:27:52.667Z",
+  "updatedAt": "2026-07-18T22:27:06.238Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -27780,10 +27780,21 @@
         ]
       },
       "score": {
-        "home": 0,
-        "away": 2
+        "home": 2,
+        "away": 4
       },
-      "goalsHome": [],
+      "goalsHome": [
+        {
+          "minute": 48,
+          "name": "Kylian Mbappe",
+          "assistName": "Michael Olise"
+        },
+        {
+          "minute": 54,
+          "name": "Bradley Barcola",
+          "assistName": "Kylian Mbappe"
+        }
+      ],
       "goalsAway": [
         {
           "minute": 3,
@@ -27793,6 +27804,17 @@
           "minute": 18,
           "name": "Ezri Konsa",
           "assistName": "Declan Rice"
+        },
+        {
+          "minute": 37,
+          "name": "Bukayo Saka",
+          "assistName": "Marcus Rashford"
+        },
+        {
+          "minute": 45,
+          "offset": 1,
+          "name": "Bukayo Saka",
+          "assistName": "Eberechi Eze"
         }
       ]
     },

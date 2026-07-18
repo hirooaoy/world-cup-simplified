@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T21:27:52.667Z",
+  "updatedAt": "2026-07-18T22:27:06.238Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -2919,28 +2919,12 @@
       "note": "FIFA's article provides the date and score of all 14 senior meetings."
     },
     {
-      "id": "fifa-lineups-sync-2026-07-18",
-      "label": "FIFA official lineups sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-18T19:51:01.010Z",
-      "note": "1 FIFA team sheet checked across 0 completed and 1 near-kickoff fixture; lineups.json carries official starters, bench, cards, and substitutions for 103 fixtures; 1 changed on this pass."
-    },
-    {
       "id": "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
       "label": "FIFA official Tactical Line-up - match 103",
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12551/pdf/TacticalLineup-English.pdf",
       "type": "official",
       "checkedAt": "2026-07-18T19:46:00.000Z",
       "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
-    },
-    {
-      "id": "fifa-official-results-sync-2026-07-18",
-      "label": "FIFA official results sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-18T21:27:39.637Z",
-      "note": "1 fixture update merged from 104 matched FIFA fixtures."
     },
     {
       "id": "fifa-tactical-lineup-match-103-v2-e71b493bf5be",
@@ -2951,11 +2935,27 @@
       "note": "FIFA Tactical Line-up version 2, updated after observation of the game, supplied the observed rows and left/right geometry for all 22 starters."
     },
     {
+      "id": "fifa-official-results-sync-2026-07-18",
+      "label": "FIFA official results sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-18T22:26:53.549Z",
+      "note": "1 fixture update merged from 104 matched FIFA fixtures."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-18",
+      "label": "FIFA official lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-18T22:26:54.775Z",
+      "note": "103 FIFA team sheets checked across 102 completed and 1 near-kickoff fixture; lineups.json carries official starters, bench, cards, and substitutions for 103 fixtures; 1 changed on this pass."
+    },
+    {
       "id": "fifa-goal-events-sync-2026-07-18",
       "label": "FIFA official goal event timeline sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-18T21:27:52.667Z",
+      "checkedAt": "2026-07-18T22:27:06.238Z",
       "note": "1 fixture goal-event update merged from 95 matched FIFA timelines."
     }
   ],
