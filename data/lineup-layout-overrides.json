@@ -138,9 +138,10 @@
     "fifa-tactical-lineup-match-70-v2-755d4ea58d85",
     "fifa-tactical-lineup-match-80-v2-86b2c339d1f3",
     "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207",
-    "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+    "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
+    "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
   ],
-  "updatedAt": "2026-07-18T19:51:01.963Z",
+  "updatedAt": "2026-07-18T21:27:45.282Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "verified",
@@ -19920,11 +19921,11 @@
       "status": "verified",
       "layoutSource": "fifa-official-layout",
       "verificationMethod": "fifa-tactical-lineup-pdf-v1",
-      "checkedAt": "2026-07-18T19:46:00.000Z",
+      "checkedAt": "2026-07-18T21:13:00.000Z",
       "homeTeamId": "FRA",
       "awayTeamId": "ENG",
       "sourceIds": [
-        "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+        "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
       ],
       "sources": [
         {
@@ -19933,27 +19934,21 @@
           "url": "https://fdp.fifa.org/assetspublic/ce281/r12551/pdf/TacticalLineup-English.pdf",
           "status": "matched",
           "exactLayout": true,
-          "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+          "sourceDetail": "Positioned text from FIFA's updated post-observation Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
           "matchNumber": 103,
           "registrationId": 12551,
-          "documentVersion": 1,
-          "publishedAt": "2026-07-18T19:46:00.000Z",
-          "sha256": "5c769165f2d91e27512b5ce23a52cbf16042ec204872c103c4232a5e0521928f",
-          "layoutPerspective": "nominal",
-          "isUpdatedVersion": false
+          "documentVersion": 2,
+          "publishedAt": "2026-07-18T21:13:00.000Z",
+          "sha256": "e71b493bf5be5432cfab64df8be84709334e6ce609d3ca855cd699b669667af2",
+          "layoutPerspective": "observed",
+          "isUpdatedVersion": true,
+          "revisionComment": "Update to the tactical line up after observation of the game."
         }
       ],
-      "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
+      "note": "FIFA's updated Tactical Line-up PDF, published after observation of the game, supplied the observed starting shape and exact player placement.",
       "home": {
-        "formation": "4-1-2-3",
+        "formation": "4-2-3-1",
         "players": [
-          {
-            "number": "20",
-            "name": "Desire Doue",
-            "position": "LW",
-            "x": 29,
-            "y": 8
-          },
           {
             "number": "10",
             "name": "Kylian Mbappe",
@@ -19962,31 +19957,38 @@
             "y": 8
           },
           {
+            "number": "20",
+            "name": "Desire Doue",
+            "position": "LW",
+            "x": 29,
+            "y": 28
+          },
+          {
+            "number": "24",
+            "name": "Rayan Cherki",
+            "position": "AM",
+            "x": 50,
+            "y": 28
+          },
+          {
             "number": "11",
             "name": "Michael Olise",
             "position": "RW",
             "x": 71,
-            "y": 8
+            "y": 28
           },
           {
             "number": "14",
             "name": "Adrien Rabiot",
             "position": "CM",
             "x": 40,
-            "y": 33
-          },
-          {
-            "number": "24",
-            "name": "Rayan Cherki",
-            "position": "CM",
-            "x": 60,
-            "y": 33
+            "y": 48
           },
           {
             "number": "18",
             "name": "Warren Zaire-Emery",
-            "position": "DM",
-            "x": 50,
+            "position": "CM",
+            "x": 60,
             "y": 48
           },
           {
@@ -20027,8 +20029,15 @@
         ]
       },
       "away": {
-        "formation": "4-2-3-1",
+        "formation": "4-1-2-3",
         "players": [
+          {
+            "number": "11",
+            "name": "Marcus Rashford",
+            "position": "LW",
+            "x": 29,
+            "y": 8
+          },
           {
             "number": "22",
             "name": "Ivan Toney",
@@ -20037,38 +20046,31 @@
             "y": 8
           },
           {
-            "number": "11",
-            "name": "Marcus Rashford",
-            "position": "LW",
-            "x": 29,
-            "y": 28
-          },
-          {
-            "number": "17",
-            "name": "Morgan Rogers",
-            "position": "AM",
-            "x": 50,
-            "y": 28
-          },
-          {
             "number": "7",
             "name": "Bukayo Saka",
             "position": "RW",
             "x": 71,
-            "y": 28
+            "y": 8
           },
           {
             "number": "21",
             "name": "Eberechi Eze",
             "position": "CM",
             "x": 40,
-            "y": 48
+            "y": 33
+          },
+          {
+            "number": "17",
+            "name": "Morgan Rogers",
+            "position": "CM",
+            "x": 60,
+            "y": 33
           },
           {
             "number": "4",
             "name": "Declan Rice",
-            "position": "CM",
-            "x": 60,
+            "position": "DM",
+            "x": 50,
             "y": 48
           },
           {

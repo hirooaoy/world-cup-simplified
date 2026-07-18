@@ -151,7 +151,8 @@
     "fifa-tactical-lineup-match-80-v2-86b2c339d1f3",
     "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207",
     "fifa-lineups-sync-2026-07-18",
-    "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+    "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
+    "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -50366,9 +50367,9 @@
       "layoutSource": "fifa-official-layout",
       "layoutVerification": {
         "status": "verified",
-        "checkedAt": "2026-07-18T19:46:00.000Z",
+        "checkedAt": "2026-07-18T21:13:00.000Z",
         "sourceIds": [
-          "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+          "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
         ],
         "sources": [
           {
@@ -50376,26 +50377,27 @@
             "adapter": "fifa-tactical-pdf",
             "url": "https://fdp.fifa.org/assetspublic/ce281/r12551/pdf/TacticalLineup-English.pdf",
             "status": "matched",
-            "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+            "sourceDetail": "Positioned text from FIFA's updated post-observation Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
             "exactLayout": true,
             "matchNumber": 103,
             "registrationId": 12551,
-            "documentVersion": 1,
-            "publishedAt": "2026-07-18T19:46:00.000Z",
-            "sha256": "5c769165f2d91e27512b5ce23a52cbf16042ec204872c103c4232a5e0521928f",
-            "layoutPerspective": "nominal",
-            "isUpdatedVersion": false
+            "documentVersion": 2,
+            "publishedAt": "2026-07-18T21:13:00.000Z",
+            "sha256": "e71b493bf5be5432cfab64df8be84709334e6ce609d3ca855cd699b669667af2",
+            "layoutPerspective": "observed",
+            "isUpdatedVersion": true,
+            "revisionComment": "Update to the tactical line up after observation of the game."
           }
         ],
-        "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet."
+        "note": "FIFA's updated Tactical Line-up PDF, published after observation of the game, supplied the observed starting shape and exact player placement."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-18",
-        "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+        "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
       ],
       "checkedAt": "2026-07-18T19:51:01.010Z",
       "home": {
-        "formation": "4-1-2-3",
+        "formation": "4-2-3-1",
         "coach": {
           "name": "Didier Deschamps",
           "teamName": "France",
@@ -50449,23 +50451,23 @@
             "sourcePosition": "midfielder",
             "position": "CM",
             "x": 40,
-            "y": 33
+            "y": 48
           },
           {
             "number": "18",
             "name": "Warren Zaire-Emery",
             "sourcePosition": "midfielder",
-            "position": "DM",
-            "x": 50,
+            "position": "CM",
+            "x": 60,
             "y": 48
           },
           {
             "number": "24",
             "name": "Rayan Cherki",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 60,
-            "y": 33
+            "position": "AM",
+            "x": 50,
+            "y": 28
           },
           {
             "number": "10",
@@ -50482,7 +50484,7 @@
             "sourcePosition": "forward",
             "position": "RW",
             "x": 71,
-            "y": 8
+            "y": 28
           },
           {
             "number": "20",
@@ -50490,7 +50492,7 @@
             "sourcePosition": "forward",
             "position": "LW",
             "x": 29,
-            "y": 8
+            "y": 28
           }
         ],
         "bench": [
@@ -50592,7 +50594,7 @@
         }
       },
       "away": {
-        "formation": "4-2-3-1",
+        "formation": "4-1-2-3",
         "coach": {
           "name": "Thomas Tuchel",
           "teamName": "England",
@@ -50645,17 +50647,17 @@
             "name": "Declan Rice",
             "sourcePosition": "midfielder",
             "isCaptain": true,
-            "position": "CM",
-            "x": 60,
+            "position": "DM",
+            "x": 50,
             "y": 48
           },
           {
             "number": "17",
             "name": "Morgan Rogers",
             "sourcePosition": "midfielder",
-            "position": "AM",
-            "x": 50,
-            "y": 28
+            "position": "CM",
+            "x": 60,
+            "y": 33
           },
           {
             "number": "21",
@@ -50663,7 +50665,7 @@
             "sourcePosition": "midfielder",
             "position": "CM",
             "x": 40,
-            "y": 48
+            "y": 33
           },
           {
             "number": "7",
@@ -50671,7 +50673,7 @@
             "sourcePosition": "forward",
             "position": "RW",
             "x": 71,
-            "y": 28
+            "y": 8
           },
           {
             "number": "11",
@@ -50679,7 +50681,7 @@
             "sourcePosition": "forward",
             "position": "LW",
             "x": 29,
-            "y": 28
+            "y": 8
           },
           {
             "number": "22",
@@ -50784,5 +50786,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-18T19:51:01.963Z"
+  "updatedAt": "2026-07-18T21:27:45.282Z"
 }

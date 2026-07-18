@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T19:51:01.010Z",
+  "updatedAt": "2026-07-18T21:27:52.667Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -192,7 +192,9 @@
     "national-football-teams-h2h-sync-2026-07-17",
     "uefa-england-france-h2h-2026-07-17",
     "rsssf-england-france-results-2026-07-17",
-    "fifa-argentina-spain-h2h-2026-07-17"
+    "fifa-argentina-spain-h2h-2026-07-17",
+    "fifa-official-results-sync-2026-07-18",
+    "fifa-goal-events-sync-2026-07-18"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -27232,7 +27234,7 @@
       "homeSlot": "Runner-up match 101",
       "awaySlot": "Runner-up match 102",
       "venue": "Miami Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "coverageStatus": "complete",
@@ -27776,7 +27778,23 @@
             "basis": "Margin-normalized 10/11 / 14/5 / 14/5 bet365 regulation prices"
           }
         ]
-      }
+      },
+      "score": {
+        "home": 0,
+        "away": 2
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 3,
+          "name": "Declan Rice"
+        },
+        {
+          "minute": 18,
+          "name": "Ezri Konsa",
+          "assistName": "Declan Rice"
+        }
+      ]
     },
     {
       "id": "match-104-final-2026-07-19",
