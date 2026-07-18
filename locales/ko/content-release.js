@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "341ceebfb64a7c81746198b135fd152cc7e5d2c94df9b407e6c6e99a2eeea706"
+  "sourceFingerprint": "1f48514b6ac41278495b1af6dd36405e8dab617088a59c4d0048b9edba1fde9c"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.": "Ball Boy가 이제 하나의 화면처럼 자연스럽게 열립니다. 패널, 제목, 상단 컨트롤과 대화 영역이 같은 시점에 나타나며 입력창은 추가 지연 없이 표시됩니다.",
-  "Correct knockout scores, honest H2H, and faster loading": "정확한 토너먼트 점수, 정직한 상대 전적, 더 빠른 로딩",
-  "On mobile, Tournament's Show next button and Ball Boy now form one bottom-right dock that stays close to the browser edge instead of being lifted into the bracket by a duplicated viewport offset.": "모바일에서 토너먼트의 ‘다음 보기’ 버튼과 Ball Boy가 이제 브라우저 가장자리에 붙어 있는 하나의 오른쪽 하단 도킹 영역을 구성하며, 중복된 뷰포트 오프셋 때문에 대진표 안쪽으로 떠오르지 않습니다.",
-  "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "작은 화면에서는 Ball Boy가 열리거나 닫히는 동안에도 바닥글 안내 문구가 겹침을 피하는 줄바꿈과 간격을 유지해 애니메이션 중 움직이지 않습니다."
+  "Cleaner, timezone-aware data freshness": "더 간결하고 시간대에 맞는 데이터 업데이트 표시",
+  "Data refreshed now says today or yesterday in lowercase when appropriate, otherwise shows the date; its day and time follow the selected time zone without repeating a time-zone abbreviation.": "데이터 업데이트 시간은 해당할 때 ‘오늘’ 또는 ‘어제’로 표시하고, 그보다 오래된 경우 날짜를 표시합니다. 날짜와 시간은 선택한 시간대를 따르며 시간대 약어를 반복하지 않습니다.",
+  "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.": "바닥글은 이제 출처 보기, 최신 데이터 업데이트 시간, 릴리스 노트 보기 링크만 간결하게 표시하며 비공식 예측 안내를 반복하지 않습니다.",
+  "The main app and Report issue page now share the same footer wording and time-zone behavior, with automated checks covering Los Angeles and Tokyo.": "메인 앱과 오류 제보 페이지는 이제 같은 바닥글 문구와 시간대 동작을 사용하며, 로스앤젤레스와 도쿄를 대상으로 한 자동 검사를 포함합니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

@@ -3,7 +3,7 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-17-10";
+} from "./locales/locale-runtime.js?v=2026-07-18-1";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
@@ -324,7 +324,40 @@ function escapeHtml(value) {
 
 function getFooterTimeZone() {
   const storedTimeZone = String(localStorage.getItem(TIMEZONE_STORAGE_KEY) || "").trim();
-  return reportTimeZone || storedTimeZone || Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+  const deviceTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+
+  if (storedTimeZone === "device") {
+    return deviceTimeZone;
+  }
+
+  return storedTimeZone || reportTimeZone || deviceTimeZone;
+}
+
+function getFooterDayKey(value, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone,
+    year: "numeric"
+  }).formatToParts(value);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function getPreviousFooterDayKey(dayKey) {
+  const [year, month, day] = dayKey.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day - 1, 12));
+  return [date.getUTCFullYear(), String(date.getUTCMonth() + 1).padStart(2, "0"), String(date.getUTCDate()).padStart(2, "0")].join("-");
+}
+
+function formatFooterRelativeTime(dayLabel, timeText) {
+  if (currentLanguage === "es") {
+    return `${dayLabel} a las ${timeText}`;
+  }
+  if (currentLanguage === "zh" || currentLanguage === "ko") {
+    return `${dayLabel} ${timeText}`;
+  }
+  return `${dayLabel} at ${timeText}`;
 }
 
 function formatFooterUpdatedAt(value) {
@@ -334,22 +367,39 @@ function formatFooterUpdatedAt(value) {
   }
 
   try {
+    const timeZone = getFooterTimeZone();
+    const updatedAt = new Date(timestamp);
+    const todayKey = getFooterDayKey(new Date(), timeZone);
+    const updatedDayKey = getFooterDayKey(updatedAt, timeZone);
+    const relativeDay = updatedDayKey === todayKey
+      ? { en: "today", es: "hoy", ko: "오늘", zh: "今天" }[currentLanguage]
+      : updatedDayKey === getPreviousFooterDayKey(todayKey)
+        ? { en: "yesterday", es: "ayer", ko: "어제", zh: "昨天" }[currentLanguage]
+        : "";
+
+    if (relativeDay) {
+      const timeText = new Intl.DateTimeFormat(getIntlLocale(), {
+        hour: "numeric",
+        minute: "2-digit",
+        timeZone
+      }).format(updatedAt);
+      return formatFooterRelativeTime(relativeDay, timeText);
+    }
+
     return new Intl.DateTimeFormat(getIntlLocale(), {
       day: "numeric",
       hour: "numeric",
       minute: "2-digit",
       month: "short",
-      timeZone: getFooterTimeZone(),
-      timeZoneName: "short",
+      timeZone,
       year: "numeric"
-    }).format(new Date(timestamp));
+    }).format(updatedAt);
   } catch {
     return new Intl.DateTimeFormat(getIntlLocale(), {
       day: "numeric",
       hour: "numeric",
       minute: "2-digit",
       month: "short",
-      timeZoneName: "short",
       year: "numeric"
     }).format(new Date(timestamp));
   }
@@ -431,7 +481,6 @@ function renderReportFooter() {
   const dataRefreshed = updatedAtText
     ? `${escapeHtml(ft.dataRefreshed)} ${escapeHtml(updatedAtText)}`
     : "";
-  const predictionsText = escapeHtml(ft.predictions.replace(/[.。]$/u, ""));
   const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
   const creatorText = activeLocalePack?.formatting?.creatorPattern
     ? escapeHtml(activeLocalePack.formatting.creatorPattern).replace("{creator}", creatorLink)
@@ -464,7 +513,7 @@ function renderReportFooter() {
     </span>
   `.trim();
 
-  sourceNote.innerHTML = [sourceTooltip, predictionsText, dataRefreshed, releaseTooltip]
+  sourceNote.innerHTML = [sourceTooltip, dataRefreshed, releaseTooltip]
     .filter(Boolean)
     .join(" • ");
   updateReportFooterTooltipBounds();

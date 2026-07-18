@@ -82,6 +82,14 @@ const reportLocale = {
     "Australia/Sydney": "Sídney"
   },
   releaseNotes: {
+    "Cleaner, timezone-aware data freshness": {
+      title: "Actualización de datos más clara y adaptada a la zona horaria",
+      highlights: [
+        "El pie de página ahora presenta de forma concisa los enlaces de confianza: Ver fuentes, la hora de la última actualización de datos y Ver notas de la versión, sin repetir el aviso sobre pronósticos no oficiales.",
+        "La actualización de datos ahora indica hoy o ayer en minúsculas cuando corresponde; en los demás casos muestra la fecha. El día y la hora siguen la zona horaria seleccionada sin repetir su abreviatura.",
+        "La aplicación principal y la página Reportar un problema ahora comparten el mismo texto y comportamiento de zona horaria en el pie de página, con comprobaciones automáticas para Los Ángeles y Tokio."
+      ]
+    },
     "Clearer tooltips, smoother match selection, and stronger football visuals": {
       title: "Información más clara, selección de partidos más fluida y una identidad futbolística más sólida",
       highlights: [

@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-17T15:39:27-07:00",
+  "updatedAt": "2026-07-18T09:35:19-07:00",
   "releases": [
+    {
+      "date": "2026-07-18",
+      "title": "Cleaner, timezone-aware data freshness",
+      "titleZh": "更简洁、按时区显示的数据刷新时间",
+      "highlights": [
+        "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.",
+        "Data refreshed now says today or yesterday in lowercase when appropriate, otherwise shows the date; its day and time follow the selected time zone without repeating a time-zone abbreviation.",
+        "The main app and Report issue page now share the same footer wording and time-zone behavior, with automated checks covering Los Angeles and Tokyo."
+      ],
+      "highlightsZh": [
+        "页脚现在更简洁地保留信任信息：查看来源、最新数据刷新时间和查看发布说明，不再重复显示预测免责声明。",
+        "数据刷新时间会在合适时显示“今天”或“昨天”，否则显示完整日期；日期与时间会跟随所选时区，且不再重复显示时区缩写。",
+        "主应用与“报告问题”页面现在使用一致的页脚文案和时区行为，并加入覆盖洛杉矶与东京场景的自动检查。"
+      ]
+    },
     {
       "date": "2026-07-17",
       "title": "Correct knockout scores, honest H2H, and faster loading",

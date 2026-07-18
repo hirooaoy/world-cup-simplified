@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-17-10";
+} from "./locales/locale-runtime.js?v=2026-07-18-1";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -8401,15 +8401,39 @@ function formatSiteUpdatedAt(value) {
     return "";
   }
 
+  const updatedAt = new Date(timestamp);
+  const todayKey = getDayKey(new Date(), selectedTimeZone);
+  const updatedDayKey = getDayKey(updatedAt, selectedTimeZone);
+  const relativeDay = updatedDayKey === todayKey
+    ? localizeText("today")
+    : updatedDayKey === getRelativeDayKey(todayKey, -1)
+      ? localizeText("Yesterday").toLocaleLowerCase(getAppLocale())
+      : "";
+
+  if (relativeDay) {
+    const timeText = new Intl.DateTimeFormat(getAppLocale(), {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: selectedTimeZone
+    }).format(updatedAt);
+
+    if (currentLanguage === "es") {
+      return `${relativeDay} a las ${timeText}`;
+    }
+    if (currentLanguage === "zh" || currentLanguage === "ko") {
+      return `${relativeDay} ${timeText}`;
+    }
+    return `${relativeDay} at ${timeText}`;
+  }
+
   return new Intl.DateTimeFormat(getAppLocale(), {
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
     month: "short",
     timeZone: selectedTimeZone,
-    timeZoneName: "short",
     year: "numeric"
-  }).format(new Date(timestamp));
+  }).format(updatedAt);
 }
 
 function getTimeZoneAbbreviation(timeZone, date = new Date()) {
@@ -30189,7 +30213,6 @@ function renderSourceNote() {
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
   const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
-  const predictionsText = localizeText("Predictions are unofficial.").replace(/[.。]$/u, "");
   const dataRefreshed = updatedAtText
     ? `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}`
     : "";
@@ -30214,7 +30237,7 @@ function renderSourceNote() {
       </span>
     </span>
   `.trim();
-  sourceNote.innerHTML = [sourceTooltip, predictionsText, dataRefreshed, releaseTooltip]
+  sourceNote.innerHTML = [sourceTooltip, dataRefreshed, releaseTooltip]
     .filter(Boolean)
     .join(" • ");
   updateTooltipBounds(sourceNote);

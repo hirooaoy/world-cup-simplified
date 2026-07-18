@@ -1951,16 +1951,40 @@ function getLatestUpdatedAt(items) {
   return latestTimestamp ? new Date(latestTimestamp).toISOString() : "";
 }
 
-function formatExpectedSourceUpdatedAt(value) {
+function formatExpectedSourceUpdatedAt(
+  value,
+  now = new Date(),
+  timeZone = "America/Los_Angeles"
+) {
+  const updatedAt = new Date(value);
+  const updatedDayKey = getDayKeyForTimeZone(updatedAt, timeZone);
+  const todayKey = getDayKeyForTimeZone(now, timeZone);
+  const [todayYear, todayMonth, todayDay] = todayKey.split("-").map(Number);
+  const yesterday = new Date(Date.UTC(todayYear, todayMonth - 1, todayDay - 1, 12));
+  const yesterdayKey = getDayKeyForTimeZone(yesterday, "UTC");
+  const relativeDay = updatedDayKey === todayKey
+    ? "today"
+    : updatedDayKey === yesterdayKey
+      ? "yesterday"
+      : "";
+
+  if (relativeDay) {
+    const timeText = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone
+    }).format(updatedAt);
+    return `${relativeDay} at ${timeText}`;
+  }
+
   return new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
     month: "short",
-    timeZone: "America/Los_Angeles",
-    timeZoneName: "short",
+    timeZone,
     year: "numeric"
-  }).format(new Date(value));
+  }).format(updatedAt);
 }
 
 function getExpectedReleaseTooltipText(data) {
@@ -9921,7 +9945,8 @@ try {
   );
   await latestKnockoutChineseCheck.context.close();
 
-  const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
+  const sourceFreshnessNow = new Date("2026-07-18T08:00:00.000Z");
+  const sourceFreshnessCheck = await openPageAtTime(sourceFreshnessNow.toISOString());
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
   const sourceNoteText = await sourceNote.innerText();
   const normalizedSourceNoteText = sourceNoteText
@@ -9976,17 +10001,16 @@ try {
     };
   });
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
-  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
-  const expectedSourceUpdatedAtPattern = expectedSourceUpdatedAt
-    .replace(/\d{1,2}:\d{2}\s(?:AM|PM)/, "__SOURCE_TIME__")
-    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-    .replace("__SOURCE_TIME__", "\\d{1,2}:\\d{2}\\s(?:AM|PM)");
-  const expectedSourceNotePattern = new RegExp(
-    `^See sources • Predictions are unofficial • Data refreshed ${expectedSourceUpdatedAtPattern} • See release notes$`
+  const latestSourceUpdatedAt = getLatestUpdatedAt(sourceNoteRefreshData);
+  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(
+    latestSourceUpdatedAt,
+    sourceFreshnessNow,
+    "America/Los_Angeles"
   );
+  const expectedSourceNoteText = `See sources • Data refreshed ${expectedSourceUpdatedAt} • See release notes`;
   assert(
-    expectedSourceNotePattern.test(normalizedSourceNoteText),
-    `The source note should stay short and separate data freshness from release notes. Expected to match ${expectedSourceNotePattern}, received "${normalizedSourceNoteText}".`
+    normalizedSourceNoteText === expectedSourceNoteText,
+    `The source note should omit the prediction disclaimer and show relative freshness without a timezone suffix. Expected "${expectedSourceNoteText}", received "${normalizedSourceNoteText}".`
   );
   assert(
     sourceLinkLabels ===
@@ -10085,6 +10109,45 @@ try {
       !sourceNoteText.includes("Latest result data checked") &&
       !sourceNoteText.includes("Source data checked"),
     "The source note should not show diagnostic freshness details."
+  );
+  await sourceFreshnessCheck.page.locator("#settings-button").click();
+  await sourceFreshnessCheck.page.locator("#timezone-picker-trigger").click();
+  await sourceFreshnessCheck.page.locator("#timezone-search-input").fill("Japan");
+  await sourceFreshnessCheck.page
+    .locator('.timezone-picker-option[data-time-zone="Asia/Tokyo"]')
+    .click();
+  const tokyoSourceUpdatedAt = formatExpectedSourceUpdatedAt(
+    latestSourceUpdatedAt,
+    sourceFreshnessNow,
+    "Asia/Tokyo"
+  );
+  const tokyoSourceNoteText = (await sourceNote.innerText())
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,。])/g, "$1")
+    .trim();
+  assert(
+    tokyoSourceNoteText === `See sources • Data refreshed ${tokyoSourceUpdatedAt} • See release notes`,
+    `The footer freshness day and time should update with the saved timezone. Measured "${tokyoSourceNoteText}".`
+  );
+
+  const reportFooterPage = await sourceFreshnessCheck.context.newPage();
+  await reportFooterPage.goto(`${baseUrl}/report.html`, { waitUntil: "load" });
+  const expectedReportUpdatedAt = formatExpectedSourceUpdatedAt(
+    fixturesData.updatedAt,
+    sourceFreshnessNow,
+    "Asia/Tokyo"
+  );
+  await reportFooterPage.waitForFunction(
+    (expectedText) => document.querySelector("#source-note")?.innerText.includes(expectedText),
+    `Data refreshed ${expectedReportUpdatedAt}`
+  );
+  const reportFooterText = (await reportFooterPage.locator("#source-note").innerText())
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,。])/g, "$1")
+    .trim();
+  assert(
+    reportFooterText === `See sources • Data refreshed ${expectedReportUpdatedAt} • See release notes`,
+    `The report footer should use the same saved timezone-aware freshness copy. Measured "${reportFooterText}".`
   );
   await sourceFreshnessCheck.context.close();
 

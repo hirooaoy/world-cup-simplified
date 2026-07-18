@@ -82,6 +82,14 @@ const reportLocale = {
     "Australia/Sydney": "시드니"
   },
   releaseNotes: {
+    "Cleaner, timezone-aware data freshness": {
+      title: "더 간결하고 시간대에 맞는 데이터 업데이트 표시",
+      highlights: [
+        "바닥글은 이제 출처 보기, 최신 데이터 업데이트 시간, 릴리스 노트 보기 링크만 간결하게 표시하며 비공식 예측 안내를 반복하지 않습니다.",
+        "데이터 업데이트 시간은 해당할 때 ‘오늘’ 또는 ‘어제’로 표시하고, 그보다 오래된 경우 날짜를 표시합니다. 날짜와 시간은 선택한 시간대를 따르며 시간대 약어를 반복하지 않습니다.",
+        "메인 앱과 오류 제보 페이지는 이제 같은 바닥글 문구와 시간대 동작을 사용하며, 로스앤젤레스와 도쿄를 대상으로 한 자동 검사를 포함합니다."
+      ]
+    },
     "Clearer tooltips, smoother match selection, and stronger football visuals": {
       title: "더 명확한 도움말, 더 매끄러운 경기 선택, 더 완성도 높은 축구 화면",
       highlights: [

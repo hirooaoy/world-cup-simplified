@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "341ceebfb64a7c81746198b135fd152cc7e5d2c94df9b407e6c6e99a2eeea706"
+  "sourceFingerprint": "1f48514b6ac41278495b1af6dd36405e8dab617088a59c4d0048b9edba1fde9c"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Ball Boy now opens as one coordinated surface: the panel, title, header controls, and conversation share the same reveal timing, while the composer appears without an extra delay.": "Ball Boy ahora se abre como una sola superficie coordinada: el panel, el título, los controles del encabezado y la conversación aparecen al mismo tiempo, mientras que el campo para escribir se muestra sin demora adicional.",
-  "Correct knockout scores, honest H2H, and faster loading": "Marcadores correctos en eliminatorias, historiales transparentes y carga más rápida",
-  "On mobile, Tournament's Show next button and Ball Boy now form one bottom-right dock that stays close to the browser edge instead of being lifted into the bracket by a duplicated viewport offset.": "En dispositivos móviles, el botón Mostrar siguiente del Torneo y Ball Boy ahora forman una sola zona fija en la esquina inferior derecha, cerca del borde del navegador, en vez de desplazarse hacia arriba sobre el cuadro por una compensación duplicada del área visible.",
-  "On small screens, the footer disclaimer keeps its collision-safe wrap and spacing while Ball Boy opens or closes instead of shifting during the animation.": "En pantallas pequeñas, el aviso del pie de página conserva el ajuste de línea y el espacio que evitan a Ball Boy mientras se abre o se cierra, en lugar de moverse durante la animación."
+  "Cleaner, timezone-aware data freshness": "Actualización de datos más clara y adaptada a la zona horaria",
+  "Data refreshed now says today or yesterday in lowercase when appropriate, otherwise shows the date; its day and time follow the selected time zone without repeating a time-zone abbreviation.": "La actualización de datos ahora indica hoy o ayer en minúsculas cuando corresponde; en los demás casos muestra la fecha. El día y la hora siguen la zona horaria seleccionada sin repetir su abreviatura.",
+  "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.": "El pie de página ahora presenta de forma concisa los enlaces de confianza: Ver fuentes, la hora de la última actualización de datos y Ver notas de la versión, sin repetir el aviso sobre pronósticos no oficiales.",
+  "The main app and Report issue page now share the same footer wording and time-zone behavior, with automated checks covering Los Angeles and Tokyo.": "La aplicación principal y la página Reportar un problema ahora comparten el mismo texto y comportamiento de zona horaria en el pie de página, con comprobaciones automáticas para Los Ángeles y Tokio."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 
