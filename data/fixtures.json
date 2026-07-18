@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T22:27:06.238Z",
+  "updatedAt": "2026-07-18T23:30:24.225Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -27234,7 +27234,7 @@
       "homeSlot": "Runner-up match 101",
       "awaySlot": "Runner-up match 102",
       "venue": "Miami Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "coverageStatus": "complete",
@@ -27780,8 +27780,8 @@
         ]
       },
       "score": {
-        "home": 2,
-        "away": 4
+        "home": 4,
+        "away": 6
       },
       "goalsHome": [
         {
@@ -27793,6 +27793,17 @@
           "minute": 54,
           "name": "Bradley Barcola",
           "assistName": "Kylian Mbappe"
+        },
+        {
+          "minute": 66,
+          "name": "Kylian Mbappe",
+          "assistName": "Michael Olise"
+        },
+        {
+          "minute": 90,
+          "offset": 6,
+          "name": "Ousmane Dembele",
+          "assistName": "Dayot Upamecano"
         }
       ],
       "goalsAway": [
@@ -27815,6 +27826,16 @@
           "offset": 1,
           "name": "Bukayo Saka",
           "assistName": "Eberechi Eze"
+        },
+        {
+          "minute": 87,
+          "name": "Bukayo Saka",
+          "penalty": true
+        },
+        {
+          "minute": 90,
+          "offset": 8,
+          "name": "Jude Bellingham"
         }
       ]
     },

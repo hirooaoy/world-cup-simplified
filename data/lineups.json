@@ -50361,7 +50361,7 @@
       }
     },
     "match-103-bronze-final-2026-07-18": {
-      "mode": "confirmed",
+      "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
       "layoutSource": "fifa-official-layout",
@@ -50395,7 +50395,7 @@
         "fifa-lineups-sync-2026-07-18",
         "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
       ],
-      "checkedAt": "2026-07-18T22:26:54.775Z",
+      "checkedAt": "2026-07-18T23:30:12.339Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -50610,6 +50610,11 @@
               "offName": "Rayan Cherki",
               "onName": "Ousmane Dembele",
               "minute": "HT"
+            },
+            {
+              "offName": "Malo Gusto",
+              "onName": "Jules Kounde",
+              "minute": "90+1"
             }
           ]
         }
@@ -50807,11 +50812,31 @@
               "offName": "Marcus Rashford",
               "onName": "Ollie Watkins",
               "minute": "HT"
+            },
+            {
+              "offName": "Ivan Toney",
+              "onName": "Elliot Anderson",
+              "minute": 79
+            },
+            {
+              "offName": "Eberechi Eze",
+              "onName": "Jude Bellingham",
+              "minute": 79
+            },
+            {
+              "offName": "Jarell Quansah",
+              "onName": "Reece James",
+              "minute": 83
+            },
+            {
+              "offName": "Marc Guehi",
+              "onName": "Trevoh Chalobah",
+              "minute": "90+2"
             }
           ]
         }
       }
     }
   },
-  "updatedAt": "2026-07-18T22:26:54.775Z"
+  "updatedAt": "2026-07-18T23:30:12.339Z"
 }
