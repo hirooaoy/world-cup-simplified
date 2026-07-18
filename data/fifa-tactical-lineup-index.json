@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "competitionEditionId": "281",
-  "updatedAt": "2026-07-16T16:29:09.561Z",
+  "updatedAt": "2026-07-18T19:51:01.963Z",
   "minimumRegistrationId": 12449,
-  "maximumKnownRegistrationId": 12550,
+  "maximumKnownRegistrationId": 12551,
   "lookaheadRegistrationCount": 16,
   "extendedLookaheadRegistrationCount": 128,
   "registrationsByMatchNumber": {
@@ -108,7 +108,8 @@
     "99": 12548,
     "100": 12546,
     "101": 12550,
-    "102": 12549
+    "102": 12549,
+    "103": 12551
   },
   "documents": {
     "1": {
@@ -1284,6 +1285,14 @@
       "version": 1,
       "publishedAt": "2026-07-15T17:41:37.000Z",
       "sha256": "cda8da4f98a5a9493b526b49558ab3d39e494b5647d5a703f00b19fa232a8f83"
+    },
+    "103": {
+      "fixtureId": "match-103-bronze-final-2026-07-18",
+      "registrationId": 12551,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12551/pdf/TacticalLineup-English.pdf",
+      "version": 1,
+      "publishedAt": "2026-07-18T19:46:00.000Z",
+      "sha256": "5c769165f2d91e27512b5ce23a52cbf16042ec204872c103c4232a5e0521928f"
     }
   }
 }

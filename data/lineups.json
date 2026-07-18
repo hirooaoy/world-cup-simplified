@@ -149,7 +149,9 @@
     "fifa-tactical-lineup-match-63-v2-e6d199e88d2b",
     "fifa-tactical-lineup-match-70-v2-755d4ea58d85",
     "fifa-tactical-lineup-match-80-v2-86b2c339d1f3",
-    "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207"
+    "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207",
+    "fifa-lineups-sync-2026-07-18",
+    "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -50356,7 +50358,431 @@
           ]
         }
       }
+    },
+    "match-103-bronze-final-2026-07-18": {
+      "mode": "confirmed",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "fifa-official-layout",
+      "layoutVerification": {
+        "status": "verified",
+        "checkedAt": "2026-07-18T19:46:00.000Z",
+        "sourceIds": [
+          "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+        ],
+        "sources": [
+          {
+            "name": "FIFA Tactical Line-up PDF",
+            "adapter": "fifa-tactical-pdf",
+            "url": "https://fdp.fifa.org/assetspublic/ce281/r12551/pdf/TacticalLineup-English.pdf",
+            "status": "matched",
+            "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+            "exactLayout": true,
+            "matchNumber": 103,
+            "registrationId": 12551,
+            "documentVersion": 1,
+            "publishedAt": "2026-07-18T19:46:00.000Z",
+            "sha256": "5c769165f2d91e27512b5ce23a52cbf16042ec204872c103c4232a5e0521928f",
+            "layoutPerspective": "nominal",
+            "isUpdatedVersion": false
+          }
+        ],
+        "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet."
+      },
+      "sourceIds": [
+        "fifa-lineups-sync-2026-07-18",
+        "fifa-tactical-lineup-match-103-v1-5c769165f2d9"
+      ],
+      "checkedAt": "2026-07-18T19:51:01.010Z",
+      "home": {
+        "formation": "4-1-2-3",
+        "coach": {
+          "name": "Didier Deschamps",
+          "teamName": "France",
+          "imageUrl": "https://digitalhub.fifa.com/transform/38ce0161-6896-4b2a-ac42-700d51e5acac/DESCHAMPS-Didier_48455",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289291/400021542"
+        },
+        "players": [
+          {
+            "number": "16",
+            "name": "Mike Maignan",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 86
+          },
+          {
+            "number": "2",
+            "name": "Malo Gusto",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 81,
+            "y": 68
+          },
+          {
+            "number": "15",
+            "name": "Ibrahima Konate",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 60,
+            "y": 68
+          },
+          {
+            "number": "19",
+            "name": "Theo Hernandez",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 19,
+            "y": 68
+          },
+          {
+            "number": "26",
+            "name": "Maxence Lacroix",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 40,
+            "y": 68
+          },
+          {
+            "number": "14",
+            "name": "Adrien Rabiot",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 40,
+            "y": 33
+          },
+          {
+            "number": "18",
+            "name": "Warren Zaire-Emery",
+            "sourcePosition": "midfielder",
+            "position": "DM",
+            "x": 50,
+            "y": 48
+          },
+          {
+            "number": "24",
+            "name": "Rayan Cherki",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 60,
+            "y": 33
+          },
+          {
+            "number": "10",
+            "name": "Kylian Mbappe",
+            "sourcePosition": "forward",
+            "isCaptain": true,
+            "position": "ST",
+            "x": 50,
+            "y": 8
+          },
+          {
+            "number": "11",
+            "name": "Michael Olise",
+            "sourcePosition": "forward",
+            "position": "RW",
+            "x": 71,
+            "y": 8
+          },
+          {
+            "number": "20",
+            "name": "Desire Doue",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 29,
+            "y": 8
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "Brice Samba",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "23",
+            "name": "Robin Risser",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "3",
+            "name": "Lucas Digne",
+            "sourcePosition": "defender",
+            "position": "LB"
+          },
+          {
+            "number": "4",
+            "name": "Dayot Upamecano",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "5",
+            "name": "Jules Kounde",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "17",
+            "name": "William Saliba",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "21",
+            "name": "Lucas Hernandez",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "6",
+            "name": "Manu Kone",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "8",
+            "name": "Aurelien Tchouameni",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "13",
+            "name": "Ngolo Kante",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "25",
+            "name": "Maghnes Akliouche",
+            "sourcePosition": "midfielder",
+            "position": "AM"
+          },
+          {
+            "number": "7",
+            "name": "Ousmane Dembele",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "9",
+            "name": "Marcus Thuram",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "12",
+            "name": "Bradley Barcola",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "22",
+            "name": "Jean-Philippe Mateta",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": []
+        }
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "coach": {
+          "name": "Thomas Tuchel",
+          "teamName": "England",
+          "imageUrl": "https://digitalhub.fifa.com/transform/fc649bf3-486d-4ca8-aa84-d30c87cea7e5/TUCHEL-Thomas_165190",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289291/400021542"
+        },
+        "players": [
+          {
+            "number": "13",
+            "name": "Dean Henderson",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 86
+          },
+          {
+            "number": "2",
+            "name": "Ezri Konsa",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 60,
+            "y": 68
+          },
+          {
+            "number": "6",
+            "name": "Marc Guehi",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 40,
+            "y": 68
+          },
+          {
+            "number": "25",
+            "name": "Djed Spence",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 19,
+            "y": 68
+          },
+          {
+            "number": "26",
+            "name": "Jarell Quansah",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 81,
+            "y": 68
+          },
+          {
+            "number": "4",
+            "name": "Declan Rice",
+            "sourcePosition": "midfielder",
+            "isCaptain": true,
+            "position": "CM",
+            "x": 60,
+            "y": 48
+          },
+          {
+            "number": "17",
+            "name": "Morgan Rogers",
+            "sourcePosition": "midfielder",
+            "position": "AM",
+            "x": 50,
+            "y": 28
+          },
+          {
+            "number": "21",
+            "name": "Eberechi Eze",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 40,
+            "y": 48
+          },
+          {
+            "number": "7",
+            "name": "Bukayo Saka",
+            "sourcePosition": "forward",
+            "position": "RW",
+            "x": 71,
+            "y": 28
+          },
+          {
+            "number": "11",
+            "name": "Marcus Rashford",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 29,
+            "y": 28
+          },
+          {
+            "number": "22",
+            "name": "Ivan Toney",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 8
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "Jordan Pickford",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "23",
+            "name": "James Trafford",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "3",
+            "name": "Nico Oreilly",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "5",
+            "name": "John Stones",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "12",
+            "name": "Trevoh Chalobah",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "15",
+            "name": "Dan Burn",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "24",
+            "name": "Reece James",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "8",
+            "name": "Elliot Anderson",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "10",
+            "name": "Jude Bellingham",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "14",
+            "name": "Jordan Henderson",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "9",
+            "name": "Harry Kane",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "18",
+            "name": "Anthony Gordon",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "19",
+            "name": "Ollie Watkins",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "20",
+            "name": "Noni Madueke",
+            "sourcePosition": "forward",
+            "position": "RW"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": []
+        }
+      }
     }
   },
-  "updatedAt": "2026-07-16T16:29:09.561Z"
+  "updatedAt": "2026-07-18T19:51:01.963Z"
 }
