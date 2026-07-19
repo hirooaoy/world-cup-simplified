@@ -50875,7 +50875,7 @@
         "fifa-lineups-sync-2026-07-19",
         "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
-      "checkedAt": "2026-07-19T19:48:23.960Z",
+      "checkedAt": "2026-07-19T19:55:29.574Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -51273,10 +51273,16 @@
             }
           ],
           "staffCards": [],
-          "substitutions": []
+          "substitutions": [
+            {
+              "offName": "Lisandro Martinez",
+              "onName": "Nicolas Otamendi",
+              "minute": 44
+            }
+          ]
         }
       }
     }
   },
-  "updatedAt": "2026-07-19T19:48:28.489Z"
+  "updatedAt": "2026-07-19T19:55:29.574Z"
 }
