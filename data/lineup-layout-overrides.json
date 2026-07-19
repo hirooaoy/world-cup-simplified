@@ -140,9 +140,10 @@
     "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207",
     "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
     "fifa-tactical-lineup-match-103-v2-e71b493bf5be",
-    "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
+    "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616",
+    "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
   ],
-  "updatedAt": "2026-07-19T18:31:33.286Z",
+  "updatedAt": "2026-07-19T19:48:28.489Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "verified",
@@ -20116,11 +20117,11 @@
       "status": "verified",
       "layoutSource": "fifa-official-layout",
       "verificationMethod": "fifa-tactical-lineup-pdf-v1",
-      "checkedAt": "2026-07-19T17:44:00.000Z",
+      "checkedAt": "2026-07-19T19:12:00.000Z",
       "homeTeamId": "ESP",
       "awayTeamId": "ARG",
       "sourceIds": [
-        "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
+        "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
       "sources": [
         {
@@ -20129,17 +20130,18 @@
           "url": "https://fdp.fifa.org/assetspublic/ce281/r12552/pdf/TacticalLineup-English.pdf",
           "status": "matched",
           "exactLayout": true,
-          "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+          "sourceDetail": "Positioned text from FIFA's updated Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
           "matchNumber": 104,
           "registrationId": 12552,
-          "documentVersion": 1,
-          "publishedAt": "2026-07-19T17:44:00.000Z",
-          "sha256": "e8e6c0d9e616806d717b0b77be56337479b49bb7476321e85c150970fa6adc9e",
-          "layoutPerspective": "nominal",
-          "isUpdatedVersion": false
+          "documentVersion": 2,
+          "publishedAt": "2026-07-19T19:12:00.000Z",
+          "sha256": "adf6b123fb40858f8eee7da5f983b7e961628a9cf99c2aef70da66073803e22d",
+          "layoutPerspective": "revised",
+          "isUpdatedVersion": true,
+          "revisionComment": "UPDATED VERSION"
         }
       ],
-      "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
+      "note": "FIFA's updated Tactical Line-up PDF supplied the latest official starting shape and exact player placement.",
       "home": {
         "formation": "4-1-2-3",
         "players": [

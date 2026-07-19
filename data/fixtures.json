@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T18:31:29.047Z",
+  "updatedAt": "2026-07-19T19:48:23.960Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -196,7 +196,8 @@
     "rsssf-england-france-results-2026-07-17",
     "fifa-argentina-spain-h2h-2026-07-17",
     "fifa-official-results-sync-2026-07-18",
-    "fifa-goal-events-sync-2026-07-18"
+    "fifa-goal-events-sync-2026-07-18",
+    "fifa-official-results-sync-2026-07-19"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -27877,7 +27878,7 @@
       "homeSlot": "Winner match 101",
       "awaySlot": "Winner match 102",
       "venue": "New York New Jersey Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "coverageStatus": "complete",
@@ -28253,6 +28254,10 @@
             "basis": "Margin-normalized 2.30 / 3.00 / 3.20 regulation prices"
           }
         ]
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     }
   ]
