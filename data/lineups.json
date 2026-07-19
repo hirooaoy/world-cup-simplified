@@ -50875,7 +50875,7 @@
         "fifa-lineups-sync-2026-07-19",
         "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
-      "checkedAt": "2026-07-19T22:04:44.097Z",
+      "checkedAt": "2026-07-19T23:32:27.450Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -51326,11 +51326,6 @@
               "playerName": "Alexis Mac Allister",
               "type": "yellow",
               "minute": 111
-            },
-            {
-              "playerName": "Leandro Paredes",
-              "type": "red",
-              "minute": 120
             }
           ],
           "staffCards": [
@@ -51377,5 +51372,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-19T22:04:44.097Z"
+  "updatedAt": "2026-07-19T23:32:27.450Z"
 }
