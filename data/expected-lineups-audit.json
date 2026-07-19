@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1",
-  "generatedAt": "2026-07-18T20:23:32.578Z",
-  "revisionId": "0df8a61ae0ec8d592a9b704046b4fb16fb8b4f674fd5fcbc3b579431a0c71f5d",
+  "generatedAt": "2026-07-19T06:44:19.061Z",
+  "revisionId": "e16c0bda8c8642938b31a00594bc0c80a6f188675f530930be5f297fa6a807c0",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "2",
-    "runId": "lineup-prediction-2026-07-18-79e5140cf7e1",
-    "inputFingerprint": "79e5140cf7e1da646be97ad816b648629e7ff1c5d7044ac16a296efdb16f9732",
+    "runId": "lineup-prediction-2026-07-19-9cb5c5dda56f",
+    "inputFingerprint": "9cb5c5dda56f89db5f8fef38ca22ce78468882a46ac95f0d9487a623477dbbf7",
     "modelFingerprint": "0a7cb9061bf6dcbadb28cd27443ea6e64a535376a529ffdd9565807b659cf21c",
-    "revisionId": "0df8a61ae0ec8d592a9b704046b4fb16fb8b4f674fd5fcbc3b579431a0c71f5d"
+    "revisionId": "e16c0bda8c8642938b31a00594bc0c80a6f188675f530930be5f297fa6a807c0"
   },
   "inputs": [
     {
@@ -57,28 +57,28 @@
       "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-18T20:23:32.578Z",
+      "checkedAt": "2026-07-19T06:44:19.061Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
     },
     {
       "id": "racing-post-spain-argentina-preview-2026-07-16",
       "label": "Racing Post Spain vs Argentina team news and predicted XIs",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-17T19:36:45.000Z",
+      "checkedAt": "2026-07-19T06:43:47.000Z",
       "sourceRole": "lineup-candidate",
       "suppliesLineup": true,
       "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
-      "note": "Independent current final preview with predicted XIs and a more conservative Argentina shape."
+      "note": "Rechecked independent final preview with predicted XIs and a more conservative Argentina shape."
     },
     {
       "id": "sports-mole-spain-argentina-preview-2026-07-16",
       "label": "Sports Mole Spain vs Argentina final predicted XIs",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-17T19:36:45.000Z",
+      "checkedAt": "2026-07-19T06:43:47.000Z",
       "sourceRole": "lineup-candidate",
       "suppliesLineup": true,
       "url": "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
-      "note": "Current final prediction retaining the Messi-Alvarez partnership; Spain's XI is paired from Sports Mole's same-day Spain prediction."
+      "note": "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership."
     }
   ],
   "fixtures": [
@@ -105,7 +105,7 @@
           "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
           "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
-        "lastUpdated": "2026-07-18T20:23:32.578Z",
+        "lastUpdated": "2026-07-19T06:44:19.061Z",
         "confidence": {
           "label": "high",
           "score": 0.865,
@@ -134,10 +134,10 @@
             "providerVersion": "1",
             "score": 0.965,
             "predictionClass": "forecast",
-            "recencyWeight": 0.699,
+            "recencyWeight": 1,
             "sourceReliability": 1,
             "independenceKey": "source:sports-mole",
-            "updatedAt": "2026-07-17T19:36:45Z",
+            "updatedAt": "2026-07-19T06:43:47Z",
             "sourceIds": [
               "sports-mole-spain-argentina-preview-2026-07-16"
             ]
@@ -147,10 +147,10 @@
             "providerVersion": "1",
             "score": 0.958,
             "predictionClass": "forecast",
-            "recencyWeight": 0.699,
+            "recencyWeight": 1,
             "sourceReliability": 1,
             "independenceKey": "source:racing-post",
-            "updatedAt": "2026-07-17T19:36:45Z",
+            "updatedAt": "2026-07-19T06:43:47Z",
             "sourceIds": [
               "racing-post-spain-argentina-preview-2026-07-16"
             ]
@@ -160,7 +160,7 @@
           "home": {
             "confidence": {
               "label": "high",
-              "score": 0.901,
+              "score": 0.911,
               "method": "evidence-strength-v2",
               "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
             },
@@ -172,9 +172,9 @@
               "method": "known-layout"
             },
             "notes": [
-              "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+              "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
               "0 availability exclusions checked",
-              "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+              "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
               "Last verified XI: match 101",
               "Recent formation: 4-1-2-3",
               "0 last-XI players removed for explicit availability"
@@ -182,7 +182,7 @@
             "formationScores": [
               {
                 "formation": "4-2-3-1",
-                "score": 1.308,
+                "score": 1.87,
                 "providerIds": [
                   "free-public-lineups"
                 ],
@@ -218,7 +218,7 @@
             "starterScores": [
               {
                 "name": "Unai Simón",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -229,7 +229,7 @@
                 "roleScores": [
                   {
                     "position": "GK",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -248,8 +248,8 @@
               },
               {
                 "name": "Pedro Porro",
-                "score": 1.622,
-                "evidenceStrength": 0.955,
+                "score": 2.162,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -259,7 +259,7 @@
                 "roleScores": [
                   {
                     "position": "RB",
-                    "score": 1.622,
+                    "score": 2.162,
                     "independentVotes": 3
                   }
                 ],
@@ -278,7 +278,7 @@
               },
               {
                 "name": "Pau Cubarsí",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -289,7 +289,7 @@
                 "roleScores": [
                   {
                     "position": "RCB",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -308,7 +308,7 @@
               },
               {
                 "name": "Aymeric Laporte",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -319,7 +319,7 @@
                 "roleScores": [
                   {
                     "position": "LCB",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -338,7 +338,7 @@
               },
               {
                 "name": "Marc Cucurella",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -349,7 +349,7 @@
                 "roleScores": [
                   {
                     "position": "LB",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -368,7 +368,7 @@
               },
               {
                 "name": "Rodri",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -379,7 +379,7 @@
                 "roleScores": [
                   {
                     "position": "RCM",
-                    "score": 1.258,
+                    "score": 1.798,
                     "independentVotes": 2
                   },
                   {
@@ -403,8 +403,8 @@
               },
               {
                 "name": "Fabián Ruiz",
-                "score": 1.618,
-                "evidenceStrength": 0.953,
+                "score": 2.158,
+                "evidenceStrength": 0.955,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -414,7 +414,7 @@
                 "roleScores": [
                   {
                     "position": "LCM",
-                    "score": 1.618,
+                    "score": 2.158,
                     "independentVotes": 3
                   }
                 ],
@@ -433,7 +433,7 @@
               },
               {
                 "name": "Lamine Yamal",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -444,7 +444,7 @@
                 "roleScores": [
                   {
                     "position": "RW",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -463,8 +463,8 @@
               },
               {
                 "name": "Dani Olmo",
-                "score": 1.622,
-                "evidenceStrength": 0.955,
+                "score": 2.162,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -474,7 +474,7 @@
                 "roleScores": [
                   {
                     "position": "AM",
-                    "score": 1.258,
+                    "score": 1.798,
                     "independentVotes": 2
                   },
                   {
@@ -498,7 +498,7 @@
               },
               {
                 "name": "Álex Baena",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -509,7 +509,7 @@
                 "roleScores": [
                   {
                     "position": "LW",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -528,7 +528,7 @@
               },
               {
                 "name": "Mikel Oyarzabal",
-                "score": 1.628,
+                "score": 2.168,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -539,7 +539,7 @@
                 "roleScores": [
                   {
                     "position": "ST",
-                    "score": 1.628,
+                    "score": 2.168,
                     "independentVotes": 3
                   }
                 ],
@@ -561,7 +561,7 @@
           "away": {
             "confidence": {
               "label": "high",
-              "score": 0.829,
+              "score": 0.82,
               "method": "evidence-strength-v2",
               "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
             },
@@ -573,9 +573,9 @@
               "method": "known-layout"
             },
             "notes": [
-              "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+              "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
               "0 availability exclusions checked",
-              "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+              "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
               "Last verified XI: match 102",
               "Recent formation: 4-4-2",
               "0 last-XI players removed for explicit availability"
@@ -583,7 +583,7 @@
             "formationScores": [
               {
                 "formation": "4-4-2",
-                "score": 1.045,
+                "score": 1.328,
                 "providerIds": [
                   "free-public-lineups",
                   "local-official-history"
@@ -603,7 +603,7 @@
               },
               {
                 "formation": "4-1-4-1",
-                "score": 0.65,
+                "score": 0.929,
                 "providerIds": [
                   "free-public-lineups"
                 ],
@@ -620,7 +620,7 @@
             "starterScores": [
               {
                 "name": "Emiliano Martínez",
-                "score": 1.625,
+                "score": 2.165,
                 "evidenceStrength": 0.959,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -631,7 +631,7 @@
                 "roleScores": [
                   {
                     "position": "GK",
-                    "score": 1.625,
+                    "score": 2.165,
                     "independentVotes": 3
                   }
                 ],
@@ -650,8 +650,8 @@
               },
               {
                 "name": "Nahuel Molina",
-                "score": 0.984,
-                "evidenceStrength": 0.581,
+                "score": 1.251,
+                "evidenceStrength": 0.554,
                 "starterVotes": 2,
                 "benchVotes": 0,
                 "independentStarterVotes": 2,
@@ -661,7 +661,7 @@
                 "roleScores": [
                   {
                     "position": "RB",
-                    "score": 0.984,
+                    "score": 1.251,
                     "independentVotes": 2
                   }
                 ],
@@ -679,8 +679,8 @@
               },
               {
                 "name": "Cristian Romero",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -690,7 +690,7 @@
                 "roleScores": [
                   {
                     "position": "RCB",
-                    "score": 1.619,
+                    "score": 2.159,
                     "independentVotes": 3
                   }
                 ],
@@ -709,8 +709,8 @@
               },
               {
                 "name": "Lisandro Martínez",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -720,7 +720,7 @@
                 "roleScores": [
                   {
                     "position": "LCB",
-                    "score": 1.619,
+                    "score": 2.159,
                     "independentVotes": 3
                   }
                 ],
@@ -739,8 +739,8 @@
               },
               {
                 "name": "Nicolás Tagliafico",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -750,7 +750,7 @@
                 "roleScores": [
                   {
                     "position": "LB",
-                    "score": 1.619,
+                    "score": 2.159,
                     "independentVotes": 3
                   }
                 ],
@@ -769,8 +769,8 @@
               },
               {
                 "name": "Giuliano Simeone",
-                "score": 0.98,
-                "evidenceStrength": 0.578,
+                "score": 1.247,
+                "evidenceStrength": 0.553,
                 "starterVotes": 2,
                 "benchVotes": 0,
                 "independentStarterVotes": 2,
@@ -780,7 +780,7 @@
                 "roleScores": [
                   {
                     "position": "RM",
-                    "score": 0.98,
+                    "score": 1.247,
                     "independentVotes": 2
                   }
                 ],
@@ -798,8 +798,8 @@
               },
               {
                 "name": "Leandro Paredes",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -809,12 +809,12 @@
                 "roleScores": [
                   {
                     "position": "RCM",
-                    "score": 0.996,
+                    "score": 1.269,
                     "independentVotes": 2
                   },
                   {
                     "position": "DM",
-                    "score": 0.623,
+                    "score": 0.89,
                     "independentVotes": 1
                   }
                 ],
@@ -833,8 +833,8 @@
               },
               {
                 "name": "Alexis Mac Allister",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -844,12 +844,12 @@
                 "roleScores": [
                   {
                     "position": "LCM",
-                    "score": 0.984,
+                    "score": 1.251,
                     "independentVotes": 2
                   },
                   {
                     "position": "LM",
-                    "score": 0.635,
+                    "score": 0.908,
                     "independentVotes": 1
                   }
                 ],
@@ -868,8 +868,8 @@
               },
               {
                 "name": "Enzo Fernández",
-                "score": 1.626,
-                "evidenceStrength": 0.959,
+                "score": 2.166,
+                "evidenceStrength": 0.96,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -879,12 +879,12 @@
                 "roleScores": [
                   {
                     "position": "LCM",
-                    "score": 0.635,
+                    "score": 0.908,
                     "independentVotes": 1
                   },
                   {
                     "position": "RCM",
-                    "score": 0.623,
+                    "score": 0.89,
                     "independentVotes": 1
                   },
                   {
@@ -908,8 +908,8 @@
               },
               {
                 "name": "Lionel Messi",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -919,12 +919,12 @@
                 "roleScores": [
                   {
                     "position": "RST",
-                    "score": 0.996,
+                    "score": 1.269,
                     "independentVotes": 2
                   },
                   {
                     "position": "ST",
-                    "score": 0.623,
+                    "score": 0.89,
                     "independentVotes": 1
                   }
                 ],
@@ -943,8 +943,8 @@
               },
               {
                 "name": "Julián Álvarez",
-                "score": 1.619,
-                "evidenceStrength": 0.955,
+                "score": 2.159,
+                "evidenceStrength": 0.957,
                 "starterVotes": 3,
                 "benchVotes": 0,
                 "independentStarterVotes": 3,
@@ -954,12 +954,12 @@
                 "roleScores": [
                   {
                     "position": "LST",
-                    "score": 0.996,
+                    "score": 1.269,
                     "independentVotes": 2
                   },
                   {
                     "position": "LM",
-                    "score": 0.623,
+                    "score": 0.89,
                     "independentVotes": 1
                   }
                 ],
@@ -1337,7 +1337,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.199,
+                  "score": 0.15,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1360,7 +1360,7 @@
                 "position": "RB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.193,
+                  "score": 0.145,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1383,7 +1383,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.193,
+                  "score": 0.145,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1406,7 +1406,7 @@
                 "position": "LB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1429,7 +1429,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1452,7 +1452,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1475,7 +1475,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1498,7 +1498,7 @@
                 "position": "RW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1521,7 +1521,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1544,7 +1544,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1567,7 +1567,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1590,7 +1590,7 @@
                 "position": "DM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1613,7 +1613,7 @@
                 "position": "RW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1636,7 +1636,7 @@
                 "position": "LW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1659,7 +1659,7 @@
                 "position": "RW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.19,
+                  "score": 0.142,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1689,7 +1689,7 @@
             "evidence": {
               "confidence": {
                 "label": "high",
-                "score": 0.901,
+                "score": 0.911,
                 "method": "evidence-strength-v2",
                 "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
               },
@@ -1701,9 +1701,9 @@
                 "method": "known-layout"
               },
               "notes": [
-                "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+                "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
                 "0 availability exclusions checked",
-                "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+                "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
                 "Last verified XI: match 101",
                 "Recent formation: 4-1-2-3",
                 "0 last-XI players removed for explicit availability"
@@ -1711,7 +1711,7 @@
               "formationScores": [
                 {
                   "formation": "4-2-3-1",
-                  "score": 1.308,
+                  "score": 1.87,
                   "providerIds": [
                     "free-public-lineups"
                   ],
@@ -1747,7 +1747,7 @@
               "starterScores": [
                 {
                   "name": "Unai Simón",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1758,7 +1758,7 @@
                   "roleScores": [
                     {
                       "position": "GK",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -1777,8 +1777,8 @@
                 },
                 {
                   "name": "Pedro Porro",
-                  "score": 1.622,
-                  "evidenceStrength": 0.955,
+                  "score": 2.162,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -1788,7 +1788,7 @@
                   "roleScores": [
                     {
                       "position": "RB",
-                      "score": 1.622,
+                      "score": 2.162,
                       "independentVotes": 3
                     }
                   ],
@@ -1807,7 +1807,7 @@
                 },
                 {
                   "name": "Pau Cubarsí",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1818,7 +1818,7 @@
                   "roleScores": [
                     {
                       "position": "RCB",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -1837,7 +1837,7 @@
                 },
                 {
                   "name": "Aymeric Laporte",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1848,7 +1848,7 @@
                   "roleScores": [
                     {
                       "position": "LCB",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -1867,7 +1867,7 @@
                 },
                 {
                   "name": "Marc Cucurella",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1878,7 +1878,7 @@
                   "roleScores": [
                     {
                       "position": "LB",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -1897,7 +1897,7 @@
                 },
                 {
                   "name": "Rodri",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1908,7 +1908,7 @@
                   "roleScores": [
                     {
                       "position": "RCM",
-                      "score": 1.258,
+                      "score": 1.798,
                       "independentVotes": 2
                     },
                     {
@@ -1932,8 +1932,8 @@
                 },
                 {
                   "name": "Fabián Ruiz",
-                  "score": 1.618,
-                  "evidenceStrength": 0.953,
+                  "score": 2.158,
+                  "evidenceStrength": 0.955,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -1943,7 +1943,7 @@
                   "roleScores": [
                     {
                       "position": "LCM",
-                      "score": 1.618,
+                      "score": 2.158,
                       "independentVotes": 3
                     }
                   ],
@@ -1962,7 +1962,7 @@
                 },
                 {
                   "name": "Lamine Yamal",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1973,7 +1973,7 @@
                   "roleScores": [
                     {
                       "position": "RW",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -1992,8 +1992,8 @@
                 },
                 {
                   "name": "Dani Olmo",
-                  "score": 1.622,
-                  "evidenceStrength": 0.955,
+                  "score": 2.162,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -2003,7 +2003,7 @@
                   "roleScores": [
                     {
                       "position": "AM",
-                      "score": 1.258,
+                      "score": 1.798,
                       "independentVotes": 2
                     },
                     {
@@ -2027,7 +2027,7 @@
                 },
                 {
                   "name": "Álex Baena",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -2038,7 +2038,7 @@
                   "roleScores": [
                     {
                       "position": "LW",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -2057,7 +2057,7 @@
                 },
                 {
                   "name": "Mikel Oyarzabal",
-                  "score": 1.628,
+                  "score": 2.168,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -2068,7 +2068,7 @@
                   "roleScores": [
                     {
                       "position": "ST",
-                      "score": 1.628,
+                      "score": 2.168,
                       "independentVotes": 3
                     }
                   ],
@@ -2152,7 +2152,7 @@
                 "y": 75,
                 "confidence": {
                   "label": "medium",
-                  "score": 0.581,
+                  "score": 0.554,
                   "method": "evidence-strength-v2",
                   "reason": "2 independent starter sources; not a calibrated probability."
                 },
@@ -2270,7 +2270,7 @@
                 "y": 52,
                 "confidence": {
                   "label": "medium",
-                  "score": 0.578,
+                  "score": 0.553,
                   "method": "evidence-strength-v2",
                   "reason": "2 independent starter sources; not a calibrated probability."
                 },
@@ -2448,7 +2448,7 @@
                 "position": "RM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.198,
+                  "score": 0.149,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2474,7 +2474,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.195,
+                  "score": 0.146,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2497,7 +2497,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2520,7 +2520,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2543,7 +2543,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2566,7 +2566,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2589,7 +2589,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2612,7 +2612,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2635,7 +2635,7 @@
                 "position": "RW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.192,
+                  "score": 0.144,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2658,7 +2658,7 @@
                 "position": "RB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.188,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2684,7 +2684,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.188,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2707,7 +2707,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.188,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2730,7 +2730,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.188,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2753,7 +2753,7 @@
                 "position": "LM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.188,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2776,7 +2776,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.188,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2806,7 +2806,7 @@
             "evidence": {
               "confidence": {
                 "label": "high",
-                "score": 0.829,
+                "score": 0.82,
                 "method": "evidence-strength-v2",
                 "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 2 independent external sources; this is not a calibrated probability."
               },
@@ -2818,9 +2818,9 @@
                 "method": "known-layout"
               },
               "notes": [
-                "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+                "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
                 "0 availability exclusions checked",
-                "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+                "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
                 "Last verified XI: match 102",
                 "Recent formation: 4-4-2",
                 "0 last-XI players removed for explicit availability"
@@ -2828,7 +2828,7 @@
               "formationScores": [
                 {
                   "formation": "4-4-2",
-                  "score": 1.045,
+                  "score": 1.328,
                   "providerIds": [
                     "free-public-lineups",
                     "local-official-history"
@@ -2848,7 +2848,7 @@
                 },
                 {
                   "formation": "4-1-4-1",
-                  "score": 0.65,
+                  "score": 0.929,
                   "providerIds": [
                     "free-public-lineups"
                   ],
@@ -2865,7 +2865,7 @@
               "starterScores": [
                 {
                   "name": "Emiliano Martínez",
-                  "score": 1.625,
+                  "score": 2.165,
                   "evidenceStrength": 0.959,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -2876,7 +2876,7 @@
                   "roleScores": [
                     {
                       "position": "GK",
-                      "score": 1.625,
+                      "score": 2.165,
                       "independentVotes": 3
                     }
                   ],
@@ -2895,8 +2895,8 @@
                 },
                 {
                   "name": "Nahuel Molina",
-                  "score": 0.984,
-                  "evidenceStrength": 0.581,
+                  "score": 1.251,
+                  "evidenceStrength": 0.554,
                   "starterVotes": 2,
                   "benchVotes": 0,
                   "independentStarterVotes": 2,
@@ -2906,7 +2906,7 @@
                   "roleScores": [
                     {
                       "position": "RB",
-                      "score": 0.984,
+                      "score": 1.251,
                       "independentVotes": 2
                     }
                   ],
@@ -2924,8 +2924,8 @@
                 },
                 {
                   "name": "Cristian Romero",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -2935,7 +2935,7 @@
                   "roleScores": [
                     {
                       "position": "RCB",
-                      "score": 1.619,
+                      "score": 2.159,
                       "independentVotes": 3
                     }
                   ],
@@ -2954,8 +2954,8 @@
                 },
                 {
                   "name": "Lisandro Martínez",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -2965,7 +2965,7 @@
                   "roleScores": [
                     {
                       "position": "LCB",
-                      "score": 1.619,
+                      "score": 2.159,
                       "independentVotes": 3
                     }
                   ],
@@ -2984,8 +2984,8 @@
                 },
                 {
                   "name": "Nicolás Tagliafico",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -2995,7 +2995,7 @@
                   "roleScores": [
                     {
                       "position": "LB",
-                      "score": 1.619,
+                      "score": 2.159,
                       "independentVotes": 3
                     }
                   ],
@@ -3014,8 +3014,8 @@
                 },
                 {
                   "name": "Giuliano Simeone",
-                  "score": 0.98,
-                  "evidenceStrength": 0.578,
+                  "score": 1.247,
+                  "evidenceStrength": 0.553,
                   "starterVotes": 2,
                   "benchVotes": 0,
                   "independentStarterVotes": 2,
@@ -3025,7 +3025,7 @@
                   "roleScores": [
                     {
                       "position": "RM",
-                      "score": 0.98,
+                      "score": 1.247,
                       "independentVotes": 2
                     }
                   ],
@@ -3043,8 +3043,8 @@
                 },
                 {
                   "name": "Leandro Paredes",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -3054,12 +3054,12 @@
                   "roleScores": [
                     {
                       "position": "RCM",
-                      "score": 0.996,
+                      "score": 1.269,
                       "independentVotes": 2
                     },
                     {
                       "position": "DM",
-                      "score": 0.623,
+                      "score": 0.89,
                       "independentVotes": 1
                     }
                   ],
@@ -3078,8 +3078,8 @@
                 },
                 {
                   "name": "Alexis Mac Allister",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -3089,12 +3089,12 @@
                   "roleScores": [
                     {
                       "position": "LCM",
-                      "score": 0.984,
+                      "score": 1.251,
                       "independentVotes": 2
                     },
                     {
                       "position": "LM",
-                      "score": 0.635,
+                      "score": 0.908,
                       "independentVotes": 1
                     }
                   ],
@@ -3113,8 +3113,8 @@
                 },
                 {
                   "name": "Enzo Fernández",
-                  "score": 1.626,
-                  "evidenceStrength": 0.959,
+                  "score": 2.166,
+                  "evidenceStrength": 0.96,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -3124,12 +3124,12 @@
                   "roleScores": [
                     {
                       "position": "LCM",
-                      "score": 0.635,
+                      "score": 0.908,
                       "independentVotes": 1
                     },
                     {
                       "position": "RCM",
-                      "score": 0.623,
+                      "score": 0.89,
                       "independentVotes": 1
                     },
                     {
@@ -3153,8 +3153,8 @@
                 },
                 {
                   "name": "Lionel Messi",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -3164,12 +3164,12 @@
                   "roleScores": [
                     {
                       "position": "RST",
-                      "score": 0.996,
+                      "score": 1.269,
                       "independentVotes": 2
                     },
                     {
                       "position": "ST",
-                      "score": 0.623,
+                      "score": 0.89,
                       "independentVotes": 1
                     }
                   ],
@@ -3188,8 +3188,8 @@
                 },
                 {
                   "name": "Julián Álvarez",
-                  "score": 1.619,
-                  "evidenceStrength": 0.955,
+                  "score": 2.159,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 3,
                   "benchVotes": 0,
                   "independentStarterVotes": 3,
@@ -3199,12 +3199,12 @@
                   "roleScores": [
                     {
                       "position": "LST",
-                      "score": 0.996,
+                      "score": 1.269,
                       "independentVotes": 2
                     },
                     {
                       "position": "LM",
-                      "score": 0.623,
+                      "score": 0.89,
                       "independentVotes": 1
                     }
                   ],
@@ -3233,7 +3233,7 @@
             "status": "unverified",
             "exact": false,
             "source": "derived-team-sheet-order",
-            "checkedAt": "2026-07-18T20:23:32.578Z"
+            "checkedAt": "2026-07-19T06:44:19.061Z"
           },
           "confidence": {
             "label": "high",
@@ -3249,8 +3249,8 @@
             "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
             "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
           ],
-          "checkedAt": "2026-07-18T20:23:32.578Z",
-          "updatedAt": "2026-07-18T20:23:32.578Z"
+          "checkedAt": "2026-07-19T06:44:19.061Z",
+          "updatedAt": "2026-07-19T06:44:19.061Z"
         }
       },
       "providerCandidates": [
@@ -4514,7 +4514,7 @@
           "mode": "expected",
           "predictionClass": "forecast",
           "claimStrength": 1,
-          "updatedAt": "2026-07-17T19:36:45Z",
+          "updatedAt": "2026-07-19T06:43:47Z",
           "confidence": {
             "label": "high",
             "score": 0.9,
@@ -4752,14 +4752,14 @@
                   "sourceIds": [
                     "sports-mole-spain-argentina-preview-2026-07-16"
                   ],
-                  "updatedAt": "2026-07-17T19:36:45Z",
+                  "updatedAt": "2026-07-19T06:43:47Z",
                   "notes": [
-                    "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet."
+                    "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet."
                   ]
                 }
               ],
               "notes": [
-                "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+                "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
                 "0 availability exclusions checked"
               ]
             },
@@ -4988,21 +4988,21 @@
                   "sourceIds": [
                     "sports-mole-spain-argentina-preview-2026-07-16"
                   ],
-                  "updatedAt": "2026-07-17T19:36:45Z",
+                  "updatedAt": "2026-07-19T06:43:47Z",
                   "notes": [
-                    "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet."
+                    "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet."
                   ]
                 }
               ],
               "notes": [
-                "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+                "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
                 "0 availability exclusions checked"
               ]
             }
           },
           "evidence": [],
           "notes": [
-            "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+            "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
             "Free public provider candidate"
           ]
         },
@@ -5013,7 +5013,7 @@
           "mode": "expected",
           "predictionClass": "forecast",
           "claimStrength": 1,
-          "updatedAt": "2026-07-17T19:36:45Z",
+          "updatedAt": "2026-07-19T06:43:47Z",
           "confidence": {
             "label": "high",
             "score": 0.88,
@@ -5251,14 +5251,14 @@
                   "sourceIds": [
                     "racing-post-spain-argentina-preview-2026-07-16"
                   ],
-                  "updatedAt": "2026-07-17T19:36:45Z",
+                  "updatedAt": "2026-07-19T06:43:47Z",
                   "notes": [
-                    "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1."
+                    "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1."
                   ]
                 }
               ],
               "notes": [
-                "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+                "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
                 "0 availability exclusions checked"
               ]
             },
@@ -5487,21 +5487,21 @@
                   "sourceIds": [
                     "racing-post-spain-argentina-preview-2026-07-16"
                   ],
-                  "updatedAt": "2026-07-17T19:36:45Z",
+                  "updatedAt": "2026-07-19T06:43:47Z",
                   "notes": [
-                    "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1."
+                    "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1."
                   ]
                 }
               ],
               "notes": [
-                "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+                "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
                 "0 availability exclusions checked"
               ]
             }
           },
           "evidence": [],
           "notes": [
-            "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+            "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
             "Free public provider candidate"
           ]
         }

@@ -157,20 +157,20 @@
       "label": "Sports Mole Spain vs Argentina final predicted XIs",
       "url": "https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-17T19:36:45Z",
+      "checkedAt": "2026-07-19T06:43:47Z",
       "outlet": "sports-mole",
       "independenceKey": "sports-mole",
-      "note": "Current final prediction retaining the Messi-Alvarez partnership; Spain's XI is paired from Sports Mole's same-day Spain prediction."
+      "note": "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership."
     },
     {
       "id": "racing-post-spain-argentina-preview-2026-07-16",
       "label": "Racing Post Spain vs Argentina team news and predicted XIs",
       "url": "https://www.racingpost.com/sport/football-tips/world-cup-2026/spain-vs-argentina-world-cup-prediction-team-news-odds-betting-tips-and-bet-builder-aaoub4g3dFdj/",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-17T19:36:45Z",
+      "checkedAt": "2026-07-19T06:43:47Z",
       "outlet": "racing-post",
       "independenceKey": "racing-post",
-      "note": "Independent current final preview with predicted XIs and a more conservative Argentina shape."
+      "note": "Rechecked independent final preview with predicted XIs and a more conservative Argentina shape."
     }
   ],
   "fixtures": [
@@ -937,8 +937,8 @@
         {
           "sourceId": "sports-mole-spain-argentina-preview-2026-07-16",
           "confidence": 0.9,
-          "checkedAt": "2026-07-17T19:36:45Z",
-          "note": "Current final predictions keep Spain's semi-final XI and Argentina's Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
+          "checkedAt": "2026-07-19T06:43:47Z",
+          "note": "Late pre-final update keeps Spain's semi-final XI and projects Montiel plus De Paul for Argentina while retaining the Messi-Alvarez partnership; striker sides follow Argentina's latest official FIFA tactical sheet.",
           "teams": {
             "home": {
               "teamId": "ESP",
@@ -979,8 +979,8 @@
         {
           "sourceId": "racing-post-spain-argentina-preview-2026-07-16",
           "confidence": 0.88,
-          "checkedAt": "2026-07-17T19:36:45Z",
-          "note": "Independent preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
+          "checkedAt": "2026-07-19T06:43:47Z",
+          "note": "Rechecked independent final preview agrees on Spain and keeps Messi central, but treats Alvarez as the left-sided midfielder in a 4-1-4-1.",
           "teams": {
             "home": {
               "teamId": "ESP",
