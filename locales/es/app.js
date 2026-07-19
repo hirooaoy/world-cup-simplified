@@ -440,6 +440,7 @@ const EXACT = {
   "Knockout winner progression": "Avance de los ganadores",
   "Tournament path": "Camino en el torneo",
   "Tournament progression": "Avance en el torneo",
+  "Reset zoom": "Restablecer zoom",
   "Likely for now": "Proyección actual",
   "likely for now": "proyección actual",
   "Later matches": "Partidos posteriores",

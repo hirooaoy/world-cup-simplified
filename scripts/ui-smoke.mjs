@@ -2615,6 +2615,10 @@ try {
     (await page.locator(".match-row.is-selected").count()) === 0,
     "No match row should be selected on load."
   );
+  assert(
+    await page.locator(".site-footer").isVisible(),
+    "The bottom disclaimer should remain visible on the Matches tab."
+  );
 
   const startingHistoryLength = await page.evaluate(() => history.length);
   await page.locator("#standings-tab").click();
@@ -2622,6 +2626,10 @@ try {
     () =>
       new URL(location.href).searchParams.get("view") === "standings" &&
       document.querySelector("#standings-view")?.hidden === false
+  );
+  assert(
+    !(await page.locator(".site-footer").isVisible()),
+    "The bottom disclaimer should stay hidden across the Standings tab."
   );
   const standingsHistoryLength = await page.evaluate(() => history.length);
   assert(
@@ -2640,11 +2648,19 @@ try {
       );
     }
   );
+  assert(
+    await page.locator(".site-footer").isVisible(),
+    "Returning to Matches should restore the bottom disclaimer."
+  );
   await page.goForward();
   await page.waitForFunction(
     () =>
       new URL(location.href).searchParams.get("view") === "standings" &&
       document.querySelector("#standings-view")?.hidden === false
+  );
+  assert(
+    !(await page.locator(".site-footer").isVisible()),
+    "Returning to Standings should hide the bottom disclaimer again."
   );
 
   await page.goto(baseUrl, { waitUntil: "load" });
@@ -9117,70 +9133,17 @@ try {
       `Mobile Show next and Ball Boy should form one native fixed dock at the page bottom-right without a duplicate viewport offset. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
     );
 
-    await tournamentShowNextFloatingCheck.page.locator("#source-note").scrollIntoViewIfNeeded();
-    await tournamentShowNextFloatingCheck.page.waitForFunction(() =>
-      document.querySelector("#source-note")?.classList.contains("has-scout-collision")
-    );
     const tournamentShowNextFooterState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
       const note = document.querySelector("#source-note");
-      const button = document.querySelector(".tournament-show-next-button");
-      const noteBounds = note?.getBoundingClientRect();
-      const buttonBounds = button?.getBoundingClientRect();
-      if (!note || !noteBounds || !buttonBounds) {
-        return null;
-      }
-
-      const textRects = [];
-      const walker = document.createTreeWalker(note, NodeFilter.SHOW_TEXT);
-      let textNode = walker.nextNode();
-      while (textNode) {
-        const parent = textNode.parentElement;
-        if (
-          textNode.textContent.trim() &&
-          !parent?.closest(".source-tooltip, .release-tooltip")
-        ) {
-          const range = document.createRange();
-          range.selectNodeContents(textNode);
-          for (const rect of range.getClientRects()) {
-            if (rect.width > 0 && rect.height > 0) {
-              textRects.push({
-                bottom: rect.bottom,
-                left: rect.left,
-                right: rect.right,
-                top: rect.top
-              });
-            }
-          }
-        }
-        textNode = walker.nextNode();
-      }
-
-      const gap = 7.5;
-      const overlappingTextRects = textRects.filter(
-        (rect) =>
-          rect.right > buttonBounds.left - gap &&
-          rect.left < buttonBounds.right + gap &&
-          rect.bottom > buttonBounds.top - gap &&
-          rect.top < buttonBounds.bottom + gap
-      );
-
       return {
-        exclusionWidth: Number.parseFloat(
-          note.style.getPropertyValue("--scout-footer-exclusion-width")
-        ),
-        expectedMinimumExclusionWidth: noteBounds.right - buttonBounds.left + gap,
-        hasCollision: note.classList.contains("has-scout-collision"),
-        overlappingTextRects,
-        textRectCount: textRects.length
+        hidden: note?.closest(".site-footer")?.hidden ?? false,
+        layoutRectCount: note?.getClientRects().length ?? -1
       };
     });
     assert(
-      tournamentShowNextFooterState?.hasCollision &&
-        tournamentShowNextFooterState.textRectCount > 0 &&
-        tournamentShowNextFooterState.overlappingTextRects.length === 0 &&
-        tournamentShowNextFooterState.exclusionWidth >=
-          tournamentShowNextFooterState.expectedMinimumExclusionWidth,
-      `The mobile footer should reserve the full Show next and Ball Boy dock, not only the narrower Ball Boy circle. Measured ${JSON.stringify(tournamentShowNextFooterState)}.`
+      tournamentShowNextFooterState.hidden &&
+        tournamentShowNextFooterState.layoutRectCount === 0,
+      `The bottom disclaimer should be absent from the mobile tournament layout. Measured ${JSON.stringify(tournamentShowNextFooterState)}.`
     );
 
     const tournamentStaleInsetState = await tournamentShowNextFloatingCheck.page.evaluate(async () => {
@@ -12710,71 +12673,91 @@ try {
     };
   });
   const tournamentProgression = page.locator(".tournament-progression");
-  const tournamentZoomInitial = await tournamentProgression.evaluate((progression) => ({
-    minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
-    scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
-    visibleControls: document.querySelectorAll(".tournament-zoom-controls").length
-  }));
+  const tournamentZoomInitial = await tournamentProgression.evaluate((progression) => {
+    const rounds = progression.querySelector(".progress-rounds");
+    const style = getComputedStyle(progression);
+    const scale = Number.parseFloat(progression.dataset.tournamentZoom || "0");
+    const availableWidth =
+      progression.clientWidth -
+      (Number.parseFloat(style.paddingLeft) || 0) -
+      (Number.parseFloat(style.paddingRight) || 0);
+    const naturalWidth = rounds.getBoundingClientRect().width / scale;
+
+    return {
+      availableWidth,
+      fitWidthScale: availableWidth / naturalWidth,
+      minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      resetHidden: progression
+        .closest(".tournament-canvas-shell")
+        ?.querySelector(".tournament-zoom-reset")?.hidden,
+      scale,
+      visibleControls: document.querySelectorAll(".tournament-zoom-controls").length
+    };
+  });
   assert(
     tournamentZoomInitial.scale === 1 &&
-      tournamentZoomInitial.minimum >= 0.649 &&
-      tournamentZoomInitial.minimum <= 0.651 &&
+      tournamentZoomInitial.minimum >= 0.18 &&
+      tournamentZoomInitial.minimum < 0.3 &&
+      Math.abs(tournamentZoomInitial.minimum - tournamentZoomInitial.fitWidthScale) <= 0.002 &&
+      tournamentZoomInitial.resetHidden === true &&
       tournamentZoomInitial.visibleControls === 0,
-    `Tournament zoom should open at the current 100% size with a 65% phone floor and no visible toolbar. Measured ${JSON.stringify(tournamentZoomInitial)}.`
+    `Tournament zoom should open at 100%, derive a true fit-to-canvas phone minimum, and keep reset hidden until needed. Measured ${JSON.stringify(tournamentZoomInitial)}.`
   );
   await tournamentProgression.focus();
-  for (let zoomStep = 0; zoomStep < 4; zoomStep += 1) {
+  for (let zoomStep = 0; zoomStep < 10; zoomStep += 1) {
     await page.keyboard.press("-");
     await page.waitForTimeout(45);
   }
   const tournamentZoomedOut = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
-    const labels = [...progression.querySelectorAll(".tournament-sticky-round-label")];
-    const rounds = [...progression.querySelectorAll(".progress-round")];
 
     return {
       cardWidth: Math.round(progression.querySelector(".progress-match").getBoundingClientRect().width),
       connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
-      labelLefts: labels.map((label) => Math.round(label.getBoundingClientRect().left)),
-      labelTops: labels.map((label) => Math.round(label.getBoundingClientRect().top)),
-      labelWidths: labels.map((label) => Math.round(label.getBoundingClientRect().width)),
       minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      nativeHeadingVisibility: [...progression.querySelectorAll(".progress-round > h3")].map(
+        (heading) => getComputedStyle(heading).visibility
+      ),
+      overview: progression.classList.contains("is-zoom-overview"),
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      roundLefts: rounds.map((round) => Math.round(round.getBoundingClientRect().left)),
-      roundWidths: rounds.map((round) => Math.round(round.getBoundingClientRect().width)),
+      progressionClientWidth: progression.clientWidth,
+      resetVisible: progression
+        .closest(".tournament-canvas-shell")
+        ?.querySelector(".tournament-zoom-reset")?.hidden === false,
       scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
       scrollHeight: progression.scrollHeight,
       scrollWidth: progression.scrollWidth,
+      stickyLabelCount: progression.querySelectorAll(".tournament-sticky-round-label").length,
       stickyOverlay: progression.classList.contains("is-round-labels-sticky")
     };
   });
   assert(
-    tournamentZoomedOut.scale >= 0.649 &&
-      tournamentZoomedOut.scale <= 0.651 &&
+    tournamentZoomedOut.scale >= 0.18 &&
+      tournamentZoomedOut.scale < 0.3 &&
       Math.abs(tournamentZoomedOut.scale - tournamentZoomedOut.minimum) <= 0.002 &&
-      tournamentZoomedOut.cardWidth >= 160 &&
-      tournamentZoomedOut.cardWidth <= 162 &&
+      tournamentZoomedOut.cardWidth >= 44 &&
+      tournamentZoomedOut.cardWidth <= 74 &&
       tournamentZoomedOut.connectorPathCount >= 29 &&
-      tournamentZoomedOut.stickyOverlay &&
-      tournamentZoomedOut.labelLefts.length === 5 &&
-      tournamentZoomedOut.labelLefts.every(
-        (left, index) => Math.abs(left - tournamentZoomedOut.roundLefts[index]) <= 1
-      ) &&
-      tournamentZoomedOut.labelWidths.every(
-        (width, index) => Math.abs(width - tournamentZoomedOut.roundWidths[index]) <= 1
-      ) &&
-      new Set(tournamentZoomedOut.labelTops).size === 1 &&
+      !tournamentZoomedOut.stickyOverlay &&
+      tournamentZoomedOut.overview &&
+      tournamentZoomedOut.stickyLabelCount === 0 &&
+      tournamentZoomedOut.nativeHeadingVisibility.every((visibility) => visibility === "visible") &&
+      tournamentZoomedOut.resetVisible &&
+      tournamentZoomedOut.scrollWidth <= tournamentZoomedOut.progressionClientWidth + 2 &&
       tournamentZoomedOut.scrollWidth < mobileTournamentCanvasInitial.roundsWidth &&
       tournamentZoomedOut.scrollHeight < mobileTournamentCanvasInitial.scrollHeightOverflow + 700 &&
       tournamentZoomedOut.pageOverflow <= 1,
-    `Zooming out should shrink cards and scroll geometry together while keeping all connector rails and readable sticky round labels aligned. Measured ${JSON.stringify(tournamentZoomedOut)}.`
+    `Zooming fully out on a phone should fit the whole bracket as a clean overview with native labels, intact rails, and a visible reset. Measured ${JSON.stringify(tournamentZoomedOut)}.`
   );
-  await page.keyboard.press("0");
+  await page.locator(".tournament-zoom-reset").click();
   await page.waitForTimeout(70);
   const tournamentZoomResetState = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
     return {
       connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      resetHidden: progression
+        .closest(".tournament-canvas-shell")
+        ?.querySelector(".tournament-zoom-reset")?.hidden,
       scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
       scrollHeight: progression.scrollHeight,
       scrollWidth: progression.scrollWidth,
@@ -12784,6 +12767,7 @@ try {
   assert(
     tournamentZoomResetState.scale === 1 &&
       tournamentZoomResetState.connectorPathCount >= 29 &&
+      tournamentZoomResetState.resetHidden === true &&
       !tournamentZoomResetState.stickyOverlay &&
       tournamentZoomResetState.scrollWidth >= mobileTournamentCanvasInitial.roundsWidth &&
       tournamentZoomResetState.scrollHeight - page.viewportSize().height > 120,
@@ -12813,10 +12797,10 @@ try {
     const centerY = rect.top + Math.min(rect.height - 80, 260);
     pointer("pointerdown", 31, rect.left + 70, centerY, true);
     pointer("pointerdown", 32, rect.left + 270, centerY, false);
-    pointer("pointermove", 31, rect.left + 105, centerY, true);
-    pointer("pointermove", 32, rect.left + 235, centerY, false);
-    pointer("pointerup", 31, rect.left + 105, centerY, true, 0);
-    pointer("pointerup", 32, rect.left + 235, centerY, false, 0);
+    pointer("pointermove", 31, rect.left + 155, centerY, true);
+    pointer("pointermove", 32, rect.left + 185, centerY, false);
+    pointer("pointerup", 31, rect.left + 155, centerY, true, 0);
+    pointer("pointerup", 32, rect.left + 185, centerY, false, 0);
     Element.prototype.setPointerCapture = originalSetPointerCapture;
     Element.prototype.releasePointerCapture = originalReleasePointerCapture;
   });
@@ -12825,16 +12809,24 @@ try {
     const progression = document.querySelector(".tournament-progression");
     return {
       connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      overview: progression.classList.contains("is-zoom-overview"),
+      resetVisible: progression
+        .closest(".tournament-canvas-shell")
+        ?.querySelector(".tournament-zoom-reset")?.hidden === false,
       scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
       stickyOverlay: progression.classList.contains("is-round-labels-sticky")
     };
   });
   assert(
-    tournamentPinchZoomState.scale >= 0.649 &&
-      tournamentPinchZoomState.scale <= 0.651 &&
-      tournamentPinchZoomState.stickyOverlay &&
+    tournamentPinchZoomState.scale >= 0.18 &&
+      tournamentPinchZoomState.scale < 0.3 &&
+      Math.abs(tournamentPinchZoomState.scale - tournamentPinchZoomState.minimum) <= 0.002 &&
+      tournamentPinchZoomState.overview &&
+      tournamentPinchZoomState.resetVisible &&
+      !tournamentPinchZoomState.stickyOverlay &&
       tournamentPinchZoomState.connectorPathCount >= 29,
-    `A two-finger pinch should reach the same bounded zoom without disconnecting cards, labels, or rails. Measured ${JSON.stringify(tournamentPinchZoomState)}.`
+    `A two-finger pinch should reach the fit-to-canvas overview without disconnecting cards, labels, or rails. Measured ${JSON.stringify(tournamentPinchZoomState)}.`
   );
   await tournamentProgression.focus();
   await page.keyboard.press("0");
@@ -13052,6 +13044,9 @@ try {
       labelWidths: labels.map((label) => Math.round(label.getBoundingClientRect().width)),
       minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
       overlayTop: Math.round(overlay?.getBoundingClientRect().top || 0),
+      resetHidden: progression
+        .closest(".tournament-canvas-shell")
+        ?.querySelector(".tournament-zoom-reset")?.hidden,
       roundLefts: rounds.map((round) => Math.round(round.getBoundingClientRect().left)),
       roundWidths: rounds.map((round) => Math.round(round.getBoundingClientRect().width)),
       scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
@@ -13065,6 +13060,7 @@ try {
       Math.abs(desktopTournamentZoomState.scale - desktopTournamentZoomState.minimum) <= 0.002 &&
       desktopTournamentZoomState.scrollWidth - desktopTournamentZoomState.clientWidth <= 1 &&
       desktopTournamentZoomState.connectorPathCount >= 29 &&
+      desktopTournamentZoomState.resetHidden === true &&
       desktopTournamentZoomState.sticky &&
       desktopTournamentZoomState.overlayTop >= 16 &&
       desktopTournamentZoomState.overlayTop <= 20 &&

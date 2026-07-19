@@ -281,7 +281,7 @@ export const CONTENT_TRANSLATIONS = Object.freeze({
   "Bukayo Saka set up Jude Bellingham for a finish in the 62nd minute, putting England in front.": "부카요 사카의 패스를 받은 주드 벨링엄이 62분에 득점해 잉글랜드를 앞서게 했다.",
   "Bukayo Saka set up Marcus Rashford for a finish in the 85th minute, doubling England's lead.": "부카요 사카의 패스를 받은 마커스 래시퍼드가 85분에 득점해 잉글랜드의 리드를 두 골 차로 벌렸다.",
   "Bundesliga match report": "분데스리가 경기 리포트",
-  "Cabo Verde made 3 changes in the 61st minute, including Nuno da Costa, but the score stayed 0-0.": "카보베르데는 61분 누누 다코스타를 포함해 3명을 교체했지만 0-0이 이어졌다.",
+  "Cabo Verde made 3 changes in the 61st minute, including Nuno da Costa, but the score stayed 0-0.": "카보베르데는 61분 누누 다 코스타를 포함해 3명을 교체했지만 0-0이 이어졌다.",
   "Cabo Verde moved to 3 points and Saudi Arabia to 2 points in Group H.": "카보베르데는 H조에서 승점 3이 됐고, 사우디아라비아는 승점 2가 됐다.",
   "Cabo Verde's 4-1-2-3 and Saudi Arabia's 4-4-2 cancelled each other out through halftime.": "카보베르데의 4-1-2-3과 사우디아라비아의 4-4-2가 전반 동안 서로를 막았다.",
   "Caleb Yirenkyi scored in stoppage time to settle a tense opener in Toronto.": "케일럽 이렌치가 추가시간에 결승골을 넣어 토론토에서 열린 팽팽한 첫 경기를 끝냈다.",

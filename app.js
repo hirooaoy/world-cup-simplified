@@ -238,6 +238,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Knockout winner progression": "淘汰赛胜者晋级",
     "Tournament path": "赛事路径",
     "Tournament progression": "赛事进程",
+    "Reset zoom": "重置缩放",
     "Likely for now": "当前可能",
     "likely for now": "当前可能",
     "Later matches": "后续比赛",
@@ -3291,8 +3292,10 @@ const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
   "2018:Group H": ["Japan", "Senegal"]
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
-const TOURNAMENT_ZOOM_FLOOR = 0.65;
+const TOURNAMENT_DESKTOP_ZOOM_FLOOR = 0.65;
+const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.18;
 const TOURNAMENT_ZOOM_MAX = 1;
+const TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD = 0.5;
 const TOURNAMENT_ZOOM_STEP = 0.1;
 const TOURNAMENT_SCROLL_TIMELINE_SUPPORTED =
   typeof CSS !== "undefined" &&
@@ -15493,9 +15496,16 @@ function renderTournamentShowNextButton(nextMatchIds) {
   return `<button class="tournament-show-next-button" type="button" data-show-next-tournament-match="${escapeHtml(nextMatchNumber)}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(label)}</button>`;
 }
 
+function renderTournamentZoomResetButton() {
+  const label = localizeText("Reset zoom");
+
+  return `<button class="tournament-zoom-reset" type="button" data-tournament-zoom-reset aria-label="${escapeHtml(label)}" hidden>100%</button>`;
+}
+
 function renderTournamentProgression(context, options = {}) {
   return `
     <div class="tournament-canvas-shell">
+      ${renderTournamentZoomResetButton()}
       <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
         <div class="tournament-board-surface">
           <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
@@ -15876,6 +15886,7 @@ function renderHistoricalTournamentView(year) {
   return `
     <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(historicalViewLabel)}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
       <div class="tournament-canvas-shell">
+        ${renderTournamentZoomResetButton()}
         <section class="tournament-progression" aria-label="${escapeHtml(historicalProgressionLabel)}" tabindex="0">
           <div class="tournament-board-surface">
             <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
@@ -15956,9 +15967,15 @@ function getTournamentBoardScale(progression) {
   return Number.isFinite(scale) ? scale : TOURNAMENT_ZOOM_MAX;
 }
 
+function getTournamentZoomFloor() {
+  return isTournamentMobileLayout()
+    ? TOURNAMENT_MOBILE_ZOOM_FLOOR
+    : TOURNAMENT_DESKTOP_ZOOM_FLOOR;
+}
+
 function getTournamentMinimumScale(progression, rounds) {
   if (!progression || !rounds) {
-    return TOURNAMENT_ZOOM_FLOOR;
+    return getTournamentZoomFloor();
   }
 
   const currentScale = getTournamentBoardScale(progression);
@@ -15969,10 +15986,11 @@ function getTournamentMinimumScale(progression, rounds) {
   const availableWidth = Math.max(1, progression.clientWidth - paddingInline);
   const naturalWidth = Math.max(1, rounds.getBoundingClientRect().width / currentScale);
   const fitWidthScale = availableWidth / naturalWidth;
+  const zoomFloor = getTournamentZoomFloor();
 
   return clampNumber(
-    Math.max(TOURNAMENT_ZOOM_FLOOR, Math.min(TOURNAMENT_ZOOM_MAX, fitWidthScale)),
-    TOURNAMENT_ZOOM_FLOOR,
+    Math.max(zoomFloor, Math.min(TOURNAMENT_ZOOM_MAX, fitWidthScale)),
+    zoomFloor,
     TOURNAMENT_ZOOM_MAX
   );
 }
@@ -16026,9 +16044,16 @@ function applyTournamentBoardScale(progression, requestedScale, options = {}) {
 
   tournamentBoardScale = nextScale;
   progression.dataset.tournamentZoom = nextScale.toFixed(3);
-  progression.classList.toggle("is-zoomed", nextScale < TOURNAMENT_ZOOM_MAX - 0.001);
+  const isZoomed = nextScale < TOURNAMENT_ZOOM_MAX - 0.001;
+  const isOverview = isTournamentMobileLayout() && nextScale < TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD;
+  progression.classList.toggle("is-zoomed", isZoomed);
+  progression.classList.toggle("is-zoom-overview", isOverview);
   surface.style.setProperty("zoom", nextScale.toFixed(3));
   surface.style.setProperty("--tournament-inverse-scale", (1 / nextScale).toFixed(4));
+  const resetButton = progression.closest(".tournament-canvas-shell")?.querySelector(".tournament-zoom-reset");
+  if (resetButton) {
+    resetButton.hidden = !isZoomed || !isTournamentMobileLayout();
+  }
 
   if (logicalAnchor) {
     const nextSurfaceRect = surface.getBoundingClientRect();
@@ -16159,7 +16184,10 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
   let overlay = progression?.querySelector(".tournament-sticky-round-overlay");
   const isMobileLayout = isTournamentMobileLayout();
   const scale = getTournamentBoardScale(progression);
-  const shouldUseMobileOverlay = isMobileLayout && scale < TOURNAMENT_ZOOM_MAX - 0.001;
+  const shouldUseMobileOverlay =
+    isMobileLayout &&
+    scale >= TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD &&
+    scale < TOURNAMENT_ZOOM_MAX - 0.001;
 
   if (!progression || !headings.length || (isMobileLayout && !shouldUseMobileOverlay)) {
     progression?.classList.remove("is-round-labels-sticky");
@@ -30245,6 +30273,9 @@ function updateActiveViewElements() {
     panel.classList.toggle("is-hidden", panelView !== activeView);
     panel.hidden = panelView !== activeView;
   });
+  if (siteFooter) {
+    siteFooter.hidden = activeView === "standings";
+  }
   updateTabIndicators();
 }
 
@@ -31121,6 +31152,21 @@ standingsGrid.addEventListener("click", (event) => {
   ) {
     event.preventDefault();
     tournamentBoardSuppressClickUntil = 0;
+    return;
+  }
+
+  const zoomResetButton = targetElement?.closest("[data-tournament-zoom-reset]");
+
+  if (zoomResetButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    const progression = zoomResetButton
+      .closest(".tournament-canvas-shell")
+      ?.querySelector(".tournament-progression");
+    if (progression) {
+      adjustTournamentBoardScale(progression, "reset");
+      progression.focus({ preventScroll: true });
+    }
     return;
   }
 

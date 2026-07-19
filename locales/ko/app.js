@@ -439,6 +439,7 @@ const EXACT = {
   "Knockout winner progression": "승자 진출 경로",
   "Tournament path": "대회 진출 경로",
   "Tournament progression": "대회 진행 상황",
+  "Reset zoom": "확대/축소 재설정",
   "Likely for now": "현재 예상",
   "likely for now": "현재 예상",
   "Later matches": "이후 경기",

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-19T02:50:01.431Z",
+  "generatedAt": "2026-07-19T18:49:36.528Z",
   "methodology": "Locale-specific player labels from linked Wikipedia/Wikidata records, followed by checked-in editorial overrides and canonical-name fallback. Rendered match-provider aliases are resolved conservatively against canonical profiles and team roster overrides. Current and archive browser modules are split so historical names load only with archive views.",
   "providerNameCoverage": {
-    "renderedCurrentNames": 1276,
+    "renderedCurrentNames": 1257,
     "currentAliases": {
       "Abdallah Al-Fakhori": {
         "canonicalName": "Abdallah Al-Fakhouri",
@@ -3515,17 +3515,17 @@
   },
   "summary": {
     "es": {
-      "canonicalFallbacks": 4001,
+      "canonicalFallbacks": 4002,
       "editorialOverrides": 0,
-      "localizedNames": 51,
-      "sourcedNames": 51,
+      "localizedNames": 50,
+      "sourcedNames": 50,
       "totalProfiles": 4052
     },
     "ko": {
-      "canonicalFallbacks": 0,
+      "canonicalFallbacks": 1,
       "editorialOverrides": 3,
-      "localizedNames": 4052,
-      "sourcedNames": 4049,
+      "localizedNames": 4051,
+      "sourcedNames": 4048,
       "totalProfiles": 4052
     }
   },
@@ -21035,9 +21035,9 @@
       },
       "Mohamed Hadj Mahmoud": {
         "canonicalName": "Mohamed Belhadj Mahmoud",
-        "displayName": "Hadj Mahmoud",
-        "source": "eswiki",
-        "sourceUrl": "https://es.wikipedia.org/wiki/Hadj_Mahmoud"
+        "displayName": "Mohamed Belhadj Mahmoud",
+        "source": "canonical",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Hadj_Mahmoud"
       },
       "Mohamed Hany": {
         "canonicalName": "Mohamed Hany",
@@ -45349,9 +45349,9 @@
       },
       "Mohamed Hadj Mahmoud": {
         "canonicalName": "Mohamed Belhadj Mahmoud",
-        "displayName": "하지 마흐무드",
-        "source": "wikidata",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q108653548"
+        "displayName": "Mohamed Belhadj Mahmoud",
+        "source": "canonical",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Hadj_Mahmoud"
       },
       "Mohamed Hany": {
         "canonicalName": "Mohamed Hany",
@@ -46303,9 +46303,9 @@
       },
       "Nuno da Costa": {
         "canonicalName": "Nuno da Costa",
-        "displayName": "누누 다코스타",
-        "source": "wikidata",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q23007684"
+        "displayName": "누누 다 코스타",
+        "source": "kowiki",
+        "sourceUrl": "https://ko.wikipedia.org/wiki/%EB%88%84%EB%88%84_%EB%8B%A4_%EC%BD%94%EC%8A%A4%ED%83%80"
       },
       "Nuno Gomes": {
         "canonicalName": "Nuno Gomes",

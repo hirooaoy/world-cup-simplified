@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "ab4d9e63295eff7b4dc771b205dbe3fa3c49ccbe036bbc64edbc7a65af6845b0",
+  "sourceFingerprint": "0b7a6cbe90f2ab653999eb044b6f02322c476e3392a7414392beb3b9d9eda034",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Flexible tournament zoom, steadier footers, and smoother photos": "Zoom flexible del torneo, pies de página más estables y fotos más fluidas",
-    "The home and Report footers now show Checking data freshness until the first live check settles, then move directly to one final timestamp in English, Chinese, Spanish, or Korean.": "Los pies de página de inicio e Informar un problema ahora muestran Comprobando la actualización de los datos… hasta que termina la primera consulta en vivo y luego pasan directamente a una única hora final en inglés, chino, español o coreano.",
-    "The tournament bracket now supports bounded pinch, trackpad, and keyboard zoom without a permanent toolbar, keeping 100% as the maximum and a readable 65% floor on phones.": "El cuadro del torneo ahora permite un zoom limitado mediante pellizco, panel táctil y teclado sin una barra de herramientas permanente; conserva el 100% como máximo y un límite mínimo legible del 65% en teléfonos.",
-    "When the bracket is zoomed out, round labels stay visible and aligned while match cards, connectors, scrolling, and the Show next control continue to work together.": "Al alejar el cuadro, las etiquetas de las rondas permanecen visibles y alineadas, mientras las tarjetas de los partidos, los conectores, el desplazamiento y el control Mostrar siguiente siguen funcionando juntos."
+    "A mobile-only 100% reset appears after zooming, intermediate round labels stay aligned, archived brackets share the same behavior, and desktop zoom remains unchanged.": "Después de usar el zoom aparece un restablecimiento al 100% solo en móviles; las etiquetas de las rondas intermedias permanecen alineadas, los cuadros históricos comparten el mismo comportamiento y el zoom de escritorio no cambia.",
+    "Mobile bracket overview and cleaner Standings": "Vista general móvil del cuadro y clasificación más limpia",
+    "On phones, pinching the tournament bracket fully out now fits every round and connector into one clean overview instead of stopping at a cramped 65% view; the detailed view still tops out at 100%.": "En teléfonos, al alejar completamente el cuadro del torneo con un gesto de pellizco, ahora todas las rondas y conexiones caben en una vista general clara, en lugar de detenerse en una vista apretada al 65%; la vista detallada sigue teniendo un máximo del 100%.",
+    "The bottom source and freshness footer now stays on Matches and Report issue but is omitted from every Standings mode and archived Standings year.": "El pie inferior con las fuentes y la actualización de datos se mantiene en Partidos e Informar un problema, pero se omite en todos los modos de Clasificación y en los años históricos."
   }
 }
