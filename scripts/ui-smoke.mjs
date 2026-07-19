@@ -10220,10 +10220,10 @@ try {
   assert(
       quietDayCatchUpItem.count === 1 &&
       quietDayCatchUpItem.headline ===
-        "Lionel Messi and Kylian Mbappe are level at the top of the Golden Boot race" &&
-      quietDayCatchUpItem.subtitle.includes("Lionel Messi and Kylian Mbappe have 8 goals each") &&
-      quietDayCatchUpItem.subtitle.includes("Erling Haaland is next on 7") &&
-      quietDayCatchUpItem.subtitle.includes("Harry Kane and Jude Bellingham on 6") &&
+        "Kylian Mbappe leads the Golden Boot race with 10 goals" &&
+      quietDayCatchUpItem.subtitle.includes("Kylian Mbappe has 10 goals") &&
+      quietDayCatchUpItem.subtitle.includes("Lionel Messi is next on 8") &&
+      quietDayCatchUpItem.subtitle.includes("Jude Bellingham and Erling Haaland on 7") &&
       quietDayCatchUpItem.sourceHref.includes("fifa.com"),
     `A tournament rest day should replace the empty state with one sourced Golden Boot story. Measured ${JSON.stringify(quietDayCatchUpItem)}.`
   );
@@ -10236,10 +10236,10 @@ try {
     return clone.textContent.replace(/\s+/g, " ").trim();
   });
   assert(
-    quietDayChineseText.includes("利昂内尔·梅西和基利安·姆巴佩并列领跑金靴奖竞争") &&
-      quietDayChineseText.includes("同为8球") &&
-      quietDayChineseText.includes("埃尔林·哈兰德以7球紧随其后") &&
-      quietDayChineseText.includes("哈里·凯恩和裘德·贝林厄姆同为6球") &&
+    quietDayChineseText.includes("基利安·姆巴佩以10球领跑金靴奖竞争") &&
+      quietDayChineseText.includes("基利安·姆巴佩以10球领跑") &&
+      quietDayChineseText.includes("利昂内尔·梅西以8球紧随其后") &&
+      quietDayChineseText.includes("裘德·贝林厄姆和埃尔林·哈兰德同为7球") &&
       !/Golden Boot|goals|next on/i.test(quietDayChineseText),
     `The generated rest-day Golden Boot story should be fully bilingual. Measured ${quietDayChineseText}.`
   );
@@ -11711,10 +11711,12 @@ try {
   const expectedMatch97Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 97);
   const expectedMatch101Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 101);
   const expectedMatch102Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 102);
+  const expectedMatch103Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 103);
   const expectedM81HasOutcomePills = shouldShowOutcomePills(expectedMatch81Fixture);
   const expectedM97HasOutcomePills = shouldShowOutcomePills(expectedMatch97Fixture);
   const expectedM101HasOutcomePills = shouldShowOutcomePills(expectedMatch101Fixture);
   const expectedM102HasOutcomePills = shouldShowOutcomePills(expectedMatch102Fixture);
+  const expectedM103HasOutcomePills = shouldShowOutcomePills(expectedMatch103Fixture);
   const expectedM97ResultText = expectedMatch97Fixture?.score
     ? `${expectedMatch97Fixture.score.home}-${expectedMatch97Fixture.score.away}`
     : "";
@@ -11779,7 +11781,7 @@ try {
     return team.standingName || team.name;
   });
   const expectedFinalFixture = fixturesByMatchNumber.get(104);
-  const expectedThirdPlaceFixture = fixturesByMatchNumber.get(103);
+  const expectedThirdPlaceFixture = expectedMatch103Fixture;
   const getExpectedConditionalProjection = (fixture, teamIds) =>
     (fixture?.conditionalProjections || []).find(
       (projection) =>
@@ -11817,13 +11819,19 @@ try {
       ]
     : [];
   const expectedFinalOutcomeBasis = expectedFinalFixture?.projection ? "loaded" : "conditional-model";
-  const expectedThirdPlaceOutcomeBasis = expectedThirdPlaceFixture?.projection ? "loaded" : "conditional-model";
+  const expectedThirdPlaceOutcomeBasis = !expectedM103HasOutcomePills
+    ? ""
+    : expectedThirdPlaceFixture?.projection
+      ? "loaded"
+      : "conditional-model";
   const expectedFinalOutcomeTexts = expectedFinalFixture?.projection
     ? getExpectedLoadedTexts(expectedFinalFixture, expectedFinalTeamIds)
     : expectedFinalConditionalTexts;
-  const expectedThirdPlaceOutcomeTexts = expectedThirdPlaceFixture?.projection
-    ? getExpectedLoadedTexts(expectedThirdPlaceFixture, expectedThirdPlaceTeamIds)
-    : expectedThirdPlaceConditionalTexts;
+  const expectedThirdPlaceOutcomeTexts = !expectedM103HasOutcomePills
+    ? []
+    : expectedThirdPlaceFixture?.projection
+      ? getExpectedLoadedTexts(expectedThirdPlaceFixture, expectedThirdPlaceTeamIds)
+      : expectedThirdPlaceConditionalTexts;
   const tournamentCheckPredicates = [
     ["summaryHasRoundOf32", tournamentCheck.summary.includes("Round of 32 slots")],
     ["m73ProgressDate", tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM")],
@@ -11891,18 +11899,20 @@ try {
       expectedM97HasOutcomePills || (expectedM97ResultText && tournamentCheck.m97Text.includes(expectedM97ResultText))
     ],
     ["m97SeedLabelCount", tournamentCheck.m97SeedLabelCount === 0],
-    ["m103PillCount", tournamentCheck.m103PillCount === 3],
+    ["m103PillCount", tournamentCheck.m103PillCount === (expectedM103HasOutcomePills ? 3 : 0)],
     [
       "m103Projected",
       tournamentCheck.m103Projected ===
         !(isKnockoutSideConfirmed(expectedThirdPlaceFixture, "home") && isKnockoutSideConfirmed(expectedThirdPlaceFixture, "away"))
     ],
     ["m103ConditionalBasis", tournamentCheck.m103OutcomeBasis === expectedThirdPlaceOutcomeBasis],
-    ["m103ConditionalKeys", tournamentCheck.m103OutcomeKeys.join("|") === "home|tie|away"],
+    [
+      "m103ConditionalKeys",
+      tournamentCheck.m103OutcomeKeys.join("|") === (expectedM103HasOutcomePills ? "home|tie|away" : "")
+    ],
     [
       "m103ConditionalTexts",
-      expectedThirdPlaceOutcomeTexts.length === 3 &&
-        tournamentCheck.m103OutcomeTexts.join("|") === expectedThirdPlaceOutcomeTexts.join("|")
+      tournamentCheck.m103OutcomeTexts.join("|") === expectedThirdPlaceOutcomeTexts.join("|")
     ],
     ["m104PillCount", tournamentCheck.m104PillCount === 3],
     ["m104ConditionalBasis", tournamentCheck.m104OutcomeBasis === expectedFinalOutcomeBasis],
@@ -12002,7 +12012,7 @@ try {
     ],
     [
       "m103TieTooltip",
-      tournamentCheck.m103TieTooltip.startsWith("If it goes to penalties")
+      !expectedM103HasOutcomePills || tournamentCheck.m103TieTooltip.startsWith("If it goes to penalties")
     ],
     [
       "m104TieTooltip",
@@ -12127,7 +12137,7 @@ try {
       (!expectedM102HasOutcomePills ||
         (zhTournamentTooltips.m102Tie.includes("7次世界杯点球大战中赢下6次") &&
           zhTournamentTooltips.m102Tie.includes("代表国家队参加点球大战从未失利"))) &&
-      zhTournamentTooltips.m103Tie.startsWith("如果进入点球大战") &&
+      (!expectedM103HasOutcomePills || zhTournamentTooltips.m103Tie.startsWith("如果进入点球大战")) &&
       zhTournamentTooltips.m104Tie.startsWith("如果进入点球大战") &&
       zhTournamentTooltips.m104Home.includes("常规时间取胜概率约为") &&
       zhTournamentTooltips.m104Home.includes("条件模型综合Opta与市场") &&

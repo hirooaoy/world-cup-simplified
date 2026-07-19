@@ -182,7 +182,11 @@ try {
   const argentinaThirdPlace = await readProjectedCard(103, (data) => {
     const thirdPlace = data.fixtures.find((fixture) => fixture.matchNumber === 103);
     thirdPlace.awayTeamId = "ARG";
+    thirdPlace.status = "SCHEDULED";
     delete thirdPlace.projection;
+    delete thirdPlace.score;
+    delete thirdPlace.goalsHome;
+    delete thirdPlace.goalsAway;
   });
   assert(
     argentinaThirdPlace.teamIds.join("|") === "FRA|ARG" &&
@@ -196,11 +200,10 @@ try {
   const englandThirdPlace = await readProjectedCard(103);
   assert(
     englandThirdPlace.teamIds.join("|") === "FRA|ENG" &&
-      englandThirdPlace.basis === "loaded" &&
-      englandThirdPlace.keys.join("|") === "home|tie|away" &&
-      englandThirdPlace.texts.join("|") === englandThirdPlace.expectedTexts.join("|") &&
-      englandThirdPlace.tooltips[1].startsWith("If it goes to penalties"),
-    `Confirmed France-England should use its promoted direct fixture forecast. Measured ${JSON.stringify(englandThirdPlace)}.`
+      englandThirdPlace.basis === "" &&
+      englandThirdPlace.keys.length === 0 &&
+      englandThirdPlace.texts.length === 0,
+    `Completed France-England should no longer display a pre-match forecast. Measured ${JSON.stringify(englandThirdPlace)}.`
   );
 
   const unsourcedFinal = await readProjectedCard(104, (data) => {
