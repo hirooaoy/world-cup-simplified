@@ -50875,7 +50875,7 @@
         "fifa-lineups-sync-2026-07-19",
         "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
-      "checkedAt": "2026-07-19T19:55:29.574Z",
+      "checkedAt": "2026-07-19T20:58:17.775Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -51070,7 +51070,28 @@
         "events": {
           "cards": [],
           "staffCards": [],
-          "substitutions": []
+          "substitutions": [
+            {
+              "offName": "Mikel Oyarzabal",
+              "onName": "Ferran Torres",
+              "minute": 62
+            },
+            {
+              "offName": "Fabian Ruiz",
+              "onName": "Pedri",
+              "minute": 62
+            },
+            {
+              "offName": "Alex Baena",
+              "onName": "Nico Williams",
+              "minute": 75
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 75
+            }
+          ]
         }
       },
       "away": {
@@ -51270,6 +51291,11 @@
               "playerName": "Lisandro Martinez",
               "type": "yellow",
               "minute": 41
+            },
+            {
+              "playerName": "Leandro Paredes",
+              "type": "yellow",
+              "minute": 52
             }
           ],
           "staffCards": [],
@@ -51278,11 +51304,31 @@
               "offName": "Lisandro Martinez",
               "onName": "Nicolas Otamendi",
               "minute": 44
+            },
+            {
+              "offName": "Nico Gonzalez",
+              "onName": "Leandro Paredes",
+              "minute": "HT"
+            },
+            {
+              "offName": "Gonzalo Montiel",
+              "onName": "Nahuel Molina",
+              "minute": 58
+            },
+            {
+              "offName": "Cristian Romero",
+              "onName": "Facundo Medina",
+              "minute": 70
+            },
+            {
+              "offName": "Rodrigo De Paul",
+              "onName": "Giuliano Simeone",
+              "minute": 70
             }
           ]
         }
       }
     }
   },
-  "updatedAt": "2026-07-19T19:55:29.574Z"
+  "updatedAt": "2026-07-19T20:58:17.775Z"
 }
