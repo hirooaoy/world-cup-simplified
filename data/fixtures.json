@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T23:32:27.450Z",
+  "updatedAt": "2026-07-19T23:33:53.985Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -28267,7 +28267,15 @@
           "assistName": "Nico Williams"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=x-cpRHf4xd4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-19T16:33:52-07:00",
+        "checkedAt": "2026-07-19T16:33:52-07:00"
+      }
     }
   ]
 }
