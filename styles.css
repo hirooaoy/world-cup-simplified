@@ -4330,6 +4330,12 @@ h1 {
   width: 100%;
 }
 
+.tournament-canvas-shell {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
 .tournament-r32,
 .tournament-progression {
   min-width: 0;
@@ -4629,6 +4635,19 @@ h1 {
   overscroll-behavior-inline: contain;
   scroll-padding-inline: 18px;
   -webkit-overflow-scrolling: touch;
+}
+
+.tournament-board-surface {
+  --tournament-inverse-scale: 1;
+  position: relative;
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  transform-origin: 0 0;
+}
+
+.tournament-board-surface [data-tooltip]::after {
+  zoom: var(--tournament-inverse-scale);
 }
 
 .progress-connectors {
@@ -5764,6 +5783,30 @@ h1 {
   display: block;
   object-fit: cover;
   object-position: center 12%;
+}
+
+.player-photo img,
+.lineup-avatar-image,
+.lineup-coach-avatar img,
+.lineup-coach-card-photo img {
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.player-photo img.is-image-ready,
+.lineup-avatar-image.is-image-ready,
+.lineup-coach-avatar img.is-image-ready,
+.lineup-coach-card-photo img.is-image-ready {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-photo img,
+  .lineup-avatar-image,
+  .lineup-coach-avatar img,
+  .lineup-coach-card-photo img {
+    transition: none;
+  }
 }
 
 .player-photo-fallback {
@@ -8079,6 +8122,10 @@ button.lineup-event-sub,
     shape-outside: ellipse(50% 50% at 50% 50%);
     pointer-events: none;
   }
+
+  .site-footer .source-note.has-tournament-show-next-collision::before {
+    shape-outside: inset(0);
+  }
 }
 
 @media (max-width: 560px) {
@@ -9269,6 +9316,51 @@ button.lineup-event-sub,
   .tournament-progression.is-mobile-dragging {
     cursor: grabbing;
     user-select: none;
+  }
+
+  .tournament-progression.is-round-labels-sticky .progress-round > h3 {
+    visibility: hidden;
+  }
+
+  .tournament-sticky-round-overlay.is-mobile {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 70;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: -30px;
+    pointer-events: none;
+  }
+
+  .tournament-sticky-round-overlay.is-mobile .tournament-sticky-round-track {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .tournament-sticky-round-overlay.is-mobile .tournament-sticky-round-label {
+    position: absolute;
+    top: 0;
+    display: flex;
+    min-height: 30px;
+    align-items: center;
+    padding: 0 8px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.62),
+      0 8px 22px rgba(10, 10, 10, 0.055);
+    backdrop-filter: blur(8px) saturate(160%);
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+    color: rgba(10, 10, 10, 0.58);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    pointer-events: auto;
+    text-transform: uppercase;
   }
 
   .tournament-progression .progress-connectors {

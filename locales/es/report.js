@@ -32,6 +32,7 @@ const reportLocale = {
     whatChanged: "¿Qué debemos corregir?"
   },
   footerText: {
+    checkingDataFreshness: "Comprobando la actualización de los datos…",
     dataRefreshed: "Datos actualizados el",
     fallbackRelease: "Las notas de la versión explican los cambios más recientes de la aplicación.",
     latestChanges: "Cambios recientes",

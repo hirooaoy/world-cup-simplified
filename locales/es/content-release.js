@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "3ccf1a310a923835df524048c7bcbf4ce614b59fa49ecb56a9d40bd5b00003dc"
+  "sourceFingerprint": "ab4d9e63295eff7b4dc771b205dbe3fa3c49ccbe036bbc64edbc7a65af6845b0"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "England's 6-4 third-place win over France now includes the official score, complete goal timeline and line-ups, a sourced three-bullet recap, and FOX Sports highlights.": "La victoria de Inglaterra por 6-4 sobre Francia en el partido por el tercer puesto ahora incluye el marcador oficial, la cronología completa de goles y las alineaciones, un resumen de tres puntos con fuentes y los mejores momentos de FOX Sports.",
-  "England's bronze, live freshness, and smoother mobile controls": "El bronce de Inglaterra, actualización en vivo y controles móviles más fluidos",
-  "On mobile, Ball Boy and Tournament's Show next button now use one ordered handoff: Ball Boy clears the slot before the button appears, the button fades before Ball Boy drops, and panel interruptions or live rerenders cannot make them overlap; desktop behavior is unchanged.": "En dispositivos móviles, Ball Boy y el botón Mostrar siguiente del Torneo ahora usan una transición ordenada: Ball Boy despeja el espacio antes de que aparezca el botón, el botón se desvanece antes de que Ball Boy baje y las interrupciones del panel o los nuevos renderizados en vivo no pueden hacer que se superpongan; el comportamiento de escritorio no cambia.",
-  "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.": "El pie de página ahora presenta de forma concisa los enlaces de confianza: Ver fuentes, la hora de la última actualización de datos y Ver notas de la versión, sin repetir el aviso sobre pronósticos no oficiales."
+  "Flexible tournament zoom, steadier footers, and smoother photos": "Zoom flexible del torneo, pies de página más estables y fotos más fluidas",
+  "The home and Report footers now show Checking data freshness until the first live check settles, then move directly to one final timestamp in English, Chinese, Spanish, or Korean.": "Los pies de página de inicio e Informar un problema ahora muestran Comprobando la actualización de los datos… hasta que termina la primera consulta en vivo y luego pasan directamente a una única hora final en inglés, chino, español o coreano.",
+  "The tournament bracket now supports bounded pinch, trackpad, and keyboard zoom without a permanent toolbar, keeping 100% as the maximum and a readable 65% floor on phones.": "El cuadro del torneo ahora permite un zoom limitado mediante pellizco, panel táctil y teclado sin una barra de herramientas permanente; conserva el 100% como máximo y un límite mínimo legible del 65% en teléfonos.",
+  "When the bracket is zoomed out, round labels stay visible and aligned while match cards, connectors, scrolling, and the Show next control continue to work together.": "Al alejar el cuadro, las etiquetas de las rondas permanecen visibles y alineadas, mientras las tarjetas de los partidos, los conectores, el desplazamiento y el control Mostrar siguiente siguen funcionando juntos."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

@@ -8,7 +8,7 @@ import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-18-2";
+} from "./locales/locale-runtime.js?v=2026-07-19-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -2056,6 +2056,7 @@ function clearScoutFooterAvoidance() {
   }
 
   footerSourceNote.classList.remove("has-scout-collision");
+  footerSourceNote.classList.remove("has-tournament-show-next-collision");
   footerSourceNote.style.removeProperty("--scout-footer-exclusion-width");
   footerSourceNote.style.removeProperty("--scout-footer-exclusion-height");
 }
@@ -2074,21 +2075,31 @@ function syncScoutFooterAvoidance() {
 
   const noteBounds = footerSourceNote.getBoundingClientRect();
   const widgetBounds = widget.getBoundingClientRect();
+  const showNextResult = getVisibleTournamentShowNextButton();
+  const showNextBounds = showNextResult?.bounds;
+  const obstacleBounds = showNextBounds
+    ? {
+        bottom: Math.max(widgetBounds.bottom, showNextBounds.bottom),
+        left: Math.min(widgetBounds.left, showNextBounds.left),
+        right: Math.max(widgetBounds.right, showNextBounds.right),
+        top: Math.min(widgetBounds.top, showNextBounds.top)
+      }
+    : widgetBounds;
   const gap = SCOUT_FOOTER_COLLISION_GAP;
   const intersects =
-    widgetBounds.width > 0 &&
-    widgetBounds.height > 0 &&
-    widgetBounds.right + gap > noteBounds.left &&
-    widgetBounds.left - gap < noteBounds.right &&
-    widgetBounds.bottom + gap > noteBounds.top &&
-    widgetBounds.top - gap < noteBounds.bottom;
+    obstacleBounds.right > obstacleBounds.left &&
+    obstacleBounds.bottom > obstacleBounds.top &&
+    obstacleBounds.right + gap > noteBounds.left &&
+    obstacleBounds.left - gap < noteBounds.right &&
+    obstacleBounds.bottom + gap > noteBounds.top &&
+    obstacleBounds.top - gap < noteBounds.bottom;
 
   if (!intersects) {
     clearScoutFooterAvoidance();
     return;
   }
 
-  const exclusionLeft = Math.max(noteBounds.left, widgetBounds.left - gap);
+  const exclusionLeft = Math.max(noteBounds.left, obstacleBounds.left - gap);
   const exclusionWidth = Math.max(0, noteBounds.right - exclusionLeft);
   const exclusionHeight = noteBounds.height;
 
@@ -2101,6 +2112,10 @@ function syncScoutFooterAvoidance() {
     `${Math.ceil(exclusionHeight)}px`
   );
   footerSourceNote.classList.add("has-scout-collision");
+  footerSourceNote.classList.toggle(
+    "has-tournament-show-next-collision",
+    Boolean(showNextBounds)
+  );
 }
 
 function queueScoutFooterAvoidance() {
@@ -2545,6 +2560,10 @@ function renderScoutAvatar(person, team, className = "", { showFlagBadge = false
 
 function finishScoutVisualMessage(message, { scroll = true } = {}) {
   message.querySelectorAll(".scout-avatar img").forEach((image) => {
+    const markImageReady = () => {
+      image.classList.add("is-image-ready");
+    };
+    image.addEventListener("load", markImageReady, { once: true });
     image.addEventListener(
       "error",
       () => {
@@ -2553,6 +2572,9 @@ function finishScoutVisualMessage(message, { scroll = true } = {}) {
       },
       { once: true }
     );
+    if (image.complete && image.naturalWidth > 0) {
+      markImageReady();
+    }
   });
   messages.append(message);
   if (scroll) {

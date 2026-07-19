@@ -821,6 +821,7 @@ Object.assign(EXACT, {
     "32강 자리는 현재 순위와 남은 경기 전망을 반영합니다. 이후 라운드는 예측입니다.",
   "Data refreshed stays separate from app release notes.":
     "데이터 갱신 시각은 앱 업데이트 내역과 별도로 표시합니다.",
+  "Checking data freshness…": "데이터 업데이트 확인 중…",
   "No remaining group result combination can move this team into a Round of 32 place.":
     "남은 어떤 조별리그 결과 조합으로도 이 팀은 32강에 오를 수 없습니다.",
   "FIFA schedule": "FIFA 경기 일정",

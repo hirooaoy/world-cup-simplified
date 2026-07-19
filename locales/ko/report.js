@@ -32,6 +32,7 @@ const reportLocale = {
     whatChanged: "어떤 내용을 수정해야 하나요?"
   },
   footerText: {
+    checkingDataFreshness: "데이터 업데이트 확인 중…",
     dataRefreshed: "데이터 업데이트:",
     fallbackRelease: "릴리스 노트에서 최신 앱 변경 사항을 확인할 수 있습니다.",
     latestChanges: "최근 변경 사항",

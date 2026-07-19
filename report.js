@@ -3,7 +3,7 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-18-2";
+} from "./locales/locale-runtime.js?v=2026-07-19-1";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
@@ -127,6 +127,7 @@ const backToHomeText = {
 }[currentLanguage] || "Back to Home";
 const footerText = {
   en: {
+    checkingDataFreshness: "Checking data freshness…",
     dataRefreshed: "Data refreshed",
     fallbackRelease: "Release notes explain the latest app changes.",
     latestChanges: "Latest changes",
@@ -148,6 +149,7 @@ const footerText = {
     exactSources: "Exact sources vary by match."
   },
   zh: {
+    checkingDataFreshness: "正在检查数据更新时间…",
     dataRefreshed: "数据刷新于",
     fallbackRelease: "发布说明介绍应用的最新改动。",
     latestChanges: "最新更新",
@@ -173,6 +175,7 @@ const ft = activeLocalePack?.footerText || footerText[currentLanguage] || footer
 const dateLabel = getDateLabel(reportDate);
 let footerUpdatedAt = "";
 let footerReleaseNotes = { releases: [] };
+let isReportFooterFreshnessLoading = true;
 let activeReportFooterTooltipTrigger = null;
 const zhTimeZoneNames = {
   "America/Los_Angeles": "洛杉矶",
@@ -487,8 +490,13 @@ function renderReportFooter() {
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.officialHighlights)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
   const updatedAtText = formatFooterUpdatedAt(footerUpdatedAt);
-  const dataRefreshed = updatedAtText
-    ? `${escapeHtml(ft.dataRefreshed)} ${escapeHtml(updatedAtText)}`
+  const freshnessText = isReportFooterFreshnessLoading
+    ? ft.checkingDataFreshness
+    : updatedAtText
+      ? `${ft.dataRefreshed} ${updatedAtText}`
+      : "";
+  const dataRefreshed = freshnessText
+    ? `<span class="source-freshness${isReportFooterFreshnessLoading ? " is-loading" : ""}" role="status" aria-live="polite" aria-atomic="true">${escapeHtml(freshnessText)}</span>`
     : "";
   const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
   const creatorText = activeLocalePack?.formatting?.creatorPattern
@@ -664,6 +672,7 @@ async function loadReportFooterData() {
     footerReleaseNotes = releaseNotesResult.value;
   }
 
+  isReportFooterFreshnessLoading = false;
   renderReportFooter();
 }
 

@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-07-18T19:38:06-07:00",
+  "updatedAt": "2026-07-19T11:00:35-07:00",
   "releases": [
+    {
+      "date": "2026-07-19",
+      "title": "Flexible tournament zoom, steadier footers, and smoother photos",
+      "titleZh": "灵活的赛事缩放、更稳定的页脚与更顺滑的照片加载",
+      "highlights": [
+        "The tournament bracket now supports bounded pinch, trackpad, and keyboard zoom without a permanent toolbar, keeping 100% as the maximum and a readable 65% floor on phones.",
+        "When the bracket is zoomed out, round labels stay visible and aligned while match cards, connectors, scrolling, and the Show next control continue to work together.",
+        "The home and Report footers now show Checking data freshness until the first live check settles, then move directly to one final timestamp in English, Chinese, Spanish, or Korean.",
+        "On mobile, footer text now avoids the complete Show next and Ball Boy dock, and player, coach, line-up, and Ball Boy portraits fade in subtly after loading without animation in reduced-motion mode."
+      ],
+      "highlightsZh": [
+        "赛事对阵图现在支持有边界的双指、触控板与键盘缩放，无需常驻工具栏；最大保持100%，手机端最低为仍可清晰阅读的65%。",
+        "对阵图缩小时，轮次标签会保持可见且对齐，比赛卡片、连接线、滚动与“显示下一场”控件仍会协同工作。",
+        "主页与“报告问题”页脚现在会在首次实时检查完成前显示“正在检查数据更新时间…”，随后直接切换为英语、中文、西班牙语或韩语的最终时间戳。",
+        "在移动端，页脚文字现在会避开完整的“显示下一场”与 Ball Boy 停靠区；球员、教练、阵容和 Ball Boy 头像会在加载完成后轻柔淡入，并在减少动态效果模式下取消动画。"
+      ]
+    },
     {
       "date": "2026-07-18",
       "title": "England's bronze, live freshness, and smoother mobile controls",

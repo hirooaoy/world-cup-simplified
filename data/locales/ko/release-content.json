@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "3ccf1a310a923835df524048c7bcbf4ce614b59fa49ecb56a9d40bd5b00003dc",
+  "sourceFingerprint": "ab4d9e63295eff7b4dc771b205dbe3fa3c49ccbe036bbc64edbc7a65af6845b0",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "England's 6-4 third-place win over France now includes the official score, complete goal timeline and line-ups, a sourced three-bullet recap, and FOX Sports highlights.": "잉글랜드가 프랑스를 6-4로 꺾고 3위를 차지한 경기에 공식 점수, 전체 득점 타임라인과 라인업, 출처가 있는 세 줄 요약, FOX Sports 하이라이트가 추가되었습니다.",
-    "England's bronze, live freshness, and smoother mobile controls": "잉글랜드의 동메달, 실시간 업데이트, 더 부드러운 모바일 컨트롤",
-    "On mobile, Ball Boy and Tournament's Show next button now use one ordered handoff: Ball Boy clears the slot before the button appears, the button fades before Ball Boy drops, and panel interruptions or live rerenders cannot make them overlap; desktop behavior is unchanged.": "모바일에서 Ball Boy와 토너먼트의 다음 경기 보기 버튼은 이제 순서가 정해진 전환을 사용합니다. Ball Boy가 먼저 자리를 비운 뒤 버튼이 나타나고, 버튼이 먼저 사라진 뒤 Ball Boy가 내려오며, 패널 중단이나 실시간 재렌더링에도 두 요소가 겹치지 않습니다. 데스크톱 동작은 그대로입니다.",
-    "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.": "바닥글은 이제 출처 보기, 최신 데이터 업데이트 시간, 릴리스 노트 보기 링크만 간결하게 표시하며 비공식 예측 안내를 반복하지 않습니다."
+    "Flexible tournament zoom, steadier footers, and smoother photos": "유연한 토너먼트 확대·축소, 안정적인 바닥글, 부드러운 사진 로딩",
+    "The home and Report footers now show Checking data freshness until the first live check settles, then move directly to one final timestamp in English, Chinese, Spanish, or Korean.": "홈과 문제 신고 페이지의 바닥글은 첫 실시간 확인이 끝날 때까지 데이터 업데이트 확인 중…을 표시한 뒤 영어, 중국어, 스페인어 또는 한국어로 된 최종 시각 한 번만 바로 표시합니다.",
+    "The tournament bracket now supports bounded pinch, trackpad, and keyboard zoom without a permanent toolbar, keeping 100% as the maximum and a readable 65% floor on phones.": "토너먼트 대진표는 이제 상시 도구 모음 없이 두 손가락, 트랙패드, 키보드로 범위가 제한된 확대·축소를 지원합니다. 최대 배율은 100%이며 휴대전화에서는 읽기 쉬운 65%가 최소 배율입니다.",
+    "When the bracket is zoomed out, round labels stay visible and aligned while match cards, connectors, scrolling, and the Show next control continue to work together.": "대진표를 축소해도 라운드 이름은 표시되고 정렬을 유지하며, 경기 카드, 연결선, 스크롤, 다음 경기 보기 컨트롤도 계속 함께 작동합니다."
   }
 }

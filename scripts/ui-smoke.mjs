@@ -2502,6 +2502,97 @@ try {
   }, getExpectedReleaseTooltipText(releaseNotesData));
   await releaseNotesLoadingContext.close();
 
+  const homeFreshnessLoadingContext = await browser.newContext();
+  let releaseHomeFreshness;
+  let resolveHomeFreshnessRequest;
+  const homeFreshnessDelay = new Promise((resolve) => {
+    releaseHomeFreshness = resolve;
+  });
+  const homeFreshnessRequested = new Promise((resolve) => {
+    resolveHomeFreshnessRequest = resolve;
+  });
+  await homeFreshnessLoadingContext.route("**/api/live-data*", async (route) => {
+    resolveHomeFreshnessRequest();
+    await homeFreshnessDelay;
+    await route.fulfill({
+      body: JSON.stringify({
+        fixturesData,
+        standingsData,
+        syncStatus: { checkedAt: "2026-07-19T16:32:00.000Z", ok: true },
+        tournamentData
+      }),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  const homeFreshnessLoadingPage = await homeFreshnessLoadingContext.newPage();
+  await homeFreshnessLoadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await homeFreshnessRequested;
+  const homeFreshnessLoadingState = await homeFreshnessLoadingPage.locator("#source-note").evaluate((note) => ({
+    freshness: note.querySelector(".source-freshness")?.textContent.trim(),
+    isLoading: note.querySelector(".source-freshness")?.classList.contains("is-loading"),
+    statusRole: note.querySelector(".source-freshness")?.getAttribute("role"),
+    sourceButton: note.querySelector(".source-tooltip-trigger")?.textContent.trim(),
+    releaseButton: note.querySelector(".release-tooltip-trigger")?.textContent.trim()
+  }));
+  assert(
+    homeFreshnessLoadingState.freshness === "Checking data freshness…" &&
+      homeFreshnessLoadingState.isLoading &&
+      homeFreshnessLoadingState.statusRole === "status" &&
+      homeFreshnessLoadingState.sourceButton === "See sources" &&
+      homeFreshnessLoadingState.releaseButton === "See release notes",
+    `The home footer should keep both controls available and show one honest freshness loading state until live data settles. Measured ${JSON.stringify(homeFreshnessLoadingState)}.`
+  );
+  releaseHomeFreshness();
+  await homeFreshnessLoadingPage.waitForFunction(() => {
+    const freshness = document.querySelector("#source-note .source-freshness");
+    return freshness && !freshness.classList.contains("is-loading") && freshness.textContent.includes("Data refreshed");
+  });
+  await homeFreshnessLoadingContext.close();
+
+  const reportFreshnessLoadingContext = await browser.newContext();
+  let releaseReportFreshness;
+  let resolveReportFreshnessRequest;
+  const reportFreshnessDelay = new Promise((resolve) => {
+    releaseReportFreshness = resolve;
+  });
+  const reportFreshnessRequested = new Promise((resolve) => {
+    resolveReportFreshnessRequest = resolve;
+  });
+  await reportFreshnessLoadingContext.route("**/api/live-data*", async (route) => {
+    resolveReportFreshnessRequest();
+    await reportFreshnessDelay;
+    await route.fulfill({
+      body: JSON.stringify({
+        syncStatus: { checkedAt: "2026-07-19T16:32:00.000Z", ok: true }
+      }),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  const reportFreshnessLoadingPage = await reportFreshnessLoadingContext.newPage();
+  await reportFreshnessLoadingPage.goto(`${baseUrl}/report.html`, { waitUntil: "domcontentloaded" });
+  await reportFreshnessRequested;
+  const reportFreshnessLoadingState = await reportFreshnessLoadingPage.locator("#source-note").evaluate((note) => ({
+    freshness: note.querySelector(".source-freshness")?.textContent.trim(),
+    isLoading: note.querySelector(".source-freshness")?.classList.contains("is-loading"),
+    sourceButton: note.querySelector(".source-tooltip-trigger")?.textContent.trim(),
+    releaseButton: note.querySelector(".release-tooltip-trigger")?.textContent.trim()
+  }));
+  assert(
+    reportFreshnessLoadingState.freshness === "Checking data freshness…" &&
+      reportFreshnessLoadingState.isLoading &&
+      reportFreshnessLoadingState.sourceButton === "See sources" &&
+      reportFreshnessLoadingState.releaseButton === "See release notes",
+    `The Report footer should keep both controls available and show the same freshness loading state. Measured ${JSON.stringify(reportFreshnessLoadingState)}.`
+  );
+  releaseReportFreshness();
+  await reportFreshnessLoadingPage.waitForFunction(() => {
+    const freshness = document.querySelector("#source-note .source-freshness");
+    return freshness && !freshness.classList.contains("is-loading") && freshness.textContent.includes("Data refreshed");
+  });
+  await reportFreshnessLoadingContext.close();
+
   {
   const defaultMatchViewCheck = await openPageAtTime("2026-07-07T12:00:00-07:00", "/", {
     contextOptions: { timezoneId: "America/Los_Angeles" }
@@ -9026,6 +9117,72 @@ try {
       `Mobile Show next and Ball Boy should form one native fixed dock at the page bottom-right without a duplicate viewport offset. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
     );
 
+    await tournamentShowNextFloatingCheck.page.locator("#source-note").scrollIntoViewIfNeeded();
+    await tournamentShowNextFloatingCheck.page.waitForFunction(() =>
+      document.querySelector("#source-note")?.classList.contains("has-scout-collision")
+    );
+    const tournamentShowNextFooterState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      const note = document.querySelector("#source-note");
+      const button = document.querySelector(".tournament-show-next-button");
+      const noteBounds = note?.getBoundingClientRect();
+      const buttonBounds = button?.getBoundingClientRect();
+      if (!note || !noteBounds || !buttonBounds) {
+        return null;
+      }
+
+      const textRects = [];
+      const walker = document.createTreeWalker(note, NodeFilter.SHOW_TEXT);
+      let textNode = walker.nextNode();
+      while (textNode) {
+        const parent = textNode.parentElement;
+        if (
+          textNode.textContent.trim() &&
+          !parent?.closest(".source-tooltip, .release-tooltip")
+        ) {
+          const range = document.createRange();
+          range.selectNodeContents(textNode);
+          for (const rect of range.getClientRects()) {
+            if (rect.width > 0 && rect.height > 0) {
+              textRects.push({
+                bottom: rect.bottom,
+                left: rect.left,
+                right: rect.right,
+                top: rect.top
+              });
+            }
+          }
+        }
+        textNode = walker.nextNode();
+      }
+
+      const gap = 7.5;
+      const overlappingTextRects = textRects.filter(
+        (rect) =>
+          rect.right > buttonBounds.left - gap &&
+          rect.left < buttonBounds.right + gap &&
+          rect.bottom > buttonBounds.top - gap &&
+          rect.top < buttonBounds.bottom + gap
+      );
+
+      return {
+        exclusionWidth: Number.parseFloat(
+          note.style.getPropertyValue("--scout-footer-exclusion-width")
+        ),
+        expectedMinimumExclusionWidth: noteBounds.right - buttonBounds.left + gap,
+        hasCollision: note.classList.contains("has-scout-collision"),
+        overlappingTextRects,
+        textRectCount: textRects.length
+      };
+    });
+    assert(
+      tournamentShowNextFooterState?.hasCollision &&
+        tournamentShowNextFooterState.textRectCount > 0 &&
+        tournamentShowNextFooterState.overlappingTextRects.length === 0 &&
+        tournamentShowNextFooterState.exclusionWidth >=
+          tournamentShowNextFooterState.expectedMinimumExclusionWidth,
+      `The mobile footer should reserve the full Show next and Ball Boy dock, not only the narrower Ball Boy circle. Measured ${JSON.stringify(tournamentShowNextFooterState)}.`
+    );
+
     const tournamentStaleInsetState = await tournamentShowNextFloatingCheck.page.evaluate(async () => {
       const button = document.querySelector(".tournament-show-next-button");
       const ballBoy = document.querySelector(".scout-widget");
@@ -12552,6 +12709,136 @@ try {
       scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
+  const tournamentProgression = page.locator(".tournament-progression");
+  const tournamentZoomInitial = await tournamentProgression.evaluate((progression) => ({
+    minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+    scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
+    visibleControls: document.querySelectorAll(".tournament-zoom-controls").length
+  }));
+  assert(
+    tournamentZoomInitial.scale === 1 &&
+      tournamentZoomInitial.minimum >= 0.649 &&
+      tournamentZoomInitial.minimum <= 0.651 &&
+      tournamentZoomInitial.visibleControls === 0,
+    `Tournament zoom should open at the current 100% size with a 65% phone floor and no visible toolbar. Measured ${JSON.stringify(tournamentZoomInitial)}.`
+  );
+  await tournamentProgression.focus();
+  for (let zoomStep = 0; zoomStep < 4; zoomStep += 1) {
+    await page.keyboard.press("-");
+    await page.waitForTimeout(45);
+  }
+  const tournamentZoomedOut = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const labels = [...progression.querySelectorAll(".tournament-sticky-round-label")];
+    const rounds = [...progression.querySelectorAll(".progress-round")];
+
+    return {
+      cardWidth: Math.round(progression.querySelector(".progress-match").getBoundingClientRect().width),
+      connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      labelLefts: labels.map((label) => Math.round(label.getBoundingClientRect().left)),
+      labelTops: labels.map((label) => Math.round(label.getBoundingClientRect().top)),
+      labelWidths: labels.map((label) => Math.round(label.getBoundingClientRect().width)),
+      minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      roundLefts: rounds.map((round) => Math.round(round.getBoundingClientRect().left)),
+      roundWidths: rounds.map((round) => Math.round(round.getBoundingClientRect().width)),
+      scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
+      scrollHeight: progression.scrollHeight,
+      scrollWidth: progression.scrollWidth,
+      stickyOverlay: progression.classList.contains("is-round-labels-sticky")
+    };
+  });
+  assert(
+    tournamentZoomedOut.scale >= 0.649 &&
+      tournamentZoomedOut.scale <= 0.651 &&
+      Math.abs(tournamentZoomedOut.scale - tournamentZoomedOut.minimum) <= 0.002 &&
+      tournamentZoomedOut.cardWidth >= 160 &&
+      tournamentZoomedOut.cardWidth <= 162 &&
+      tournamentZoomedOut.connectorPathCount >= 29 &&
+      tournamentZoomedOut.stickyOverlay &&
+      tournamentZoomedOut.labelLefts.length === 5 &&
+      tournamentZoomedOut.labelLefts.every(
+        (left, index) => Math.abs(left - tournamentZoomedOut.roundLefts[index]) <= 1
+      ) &&
+      tournamentZoomedOut.labelWidths.every(
+        (width, index) => Math.abs(width - tournamentZoomedOut.roundWidths[index]) <= 1
+      ) &&
+      new Set(tournamentZoomedOut.labelTops).size === 1 &&
+      tournamentZoomedOut.scrollWidth < mobileTournamentCanvasInitial.roundsWidth &&
+      tournamentZoomedOut.scrollHeight < mobileTournamentCanvasInitial.scrollHeightOverflow + 700 &&
+      tournamentZoomedOut.pageOverflow <= 1,
+    `Zooming out should shrink cards and scroll geometry together while keeping all connector rails and readable sticky round labels aligned. Measured ${JSON.stringify(tournamentZoomedOut)}.`
+  );
+  await page.keyboard.press("0");
+  await page.waitForTimeout(70);
+  const tournamentZoomResetState = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    return {
+      connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
+      scrollHeight: progression.scrollHeight,
+      scrollWidth: progression.scrollWidth,
+      stickyOverlay: progression.classList.contains("is-round-labels-sticky")
+    };
+  });
+  assert(
+    tournamentZoomResetState.scale === 1 &&
+      tournamentZoomResetState.connectorPathCount >= 29 &&
+      !tournamentZoomResetState.stickyOverlay &&
+      tournamentZoomResetState.scrollWidth >= mobileTournamentCanvasInitial.roundsWidth &&
+      tournamentZoomResetState.scrollHeight - page.viewportSize().height > 120,
+    `Resetting tournament zoom should restore the exact current-size board and native mobile sticky headings. Measured ${JSON.stringify(tournamentZoomResetState)}.`
+  );
+  await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const rect = progression.getBoundingClientRect();
+    const originalSetPointerCapture = Element.prototype.setPointerCapture;
+    const originalReleasePointerCapture = Element.prototype.releasePointerCapture;
+    Element.prototype.setPointerCapture = function setPointerCaptureNoop() {};
+    Element.prototype.releasePointerCapture = function releasePointerCaptureNoop() {};
+    const pointer = (type, pointerId, clientX, clientY, isPrimary, buttons = 1) =>
+      progression.dispatchEvent(
+        new PointerEvent(type, {
+          bubbles: true,
+          button: 0,
+          buttons,
+          cancelable: true,
+          clientX,
+          clientY,
+          isPrimary,
+          pointerId,
+          pointerType: "touch"
+        })
+      );
+    const centerY = rect.top + Math.min(rect.height - 80, 260);
+    pointer("pointerdown", 31, rect.left + 70, centerY, true);
+    pointer("pointerdown", 32, rect.left + 270, centerY, false);
+    pointer("pointermove", 31, rect.left + 105, centerY, true);
+    pointer("pointermove", 32, rect.left + 235, centerY, false);
+    pointer("pointerup", 31, rect.left + 105, centerY, true, 0);
+    pointer("pointerup", 32, rect.left + 235, centerY, false, 0);
+    Element.prototype.setPointerCapture = originalSetPointerCapture;
+    Element.prototype.releasePointerCapture = originalReleasePointerCapture;
+  });
+  await page.waitForTimeout(80);
+  const tournamentPinchZoomState = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    return {
+      connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
+      stickyOverlay: progression.classList.contains("is-round-labels-sticky")
+    };
+  });
+  assert(
+    tournamentPinchZoomState.scale >= 0.649 &&
+      tournamentPinchZoomState.scale <= 0.651 &&
+      tournamentPinchZoomState.stickyOverlay &&
+      tournamentPinchZoomState.connectorPathCount >= 29,
+    `A two-finger pinch should reach the same bounded zoom without disconnecting cards, labels, or rails. Measured ${JSON.stringify(tournamentPinchZoomState)}.`
+  );
+  await tournamentProgression.focus();
+  await page.keyboard.press("0");
+  await page.waitForTimeout(70);
   const tournamentBoardBox = await page.locator(".tournament-progression").boundingBox();
   assert(tournamentBoardBox, "Mobile tournament board should have a measurable canvas.");
   await page.evaluate(() => {
@@ -12738,6 +13025,56 @@ try {
       mobileTournamentCanvasEdgeHandoff.maxRequestedTop >= 80 &&
       mobileTournamentCanvasEdgeHandoff.urlMatch === "",
     `Dragging past the bottom of the mobile tournament canvas should request vertical page movement. Measured ${JSON.stringify(mobileTournamentCanvasEdgeHandoff)}.`
+  );
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.waitForTimeout(90);
+  await tournamentProgression.focus();
+  for (let zoomStep = 0; zoomStep < 4; zoomStep += 1) {
+    await page.keyboard.press("-");
+    await page.waitForTimeout(45);
+  }
+  await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const top = progression.getBoundingClientRect().top + window.scrollY + 260;
+    window.scrollTo(0, top);
+  });
+  await page.waitForTimeout(80);
+  const desktopTournamentZoomState = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const overlay = progression.querySelector(".tournament-sticky-round-overlay");
+    const labels = [...(overlay?.querySelectorAll(".tournament-sticky-round-label") || [])];
+    const rounds = [...progression.querySelectorAll(".progress-round")];
+
+    return {
+      clientWidth: progression.clientWidth,
+      connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      labelLefts: labels.map((label) => Math.round(label.getBoundingClientRect().left)),
+      labelWidths: labels.map((label) => Math.round(label.getBoundingClientRect().width)),
+      minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      overlayTop: Math.round(overlay?.getBoundingClientRect().top || 0),
+      roundLefts: rounds.map((round) => Math.round(round.getBoundingClientRect().left)),
+      roundWidths: rounds.map((round) => Math.round(round.getBoundingClientRect().width)),
+      scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
+      scrollWidth: progression.scrollWidth,
+      sticky: progression.classList.contains("is-round-labels-sticky")
+    };
+  });
+  assert(
+    desktopTournamentZoomState.scale >= 0.7 &&
+      desktopTournamentZoomState.scale <= 0.8 &&
+      Math.abs(desktopTournamentZoomState.scale - desktopTournamentZoomState.minimum) <= 0.002 &&
+      desktopTournamentZoomState.scrollWidth - desktopTournamentZoomState.clientWidth <= 1 &&
+      desktopTournamentZoomState.connectorPathCount >= 29 &&
+      desktopTournamentZoomState.sticky &&
+      desktopTournamentZoomState.overlayTop >= 16 &&
+      desktopTournamentZoomState.overlayTop <= 20 &&
+      desktopTournamentZoomState.labelLefts.every(
+        (left, index) => Math.abs(left - desktopTournamentZoomState.roundLefts[index]) <= 1
+      ) &&
+      desktopTournamentZoomState.labelWidths.every(
+        (width, index) => Math.abs(width - desktopTournamentZoomState.roundWidths[index]) <= 1
+      ),
+    `Laptop zoom should stop when the whole bracket fits while its fixed round labels stay aligned to the scaled columns. Measured ${JSON.stringify(desktopTournamentZoomState)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const canadaPathCheck = await openPageAtTime(

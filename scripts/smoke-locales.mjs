@@ -47,7 +47,7 @@ const localeCases = [
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
     latestReleaseTitle:
-      "El bronce de Inglaterra, actualización en vivo y controles móviles más fluidos",
+      "Zoom flexible del torneo, pies de página más estables y fotos más fluidas",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -116,7 +116,7 @@ const localeCases = [
     catchUpDynamicPattern: /해트트릭/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "잉글랜드의 동메달, 실시간 업데이트, 더 부드러운 모바일 컨트롤",
+    latestReleaseTitle: "유연한 토너먼트 확대·축소, 안정적인 바닥글, 부드러운 사진 로딩",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:

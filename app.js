@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-18-2";
+} from "./locales/locale-runtime.js?v=2026-07-19-1";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -116,6 +116,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Egypt": "埃及",
     "England": "英格兰",
     "Data refreshed": "数据刷新于",
+    "Checking data freshness…": "正在检查数据更新时间…",
     "Data refreshed stays separate from app release notes.": "数据刷新时间与应用发布说明分开显示。",
     "Eliminated": "已淘汰",
     "ET": "加时结束",
@@ -3290,6 +3291,9 @@ const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
   "2018:Group H": ["Japan", "Senegal"]
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
+const TOURNAMENT_ZOOM_FLOOR = 0.65;
+const TOURNAMENT_ZOOM_MAX = 1;
+const TOURNAMENT_ZOOM_STEP = 0.1;
 const TOURNAMENT_SCROLL_TIMELINE_SUPPORTED =
   typeof CSS !== "undefined" &&
   CSS.supports("animation-timeline: scroll()") &&
@@ -3881,7 +3885,10 @@ let committedMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
 let selectedStandingsMode = DEFAULT_CURRENT_STANDINGS_MODE;
+let tournamentBoardScale = TOURNAMENT_ZOOM_MAX;
 let tournamentBoardDragGesture = null;
+let tournamentBoardPinchGesture = null;
+const tournamentBoardPointers = new Map();
 let tournamentBoardSuppressClickUntil = 0;
 let tournamentConnectorFrameId = 0;
 let tournamentConnectorRetryTimeoutId = 0;
@@ -15444,9 +15451,11 @@ function renderTournamentLoadingView() {
     <section class="tournament-view tournament-view-loading" aria-label="${escapeHtml(localizeText("Tournament bracket"))}" role="status" aria-busy="true">
       <span class="visually-hidden">${escapeHtml(localizeText("Loading standings"))}</span>
       <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
-        <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
-        <div class="progress-rounds">
-          ${TOURNAMENT_PROGRESS_ROUNDS.map(renderTournamentLoadingRound).join("")}
+        <div class="tournament-board-surface">
+          <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
+          <div class="progress-rounds">
+            ${TOURNAMENT_PROGRESS_ROUNDS.map(renderTournamentLoadingRound).join("")}
+          </div>
         </div>
       </section>
     </section>
@@ -15486,12 +15495,16 @@ function renderTournamentShowNextButton(nextMatchIds) {
 
 function renderTournamentProgression(context, options = {}) {
   return `
-    <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
-      <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
-      <div class="progress-rounds">
-        ${TOURNAMENT_PROGRESS_ROUNDS.map((round, roundIndex) => renderTournamentProgressRound(round, context, roundIndex, options)).join("")}
-      </div>
-    </section>
+    <div class="tournament-canvas-shell">
+      <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
+        <div class="tournament-board-surface">
+          <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
+          <div class="progress-rounds">
+            ${TOURNAMENT_PROGRESS_ROUNDS.map((round, roundIndex) => renderTournamentProgressRound(round, context, roundIndex, options)).join("")}
+          </div>
+        </div>
+      </section>
+    </div>
   `;
 }
 
@@ -15862,16 +15875,20 @@ function renderHistoricalTournamentView(year) {
 
   return `
     <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(historicalViewLabel)}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
-      <section class="tournament-progression" aria-label="${escapeHtml(historicalProgressionLabel)}" tabindex="0">
-        <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
-        <div class="progress-rounds">
-          ${rounds
-            .map((round, roundIndex) =>
-              renderHistoricalTournamentRound(round, context, roundIndex, pathRows)
-            )
-            .join("")}
-        </div>
-      </section>
+      <div class="tournament-canvas-shell">
+        <section class="tournament-progression" aria-label="${escapeHtml(historicalProgressionLabel)}" tabindex="0">
+          <div class="tournament-board-surface">
+            <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
+            <div class="progress-rounds">
+              ${rounds
+                .map((round, roundIndex) =>
+                  renderHistoricalTournamentRound(round, context, roundIndex, pathRows)
+                )
+                .join("")}
+            </div>
+          </div>
+        </section>
+      </div>
     </section>
   `;
 }
@@ -15928,9 +15945,121 @@ function isTournamentMobileLayout() {
 
 function getTournamentProgressionElements(root = standingsGrid) {
   const progression = root?.querySelector(".tournament-progression");
+  const surface = progression?.querySelector(".tournament-board-surface");
   const rounds = progression?.querySelector(".progress-rounds");
 
-  return { progression, rounds };
+  return { progression, rounds, surface };
+}
+
+function getTournamentBoardScale(progression) {
+  const scale = Number.parseFloat(progression?.dataset.tournamentZoom || "");
+  return Number.isFinite(scale) ? scale : TOURNAMENT_ZOOM_MAX;
+}
+
+function getTournamentMinimumScale(progression, rounds) {
+  if (!progression || !rounds) {
+    return TOURNAMENT_ZOOM_FLOOR;
+  }
+
+  const currentScale = getTournamentBoardScale(progression);
+  const progressionStyle = getComputedStyle(progression);
+  const paddingInline =
+    (Number.parseFloat(progressionStyle.paddingLeft) || 0) +
+    (Number.parseFloat(progressionStyle.paddingRight) || 0);
+  const availableWidth = Math.max(1, progression.clientWidth - paddingInline);
+  const naturalWidth = Math.max(1, rounds.getBoundingClientRect().width / currentScale);
+  const fitWidthScale = availableWidth / naturalWidth;
+
+  return clampNumber(
+    Math.max(TOURNAMENT_ZOOM_FLOOR, Math.min(TOURNAMENT_ZOOM_MAX, fitWidthScale)),
+    TOURNAMENT_ZOOM_FLOOR,
+    TOURNAMENT_ZOOM_MAX
+  );
+}
+
+function updateTournamentZoomState(progression) {
+  const rounds = progression?.querySelector(".progress-rounds");
+
+  if (!progression || !rounds) {
+    return;
+  }
+
+  const scale = getTournamentBoardScale(progression);
+  const minimumScale = getTournamentMinimumScale(progression, rounds);
+  progression.dataset.tournamentZoomMinimum = minimumScale.toFixed(3);
+}
+
+function getDefaultTournamentZoomAnchor(progression) {
+  const rect = progression.getBoundingClientRect();
+  const visibleTop = Math.max(0, rect.top);
+  const visibleBottom = Math.min(window.innerHeight, rect.bottom);
+
+  return {
+    clientX: rect.left + rect.width / 2,
+    clientY:
+      visibleBottom > visibleTop
+        ? visibleTop + (visibleBottom - visibleTop) / 2
+        : rect.top + Math.min(rect.height, window.innerHeight) / 2
+  };
+}
+
+function applyTournamentBoardScale(progression, requestedScale, options = {}) {
+  const surface = progression?.querySelector(".tournament-board-surface");
+  const rounds = progression?.querySelector(".progress-rounds");
+
+  if (!progression || !surface || !rounds) {
+    return TOURNAMENT_ZOOM_MAX;
+  }
+
+  const oldScale = getTournamentBoardScale(progression);
+  const minimumScale = getTournamentMinimumScale(progression, rounds);
+  const nextScale = clampNumber(requestedScale, minimumScale, TOURNAMENT_ZOOM_MAX);
+  const shouldPreserveAnchor = options.preserveAnchor !== false && Math.abs(nextScale - oldScale) > 0.0005;
+  const anchor = options.anchor || getDefaultTournamentZoomAnchor(progression);
+  const oldSurfaceRect = shouldPreserveAnchor ? surface.getBoundingClientRect() : null;
+  const logicalAnchor = oldSurfaceRect
+    ? {
+        x: (anchor.clientX - oldSurfaceRect.left) / oldScale,
+        y: (anchor.clientY - oldSurfaceRect.top) / oldScale
+      }
+    : null;
+
+  tournamentBoardScale = nextScale;
+  progression.dataset.tournamentZoom = nextScale.toFixed(3);
+  progression.classList.toggle("is-zoomed", nextScale < TOURNAMENT_ZOOM_MAX - 0.001);
+  surface.style.setProperty("zoom", nextScale.toFixed(3));
+  surface.style.setProperty("--tournament-inverse-scale", (1 / nextScale).toFixed(4));
+
+  if (logicalAnchor) {
+    const nextSurfaceRect = surface.getBoundingClientRect();
+    const deltaX = nextSurfaceRect.left + logicalAnchor.x * nextScale - anchor.clientX;
+    const deltaY = nextSurfaceRect.top + logicalAnchor.y * nextScale - anchor.clientY;
+
+    progression.scrollLeft += deltaX;
+    if (isTournamentMobileLayout()) {
+      progression.scrollTop += deltaY;
+    } else if (Math.abs(deltaY) > 0.5) {
+      window.scrollTo({
+        left: window.scrollX,
+        top: clampNumber(window.scrollY + deltaY, 0, getWindowMaxScrollY())
+      });
+    }
+  }
+
+  updateTournamentZoomState(progression);
+  updateTournamentShowNextButtonVisibility();
+  scheduleTournamentRoundHeaderUpdate();
+  return nextScale;
+}
+
+function adjustTournamentBoardScale(progression, direction, options = {}) {
+  const currentScale = getTournamentBoardScale(progression);
+  const requestedScale =
+    direction === "reset"
+      ? TOURNAMENT_ZOOM_MAX
+      : currentScale + (direction === "in" ? TOURNAMENT_ZOOM_STEP : -TOURNAMENT_ZOOM_STEP);
+
+  return applyTournamentBoardScale(progression, requestedScale, options);
 }
 
 function getTournamentShowNextElements(root = standingsGrid) {
@@ -15987,9 +16116,9 @@ function updateTournamentShowNextButtonVisibility(root = standingsGrid) {
 }
 
 function updateTournamentBoardLayout(root = standingsGrid) {
-  const { progression, rounds } = getTournamentProgressionElements(root);
+  const { progression, rounds, surface } = getTournamentProgressionElements(root);
 
-  if (!progression || !rounds) {
+  if (!progression || !rounds || !surface) {
     return;
   }
 
@@ -16017,6 +16146,7 @@ function updateTournamentBoardLayout(root = standingsGrid) {
     match.style.removeProperty("--mobile-path-row");
     match.style.removeProperty("--mobile-path-span");
   });
+  applyTournamentBoardScale(progression, tournamentBoardScale, { preserveAnchor: false });
   updateTournamentShowNextButtonVisibility(root);
   scheduleTournamentRoundHeaderUpdate();
 
@@ -16027,8 +16157,11 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
   const progression = root?.querySelector(".tournament-progression");
   const headings = progression ? [...progression.querySelectorAll(".progress-round h3")] : [];
   let overlay = progression?.querySelector(".tournament-sticky-round-overlay");
+  const isMobileLayout = isTournamentMobileLayout();
+  const scale = getTournamentBoardScale(progression);
+  const shouldUseMobileOverlay = isMobileLayout && scale < TOURNAMENT_ZOOM_MAX - 0.001;
 
-  if (!progression || !headings.length || isTournamentMobileLayout()) {
+  if (!progression || !headings.length || (isMobileLayout && !shouldUseMobileOverlay)) {
     progression?.classList.remove("is-round-labels-sticky");
     overlay?.remove();
     return;
@@ -16041,10 +16174,11 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
   const borderTop = Number.parseFloat(progressionStyle.borderTopWidth) || 0;
   const borderLeft = Number.parseFloat(progressionStyle.borderLeftWidth) || 0;
   const borderRight = Number.parseFloat(progressionStyle.borderRightWidth) || 0;
-  const headingHeight = headings[0].getBoundingClientRect().height;
-  const shouldStick =
+  const headingHeight = headings[0].getBoundingClientRect().height / scale;
+  const shouldStick = isMobileLayout || (
     progressionRect.top + borderTop + paddingTop <= paddingTop &&
-    progressionRect.bottom - borderTop - paddingBottom > paddingTop + headingHeight;
+    progressionRect.bottom - borderTop - paddingBottom > paddingTop + headingHeight
+  );
 
   progression.classList.toggle("is-round-labels-sticky", shouldStick);
 
@@ -16053,16 +16187,15 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
     return;
   }
 
-  const canvasLeft = progressionRect.left + borderLeft;
-  const canvasRight = progressionRect.right - borderRight;
   const labelSignature = headings.map((heading) => heading.textContent.trim()).join("|");
 
   if (!overlay) {
     overlay = document.createElement("div");
     overlay.className = "tournament-sticky-round-overlay";
     overlay.innerHTML = '<div class="tournament-sticky-round-track"></div>';
-    progression.append(overlay);
+    progression.prepend(overlay);
   }
+  overlay.classList.toggle("is-mobile", isMobileLayout);
 
   const track = overlay.querySelector(".tournament-sticky-round-track");
   if (!track) {
@@ -16085,10 +16218,21 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
     );
   }
 
-  overlay.style.left = `${canvasLeft}px`;
-  overlay.style.top = `${paddingTop}px`;
-  overlay.style.width = `${Math.max(0, canvasRight - canvasLeft)}px`;
   overlay.style.height = `${headingHeight}px`;
+  if (isMobileLayout) {
+    overlay.style.removeProperty("left");
+    overlay.style.removeProperty("top");
+    overlay.style.removeProperty("width");
+  } else {
+    const canvasLeft = progressionRect.left + borderLeft;
+    const canvasRight = progressionRect.right - borderRight;
+    overlay.style.left = `${canvasLeft}px`;
+    overlay.style.top = `${paddingTop}px`;
+    overlay.style.width = `${Math.max(0, canvasRight - canvasLeft)}px`;
+  }
+
+  const overlayRect = overlay.getBoundingClientRect();
+  const canvasLeft = overlayRect.left;
 
   const labels = [...track.querySelectorAll(".tournament-sticky-round-label")];
   labels.forEach((label, index) => {
@@ -16103,7 +16247,7 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
 
   const scrollRange = Math.max(0, progression.scrollWidth - progression.clientWidth);
   track.style.setProperty("--tournament-sticky-round-scroll-range", `${scrollRange}px`);
-  if (!TOURNAMENT_SCROLL_TIMELINE_SUPPORTED) {
+  if (isMobileLayout || !TOURNAMENT_SCROLL_TIMELINE_SUPPORTED) {
     track.style.transform = `translate3d(${-progression.scrollLeft}px, 0, 0)`;
   } else {
     track.style.removeProperty("transform");
@@ -16154,10 +16298,74 @@ function getWindowMaxScrollY() {
   return Math.max(0, scrollHeight - window.innerHeight);
 }
 
+function getTournamentPinchPointers(progression) {
+  return [...tournamentBoardPointers.values()].filter(
+    (pointer) => pointer.progression === progression
+  );
+}
+
+function handleTournamentBoardPointerDownCapture(event) {
+  if (event.pointerType !== "touch") {
+    return;
+  }
+
+  const progression = getTournamentProgressionFromEvent(event);
+  if (!progression) {
+    return;
+  }
+
+  tournamentBoardPointers.set(event.pointerId, {
+    clientX: event.clientX,
+    clientY: event.clientY,
+    pointerId: event.pointerId,
+    progression
+  });
+  const pointers = getTournamentPinchPointers(progression);
+  if (pointers.length !== 2) {
+    return;
+  }
+
+  const [firstPointer, secondPointer] = pointers;
+  const midpoint = {
+    clientX: (firstPointer.clientX + secondPointer.clientX) / 2,
+    clientY: (firstPointer.clientY + secondPointer.clientY) / 2
+  };
+  const startScale = getTournamentBoardScale(progression);
+  const surface = progression.querySelector(".tournament-board-surface");
+  const surfaceRect = surface?.getBoundingClientRect();
+
+  if (!surface || !surfaceRect) {
+    return;
+  }
+
+  clearActiveTouchTooltip();
+  progression.classList.remove("is-mobile-dragging");
+  tournamentBoardDragGesture = null;
+  tournamentBoardPinchGesture = {
+    logicalAnchor: {
+      x: (midpoint.clientX - surfaceRect.left) / startScale,
+      y: (midpoint.clientY - surfaceRect.top) / startScale
+    },
+    pointerIds: new Set(pointers.map((pointer) => pointer.pointerId)),
+    progression,
+    startDistance: Math.max(
+      1,
+      Math.hypot(
+        secondPointer.clientX - firstPointer.clientX,
+        secondPointer.clientY - firstPointer.clientY
+      )
+    ),
+    startScale
+  };
+  pointers.forEach((pointer) => progression.setPointerCapture?.(pointer.pointerId));
+  event.preventDefault();
+  event.stopImmediatePropagation();
+}
+
 function handleTournamentBoardPointerDown(event) {
   const progression = getTournamentProgressionFromEvent(event);
 
-  if (!progression || event.button > 0) {
+  if (!progression || event.button > 0 || tournamentBoardPinchGesture) {
     return;
   }
 
@@ -16177,6 +16385,61 @@ function handleTournamentBoardPointerDown(event) {
 }
 
 function handleTournamentBoardPointerMove(event) {
+  const trackedPointer = tournamentBoardPointers.get(event.pointerId);
+  if (trackedPointer) {
+    trackedPointer.clientX = event.clientX;
+    trackedPointer.clientY = event.clientY;
+  }
+
+  if (
+    tournamentBoardPinchGesture &&
+    tournamentBoardPinchGesture.pointerIds.has(event.pointerId)
+  ) {
+    const { progression } = tournamentBoardPinchGesture;
+    const pointers = getTournamentPinchPointers(progression).filter((pointer) =>
+      tournamentBoardPinchGesture.pointerIds.has(pointer.pointerId)
+    );
+    if (pointers.length !== 2) {
+      return;
+    }
+
+    const [firstPointer, secondPointer] = pointers;
+    const midpoint = {
+      clientX: (firstPointer.clientX + secondPointer.clientX) / 2,
+      clientY: (firstPointer.clientY + secondPointer.clientY) / 2
+    };
+    const distance = Math.max(
+      1,
+      Math.hypot(
+        secondPointer.clientX - firstPointer.clientX,
+        secondPointer.clientY - firstPointer.clientY
+      )
+    );
+    const requestedScale =
+      tournamentBoardPinchGesture.startScale *
+      (distance / tournamentBoardPinchGesture.startDistance);
+    const nextScale = applyTournamentBoardScale(progression, requestedScale, {
+      preserveAnchor: false
+    });
+    const surfaceRect = progression
+      .querySelector(".tournament-board-surface")
+      ?.getBoundingClientRect();
+
+    if (surfaceRect) {
+      progression.scrollLeft +=
+        surfaceRect.left +
+        tournamentBoardPinchGesture.logicalAnchor.x * nextScale -
+        midpoint.clientX;
+      progression.scrollTop +=
+        surfaceRect.top +
+        tournamentBoardPinchGesture.logicalAnchor.y * nextScale -
+        midpoint.clientY;
+    }
+    tournamentBoardSuppressClickUntil = Date.now() + 300;
+    event.preventDefault();
+    return;
+  }
+
   if (!tournamentBoardDragGesture || event.pointerId !== tournamentBoardDragGesture.pointerId) {
     return;
   }
@@ -16222,6 +16485,21 @@ function handleTournamentBoardPointerMove(event) {
 }
 
 function finishTournamentBoardPointerGesture(event) {
+  if (
+    tournamentBoardPinchGesture &&
+    tournamentBoardPinchGesture.pointerIds.has(event.pointerId)
+  ) {
+    const { pointerIds, progression } = tournamentBoardPinchGesture;
+    pointerIds.forEach((pointerId) => progression.releasePointerCapture?.(pointerId));
+    pointerIds.forEach((pointerId) => tournamentBoardPointers.delete(pointerId));
+    tournamentBoardPinchGesture = null;
+    tournamentBoardDragGesture = null;
+    progression.classList.remove("is-mobile-dragging");
+    tournamentBoardSuppressClickUntil = Date.now() + 300;
+    return;
+  }
+
+  tournamentBoardPointers.delete(event.pointerId);
   if (!tournamentBoardDragGesture || event.pointerId !== tournamentBoardDragGesture.pointerId) {
     return;
   }
@@ -16238,6 +16516,20 @@ function finishTournamentBoardPointerGesture(event) {
 }
 
 function cancelTournamentBoardPointerGesture(event) {
+  if (
+    tournamentBoardPinchGesture &&
+    tournamentBoardPinchGesture.pointerIds.has(event.pointerId)
+  ) {
+    const { pointerIds, progression } = tournamentBoardPinchGesture;
+    pointerIds.forEach((pointerId) => progression.releasePointerCapture?.(pointerId));
+    pointerIds.forEach((pointerId) => tournamentBoardPointers.delete(pointerId));
+    tournamentBoardPinchGesture = null;
+    tournamentBoardDragGesture = null;
+    progression.classList.remove("is-mobile-dragging");
+    return;
+  }
+
+  tournamentBoardPointers.delete(event.pointerId);
   if (!tournamentBoardDragGesture || event.pointerId !== tournamentBoardDragGesture.pointerId) {
     return;
   }
@@ -16247,8 +16539,48 @@ function cancelTournamentBoardPointerGesture(event) {
   tournamentBoardDragGesture = null;
 }
 
+function handleTournamentBoardWheel(event) {
+  const targetElement = getEventTargetElement(event.target);
+  const progression = targetElement?.closest(".tournament-progression");
+
+  if (!event.ctrlKey || !progression || !standingsGrid.contains(progression)) {
+    return;
+  }
+
+  event.preventDefault();
+  clearActiveTouchTooltip();
+  const currentScale = getTournamentBoardScale(progression);
+  const scaleFactor = Math.exp(-event.deltaY * 0.003);
+  applyTournamentBoardScale(progression, currentScale * scaleFactor, {
+    anchor: { clientX: event.clientX, clientY: event.clientY }
+  });
+}
+
 function handleTournamentBoardKeydown(event) {
-  const progression = getTournamentProgressionFromEvent(event);
+  const targetElement = getEventTargetElement(event.target);
+  const progression = targetElement?.closest(".tournament-progression");
+  if (!progression || !standingsGrid.contains(progression)) {
+    return;
+  }
+
+  if (!event.metaKey && !event.ctrlKey && !event.altKey) {
+    const zoomAction = {
+      "+": "in",
+      "-": "out",
+      "0": "reset",
+      "=": "in"
+    }[event.key];
+    if (zoomAction) {
+      event.preventDefault();
+      adjustTournamentBoardScale(progression, zoomAction);
+      return;
+    }
+  }
+
+  if (!isTournamentMobileLayout()) {
+    return;
+  }
+
   const scrollByKey = {
     ArrowDown: { left: 0, top: 180 },
     ArrowLeft: { left: -180, top: 0 },
@@ -16257,7 +16589,7 @@ function handleTournamentBoardKeydown(event) {
   };
   const scrollDelta = scrollByKey[event.key];
 
-  if (!progression || !scrollDelta) {
+  if (!scrollDelta) {
     return;
   }
 
@@ -16297,10 +16629,11 @@ function scheduleTournamentConnectorUpdate(retries = 6) {
 
 function updateTournamentConnectors() {
   const progression = standingsGrid?.querySelector(".tournament-progression");
+  const surface = progression?.querySelector(".tournament-board-surface");
   const svg = progression?.querySelector(".progress-connectors");
   const rounds = progression?.querySelector(".progress-rounds");
 
-  if (!progression || !svg || !rounds) {
+  if (!progression || !surface || !svg || !rounds) {
     return false;
   }
 
@@ -16321,8 +16654,9 @@ function updateTournamentConnectors() {
     return true;
   }
 
-  const width = Math.ceil(Math.max(progression.scrollWidth, progressionRect.width));
-  const height = Math.ceil(Math.max(progression.scrollHeight, progressionRect.height));
+  const scale = getTournamentBoardScale(progression);
+  const width = Math.ceil(roundsRect.width / scale);
+  const height = Math.ceil(roundsRect.height / scale);
 
   if (width < 2 || height < 2) {
     return false;
@@ -21060,6 +21394,7 @@ function renderLineupAvatar(player, profile) {
         alt=""
         data-player-initials="${escapeHtml(initials)}"
         loading="lazy"
+        decoding="async"
         referrerpolicy="no-referrer"
       />
     `;
@@ -21153,6 +21488,7 @@ function renderLineupCoachThumbnail(coach, className = "lineup-coach-avatar") {
           alt=""
           data-player-initials="${escapeHtml(initials)}"
           loading="lazy"
+          decoding="async"
           referrerpolicy="no-referrer"
         />
       </span>
@@ -23389,6 +23725,7 @@ function renderPlayerPhoto(player, profile, options = {}) {
         alt=""
         data-player-initials="${escapeHtml(initials)}"
         loading="lazy"
+        decoding="async"
         referrerpolicy="no-referrer"
       />
     `;
@@ -30226,9 +30563,15 @@ function renderSourceNote() {
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Head-to-head records"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.nationalFootballTeams, "National Football Teams")}${itemSeparator}${sourceLink(sourceUrls.elevenVeleven, "11v11")}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
+  const isDataFreshnessLoading = isInitialDataLoading || isInitialLiveDataLoading;
   const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
-  const dataRefreshed = updatedAtText
-    ? `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}`
+  const freshnessText = isDataFreshnessLoading
+    ? localizeText("Checking data freshness…")
+    : updatedAtText
+      ? `${localizeText("Data refreshed")} ${updatedAtText}`
+      : "";
+  const dataRefreshed = freshnessText
+    ? `<span class="source-freshness${isDataFreshnessLoading ? " is-loading" : ""}" role="status" aria-live="polite" aria-atomic="true">${escapeHtml(freshnessText)}</span>`
     : "";
   const seeSourcesText = localizeText("See sources");
   const releaseNotesText = localizeText("See release notes");
@@ -30834,16 +31177,18 @@ standingsGrid.addEventListener("click", (event) => {
     openMatchFromTournament(matchCard.dataset.openMatchId);
   }
 });
+document.addEventListener("pointerdown", handleTournamentBoardPointerDownCapture, true);
 standingsGrid.addEventListener("pointerdown", handleTournamentBoardPointerDown);
 standingsGrid.addEventListener("pointermove", handleTournamentBoardPointerMove);
 standingsGrid.addEventListener("pointerup", finishTournamentBoardPointerGesture);
 standingsGrid.addEventListener("pointercancel", cancelTournamentBoardPointerGesture);
+standingsGrid.addEventListener("wheel", handleTournamentBoardWheel, { passive: false });
 standingsGrid.addEventListener(
   "scroll",
   (event) => {
     updateTournamentShowNextButtonVisibility();
     if (getEventTargetElement(event.target)?.matches(".tournament-progression")) {
-      if (!TOURNAMENT_SCROLL_TIMELINE_SUPPORTED) {
+      if (isTournamentMobileLayout() || !TOURNAMENT_SCROLL_TIMELINE_SUPPORTED) {
         updateTournamentRoundHeaders();
       }
     } else {
@@ -31448,6 +31793,22 @@ document.addEventListener("keydown", (event) => {
     teamSearchToggle?.focus();
   }
 });
+
+document.addEventListener(
+  "load",
+  (event) => {
+    const image = event.target;
+    if (
+      image instanceof HTMLImageElement &&
+      image.matches(
+        ".player-photo img, .lineup-avatar-image, .lineup-coach-avatar img, .lineup-coach-card-photo img"
+      )
+    ) {
+      image.classList.add("is-image-ready");
+    }
+  },
+  true
+);
 
 document.addEventListener(
   "error",

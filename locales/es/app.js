@@ -829,6 +829,7 @@ Object.assign(EXACT, {
     "Los lugares de dieciseisavos usan la clasificación actual y las proyecciones pendientes. Las rondas posteriores son pronósticos.",
   "Data refreshed stays separate from app release notes.":
     "La actualización de datos se muestra por separado de las notas de la versión.",
+  "Checking data freshness…": "Comprobando la actualización de los datos…",
   "No remaining group result combination can move this team into a Round of 32 place.":
     "Ninguna combinación de resultados restante puede llevar a esta selección a dieciseisavos.",
   "FIFA schedule": "Calendario de la FIFA",
