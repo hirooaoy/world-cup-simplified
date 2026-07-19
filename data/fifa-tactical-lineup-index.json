@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "competitionEditionId": "281",
-  "updatedAt": "2026-07-18T21:27:45.282Z",
+  "updatedAt": "2026-07-19T18:31:33.286Z",
   "minimumRegistrationId": 12449,
-  "maximumKnownRegistrationId": 12551,
+  "maximumKnownRegistrationId": 12552,
   "lookaheadRegistrationCount": 16,
   "extendedLookaheadRegistrationCount": 128,
   "registrationsByMatchNumber": {
@@ -109,7 +109,8 @@
     "100": 12546,
     "101": 12550,
     "102": 12549,
-    "103": 12551
+    "103": 12551,
+    "104": 12552
   },
   "documents": {
     "1": {
@@ -1303,6 +1304,14 @@
           "sha256": "5c769165f2d91e27512b5ce23a52cbf16042ec204872c103c4232a5e0521928f"
         }
       ]
+    },
+    "104": {
+      "fixtureId": "match-104-final-2026-07-19",
+      "registrationId": 12552,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12552/pdf/TacticalLineup-English.pdf",
+      "version": 1,
+      "publishedAt": "2026-07-19T17:44:00.000Z",
+      "sha256": "e8e6c0d9e616806d717b0b77be56337479b49bb7476321e85c150970fa6adc9e"
     }
   }
 }

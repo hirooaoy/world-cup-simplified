@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2",
-  "updatedAt": "2026-07-19T06:44:19.061Z",
+  "updatedAt": "2026-07-19T18:31:36.509Z",
   "revisions": [
     {
       "schemaVersion": "2",
@@ -60174,6 +60174,39 @@
           ]
         }
       ]
+    },
+    {
+      "schemaVersion": "2",
+      "generatedAt": "2026-07-19T18:31:36.509Z",
+      "revisionId": "5219f992b8b36661de35c9ad4892815acf5fb8999595bb3f907bd5d24166702e",
+      "engine": {
+        "id": "lineup-prediction-engine",
+        "version": "2",
+        "runId": "lineup-prediction-2026-07-19-91346f973011",
+        "inputFingerprint": "91346f9730111461211c51770b181488f2bf399b2ee747f6001a205c14da8642",
+        "modelFingerprint": "0a7cb9061bf6dcbadb28cd27443ea6e64a535376a529ffdd9565807b659cf21c",
+        "revisionId": "5219f992b8b36661de35c9ad4892815acf5fb8999595bb3f907bd5d24166702e"
+      },
+      "inputs": [
+        {
+          "file": "data/fixtures.json",
+          "role": "target fixtures and kickoff dates"
+        },
+        {
+          "file": "data/lineups.json",
+          "role": "last verified XI, formation, bench, substitutions, and recent minutes/load"
+        },
+        {
+          "file": "data/player-availability.json",
+          "role": "injury, omission, and fixture availability exclusions"
+        },
+        {
+          "file": "data/free-lineup-prediction-sources.json",
+          "role": "free public probable-lineup source candidates"
+        }
+      ],
+      "sources": [],
+      "fixtures": []
     }
   ]
 }

@@ -139,9 +139,10 @@
     "fifa-tactical-lineup-match-80-v2-86b2c339d1f3",
     "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207",
     "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
-    "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
+    "fifa-tactical-lineup-match-103-v2-e71b493bf5be",
+    "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
   ],
-  "updatedAt": "2026-07-18T21:27:45.282Z",
+  "updatedAt": "2026-07-19T18:31:33.286Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "verified",
@@ -20107,6 +20108,199 @@
             "position": "GK",
             "x": 50,
             "y": 86
+          }
+        ]
+      }
+    },
+    "match-104-final-2026-07-19": {
+      "status": "verified",
+      "layoutSource": "fifa-official-layout",
+      "verificationMethod": "fifa-tactical-lineup-pdf-v1",
+      "checkedAt": "2026-07-19T17:44:00.000Z",
+      "homeTeamId": "ESP",
+      "awayTeamId": "ARG",
+      "sourceIds": [
+        "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
+      ],
+      "sources": [
+        {
+          "name": "FIFA Tactical Line-up PDF",
+          "adapter": "fifa-tactical-pdf",
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12552/pdf/TacticalLineup-English.pdf",
+          "status": "matched",
+          "exactLayout": true,
+          "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+          "matchNumber": 104,
+          "registrationId": 12552,
+          "documentVersion": 1,
+          "publishedAt": "2026-07-19T17:44:00.000Z",
+          "sha256": "e8e6c0d9e616806d717b0b77be56337479b49bb7476321e85c150970fa6adc9e",
+          "layoutPerspective": "nominal",
+          "isUpdatedVersion": false
+        }
+      ],
+      "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
+      "home": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "15",
+            "name": "Alex Baena",
+            "position": "LW",
+            "x": 29,
+            "y": 8
+          },
+          {
+            "number": "21",
+            "name": "Mikel Oyarzabal",
+            "position": "ST",
+            "x": 50,
+            "y": 8
+          },
+          {
+            "number": "19",
+            "name": "Lamine Yamal",
+            "position": "RW",
+            "x": 71,
+            "y": 8
+          },
+          {
+            "number": "8",
+            "name": "Fabian Ruiz",
+            "position": "CM",
+            "x": 40,
+            "y": 33
+          },
+          {
+            "number": "10",
+            "name": "Dani Olmo",
+            "position": "CM",
+            "x": 60,
+            "y": 33
+          },
+          {
+            "number": "16",
+            "name": "Rodri",
+            "position": "DM",
+            "x": 50,
+            "y": 48
+          },
+          {
+            "number": "24",
+            "name": "Marc Cucurella",
+            "position": "LB",
+            "x": 19,
+            "y": 68
+          },
+          {
+            "number": "14",
+            "name": "Aymeric Laporte",
+            "position": "CB",
+            "x": 40,
+            "y": 68
+          },
+          {
+            "number": "22",
+            "name": "Pau Cubarsi",
+            "position": "CB",
+            "x": 60,
+            "y": 68
+          },
+          {
+            "number": "12",
+            "name": "Pedro Porro",
+            "position": "RB",
+            "x": 81,
+            "y": 68
+          },
+          {
+            "number": "23",
+            "name": "Unai Simon",
+            "position": "GK",
+            "x": 50,
+            "y": 86
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-4-2",
+        "players": [
+          {
+            "number": "9",
+            "name": "Julian Alvarez",
+            "position": "ST",
+            "x": 40,
+            "y": 8
+          },
+          {
+            "number": "10",
+            "name": "Lionel Messi",
+            "position": "ST",
+            "x": 60,
+            "y": 8
+          },
+          {
+            "number": "15",
+            "name": "Nico Gonzalez",
+            "position": "LM",
+            "x": 19,
+            "y": 36
+          },
+          {
+            "number": "20",
+            "name": "Alexis Mac Allister",
+            "position": "CM",
+            "x": 40,
+            "y": 36
+          },
+          {
+            "number": "24",
+            "name": "Enzo Fernandez",
+            "position": "CM",
+            "x": 60,
+            "y": 36
+          },
+          {
+            "number": "7",
+            "name": "Rodrigo De Paul",
+            "position": "RM",
+            "x": 81,
+            "y": 36
+          },
+          {
+            "number": "3",
+            "name": "Nicolas Tagliafico",
+            "position": "LB",
+            "x": 19,
+            "y": 64
+          },
+          {
+            "number": "6",
+            "name": "Lisandro Martinez",
+            "position": "CB",
+            "x": 40,
+            "y": 64
+          },
+          {
+            "number": "13",
+            "name": "Cristian Romero",
+            "position": "CB",
+            "x": 60,
+            "y": 64
+          },
+          {
+            "number": "4",
+            "name": "Gonzalo Montiel",
+            "position": "RB",
+            "x": 81,
+            "y": 64
+          },
+          {
+            "number": "23",
+            "name": "Emiliano Martinez",
+            "position": "GK",
+            "x": 50,
+            "y": 85
           }
         ]
       }

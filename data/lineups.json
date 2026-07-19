@@ -152,7 +152,9 @@
     "fifa-tactical-lineup-match-95-v2-d9ecc6dbb207",
     "fifa-lineups-sync-2026-07-18",
     "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
-    "fifa-tactical-lineup-match-103-v2-e71b493bf5be"
+    "fifa-tactical-lineup-match-103-v2-e71b493bf5be",
+    "fifa-lineups-sync-2026-07-19",
+    "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -50836,7 +50838,437 @@
           ]
         }
       }
+    },
+    "match-104-final-2026-07-19": {
+      "mode": "confirmed",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "fifa-official-layout",
+      "layoutVerification": {
+        "status": "verified",
+        "checkedAt": "2026-07-19T17:44:00.000Z",
+        "sourceIds": [
+          "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
+        ],
+        "sources": [
+          {
+            "name": "FIFA Tactical Line-up PDF",
+            "adapter": "fifa-tactical-pdf",
+            "url": "https://fdp.fifa.org/assetspublic/ce281/r12552/pdf/TacticalLineup-English.pdf",
+            "status": "matched",
+            "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+            "exactLayout": true,
+            "matchNumber": 104,
+            "registrationId": 12552,
+            "documentVersion": 1,
+            "publishedAt": "2026-07-19T17:44:00.000Z",
+            "sha256": "e8e6c0d9e616806d717b0b77be56337479b49bb7476321e85c150970fa6adc9e",
+            "layoutPerspective": "nominal",
+            "isUpdatedVersion": false
+          }
+        ],
+        "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet."
+      },
+      "sourceIds": [
+        "fifa-lineups-sync-2026-07-19",
+        "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616"
+      ],
+      "checkedAt": "2026-07-19T18:31:29.047Z",
+      "home": {
+        "formation": "4-1-2-3",
+        "coach": {
+          "name": "Luis De La Fuente",
+          "teamName": "Spain",
+          "imageUrl": "https://digitalhub.fifa.com/transform/d91efb8f-281e-466c-beb0-a543a3a8c9ec/DE-LA-FUENTE-Luis_430724",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289292/400021543"
+        },
+        "players": [
+          {
+            "number": "23",
+            "name": "Unai Simon",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 86
+          },
+          {
+            "number": "12",
+            "name": "Pedro Porro",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 81,
+            "y": 68
+          },
+          {
+            "number": "14",
+            "name": "Aymeric Laporte",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 40,
+            "y": 68
+          },
+          {
+            "number": "22",
+            "name": "Pau Cubarsi",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 60,
+            "y": 68
+          },
+          {
+            "number": "24",
+            "name": "Marc Cucurella",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 19,
+            "y": 68
+          },
+          {
+            "number": "8",
+            "name": "Fabian Ruiz",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 40,
+            "y": 33
+          },
+          {
+            "number": "15",
+            "name": "Alex Baena",
+            "sourcePosition": "midfielder",
+            "position": "LW",
+            "x": 29,
+            "y": 8
+          },
+          {
+            "number": "16",
+            "name": "Rodri",
+            "sourcePosition": "midfielder",
+            "isCaptain": true,
+            "position": "DM",
+            "x": 50,
+            "y": 48
+          },
+          {
+            "number": "10",
+            "name": "Dani Olmo",
+            "sourcePosition": "forward",
+            "position": "CM",
+            "x": 60,
+            "y": 33
+          },
+          {
+            "number": "19",
+            "name": "Lamine Yamal",
+            "sourcePosition": "forward",
+            "position": "RW",
+            "x": 71,
+            "y": 8
+          },
+          {
+            "number": "21",
+            "name": "Mikel Oyarzabal",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 8
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "David Raya",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "13",
+            "name": "Joan Garcia",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Marc Pubill",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "3",
+            "name": "Alex Grimaldo",
+            "sourcePosition": "defender",
+            "position": "LB"
+          },
+          {
+            "number": "4",
+            "name": "Eric Garcia",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "5",
+            "name": "Marcos Llorente",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "6",
+            "name": "Mikel Merino",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "9",
+            "name": "Gavi",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "18",
+            "name": "Martin Zubimendi",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "20",
+            "name": "Pedri",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "7",
+            "name": "Ferran Torres",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "11",
+            "name": "Yeremy Pino",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "17",
+            "name": "Nico Williams",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "25",
+            "name": "Victor Munoz",
+            "sourcePosition": "forward",
+            "position": "LW"
+          },
+          {
+            "number": "26",
+            "name": "Borja Iglesias",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": []
+        }
+      },
+      "away": {
+        "formation": "4-4-2",
+        "coach": {
+          "name": "Lionel Scaloni",
+          "teamName": "Argentina",
+          "imageUrl": "https://digitalhub.fifa.com/transform/d58ec767-2484-47d4-8b29-8fa845eb75f8/SCALONI-Lionel_183380",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289292/400021543"
+        },
+        "players": [
+          {
+            "number": "23",
+            "name": "Emiliano Martinez",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 85
+          },
+          {
+            "number": "3",
+            "name": "Nicolas Tagliafico",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 19,
+            "y": 64
+          },
+          {
+            "number": "4",
+            "name": "Gonzalo Montiel",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 81,
+            "y": 64
+          },
+          {
+            "number": "6",
+            "name": "Lisandro Martinez",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 40,
+            "y": 64
+          },
+          {
+            "number": "13",
+            "name": "Cristian Romero",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 60,
+            "y": 64
+          },
+          {
+            "number": "7",
+            "name": "Rodrigo De Paul",
+            "sourcePosition": "midfielder",
+            "position": "RM",
+            "x": 81,
+            "y": 36
+          },
+          {
+            "number": "15",
+            "name": "Nico Gonzalez",
+            "sourcePosition": "midfielder",
+            "position": "LM",
+            "x": 19,
+            "y": 36
+          },
+          {
+            "number": "20",
+            "name": "Alexis Mac Allister",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 40,
+            "y": 36
+          },
+          {
+            "number": "24",
+            "name": "Enzo Fernandez",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 60,
+            "y": 36
+          },
+          {
+            "number": "9",
+            "name": "Julian Alvarez",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 40,
+            "y": 8
+          },
+          {
+            "number": "10",
+            "name": "Lionel Messi",
+            "sourcePosition": "forward",
+            "isCaptain": true,
+            "position": "ST",
+            "x": 60,
+            "y": 8
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "Juan Musso",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "12",
+            "name": "Geronimo Rulli",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Marcos Senesi",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "19",
+            "name": "Nicolas Otamendi",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "25",
+            "name": "Facundo Medina",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "26",
+            "name": "Nahuel Molina",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "5",
+            "name": "Leandro Paredes",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "8",
+            "name": "Valentin Barco",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "11",
+            "name": "Giovani Lo Celso",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "14",
+            "name": "Exequiel Palacios",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "16",
+            "name": "Thiago Almada",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "17",
+            "name": "Giuliano Simeone",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "18",
+            "name": "Nico Paz",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "21",
+            "name": "Jose Manuel Lopez",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "22",
+            "name": "Lautaro Martinez",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": []
+        }
+      }
     }
   },
-  "updatedAt": "2026-07-18T23:30:12.339Z"
+  "updatedAt": "2026-07-19T18:31:33.286Z"
 }
