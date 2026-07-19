@@ -50875,7 +50875,7 @@
         "fifa-lineups-sync-2026-07-19",
         "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
-      "checkedAt": "2026-07-19T20:58:17.775Z",
+      "checkedAt": "2026-07-19T21:01:52.122Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -51296,6 +51296,11 @@
               "playerName": "Leandro Paredes",
               "type": "yellow",
               "minute": 52
+            },
+            {
+              "playerName": "Enzo Fernandez",
+              "type": "yellow",
+              "minute": 82
             }
           ],
           "staffCards": [],
@@ -51330,5 +51335,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-19T20:58:17.775Z"
+  "updatedAt": "2026-07-19T21:01:52.122Z"
 }
