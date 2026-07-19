@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T21:01:52.122Z",
+  "updatedAt": "2026-07-19T22:04:50.901Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -197,7 +197,8 @@
     "fifa-argentina-spain-h2h-2026-07-17",
     "fifa-official-results-sync-2026-07-18",
     "fifa-goal-events-sync-2026-07-18",
-    "fifa-official-results-sync-2026-07-19"
+    "fifa-official-results-sync-2026-07-19",
+    "fifa-goal-events-sync-2026-07-19"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -27878,7 +27879,7 @@
       "homeSlot": "Winner match 101",
       "awaySlot": "Winner match 102",
       "venue": "New York New Jersey Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "coverageStatus": "complete",
@@ -28256,9 +28257,17 @@
         ]
       },
       "score": {
-        "home": 0,
+        "home": 1,
         "away": 0
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 106,
+          "name": "Ferran Torres",
+          "assistName": "Nico Williams"
+        }
+      ],
+      "goalsAway": []
     }
   ]
 }

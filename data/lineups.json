@@ -50841,7 +50841,7 @@
       }
     },
     "match-104-final-2026-07-19": {
-      "mode": "confirmed",
+      "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
       "layoutSource": "fifa-official-layout",
@@ -50875,7 +50875,7 @@
         "fifa-lineups-sync-2026-07-19",
         "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
-      "checkedAt": "2026-07-19T21:01:52.122Z",
+      "checkedAt": "2026-07-19T22:04:44.097Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -51090,6 +51090,16 @@
               "offName": "Dani Olmo",
               "onName": "Mikel Merino",
               "minute": 75
+            },
+            {
+              "offName": "Rodri",
+              "onName": "Martin Zubimendi",
+              "minute": 99
+            },
+            {
+              "offName": "Aymeric Laporte",
+              "onName": "Eric Garcia",
+              "minute": 99
             }
           ]
         }
@@ -51301,9 +51311,36 @@
               "playerName": "Enzo Fernandez",
               "type": "yellow",
               "minute": 82
+            },
+            {
+              "playerName": "Cristian Romero",
+              "type": "yellow",
+              "minute": "90+2"
+            },
+            {
+              "playerName": "Enzo Fernandez",
+              "type": "red",
+              "minute": "90+3"
+            },
+            {
+              "playerName": "Alexis Mac Allister",
+              "type": "yellow",
+              "minute": 111
+            },
+            {
+              "playerName": "Leandro Paredes",
+              "type": "red",
+              "minute": 120
             }
           ],
-          "staffCards": [],
+          "staffCards": [
+            {
+              "staffName": "Lionel Scaloni",
+              "role": "coach",
+              "type": "yellow",
+              "minute": 105
+            }
+          ],
           "substitutions": [
             {
               "offName": "Lisandro Martinez",
@@ -51329,11 +51366,16 @@
               "offName": "Rodrigo De Paul",
               "onName": "Giuliano Simeone",
               "minute": 70
+            },
+            {
+              "offName": "Julian Alvarez",
+              "onName": "Marcos Senesi",
+              "minute": 102
             }
           ]
         }
       }
     }
   },
-  "updatedAt": "2026-07-19T21:01:52.122Z"
+  "updatedAt": "2026-07-19T22:04:44.097Z"
 }
