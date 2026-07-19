@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-18-locale-1";
 import {
   LOCALE_PACK_VERSION,
   LOCALE_SCHEMA_VERSION,
@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-18-1";
+} from "./locales/locale-runtime.js?v=2026-07-18-2";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -620,6 +620,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "梅西先在第85分钟助攻恩佐·费尔南德斯，随后又在90+2分钟助攻劳塔罗·马丁内斯，完成阿根廷的末段逆转。",
   "Martínez's winner sent Argentina into the final against Spain; England will face France for third place.":
     "马丁内斯的制胜球将阿根廷送入对阵西班牙的决赛；英格兰将与法国争夺季军。",
+  "England raced into a 4-0 halftime lead as Rice and Konsa struck before Saka scored twice.":
+    "英格兰在半场前连入四球，赖斯和孔萨先后破门，萨卡随后梅开二度。",
+  "Mbappé scored twice and set up Barcola as France pulled it back to 4-3 by the 66th minute, taking his World Cup record to 22 goals.":
+    "姆巴佩两球一助攻，帮助法国在第66分钟将比分追至4比3，同时把世界杯生涯进球纪录刷新到22球。",
+  "Saka completed his hat-trick from the spot, and after Dembélé made it 5-4, Bellingham's 90+8' strike sealed England's first World Cup medal in 60 years.":
+    "萨卡点球完成帽子戏法，登贝莱把比分追至5比4后，裘德·贝林厄姆90+8分钟锁定胜局，英格兰收获60年来首枚世界杯奖牌。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
@@ -8404,19 +8410,27 @@ function formatSiteUpdatedAt(value) {
   const updatedAt = new Date(timestamp);
   const todayKey = getDayKey(new Date(), selectedTimeZone);
   const updatedDayKey = getDayKey(updatedAt, selectedTimeZone);
-  const relativeDay = updatedDayKey === todayKey
-    ? localizeText("today")
-    : updatedDayKey === getRelativeDayKey(todayKey, -1)
-      ? localizeText("Yesterday").toLocaleLowerCase(getAppLocale())
-      : "";
+  const isToday = updatedDayKey === todayKey;
+  const relativeDay = updatedDayKey === getRelativeDayKey(todayKey, -1)
+    ? localizeText("Yesterday").toLocaleLowerCase(getAppLocale())
+    : "";
 
-  if (relativeDay) {
+  if (isToday || relativeDay) {
     const timeText = new Intl.DateTimeFormat(getAppLocale(), {
       hour: "numeric",
       minute: "2-digit",
       timeZone: selectedTimeZone
     }).format(updatedAt);
 
+    if (isToday) {
+      if (currentLanguage === "es") {
+        return `a las ${timeText}`;
+      }
+      if (currentLanguage === "zh" || currentLanguage === "ko") {
+        return timeText;
+      }
+      return `at ${timeText}`;
+    }
     if (currentLanguage === "es") {
       return `${relativeDay} a las ${timeText}`;
     }
@@ -30423,6 +30437,10 @@ function applyDataSnapshot({
 function applyLiveDataSnapshot(liveData) {
   activeFixturesData = liveData.fixturesData;
   const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData, lineupData, expectedLineupsData);
+  const verifiedCheckedAt =
+    liveData.syncStatus?.ok === true && getValidTimestamp(liveData.syncStatus?.checkedAt) !== null
+      ? liveData.syncStatus.checkedAt
+      : "";
   fixtures = fixturesWithLineups.fixtures;
   clearPlayerTournamentStatsCache();
   clearCalendarFixtureCaches();
@@ -30430,13 +30448,10 @@ function applyLiveDataSnapshot(liveData) {
   tournament = liveData.tournamentData;
   clearGroupQualificationCaches();
   dataCoverage = fixturesWithLineups.coverage || { status: "partial" };
-  liveDataCheckedAt = liveData.syncStatus?.checkedAt || fixturesWithLineups.updatedAt || "";
-  siteUpdatedAt = getLatestUpdatedAt([
-    { updatedAt: siteUpdatedAt },
-    fixturesWithLineups,
-    liveData.standingsData,
-    liveData.tournamentData
-  ]);
+  liveDataCheckedAt = verifiedCheckedAt;
+  if (verifiedCheckedAt) {
+    siteUpdatedAt = verifiedCheckedAt;
+  }
   buildTeamSearchIndex();
 }
 

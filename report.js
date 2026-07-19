@@ -3,11 +3,12 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-18-1";
+} from "./locales/locale-runtime.js?v=2026-07-18-2";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
 const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
+const FOOTER_LIVE_DATA_URL = "/api/live-data";
 const FOOTER_FIXTURES_URL = "data/fixtures.json";
 const FOOTER_RELEASE_NOTES_URL = "data/release-notes.json";
 const LEGACY_REPORT_TYPE_ALIASES = {
@@ -170,7 +171,7 @@ const footerText = {
 };
 const ft = activeLocalePack?.footerText || footerText[currentLanguage] || footerText.en;
 const dateLabel = getDateLabel(reportDate);
-let footerUpdatedAt = "2026-07-15T04:45:47.457Z";
+let footerUpdatedAt = "";
 let footerReleaseNotes = { releases: [] };
 let activeReportFooterTooltipTrigger = null;
 const zhTimeZoneNames = {
@@ -371,18 +372,26 @@ function formatFooterUpdatedAt(value) {
     const updatedAt = new Date(timestamp);
     const todayKey = getFooterDayKey(new Date(), timeZone);
     const updatedDayKey = getFooterDayKey(updatedAt, timeZone);
-    const relativeDay = updatedDayKey === todayKey
-      ? { en: "today", es: "hoy", ko: "오늘", zh: "今天" }[currentLanguage]
-      : updatedDayKey === getPreviousFooterDayKey(todayKey)
-        ? { en: "yesterday", es: "ayer", ko: "어제", zh: "昨天" }[currentLanguage]
-        : "";
+    const isToday = updatedDayKey === todayKey;
+    const relativeDay = updatedDayKey === getPreviousFooterDayKey(todayKey)
+      ? { en: "yesterday", es: "ayer", ko: "어제", zh: "昨天" }[currentLanguage]
+      : "";
 
-    if (relativeDay) {
+    if (isToday || relativeDay) {
       const timeText = new Intl.DateTimeFormat(getIntlLocale(), {
         hour: "numeric",
         minute: "2-digit",
         timeZone
       }).format(updatedAt);
+      if (isToday) {
+        if (currentLanguage === "es") {
+          return `a las ${timeText}`;
+        }
+        if (currentLanguage === "zh" || currentLanguage === "ko") {
+          return timeText;
+        }
+        return `at ${timeText}`;
+      }
       return formatFooterRelativeTime(relativeDay, timeText);
     }
 
@@ -636,12 +645,19 @@ async function fetchFooterJson(url) {
 }
 
 async function loadReportFooterData() {
-  const [fixturesResult, releaseNotesResult] = await Promise.allSettled([
+  const [liveDataResult, fixturesResult, releaseNotesResult] = await Promise.allSettled([
+    fetchFooterJson(FOOTER_LIVE_DATA_URL),
     fetchFooterJson(FOOTER_FIXTURES_URL),
     fetchFooterJson(FOOTER_RELEASE_NOTES_URL)
   ]);
 
-  if (fixturesResult.status === "fulfilled" && fixturesResult.value?.updatedAt) {
+  const liveCheckedAt = liveDataResult.status === "fulfilled" && liveDataResult.value?.syncStatus?.ok === true
+    ? liveDataResult.value.syncStatus.checkedAt
+    : "";
+
+  if (!Number.isNaN(Date.parse(liveCheckedAt || ""))) {
+    footerUpdatedAt = liveCheckedAt;
+  } else if (fixturesResult.status === "fulfilled" && fixturesResult.value?.updatedAt) {
     footerUpdatedAt = fixturesResult.value.updatedAt;
   }
   if (releaseNotesResult.status === "fulfilled") {

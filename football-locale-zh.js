@@ -113,6 +113,7 @@ export const ZH_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Daniel Munoz": "丹尼尔·穆尼奥斯",
   "Darwin Nunez": "达尔温·努涅斯",
   "Darwin Núñez": "达尔温·努涅斯",
+  "Dayot Upamecano": "达约特·乌帕梅卡诺",
   "David Alaba": "大卫·阿拉巴",
   "David Moller Wolfe": "达维德·默勒·沃尔费",
   "Dean Henderson": "迪恩·亨德森",

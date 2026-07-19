@@ -1,19 +1,25 @@
 {
-  "updatedAt": "2026-07-18T09:35:19-07:00",
+  "updatedAt": "2026-07-18T19:38:06-07:00",
   "releases": [
     {
       "date": "2026-07-18",
-      "title": "Cleaner, timezone-aware data freshness",
-      "titleZh": "更简洁、按时区显示的数据刷新时间",
+      "title": "England's bronze, live freshness, and smoother mobile controls",
+      "titleZh": "英格兰摘铜、实时数据刷新与更流畅的移动端控件",
       "highlights": [
+        "England's 6-4 third-place win over France now includes the official score, complete goal timeline and line-ups, a sourced three-bullet recap, and FOX Sports highlights.",
+        "On mobile, Ball Boy and Tournament's Show next button now use one ordered handoff: Ball Boy clears the slot before the button appears, the button fades before Ball Boy drops, and panel interruptions or live rerenders cannot make them overlap; desktop behavior is unchanged.",
         "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.",
-        "Data refreshed now says today or yesterday in lowercase when appropriate, otherwise shows the date; its day and time follow the selected time zone without repeating a time-zone abbreviation.",
-        "The main app and Report issue page now share the same footer wording and time-zone behavior, with automated checks covering Los Angeles and Tokyo."
+        "Data refreshed omits the day label when the update is from today, keeps yesterday when appropriate, and otherwise shows the date; its day and time follow the selected time zone without repeating a time-zone abbreviation.",
+        "The main app and Report issue page now use a successful live-data check for freshness and fall back to static fixture time only when needed, while sharing the same wording and selected-time-zone behavior.",
+        "Automated checks now cover mobile scroll reversal, live CTA replacement, panel interruptions, landscape, reduced motion, live freshness success and fallback, and Los Angeles and Tokyo time zones."
       ],
       "highlightsZh": [
+        "英格兰6比4战胜法国、夺得季军的比赛现已补充官方比分、完整进球时间线与阵容、带来源依据的三点回顾以及 FOX Sports 集锦。",
+        "在移动端，Ball Boy 与淘汰赛的“显示下一场”按钮现在采用统一的有序交接：Ball Boy 先让出位置，按钮再出现；按钮先淡出，Ball Boy 再落下；面板中断或实时数据重新渲染也不会让两者重叠。桌面端行为保持不变。",
         "页脚现在更简洁地保留信任信息：查看来源、最新数据刷新时间和查看发布说明，不再重复显示预测免责声明。",
-        "数据刷新时间会在合适时显示“今天”或“昨天”，否则显示完整日期；日期与时间会跟随所选时区，且不再重复显示时区缩写。",
-        "主应用与“报告问题”页面现在使用一致的页脚文案和时区行为，并加入覆盖洛杉矶与东京场景的自动检查。"
+        "数据刷新时间来自当天时会省略日期标签，来自前一天时保留“昨天”，更早则显示完整日期；日期与时间会跟随所选时区，且不再重复显示时区缩写。",
+        "主应用与“报告问题”页面现在会在实时数据检查成功时采用其刷新时间，仅在必要时回退到静态赛程时间，同时共享一致的文案和所选时区行为。",
+        "自动检查现已覆盖移动端滚动反转、实时按钮替换、面板中断、横屏、减少动态效果、实时刷新成功与回退，以及洛杉矶和东京时区。"
       ]
     },
     {

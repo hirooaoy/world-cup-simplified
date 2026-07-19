@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-16T17:46:20.431Z",
+  "generatedAt": "2026-07-19T02:50:01.431Z",
   "methodology": "Locale-specific player labels from linked Wikipedia/Wikidata records, followed by checked-in editorial overrides and canonical-name fallback. Rendered match-provider aliases are resolved conservatively against canonical profiles and team roster overrides. Current and archive browser modules are split so historical names load only with archive views.",
   "providerNameCoverage": {
-    "renderedCurrentNames": 1289,
+    "renderedCurrentNames": 1276,
     "currentAliases": {
       "Abdallah Al-Fakhori": {
         "canonicalName": "Abdallah Al-Fakhouri",
@@ -31784,8 +31784,8 @@
       "Braian Ojeda": {
         "canonicalName": "Braian Ojeda",
         "displayName": "브라이안 오헤다",
-        "source": "wikidata",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q60828724"
+        "source": "kowiki",
+        "sourceUrl": "https://ko.wikipedia.org/wiki/%EB%B8%8C%EB%9D%BC%EC%9D%B4%EC%95%88_%EC%98%A4%ED%97%A4%EB%8B%A4"
       },
       "Branco": {
         "canonicalName": "Branco",
@@ -34184,8 +34184,8 @@
       "Derrick Luckassen": {
         "canonicalName": "Derrick Luckassen",
         "displayName": "데릭 루카센",
-        "source": "phonetic-transliteration",
-        "sourceUrl": "data/locales/player-name-transliterations.json"
+        "source": "kowiki",
+        "sourceUrl": "https://ko.wikipedia.org/wiki/%EB%8D%B0%EB%A6%AD_%EB%A3%A8%EC%B9%B4%EC%84%BC"
       },
       "Des Walker": {
         "canonicalName": "Des Walker",

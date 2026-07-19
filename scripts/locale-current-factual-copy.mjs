@@ -385,6 +385,12 @@ Object.assign(REVIEWED_CURRENT_COPY.es, {
     "Ndoye empató para Suiza en el minuto 67, pero la segunda amarilla de Embolo la dejó defendiendo el 1-1 con diez jugadores.",
   "Alvarez curled Argentina back ahead in the 112th minute and Lautaro Martinez finished it late, setting up the England semi-final.":
     "Álvarez volvió a adelantar a Argentina con un disparo colocado en el minuto 112 y Lautaro Martínez sentenció al final para preparar la semifinal contra Inglaterra.",
+  "England raced into a 4-0 halftime lead as Rice and Konsa struck before Saka scored twice.":
+    "Inglaterra llegó al descanso con una ventaja de 4-0: Rice y Konsa marcaron antes de que Saka anotara dos veces.",
+  "Mbappé scored twice and set up Barcola as France pulled it back to 4-3 by the 66th minute, taking his World Cup record to 22 goals.":
+    "Mbappé marcó dos goles y asistió a Barcola mientras Francia reducía la desventaja a 4-3 en el minuto 66, elevando su récord mundialista a 22 goles.",
+  "Saka completed his hat-trick from the spot, and after Dembélé made it 5-4, Bellingham's 90+8' strike sealed England's first World Cup medal in 60 years.":
+    "Saka completó su triplete desde el punto de penal y, después de que Dembélé pusiera el 5-4, el gol de Bellingham en el 90+8 selló la primera medalla mundialista de Inglaterra en 60 años.",
   "Spain controlled midfield and isolated Mbappé, stopping France from building sustained pressure.":
     "España controló el mediocampo y aisló a Mbappé, impidiendo que Francia construyera una presión sostenida.",
   "Porro finished a slick one-two with Olmo, sealing Spain's 2-0 win and first World Cup final since 2010.":
@@ -522,6 +528,12 @@ Object.assign(REVIEWED_CURRENT_COPY.ko, {
     "은도이가 67분 스위스의 동점골을 넣었지만, 엠볼로가 경고 누적으로 퇴장당해 10명이 1-1을 지켜야 했다.",
   "Alvarez curled Argentina back ahead in the 112th minute and Lautaro Martinez finished it late, setting up the England semi-final.":
     "알바레스가 112분 감아차기로 아르헨티나를 다시 앞세웠고, 라우타로 마르티네스가 막판에 승부를 끝내 잉글랜드와의 준결승을 확정했다.",
+  "England raced into a 4-0 halftime lead as Rice and Konsa struck before Saka scored twice.":
+    "잉글랜드는 라이스와 콘사의 골에 이어 사카가 두 골을 넣으며 전반을 4-0으로 앞선 채 마쳤다.",
+  "Mbappé scored twice and set up Barcola as France pulled it back to 4-3 by the 66th minute, taking his World Cup record to 22 goals.":
+    "음바페가 두 골을 넣고 바르콜라의 골을 도우며 프랑스가 66분까지 4-3으로 따라붙었고, 자신의 월드컵 최다 득점 기록을 22골로 늘렸다.",
+  "Saka completed his hat-trick from the spot, and after Dembélé made it 5-4, Bellingham's 90+8' strike sealed England's first World Cup medal in 60 years.":
+    "사카가 페널티킥으로 해트트릭을 완성했고, 뎀벨레가 5-4를 만든 뒤 벨링엄이 90+8분에 득점해 잉글랜드의 60년 만의 첫 월드컵 메달을 확정했다.",
   "Spain controlled midfield and isolated Mbappé, stopping France from building sustained pressure.":
     "스페인은 중원을 장악하고 음바페를 고립시켜 프랑스가 지속적인 압박을 만들지 못하게 했다.",
   "Porro finished a slick one-two with Olmo, sealing Spain's 2-0 win and first World Cup final since 2010.":

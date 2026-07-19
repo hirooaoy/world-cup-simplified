@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "1f48514b6ac41278495b1af6dd36405e8dab617088a59c4d0048b9edba1fde9c"
+  "sourceFingerprint": "3ccf1a310a923835df524048c7bcbf4ce614b59fa49ecb56a9d40bd5b00003dc"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Cleaner, timezone-aware data freshness": "Actualización de datos más clara y adaptada a la zona horaria",
-  "Data refreshed now says today or yesterday in lowercase when appropriate, otherwise shows the date; its day and time follow the selected time zone without repeating a time-zone abbreviation.": "La actualización de datos ahora indica hoy o ayer en minúsculas cuando corresponde; en los demás casos muestra la fecha. El día y la hora siguen la zona horaria seleccionada sin repetir su abreviatura.",
-  "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.": "El pie de página ahora presenta de forma concisa los enlaces de confianza: Ver fuentes, la hora de la última actualización de datos y Ver notas de la versión, sin repetir el aviso sobre pronósticos no oficiales.",
-  "The main app and Report issue page now share the same footer wording and time-zone behavior, with automated checks covering Los Angeles and Tokyo.": "La aplicación principal y la página Reportar un problema ahora comparten el mismo texto y comportamiento de zona horaria en el pie de página, con comprobaciones automáticas para Los Ángeles y Tokio."
+  "England's 6-4 third-place win over France now includes the official score, complete goal timeline and line-ups, a sourced three-bullet recap, and FOX Sports highlights.": "La victoria de Inglaterra por 6-4 sobre Francia en el partido por el tercer puesto ahora incluye el marcador oficial, la cronología completa de goles y las alineaciones, un resumen de tres puntos con fuentes y los mejores momentos de FOX Sports.",
+  "England's bronze, live freshness, and smoother mobile controls": "El bronce de Inglaterra, actualización en vivo y controles móviles más fluidos",
+  "On mobile, Ball Boy and Tournament's Show next button now use one ordered handoff: Ball Boy clears the slot before the button appears, the button fades before Ball Boy drops, and panel interruptions or live rerenders cannot make them overlap; desktop behavior is unchanged.": "En dispositivos móviles, Ball Boy y el botón Mostrar siguiente del Torneo ahora usan una transición ordenada: Ball Boy despeja el espacio antes de que aparezca el botón, el botón se desvanece antes de que Ball Boy baje y las interrupciones del panel o los nuevos renderizados en vivo no pueden hacer que se superpongan; el comportamiento de escritorio no cambia.",
+  "The footer now keeps its trust links concise: See sources, the latest data-refresh time, and See release notes, without repeating the unofficial-prediction disclaimer.": "El pie de página ahora presenta de forma concisa los enlaces de confianza: Ver fuentes, la hora de la última actualización de datos y Ver notas de la versión, sin repetir el aviso sobre pronósticos no oficiales."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

@@ -3,16 +3,20 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-16-7";
+} from "./chatbot-knowledge.js?v=2026-07-18-1";
 import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-18-1";
+} from "./locales/locale-runtime.js?v=2026-07-18-2";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
 const SCOUT_SHOW_NEXT_GAP = 14;
+const SCOUT_SHOW_NEXT_MOTION_MS = 180;
+const SCOUT_SHOW_NEXT_IMMEDIATE_CLASS = "is-scout-concealed-immediately";
+const SCOUT_SHOW_NEXT_READY_CLASS = "is-scout-clearance-ready";
+const SCOUT_SHOW_NEXT_RELEASING_CLASS = "is-releasing-tournament-show-next";
 const SCOUT_TOUCH_GAZE_LINGER_MS = 420;
 const SCOUT_IDLE_BLINK_MIN_MS = 9000;
 const SCOUT_IDLE_BLINK_RANGE_MS = 6000;
@@ -1031,6 +1035,9 @@ const juggleRecord = document.querySelector("#juggle-record");
 const tournamentView = document.querySelector("#standings-view");
 const footerSourceNote = document.querySelector(".site-footer .source-note");
 const scoutFooterCollisionMedia = window.matchMedia("(max-width: 700px)");
+const scoutTournamentDockMedia = window.matchMedia(
+  "(max-width: 560px), (max-width: 900px) and (pointer: coarse)"
+);
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const SCOUT_FOOTER_COLLISION_GAP = 8;
 const SCOUT_FOOTER_SETTLE_MS = 440;
@@ -1067,6 +1074,12 @@ let juggleBestBeforeRun = 0;
 let tournamentShowNextFrame = 0;
 let tournamentShowNextObserver = null;
 let isAvoidingTournamentShowNext = false;
+let mobileTournamentShowNextButton = null;
+let mobileTournamentShowNextDesiredVisible = null;
+let mobileTournamentShowNextPhase = "idle";
+let mobileTournamentPanelCloseUntil = 0;
+let tournamentShowNextHandoffCleanup = null;
+let tournamentShowNextReleaseTimer = 0;
 let scoutVisualViewportFrame = 0;
 let canonicalTurns = [];
 let localeRenderToken = 0;
@@ -1385,6 +1398,34 @@ function getVisibleTournamentShowNextButton() {
   return { bounds, button };
 }
 
+function getLogicalTournamentShowNextState() {
+  const button = tournamentView?.querySelector(".tournament-show-next-button");
+  if (
+    !button ||
+    button.hidden ||
+    button.closest("[hidden]") ||
+    !button.getClientRects().length
+  ) {
+    return null;
+  }
+
+  const style = window.getComputedStyle(button);
+  if (style.display === "none" || style.visibility === "hidden") {
+    return null;
+  }
+
+  const bounds = button.getBoundingClientRect();
+  if (bounds.width <= 0 || bounds.height <= 0) {
+    return null;
+  }
+
+  return {
+    bounds,
+    button,
+    desiredVisible: !button.classList.contains("is-target-visible")
+  };
+}
+
 function playTournamentShowNextAwareness() {
   if (isOpen || isJuggleActive || isReplyPending) {
     return;
@@ -1407,6 +1448,131 @@ function resetScoutBottomOffset(update) {
   widget.classList.remove("is-bottom-resetting");
 }
 
+function applyTournamentShowNextAvoidance(result) {
+  widget.style.setProperty(
+    "--tournament-show-next-height",
+    `${Math.round(result.bounds.height)}px`
+  );
+  widget.style.setProperty(
+    "--scout-obstacle-translate-y",
+    `calc(var(--scout-bottom) - var(--tournament-show-next-resting-bottom) - var(--tournament-show-next-height, 50px) - ${SCOUT_SHOW_NEXT_GAP}px)`
+  );
+  widget.classList.add("has-tournament-show-next");
+  isAvoidingTournamentShowNext = true;
+}
+
+function restoreTournamentShowNextPresentation(button) {
+  if (!button) {
+    return;
+  }
+  if (button.classList.contains(SCOUT_SHOW_NEXT_READY_CLASS)) {
+    button.classList.remove(SCOUT_SHOW_NEXT_READY_CLASS);
+  }
+  if (button.classList.contains(SCOUT_SHOW_NEXT_IMMEDIATE_CLASS)) {
+    button.classList.remove(SCOUT_SHOW_NEXT_IMMEDIATE_CLASS);
+  }
+  const shouldHide = button.classList.contains("is-target-visible");
+  if (button.disabled !== shouldHide) {
+    button.disabled = shouldHide;
+  }
+  const ariaHidden = String(shouldHide);
+  if (button.getAttribute("aria-hidden") !== ariaHidden) {
+    button.setAttribute("aria-hidden", ariaHidden);
+  }
+}
+
+function concealTournamentShowNextUntilClear(button, { immediate = false } = {}) {
+  if (!button) {
+    return;
+  }
+  if (
+    immediate &&
+    !button.classList.contains(SCOUT_SHOW_NEXT_IMMEDIATE_CLASS)
+  ) {
+    button.classList.add(SCOUT_SHOW_NEXT_IMMEDIATE_CLASS);
+  }
+  if (button.classList.contains(SCOUT_SHOW_NEXT_READY_CLASS)) {
+    button.classList.remove(SCOUT_SHOW_NEXT_READY_CLASS);
+  }
+  if (!button.disabled) {
+    button.disabled = true;
+  }
+  if (button.getAttribute("aria-hidden") !== "true") {
+    button.setAttribute("aria-hidden", "true");
+  }
+}
+
+function revealTournamentShowNext(button) {
+  if (!button || button.classList.contains("is-target-visible")) {
+    return;
+  }
+  if (button.classList.contains(SCOUT_SHOW_NEXT_IMMEDIATE_CLASS)) {
+    button.classList.remove(SCOUT_SHOW_NEXT_IMMEDIATE_CLASS);
+  }
+  if (!button.classList.contains(SCOUT_SHOW_NEXT_READY_CLASS)) {
+    button.classList.add(SCOUT_SHOW_NEXT_READY_CLASS);
+  }
+  if (button.disabled) {
+    button.disabled = false;
+  }
+  if (button.getAttribute("aria-hidden") !== "false") {
+    button.setAttribute("aria-hidden", "false");
+  }
+}
+
+function cancelTournamentShowNextHandoff() {
+  const cleanup = tournamentShowNextHandoffCleanup;
+  tournamentShowNextHandoffCleanup = null;
+  cleanup?.();
+}
+
+function finishAfterTournamentShowNextTransition(
+  callback,
+  waitMs = SCOUT_SHOW_NEXT_MOTION_MS
+) {
+  cancelTournamentShowNextHandoff();
+  if (reducedMotion.matches) {
+    callback();
+    return;
+  }
+
+  let handoffTimer = 0;
+  let handoffFrame = 0;
+  const cleanup = () => {
+    window.clearTimeout(handoffTimer);
+    window.cancelAnimationFrame(handoffFrame);
+  };
+  const finish = () => {
+    handoffTimer = 0;
+    handoffFrame = window.requestAnimationFrame(() => {
+      if (tournamentShowNextHandoffCleanup !== cleanup) {
+        return;
+      }
+      tournamentShowNextHandoffCleanup = null;
+      cleanup();
+      callback();
+    });
+  };
+
+  handoffTimer = window.setTimeout(finish, waitMs);
+  tournamentShowNextHandoffCleanup = cleanup;
+}
+
+function cancelTournamentShowNextRelease() {
+  window.clearTimeout(tournamentShowNextReleaseTimer);
+  tournamentShowNextReleaseTimer = 0;
+  widget.classList.remove(SCOUT_SHOW_NEXT_RELEASING_CLASS);
+}
+
+function resetMobileTournamentShowNextController() {
+  cancelTournamentShowNextHandoff();
+  cancelTournamentShowNextRelease();
+  restoreTournamentShowNextPresentation(mobileTournamentShowNextButton);
+  mobileTournamentShowNextButton = null;
+  mobileTournamentShowNextDesiredVisible = null;
+  mobileTournamentShowNextPhase = "idle";
+}
+
 function clearTournamentShowNextAvoidance({ immediate = false } = {}) {
   const hadAvoidance =
     isAvoidingTournamentShowNext ||
@@ -1426,29 +1592,171 @@ function clearTournamentShowNextAvoidance({ immediate = false } = {}) {
   isAvoidingTournamentShowNext = false;
 }
 
+function releaseMobileTournamentShowNextAvoidance() {
+  cancelTournamentShowNextRelease();
+  if (reducedMotion.matches) {
+    clearTournamentShowNextAvoidance();
+    return;
+  }
+
+  // Removing the avoidance class normally restores Ball Boy's 390ms resting
+  // transition. Keep this one mobile release on the same 180ms dock rhythm.
+  widget.classList.add(SCOUT_SHOW_NEXT_RELEASING_CLASS);
+  clearTournamentShowNextAvoidance();
+  tournamentShowNextReleaseTimer = window.setTimeout(() => {
+    tournamentShowNextReleaseTimer = 0;
+    widget.classList.remove(SCOUT_SHOW_NEXT_RELEASING_CLASS);
+  }, SCOUT_SHOW_NEXT_MOTION_MS);
+}
+
+function beginMobileTournamentShowNextReveal(
+  button,
+  waitMs = SCOUT_SHOW_NEXT_MOTION_MS
+) {
+  const panelCloseWait = Math.max(
+    0,
+    mobileTournamentPanelCloseUntil - window.performance.now()
+  );
+  concealTournamentShowNextUntilClear(button);
+  mobileTournamentShowNextPhase = "showing";
+  finishAfterTournamentShowNextTransition(() => {
+    if (
+      isOpen ||
+      mobileTournamentShowNextButton !== button ||
+      mobileTournamentShowNextDesiredVisible !== true
+    ) {
+      return;
+    }
+    revealTournamentShowNext(button);
+    mobileTournamentShowNextPhase = "shown";
+    playTournamentShowNextAwareness();
+  }, Math.max(waitMs, panelCloseWait));
+}
+
+function syncMobileTournamentShowNextAvoidance() {
+  const result = getLogicalTournamentShowNextState();
+  const button = result?.button || null;
+  const buttonChanged = button !== mobileTournamentShowNextButton;
+  const previousPhase = mobileTournamentShowNextPhase;
+  const replacementNeedsClearance = buttonChanged && previousPhase === "showing";
+
+  if (buttonChanged) {
+    cancelTournamentShowNextHandoff();
+    restoreTournamentShowNextPresentation(mobileTournamentShowNextButton);
+    mobileTournamentShowNextButton = button;
+    mobileTournamentShowNextDesiredVisible = null;
+    mobileTournamentShowNextPhase = "idle";
+  }
+
+  if (!result) {
+    resetMobileTournamentShowNextController();
+    clearTournamentShowNextAvoidance({ immediate: true });
+    return;
+  }
+
+  const desiredVisible = result.desiredVisible;
+  const desiredChanged = desiredVisible !== mobileTournamentShowNextDesiredVisible;
+  mobileTournamentShowNextDesiredVisible = desiredVisible;
+
+  if (desiredVisible) {
+    const wasAvoiding = isAvoidingTournamentShowNext;
+    const wasHiding = previousPhase === "hiding";
+
+    if (!wasAvoiding || buttonChanged) {
+      concealTournamentShowNextUntilClear(button);
+    }
+    applyTournamentShowNextAvoidance(result);
+
+    if (isOpen) {
+      cancelTournamentShowNextHandoff();
+      concealTournamentShowNextUntilClear(button);
+      mobileTournamentShowNextPhase = "paused";
+      return;
+    }
+
+    if (!desiredChanged) {
+      if (
+        mobileTournamentShowNextPhase === "showing" ||
+        mobileTournamentShowNextPhase === "paused"
+      ) {
+        concealTournamentShowNextUntilClear(button);
+      }
+      return;
+    }
+
+    cancelTournamentShowNextHandoff();
+    if (wasAvoiding && !replacementNeedsClearance) {
+      revealTournamentShowNext(button);
+      mobileTournamentShowNextPhase = "shown";
+      // A short threshold reversal never fully hid the CTA, so do not replay
+      // the awareness glance while the user is still holding the scroll.
+      if (!wasHiding && !buttonChanged) {
+        playTournamentShowNextAwareness();
+      }
+      return;
+    }
+
+    beginMobileTournamentShowNextReveal(button);
+    return;
+  }
+
+  if (!desiredChanged) {
+    return;
+  }
+
+  const revealWasPending = !button.classList.contains(SCOUT_SHOW_NEXT_READY_CLASS);
+  cancelTournamentShowNextHandoff();
+  concealTournamentShowNextUntilClear(button);
+
+  if (!isAvoidingTournamentShowNext) {
+    concealTournamentShowNextUntilClear(button);
+    mobileTournamentShowNextPhase = "hidden";
+    return;
+  }
+
+  if (revealWasPending || reducedMotion.matches) {
+    concealTournamentShowNextUntilClear(button);
+    releaseMobileTournamentShowNextAvoidance();
+    mobileTournamentShowNextPhase = "hidden";
+    return;
+  }
+
+  mobileTournamentShowNextPhase = "hiding";
+  finishAfterTournamentShowNextTransition(() => {
+    if (
+      mobileTournamentShowNextButton !== button ||
+      mobileTournamentShowNextDesiredVisible !== false
+    ) {
+      return;
+    }
+    concealTournamentShowNextUntilClear(button);
+    releaseMobileTournamentShowNextAvoidance();
+    mobileTournamentShowNextPhase = "hidden";
+  });
+}
+
 function syncTournamentShowNextAvoidance() {
   tournamentShowNextFrame = 0;
+
+  if (scoutTournamentDockMedia.matches) {
+    syncMobileTournamentShowNextAvoidance();
+    return;
+  }
+
+  resetMobileTournamentShowNextController();
   const result = getVisibleTournamentShowNextButton();
   const shouldAvoid = Boolean(result);
+  const wasAvoiding = isAvoidingTournamentShowNext;
 
   if (result) {
-    widget.style.setProperty(
-      "--tournament-show-next-height",
-      `${Math.round(result.bounds.height)}px`
-    );
-    widget.style.setProperty(
-      "--scout-obstacle-translate-y",
-      `calc(var(--scout-bottom) - var(--tournament-show-next-resting-bottom) - var(--tournament-show-next-height, 50px) - ${SCOUT_SHOW_NEXT_GAP}px)`
-    );
-    widget.classList.add("has-tournament-show-next");
+    applyTournamentShowNextAvoidance(result);
   } else {
     clearTournamentShowNextAvoidance();
   }
 
-  if (shouldAvoid && !isAvoidingTournamentShowNext) {
+  if (shouldAvoid && !wasAvoiding) {
     playTournamentShowNextAwareness();
   }
-  isAvoidingTournamentShowNext = shouldAvoid;
 }
 
 function queueTournamentShowNextSync() {
@@ -1470,8 +1778,19 @@ function initializeTournamentShowNextAvoidance() {
         window.cancelAnimationFrame(tournamentShowNextFrame);
         tournamentShowNextFrame = 0;
       }
+      resetMobileTournamentShowNextController();
       clearTournamentShowNextAvoidance({ immediate: true });
       return;
+    }
+    if (scoutTournamentDockMedia.matches) {
+      const pendingState = getLogicalTournamentShowNextState();
+      if (
+        pendingState?.desiredVisible &&
+        (pendingState.button !== mobileTournamentShowNextButton ||
+          mobileTournamentShowNextPhase !== "shown")
+      ) {
+        concealTournamentShowNextUntilClear(pendingState.button);
+      }
     }
     queueTournamentShowNextSync();
   });
@@ -1481,6 +1800,14 @@ function initializeTournamentShowNextAvoidance() {
     childList: true,
     subtree: true
   });
+  document.documentElement.classList.add(
+    "has-scout-tournament-dock-controller"
+  );
+  if (scoutTournamentDockMedia.matches) {
+    concealTournamentShowNextUntilClear(
+      getLogicalTournamentShowNextState()?.button
+    );
+  }
   queueTournamentShowNextSync();
 }
 
@@ -1839,6 +2166,29 @@ function setOpen(nextOpen, { focus = true } = {}) {
   panel.setAttribute("aria-hidden", String(!isOpen));
   panel.inert = !isOpen;
 
+  if (scoutTournamentDockMedia.matches) {
+    mobileTournamentPanelCloseUntil = isOpen
+      ? 0
+      : window.performance.now() + SCOUT_FOOTER_SETTLE_MS;
+  }
+  const shouldCoordinateMobileTournamentDock =
+    scoutTournamentDockMedia.matches &&
+    mobileTournamentShowNextDesiredVisible === true &&
+    Boolean(mobileTournamentShowNextButton);
+  if (shouldCoordinateMobileTournamentDock) {
+    if (isOpen) {
+      cancelTournamentShowNextHandoff();
+      concealTournamentShowNextUntilClear(mobileTournamentShowNextButton, {
+        immediate: true
+      });
+      mobileTournamentShowNextPhase = "paused";
+    } else {
+      // The lift happens while the panel closes. Reveal only after the full
+      // widget has settled back into Ball Boy's circular launcher.
+      beginMobileTournamentShowNextReveal(mobileTournamentShowNextButton);
+    }
+  }
+
   if (isOpen) {
     queueScoutVisualViewportSync();
     void preloadBallBoyCore();
@@ -1857,7 +2207,11 @@ function setOpen(nextOpen, { focus = true } = {}) {
     if (focus) {
       launcher.focus({ preventScroll: true });
     }
-    if (isAvoidingTournamentShowNext) {
+    const shouldReplayTournamentAwareness = scoutTournamentDockMedia.matches
+      ? mobileTournamentShowNextDesiredVisible === true &&
+        mobileTournamentShowNextPhase === "shown"
+      : isAvoidingTournamentShowNext;
+    if (shouldReplayTournamentAwareness) {
       playTournamentShowNextAwareness();
     }
   }
@@ -3484,7 +3838,21 @@ window.addEventListener(
   },
   { passive: true }
 );
-reducedMotion.addEventListener?.("change", scheduleBlink);
+reducedMotion.addEventListener?.("change", () => {
+  scheduleBlink();
+  if (
+    reducedMotion.matches &&
+    scoutTournamentDockMedia.matches &&
+    ["showing", "hiding"].includes(mobileTournamentShowNextPhase)
+  ) {
+    mobileTournamentShowNextDesiredVisible = null;
+  }
+  queueTournamentShowNextSync();
+});
+scoutTournamentDockMedia.addEventListener?.(
+  "change",
+  queueTournamentShowNextSync
+);
 window.addEventListener("worldcup:languagechange", handleScoutLanguageChange);
 const scoutDocumentLanguageObserver = new MutationObserver(() => {
   handleScoutLanguageChange();

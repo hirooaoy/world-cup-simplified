@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.1",
-  "updatedAt": "2026-07-18T19:51:01.010Z",
+  "updatedAt": "2026-07-18T23:32:32.752Z",
   "fixtures": [
     {
       "fixtureId": "match-96-round-of-16-2026-07-07",
@@ -23741,9 +23741,9 @@
     {
       "fixtureId": "match-103-bronze-final-2026-07-18",
       "kickoffUtc": "2026-07-18T21:00:00Z",
-      "capturedAt": "2026-07-18T19:51:01.010Z",
+      "capturedAt": "2026-07-18T23:32:32.752Z",
       "predictionGeneratedAt": "2026-07-17T19:36:51.903Z",
-      "captureMethod": "fifa-lineup-confirmation",
+      "captureMethod": "fifa-results-prune",
       "revisionId": "53de5ce2fb4b6a776ca09a52c19b96f10905a1c1d79f7d4ccec7de209e5b66e8",
       "mode": "probable",
       "predictionClass": "forecast",

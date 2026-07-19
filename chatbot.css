@@ -57,6 +57,10 @@
   right: var(--tournament-floating-edge, 18px);
 }
 
+.scout-widget.is-releasing-tournament-show-next:not(.is-open) {
+  --scout-bottom-duration: var(--tournament-show-next-motion-duration, 180ms);
+}
+
 .scout-widget.is-open {
   width: min(390px, calc(100vw - 36px));
   height: min(610px, calc(var(--scout-visual-height, 100dvh) - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)));
@@ -2941,6 +2945,19 @@ body.is-juggle-active .scout-pupil {
   transform: none;
 }
 
+@media (max-width: 560px), (max-width: 900px) and (pointer: coarse) {
+  html.has-scout-tournament-dock-controller
+    .tournament-show-next-button.is-scout-concealed-immediately {
+    transition: none !important;
+  }
+
+  html.has-scout-tournament-dock-controller
+    .tournament-show-next-button:not(.is-scout-clearance-ready) {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 @media (max-width: 560px) {
   .scout-backdrop {
     position: fixed;
@@ -3141,6 +3158,10 @@ body.is-juggle-active .scout-pupil {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .tournament-show-next-button {
+    transition: none !important;
+  }
+
   .scout-backdrop,
   .scout-widget,
   .scout-face,

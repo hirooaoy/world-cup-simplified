@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T23:30:24.225Z",
+  "updatedAt": "2026-07-19T00:37:04.423Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -118,6 +118,8 @@
     "caf-argentina-egypt-result-2026-07-07",
     "afc-france-morocco-result-2026-07-09",
     "fifa-france-spain-result-2026-07-14",
+    "cadena-ser-france-england-result-2026-07-18",
+    "elpais-france-england-result-2026-07-18",
     "ap-norway-cote-divoire-result-2026-06-30",
     "guardian-cote-divoire-norway-result-2026-06-30",
     "fifa-goal-events-sync-2026-07-01",
@@ -27837,7 +27839,34 @@
           "offset": 8,
           "name": "Jude Bellingham"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "England raced into a 4-0 halftime lead as Rice and Konsa struck before Saka scored twice.",
+        "Mbappé scored twice and set up Barcola as France pulled it back to 4-3 by the 66th minute, taking his World Cup record to 22 goals.",
+        "Saka completed his hat-trick from the spot, and after Dembélé made it 5-4, Bellingham's 90+8' strike sealed England's first World Cup medal in 60 years."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "cadena-ser-france-england-result-2026-07-18",
+          "elpais-france-england-result-2026-07-18"
+        ],
+        "checkedAt": "2026-07-18T17:36:00-07:00",
+        "note": "Cadena SER and El País were reviewed for England's four-goal first half, France's comeback, Saka's hat-trick, Mbappé's record, and England's bronze-medal finish."
+      },
+      "resultStoryBulletsZh": [
+        "英格兰在半场前连入四球，赖斯和孔萨先后破门，萨卡随后梅开二度。",
+        "姆巴佩两球一助攻，帮助法国在第66分钟将比分追至4比3，同时把世界杯生涯进球纪录刷新到22球。",
+        "萨卡点球完成帽子戏法，登贝莱把比分追至5比4后，裘德·贝林厄姆90+8分钟锁定胜局，英格兰收获60年来首枚世界杯奖牌。"
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=L1SLA0ixeWo",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-18T17:34:04-07:00",
+        "checkedAt": "2026-07-18T17:34:04-07:00"
+      }
     },
     {
       "id": "match-104-final-2026-07-19",

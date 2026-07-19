@@ -82,12 +82,15 @@ const reportLocale = {
     "Australia/Sydney": "Sídney"
   },
   releaseNotes: {
-    "Cleaner, timezone-aware data freshness": {
-      title: "Actualización de datos más clara y adaptada a la zona horaria",
+    "England's bronze, live freshness, and smoother mobile controls": {
+      title: "El bronce de Inglaterra, actualización en vivo y controles móviles más fluidos",
       highlights: [
+        "La victoria de Inglaterra por 6-4 sobre Francia en el partido por el tercer puesto ahora incluye el marcador oficial, la cronología completa de goles y las alineaciones, un resumen de tres puntos con fuentes y los mejores momentos de FOX Sports.",
+        "En dispositivos móviles, Ball Boy y el botón Mostrar siguiente del Torneo ahora usan una transición ordenada: Ball Boy despeja el espacio antes de que aparezca el botón, el botón se desvanece antes de que Ball Boy baje y las interrupciones del panel o los nuevos renderizados en vivo no pueden hacer que se superpongan; el comportamiento de escritorio no cambia.",
         "El pie de página ahora presenta de forma concisa los enlaces de confianza: Ver fuentes, la hora de la última actualización de datos y Ver notas de la versión, sin repetir el aviso sobre pronósticos no oficiales.",
-        "La actualización de datos ahora indica hoy o ayer en minúsculas cuando corresponde; en los demás casos muestra la fecha. El día y la hora siguen la zona horaria seleccionada sin repetir su abreviatura.",
-        "La aplicación principal y la página Reportar un problema ahora comparten el mismo texto y comportamiento de zona horaria en el pie de página, con comprobaciones automáticas para Los Ángeles y Tokio."
+        "La actualización de datos omite la etiqueta del día cuando corresponde a hoy, mantiene ayer cuando corresponde y, en los demás casos, muestra la fecha. El día y la hora siguen la zona horaria seleccionada sin repetir su abreviatura.",
+        "La aplicación principal y la página Reportar un problema ahora usan una comprobación correcta de datos en vivo para la actualización y recurren a la hora estática de los partidos solo cuando es necesario, mientras comparten el mismo texto y comportamiento de la zona horaria seleccionada.",
+        "Las comprobaciones automáticas ahora cubren la inversión del desplazamiento móvil, el reemplazo en vivo del botón, las interrupciones del panel, el modo horizontal, la reducción de movimiento, el éxito y la reserva de la actualización en vivo, y las zonas horarias de Los Ángeles y Tokio."
       ]
     },
     "Clearer tooltips, smoother match selection, and stronger football visuals": {

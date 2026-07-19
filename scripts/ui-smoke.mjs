@@ -1962,19 +1962,16 @@ function formatExpectedSourceUpdatedAt(
   const [todayYear, todayMonth, todayDay] = todayKey.split("-").map(Number);
   const yesterday = new Date(Date.UTC(todayYear, todayMonth - 1, todayDay - 1, 12));
   const yesterdayKey = getDayKeyForTimeZone(yesterday, "UTC");
-  const relativeDay = updatedDayKey === todayKey
-    ? "today"
-    : updatedDayKey === yesterdayKey
-      ? "yesterday"
-      : "";
+  const isToday = updatedDayKey === todayKey;
+  const relativeDay = updatedDayKey === yesterdayKey ? "yesterday" : "";
 
-  if (relativeDay) {
+  if (isToday || relativeDay) {
     const timeText = new Intl.DateTimeFormat("en-US", {
       hour: "numeric",
       minute: "2-digit",
       timeZone
     }).format(updatedAt);
-    return `${relativeDay} at ${timeText}`;
+    return isToday ? `at ${timeText}` : `${relativeDay} at ${timeText}`;
   }
 
   return new Intl.DateTimeFormat("en-US", {
@@ -2034,6 +2031,12 @@ async function openPageAtTime(
   options = {}
 ) {
   const context = await browser.newContext(options.contextOptions || {});
+  let resolveLiveDataRequest;
+  const liveDataRequested = options.liveDataResponse
+    ? new Promise((resolve) => {
+        resolveLiveDataRequest = resolve;
+      })
+    : Promise.resolve();
   if (options.desktopPointerMedia) {
     await useDesktopPointerMedia(context);
   }
@@ -2081,6 +2084,17 @@ async function openPageAtTime(
     });
   }
 
+  if (options.liveDataResponse) {
+    await context.route("**/api/live-data*", async (route) => {
+      await route.fulfill({
+        body: JSON.stringify(options.liveDataResponse),
+        contentType: "application/json",
+        status: 200
+      });
+      resolveLiveDataRequest?.();
+    });
+  }
+
   const mockedPage = await context.newPage();
   await mockedPage.goto(`${baseUrl}${path}`, { waitUntil: "load" });
   await mockedPage.waitForSelector(
@@ -2094,7 +2108,7 @@ async function openPageAtTime(
     return matchList && !matchList.hasAttribute("aria-busy");
   });
 
-  return { context, page: mockedPage };
+  return { context, liveDataRequested, page: mockedPage };
 }
 
 async function waitForCatchUpItems(pageInstance) {
@@ -8967,6 +8981,8 @@ try {
           : "",
         bottomGapToLayoutViewport: rect ? Math.round(window.innerHeight - rect.bottom) : null,
         buttonInsideProgression: Boolean(button?.closest(".tournament-progression")),
+        buttonAriaHidden: button?.getAttribute("aria-hidden") || "",
+        buttonDisabled: Boolean(button?.disabled),
         buttonParentClass: button?.parentElement?.className || "",
         buttonPosition: style?.position || "",
         buttonOpacityTransitionDuration:
@@ -8977,6 +8993,9 @@ try {
         progressionContainsButton: Boolean(button && progression?.contains(button)),
         rightGap: rect ? Math.round(window.innerWidth - rect.right) : null,
         rightEdgeDelta: rect && ballBoyRect ? Math.round(Math.abs(rect.right - ballBoyRect.right)) : null,
+        rootHasDockController: document.documentElement.classList.contains(
+          "has-scout-tournament-dock-controller"
+        ),
         targetMatchNumber: button?.dataset.showNextTournamentMatch || "",
       };
     });
@@ -8984,6 +9003,8 @@ try {
       tournamentShowNextFloatingState.label === "Show next" &&
         tournamentShowNextFloatingState.ballBoyClearsButton &&
         tournamentShowNextFloatingState.ballBoyHasAvoidance &&
+        tournamentShowNextFloatingState.buttonAriaHidden === "false" &&
+        !tournamentShowNextFloatingState.buttonDisabled &&
         Boolean(tournamentShowNextFloatingState.ballBoyObstacleTranslateY) &&
         tournamentShowNextFloatingState.ballBoyShowNextHeight === "50px" &&
         nextScheduledKnockoutMatchNumbers.includes(tournamentShowNextFloatingState.targetMatchNumber) &&
@@ -9000,7 +9021,8 @@ try {
         tournamentShowNextFloatingState.pairGap <= 16 &&
         tournamentShowNextFloatingState.rightGap >= 12 &&
         tournamentShowNextFloatingState.rightGap <= 16 &&
-        tournamentShowNextFloatingState.rightEdgeDelta <= 1,
+        tournamentShowNextFloatingState.rightEdgeDelta <= 1 &&
+        tournamentShowNextFloatingState.rootHasDockController,
       `Mobile Show next and Ball Boy should form one native fixed dock at the page bottom-right without a duplicate viewport offset. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
     );
 
@@ -9022,6 +9044,393 @@ try {
     assert(
       tournamentStaleInsetState.buttonShift === 0 && tournamentStaleInsetState.ballBoyShift === 0,
       `A stale or over-reported visual viewport inset must not lift the closed Tournament dock. Measured ${JSON.stringify(tournamentStaleInsetState)}.`
+    );
+
+    const traceTournamentDockTransition = async (
+      actionSelector,
+      durationMs = 620,
+      options = {}
+    ) =>
+      tournamentShowNextFloatingCheck.page.evaluate(
+        async ({
+          selector,
+          duration,
+          replacementDelayMs,
+          openDelayMs,
+          closeDelayMs,
+          scrollTargetThenReverse
+        }) => {
+          const frames = [];
+          const startedAt = performance.now();
+          let scrollReversed = false;
+          const readFrame = () => {
+            const button = document.querySelector(".tournament-show-next-button");
+            const ballBoy = document.querySelector(".scout-widget");
+            const buttonRect = button?.getBoundingClientRect();
+            const ballBoyRect = ballBoy?.getBoundingClientRect();
+            if (!button || !ballBoy || !buttonRect || !ballBoyRect) {
+              return;
+            }
+
+            frames.push({
+              awareness: ballBoy.classList.contains("is-eye-aware-below"),
+              ariaHidden: button.getAttribute("aria-hidden") || "",
+              avoidance: ballBoy.classList.contains("has-tournament-show-next"),
+              ballBoyTransformDuration: (() => {
+                const style = getComputedStyle(ballBoy);
+                const properties = style.transitionProperty
+                  .split(",")
+                  .map((value) => value.trim());
+                const durations = style.transitionDuration
+                  .split(",")
+                  .map((value) => value.trim());
+                return durations[properties.indexOf("transform")] || "";
+              })(),
+              elapsed: Math.round(performance.now() - startedAt),
+              disabled: button.disabled,
+              gap: Math.round((buttonRect.top - ballBoyRect.bottom) * 10) / 10,
+              opacity: Number.parseFloat(getComputedStyle(button).opacity) || 0,
+              overlapHeight: Math.max(
+                0,
+                Math.min(buttonRect.bottom, ballBoyRect.bottom) -
+                  Math.max(buttonRect.top, ballBoyRect.top)
+              ),
+              overlapWidth: Math.max(
+                0,
+                Math.min(buttonRect.right, ballBoyRect.right) -
+                  Math.max(buttonRect.left, ballBoyRect.left)
+              ),
+              open: ballBoy.classList.contains("is-open"),
+              ready: button.classList.contains("is-scout-clearance-ready"),
+              replaced: button.dataset.dockTestReplacement === "true",
+              releasing: ballBoy.classList.contains(
+                "is-releasing-tournament-show-next"
+              ),
+              rightEdgeDelta: Math.abs(buttonRect.right - ballBoyRect.right),
+              scrollReversed,
+              targetVisible: button.classList.contains("is-target-visible")
+            });
+          };
+
+          document
+            .querySelector(".tournament-show-next-button")
+            ?.removeAttribute("data-dock-test-replacement");
+          readFrame();
+          if (selector) {
+            document.querySelector(selector)?.click();
+          }
+          if (scrollTargetThenReverse) {
+            const button = document.querySelector(".tournament-show-next-button");
+            const progression = button?.closest(".tournament-view")?.querySelector(
+              ".tournament-progression"
+            );
+            const target = progression?.querySelector(
+              `.progress-match[data-match-number="${CSS.escape(
+                button?.dataset.showNextTournamentMatch || ""
+              )}"]`
+            );
+            const progressionRect = progression?.getBoundingClientRect();
+            const targetRect = target?.getBoundingClientRect();
+            if (progression && progressionRect && targetRect) {
+              const nextLeft = Math.max(
+                0,
+                progression.scrollLeft +
+                  targetRect.left -
+                  progressionRect.left -
+                  (progression.clientWidth - targetRect.width) / 2
+              );
+              const nextTop = Math.max(
+                0,
+                progression.scrollTop +
+                  targetRect.top -
+                  progressionRect.top -
+                  (progression.clientHeight - targetRect.height) / 2
+              );
+              progression.scrollTo({
+                behavior: "auto",
+                left: nextLeft,
+                top: nextTop
+              });
+              progression.dispatchEvent(new Event("scroll", { bubbles: true }));
+            }
+          }
+          if (Number.isFinite(replacementDelayMs)) {
+            window.setTimeout(() => {
+              const button = document.querySelector(".tournament-show-next-button");
+              if (!button) {
+                return;
+              }
+              const replacement = button.cloneNode(true);
+              replacement.dataset.dockTestReplacement = "true";
+              button.replaceWith(replacement);
+            }, replacementDelayMs);
+          }
+          if (Number.isFinite(openDelayMs)) {
+            window.setTimeout(() => {
+              document.querySelector("#scout-launcher")?.click();
+            }, openDelayMs);
+          }
+          if (Number.isFinite(closeDelayMs)) {
+            window.setTimeout(() => {
+              document.querySelector("#scout-close")?.click();
+            }, closeDelayMs);
+          }
+          while (performance.now() - startedAt < duration) {
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+            readFrame();
+            if (
+              scrollTargetThenReverse &&
+              !scrollReversed &&
+              document
+                .querySelector(".scout-widget")
+                ?.classList.contains("is-releasing-tournament-show-next")
+            ) {
+              const progression = document.querySelector(".tournament-progression");
+              if (progression) {
+                progression.scrollTo({ behavior: "auto", left: 0, top: 0 });
+                progression.dispatchEvent(new Event("scroll", { bubbles: true }));
+                scrollReversed = true;
+              }
+            }
+          }
+          return frames;
+        },
+        { selector: actionSelector, duration: durationMs, ...options }
+      );
+
+    const tournamentDockHideFrames = await traceTournamentDockTransition(
+      ".tournament-show-next-button"
+    );
+    const tournamentDockHideEnd = tournamentDockHideFrames.at(-1);
+    const tournamentDockHideVisibleCollisions = tournamentDockHideFrames.filter(
+      (frame) =>
+        frame.opacity > 0.02 &&
+        frame.overlapHeight > 0.5 &&
+        frame.overlapWidth > 0.5
+    );
+    assert(
+      tournamentDockHideFrames.length >= 8 &&
+        tournamentDockHideFrames.some(
+          (frame) => frame.opacity > 0.05 && frame.opacity < 0.95
+        ) &&
+        tournamentDockHideVisibleCollisions.length === 0 &&
+        tournamentDockHideFrames.some(
+          (frame) => frame.releasing && frame.ballBoyTransformDuration === "0.18s"
+        ) &&
+        tournamentDockHideEnd &&
+        tournamentDockHideEnd.ariaHidden === "true" &&
+        tournamentDockHideEnd.disabled &&
+        tournamentDockHideEnd.opacity <= 0.02 &&
+        !tournamentDockHideEnd.avoidance &&
+        !tournamentDockHideEnd.ready &&
+        !tournamentDockHideEnd.releasing,
+      `Mobile Show next should finish fading before Ball Boy lowers, with no visible-frame collision. Measured ${JSON.stringify(tournamentDockHideFrames)}.`
+    );
+
+    await tournamentShowNextFloatingCheck.page.click("#standings-groups-tab");
+    await tournamentShowNextFloatingCheck.page.waitForSelector(
+      ".tournament-show-next-button",
+      { state: "detached" }
+    );
+    await tournamentShowNextFloatingCheck.page.waitForFunction(
+      () =>
+        !document
+          .querySelector(".scout-widget")
+          ?.classList.contains("has-tournament-show-next")
+    );
+    const tournamentDockShowFrames = await traceTournamentDockTransition(
+      "#standings-tournament-tab",
+      800,
+      { replacementDelayMs: 45 }
+    );
+    const tournamentDockShowEnd = tournamentDockShowFrames.at(-1);
+    const tournamentDockShowVisibleCollisions = tournamentDockShowFrames.filter(
+      (frame) =>
+        frame.opacity > 0.02 &&
+        frame.overlapHeight > 0.5 &&
+        frame.overlapWidth > 0.5
+    );
+    assert(
+      tournamentDockShowFrames.length >= 8 &&
+        tournamentDockShowFrames.some(
+          (frame) =>
+            frame.ariaHidden === "true" &&
+            frame.disabled &&
+            !frame.ready &&
+            frame.opacity <= 0.02 &&
+            frame.overlapHeight > 0.5
+        ) &&
+        tournamentDockShowFrames.some((frame) => frame.awareness) &&
+        tournamentDockShowFrames.some(
+          (frame) =>
+            frame.replaced &&
+            !frame.ready &&
+            frame.disabled &&
+            frame.ariaHidden === "true"
+        ) &&
+        tournamentDockShowFrames.some(
+          (frame) => frame.opacity > 0.05 && frame.opacity < 0.95
+        ) &&
+        tournamentDockShowVisibleCollisions.length === 0 &&
+        tournamentDockShowEnd &&
+        tournamentDockShowEnd.ariaHidden === "false" &&
+        tournamentDockShowEnd.replaced &&
+        !tournamentDockShowEnd.disabled &&
+        tournamentDockShowEnd.ready &&
+        tournamentDockShowEnd.avoidance &&
+        tournamentDockShowEnd.opacity >= 0.98 &&
+        tournamentDockShowEnd.gap >= 12 &&
+        tournamentDockShowEnd.gap <= 16 &&
+        tournamentDockShowEnd.rightEdgeDelta <= 1,
+      `Mobile Ball Boy should rise before Show next fades in, keep the downward glance, and never cross a visible CTA. Measured ${JSON.stringify(tournamentDockShowFrames)}.`
+    );
+
+    const tournamentDockStableOpenFrames = await traceTournamentDockTransition(
+      "#scout-launcher",
+      320
+    );
+    const tournamentDockStableOpenVisibleCollisions =
+      tournamentDockStableOpenFrames.filter(
+        (frame) =>
+          frame.opacity > 0.02 &&
+          frame.overlapHeight > 0.5 &&
+          frame.overlapWidth > 0.5
+      );
+    const tournamentDockStableOpenPanelFrames =
+      tournamentDockStableOpenFrames.filter((frame) => frame.open);
+    const tournamentDockStableOpenEnd = tournamentDockStableOpenFrames.at(-1);
+    assert(
+      tournamentDockStableOpenPanelFrames.length > 0 &&
+        tournamentDockStableOpenPanelFrames.every(
+          (frame) =>
+            !frame.ready &&
+            frame.disabled &&
+            frame.ariaHidden === "true"
+        ) &&
+        tournamentDockStableOpenVisibleCollisions.length === 0 &&
+        tournamentDockStableOpenEnd &&
+        tournamentDockStableOpenEnd.open &&
+        tournamentDockStableOpenEnd.opacity <= 0.02,
+      `Opening Ball Boy from the settled mobile dock should conceal Show next before the panel expands. Measured ${JSON.stringify(tournamentDockStableOpenFrames)}.`
+    );
+
+    const tournamentDockStableCloseFrames = await traceTournamentDockTransition(
+      "#scout-close",
+      900,
+      { replacementDelayMs: 120 }
+    );
+    const tournamentDockStableCloseEnd = tournamentDockStableCloseFrames.at(-1);
+    const tournamentDockStableCloseFirstAuthorizedFrame =
+      tournamentDockStableCloseFrames.find(
+        (frame) =>
+          !frame.open &&
+          frame.ready &&
+          !frame.disabled &&
+          frame.ariaHidden === "false"
+      );
+    const tournamentDockStableCloseVisibleCollisions =
+      tournamentDockStableCloseFrames.filter(
+        (frame) =>
+          frame.ready &&
+          !frame.open &&
+          frame.opacity > 0.02 &&
+          frame.overlapHeight > 0.5 &&
+          frame.overlapWidth > 0.5
+      );
+    assert(
+      tournamentDockStableCloseFrames.some((frame) => frame.replaced) &&
+        tournamentDockStableCloseFirstAuthorizedFrame?.elapsed >= 420 &&
+        tournamentDockStableCloseVisibleCollisions.length === 0 &&
+        tournamentDockStableCloseEnd &&
+        !tournamentDockStableCloseEnd.open &&
+        tournamentDockStableCloseEnd.ready &&
+        !tournamentDockStableCloseEnd.disabled &&
+        tournamentDockStableCloseEnd.ariaHidden === "false" &&
+        tournamentDockStableCloseEnd.opacity >= 0.98 &&
+        tournamentDockStableCloseEnd.gap >= 12 &&
+        tournamentDockStableCloseEnd.gap <= 16,
+      `A CTA replacement while Ball Boy closes should preserve the full panel-clearance deadline. Measured ${JSON.stringify(tournamentDockStableCloseFrames)}.`
+    );
+
+    const tournamentDockScrollReversalFrames = await traceTournamentDockTransition(
+      "",
+      950,
+      { scrollTargetThenReverse: true }
+    );
+    const tournamentDockScrollReversalEnd =
+      tournamentDockScrollReversalFrames.at(-1);
+    const tournamentDockScrollReversalVisibleCollisions =
+      tournamentDockScrollReversalFrames.filter(
+        (frame) =>
+          frame.opacity > 0.02 &&
+          frame.overlapHeight > 0.5 &&
+          frame.overlapWidth > 0.5
+      );
+    assert(
+      tournamentDockScrollReversalFrames.some((frame) => frame.targetVisible) &&
+        tournamentDockScrollReversalFrames.some((frame) => frame.releasing) &&
+        tournamentDockScrollReversalFrames.some((frame) => frame.scrollReversed) &&
+        tournamentDockScrollReversalVisibleCollisions.length === 0 &&
+        tournamentDockScrollReversalEnd &&
+        tournamentDockScrollReversalEnd.scrollReversed &&
+        !tournamentDockScrollReversalEnd.targetVisible &&
+        tournamentDockScrollReversalEnd.ready &&
+        !tournamentDockScrollReversalEnd.disabled &&
+        tournamentDockScrollReversalEnd.ariaHidden === "false" &&
+        tournamentDockScrollReversalEnd.opacity >= 0.98 &&
+        tournamentDockScrollReversalEnd.gap >= 12 &&
+        tournamentDockScrollReversalEnd.gap <= 16,
+      `A real Tournament-board scroll reversal while Ball Boy lowers should return the dock without a visible crossing. Measured ${JSON.stringify(tournamentDockScrollReversalFrames)}.`
+    );
+
+    await tournamentShowNextFloatingCheck.page.click("#standings-groups-tab");
+    await tournamentShowNextFloatingCheck.page.waitForSelector(
+      ".tournament-show-next-button",
+      { state: "detached" }
+    );
+    await tournamentShowNextFloatingCheck.page.waitForFunction(
+      () =>
+        !document
+          .querySelector(".scout-widget")
+          ?.classList.contains("has-tournament-show-next")
+    );
+    const tournamentDockInterruptedShowFrames = await traceTournamentDockTransition(
+      "#standings-tournament-tab",
+      1100,
+      { openDelayMs: 50, closeDelayMs: 100 }
+    );
+    const tournamentDockInterruptedShowEnd =
+      tournamentDockInterruptedShowFrames.at(-1);
+    const tournamentDockInterruptedVisibleCollisions =
+      tournamentDockInterruptedShowFrames.filter(
+        (frame) =>
+          frame.ready &&
+          !frame.open &&
+          frame.opacity > 0.02 &&
+          frame.overlapHeight > 0.5 &&
+          frame.overlapWidth > 0.5
+      );
+    const tournamentDockInterruptedOpenFrames =
+      tournamentDockInterruptedShowFrames.filter((frame) => frame.open);
+    assert(
+      tournamentDockInterruptedOpenFrames.length > 0 &&
+        tournamentDockInterruptedOpenFrames.every(
+          (frame) =>
+            !frame.ready &&
+            frame.disabled &&
+            frame.ariaHidden === "true" &&
+            frame.opacity <= 0.02
+        ) &&
+        tournamentDockInterruptedVisibleCollisions.length === 0 &&
+        tournamentDockInterruptedShowEnd &&
+        !tournamentDockInterruptedShowEnd.open &&
+        tournamentDockInterruptedShowEnd.ready &&
+        !tournamentDockInterruptedShowEnd.disabled &&
+        tournamentDockInterruptedShowEnd.ariaHidden === "false" &&
+        tournamentDockInterruptedShowEnd.opacity >= 0.98 &&
+        tournamentDockInterruptedShowEnd.gap >= 12 &&
+        tournamentDockInterruptedShowEnd.gap <= 16,
+      `Opening and closing Ball Boy during the mobile lift should restart clearance before Show next returns. Measured ${JSON.stringify(tournamentDockInterruptedShowFrames)}.`
     );
 
     await tournamentShowNextFloatingCheck.page.click("#matches-tab");
@@ -9123,7 +9532,119 @@ try {
         ballBoyAfterCloseState.bottomGap <= 14,
       `Closed Ball Boy should immediately discard the mobile visual-viewport offset. Measured ${JSON.stringify(ballBoyAfterCloseState)}.`
     );
+
+    await tournamentShowNextFloatingCheck.page.setViewportSize({
+      width: 844,
+      height: 390
+    });
+    await tournamentShowNextFloatingCheck.page.click("#standings-tab");
+    await tournamentShowNextFloatingCheck.page.waitForSelector(
+      ".tournament-show-next-button.is-scout-clearance-ready"
+    );
+    const tournamentLandscapeDockState =
+      await tournamentShowNextFloatingCheck.page.evaluate(() => {
+        const button = document.querySelector(".tournament-show-next-button");
+        const ballBoy = document.querySelector(".scout-widget");
+        const buttonRect = button?.getBoundingClientRect();
+        const ballBoyRect = ballBoy?.getBoundingClientRect();
+        return {
+          gap:
+            buttonRect && ballBoyRect
+              ? Math.round((buttonRect.top - ballBoyRect.bottom) * 10) / 10
+              : null,
+          mobileDock: window.matchMedia(
+            "(max-width: 560px), (max-width: 900px) and (pointer: coarse)"
+          ).matches,
+          rightEdgeDelta:
+            buttonRect && ballBoyRect
+              ? Math.abs(buttonRect.right - ballBoyRect.right)
+              : null
+        };
+      });
+    assert(
+      tournamentLandscapeDockState.mobileDock &&
+        tournamentLandscapeDockState.gap >= 12 &&
+        tournamentLandscapeDockState.gap <= 16 &&
+        tournamentLandscapeDockState.rightEdgeDelta <= 1,
+      `A coarse-pointer phone in short landscape should keep the same ordered Tournament dock. Measured ${JSON.stringify(tournamentLandscapeDockState)}.`
+    );
     await tournamentShowNextFloatingCheck.context.close();
+
+    const tournamentReducedMotionCheck = await openPageAtTime(
+      beforeKnockoutKickoff.toISOString(),
+      "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+      {
+        contextOptions: {
+          hasTouch: true,
+          isMobile: true,
+          reducedMotion: "reduce",
+          viewport: { width: 390, height: 844 }
+        },
+        fixtureTransform(data) {
+          for (const fixture of data.fixtures || []) {
+            if (fixture.status === "LIVE") {
+              fixture.status = "FT";
+              fixture.score ||= { home: 0, away: 0 };
+            }
+          }
+        }
+      }
+    );
+    await tournamentReducedMotionCheck.page.waitForSelector(
+      ".tournament-show-next-button.is-scout-clearance-ready"
+    );
+    const tournamentReducedMotionState = await tournamentReducedMotionCheck.page.evaluate(() => {
+      const button = document.querySelector(".tournament-show-next-button");
+      const ballBoy = document.querySelector(".scout-widget");
+      return {
+        awareness: ballBoy?.classList.contains("is-eye-aware-below") || false,
+        ballBoyDurations: ballBoy
+          ? getComputedStyle(ballBoy).transitionDuration.split(",").map((value) => value.trim())
+          : [],
+        buttonDurations: button
+          ? getComputedStyle(button).transitionDuration.split(",").map((value) => value.trim())
+          : [],
+        reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      };
+    });
+    assert(
+      tournamentReducedMotionState.reduced &&
+        !tournamentReducedMotionState.awareness &&
+        tournamentReducedMotionState.ballBoyDurations.every(
+          (duration) => duration === "0.001s"
+        ) &&
+        tournamentReducedMotionState.buttonDurations.every(
+          (duration) => duration === "0s"
+        ),
+      `Reduced-motion Tournament controls should settle effectively immediately without the eye sequence. Measured ${JSON.stringify(tournamentReducedMotionState)}.`
+    );
+    await tournamentReducedMotionCheck.page.click(".tournament-show-next-button");
+    await tournamentReducedMotionCheck.page.waitForTimeout(40);
+    const tournamentReducedMotionHiddenState =
+      await tournamentReducedMotionCheck.page.evaluate(() => {
+        const button = document.querySelector(".tournament-show-next-button");
+        const ballBoy = document.querySelector(".scout-widget");
+        return {
+          awareness: ballBoy?.classList.contains("is-eye-aware-below") || false,
+          avoidance: ballBoy?.classList.contains("has-tournament-show-next") || false,
+          buttonClass: button?.className || "",
+          controllerReady: document.documentElement.classList.contains(
+            "has-scout-tournament-dock-controller"
+          ),
+          innerWidth: window.innerWidth,
+          mobile: window.matchMedia("(max-width: 560px)").matches,
+          opacity: Number.parseFloat(button ? getComputedStyle(button).opacity : "1"),
+          ready: button?.classList.contains("is-scout-clearance-ready") || false
+        };
+      });
+    assert(
+      !tournamentReducedMotionHiddenState.awareness &&
+        !tournamentReducedMotionHiddenState.avoidance &&
+        tournamentReducedMotionHiddenState.opacity <= 0.02 &&
+        !tournamentReducedMotionHiddenState.ready,
+      `Reduced-motion Show next should hide and release Ball Boy immediately. Measured ${JSON.stringify(tournamentReducedMotionHiddenState)}.`
+    );
+    await tournamentReducedMotionCheck.context.close();
 
     const tournamentDelayedCheckTime = new Date(
       new Date(nextKnockoutKickoffUtc).getTime() + 5 * 60 * 1000
@@ -9946,8 +10467,33 @@ try {
   await latestKnockoutChineseCheck.context.close();
 
   const sourceFreshnessNow = new Date("2026-07-18T08:00:00.000Z");
-  const sourceFreshnessCheck = await openPageAtTime(sourceFreshnessNow.toISOString());
+  const sourceFreshnessLiveCheckedAt = "2026-07-18T07:42:00.000Z";
+  const sourceFreshnessCheck = await openPageAtTime(
+    sourceFreshnessNow.toISOString(),
+    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
+    {
+      liveDataResponse: {
+        fixturesData,
+        standingsData,
+        syncStatus: {
+          checkedAt: sourceFreshnessLiveCheckedAt,
+          ok: true
+        },
+        tournamentData
+      }
+    }
+  );
+  await sourceFreshnessCheck.liveDataRequested;
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
+  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(
+    sourceFreshnessLiveCheckedAt,
+    sourceFreshnessNow,
+    "America/Los_Angeles"
+  );
+  await sourceFreshnessCheck.page.waitForFunction(
+    (expectedText) => document.querySelector("#source-note")?.innerText.includes(expectedText),
+    `Data refreshed ${expectedSourceUpdatedAt}`
+  );
   const sourceNoteText = await sourceNote.innerText();
   const normalizedSourceNoteText = sourceNoteText
     .replace(/\s+/g, " ")
@@ -10001,12 +10547,7 @@ try {
     };
   });
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
-  const latestSourceUpdatedAt = getLatestUpdatedAt(sourceNoteRefreshData);
-  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(
-    latestSourceUpdatedAt,
-    sourceFreshnessNow,
-    "America/Los_Angeles"
-  );
+  const latestSourceUpdatedAt = sourceFreshnessLiveCheckedAt;
   const expectedSourceNoteText = `See sources • Data refreshed ${expectedSourceUpdatedAt} • See release notes`;
   assert(
     normalizedSourceNoteText === expectedSourceNoteText,
@@ -10133,7 +10674,7 @@ try {
   const reportFooterPage = await sourceFreshnessCheck.context.newPage();
   await reportFooterPage.goto(`${baseUrl}/report.html`, { waitUntil: "load" });
   const expectedReportUpdatedAt = formatExpectedSourceUpdatedAt(
-    fixturesData.updatedAt,
+    sourceFreshnessLiveCheckedAt,
     sourceFreshnessNow,
     "Asia/Tokyo"
   );
@@ -10147,9 +10688,69 @@ try {
     .trim();
   assert(
     reportFooterText === `See sources • Data refreshed ${expectedReportUpdatedAt} • See release notes`,
-    `The report footer should use the same saved timezone-aware freshness copy. Measured "${reportFooterText}".`
+    `The report footer should use the successful live check in the saved timezone. Measured "${reportFooterText}".`
+  );
+  await reportFooterPage.close();
+
+  await sourceFreshnessCheck.context.unroute("**/api/live-data*");
+  const reportFallbackPage = await sourceFreshnessCheck.context.newPage();
+  await reportFallbackPage.goto(`${baseUrl}/report.html`, { waitUntil: "load" });
+  const expectedReportFallbackUpdatedAt = formatExpectedSourceUpdatedAt(
+    fixturesData.updatedAt,
+    sourceFreshnessNow,
+    "Asia/Tokyo"
+  );
+  await reportFallbackPage.waitForFunction(
+    (expectedText) => document.querySelector("#source-note")?.innerText.includes(expectedText),
+    `Data refreshed ${expectedReportFallbackUpdatedAt}`
+  );
+  const reportFallbackFooterText = (await reportFallbackPage.locator("#source-note").innerText())
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,。])/g, "$1")
+    .trim();
+  assert(
+    reportFallbackFooterText ===
+      `See sources • Data refreshed ${expectedReportFallbackUpdatedAt} • See release notes`,
+    `The report footer should fall back to fixtures.json when live data is unavailable. Measured "${reportFallbackFooterText}".`
   );
   await sourceFreshnessCheck.context.close();
+
+  const failedFreshnessNow = new Date("2026-07-19T08:00:00.000Z");
+  const failedLiveCheckedAt = "2026-07-19T07:42:00.000Z";
+  const failedLiveFreshnessCheck = await openPageAtTime(
+    failedFreshnessNow.toISOString(),
+    "/?view=matches&date=2026-07-19&tz=America%2FLos_Angeles",
+    {
+      liveDataResponse: {
+        fixturesData,
+        standingsData: { ...standingsData, updatedAt: failedLiveCheckedAt },
+        syncStatus: {
+          checkedAt: failedLiveCheckedAt,
+          ok: false
+        },
+        tournamentData
+      }
+    }
+  );
+  await failedLiveFreshnessCheck.liveDataRequested;
+  await failedLiveFreshnessCheck.page.evaluate(
+    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+  );
+  const expectedFailedLiveFallbackUpdatedAt = formatExpectedSourceUpdatedAt(
+    getLatestUpdatedAt(sourceNoteRefreshData),
+    failedFreshnessNow,
+    "America/Los_Angeles"
+  );
+  const failedLiveFooterText = (await failedLiveFreshnessCheck.page.locator("#source-note").innerText())
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,。])/g, "$1")
+    .trim();
+  assert(
+    failedLiveFooterText ===
+      `See sources • Data refreshed ${expectedFailedLiveFallbackUpdatedAt} • See release notes`,
+    `The main footer should retain the static timestamp when live sync reports ok false. Measured "${failedLiveFooterText}".`
+  );
+  await failedLiveFreshnessCheck.context.close();
 
   const tomorrowDuringKickoff = await openPageAtTime(
     "2026-06-18T15:55:00.000Z",
