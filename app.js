@@ -3327,7 +3327,7 @@ const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
 const TOURNAMENT_DESKTOP_ZOOM_FLOOR = 0.65;
-const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.8;
+const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.7;
 const TOURNAMENT_ZOOM_MAX = 1;
 const TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD = 0.5;
 const TOURNAMENT_ZOOM_STEP = 0.1;
@@ -16324,13 +16324,12 @@ function getTournamentMinimumScale(progression, rounds) {
     return getTournamentZoomFloor();
   }
 
-  const currentScale = getTournamentBoardScale(progression);
   const progressionStyle = getComputedStyle(progression);
   const paddingInline =
     (Number.parseFloat(progressionStyle.paddingLeft) || 0) +
     (Number.parseFloat(progressionStyle.paddingRight) || 0);
   const availableWidth = Math.max(1, progression.clientWidth - paddingInline);
-  const naturalWidth = Math.max(1, rounds.getBoundingClientRect().width / currentScale);
+  const naturalWidth = Math.max(1, rounds.offsetWidth);
   const fitWidthScale = availableWidth / naturalWidth;
   const zoomFloor = getTournamentZoomFloor();
 
@@ -16415,6 +16414,7 @@ function applyTournamentBoardScale(progression, requestedScale, options = {}) {
   updateTournamentZoomState(progression);
   updateTournamentShowNextButtonVisibility();
   scheduleTournamentRoundHeaderUpdate();
+  scheduleTournamentConnectorUpdate();
   return nextScale;
 }
 
@@ -16538,12 +16538,15 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
 
   const progressionStyle = getComputedStyle(progression);
   const progressionRect = progression.getBoundingClientRect();
+  const paddingLeft = Number.parseFloat(progressionStyle.paddingLeft) || 0;
   const paddingTop = Number.parseFloat(progressionStyle.paddingTop) || 0;
   const paddingBottom = Number.parseFloat(progressionStyle.paddingBottom) || 0;
   const borderTop = Number.parseFloat(progressionStyle.borderTopWidth) || 0;
   const borderLeft = Number.parseFloat(progressionStyle.borderLeftWidth) || 0;
   const borderRight = Number.parseFloat(progressionStyle.borderRightWidth) || 0;
-  const headingHeight = headings[0].getBoundingClientRect().height / scale;
+  const headingHeight = isMobileLayout
+    ? headings[0].offsetHeight * scale
+    : headings[0].getBoundingClientRect().height / scale;
   const shouldStick = isMobileLayout || (
     progressionRect.top + borderTop + paddingTop <= paddingTop &&
     progressionRect.bottom - borderTop - paddingBottom > paddingTop + headingHeight
@@ -16589,10 +16592,14 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
 
   overlay.style.height = `${headingHeight}px`;
   if (isMobileLayout) {
+    overlay.style.setProperty("--tournament-sticky-round-height", `${headingHeight}px`);
+    overlay.style.setProperty("--tournament-sticky-round-scale", scale.toFixed(3));
     overlay.style.removeProperty("left");
     overlay.style.removeProperty("top");
     overlay.style.removeProperty("width");
   } else {
+    overlay.style.removeProperty("--tournament-sticky-round-height");
+    overlay.style.removeProperty("--tournament-sticky-round-scale");
     const canvasLeft = progressionRect.left + borderLeft;
     const canvasRight = progressionRect.right - borderRight;
     overlay.style.left = `${canvasLeft}px`;
@@ -16605,13 +16612,20 @@ function updateTournamentRoundHeaders(root = standingsGrid) {
 
   const labels = [...track.querySelectorAll(".tournament-sticky-round-label")];
   labels.forEach((label, index) => {
-    const roundRect = headings[index]?.closest(".progress-round")?.getBoundingClientRect();
-    if (!roundRect) {
+    const round = headings[index]?.closest(".progress-round");
+    if (!round) {
       return;
     }
 
-    label.style.left = `${roundRect.left + progression.scrollLeft - canvasLeft}px`;
-    label.style.width = `${roundRect.width}px`;
+    if (isMobileLayout) {
+      label.style.left = `${paddingLeft + round.offsetLeft * scale}px`;
+      label.style.width = `${round.offsetWidth * scale}px`;
+    } else {
+      const roundRect = round.getBoundingClientRect();
+      label.style.left = `${roundRect.left + progression.scrollLeft - canvasLeft}px`;
+      label.style.width = `${roundRect.width}px`;
+    }
+    label.style.height = `${headingHeight}px`;
   });
 
   const scrollRange = Math.max(0, progression.scrollWidth - progression.clientWidth);
@@ -17064,8 +17078,8 @@ function updateTournamentConnectors() {
     return true;
   }
 
-  const width = Math.ceil(roundsRect.width / scale);
-  const height = Math.ceil(roundsRect.height / scale);
+  const width = Math.ceil(rounds.offsetWidth);
+  const height = Math.ceil(rounds.offsetHeight);
 
   if (width < 2 || height < 2) {
     return false;
