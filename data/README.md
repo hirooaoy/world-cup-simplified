@@ -17,12 +17,13 @@ That means:
 Use this order when sources disagree:
 
 1. FIFA official schedule/results/standings.
-2. FIFA/Coca-Cola Men's World Ranking for ranking pills.
+2. FIFA/Coca-Cola Men's World Ranking for 1994 onward ranking pills; retrospective World Football Elo for earlier editions.
 3. A cross-check source for standings/results.
 4. Editorial judgment only for previews, player notes, and projections.
 
 Do not mix official facts and editorial projections without labeling them. The app footer already separates those categories.
 `data/teams.json` must store one `rankingYear` for its FIFA ranking snapshot. Keep that year attached to full ranking labels so tournament records are never mistaken for a live ranking; compact `#` pills may stay short when their accessible tooltip includes the same year.
+`data/historical-rankings.json` stores retrospective World Football Elo rankings locked immediately before each 1930-1990 World Cup and the final published FIFA men's ranking before each 1994-2022 World Cup. Keep every edition complete, retain tied positions, and preserve the ranking system in labels and tooltips even though every compact pill remains `#<rank>`.
 Ranking-based projection baselines may use FIFA ranking data as input, but the model output remains an editorial preview.
 
 ## Lineup Lifecycle
@@ -190,11 +191,13 @@ During live matches:
 
 For authored `catchUp` entries, keep the headline and body score-focused. Add optional `standouts` only when a source supports the player note; one compact sentence is enough.
 
-When yesterday and today have no live or finished match notes during the tournament, Catch Up automatically uses the loaded FIFA goal events for one bilingual Golden Boot race story. After the final is complete, the same surface keeps a persistent tournament wrap with the champion, Golden Boot, and final match/goal totals. Add the official award to `tournament.json` as `awards.goldenBoot` with `status: "confirmed"`, `playerName`, `goals`, optional `assists`, and `sourceId`; until that record is loaded, the wrap explicitly says that official Golden Boot confirmation is pending instead of guessing from tied scorer totals.
+When yesterday and today have no live or finished match notes during the tournament, Catch Up automatically uses the loaded FIFA goal events for one bilingual Golden Boot race story. After the final is complete, the same surface keeps a persistent tournament wrap with the champion, Golden Boot, and final match/goal totals. Store the complete official award set in `tournament.json` under `awards`: `goldenBall`, `goldenBoot`, `goldenGlove`, `youngPlayer`, and `fairPlay`. Every award needs `status: "confirmed"`, a valid `teamId`, `sourceId`, and `checkedAt`; player awards use `playerName`, while Fair Play uses `teamName`. Golden Boot also needs exact integer `goals` and `assists` totals that match the loaded goal events. Until Golden Boot is loaded, the wrap explicitly says that official confirmation is pending instead of guessing from tied scorer totals.
 
 For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
 
 For richer post-match recaps, add optional `resultStoryBullets` with up to three compact, emoji-free match-story bullets. Current 2026 fixture bullets should be written only after post-match research, and the fixture can include `resultStoryResearch` with `status: "researched"`, `sourceIds`, `checkedAt`, and an optional compact note. Keep current-match story bullets to clean one-sentence prose: prefer clauses with words like after, as, when, or with, and avoid colon/dash scaffolding that makes the copy read like a generated summary. The UI only displays story bullets inside the full-time Result block. `pnpm results` no longer auto-generates current fixture story bullets by default; it still backfills this field for finished historical archive matches. `pnpm results:research` is a free queue/report: it lists finished matches that need source-backed research, but it does not call paid APIs or publish narrative bullets.
+
+A researched current Result recap is complete only when all four supported languages are covered. Keep the canonical English sentences in `resultStoryBullets`, add the matching Chinese sentences to `resultStoryBulletsZh` and the exact Chinese map in `app.js`, and add reviewed Spanish and Korean entries to `scripts/locale-current-factual-copy.mjs`. Then run `pnpm locales:content:sync` to rebuild the curated locale sources and generated packs. Before release, run `pnpm audit:zh`, `pnpm locales:content:check`, `pnpm audit:locales`, and `pnpm smoke:locales`, and verify the same Result card in English, Chinese, Spanish, and Korean.
 
 Goal rows may include optional `assistName` when the official FIFA timeline exposes an assistant player id. Result recap generation prefers repeated-assist texture over generic scorer-repeat filler when that data is available.
 
@@ -226,6 +229,9 @@ pnpm results
 pnpm results:check
 pnpm sync:youtube
 pnpm results:research
+pnpm locales:content:sync
+pnpm audit:locales
+pnpm smoke:locales
 ```
 
 The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead. Generated current `resultHighlights` stay factual: scoreline when needed plus group impact, without an automatic match-story moment.
@@ -326,6 +332,16 @@ Rich previews, H2H records, live status, final scores, and standings still need 
 
 ## Edition lifecycle and the 2026 archive
 
-`data/edition-lifecycle.json` is the explicit guard for live-era scheduled jobs. The recurring result and lineup workflows run only while the 2026 lifecycle is `live` and within its timestamp window; a manual dispatch remains available for a late official correction.
+`data/edition-lifecycle.json` is the explicit, edition-neutral guard for live-era scheduled jobs. It owns the active edition, timezone, expected tournament shape, provider identifiers, and a half-open live-sync window (`tournamentStartsAt <= now < liveSyncEndsAt`). The recurring result, lineup, and scheduled data-quality workflows run only while the lifecycle is `live` and inside that window; ordinary push and pull-request validation remains available after closure, and a manual dispatch remains available for a late official correction. Run `pnpm edition:window:smoke` after changing lifecycle behavior.
 
-After all 104 fixtures, including the third-place match and final, are official and the archive eligibility time has passed, run `pnpm archive:2026:check`. It is a non-writing preflight and deliberately fails while either remaining match is unfinished. Review the final snapshot, then run `pnpm archive:2026` to create the versioned `data/archives/world-cup-2026.json`, append edition 23 to `history.json`, preserve pre-match prediction and lineup evidence, switch the app lifecycle to review, and close recurring live jobs. Later official corrections require the finalizer's explicit `--late-correction` flag.
+`data/official-event-corrections.json` is the reviewed correction layer for provider timeline omissions. Keep the upstream FIFA payload as the primary source, add only independently verified missing cards or substitutions, record every supporting `sourceId`, and let the event syncs merge corrections deterministically into both `fixtures.json` and `lineups.json`. Never silently patch a generated event without adding the correction record. Run `pnpm events:corrections:smoke` after changing merge behavior.
+
+Run `pnpm archive:2026:smoke` to verify the finalizer itself. After all 104 fixtures, official final lineups, four-language result stories, highlight dispositions, final standings, and the confirmed Golden Ball, Golden Boot, Golden Glove, Young Player, and Fair Play awards are complete—and the archive eligibility time has passed—run `pnpm archive:2026:check`. This is a strict, non-writing preflight.
+
+Review the reported version and SHA-256 checksum, then run `pnpm archive:2026`. The finalizer writes a timestamped immutable snapshot plus `data/archives/world-cup-2026-manifest.json`, records the exact archive file and checksum in the lifecycle, and closes recurring live jobs only after the other files commit. The snapshot preserves fixtures, teams, standings, multilingual result evidence, official lineups, and pre-match prediction history.
+
+`history.json` deliberately remains the 1930–2022 archive while `fixtures.json` is still the active 2026 dataset. Adding the same 2026 matches to both sources would duplicate them in calendar and search. A future edition migration can move 2026 into historical browsing when the active fixture dataset is replaced.
+
+Later official corrections require `node scripts/finalize-2026-archive.mjs --write --late-correction`. Each correction creates a new immutable snapshot that points to the version it supersedes; prior archive files are never overwritten.
+
+For a complete 2026 factual preflight, run `pnpm sanity:2026`. It checks the edition boundaries, correction-layer behavior, immutable archive gates, local data integrity, result enrichment, and then compares all 104 kickoffs, participants, stages, venues, provider IDs, scores, shootouts, and winners with FIFA's current online feed. The final online comparison is intentionally separate from ordinary offline CI reliability.

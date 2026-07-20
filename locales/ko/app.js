@@ -37,6 +37,7 @@ const UI = {
   juggleRecordAction: "축구공 떨어뜨리기",
   matches: "경기",
   matchDetails: "경기 상세",
+  matchDetailsClose: "경기 상세 닫기",
   matchesHeading: "경기 목록 및 선택한 경기 상세",
   matchesList: "경기 목록",
   month: "월",
@@ -439,7 +440,6 @@ const EXACT = {
   "Knockout winner progression": "승자 진출 경로",
   "Tournament path": "대회 진출 경로",
   "Tournament progression": "대회 진행 상황",
-  "Reset zoom": "확대/축소 재설정",
   "Likely for now": "현재 예상",
   "likely for now": "현재 예상",
   "Later matches": "이후 경기",
@@ -755,7 +755,7 @@ const STYLE_TERMS = {
 Object.assign(EXACT, STYLE_TERMS);
 
 Object.assign(EXACT, {
-  "FIFA world ranking used for this 2026 tournament view.": "2026 대회 화면에 적용한 FIFA 세계 랭킹입니다.",
+  "FIFA world ranking during the 2026 World Cup": "2026 월드컵 기간의 FIFA 세계 랭킹",
   "Final group table uses archived results and tournament-era tie-breakers.":
     "최종 조 순위는 저장된 경기 결과와 당시 대회의 동률 결정 규정을 적용합니다.",
   "Final round table data is not available for this archived match.":
@@ -1483,10 +1483,16 @@ export function formatAppMessage(type, data = {}) {
       return `${data.teamName} 국기`;
     case "rank-label":
       return `${data.teamName} FIFA 랭킹 ${data.rank}위${data.year ? ` (${data.year})` : ""}`;
+    case "elo-rank-label":
+      return `${data.teamName} 회고적 Elo 랭킹 ${data.rank}위${data.year ? ` (${data.year})` : ""}`;
+    case "elo-rank-tooltip":
+      return data.year
+        ? `${data.year} 월드컵 기간의 회고적 Elo 랭킹`
+        : "월드컵 기간의 회고적 Elo 랭킹";
     case "rank-tooltip":
       return data.year
-        ? `${data.year} 대회 화면에 적용한 FIFA 세계 랭킹입니다.`
-        : "이 대회 화면에 적용한 FIFA 세계 랭킹입니다.";
+        ? `${data.year} 월드컵 기간의 FIFA 세계 랭킹`
+        : "월드컵 기간의 FIFA 세계 랭킹";
     case "rank-aria":
       return `${data.label}. ${data.tooltip}`;
     case "fifa-snapshot":
@@ -1733,10 +1739,12 @@ export function formatAppMessage(type, data = {}) {
           return "골든부트 경쟁";
         case "champion-body-penalties":
           return `${withKoreanParticle(winner, "이", "가")} 결승에서 ${data.scoreText}로 비긴 뒤 승부차기에서 ${withKoreanParticle(loser, "을", "를")} 꺾었다.`;
+        case "champion-body-final-round":
+          return `${withKoreanParticle(winner, "이", "가")} 우승을 결정한 결선 리그 경기에서 ${withKoreanParticle(loser, "을", "를")} ${data.scoreText}로 꺾었다.`;
         case "champion-body":
           return `${withKoreanParticle(winner, "이", "가")} 결승에서 ${withKoreanParticle(loser, "을", "를")} ${data.scoreText}로 꺾었다.`;
         case "champion-headline":
-          return `${withKoreanParticle(winner, "이", "가")} 2026년 세계 챔피언에 올랐다`;
+          return `${withKoreanParticle(winner, "이", "가")} ${data.editionYear}년 세계 챔피언에 올랐다`;
         case "tournament-wrap-meta":
           return "대회 결산";
         case "golden-boot-winner-headline":

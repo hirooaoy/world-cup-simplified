@@ -5,7 +5,7 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "current",
-  "sourceFingerprint": "e717d9b9738ddca13757b046442acb46fd49f9b80348b50f15ccff9e311ab4bf"
+  "sourceFingerprint": "b428893c948fbcfb9075f4234eec86e27c70a52a1e9259ccf89d831a69e49e41"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
   "⚽ Belgium and IR Iran shared a 0-0 draw.": "⚽ 벨기에와 이란은 0-0 무승부를 기록했다.",
@@ -194,6 +194,7 @@ export const CONTENT_TRANSLATIONS = Object.freeze({
   "Alexandr Sojka set up Michal Sadilek for a finish in the 6th minute, giving Czechia a fast start.": "알렉산드르 소이카의 패스를 받은 미할 사딜레크가 6분에 득점해 체코에 빠른 출발을 안겼다.",
   "Alfaro gives Paraguay a rugged, detail-heavy shape: protect the box, compete on set pieces, and counter through direct wide outlets.": "알파로 감독은 파라과이에 강인하고 세밀한 경기 틀을 만든다. 페널티지역을 지키고 세트피스에서 맞서며, 측면의 직접적인 탈출구를 통해 역습한다.",
   "Ali Olwan levelled at 50', but a 76' own goal restored Austria's lead at 76'.": "알리 올완이 50분에 동점골을 넣었지만, 76분 자책골로 오스트리아가 다시 앞섰다.",
+  "All 104 official fixtures are final, with scores, knockout participants, lineups, and source-backed result coverage loaded.": "공식 104경기가 모두 종료되었으며, 스코어와 토너먼트 진출 팀, 선발 명단, 출처가 확인된 결과 자료가 모두 반영되었습니다.",
   "Alvarez curled Argentina back ahead in the 112th minute and Lautaro Martinez finished it late, setting up the England semi-final.": "알바레스가 112분 감아차기로 아르헨티나를 다시 앞세웠고, 라우타로 마르티네스가 막판에 승부를 끝내 잉글랜드와의 준결승을 확정했다.",
   "Amad Diallo came on in the 56th minute and scored in the 90th minute.": "아마드 디알로는 56분 교체 투입돼 90분 골을 넣었다.",
   "Amad Diallo struck in stoppage time, leaving Ecuador no time to answer.": "아마드 디알로가 추가시간에 득점해 에콰도르에 반격할 시간을 주지 않았다.",
@@ -337,6 +338,7 @@ export const CONTENT_TRANSLATIONS = Object.freeze({
   "Egypt also had a goal ruled out after VAR, a swing that kept Argentina close before the late comeback.": "이집트의 추가 골은 VAR 판독 뒤 취소됐고, 그 판정으로 아르헨티나는 막판 역전 전까지 추격할 수 있었다.",
   "Egypt converted all four penalties while Souttar and Herrington missed, sealing a 4-2 shootout win and a historic last-16 place.": "이집트는 페널티킥 네 개를 모두 성공시켰고 소타르와 헤링턴은 실축해, 승부차기 4-2 승리와 역사적인 16강 진출을 확정했다.",
   "Egypt moved to 5 points and IR Iran to 3 points in Group G.": "이집트는 G조에서 승점 5가 됐고, 이란은 승점 3이 됐다.",
+  "Emiliano Martínez made 11 saves to keep Spain scoreless through 90 minutes, but Torres finally found a way past him in extra time.": "에밀리아노 마르티네스는 11차례 선방으로 정규시간 90분 동안 스페인의 득점을 막았지만, 연장전에서 결국 토레스에게 골을 허용했다.",
   "Enciso headed Paraguay in front from Galarza's cross before Havertz redirected Wirtz's delivery for Germany's 54th-minute equalizer.": "엔시소가 갈라르사의 크로스를 헤더로 마무리해 파라과이를 앞세웠고, 하베르츠가 비르츠의 패스를 방향만 바꿔 54분 독일의 동점골을 넣었다.",
   "England look sharp against Croatia": "잉글랜드, 크로아티아전에서 날카로운 경기력",
   "England made 2 changes in the 65th minute, including Bukayo Saka, but the score stayed 0-0.": "잉글랜드는 65분 부카요 사카를 포함해 2명을 교체했지만 0-0이 이어졌다.",
@@ -347,6 +349,7 @@ export const CONTENT_TRANSLATIONS = Object.freeze({
   "England vs Croatia": "잉글랜드 vs 크로아티아",
   "England's 4-2 win gives them an early foothold in Group L.": "잉글랜드는 4-2 승리로 L조에서 좋은 출발을 했다.",
   "England's 4-2-3-1 and Ghana's 4-4-2 cancelled each other out through halftime.": "잉글랜드의 4-2-3-1과 가나의 4-4-2가 전반 동안 서로를 막았다.",
+  "Enzo Fernández's second yellow at 90+3' left Argentina with ten men for extra time.": "엔소 페르난데스가 90+3분 두 번째 옐로카드를 받아 퇴장당하면서 아르헨티나는 연장전을 10명으로 치렀다.",
   "Erik Lira set up Julian Quinones for a finish in the 9th minute, giving Mexico a fast start.": "에리크 리라의 패스를 받은 훌리안 키뇨네스가 9분에 득점해 멕시코에 빠른 출발을 안겼다.",
   "Erling Haaland scored in the 79th and 90th minutes to turn Norway's late pressure into the upset.": "엘링 홀란이 79분과 90분에 득점해 노르웨이의 막판 공세를 이변의 승리로 바꿨다.",
   "Erling Haaland struck at 48' and 58', driving Norway to a 3-1 lead.": "엘링 홀란이 48분과 58분에 득점해 노르웨이에 3-1 리드를 안겼다.",
@@ -363,7 +366,6 @@ export const CONTENT_TRANSLATIONS = Object.freeze({
   "France 3-1 Senegal": "프랑스 3-1 세네갈",
   "France protected that one-goal margin through the final 20 minutes, winning 1-0 to reach the quarter-finals.": "프랑스는 마지막 20분 동안 한 골 차 리드를 지켜 1-0으로 승리하고 8강에 진출했다.",
   "Franck Kessie struck in the 30th minute, putting Côte d'Ivoire in front.": "프랑크 케시에가 30분에 득점해 코트디부아르를 앞서게 했다.",
-  "Full tournament fixture skeleton is loaded. Rich previews, H2H, live status, scores and knockout participants are updated progressively.": "전체 대회 일정이 불러와졌습니다. 상세 프리뷰, 상대 전적, 실시간 상태, 스코어와 토너먼트 대진은 확인되는 대로 업데이트됩니다.",
   "Garcia gives Belgium an attacking structure based on passing rhythm, wide support, and pressure from advanced midfielders.": "가르시아 감독은 패스 리듬과 측면 지원, 높은 위치의 미드필더가 가하는 압박을 바탕으로 벨기에의 공격 구조를 만든다.",
   "Ghalehnoy keeps Iran compact and combative, mixing defensive organization with sharp counters through experienced attackers.": "갈레노에이 감독은 이란의 간격을 촘촘히 유지하며 강인한 경기를 펼치게 한다. 조직적인 수비와 경험 많은 공격수들의 날카로운 역습을 결합한다.",
   "Ghana leave it late against Panama": "가나, 파나마전 막판 결승골로 승리",
@@ -510,6 +512,7 @@ export const CONTENT_TRANSLATIONS = Object.freeze({
   "Ndoye pulled Switzerland level in the 67th minute, but Embolo's second yellow left them protecting 1-1 with ten men.": "은도이가 67분 스위스의 동점골을 넣었지만, 엠볼로가 경고 누적으로 퇴장당해 10명이 1-1을 지켜야 했다.",
   "Neymar Jr's 90+10' penalty only cut the gap after Norway had already found the decisive second goal.": "네이마르 주니오르의 90+10분 페널티킥은 노르웨이가 이미 결정적인 두 번째 골을 넣은 뒤 격차를 줄이는 데 그쳤다.",
   "Nico Gonzalez set up Lionel Messi for a finish in the 76th minute, stretching Argentina's lead to 3-0.": "니코 곤잘레스의 패스를 받은 리오넬 메시가 76분에 득점해 아르헨티나의 리드를 3-0으로 벌렸다.",
+  "Nico Williams headed Pedro Porro's cross back to Ferran Torres, who fired the 106th-minute winner to seal Spain's second World Cup title.": "니코 윌리암스가 페드로 포로의 크로스를 머리로 뒤로 내줬고, 페란 토레스가 106분 결승골을 터뜨려 스페인의 두 번째 월드컵 우승을 확정했다.",
   "Nicolas Jackson set up Ismaila Sarr for a finish in the 90+3 minute, cutting Senegal's deficit to 3-2.": "니콜라 작송의 패스를 받은 이스마일라 사르가 90+3분에 득점해 세네갈이 3-2까지 추격했다.",
   "Norway had a second-half goal ruled out for Haaland's foul and later hit the crossbar, keeping the tie at 1-1 into extra time.": "노르웨이는 후반 홀란의 반칙으로 골이 취소됐고 이후 골대까지 맞혀, 경기는 1-1로 연장전에 들어갔다.",
   "Not listed in FIFA's 21 June 2026 official squad list.": "6월 21일 발표된 FIFA 공식 2026 월드컵 명단에 포함되지 않았습니다.",

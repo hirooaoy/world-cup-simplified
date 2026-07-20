@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "0b7a6cbe90f2ab653999eb044b6f02322c476e3392a7414392beb3b9d9eda034"
+  "sourceFingerprint": "3fd1728d1dacf38c3f08be5d2e36fdfd9ecb2a8d95a5eda883febeab62243978"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "A mobile-only 100% reset appears after zooming, intermediate round labels stay aligned, archived brackets share the same behavior, and desktop zoom remains unchanged.": "확대·축소 후에는 모바일 전용 100% 재설정 버튼이 나타납니다. 중간 배율에서도 라운드 이름 정렬이 유지되고, 역대 대진표도 같은 방식으로 작동하며, 데스크톱 확대·축소는 변경되지 않습니다.",
-  "Mobile bracket overview and cleaner Standings": "모바일 대진표 전체 보기와 더 깔끔한 순위",
-  "On phones, pinching the tournament bracket fully out now fits every round and connector into one clean overview instead of stopping at a cramped 65% view; the detailed view still tops out at 100%.": "휴대전화에서 토너먼트 대진표를 완전히 축소하면 이제 모든 라운드와 연결선이 하나의 깔끔한 전체 보기에 맞춰집니다. 답답한 65% 보기에서 멈추지 않으며, 상세 보기의 최대 배율은 계속 100%입니다.",
-  "The bottom source and freshness footer now stays on Matches and Report issue but is omitted from every Standings mode and archived Standings year.": "하단의 출처 및 데이터 새로고침 바닥글은 경기와 문제 신고 페이지에는 유지되지만, 모든 순위 모드와 역대 순위 연도에서는 표시되지 않습니다."
+  "Ball Boy now answers who won this World Cup or the previous edition, which country has the most titles, and when a country last won across current and historical tournaments.": "Ball Boy는 이제 이번 월드컵이나 이전 대회 우승팀, 최다 우승국, 그리고 현재 및 역대 대회에서 각 나라가 마지막으로 우승한 시점을 답할 수 있습니다.",
+  "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the champion cover, say the 2026 World Cup is over, and offer one View the final action back to July 19.": "결승전이 끝난 날에는 이제 우승팀 배너, 색종이, 배경 불꽃놀이와 선수 카드가 포함된 세 가지 우승 이야기가 표시됩니다. 이후 경기 없는 날에는 우승팀 표지와 2026년 월드컵 종료 안내를 유지하고, 7월 19일로 돌아가는 ‘결승전 보기’ 버튼 하나를 제공합니다.",
+  "Every archived World Cup now shows a tournament-era ranking pill in group tables and knockout paths: retrospective Elo for 1930-1990 and FIFA world rankings for 1994-2022.": "모든 역대 월드컵은 이제 조별리그 순위표와 토너먼트 대진표에 당시 기준 순위 배지를 표시합니다. 1930-1990년은 회고적 Elo 랭킹, 1994-2022년은 FIFA 세계 랭킹을 사용합니다.",
+  "World champions, clearer mobile bracket zoom, and cleaner Standings": "월드컵 우승, 더 선명한 모바일 대진표 확대/축소와 더 깔끔한 순위"
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

@@ -569,8 +569,8 @@ Object.assign(REVIEWED_CURRENT_COPY.es, {
     "Asumió la selección de Paraguay en 2024 después de dirigir a Ecuador en el Mundial de 2022 y a Costa Rica durante un ciclo de transición.",
   "One of international football's most traveled managers, he took charge of Curacao after long spells with clubs and national teams across Europe and beyond.":
     "Uno de los técnicos más viajeros del fútbol internacional, asumió la selección de Curazao después de largas etapas en clubes y selecciones de Europa y otras regiones.",
-  "Full tournament fixture skeleton is loaded. Rich previews, H2H, live status, scores and knockout participants are updated progressively.":
-    "El calendario completo del torneo está cargado. Las previas detalladas, los antecedentes, el estado en vivo, los marcadores y los participantes de las eliminatorias se actualizan de forma progresiva.",
+  "All 104 official fixtures are final, with scores, knockout participants, lineups, and source-backed result coverage loaded.":
+    "Los 104 partidos oficiales han finalizado, con marcadores, participantes de las eliminatorias, alineaciones y cobertura de resultados respaldada por fuentes.",
   "Left knee injury confirmed by MRI after the Netherlands match; unavailable against Tunisia.":
     "Lesión en la rodilla izquierda confirmada por resonancia magnética tras el partido contra Países Bajos; baja ante Túnez.",
   "Listed as missing for France vs Morocco probable lineups.":
@@ -606,8 +606,8 @@ Object.assign(REVIEWED_CURRENT_COPY.es, {
 });
 
 Object.assign(REVIEWED_CURRENT_COPY.ko, {
-  "Full tournament fixture skeleton is loaded. Rich previews, H2H, live status, scores and knockout participants are updated progressively.":
-    "전체 대회 일정이 불러와졌습니다. 상세 프리뷰, 상대 전적, 실시간 상태, 스코어와 토너먼트 대진은 확인되는 대로 업데이트됩니다.",
+  "All 104 official fixtures are final, with scores, knockout participants, lineups, and source-backed result coverage loaded.":
+    "공식 104경기가 모두 종료되었으며, 스코어와 토너먼트 진출 팀, 선발 명단, 출처가 확인된 결과 자료가 모두 반영되었습니다.",
   "Left knee injury confirmed by MRI after the Netherlands match; unavailable against Tunisia.":
     "네덜란드전 뒤 MRI 검사에서 왼쪽 무릎 부상이 확인돼 튀니지전에 출전할 수 없습니다.",
   "Listed as missing for France vs Morocco probable lineups.":
@@ -640,6 +640,24 @@ Object.assign(REVIEWED_CURRENT_COPY.ko, {
     "손목 골절로 출전할 수 없습니다.",
   "Withdrew due to injury on June 11 and was replaced by Shuto Machino.":
     "6월 11일 부상으로 대표팀에서 이탈했고, 마치노 슈토가 대체 발탁됐습니다."
+});
+
+Object.assign(REVIEWED_CURRENT_COPY.es, {
+  "Nico Williams headed Pedro Porro's cross back to Ferran Torres, who fired the 106th-minute winner to seal Spain's second World Cup title.":
+    "Nico Williams cabeceó hacia atrás el centro de Pedro Porro para Ferran Torres, que marcó el gol de la victoria en el minuto 106 y aseguró el segundo título mundial de España.",
+  "Enzo Fernández's second yellow at 90+3' left Argentina with ten men for extra time.":
+    "La segunda amarilla de Enzo Fernández en el 90+3 dejó a Argentina con diez jugadores para la prórroga.",
+  "Emiliano Martínez made 11 saves to keep Spain scoreless through 90 minutes, but Torres finally found a way past him in extra time.":
+    "Emiliano Martínez hizo 11 paradas para mantener a España sin marcar durante los 90 minutos, pero Torres acabó batiéndolo en la prórroga."
+});
+
+Object.assign(REVIEWED_CURRENT_COPY.ko, {
+  "Nico Williams headed Pedro Porro's cross back to Ferran Torres, who fired the 106th-minute winner to seal Spain's second World Cup title.":
+    "니코 윌리암스가 페드로 포로의 크로스를 머리로 뒤로 내줬고, 페란 토레스가 106분 결승골을 터뜨려 스페인의 두 번째 월드컵 우승을 확정했다.",
+  "Enzo Fernández's second yellow at 90+3' left Argentina with ten men for extra time.":
+    "엔소 페르난데스가 90+3분 두 번째 옐로카드를 받아 퇴장당하면서 아르헨티나는 연장전을 10명으로 치렀다.",
+  "Emiliano Martínez made 11 saves to keep Spain scoreless through 90 minutes, but Torres finally found a way past him in extra time.":
+    "에밀리아노 마르티네스는 11차례 선방으로 정규시간 90분 동안 스페인의 득점을 막았지만, 연장전에서 결국 토레스에게 골을 허용했다."
 });
 
 function localizePlayerName(language, value) {

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "fixtures": {
+    "match-88-round-of-32-2026-07-03": {
+      "checkedAt": "2026-07-15T21:30:22.686Z",
+      "sourceIds": [
+        "fifa-match-events-sync-2026-07-15"
+      ],
+      "away": {
+        "substitutions": [
+          {
+            "offName": "Omar Marmoush",
+            "onName": "Hamza Abdelkarim",
+            "minute": "ET"
+          }
+        ]
+      }
+    },
+    "match-99-quarter-final-2026-07-11": {
+      "checkedAt": "2026-07-15T21:30:22.686Z",
+      "sourceIds": [
+        "fifa-match-events-sync-2026-07-15"
+      ],
+      "home": {
+        "substitutions": [
+          {
+            "offName": "Erling Haaland",
+            "onName": "Jorgen Strand Larsen",
+            "minute": "ET"
+          }
+        ]
+      }
+    },
+    "match-100-quarter-final-2026-07-11": {
+      "checkedAt": "2026-07-15T21:30:22.686Z",
+      "sourceIds": [
+        "fifa-match-events-sync-2026-07-15",
+        "ap-argentina-switzerland-result-2026-07-11",
+        "guardian-argentina-switzerland-live-reaction-2026-07-11"
+      ],
+      "home": {
+        "substitutions": [
+          {
+            "offName": "Cristian Romero",
+            "onName": "Nicolas Otamendi",
+            "minute": "ET"
+          }
+        ]
+      },
+      "away": {
+        "cards": [
+          {
+            "playerName": "Breel Embolo",
+            "type": "red",
+            "minute": 72
+          }
+        ]
+      }
+    },
+    "match-104-final-2026-07-19": {
+      "checkedAt": "2026-07-20T00:33:46.000Z",
+      "sourceIds": [
+        "sky-spain-argentina-result-2026-07-19"
+      ],
+      "away": {
+        "cards": [
+          {
+            "playerName": "Enzo Fernandez",
+            "type": "red",
+            "minute": "90+3"
+          },
+          {
+            "playerName": "Leandro Paredes",
+            "type": "red",
+            "minute": "120+6"
+          }
+        ]
+      }
+    }
+  }
+}

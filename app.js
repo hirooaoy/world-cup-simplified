@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-19-1";
+} from "./locales/locale-runtime.js?v=2026-07-19-match-info-close-1";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -47,7 +47,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-17-modules-2";
+} from "./app-config.js?v=2026-07-19-historical-rankings-2";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -238,7 +238,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Knockout winner progression": "淘汰赛胜者晋级",
     "Tournament path": "赛事路径",
     "Tournament progression": "赛事进程",
-    "Reset zoom": "重置缩放",
     "Likely for now": "当前可能",
     "likely for now": "当前可能",
     "Later matches": "后续比赛",
@@ -391,8 +390,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "积分决定小组排名：胜3分，平1分，负0分。积分越多通常越有机会晋级。",
     "Points compare third-place teams: 3 for a win, 1 for a draw, 0 for a loss. More points puts a team closer to the top eight.":
       "积分用于比较各组第三名球队：胜3分，平1分，负0分。积分越多越接近前八。",
-    "FIFA world ranking used for this 2026 tournament view.":
-      "此处为本2026赛事视图使用的FIFA世界排名。",
+    "FIFA world ranking during the 2026 World Cup":
+      "2026年世界杯期间的FIFA世界排名",
     "Rank": "排名",
     "Read source": "阅读来源",
     "release notes": "发布说明",
@@ -628,6 +627,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "姆巴佩两球一助攻，帮助法国在第66分钟将比分追至4比3，同时把世界杯生涯进球纪录刷新到22球。",
   "Saka completed his hat-trick from the spot, and after Dembélé made it 5-4, Bellingham's 90+8' strike sealed England's first World Cup medal in 60 years.":
     "萨卡点球完成帽子戏法，登贝莱把比分追至5比4后，裘德·贝林厄姆90+8分钟锁定胜局，英格兰收获60年来首枚世界杯奖牌。",
+  "Nico Williams headed Pedro Porro's cross back to Ferran Torres, who fired the 106th-minute winner to seal Spain's second World Cup title.":
+    "尼科·威廉斯头球回做佩德罗·波罗的传中，费兰·托雷斯第106分钟打入制胜球，帮助西班牙第二次夺得世界杯冠军。",
+  "Enzo Fernández's second yellow at 90+3' left Argentina with ten men for extra time.":
+    "恩佐·费尔南德斯在90+3分钟吃到第二张黄牌，阿根廷只能以十人进入加时赛。",
+  "Emiliano Martínez made 11 saves to keep Spain scoreless through 90 minutes, but Torres finally found a way past him in extra time.":
+    "埃米利亚诺·马丁内斯完成11次扑救，让西班牙在90分钟内未能破门，但托雷斯最终在加时赛中攻破了他的球门。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
@@ -3293,7 +3298,7 @@ const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
 const TOURNAMENT_DESKTOP_ZOOM_FLOOR = 0.65;
-const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.18;
+const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.8;
 const TOURNAMENT_ZOOM_MAX = 1;
 const TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD = 0.5;
 const TOURNAMENT_ZOOM_STEP = 0.1;
@@ -3912,6 +3917,7 @@ let fixtures = [];
 let activeFixturesData = { fixtures: [] };
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
+let historicalRankings = { editions: {} };
 let playerTournamentStatsByKey = null;
 const historicalProjectionCache = new Map();
 const thirdPlaceAdvancementEstimateCache = new Map();
@@ -8933,7 +8939,17 @@ function getHistoricalStyleTags(teamName) {
   return HISTORICAL_STYLE_FALLBACKS[charTotal % HISTORICAL_STYLE_FALLBACKS.length];
 }
 
-function getHistoricalTeam(teamName) {
+function getHistoricalRankingSnapshot(year) {
+  const tournamentYear = Number(year);
+
+  if (!Number.isInteger(tournamentYear)) {
+    return null;
+  }
+
+  return historicalRankings.editions?.[String(tournamentYear)] || null;
+}
+
+function getHistoricalTeam(teamName, year = null) {
   const name = String(teamName || "").trim();
   const key = normalizeTextKey(name);
 
@@ -8941,11 +8957,18 @@ function getHistoricalTeam(teamName) {
     return null;
   }
 
+  const rankingSnapshot = getHistoricalRankingSnapshot(year);
+  const historicalRank = Number(rankingSnapshot?.teams?.[name]);
+  const hasHistoricalRank = Number.isInteger(historicalRank) && historicalRank > 0;
+  const historicalRankingYear = hasHistoricalRank ? Number(year) : null;
   const currentTeam = teamsByName.get(key);
   if (currentTeam) {
     return {
       ...currentTeam,
-      fifaRank: null,
+      fifaRank: hasHistoricalRank ? historicalRank : null,
+      fifaRankingDate: hasHistoricalRank ? rankingSnapshot.rankingDate : null,
+      fifaRankingYear: historicalRankingYear,
+      rankingSystem: hasHistoricalRank ? rankingSnapshot.rankingSystem || "fifa" : null,
       name,
       officialName: name,
       standingName: name
@@ -8969,16 +8992,19 @@ function getHistoricalTeam(teamName) {
     flag,
     flagClass,
     styleTags: getHistoricalStyleTags(name),
-    fifaRank: null
+    fifaRank: hasHistoricalRank ? historicalRank : null,
+    fifaRankingDate: hasHistoricalRank ? rankingSnapshot.rankingDate : null,
+    fifaRankingYear: historicalRankingYear,
+    rankingSystem: hasHistoricalRank ? rankingSnapshot.rankingSystem || "fifa" : null
   };
 }
 
-function getParticipant(teamId, slot = "TBD") {
+function getParticipant(teamId, slot = "TBD", tournamentYear = null) {
   if (teamId) {
     return getTeam(teamId);
   }
 
-  const historicalTeam = getHistoricalTeam(slot);
+  const historicalTeam = getHistoricalTeam(slot, tournamentYear);
   if (historicalTeam) {
     return historicalTeam;
   }
@@ -8996,8 +9022,8 @@ function getParticipant(teamId, slot = "TBD") {
 function hydrateFixture(fixture) {
   return {
     ...fixture,
-    homeTeam: getParticipant(fixture.homeTeamId, fixture.homeSlot),
-    awayTeam: getParticipant(fixture.awayTeamId, fixture.awaySlot)
+    homeTeam: getParticipant(fixture.homeTeamId, fixture.homeSlot, fixture.tournamentYear),
+    awayTeam: getParticipant(fixture.awayTeamId, fixture.awaySlot, fixture.tournamentYear)
   };
 }
 
@@ -9482,25 +9508,47 @@ function renderRank(team) {
   }
 
   const teamName = getLocalizedTeamName(team);
-  const rankingYear = Number.isInteger(fifaRankingYear) ? fifaRankingYear : null;
+  const teamRankingYear = Number(team?.fifaRankingYear);
+  const rankingYear = Number.isInteger(teamRankingYear) && teamRankingYear > 0
+    ? teamRankingYear
+    : Number.isInteger(fifaRankingYear)
+      ? fifaRankingYear
+      : null;
   const rankingYearSuffix = rankingYear ? ` (${rankingYear})` : "";
-  const label =
-    currentLanguage === "zh"
+  const isRetrospectiveElo = team?.rankingSystem === "elo";
+  const label = isRetrospectiveElo
+    ? currentLanguage === "zh"
+      ? `${teamName} 回溯Elo排名 ${team.fifaRank}${rankingYear ? `（${rankingYear}）` : ""}`
+      : formatActiveLocaleMessage(
+          "elo-rank-label",
+          { rank: team.fifaRank, teamName, year: rankingYear },
+          `${teamName} retrospective Elo ranking ${team.fifaRank}${rankingYearSuffix}`
+        )
+    : currentLanguage === "zh"
       ? `${teamName} FIFA世界排名 ${team.fifaRank}${rankingYear ? `（${rankingYear}）` : ""}`
       : formatActiveLocaleMessage(
           "rank-label",
           { rank: team.fifaRank, teamName, year: rankingYear },
           `${teamName} FIFA world ranking ${team.fifaRank}${rankingYearSuffix}`
         );
-  const tooltip =
-    currentLanguage === "zh" && rankingYear
-      ? `此处为本${rankingYear}赛事视图使用的FIFA世界排名。`
+  const tooltip = isRetrospectiveElo
+    ? currentLanguage === "zh" && rankingYear
+      ? `${rankingYear}年世界杯期间的回溯Elo排名`
+      : formatActiveLocaleMessage(
+          "elo-rank-tooltip",
+          { year: rankingYear },
+          rankingYear
+            ? `Retrospective Elo ranking during the ${rankingYear} World Cup`
+            : "Retrospective Elo ranking during the World Cup"
+        )
+    : currentLanguage === "zh" && rankingYear
+      ? `${rankingYear}年世界杯期间的FIFA世界排名`
       : formatActiveLocaleMessage(
           "rank-tooltip",
           { year: rankingYear },
           rankingYear
-            ? `FIFA world ranking used for this ${rankingYear} tournament view.`
-            : "FIFA world ranking used for this tournament view."
+            ? `FIFA world ranking during the ${rankingYear} World Cup`
+            : "FIFA world ranking during the World Cup"
         );
   const ariaLabel =
     currentLanguage === "zh"
@@ -12730,17 +12778,9 @@ function getHistoricalRoundStandingsForYear(year, roundName) {
   return getHistoricalStandingsRowsFromFixtures(roundFixtures, year);
 }
 
-function renderHistoricalStandingTeam(teamName) {
-  const team = getHistoricalTeam(teamName);
-  const localizedTeamName = localizeText(teamName);
-  const fullName = getLocalizedTeamName(team) || localizedTeamName;
-
-  return `
-    <span class="standing-team" aria-label="${escapeHtml(fullName)}" data-tooltip="${escapeHtml(fullName)}">
-      ${team ? renderFlag(team) : ""}
-      <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(localizedTeamName)}</span>
-    </span>
-  `;
+function renderHistoricalStandingTeam(teamName, year) {
+  const team = getHistoricalTeam(teamName, year);
+  return team ? renderStandingTeam(team) : "";
 }
 
 function renderHistoricalStandingRow(row, year, groupName) {
@@ -12749,7 +12789,7 @@ function renderHistoricalStandingRow(row, year, groupName) {
   return `
     <tr class="${isAdvancing ? "is-advancing" : ""}">
       <td>
-        ${renderHistoricalStandingTeam(row.teamName)}
+        ${renderHistoricalStandingTeam(row.teamName, year)}
       </td>
       <td>${escapeHtml(row.points)}</td>
       <td>${escapeHtml(row.wins)}-${escapeHtml(row.draws)}-${escapeHtml(row.losses)}</td>
@@ -13452,6 +13492,20 @@ function getTournamentMatchDateLabel(match) {
   }
 
   return baseLabel;
+}
+
+function renderTournamentMatchDateLabel(match) {
+  const label = getTournamentMatchDateLabel(match);
+
+  if (!(match?.stage === "final" || match?.matchNumber === 104)) {
+    return escapeHtml(label);
+  }
+
+  const finalLabel = localizeText("Final");
+  const suffix = ` (${finalLabel})`;
+  const baseLabel = label.endsWith(suffix) ? label.slice(0, -suffix.length) : label;
+
+  return `${escapeHtml(baseLabel)} <span class="tournament-final-label">(${escapeHtml(finalLabel)})</span>`;
 }
 
 function createTournamentProgressionContext() {
@@ -15228,7 +15282,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
     <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}"${roundIdAttribute}${roundIndexAttribute}${matchIndexAttribute}${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${runnerUpNextMatchNumber ? ` data-runner-up-next-match="${escapeHtml(runnerUpNextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${openMatchAttributes}${styleText}>
       <header class="knockout-match-header${statusBadgeHtml ? " has-status-badge" : ""}${isNext ? " has-up-next" : ""}${isLive ? " has-live" : ""}${isDelayed ? " has-delayed" : ""}">
         <span class="knockout-match-meta">
-          <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
+          <time datetime="${escapeHtml(match.kickoffUtc || "")}">${renderTournamentMatchDateLabel(match)}</time>
           ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
         </span>
         ${statusBadgeHtml}
@@ -15291,7 +15345,7 @@ function renderTournamentPosterMatch(matchNumber, context, side) {
           isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id)
         })}
       </div>
-      <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
+      <time datetime="${escapeHtml(match.kickoffUtc || "")}">${renderTournamentMatchDateLabel(match)}</time>
     </article>
   `;
 }
@@ -15496,16 +15550,9 @@ function renderTournamentShowNextButton(nextMatchIds) {
   return `<button class="tournament-show-next-button" type="button" data-show-next-tournament-match="${escapeHtml(nextMatchNumber)}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(label)}</button>`;
 }
 
-function renderTournamentZoomResetButton() {
-  const label = localizeText("Reset zoom");
-
-  return `<button class="tournament-zoom-reset" type="button" data-tournament-zoom-reset aria-label="${escapeHtml(label)}" hidden>100%</button>`;
-}
-
 function renderTournamentProgression(context, options = {}) {
   return `
     <div class="tournament-canvas-shell">
-      ${renderTournamentZoomResetButton()}
       <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
         <div class="tournament-board-surface">
           <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
@@ -15522,9 +15569,10 @@ function renderTournamentView() {
   const context = createTournamentProgressionContext();
   const currentTime = Date.now();
   const nextMatchIds = getGlobalNextMatchIds(currentTime);
+  const isTournamentComplete = Boolean(getCompletedTournamentFinal());
 
   return `
-    <section class="tournament-view" aria-label="${escapeHtml(localizeText("Tournament bracket"))}">
+    <section class="tournament-view${isTournamentComplete ? " is-tournament-complete" : ""}" aria-label="${escapeHtml(localizeText("Tournament bracket"))}">
       ${renderTournamentProgression(context, { currentTime, nextMatchIds })}
       ${renderTournamentShowNextButton(nextMatchIds)}
     </section>
@@ -15886,7 +15934,6 @@ function renderHistoricalTournamentView(year) {
   return `
     <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(historicalViewLabel)}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
       <div class="tournament-canvas-shell">
-        ${renderTournamentZoomResetButton()}
         <section class="tournament-progression" aria-label="${escapeHtml(historicalProgressionLabel)}" tabindex="0">
           <div class="tournament-board-surface">
             <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
@@ -16050,11 +16097,6 @@ function applyTournamentBoardScale(progression, requestedScale, options = {}) {
   progression.classList.toggle("is-zoom-overview", isOverview);
   surface.style.setProperty("zoom", nextScale.toFixed(3));
   surface.style.setProperty("--tournament-inverse-scale", (1 / nextScale).toFixed(4));
-  const resetButton = progression.closest(".tournament-canvas-shell")?.querySelector(".tournament-zoom-reset");
-  if (resetButton) {
-    resetButton.hidden = !isZoomed || !isTournamentMobileLayout();
-  }
-
   if (logicalAnchor) {
     const nextSurfaceRect = surface.getBoundingClientRect();
     const deltaX = nextSurfaceRect.left + logicalAnchor.x * nextScale - anchor.clientX;
@@ -24004,7 +24046,9 @@ function queueFloatingPlayerCardHide() {
 }
 
 function shouldUseFloatingPlayerCard(playerHover) {
-  return isTouchPlayerCardMode() || Boolean(playerHover?.closest("#catch-up-popover, #match-info"));
+  return isTouchPlayerCardMode() || Boolean(
+    playerHover?.closest("#catch-up-popover, #match-info, .final-celebration-banner")
+  );
 }
 
 function positionFloatingPlayerCard(playerHover, cardWidth) {
@@ -25889,7 +25933,7 @@ function renderHistoricalGroupStandings(match) {
               (row) => `
                 <tr class="${shouldHighlightHistoricalStanding(row, match.tournamentYear, match.group) ? "is-advancing" : ""}">
                   <td>
-                    ${renderHistoricalStandingTeam(row.teamName)}
+                    ${renderHistoricalStandingTeam(row.teamName, match.tournamentYear)}
                   </td>
                   <td>${escapeHtml(row.points)}</td>
                   <td>${escapeHtml(row.wins)}-${escapeHtml(row.draws)}-${escapeHtml(row.losses)}</td>
@@ -25932,7 +25976,7 @@ function renderHistoricalFinalRoundStandings(match) {
               (row) => `
                 <tr>
                   <td>
-                    ${renderHistoricalStandingTeam(row.teamName)}
+                    ${renderHistoricalStandingTeam(row.teamName, match.tournamentYear)}
                   </td>
                   <td>${escapeHtml(row.points)}</td>
                   <td>${escapeHtml(row.wins)}-${escapeHtml(row.draws)}-${escapeHtml(row.losses)}</td>
@@ -25948,10 +25992,10 @@ function renderHistoricalFinalRoundStandings(match) {
   `;
 }
 
-function getHistoricalDisplayTeam(teamName) {
+function getHistoricalDisplayTeam(teamName, year = null) {
   const name = String(teamName || "").trim();
   return (
-    getHistoricalTeam(name) || {
+    getHistoricalTeam(name, year) || {
       id: `history-${normalizeTextKey(name).replace(/\s+/g, "-") || "team"}`,
       name,
       officialName: name,
@@ -25962,7 +26006,7 @@ function getHistoricalDisplayTeam(teamName) {
 }
 
 function renderHistoricalKnockoutTeamName(teamName, options = {}) {
-  const team = getHistoricalDisplayTeam(teamName);
+  const team = getHistoricalDisplayTeam(teamName, options.year);
   return renderKnockoutContextTeamName(team, getTournamentTeamDisplayName(team), options);
 }
 
@@ -25998,14 +26042,14 @@ function getHistoricalPriorGroupFixturesForTeam(match, teamName) {
 }
 
 function getHistoricalGroupRoundSummaryForTeam(match, teamName) {
-  const team = getHistoricalDisplayTeam(teamName);
+  const team = getHistoricalDisplayTeam(teamName, match.tournamentYear);
   const groupFixtures = getHistoricalPriorGroupFixturesForTeam(match, teamName);
   const resultItems = groupFixtures
     .filter((fixture) => fixture.status === "FT" && fixture.score)
     .map((fixture) => {
       const opponentName = getHistoricalOpponent(fixture, teamName);
       return {
-        opponent: getHistoricalDisplayTeam(opponentName),
+        opponent: getHistoricalDisplayTeam(opponentName, match.tournamentYear),
         outcome: getHistoricalTeamResultOutcome(fixture, teamName),
         scoreText: formatScorePair(getHistoricalScorePairForTeam(fixture, teamName))
       };
@@ -26067,14 +26111,14 @@ function renderHistoricalKnockoutCompletedSummary(match) {
   const winner = getHistoricalWinner(match);
 
   if (!scoreText) {
-    return `${renderHistoricalKnockoutTeamName(match.homeSlot, { showRank: true })} ${escapeHtml(
+    return `${renderHistoricalKnockoutTeamName(match.homeSlot, { showRank: true, year: match.tournamentYear })} ${escapeHtml(
       localizeText("vs")
-    )} ${renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true })}`;
+    )} ${renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true, year: match.tournamentYear })}`;
   }
 
   if (!winner) {
-    const homeName = renderHistoricalKnockoutTeamName(match.homeSlot, { showRank: true });
-    const awayName = renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true });
+    const homeName = renderHistoricalKnockoutTeamName(match.homeSlot, { showRank: true, year: match.tournamentYear });
+    const awayName = renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true, year: match.tournamentYear });
     return currentLanguage === "zh"
       ? `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`
       : formatActiveLocaleMessage(
@@ -26090,8 +26134,12 @@ function renderHistoricalKnockoutCompletedSummary(match) {
   }
 
   const loser = getHistoricalOpponent(match, winner);
-  const winnerName = renderHistoricalKnockoutTeamName(winner, { showRank: true, isSubject: true });
-  const loserName = renderHistoricalKnockoutTeamName(loser);
+  const winnerName = renderHistoricalKnockoutTeamName(winner, {
+    showRank: true,
+    isSubject: true,
+    year: match.tournamentYear
+  });
+  const loserName = renderHistoricalKnockoutTeamName(loser, { year: match.tournamentYear });
   const winnerScoreText = escapeHtml(formatScorePair(getHistoricalScorePairForTeam(match, winner)));
   const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(match, winner)));
 
@@ -26243,7 +26291,10 @@ function renderHistoricalReplayNextLine(replayMatch) {
 function renderHistoricalAdvancedNextLine(entry) {
   const opponentName = getHistoricalOpponent(entry.fixture, entry.teamName);
   const clause = getHistoricalOpponentQualificationClause(entry.fixture, opponentName);
-  const teamName = renderHistoricalKnockoutTeamName(entry.teamName, { showRank: true });
+  const teamName = renderHistoricalKnockoutTeamName(entry.teamName, {
+    showRank: true,
+    year: entry.fixture.tournamentYear
+  });
   const searchAction = renderKnockoutContextSearchAction(opponentName);
 
   if (currentLanguage === "zh") {
@@ -26262,13 +26313,16 @@ function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
   const sourceWinner = sourceMatch ? getHistoricalWinner(sourceMatch) : "";
   const opponent = renderHistoricalKnockoutTeamName(opponentName, {
     showRank: true,
-    isSubject: sourceWinner === opponentName
+    isSubject: sourceWinner === opponentName,
+    year: nextMatch.tournamentYear
   });
   if (!sourceMatch) {
     return opponent;
   }
 
-  const otherName = renderHistoricalKnockoutTeamName(getHistoricalOpponent(sourceMatch, opponentName));
+  const otherName = renderHistoricalKnockoutTeamName(getHistoricalOpponent(sourceMatch, opponentName), {
+    year: sourceMatch.tournamentYear
+  });
   const scoreText = escapeHtml(formatScorePair(sourceMatch.score));
   const teamScoreText = escapeHtml(formatScorePair(getHistoricalScorePairForTeam(sourceMatch, opponentName)));
   const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(sourceMatch, opponentName)));
@@ -27563,6 +27617,73 @@ function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
   });
 }
 
+let finalCelebrationLayoutAnimation = null;
+
+function setMatchInfoLayoutState(hasMatchInfo) {
+  const matchesView = viewPanels.matches;
+  const banner = document.querySelector("#final-celebration-banner");
+  const hadMatchInfo = matchesView.classList.contains("has-match-info");
+  const shouldAnimate =
+    banner &&
+    hadMatchInfo !== hasMatchInfo &&
+    window.matchMedia("(min-width: 1161px) and (prefers-reduced-motion: no-preference)").matches;
+  const previousWidth = shouldAnimate ? banner.getBoundingClientRect().width : 0;
+
+  matchesView.classList.toggle("has-match-info", hasMatchInfo);
+
+  if (!shouldAnimate) {
+    return;
+  }
+
+  const nextWidth = banner.getBoundingClientRect().width;
+  if (Math.abs(previousWidth - nextWidth) < 1) {
+    return;
+  }
+
+  finalCelebrationLayoutAnimation?.cancel();
+  finalCelebrationLayoutAnimation = banner.animate(
+    [
+      { width: `${previousWidth}px` },
+      { width: `${nextWidth}px` }
+    ],
+    {
+      duration: 480,
+      easing: "cubic-bezier(0.2, 0.72, 0.18, 1)"
+    }
+  );
+  finalCelebrationLayoutAnimation.addEventListener(
+    "finish",
+    () => {
+      finalCelebrationLayoutAnimation = null;
+    },
+    { once: true }
+  );
+}
+
+function renderMatchInfoCloseControl() {
+  return `
+    <button class="match-info-close" type="button" data-close-match-info aria-label="${escapeHtml(t("matchDetailsClose"))}">
+      <span class="match-info-close-icon" aria-hidden="true"></span>
+    </button>
+  `;
+}
+
+function dismissMatchInfo() {
+  const returnFocusTarget = document.querySelector(
+    `.match-row[data-match-id="${CSS.escape(activeMatchId)}"] .match-row-trigger, .yesterday-match-card[data-match-id="${CSS.escape(activeMatchId)}"] .yesterday-match-button`
+  );
+
+  renderMatchInfoPrompt();
+  updateUrlState({ historyMode: "push" });
+
+  if (returnFocusTarget instanceof HTMLElement) {
+    const wasRestoringHistoryState = isRestoringHistoryState;
+    isRestoringHistoryState = true;
+    returnFocusTarget.focus({ preventScroll: true });
+    isRestoringHistoryState = wasRestoringHistoryState;
+  }
+}
+
 function renderMatchInfo(match, options = {}) {
   clearTransientInteractionState();
   const wasMatchInfoHidden = matchInfo.hidden || matchInfo.classList.contains("is-hidden");
@@ -27574,7 +27695,7 @@ function renderMatchInfo(match, options = {}) {
   if (options.commit) {
     committedMatchId = match.id;
   }
-  viewPanels.matches.classList.add("has-match-info");
+  setMatchInfoLayoutState(true);
   matchInfo.classList.remove("is-hidden");
   matchInfo.hidden = false;
   window.requestAnimationFrame(updateMatchInfoViewportDockState);
@@ -27588,7 +27709,7 @@ function renderMatchInfo(match, options = {}) {
   });
 
   if (match.isHistorical) {
-    matchInfo.innerHTML = renderHistoricalMatchInfo(match);
+    matchInfo.innerHTML = `${renderMatchInfoCloseControl()}${renderHistoricalMatchInfo(match)}`;
     if (shouldResetMatchInfoScroll) {
       matchInfo.scrollTop = 0;
     }
@@ -27622,6 +27743,7 @@ function renderMatchInfo(match, options = {}) {
     displayMatch.status === "LIVE" || displayMatch.status === "FT" || displayMatch.status === "DELAYED";
 
   matchInfo.innerHTML = `
+    ${renderMatchInfoCloseControl()}
     <section class="info-block match-summary">
       ${renderCurrentMatchContextKicker(match, localizedContextLabel)}
       <h2 class="summary-title">
@@ -27669,7 +27791,7 @@ function renderMatchInfoPrompt() {
   clearTransientInteractionState();
   activeMatchId = "";
   committedMatchId = "";
-  viewPanels.matches.classList.remove("has-match-info");
+  setMatchInfoLayoutState(false);
   document.querySelectorAll(".match-row, .yesterday-match-card").forEach((row) => {
     row.classList.remove("is-selected");
     row
@@ -27741,6 +27863,34 @@ function getEmptyStateNextMatchCopy(match, additionalMatchCount = 0) {
   };
 }
 
+function getPostTournamentEmptyStateCopy(finalMatch) {
+  const editionYear = getWorldCupEditionYear(finalMatch);
+
+  if (currentLanguage === "zh") {
+    return {
+      action: "查看决赛",
+      message: `${editionYear}年世界杯已结束。`
+    };
+  }
+  if (currentLanguage === "es") {
+    return {
+      action: "Ver la final",
+      message: `El Mundial ${editionYear} ha terminado.`
+    };
+  }
+  if (currentLanguage === "ko") {
+    return {
+      action: "결승전 보기",
+      message: `${editionYear} 월드컵이 끝났습니다.`
+    };
+  }
+
+  return {
+    action: "View the final",
+    message: `The ${editionYear} World Cup is over.`
+  };
+}
+
 function createEmptyStateElement() {
   const selectedDate = dateFormatter.format(getDateFromKey(selectedDayKey));
   const reportUrl = getReportIssueUrl("no-matches");
@@ -27748,6 +27898,10 @@ function createEmptyStateElement() {
   const nextDayMatches = isPartialCoverage ? [] : getNextCalendarMatchesAfterDay(selectedDayKey);
   const nextMatch = nextDayMatches[0] || null;
   const nextMatchDayKey = nextMatch ? getFixtureDayKey(nextMatch) : "";
+  const completedFinal = isPartialCoverage ? null : getCompletedTournamentFinal();
+  const completedFinalDayKey = completedFinal ? getFixtureDayKey(completedFinal) : "";
+  const postTournamentFinal =
+    completedFinal && selectedDayKey > completedFinalDayKey ? completedFinal : null;
 
   const article = document.createElement("article");
   article.className = "empty-state";
@@ -27766,18 +27920,28 @@ function createEmptyStateElement() {
   const nextMatchCopy = nextMatch
     ? getEmptyStateNextMatchCopy(nextMatch, Math.max(0, nextDayMatches.length - 1))
     : null;
+  const postTournamentCopy = postTournamentFinal
+    ? getPostTournamentEmptyStateCopy(postTournamentFinal)
+    : null;
   article.innerHTML = `
     ${nextMatchCopy ? `
       <p class="empty-state-next-description">${escapeHtml(nextMatchCopy.before)}<span class="empty-state-next-matchup">${renderFlag(nextMatch.homeTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.homeName)}</span> <span class="empty-state-next-versus">${escapeHtml(nextMatchCopy.versusText)}</span> ${renderFlag(nextMatch.awayTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.awayName)}</span></span>${escapeHtml(nextMatchCopy.after)}</p>
       <div class="empty-actions">
         <button class="primary-button empty-state-next-action" type="button" data-select-calendar-day="${escapeHtml(nextMatchDayKey)}" aria-controls="match-info">${escapeHtml(nextMatchCopy.action)}</button>
       </div>
+    ` : postTournamentCopy ? `
+      <p class="empty-state-next-description empty-state-post-tournament-description">${escapeHtml(postTournamentCopy.message)}</p>
+      <div class="empty-actions">
+        <button class="primary-button empty-state-next-action" type="button" data-select-calendar-day="${escapeHtml(completedFinalDayKey)}" data-select-final-match="${escapeHtml(postTournamentFinal.id)}" aria-controls="match-info">${escapeHtml(postTournamentCopy.action)}</button>
+      </div>
     ` : ""}
   `;
-  const nextMatchButton = article.querySelector("[data-select-calendar-day]");
-  nextMatchButton?.addEventListener("click", async () => {
-    selectCalendarDay(nextMatchDayKey);
-    const didRender = await renderMatchInfoWhenLocaleReady(nextMatch, {
+  const actionMatch = nextMatch || postTournamentFinal;
+  const actionDayKey = nextMatch ? nextMatchDayKey : completedFinalDayKey;
+  const actionButton = article.querySelector("[data-select-calendar-day]");
+  actionButton?.addEventListener("click", async () => {
+    selectCalendarDay(actionDayKey);
+    const didRender = await renderMatchInfoWhenLocaleReady(actionMatch, {
       commit: true,
       reveal: true
     });
@@ -27796,7 +27960,7 @@ function renderEmptyState() {
   clearTransientInteractionState();
   activeMatchId = "";
   committedMatchId = "";
-  viewPanels.matches.classList.remove("has-match-info");
+  setMatchInfoLayoutState(false);
   setLiveTodayMatchFocus(false);
   matchList.removeAttribute("aria-busy");
   matchList.replaceChildren(createEmptyStateElement());
@@ -27807,7 +27971,7 @@ function renderEmptyState() {
 
 function renderMatchLoadingState() {
   clearTransientInteractionState();
-  viewPanels.matches.classList.remove("has-match-info");
+  setMatchInfoLayoutState(false);
   setLiveTodayMatchFocus(false);
   matchList.setAttribute("aria-busy", "true");
   matchList.innerHTML = `
@@ -28980,6 +29144,340 @@ function getCompletedTournamentFinal() {
   return score && getResultWinnerSide(match, score) ? match : null;
 }
 
+const HISTORICAL_WORLD_CUP_TITLE_DECIDER_IDS = new Set([
+  "wc-1950-1950-07-16-final-round-uruguay-brazil"
+]);
+
+const FINAL_CELEBRATION_PALETTE_BY_TEAM = Object.freeze({
+  argentina: "argentina",
+  brazil: "brazil",
+  england: "england",
+  france: "france",
+  germany: "germany",
+  italy: "italy",
+  spain: "spain",
+  uruguay: "uruguay",
+  "west germany": "germany"
+});
+
+const FINAL_CELEBRATION_PHILOSOPHY_BY_TEAM = Object.freeze({
+  argentina:
+    "Argentina's philosophy is team football: stay compact, combine around creative players and fight for every ball.",
+  brazil:
+    "Brazil's philosophy is team football: create space, combine freely and let skill serve the team.",
+  england:
+    "England's philosophy is team football: play with tempo, attack the box and work together without the ball.",
+  france:
+    "France's philosophy is team football: defend together, attack space quickly and give match-winners freedom.",
+  germany:
+    "Germany's philosophy is team football: keep structure, move with purpose and press together.",
+  italy:
+    "Italy's philosophy is team football: stay compact, read danger early and attack at the right moment.",
+  spain:
+    "Spain's philosophy is team football: keep the ball, use the full width and press together.",
+  uruguay:
+    "Uruguay's philosophy is team football: defend with courage, compete for every ball and attack with purpose."
+});
+
+function getWorldCupEditionYear(fixture) {
+  const tournamentYear = Number(fixture?.tournamentYear);
+  if (Number.isInteger(tournamentYear)) {
+    return tournamentYear;
+  }
+
+  const dateYear = Number(getFixtureDayKey(fixture).slice(0, 4));
+  return Number.isInteger(dateYear) ? dateYear : CURRENT_STANDINGS_YEAR;
+}
+
+function isWorldCupTitleDecider(fixture) {
+  const round = String(fixture?.stage || fixture?.round || "").trim().toLowerCase();
+  return round === "final" || HISTORICAL_WORLD_CUP_TITLE_DECIDER_IDS.has(fixture?.id);
+}
+
+function getCompletedWorldCupTitleDeciderForDay(dayKey) {
+  const finalFixture = getCalendarFixtures().find(
+    (fixture) =>
+      fixture.status === "FT" &&
+      getFixtureDayKey(fixture) === dayKey &&
+      isWorldCupTitleDecider(fixture)
+  );
+  if (!finalFixture) {
+    return null;
+  }
+
+  const match = hydrateFixture(finalFixture);
+  const score = getCatchUpScore(match);
+  return score && getResultWinnerSide(match, score) ? match : null;
+}
+
+function getFinalCelebrationMatchForDay(dayKey) {
+  const completedFinalForDay = getCompletedWorldCupTitleDeciderForDay(dayKey);
+  if (completedFinalForDay) {
+    return completedFinalForDay;
+  }
+
+  const completedTournamentFinal = getCompletedTournamentFinal();
+  return completedTournamentFinal && dayKey > getFixtureDayKey(completedTournamentFinal)
+    ? completedTournamentFinal
+    : null;
+}
+
+function isFinalCelebrationMotionActive(finalMatch) {
+  const finalDayKey = getFixtureDayKey(finalMatch);
+  const currentDayKey = getDayKey(new Date(), selectedTimeZone);
+  return currentDayKey >= finalDayKey && currentDayKey <= shiftDayKey(finalDayKey, 1);
+}
+
+function getFinalCelebrationPalette(teamName) {
+  return FINAL_CELEBRATION_PALETTE_BY_TEAM[normalizeTextKey(teamName)] || "default";
+}
+
+function getFinalCelebrationTeamKey(teamName) {
+  const key = normalizeTextKey(teamName);
+  return key === "west germany" ? "germany" : key;
+}
+
+function getWorldCupTitleResult(fixture) {
+  if (!fixture || fixture.status !== "FT" || !isWorldCupTitleDecider(fixture)) {
+    return null;
+  }
+
+  const match = fixture.homeTeam && fixture.awayTeam ? fixture : hydrateFixture(fixture);
+  const score = getCatchUpScore(match);
+  const winnerSide = getResultWinnerSide(match, score);
+  const winner = winnerSide ? match[`${winnerSide}Team`] : null;
+  if (!winner) {
+    return null;
+  }
+
+  return {
+    fixture: match,
+    teamKey: getFinalCelebrationTeamKey(winner.name),
+    winner,
+    winnerSide,
+    year: getWorldCupEditionYear(match)
+  };
+}
+
+function getWorldCupTitleHistory(teamName, throughYear) {
+  const teamKey = getFinalCelebrationTeamKey(teamName);
+  const titlesByYear = new Map();
+
+  for (const fixture of getCalendarFixtures()) {
+    const result = getWorldCupTitleResult(fixture);
+    if (
+      result &&
+      result.teamKey === teamKey &&
+      result.year <= throughYear &&
+      !titlesByYear.has(result.year)
+    ) {
+      titlesByYear.set(result.year, result);
+    }
+  }
+
+  return [...titlesByYear.values()].sort((a, b) => a.year - b.year);
+}
+
+function getFinalCelebrationTitlePlayers(titleResult) {
+  if (!titleResult) {
+    return [];
+  }
+
+  const { fixture, teamKey, winnerSide } = titleResult;
+  const isHistorical = Number.isInteger(Number(fixture.tournamentYear));
+  const players = isHistorical
+    ? getHistoricalMentionPlayers(fixture)
+    : getUniqueMentionPlayers([
+        ...(fixture.keyPlayers?.[winnerSide] || []).map((player) =>
+          withPlayerTeamContext(player, titleResult.winner)
+        ),
+        ...getMatchGoalPlayers(fixture),
+        ...getMatchLineupMentionPlayers(fixture)
+      ]);
+
+  return players
+    .filter((player) => {
+      const playerTeamName = player.historicalTeamName || player.team?.name || "";
+      return getFinalCelebrationTeamKey(playerTeamName) === teamKey;
+    })
+    .slice(0, 2);
+}
+
+function getFinalCelebrationTitleOrdinal(titleNumber) {
+  return ["", "first", "second", "third", "fourth", "fifth"][titleNumber] || formatOrdinal(titleNumber);
+}
+
+function getFinalCelebrationPossessiveTeamName(teamName) {
+  return /s$/i.test(teamName) ? `${teamName}'` : `${teamName}'s`;
+}
+
+function getFinalCelebrationTitleHistoryBullet(finalMatch, winner, editionYear) {
+  const titles = getWorldCupTitleHistory(winner.name, editionYear);
+  const titleNumber = Math.max(1, titles.findIndex((title) => title.year === editionYear) + 1);
+  const isCurrentEdition = editionYear === CURRENT_STANDINGS_YEAR;
+  const verb = isCurrentEdition ? "is" : "was";
+  const previousTitle = titleNumber > 1 ? titles[titleNumber - 2] : null;
+  const referenceTitle = previousTitle || titles[titleNumber - 1] || getWorldCupTitleResult(finalMatch);
+  const mentionPlayers = getFinalCelebrationTitlePlayers(referenceTitle);
+  const playerNames = mentionPlayers.map(getPlayerName).filter(Boolean);
+  const playerCopy = playerNames.length
+    ? ` with ${formatGoldenBootPlayerList(mentionPlayers)}`
+    : "";
+  const possessiveTeamName = getFinalCelebrationPossessiveTeamName(winner.name);
+  const bullet = previousTitle
+    ? `This ${verb} ${possessiveTeamName} ${getFinalCelebrationTitleOrdinal(titleNumber)} title, after their ${previousTitle.year} triumph${playerCopy}.`
+    : `This ${verb} ${possessiveTeamName} first title${playerCopy ? `, won${playerCopy}` : ""}.`;
+
+  return { bullet, mentionPlayers };
+}
+
+function getFinalCelebrationPhilosophy(winner) {
+  const teamKey = getFinalCelebrationTeamKey(winner?.name);
+  return (
+    FINAL_CELEBRATION_PHILOSOPHY_BY_TEAM[teamKey] ||
+    `${winner.name}'s philosophy is team football: stay connected, share the work and play with purpose.`
+  );
+}
+
+function getFinalCelebrationFireworksMarkup() {
+  const bursts = [
+    { color: "var(--celebration-primary)", delay: "-0.2s", scale: "0.78", x: "10%", y: "10%" },
+    { color: "var(--celebration-accent)", delay: "-2.1s", scale: "0.96", x: "29%", y: "53%" },
+    { color: "var(--celebration-secondary)", delay: "-1.1s", scale: "0.84", x: "51%", y: "8%" },
+    { color: "var(--celebration-primary)", delay: "-3.1s", scale: "0.98", x: "73%", y: "57%" },
+    { color: "var(--celebration-secondary)", delay: "-1.7s", scale: "0.8", x: "89%", y: "15%" },
+    { color: "var(--celebration-accent)", delay: "-2.7s", scale: "0.74", x: "82%", y: "81%" }
+  ];
+
+  return bursts
+    .map(
+      (burst) => `
+        <span class="final-firework" style="--firework-color: ${burst.color}; --firework-delay: ${burst.delay}; --firework-scale: ${burst.scale}; --firework-x: ${burst.x}; --firework-y: ${burst.y};">
+          <b></b>
+          ${Array.from(
+            { length: 12 },
+            (_, index) => `<i style="--spark-angle: ${index * 30}deg;"></i>`
+          ).join("")}
+        </span>
+      `
+    )
+    .join("");
+}
+
+function getFinalCelebrationConfettiMarkup() {
+  const colors = [
+    "var(--celebration-primary)",
+    "var(--celebration-secondary)",
+    "var(--celebration-accent)"
+  ];
+
+  return Array.from({ length: 24 }, (_, index) => {
+    const x = (index * 37 + 7) % 101;
+    const delay = -((index * 0.23) % 4.2).toFixed(2);
+    const duration = (3.1 + (index % 6) * 0.24).toFixed(2);
+    const rotation = (index * 47) % 180;
+    const color = colors[index % colors.length];
+    return `<i style="--confetti-color: ${color}; --confetti-delay: ${delay}s; --confetti-duration: ${duration}s; --confetti-rotation: ${rotation}deg; --confetti-x: ${x}%;"></i>`;
+  }).join("");
+}
+
+function getFinalCelebrationReviewContent(finalMatch, fallbackBody) {
+  if (currentLanguage !== "en") {
+    return null;
+  }
+
+  const editionYear = getWorldCupEditionYear(finalMatch);
+  const score = getCatchUpScore(finalMatch);
+  const winnerSide = getResultWinnerSide(finalMatch, score);
+  const winner = finalMatch[`${winnerSide}Team`];
+  if (!winner) {
+    return null;
+  }
+
+  const titleHistory = getFinalCelebrationTitleHistoryBullet(finalMatch, winner, editionYear);
+  const bullets = [
+    fallbackBody,
+    titleHistory.bullet,
+    getFinalCelebrationPhilosophy(winner)
+  ];
+
+  return { bullets, mentionPlayers: titleHistory.mentionPlayers };
+}
+
+function renderFinalCelebration() {
+  const matchesView = viewPanels.matches;
+  const completedFinal =
+    activeView === "matches" ? getFinalCelebrationMatchForDay(selectedDayKey) : null;
+  const shouldCelebrate = Boolean(completedFinal);
+  let banner = document.querySelector("#final-celebration-banner");
+  let background = document.querySelector("#final-celebration-background");
+
+  if (!shouldCelebrate) {
+    banner?.remove();
+    background?.remove();
+    document.body.classList.remove("has-final-celebration");
+    document.body.classList.remove("is-final-celebration-calm");
+    delete document.body.dataset.finalCelebrationPalette;
+    return;
+  }
+
+  const championItem = getTournamentWrapChampionItem(completedFinal);
+  const editionYear = getWorldCupEditionYear(completedFinal);
+  const headline = getLocalizedCatchUpCopyText(championItem.headline);
+  const body = getLocalizedCatchUpCopyText(championItem.body);
+  const reviewContent = getFinalCelebrationReviewContent(completedFinal, body);
+  const descriptionMarkup = reviewContent
+    ? `<ul class="final-celebration-bullets">
+        ${reviewContent.bullets
+          .map((bullet) => `<li>${renderPlayerLinkedText(bullet, reviewContent.mentionPlayers)}</li>`)
+          .join("")}
+      </ul>`
+    : `<span class="final-celebration-summary">${escapeHtml(body)}</span>`;
+
+  if (!background) {
+    background = document.createElement("div");
+    background.className = "final-celebration-background";
+    background.id = "final-celebration-background";
+    background.setAttribute("aria-hidden", "true");
+    background.innerHTML = getFinalCelebrationFireworksMarkup();
+    document.body.prepend(background);
+  }
+
+  if (!banner) {
+    banner = document.createElement("section");
+    banner.className = "final-celebration-banner";
+    banner.id = "final-celebration-banner";
+    banner.setAttribute("role", "status");
+    banner.setAttribute("aria-live", "polite");
+    matchesView.prepend(banner);
+  }
+
+  banner.setAttribute(
+    "aria-label",
+    [headline, ...(reviewContent?.bullets || [body])]
+      .filter(Boolean)
+      .map((sentence) => (/[.!?]$/u.test(sentence) ? sentence : `${sentence}.`))
+      .join(" ")
+  );
+  banner.innerHTML = `
+    <span class="final-celebration-confetti" aria-hidden="true">
+      ${getFinalCelebrationConfettiMarkup()}
+    </span>
+    <span class="final-celebration-copy">
+      <span class="final-celebration-kicker"><span class="final-celebration-trophy" aria-hidden="true">🏆</span> FIFA World Cup ${editionYear}</span>
+      <strong class="final-celebration-headline">${escapeHtml(headline)}</strong>
+      ${descriptionMarkup}
+    </span>
+  `;
+  document.body.dataset.finalCelebrationPalette = championItem.palette;
+  document.body.classList.add("has-final-celebration");
+  document.body.classList.toggle(
+    "is-final-celebration-calm",
+    !isFinalCelebrationMotionActive(completedFinal)
+  );
+  positionPlayerCards();
+}
+
 function getConfirmedGoldenBootAward() {
   const award = tournament.awards?.goldenBoot;
   const playerName = String(award?.playerName || award?.name || "").trim();
@@ -29005,18 +29503,30 @@ function getTournamentWrapChampionItem(finalMatch) {
   const scoreText = getResultScorePairForSide(score, winnerSide);
   const penaltyText = getResultScorePairForSide(finalMatch.scoreDetails?.penalties, winnerSide);
   const dateKey = getFixtureDayKey(finalMatch);
-  const bodyEn = penaltyText
-    ? `${winner.name} beat ${loser.name} on penalties after a ${scoreText} draw in the final.`
-    : `${winner.name} beat ${loser.name} ${scoreText} in the final.`;
-  const bodyZh = penaltyText
-    ? `${translateTextToZh(winner.name)}在决赛${scoreText}战平后，以${penaltyText}赢下点球大战击败${translateTextToZh(loser.name)}。`
-    : `${translateTextToZh(winner.name)}在决赛中以${scoreText}击败${translateTextToZh(loser.name)}。`;
+  const editionYear = getWorldCupEditionYear(finalMatch);
+  const isFinalRoundDecider = HISTORICAL_WORLD_CUP_TITLE_DECIDER_IDS.has(finalMatch.id);
+  const bodyVariant = isFinalRoundDecider
+    ? "champion-body-final-round"
+    : penaltyText
+      ? "champion-body-penalties"
+      : "champion-body";
+  const bodyEn = isFinalRoundDecider
+    ? `${winner.name} beat ${loser.name} ${scoreText} in the decisive final-round match.`
+    : penaltyText
+      ? `${winner.name} beat ${loser.name} on penalties after a ${scoreText} draw in the final.`
+      : `${winner.name} beat ${loser.name} ${scoreText} in the final.`;
+  const bodyZh = isFinalRoundDecider
+    ? `${translateTextToZh(winner.name)}在决定冠军归属的决赛阶段比赛中以${scoreText}击败${translateTextToZh(loser.name)}。`
+    : penaltyText
+      ? `${translateTextToZh(winner.name)}在决赛${scoreText}战平后，以${penaltyText}赢下点球大战击败${translateTextToZh(loser.name)}。`
+      : `${translateTextToZh(winner.name)}在决赛中以${scoreText}击败${translateTextToZh(loser.name)}。`;
 
   return {
     body: addActiveCatchUpLocale(
       { en: bodyEn, zh: bodyZh },
-      penaltyText ? "champion-body-penalties" : "champion-body",
+      bodyVariant,
       {
+        editionYear,
         loser: loser.name,
         penaltyText,
         scoreText,
@@ -29026,11 +29536,11 @@ function getTournamentWrapChampionItem(finalMatch) {
     dateKey,
     headline: addActiveCatchUpLocale(
       {
-        en: `${winner.name} are 2026 world champions`,
-        zh: `${translateTextToZh(winner.name)}成为2026年世界杯冠军`
+        en: `${winner.name} are ${editionYear} world champions`,
+        zh: `${translateTextToZh(winner.name)}成为${editionYear}年世界杯冠军`
       },
       "champion-headline",
-      { winner: winner.name }
+      { editionYear, winner: winner.name }
     ),
     kind: "tournament-champion",
     mentionPlayers: [],
@@ -29038,6 +29548,7 @@ function getTournamentWrapChampionItem(finalMatch) {
       { en: "Tournament wrap", zh: "赛事总结" },
       "tournament-wrap-meta"
     ),
+    palette: getFinalCelebrationPalette(winner.name),
     priority: 4,
     sortValue: getFixtureSortValue(finalMatch),
     ...getGeneratedTournamentCatchUpSourceFields("", /results|schedule/i)
@@ -30178,6 +30689,7 @@ function renderSchedule(options = {}) {
   cancelPendingTeamSearchRender();
 
   if (isInitialDataLoading || isInitialLiveDataLoading) {
+    renderFinalCelebration();
     setYesterdayLayoutOffset(false);
     setLiveTodayMatchFocus(false);
     updateDateControls();
@@ -30188,6 +30700,7 @@ function renderSchedule(options = {}) {
   }
 
   matchList.removeAttribute("aria-busy");
+  renderFinalCelebration();
 
   if (hasTeamSearchQuery()) {
     setYesterdayLayoutOffset(false);
@@ -30286,6 +30799,7 @@ function setActiveView(view, options = {}) {
   }
   activeView = nextView;
   updateActiveViewElements();
+  renderFinalCelebration();
   updateWrappedMatchRows(viewPanels.matches);
   updateTruncatedTeamTooltips(viewPanels.matches);
   updateStandingNameTooltips(standingsGrid);
@@ -30745,6 +31259,7 @@ function mergeFixtureLineups(fixturesData, nextLineupData = lineupData, nextExpe
 function applyDataSnapshot({
   fixturesData,
   historyData,
+  historicalRankingsData = null,
   lineupsData,
   expectedLineupsData: nextExpectedLineupsData = null,
   editionLifecycleData: nextEditionLifecycleData = null,
@@ -30784,6 +31299,9 @@ function applyDataSnapshot({
   fixtures = fixturesWithLineups.fixtures;
   clearPlayerTournamentStatsCache();
   history = historyData;
+  historicalRankings = isPlainObject(historicalRankingsData)
+    ? historicalRankingsData
+    : { editions: {} };
   historicalFixtures = historyData.fixtures || [];
   clearCalendarFixtureCaches();
   historicalProjectionCache.clear();
@@ -30795,6 +31313,7 @@ function applyDataSnapshot({
   siteUpdatedAt = getLatestUpdatedAt([
     fixturesWithLineups,
     historyData,
+    historicalRankings,
     lineupData,
     expectedLineupsData,
     editionLifecycle,
@@ -30829,7 +31348,13 @@ function applyLiveDataSnapshot(liveData) {
   buildTeamSearchIndex();
 }
 
-function applyDeferredDataSnapshot({ historyData, lineupsData, coachProfilesData, playerProfilesData }) {
+function applyDeferredDataSnapshot({
+  historyData,
+  historicalRankingsData,
+  lineupsData,
+  coachProfilesData,
+  playerProfilesData
+}) {
   lineupData = isPlainObject(lineupsData) ? lineupsData : { lineups: {} };
   lineupRosterPlayersByTeamAndName = buildLineupRosterPlayerLookup(activeFixturesData, lineupData);
   const fixturesWithLineups = mergeFixtureLineups(activeFixturesData, lineupData, expectedLineupsData);
@@ -30840,18 +31365,24 @@ function applyDeferredDataSnapshot({ historyData, lineupsData, coachProfilesData
   playerProfilesByTeamAndName = buildTeamPlayerProfileLookup(playerProfilesData.profiles);
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   history = historyData;
+  historicalRankings = isPlainObject(historicalRankingsData)
+    ? historicalRankingsData
+    : { editions: {} };
   historicalFixtures = historyData.fixtures || [];
   clearPlayerTournamentStatsCache();
   clearCalendarFixtureCaches();
   historicalProjectionCache.clear();
-  siteUpdatedAt = getLatestUpdatedAt([
-    { updatedAt: siteUpdatedAt },
-    fixturesWithLineups,
-    historyData,
-    lineupData,
-    coachProfilesData,
-    playerProfilesData
-  ]);
+  siteUpdatedAt =
+    liveDataCheckedAt ||
+    getLatestUpdatedAt([
+      { updatedAt: siteUpdatedAt },
+      fixturesWithLineups,
+      historyData,
+      historicalRankings,
+      lineupData,
+      coachProfilesData,
+      playerProfilesData
+    ]);
   buildTeamSearchIndex();
 }
 
@@ -30884,6 +31415,7 @@ async function loadStaticData() {
     fixturesData,
     editionLifecycleData,
     historyData: { coverage: {}, fixtures: [], source: null, tournaments: [] },
+    historicalRankingsData: { editions: {} },
     lineupsData: { lineups: {} },
     expectedLineupsData: expectedLineupsFileData,
     playerAvailabilityData: playerAvailabilityFileData,
@@ -30897,14 +31429,27 @@ async function loadStaticData() {
 }
 
 async function loadDeferredData() {
-  const [historyData, lineupsData, coachProfilesData, playerProfilesData] = await Promise.all([
+  const [
+    historyData,
+    historicalRankingsData,
+    lineupsData,
+    coachProfilesData,
+    playerProfilesData
+  ] = await Promise.all([
     loadOptionalJson(DATA_URLS.history, { coverage: {}, fixtures: [], source: null, tournaments: [] }),
+    loadOptionalJson(DATA_URLS.historicalRankings, { editions: {} }),
     loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
     loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} })
   ]);
 
-  applyDeferredDataSnapshot({ historyData, lineupsData, coachProfilesData, playerProfilesData });
+  applyDeferredDataSnapshot({
+    historyData,
+    historicalRankingsData,
+    lineupsData,
+    coachProfilesData,
+    playerProfilesData
+  });
   isDeferredDataLoading = false;
   renderLoadedApp({ syncActiveView: true });
 }
@@ -31155,21 +31700,6 @@ standingsGrid.addEventListener("click", (event) => {
     return;
   }
 
-  const zoomResetButton = targetElement?.closest("[data-tournament-zoom-reset]");
-
-  if (zoomResetButton) {
-    event.preventDefault();
-    event.stopPropagation();
-    const progression = zoomResetButton
-      .closest(".tournament-canvas-shell")
-      ?.querySelector(".tournament-progression");
-    if (progression) {
-      adjustTournamentBoardScale(progression, "reset");
-      progression.focus({ preventScroll: true });
-    }
-    return;
-  }
-
   const roundJumpButton = targetElement?.closest(".tournament-round-jump");
 
   if (roundJumpButton) {
@@ -31256,7 +31786,16 @@ standingsGrid.addEventListener("keydown", (event) => {
 });
 
 matchInfo.addEventListener("click", (event) => {
-  const target = getEventTargetElement(event.target)?.closest("[data-open-tournament-tab]") || null;
+  const targetElement = getEventTargetElement(event.target);
+  const closeButton = targetElement?.closest("[data-close-match-info]") || null;
+
+  if (closeButton) {
+    event.preventDefault();
+    dismissMatchInfo();
+    return;
+  }
+
+  const target = targetElement?.closest("[data-open-tournament-tab]") || null;
 
   if (target) {
     openTournamentTabFromMatchInfo(target.dataset.tournamentMatchNumber || "");
@@ -31705,7 +32244,7 @@ catchUpPopover.addEventListener("click", (event) => {
 });
 
 matchInfo.addEventListener("pointerdown", handleLineupSubstitutionTogglePointerDown, true);
-attachPlayerCardPositioning(matchInfo);
+attachPlayerCardPositioning(viewPanels.matches);
 attachPlayerCardPositioning(catchUpPopover);
 
 document.addEventListener(

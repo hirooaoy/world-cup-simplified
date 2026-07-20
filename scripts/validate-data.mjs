@@ -795,7 +795,9 @@ const [
   fixturesData,
   h2hAuthoritativeCoverageData,
   historyData,
+  historicalRankingsData,
   editionLifecycleData,
+  officialEventCorrectionsData,
   lineupsData,
   expectedLineupsData,
   lineupLayoutOverridesData,
@@ -816,7 +818,9 @@ const [
   readJson("fixtures.json"),
   readJson("h2h-authoritative-coverage.json"),
   readJson("history.json"),
+  readJson("historical-rankings.json"),
   readJson("edition-lifecycle.json"),
+  readJson("official-event-corrections.json"),
   readJson("lineups.json"),
   readOptionalJson("expected-lineups.json"),
   readOptionalJson("lineup-layout-overrides.json"),
@@ -840,17 +844,168 @@ for (const source of tournamentData.sources || []) {
   registerSource(source, sourceIds, "Tournament source");
 }
 
-assert(editionLifecycleData.edition === 2026, "edition-lifecycle.json must identify edition 2026");
+const historicalRankingSourceIds = new Set();
+for (const source of historicalRankingsData.sources || []) {
+  assert(source?.id, "Each historical ranking source must include an id");
+  assert(source?.label, `Historical ranking source "${source?.id || "unknown"}" must include a label`);
+  assert(source?.url, `Historical ranking source "${source?.id || "unknown"}" must include a URL`);
+  assert(
+    isValidDateTime(source?.checkedAt),
+    `Historical ranking source "${source?.id || "unknown"}" must include a valid checkedAt timestamp`
+  );
+  assert(
+    !historicalRankingSourceIds.has(source.id),
+    `Duplicate historical ranking source id "${source.id}"`
+  );
+  historicalRankingSourceIds.add(source.id);
+}
+
 assert(
-  ["live", "archived"].includes(editionLifecycleData.state),
-  "edition-lifecycle.json state must be live or archived"
+  historicalRankingsData.coverage?.status === "complete-men-1930-2022",
+  "historical-rankings.json must declare complete-men-1930-2022 coverage"
+);
+const historicalRankingEditions = historicalRankingsData.editions || {};
+for (const tournamentRecord of historyData.tournaments || []) {
+  const year = Number(tournamentRecord.year);
+  const edition = historicalRankingEditions[String(year)];
+  const expectedRankingSystem = year < 1994 ? "elo" : "fifa";
+
+  assert(edition, `World Cup ${year} must include a historical ranking snapshot`);
+  if (!edition) {
+    continue;
+  }
+
+  assert(
+    edition.rankingSystem === expectedRankingSystem,
+    `World Cup ${year} rankingSystem must be ${expectedRankingSystem}`
+  );
+  assert(isDayKey(edition.rankingDate), `World Cup ${year} rankingDate must be YYYY-MM-DD`);
+  assert(
+    edition.rankingDate < tournamentRecord.startDate,
+    `World Cup ${year} rankingDate must precede the tournament start`
+  );
+  if (expectedRankingSystem === "fifa") {
+    assert(/^id\d+$/.test(edition.dateId || ""), `World Cup ${year} must include its FIFA archive dateId`);
+  } else {
+    assert(!edition.dateId, `World Cup ${year} Elo snapshot must not use a FIFA archive dateId`);
+  }
+  assert(
+    Array.isArray(edition.sourceIds) && edition.sourceIds.length > 0,
+    `World Cup ${year} ranking snapshot must include sourceIds`
+  );
+  for (const sourceId of edition.sourceIds || []) {
+    assert(
+      historicalRankingSourceIds.has(sourceId),
+      `World Cup ${year} ranking snapshot references unknown source "${sourceId}"`
+    );
+  }
+
+  const rankedTeams = edition.teams || {};
+  const tournamentTeams = tournamentRecord.teams || [];
+  assert(
+    Object.keys(rankedTeams).length === tournamentTeams.length,
+    `World Cup ${year} ranking snapshot must cover exactly ${tournamentTeams.length} teams`
+  );
+  for (const teamName of tournamentTeams) {
+    assert(
+      Number.isInteger(rankedTeams[teamName]) && rankedTeams[teamName] > 0,
+      `World Cup ${year} ranking snapshot must include a valid rank for ${teamName}`
+    );
+  }
+  for (const teamName of Object.keys(rankedTeams)) {
+    assert(
+      tournamentTeams.includes(teamName),
+      `World Cup ${year} ranking snapshot includes non-participant ${teamName}`
+    );
+  }
+}
+assert(
+  Object.keys(historicalRankingEditions).length === (historyData.tournaments || []).length,
+  "historical-rankings.json must include exactly every archived World Cup edition"
+);
+
+assert(editionLifecycleData.schemaVersion === 1, "edition-lifecycle.json schemaVersion must be 1");
+assert(
+  Number.isInteger(editionLifecycleData.edition) && editionLifecycleData.edition >= 1930,
+  "edition-lifecycle.json must identify a valid edition year"
+);
+assert(
+  typeof editionLifecycleData.name === "string" && editionLifecycleData.name.trim(),
+  "edition-lifecycle.json must include an edition name"
+);
+assert(
+  ["live", "review", "archived"].includes(editionLifecycleData.state),
+  "edition-lifecycle.json state must be live, review, or archived"
 );
 for (const key of ["tournamentStartsAt", "liveSyncEndsAt", "archiveEligibleAfter"]) {
   assert(isValidDateTime(editionLifecycleData[key]), `edition-lifecycle.json ${key} must be a valid timestamp`);
 }
+const lifecycleStartsAt = new Date(editionLifecycleData.tournamentStartsAt).getTime();
+const lifecycleEndsAt = new Date(editionLifecycleData.liveSyncEndsAt).getTime();
+const lifecycleArchiveAt = new Date(editionLifecycleData.archiveEligibleAfter).getTime();
+assert(lifecycleStartsAt < lifecycleEndsAt, "edition-lifecycle.json live sync must end after it starts");
+assert(
+  lifecycleArchiveAt >= lifecycleEndsAt,
+  "edition-lifecycle.json archive eligibility must not begin before live sync closes"
+);
+try {
+  new Intl.DateTimeFormat("en", { timeZone: editionLifecycleData.timeZone }).format(new Date());
+} catch {
+  fail("edition-lifecycle.json timeZone must be a valid IANA timezone");
+}
+assert(isPlainObject(editionLifecycleData.expected), "edition-lifecycle.json expected must be an object");
+assert(
+  editionLifecycleData.expected?.fixtureCount === (fixturesData.fixtures || []).length,
+  "edition-lifecycle.json expected.fixtureCount must match fixtures.json"
+);
+assert(
+  editionLifecycleData.expected?.teamCount === (teamsData.teams || []).length,
+  "edition-lifecycle.json expected.teamCount must match teams.json"
+);
+assert(
+  editionLifecycleData.expected?.groupCount === (tournamentData.groups || []).length,
+  "edition-lifecycle.json expected.groupCount must match tournament.json"
+);
+assert(
+  editionLifecycleData.edition === Number(teamsData.rankingYear),
+  "edition-lifecycle.json edition must match the active teams rankingYear"
+);
+assert(isPlainObject(editionLifecycleData.liveData), "edition-lifecycle.json liveData must be an object");
+assert(editionLifecycleData.liveData?.provider === "fifa", "edition-lifecycle.json liveData.provider must be fifa");
+for (const key of ["competitionId", "seasonId"]) {
+  assert(
+    typeof editionLifecycleData.liveData?.[key] === "string" && editionLifecycleData.liveData[key].trim(),
+    `edition-lifecycle.json liveData.${key} must be a non-empty string`
+  );
+}
+assert(
+  /^https:\/\//.test(editionLifecycleData.liveData?.scheduleUrl || ""),
+  "edition-lifecycle.json liveData.scheduleUrl must be an HTTPS URL"
+);
 if (editionLifecycleData.state === "archived") {
   assert(isValidDateTime(editionLifecycleData.archivedAt), "Archived edition lifecycle requires archivedAt");
   assert(editionLifecycleData.archiveVersion, "Archived edition lifecycle requires archiveVersion");
+}
+
+assert(
+  officialEventCorrectionsData.schemaVersion === 1,
+  "official-event-corrections.json schemaVersion must be 1"
+);
+assert(
+  isPlainObject(officialEventCorrectionsData.fixtures),
+  "official-event-corrections.json fixtures must be an object"
+);
+for (const [fixtureId, correction] of Object.entries(officialEventCorrectionsData.fixtures || {})) {
+  const owner = `official-event-corrections.json fixture "${fixtureId}"`;
+  assert(
+    (fixturesData.fixtures || []).some((fixture) => fixture.id === fixtureId),
+    `${owner} references an unknown fixture`
+  );
+  assert(isPlainObject(correction), `${owner} must be an object`);
+  if (!isPlainObject(correction)) continue;
+  assert(isValidDateTime(correction.checkedAt), `${owner}.checkedAt must be a valid timestamp`);
+  requireSourceIds(correction.sourceIds, sourceIds, owner);
+  assert(correction.sourceIds.length > 0, `${owner}.sourceIds must not be empty`);
 }
 
 assert(isPlainObject(h2hAuthoritativeCoverageData.pairs), "h2h-authoritative-coverage.json must include pairs");
@@ -2393,6 +2548,109 @@ function validateFixtureMatchEvents(fixture, sourceIdSet) {
   assert(teams.has(fixture.homeTeamId) && teams.has(fixture.awayTeamId), `${owner} requires confirmed home and away teams`);
   validateMatchEventsSide(fixture.matchEvents.home, fixture, "home");
   validateMatchEventsSide(fixture.matchEvents.away, fixture, "away");
+
+  const correction = officialEventCorrectionsData.fixtures?.[fixture.id];
+  if (correction) {
+    for (const sourceId of correction.sourceIds || []) {
+      assert(
+        fixture.matchEvents.sourceIds?.includes(sourceId),
+        `${owner}.sourceIds must retain official correction source ${sourceId}`
+      );
+    }
+    for (const side of ["home", "away"]) {
+      if (!correction[side]) continue;
+      validateMatchEventsSide(correction[side], fixture, side);
+      for (const [index, expectedCard] of (correction[side].cards || []).entries()) {
+        assert(
+          (fixture.matchEvents[side]?.cards || []).some(
+            (card) =>
+              isPlayerNameMatch(card.playerName, expectedCard.playerName) &&
+              card.type === expectedCard.type &&
+              String(card.minute ?? "") === String(expectedCard.minute ?? "")
+          ),
+          `${owner}.${side}.cards must retain official correction ${index}`
+        );
+      }
+      for (const [index, expectedSubstitution] of (correction[side].substitutions || []).entries()) {
+        assert(
+          (fixture.matchEvents[side]?.substitutions || []).some(
+            (substitution) =>
+              isPlayerNameMatch(substitution.offName, expectedSubstitution.offName) &&
+              isPlayerNameMatch(substitution.onName, expectedSubstitution.onName) &&
+              String(substitution.minute ?? "") === String(expectedSubstitution.minute ?? "")
+          ),
+          `${owner}.${side}.substitutions must retain official correction ${index}`
+        );
+      }
+    }
+  }
+
+  const lineupRecord = lineupsData.lineups?.[fixture.id];
+  if (!lineupRecord) {
+    return;
+  }
+
+  const sameMinute = (left, right) => String(left ?? "") === String(right ?? "");
+  const compareCards = (fixtureCards, lineupCards, nameField, lineupNameField, eventOwner) => {
+    assert(
+      fixtureCards.length === lineupCards.length,
+      `${eventOwner} count must agree between fixtures.json and lineups.json`
+    );
+    for (let index = 0; index < Math.min(fixtureCards.length, lineupCards.length); index += 1) {
+      const fixtureCard = fixtureCards[index];
+      const lineupCard = lineupCards[index];
+      assert(
+        isPlayerNameMatch(fixtureCard[nameField], lineupCard[lineupNameField]),
+        `${eventOwner}[${index}] person must agree between fixtures.json and lineups.json`
+      );
+      assert(
+        fixtureCard.type === lineupCard.type && sameMinute(fixtureCard.minute, lineupCard.minute),
+        `${eventOwner}[${index}] type and minute must agree between fixtures.json and lineups.json`
+      );
+    }
+  };
+
+  for (const side of ["home", "away"]) {
+    const fixtureSide = fixture.matchEvents[side] || {};
+    const lineupSide = lineupRecord[side]?.events || {};
+    const fixturePlayerCards = (fixtureSide.cards || []).filter((card) => !card.staff);
+    const fixtureStaffCards = (fixtureSide.cards || []).filter((card) => card.staff);
+    compareCards(
+      fixturePlayerCards,
+      lineupSide.cards || [],
+      "playerName",
+      "playerName",
+      `${owner}.${side}.playerCards`
+    );
+    compareCards(
+      fixtureStaffCards,
+      lineupSide.staffCards || [],
+      "playerName",
+      "staffName",
+      `${owner}.${side}.staffCards`
+    );
+
+    const fixtureSubstitutions = fixtureSide.substitutions || [];
+    const lineupSubstitutions = lineupSide.substitutions || [];
+    assert(
+      fixtureSubstitutions.length === lineupSubstitutions.length,
+      `${owner}.${side}.substitutions count must agree between fixtures.json and lineups.json`
+    );
+    for (
+      let index = 0;
+      index < Math.min(fixtureSubstitutions.length, lineupSubstitutions.length);
+      index += 1
+    ) {
+      const fixtureSubstitution = fixtureSubstitutions[index];
+      const lineupSubstitution = lineupSubstitutions[index];
+      assert(
+        isPlayerNameMatch(fixtureSubstitution.offName, lineupSubstitution.offName) &&
+          isPlayerNameMatch(fixtureSubstitution.onName, lineupSubstitution.onName) &&
+          sameMinute(fixtureSubstitution.minute, lineupSubstitution.minute),
+        `${owner}.${side}.substitutions[${index}] must agree between fixtures.json and lineups.json`
+      );
+    }
+  }
 }
 
 function getKnockoutWinnerTeamId(fixture) {

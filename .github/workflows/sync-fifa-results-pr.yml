@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   edition-window:
-    name: Check 2026 live edition window
+    name: Check live edition window
     runs-on: ubuntu-latest
     outputs:
       active: ${{ steps.lifecycle.outputs.active }}

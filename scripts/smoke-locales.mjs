@@ -46,7 +46,7 @@ const localeCases = [
     catchUpDynamicPattern: /triplete/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Vista general móvil del cuadro y clasificación más limpia",
+    latestReleaseTitle: "Campeones del mundo, zoom más claro del cuadro móvil y clasificación más limpia",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -115,7 +115,7 @@ const localeCases = [
     catchUpDynamicPattern: /해트트릭/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "모바일 대진표 전체 보기와 더 깔끔한 순위",
+    latestReleaseTitle: "월드컵 우승, 더 선명한 모바일 대진표 확대/축소와 더 깔끔한 순위",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:

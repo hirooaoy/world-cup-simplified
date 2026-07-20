@@ -3,12 +3,12 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-18-1";
+} from "./chatbot-knowledge.js?v=2026-07-19-history-final-card-1";
 import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-19-1";
+} from "./locales/locale-runtime.js?v=2026-07-19-history-final-card-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -49,7 +49,7 @@ const SCOUT_COPY = {
     newChat: "New chat",
     close: "Close Ball Boy",
     suggestedQuestions: "Suggested questions",
-    suggestions: ["Explain offside", "Change timezone", "How does Argentina play?", "Report issue"],
+    suggestions: ["Explain offside", "Who won the last World Cup?", "How does Argentina play?", "Report issue"],
     showMore: "Show more of Ball Boy's answer",
     moreBelow: "More below",
     askLabel: "Ask Ball Boy a question",
@@ -182,7 +182,7 @@ const SCOUT_COPY = {
     newChat: "新对话",
     close: "关闭球童聊天",
     suggestedQuestions: "推荐问题",
-    suggestions: ["解释越位", "更改时区", "阿根廷怎么踢？", "报告问题"],
+    suggestions: ["解释越位", "上届世界杯谁赢了？", "阿根廷怎么踢？", "报告问题"],
     showMore: "显示球童回答的更多内容",
     moreBelow: "下方还有内容",
     askLabel: "向球童提问",
@@ -3275,6 +3275,16 @@ function appendPersonalityReply(reply, options = {}) {
   appendMessage(reply.text, "assistant", { ...options, className: "is-personality" });
 }
 
+function appendWorldCupHistoryReply(reply, options = {}) {
+  createScoutVisualMessage(
+    "world-cup-history",
+    reply.text,
+    "",
+    reply.followUps,
+    options
+  );
+}
+
 function getScoutTimeZoneLabel(timeZone, options = {}) {
   const option = [...(document.querySelector("#timezone-select")?.options || [])]
     .find((candidate) => candidate.value === timeZone);
@@ -3480,6 +3490,8 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
     appendClarificationReply(reply, options);
   } else if (reply.kind === "personality") {
     appendPersonalityReply(reply, options);
+  } else if (reply.kind === "world-cup-history") {
+    appendWorldCupHistoryReply(reply, options);
   } else if (reply.kind === "settings-action") {
     appendSettingsActionReply(reply, options);
   } else if (reply.kind === "report-issue") {
@@ -3491,7 +3503,7 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
   if (!animate) {
     return;
   }
-  if (reply.kind === "personality") {
+  if (["personality", "world-cup-history"].includes(reply.kind)) {
     if (!playPersonalityEyeReaction(reply.eye)) {
       syncEyeAttention();
       scheduleBlink();

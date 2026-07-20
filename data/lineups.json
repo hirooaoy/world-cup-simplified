@@ -154,7 +154,7 @@
     "fifa-tactical-lineup-match-103-v1-5c769165f2d9",
     "fifa-tactical-lineup-match-103-v2-e71b493bf5be",
     "fifa-lineups-sync-2026-07-19",
-    "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616",
+    "fifa-lineups-sync-2026-07-20",
     "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
   ],
   "lineups": {
@@ -41976,9 +41976,10 @@
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
-        "fifa-tactical-lineup-match-88-v2-4b5bc6ea336a"
+        "fifa-tactical-lineup-match-88-v2-4b5bc6ea336a",
+        "fifa-match-events-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-15T21:30:22.686Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -42404,6 +42405,11 @@
               "offName": "Karim Hafez",
               "onName": "Trezeguet",
               "minute": 80
+            },
+            {
+              "offName": "Omar Marmoush",
+              "onName": "Hamza Abdelkarim",
+              "minute": "ET"
             },
             {
               "offName": "Marawan Attia",
@@ -48401,9 +48407,10 @@
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-14",
-        "fifa-tactical-lineup-match-99-v1-1776249c1da9"
+        "fifa-tactical-lineup-match-99-v1-1776249c1da9",
+        "fifa-match-events-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-14T08:33:18.996Z",
+      "checkedAt": "2026-07-15T21:30:22.686Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -48628,6 +48635,11 @@
             {
               "offName": "Torbjorn Heggem",
               "onName": "Leo Ostigard",
+              "minute": "ET"
+            },
+            {
+              "offName": "Erling Haaland",
+              "onName": "Jorgen Strand Larsen",
               "minute": "ET"
             }
           ]
@@ -48890,9 +48902,12 @@
       "sourceIds": [
         "lineup-layout-verification-2026-07-13",
         "fifa-lineups-sync-2026-07-14",
-        "fifa-tactical-lineup-match-100-v2-18a6bb984a32"
+        "fifa-tactical-lineup-match-100-v2-18a6bb984a32",
+        "fifa-match-events-sync-2026-07-15",
+        "ap-argentina-switzerland-result-2026-07-11",
+        "guardian-argentina-switzerland-live-reaction-2026-07-11"
       ],
-      "checkedAt": "2026-07-14T08:33:18.996Z",
+      "checkedAt": "2026-07-15T21:30:22.686Z",
       "home": {
         "formation": "4-1-3-2",
         "coach": {
@@ -49122,6 +49137,11 @@
             {
               "offName": "Enzo Fernandez",
               "onName": "Thiago Almada",
+              "minute": "ET"
+            },
+            {
+              "offName": "Cristian Romero",
+              "onName": "Nicolas Otamendi",
               "minute": "ET"
             },
             {
@@ -50872,10 +50892,11 @@
         "note": "FIFA's updated Tactical Line-up PDF supplied the latest official starting shape and exact player placement."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-19",
+        "fifa-lineups-sync-2026-07-20",
+        "sky-spain-argentina-result-2026-07-19",
         "fifa-tactical-lineup-match-104-v2-adf6b123fb40"
       ],
-      "checkedAt": "2026-07-19T23:32:27.450Z",
+      "checkedAt": "2026-07-20T00:33:46.000Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -51326,6 +51347,11 @@
               "playerName": "Alexis Mac Allister",
               "type": "yellow",
               "minute": 111
+            },
+            {
+              "playerName": "Leandro Paredes",
+              "type": "red",
+              "minute": "120+6"
             }
           ],
           "staffCards": [
@@ -51372,5 +51398,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-19T23:32:27.450Z"
+  "updatedAt": "2026-07-20T00:32:28.014Z"
 }

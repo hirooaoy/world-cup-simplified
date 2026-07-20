@@ -1,9 +1,10 @@
-export const DATA_VERSION = "2026-07-17-h2h-lifecycle-1";
+export const DATA_VERSION = "2026-07-19-historical-rankings-2";
 
 export const DATA_URLS = Object.freeze({
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
+  historicalRankings: `data/historical-rankings.json?v=${DATA_VERSION}`,
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${DATA_VERSION}`,
   editionLifecycle: `data/edition-lifecycle.json?v=${DATA_VERSION}`,

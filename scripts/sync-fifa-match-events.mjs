@@ -2,15 +2,15 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { applyEventCorrectionsToFixtureMatchEvents } from "./official-event-corrections.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const FIFA_API_URL = "https://api.fifa.com/api/v3/calendar/matches";
 const FIFA_TIMELINE_URL = "https://api.fifa.com/api/v3/timelines";
-const FIFA_SCHEDULE_URL =
-  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
-const FIFA_COMPETITION_ID = process.env.FIFA_COMPETITION_ID || "17";
-const FIFA_SEASON_ID = process.env.FIFA_SEASON_ID || "285023";
+let fifaScheduleUrl = "";
+let fifaCompetitionId = process.env.FIFA_COMPETITION_ID || "";
+let fifaSeasonId = process.env.FIFA_SEASON_ID || "";
 const FIFA_PROVIDER_KEY = "fifa";
 const sourceId = `fifa-match-events-sync-${new Date().toISOString().slice(0, 10)}`;
 const checkedAt = process.env.FIFA_MATCH_EVENTS_CHECKED_AT || new Date().toISOString();
@@ -291,8 +291,8 @@ async function fetchOfficialSchedule(fixturesData) {
   const url = new URL(FIFA_API_URL);
   url.searchParams.set("language", "en");
   url.searchParams.set("count", "500");
-  url.searchParams.set("idCompetition", FIFA_COMPETITION_ID);
-  url.searchParams.set("idSeason", FIFA_SEASON_ID);
+  url.searchParams.set("idCompetition", fifaCompetitionId);
+  url.searchParams.set("idSeason", fifaSeasonId);
   url.searchParams.set("from", from);
   url.searchParams.set("to", addDays(to, 1));
 
@@ -429,7 +429,7 @@ function sameMatchEvents(left, right) {
   return JSON.stringify(comparableMatchEvents(left)) === JSON.stringify(comparableMatchEvents(right));
 }
 
-async function processFixture(fixture, officialIndex, profileNames) {
+async function processFixture(fixture, officialIndex, profileNames, eventCorrectionsData) {
   const officialMatch = findOfficialMatch(fixture, officialIndex);
   if (!officialMatch?.IdMatch) {
     return {
@@ -452,11 +452,15 @@ async function processFixture(fixture, officialIndex, profileNames) {
   }
 
   const eventSides = buildOfficialMatchEvents(officialMatch, timeline, profileNames);
-  const nextMatchEvents = {
+  let nextMatchEvents = {
     sourceIds: [sourceId],
     checkedAt,
     ...eventSides
   };
+  nextMatchEvents = applyEventCorrectionsToFixtureMatchEvents(
+    nextMatchEvents,
+    eventCorrectionsData.fixtures?.[fixture.id]
+  );
 
   if (!sameMatchEvents(fixture.matchEvents, nextMatchEvents)) {
     fixture.matchEvents = nextMatchEvents;
@@ -466,12 +470,23 @@ async function processFixture(fixture, officialIndex, profileNames) {
   return { matched: true, updated: metadataUpdated, warnings: [] };
 }
 
-const [fixturesData, teamsData, tournamentData, profilesData] = await Promise.all([
+const [fixturesData, teamsData, tournamentData, profilesData, eventCorrectionsData, editionLifecycleData] = await Promise.all([
   readJson("fixtures.json"),
   readJson("teams.json"),
   readJson("tournament.json"),
-  readJson("player-profiles.json")
+  readJson("player-profiles.json"),
+  readJson("official-event-corrections.json"),
+  readJson("edition-lifecycle.json")
 ]);
+if (editionLifecycleData.liveData?.provider !== FIFA_PROVIDER_KEY) {
+  throw new Error(`sync-fifa-match-events requires a ${FIFA_PROVIDER_KEY} liveData provider configuration.`);
+}
+fifaCompetitionId ||= String(editionLifecycleData.liveData.competitionId || "");
+fifaSeasonId ||= String(editionLifecycleData.liveData.seasonId || "");
+fifaScheduleUrl = String(editionLifecycleData.liveData.scheduleUrl || "");
+if (!fifaCompetitionId || !fifaSeasonId || !/^https:\/\//.test(fifaScheduleUrl)) {
+  throw new Error("edition-lifecycle.json must provide FIFA competitionId, seasonId, and an HTTPS scheduleUrl.");
+}
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialIndex = indexOfficialMatches(officialData.Results || [], buildTeamLookup(teamsData.teams));
 const profileNames = getProfileNameLookup(profilesData);
@@ -491,7 +506,7 @@ async function worker() {
   while (nextIndex < targetFixtures.length) {
     const fixture = targetFixtures[nextIndex];
     nextIndex += 1;
-    const result = await processFixture(fixture, officialIndex, profileNames);
+    const result = await processFixture(fixture, officialIndex, profileNames, eventCorrectionsData);
     matchedCount += result.matched ? 1 : 0;
     updateCount += result.updated ? 1 : 0;
     warnings.push(...result.warnings);
@@ -510,7 +525,7 @@ if (shouldWrite && updateCount) {
   sources.push({
     id: sourceId,
     label: "FIFA official cards and substitutions timeline sync",
-    url: FIFA_SCHEDULE_URL,
+    url: fifaScheduleUrl,
     type: "official",
     checkedAt,
     note: `${matchedCount} matched FIFA timeline${matchedCount === 1 ? "" : "s"} checked; ${matchedCount} active/completed fixture${matchedCount === 1 ? "" : "s"} carry official formation/card/substitution records; ${updateCount} changed on this pass.`

@@ -6,10 +6,22 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const FIFA_API_URL = "https://api.fifa.com/api/v3/calendar/matches";
-const FIFA_SCHEDULE_URL =
+const DEFAULT_FIFA_SCHEDULE_URL =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
-const FIFA_COMPETITION_ID = "17";
-const FIFA_SEASON_ID = "285023";
+const COMPLETED_STATUSES = new Set(["FT", "AET", "PEN"]);
+const OFFICIAL_STAGE_NAMES = new Map([
+  ["group", new Set(["first stage", "group stage"])],
+  ["round-of-32", new Set(["round of 32"])],
+  ["round-of-16", new Set(["round of 16"])],
+  ["quarter-finals", new Set(["quarter final", "quarter finals"])],
+  ["semi-finals", new Set(["semi final", "semi finals"])],
+  ["bronze-final", new Set(["bronze final", "third place play off"])],
+  ["final", new Set(["final"])]
+]);
+const OFFICIAL_VENUE_ALIASES = new Map([
+  ["estadio guadalajara", "guadalajara stadium"],
+  ["estadio monterrey", "monterrey stadium"]
+]);
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -44,6 +56,17 @@ function normalizeKey(value) {
     .replace(/[^a-z0-9]+/gi, " ")
     .trim()
     .toLowerCase();
+}
+
+function normalizedOfficialVenue(value) {
+  const key = normalizeKey(value);
+  return OFFICIAL_VENUE_ALIASES.get(key) || key;
+}
+
+function optionalNumber(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
 }
 
 function buildTeamLookup(teams) {
@@ -114,8 +137,8 @@ async function fetchOfficialSchedule(fixturesData) {
   const url = new URL(FIFA_API_URL);
   url.searchParams.set("language", "en");
   url.searchParams.set("count", "500");
-  url.searchParams.set("idCompetition", FIFA_COMPETITION_ID);
-  url.searchParams.set("idSeason", FIFA_SEASON_ID);
+  url.searchParams.set("idCompetition", fifaCompetitionId);
+  url.searchParams.set("idSeason", fifaSeasonId);
   url.searchParams.set("from", from);
   url.searchParams.set("to", addDays(to, 1));
 
@@ -127,7 +150,42 @@ async function fetchOfficialSchedule(fixturesData) {
   return await response.json();
 }
 
-const [fixturesData, teamsData] = await Promise.all([readJson("fixtures.json"), readJson("teams.json")]);
+function scoreWinnerTeamId(fixture, score = fixture?.score) {
+  const home = Number(score?.home);
+  const away = Number(score?.away);
+  if (!Number.isFinite(home) || !Number.isFinite(away) || home === away) return "";
+  return home > away ? fixture.homeTeamId : fixture.awayTeamId;
+}
+
+function localWinnerTeamId(fixture) {
+  return String(fixture.winnerTeamId || "").trim() ||
+    scoreWinnerTeamId(fixture, fixture.scoreDetails?.penalties) ||
+    scoreWinnerTeamId(fixture);
+}
+
+function officialWinnerTeamId(match, teamLookup) {
+  const winnerId = String(match?.Winner || "");
+  if (!winnerId) return "";
+  if (winnerId === String(match?.Home?.IdTeam || "")) {
+    return findOfficialParticipantTeamId(match, "Home", teamLookup);
+  }
+  if (winnerId === String(match?.Away?.IdTeam || "")) {
+    return findOfficialParticipantTeamId(match, "Away", teamLookup);
+  }
+  return "";
+}
+
+const [fixturesData, teamsData, lifecycle] = await Promise.all([
+  readJson("fixtures.json"),
+  readJson("teams.json"),
+  readJson("edition-lifecycle.json")
+]);
+const fifaCompetitionId = process.env.FIFA_COMPETITION_ID || lifecycle.liveData?.competitionId;
+const fifaSeasonId = process.env.FIFA_SEASON_ID || lifecycle.liveData?.seasonId;
+const fifaScheduleUrl = lifecycle.liveData?.scheduleUrl || DEFAULT_FIFA_SCHEDULE_URL;
+if (lifecycle.liveData?.provider !== "fifa" || !fifaCompetitionId || !fifaSeasonId) {
+  throw new Error("Edition lifecycle must include FIFA live-data competition and season identifiers.");
+}
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialMatches = officialData.Results || [];
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
@@ -135,6 +193,9 @@ const teamLookup = buildTeamLookup(teamsData.teams);
 const officialByMatchNumber = new Map();
 const officialByParticipants = new Map();
 const failures = [];
+let checkedResultCount = 0;
+let checkedPenaltyCount = 0;
+let checkedExtraTimeCount = 0;
 
 for (const match of officialMatches) {
   if (match.MatchNumber) {
@@ -170,6 +231,30 @@ for (const fixture of fixturesData.fixtures || []) {
     );
   }
 
+  const officialStage = normalizeKey(description(officialMatch.StageName));
+  const allowedStageNames = OFFICIAL_STAGE_NAMES.get(fixture.stage);
+  if (!allowedStageNames?.has(officialStage)) {
+    failures.push(
+      `${fixtureLabel(teamsById, fixture)} stage mismatch. Local data: ${fixture.stage}; FIFA feed: ${description(officialMatch.StageName) || "unknown"}.`
+    );
+  }
+
+  const officialVenue = description(officialMatch.Stadium?.Name);
+  if (normalizedOfficialVenue(fixture.venue) !== normalizedOfficialVenue(officialVenue)) {
+    failures.push(
+      `${fixtureLabel(teamsById, fixture)} venue mismatch. Local data: ${fixture.venue}; FIFA feed: ${officialVenue || "unknown"}.`
+    );
+  }
+
+  if (
+    officialMatch.IdMatch &&
+    String(fixture.providerIds?.fifa?.matchId || "") !== String(officialMatch.IdMatch)
+  ) {
+    failures.push(
+      `${fixtureLabel(teamsById, fixture)} FIFA match id mismatch. Local data: ${fixture.providerIds?.fifa?.matchId || "missing"}; FIFA feed: ${officialMatch.IdMatch}.`
+    );
+  }
+
   for (const side of ["Home", "Away"]) {
     const officialTeamId = findOfficialParticipantTeamId(officialMatch, side, teamLookup);
     const localTeamId = side === "Home" ? fixture.homeTeamId : fixture.awayTeamId;
@@ -184,16 +269,73 @@ for (const fixture of fixturesData.fixtures || []) {
       );
     }
   }
+
+  const officialHomeScore = optionalNumber(officialMatch.HomeTeamScore ?? officialMatch.Home?.Score);
+  const officialAwayScore = optionalNumber(officialMatch.AwayTeamScore ?? officialMatch.Away?.Score);
+  const hasOfficialResult = officialHomeScore !== null && officialAwayScore !== null;
+  if (!hasOfficialResult) {
+    if (COMPLETED_STATUSES.has(fixture.status)) {
+      failures.push(`${fixtureLabel(teamsById, fixture)} is final locally but FIFA's feed has no final score.`);
+    }
+    continue;
+  }
+
+  checkedResultCount += 1;
+  if (!COMPLETED_STATUSES.has(fixture.status)) {
+    failures.push(`${fixtureLabel(teamsById, fixture)} has a FIFA result but local status is ${fixture.status || "missing"}.`);
+  }
+  if (fixture.score?.home !== officialHomeScore || fixture.score?.away !== officialAwayScore) {
+    failures.push(
+      `${fixtureLabel(teamsById, fixture)} score mismatch. Local data: ${fixture.score?.home ?? "?"}-${fixture.score?.away ?? "?"}; FIFA feed: ${officialHomeScore}-${officialAwayScore}.`
+    );
+  }
+
+  const officialHomePenalties = optionalNumber(officialMatch.HomeTeamPenaltyScore);
+  const officialAwayPenalties = optionalNumber(officialMatch.AwayTeamPenaltyScore);
+  const hasOfficialPenalties = officialHomePenalties !== null && officialAwayPenalties !== null;
+  if (hasOfficialPenalties) {
+    checkedPenaltyCount += 1;
+    if (
+      fixture.scoreDetails?.penalties?.home !== officialHomePenalties ||
+      fixture.scoreDetails?.penalties?.away !== officialAwayPenalties
+    ) {
+      failures.push(
+        `${fixtureLabel(teamsById, fixture)} shootout mismatch. Local data: ${fixture.scoreDetails?.penalties?.home ?? "?"}-${fixture.scoreDetails?.penalties?.away ?? "?"}; FIFA feed: ${officialHomePenalties}-${officialAwayPenalties}.`
+      );
+    }
+  } else if (fixture.scoreDetails?.penalties) {
+    failures.push(`${fixtureLabel(teamsById, fixture)} has a local shootout score but FIFA's feed does not.`);
+  }
+
+  if (Number(officialMatch.ResultType) === 3) checkedExtraTimeCount += 1;
+  if (Number(officialMatch.ResultType) === 2 && !hasOfficialPenalties) {
+    failures.push(`${fixtureLabel(teamsById, fixture)} is a FIFA shootout result without penalty totals.`);
+  }
+
+  const officialWinner = officialWinnerTeamId(officialMatch, teamLookup);
+  const localWinner = localWinnerTeamId(fixture);
+  if (officialWinner !== localWinner) {
+    failures.push(
+      `${fixtureLabel(teamsById, fixture)} winner mismatch. Local data: ${localWinner || "draw"}; FIFA feed: ${officialWinner || "draw"}.`
+    );
+  }
 }
 
-if (officialMatches.length !== (fixturesData.fixtures || []).length) {
+const expectedFixtureCount = Number(lifecycle.expected?.fixtureCount) || (fixturesData.fixtures || []).length;
+if ((fixturesData.fixtures || []).length !== expectedFixtureCount) {
   failures.push(
-    `Fixture count mismatch. Local data has ${(fixturesData.fixtures || []).length}; FIFA feed returned ${officialMatches.length}.`
+    `Local fixture count is ${(fixturesData.fixtures || []).length}; lifecycle expects ${expectedFixtureCount}.`
+  );
+}
+if (officialMatches.length !== expectedFixtureCount) {
+  failures.push(
+    `Fixture count mismatch. Lifecycle expects ${expectedFixtureCount}; FIFA feed returned ${officialMatches.length}.`
   );
 }
 
-console.log(`FIFA schedule source: ${FIFA_SCHEDULE_URL}`);
+console.log(`FIFA schedule source: ${fifaScheduleUrl}`);
 console.log(`Checked ${(fixturesData.fixtures || []).length} local fixture(s) against ${officialMatches.length} FIFA fixture(s).`);
+console.log(`Verified ${checkedResultCount} scores and winners, including ${checkedPenaltyCount} shootouts and ${checkedExtraTimeCount} extra-time results.`);
 
 if (failures.length) {
   console.log("");
@@ -204,4 +346,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("All local kickoff times and official participants match FIFA's schedule feed.");
+console.log("All local kickoffs, participants, stages, venues, provider ids, scores, shootouts, and winners match FIFA's current feed.");

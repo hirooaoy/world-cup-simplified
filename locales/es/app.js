@@ -37,6 +37,7 @@ const UI = {
   juggleRecordAction: "Dejar caer el balón",
   matches: "Partidos",
   matchDetails: "Detalles del partido",
+  matchDetailsClose: "Cerrar detalles del partido",
   matchesHeading: "Partidos y detalles del partido seleccionado",
   matchesList: "Partidos",
   month: "Mes",
@@ -440,7 +441,6 @@ const EXACT = {
   "Knockout winner progression": "Avance de los ganadores",
   "Tournament path": "Camino en el torneo",
   "Tournament progression": "Avance en el torneo",
-  "Reset zoom": "Restablecer zoom",
   "Likely for now": "Proyección actual",
   "likely for now": "proyección actual",
   "Later matches": "Partidos posteriores",
@@ -760,8 +760,8 @@ const STYLE_TERMS = {
 Object.assign(EXACT, STYLE_TERMS);
 
 Object.assign(EXACT, {
-  "FIFA world ranking used for this 2026 tournament view.":
-    "Clasificación mundial de la FIFA utilizada en esta vista del torneo de 2026.",
+  "FIFA world ranking during the 2026 World Cup":
+    "Clasificación mundial de la FIFA durante el Mundial de 2026",
   "Final group table uses archived results and tournament-era tie-breakers.":
     "La tabla final del grupo usa resultados archivados y los criterios de desempate de esa edición.",
   "Final round table data is not available for this archived match.":
@@ -1529,10 +1529,16 @@ export function formatAppMessage(type, data = {}) {
       return `Bandera de ${data.teamName}`;
     case "rank-label":
       return `${data.teamName}, puesto ${data.rank} de la clasificación FIFA${data.year ? ` (${data.year})` : ""}`;
+    case "elo-rank-label":
+      return `${data.teamName}, puesto ${data.rank} de la clasificación Elo retrospectiva${data.year ? ` (${data.year})` : ""}`;
+    case "elo-rank-tooltip":
+      return data.year
+        ? `Clasificación Elo retrospectiva durante el Mundial de ${data.year}`
+        : "Clasificación Elo retrospectiva durante el Mundial";
     case "rank-tooltip":
       return data.year
-        ? `Clasificación mundial FIFA utilizada para esta vista del torneo ${data.year}.`
-        : "Clasificación mundial FIFA utilizada para esta vista del torneo.";
+        ? `Clasificación mundial FIFA durante el Mundial de ${data.year}`
+        : "Clasificación mundial FIFA durante el Mundial";
     case "rank-aria":
       return `${data.label}. ${data.tooltip}`;
     case "fifa-snapshot":
@@ -1785,10 +1791,12 @@ export function formatAppMessage(type, data = {}) {
           return "Carrera por la Bota de Oro";
         case "champion-body-penalties":
           return `${winner} venció a ${loser} en los penales tras empatar ${data.scoreText} en la final.`;
+        case "champion-body-final-round":
+          return `${winner} venció ${data.scoreText} a ${loser} en el partido decisivo de la ronda final.`;
         case "champion-body":
           return `${winner} venció ${data.scoreText} a ${loser} en la final.`;
         case "champion-headline":
-          return `${winner} es campeón del mundo de 2026`;
+          return `${winner} es campeón del mundo de ${data.editionYear}`;
         case "tournament-wrap-meta":
           return "Balance del torneo";
         case "golden-boot-winner-headline":

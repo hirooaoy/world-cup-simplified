@@ -13,14 +13,14 @@ import {
   archiveExpectedLineupsForFixtures,
   commitPredictionArchiveBeforeOfficialPersistence
 } from "./lineup-prediction-history.mjs";
+import { applyEventCorrectionsToLineup } from "./official-event-corrections.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const FIFA_LIVE_URL = "https://api.fifa.com/api/v3/live/football";
-const FIFA_SCHEDULE_URL =
-  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
-const FIFA_COMPETITION_ID = process.env.FIFA_COMPETITION_ID || "17";
-const FIFA_SEASON_ID = process.env.FIFA_SEASON_ID || "285023";
+let fifaScheduleUrl = "";
+let fifaCompetitionId = process.env.FIFA_COMPETITION_ID || "";
+let fifaSeasonId = process.env.FIFA_SEASON_ID || "";
 const FIFA_PROVIDER_KEY = "fifa";
 const sourceId = `fifa-lineups-sync-${new Date().toISOString().slice(0, 10)}`;
 const checkedAt = process.env.FIFA_LINEUPS_CHECKED_AT || new Date().toISOString();
@@ -106,14 +106,14 @@ async function fetchLiveMatch(idMatch) {
 }
 
 function fifaMatchCentreUrl(fixture, liveMatch) {
-  const idCompetition = liveMatch?.IdCompetition || FIFA_COMPETITION_ID;
-  const idSeason = liveMatch?.IdSeason || FIFA_SEASON_ID;
+  const idCompetition = liveMatch?.IdCompetition || fifaCompetitionId;
+  const idSeason = liveMatch?.IdSeason || fifaSeasonId;
   const idStage = liveMatch?.IdStage || liveMatch?.Stage?.IdStage || fixture.providerIds?.[FIFA_PROVIDER_KEY]?.stageId || "";
   const idMatch = liveMatch?.IdMatch || fixtureFifaMatchId(fixture);
 
   return idCompetition && idSeason && idStage && idMatch
     ? `https://www.fifa.com/en/match-centre/match/${idCompetition}/${idSeason}/${idStage}/${idMatch}`
-    : FIFA_SCHEDULE_URL;
+    : fifaScheduleUrl;
 }
 
 function comparableLineups(lineups) {
@@ -171,7 +171,8 @@ async function processFixture(
   teamsById,
   profileLookup,
   layoutOverridesData,
-  expectedLineupsData
+  expectedLineupsData,
+  eventCorrectionsData
 ) {
   const idMatch = fixtureFifaMatchId(fixture);
   if (!idMatch) {
@@ -214,6 +215,10 @@ async function processFixture(
     delete nextLineups.home.onFieldPlayers;
     delete nextLineups.away.onFieldPlayers;
     nextLineups = applyVerifiedLayoutIfAvailable(fixture, nextLineups, layoutOverridesData);
+    nextLineups = applyEventCorrectionsToLineup(
+      nextLineups,
+      eventCorrectionsData.fixtures?.[fixture.id]
+    );
   } catch (error) {
     return {
       matched: true,
@@ -251,7 +256,9 @@ const [
   expectedLineupsData,
   predictionHistoryData,
   predictionAuditData,
-  predictionRevisionLedgerData
+  predictionRevisionLedgerData,
+  eventCorrectionsData,
+  editionLifecycleData
 ] = await Promise.all([
   readJson("fixtures.json"),
   readOptionalJson("lineups.json", { sourceIds: [], lineups: {} }),
@@ -266,8 +273,20 @@ const [
     fixtures: []
   }),
   readOptionalJson("expected-lineups-audit.json", null),
-  readOptionalJson("lineup-prediction-revisions.json", { revisions: [] })
+  readOptionalJson("lineup-prediction-revisions.json", { revisions: [] }),
+  readOptionalJson("official-event-corrections.json", { fixtures: {} }),
+  readJson("edition-lifecycle.json")
 ]);
+
+if (editionLifecycleData.liveData?.provider !== FIFA_PROVIDER_KEY) {
+  throw new Error(`sync-fifa-lineups requires a ${FIFA_PROVIDER_KEY} liveData provider configuration.`);
+}
+fifaCompetitionId ||= String(editionLifecycleData.liveData.competitionId || "");
+fifaSeasonId ||= String(editionLifecycleData.liveData.seasonId || "");
+fifaScheduleUrl = String(editionLifecycleData.liveData.scheduleUrl || "");
+if (!fifaCompetitionId || !fifaSeasonId || !/^https:\/\//.test(fifaScheduleUrl)) {
+  throw new Error("edition-lifecycle.json must provide FIFA competitionId, seasonId, and an HTTPS scheduleUrl.");
+}
 
 const teamsById = buildTeamLookup(teamsData.teams);
 const profileLookup = buildSharedProfileLookup(profilesData);
@@ -335,7 +354,8 @@ async function worker() {
       teamsById,
       profileLookup,
       layoutOverridesData,
-      expectedLineupsData
+      expectedLineupsData,
+      eventCorrectionsData
     );
     matchedCount += result.matched ? 1 : 0;
     updateCount += result.updated ? 1 : 0;
@@ -401,7 +421,7 @@ async function persistOfficialLineupFiles() {
   sources.push({
     id: sourceId,
     label: confirmedTargetCount ? "FIFA official lineups sync" : "FIFA official final lineups sync",
-    url: FIFA_SCHEDULE_URL,
+    url: fifaScheduleUrl,
     type: "official",
     checkedAt,
     note: `${matchedCount} FIFA team sheet${matchedCount === 1 ? "" : "s"} checked across ${completedTargetCount} completed and ${confirmedTargetCount} near-kickoff fixture${confirmedTargetCount === 1 ? "" : "s"}; lineups.json carries official starters, bench, cards, and substitutions for ${Object.keys(nextLineupsByFixtureId).length} fixture${Object.keys(nextLineupsByFixtureId).length === 1 ? "" : "s"}; ${updateCount} changed on this pass.`

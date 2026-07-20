@@ -14,7 +14,7 @@ const copy = {
   newChat: "Nuevo chat",
   close: "Cerrar Ball Boy",
   suggestedQuestions: "Preguntas sugeridas",
-  suggestions: ["Explícame el fuera de juego", "Cambiar zona horaria", "¿Cómo juega Argentina?", "Reportar un problema"],
+  suggestions: ["Explícame el fuera de juego", "¿Quién ganó el Mundial anterior?", "¿Cómo juega Argentina?", "Reportar un problema"],
   showMore: "Mostrar más de la respuesta de Ball Boy",
   moreBelow: "Hay más abajo",
   askLabel: "Hazle una pregunta a Ball Boy",
@@ -383,6 +383,11 @@ const intents = {
     [/^(?:cuenta un chiste|dime un chiste de futbol)$/, "tell me a joke"]
   ],
   replacements: [
+    [/quien (?:ha )?ganado mas|quien gano mas|seleccion con mas titulos/g, " who won most world cups "],
+    [/el ano pasado|la ultima vez|el ultimo mundial|el mundial anterior|la edicion anterior/g, " last world cup "],
+    [/este ano|este mundial/g, " this year "], [/quien gano|quien ha ganado/g, " who won "],
+    [/por ultima vez/g, " last "], [/cuantos mundiales (?:ha )?ganado/g, " how many world cups won "],
+    [/gano|ha ganado/g, " won "],
     [/fuera de juego/g, " offside "], [/tanda de (?:penales|penaltis)/g, " penalty shootout "],
     [/tiempo añadido|descuento/g, " stoppage time "], [/prorroga/g, " extra time "],
     [/tarjeta roja|roja/g, " red card "], [/tarjeta amarilla|amarilla/g, " yellow card "],

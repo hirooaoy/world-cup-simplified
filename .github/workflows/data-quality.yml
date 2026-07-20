@@ -19,8 +19,25 @@ env:
   WORLD_CUP_TZ: America/Los_Angeles
 
 jobs:
+  edition-window:
+    name: Check live edition window
+    runs-on: ubuntu-latest
+    outputs:
+      active: ${{ steps.lifecycle.outputs.active }}
+      edition: ${{ steps.lifecycle.outputs.edition }}
+      state: ${{ steps.lifecycle.outputs.state }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Check edition lifecycle
+        id: lifecycle
+        run: node scripts/tournament-edition-window.mjs --github-output
+
   prepare:
     name: Prepare synchronized data
+    needs: edition-window
+    if: github.event_name != 'schedule' || needs.edition-window.outputs.active == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -35,6 +52,7 @@ jobs:
         run: pnpm release-notes:check
 
       - name: Sync release-candidate data
+        if: needs.edition-window.outputs.active == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           pnpm sync:fifa
           pnpm sync:fifa:lineups
@@ -58,7 +76,9 @@ jobs:
 
   verify:
     name: Verify ${{ matrix.name }}
-    needs: prepare
+    needs:
+      - edition-window
+      - prepare
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -68,6 +88,9 @@ jobs:
             install_browser: false
             command: >-
               pnpm validate &&
+              pnpm edition:window:smoke &&
+              pnpm events:corrections:smoke &&
+              pnpm archive:2026:smoke &&
               pnpm run audit &&
               pnpm audit:tournament &&
               pnpm results:check &&

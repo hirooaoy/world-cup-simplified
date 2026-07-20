@@ -1,18 +1,24 @@
 {
-  "updatedAt": "2026-07-19T11:45:47-07:00",
+  "updatedAt": "2026-07-19T20:26:40-07:00",
   "releases": [
     {
       "date": "2026-07-19",
-      "title": "Mobile bracket overview and cleaner Standings",
-      "titleZh": "移动端对阵图总览与更简洁的积分榜",
+      "title": "World champions, clearer mobile bracket zoom, and cleaner Standings",
+      "titleZh": "世界杯冠军、更清晰的移动端对阵图缩放与更简洁的积分榜",
       "highlights": [
-        "On phones, pinching the tournament bracket fully out now fits every round and connector into one clean overview instead of stopping at a cramped 65% view; the detailed view still tops out at 100%.",
-        "A mobile-only 100% reset appears after zooming, intermediate round labels stay aligned, archived brackets share the same behavior, and desktop zoom remains unchanged.",
+        "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the champion cover, say the 2026 World Cup is over, and offer one View the final action back to July 19.",
+        "Ball Boy now answers who won this World Cup or the previous edition, which country has the most titles, and when a country last won across current and historical tournaments.",
+        "Every archived World Cup now shows a tournament-era ranking pill in group tables and knockout paths: retrospective Elo for 1930-1990 and FIFA world rankings for 1994-2022.",
+        "On phones, tournament pinch zoom now stops at 80% so cards and type stay clear and readable instead of collapsing into a tiny all-round overview.",
+        "The mobile zoom percentage badge has been removed; intermediate round labels stay aligned, archived brackets share the same behavior, and desktop zoom remains unchanged.",
         "The bottom source and freshness footer now stays on Matches and Report issue but is omitted from every Standings mode and archived Standings year."
       ],
       "highlightsZh": [
-        "在手机端，将赛事对阵图双指缩至最小时，现在会把所有轮次和连接线完整放入一个清晰总览，不再停在拥挤的65%视图；详细视图仍以100%为上限。",
-        "缩放后会出现仅限移动端的100%重置按钮，中间缩放状态的轮次标签保持对齐，往届对阵图采用相同行为，桌面端缩放保持不变。",
+        "已结束的决赛日现在会展示冠军横幅、彩纸、背景烟花和带球员卡片的三点夺冠故事；之后的无比赛日会保留冠军封面，提示2026年世界杯已结束，并提供一个返回7月19日的“查看决赛”按钮。",
+        "Ball Boy 现在可以回答本届或上届世界杯冠军、夺冠次数最多的国家，以及各国最近一次夺冠时间等当前与历史赛事问题。",
+        "每届往届世界杯现在都会在小组积分榜和淘汰赛路径中显示当届赛事排名：1930年至1990年使用回溯Elo排名，1994年至2022年使用FIFA世界排名。",
+        "在手机端，赛事对阵图的双指缩放现在最低停在80%，让卡片和文字保持清晰易读，不再缩成过小的全局总览。",
+        "移动端的缩放百分比按钮已移除；中间缩放状态的轮次标签保持对齐，往届对阵图采用相同行为，桌面端缩放保持不变。",
         "底部的来源与数据刷新页脚继续保留在“比赛”和“报告问题”页面，但会从所有积分榜模式与往届积分榜年份中移除。"
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T18:49:36.528Z",
+  "generatedAt": "2026-07-20T00:54:16.015Z",
   "methodology": "Locale-specific player labels from linked Wikipedia/Wikidata records, followed by checked-in editorial overrides and canonical-name fallback. Rendered match-provider aliases are resolved conservatively against canonical profiles and team roster overrides. Current and archive browser modules are split so historical names load only with archive views.",
   "providerNameCoverage": {
     "renderedCurrentNames": 1257,
@@ -951,6 +951,7 @@
         "profileName": "Eric Garcia",
         "resolution": "profile-source",
         "sources": [
+          "data/fixtures.json",
           "data/lineups.json"
         ]
       },
@@ -2256,6 +2257,7 @@
         "profileName": "Martin Zubimendi",
         "resolution": "profile-source",
         "sources": [
+          "data/fixtures.json",
           "data/lineups.json"
         ]
       },

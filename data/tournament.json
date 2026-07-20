@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-07-19T23:32:27.450Z",
-  "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
+  "updatedAt": "2026-07-20T01:13:10Z",
+  "coverageNote": "The final 2026 dataset covers all 104 official fixtures from June 11 through July 19, including results, standings, lineups, match events, multilingual recaps, highlights, and awards.",
   "catchUp": [
     {
       "date": "2026-06-22",
@@ -26,6 +26,45 @@
       "priority": 8
     }
   ],
+  "awards": {
+    "goldenBall": {
+      "status": "confirmed",
+      "playerName": "Rodri",
+      "teamId": "ESP",
+      "sourceId": "rfef-world-cup-awards-2026-07-20",
+      "checkedAt": "2026-07-20T01:13:10Z"
+    },
+    "goldenBoot": {
+      "status": "confirmed",
+      "playerName": "Kylian Mbappe",
+      "teamId": "FRA",
+      "goals": 10,
+      "assists": 4,
+      "sourceId": "sky-world-cup-golden-boot-2026-07-19",
+      "checkedAt": "2026-07-20T01:13:10Z"
+    },
+    "goldenGlove": {
+      "status": "confirmed",
+      "playerName": "Unai Simon",
+      "teamId": "ESP",
+      "sourceId": "rfef-world-cup-awards-2026-07-20",
+      "checkedAt": "2026-07-20T01:13:10Z"
+    },
+    "youngPlayer": {
+      "status": "confirmed",
+      "playerName": "Pau Cubarsi",
+      "teamId": "ESP",
+      "sourceId": "rfef-world-cup-awards-2026-07-20",
+      "checkedAt": "2026-07-20T01:13:10Z"
+    },
+    "fairPlay": {
+      "status": "confirmed",
+      "teamName": "Netherlands",
+      "teamId": "NED",
+      "sourceId": "onmanorama-world-cup-awards-2026-07-20",
+      "checkedAt": "2026-07-20T01:13:10Z"
+    }
+  },
   "format": {
     "automaticAdvancersPerGroup": 2,
     "bestThirdPlaceAdvancers": 8,
@@ -1091,6 +1130,21 @@
       "url": "https://elpais.com/deportes/mundial-futbol/2026-07-18/inglaterra-es-tercera-en-un-tiroteo-historico-6-4-y-mbappe-se-convierte-en-el-maximo-goleador-de-la-historia-de-los-mundiales.html",
       "type": "cross-check",
       "checkedAt": "2026-07-18T17:36:00-07:00"
+    },
+    {
+      "id": "fifa-spain-argentina-full-time-report-2026-07-19",
+      "label": "FIFA Spain vs Argentina full-time match report",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12552/pdf/FullTimeMatchReport-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-19T17:44:27-07:00"
+    },
+    {
+      "id": "sky-spain-argentina-result-2026-07-19",
+      "label": "Sky Sports Spain vs Argentina World Cup final report",
+      "url": "https://www.skysports.com/football/spain-vs-argentina/report/549869",
+      "type": "cross-check",
+      "checkedAt": "2026-07-19T17:33:46-07:00",
+      "note": "Confirms Spain's 1-0 extra-time win, Ferran Torres's 106th-minute goal, Enzo Fernandez's second-yellow dismissal at 90+3, and Leandro Paredes's post-match red card."
     },
     {
       "id": "ap-norway-cote-divoire-result-2026-06-30",
@@ -2973,6 +3027,14 @@
       "note": "1 fixture goal-event update merged from 95 matched FIFA timelines."
     },
     {
+      "id": "fifa-lineups-sync-2026-07-19",
+      "label": "FIFA official lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-19T18:31:29.047Z",
+      "note": "104 FIFA team sheets checked across 103 completed and 1 near-kickoff fixture; lineups.json carries official starters, bench, cards, and substitutions for 104 fixtures; 1 changed on this pass."
+    },
+    {
       "id": "fifa-tactical-lineup-match-104-v1-e8e6c0d9e616",
       "label": "FIFA official Tactical Line-up - match 104",
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12552/pdf/TacticalLineup-English.pdf",
@@ -2989,28 +3051,60 @@
       "note": "FIFA Tactical Line-up version 2 supplied FIFA's latest revised rows and left/right geometry for all 22 starters."
     },
     {
-      "id": "fifa-official-results-sync-2026-07-19",
+      "id": "fifa-official-results-sync-2026-07-20",
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-19T22:04:42.991Z",
+      "checkedAt": "2026-07-20T00:31:19.847Z",
       "note": "1 fixture update merged from 104 matched FIFA fixtures."
     },
     {
-      "id": "fifa-goal-events-sync-2026-07-19",
+      "id": "fifa-goal-events-sync-2026-07-20",
       "label": "FIFA official goal event timeline sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-19T22:04:50.901Z",
+      "checkedAt": "2026-07-20T00:31:53.325Z",
       "note": "1 fixture goal-event update merged from 96 matched FIFA timelines."
     },
     {
-      "id": "fifa-lineups-sync-2026-07-19",
+      "id": "fifa-match-events-sync-2026-07-20",
+      "label": "FIFA official cards and substitutions timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-20T00:32:13.407Z",
+      "note": "104 matched FIFA timelines checked; 104 active/completed fixtures carry official formation/card/substitution records; 2 changed on this pass."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-20",
       "label": "FIFA official final lineups sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-19T23:32:27.450Z",
+      "checkedAt": "2026-07-20T00:32:28.014Z",
       "note": "104 FIFA team sheets checked across 104 completed and 0 near-kickoff fixtures; lineups.json carries official starters, bench, cards, and substitutions for 104 fixtures; 1 changed on this pass."
+    },
+    {
+      "id": "rfef-world-cup-awards-2026-07-20",
+      "label": "RFEF World Cup 2026 individual awards report",
+      "url": "https://rfef.es/es/noticias/rodrigo-hernandez-mejor-jugador-del-mundial",
+      "type": "official",
+      "checkedAt": "2026-07-20T01:13:10Z",
+      "note": "Spain's federation confirms FIFA named Rodri the tournament's best player, Unai Simon its best goalkeeper and Pau Cubarsi its best young player."
+    },
+    {
+      "id": "sky-world-cup-golden-boot-2026-07-19",
+      "label": "Sky Sports World Cup 2026 Golden Boot report",
+      "url": "https://www.skysports.com/football/news/11095/13564837/world-cup-2026-golden-boot-race-kylian-mbappe-beats-lionel-messi-to-become-top-goalscorer",
+      "type": "cross-check",
+      "checkedAt": "2026-07-20T01:13:10Z",
+      "note": "Confirms Kylian Mbappe won the Golden Boot with 10 goals, two ahead of Lionel Messi."
+    },
+    {
+      "id": "onmanorama-world-cup-awards-2026-07-20",
+      "label": "Onmanorama World Cup 2026 awards report",
+      "url": "https://www.onmanorama.com/sports/football/2026/07/20/rodri-leads-spain-s-awards-sweep-after-world-cup-triumph-over-argentina.html",
+      "type": "cross-check",
+      "checkedAt": "2026-07-20T01:13:10Z",
+      "note": "Full award-list cross-check, including the Netherlands as FIFA Fair Play Award winner."
     }
   ],
   "groups": [

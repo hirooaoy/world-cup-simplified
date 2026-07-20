@@ -1,9 +1,23 @@
 {
+  "schemaVersion": 1,
   "edition": 2026,
+  "name": "FIFA World Cup 2026",
   "state": "live",
+  "timeZone": "America/Los_Angeles",
   "tournamentStartsAt": "2026-06-11T16:00:00Z",
   "liveSyncEndsAt": "2026-07-20T07:00:00Z",
   "archiveEligibleAfter": "2026-07-20T07:00:00Z",
+  "expected": {
+    "teamCount": 48,
+    "fixtureCount": 104,
+    "groupCount": 12
+  },
+  "liveData": {
+    "provider": "fifa",
+    "competitionId": "17",
+    "seasonId": "285023",
+    "scheduleUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums"
+  },
   "archivedAt": null,
   "archiveVersion": null
 }

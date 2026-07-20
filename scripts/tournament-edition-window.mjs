@@ -4,34 +4,72 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const lifecycle = JSON.parse(await readFile(path.join(root, "data", "edition-lifecycle.json"), "utf8"));
-const now = new Date(process.env.TOURNAMENT_LIFECYCLE_NOW || Date.now());
-const startsAt = new Date(lifecycle.tournamentStartsAt || "");
-const endsAt = new Date(lifecycle.liveSyncEndsAt || "");
+const lifecyclePath = process.env.TOURNAMENT_LIFECYCLE_FILE
+  ? path.resolve(process.env.TOURNAMENT_LIFECYCLE_FILE)
+  : path.join(root, "data", "edition-lifecycle.json");
 
-if (
-  lifecycle.edition !== 2026 ||
-  Number.isNaN(now.getTime()) ||
-  Number.isNaN(startsAt.getTime()) ||
-  Number.isNaN(endsAt.getTime())
-) {
-  throw new Error("Edition lifecycle must identify 2026 and include valid live-sync timestamps.");
+function validDate(value) {
+  const date = new Date(value || "");
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
-const active = lifecycle.state === "live" && now >= startsAt && now <= endsAt;
-console.log(
-  active
-    ? `2026 live-sync lifecycle is open until ${endsAt.toISOString()}.`
-    : `2026 live-sync lifecycle is closed (state ${lifecycle.state}, checked ${now.toISOString()}).`
-);
+export function evaluateEditionLifecycle(lifecycle, nowValue = Date.now()) {
+  const now = validDate(nowValue);
+  const startsAt = validDate(lifecycle?.tournamentStartsAt);
+  const endsAt = validDate(lifecycle?.liveSyncEndsAt);
+  const archiveEligibleAfter = validDate(lifecycle?.archiveEligibleAfter);
+  const edition = Number(lifecycle?.edition);
 
-if (process.argv.includes("--github-output")) {
-  if (!process.env.GITHUB_OUTPUT) {
-    throw new Error("GITHUB_OUTPUT is required with --github-output.");
+  if (!Number.isInteger(edition) || edition < 1930) {
+    throw new Error("Edition lifecycle must include a valid edition year.");
   }
-  await appendFile(process.env.GITHUB_OUTPUT, `active=${active ? "true" : "false"}\n`);
+  if (!now || !startsAt || !endsAt || !archiveEligibleAfter) {
+    throw new Error(`Edition ${edition} lifecycle must include valid live-sync and archive timestamps.`);
+  }
+  if (startsAt >= endsAt) {
+    throw new Error(`Edition ${edition} live-sync window must end after it starts.`);
+  }
+  if (archiveEligibleAfter < endsAt) {
+    throw new Error(`Edition ${edition} cannot become archive-eligible before live synchronization closes.`);
+  }
+  if (!["live", "review", "archived"].includes(lifecycle?.state)) {
+    throw new Error(`Edition ${edition} lifecycle state must be live, review, or archived.`);
+  }
+
+  return {
+    active: lifecycle.state === "live" && now >= startsAt && now < endsAt,
+    archiveEligible: now >= archiveEligibleAfter,
+    edition,
+    endsAt,
+    now,
+    startsAt,
+    state: lifecycle.state
+  };
 }
 
-if (process.argv.includes("--require-active") && !active) {
-  process.exitCode = 1;
+if (fileURLToPath(import.meta.url) === path.resolve(process.argv[1] || "")) {
+  const lifecycle = JSON.parse(await readFile(lifecyclePath, "utf8"));
+  const result = evaluateEditionLifecycle(
+    lifecycle,
+    process.env.TOURNAMENT_LIFECYCLE_NOW || Date.now()
+  );
+  console.log(
+    result.active
+      ? `${result.edition} live-sync lifecycle is open until ${result.endsAt.toISOString()}.`
+      : `${result.edition} live-sync lifecycle is closed (state ${result.state}, checked ${result.now.toISOString()}).`
+  );
+
+  if (process.argv.includes("--github-output")) {
+    if (!process.env.GITHUB_OUTPUT) {
+      throw new Error("GITHUB_OUTPUT is required with --github-output.");
+    }
+    await appendFile(
+      process.env.GITHUB_OUTPUT,
+      `active=${result.active ? "true" : "false"}\nedition=${result.edition}\nstate=${result.state}\n`
+    );
+  }
+
+  if (process.argv.includes("--require-active") && !result.active) {
+    process.exitCode = 1;
+  }
 }

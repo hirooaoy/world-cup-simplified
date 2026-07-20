@@ -1,6 +1,6 @@
 const DEFAULT_LANGUAGE = "en";
 export const LOCALE_SCHEMA_VERSION = 1;
-export const LOCALE_PACK_VERSION = "2026-07-19-1";
+export const LOCALE_PACK_VERSION = "2026-07-19-match-info-close-1";
 
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {
@@ -47,6 +47,7 @@ export const SHELL_MESSAGES = deepFreeze({
     juggleRecordAction: "Drop soccer ball",
     matches: "Matches",
     matchDetails: "Match details",
+    matchDetailsClose: "Close match details",
     matchesHeading: "Matches and selected match details",
     matchesList: "Matches",
     month: "Month",
@@ -105,6 +106,7 @@ export const SHELL_MESSAGES = deepFreeze({
     juggleRecordAction: "让足球落下",
     matches: "赛程",
     matchDetails: "比赛详情",
+    matchDetailsClose: "关闭比赛详情",
     matchesHeading: "比赛和已选比赛详情",
     matchesList: "比赛",
     month: "月份",
@@ -162,6 +164,7 @@ export const SHELL_MESSAGES = deepFreeze({
     juggleRecordAction: "Dejar caer el balón",
     matches: "Partidos",
     matchDetails: "Detalles del partido",
+    matchDetailsClose: "Cerrar detalles del partido",
     matchesHeading: "Partidos y detalles del partido seleccionado",
     matchesList: "Partidos",
     month: "Mes",
@@ -220,6 +223,7 @@ export const SHELL_MESSAGES = deepFreeze({
     juggleRecordAction: "축구공 떨어뜨리기",
     matches: "경기",
     matchDetails: "경기 상세",
+    matchDetailsClose: "경기 상세 닫기",
     matchesHeading: "경기 목록 및 선택한 경기 상세",
     matchesList: "경기 목록",
     month: "월",

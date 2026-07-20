@@ -20,6 +20,14 @@ const expectedStageCounts = {
   "bronze-final": 1,
   final: 1
 };
+const expected2026Awards = {
+  goldenBall: { field: "playerName", value: "Rodri", teamId: "ESP" },
+  goldenBoot: { field: "playerName", value: "Kylian Mbappe", teamId: "FRA", goals: 10, assists: 4 },
+  goldenGlove: { field: "playerName", value: "Unai Simon", teamId: "ESP" },
+  youngPlayer: { field: "playerName", value: "Pau Cubarsi", teamId: "ESP" },
+  fairPlay: { field: "teamName", value: "Netherlands", teamId: "NED" }
+};
+const officialHighlightChannelId = "UCwNqHDsnBCKT-olwJwIFyfg";
 const expectedChampions = {
   1930: "Uruguay",
   1934: "Italy",
@@ -264,6 +272,31 @@ function auditCurrentTournament(fixturesData, standingsData, teamsData, tourname
     check(fixtures.filter((fixture) => fixture.stage === stage).length === count, `2026 ${stage} count must be ${count}.`);
   }
   check((tournamentData.groups || []).length === 12, "2026 must contain 12 groups.");
+  check(fixturesData.coverage?.status === "complete", "2026 fixture coverage must be marked complete after the final.");
+  check(fixtures.every((fixture) => fixture.status === "FT"), "All 104 fixtures must be final after the tournament.");
+  check(fixtures.every((fixture) => Number.isInteger(fixture.score?.home) && Number.isInteger(fixture.score?.away)), "Every 2026 fixture must have an integer final score.");
+  check(fixtures.every((fixture) => (fixture.goalsHome || []).length === fixture.score.home && (fixture.goalsAway || []).length === fixture.score.away), "Every 2026 fixture goal-event count must match its final score.");
+  check(fixtures.every((fixture) => {
+    const english = fixture.resultStoryBullets || [];
+    const chinese = fixture.resultStoryBulletsZh || [];
+    return english.length >= 1 && english.length <= 3 && chinese.length === english.length;
+  }), "Every 2026 fixture must have matching English and Chinese result coverage.");
+  check(fixtures.every((fixture) =>
+    fixture.highlightVideo?.channelId === officialHighlightChannelId ||
+    (fixture.highlightVideoReview?.status === "not-found" && fixture.highlightVideoReview?.channelId === officialHighlightChannelId)
+  ), "Every 2026 fixture must retain an approved official highlight or reviewed not-found disposition.");
+
+  const sourcesById = new Map((tournamentData.sources || []).map((source) => [source.id, source]));
+  for (const [awardId, expected] of Object.entries(expected2026Awards)) {
+    const award = tournamentData.awards?.[awardId];
+    check(award?.status === "confirmed", `2026 ${awardId} must be confirmed.`);
+    check(award?.[expected.field] === expected.value && award?.teamId === expected.teamId, `2026 ${awardId} recipient must match the verified official result.`);
+    if (expected.goals !== undefined) {
+      check(award?.goals === expected.goals && award?.assists === expected.assists, "2026 Golden Boot totals must be 10 goals and 4 assists.");
+    }
+    const source = sourcesById.get(award?.sourceId);
+    check(Boolean(source && /^https:\/\//.test(source.url || "")), `2026 ${awardId} must retain resolvable HTTPS source provenance.`);
+  }
 
   for (const group of tournamentData.groups || []) {
     const fixturesForGroup = groupFixtures.filter((fixture) => fixture.groupId === group.id);
@@ -307,6 +340,12 @@ function auditCurrentTournament(fixturesData, standingsData, teamsData, tourname
   check([...qualifiedTeamIds].sort().join("|") === [...roundOf32TeamIds].sort().join("|"), "Round of 32 participants must equal the top two plus eight best third-place teams.");
 
   const byMatchNumber = new Map(fixtures.map((fixture) => [Number(fixture.matchNumber), fixture]));
+  const thirdPlace = byMatchNumber.get(103);
+  const final = byMatchNumber.get(104);
+  check(thirdPlace?.stage === "bronze-final" && thirdPlace?.status === "FT", "Match 103 must be the completed bronze final.");
+  check(final?.stage === "final" && final?.status === "FT", "Match 104 must be the completed final.");
+  check(fixtureWinner(final) === "ESP", "Spain must be recorded as the verified 2026 champion.");
+  check(final?.score?.home === 1 && final?.score?.away === 0, "The 2026 final must retain Spain's verified 1-0 extra-time result.");
   check([...byMatchNumber.keys()].sort((a, b) => a - b).join("|") === Array.from({ length: 104 }, (_, index) => index + 1).join("|"), "2026 match numbers must be unique and continuous from 1 to 104.");
   for (const fixture of fixtures.filter((item) => item.stage !== "group")) {
     if (fixture.status === "FT") {

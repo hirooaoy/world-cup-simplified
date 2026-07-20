@@ -130,6 +130,16 @@ async function readProjectedCard(matchNumber, fixtureTransform = () => {}) {
   return result;
 }
 
+function rewindFixtureToScheduled(fixture) {
+  fixture.status = "SCHEDULED";
+  delete fixture.score;
+  delete fixture.scoreDetails;
+  delete fixture.winner;
+  delete fixture.winnerTeamId;
+  delete fixture.goalsHome;
+  delete fixture.goalsAway;
+}
+
 try {
   assert(
     fixturesData.fixtures
@@ -155,6 +165,7 @@ try {
 
   const englandFinal = await readProjectedCard(104, (data) => {
     const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+    rewindFixtureToScheduled(final);
     final.awayTeamId = "ENG";
     delete final.projection;
   });
@@ -169,7 +180,10 @@ try {
     `Spain-England should use the sourced conditional final forecast. Measured ${JSON.stringify(englandFinal)}.`
   );
 
-  const argentinaFinal = await readProjectedCard(104);
+  const argentinaFinal = await readProjectedCard(104, (data) => {
+    const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+    rewindFixtureToScheduled(final);
+  });
   assert(
     argentinaFinal.teamIds.join("|") === "ESP|ARG" &&
       argentinaFinal.basis === "loaded" &&

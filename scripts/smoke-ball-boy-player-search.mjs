@@ -67,7 +67,7 @@ try {
   page.on("request", (request) => {
     requestedPaths.push(new URL(request.url()).pathname);
   });
-  await page.goto(`${baseUrl}?ballBoyPlayerSearchSmoke=1`, { waitUntil: "load" });
+  await page.goto(`${baseUrl}?ballBoyPlayerSearchSmoke=1&date=2026-06-20`, { waitUntil: "load" });
   await page.locator("#scout-launcher").click();
   const input = page.locator("#scout-input");
   const send = page.locator(".scout-send");

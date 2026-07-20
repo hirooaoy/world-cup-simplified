@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T23:32:27.450Z",
+  "updatedAt": "2026-07-20T00:32:56.641Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -197,16 +197,17 @@
     "fifa-argentina-spain-h2h-2026-07-17",
     "fifa-official-results-sync-2026-07-18",
     "fifa-goal-events-sync-2026-07-18",
-    "fifa-official-results-sync-2026-07-19",
-    "fifa-goal-events-sync-2026-07-19"
+    "fifa-official-results-sync-2026-07-20",
+    "fifa-goal-events-sync-2026-07-20",
+    "fifa-match-events-sync-2026-07-20"
   ],
   "coverage": {
-    "status": "complete-schedule",
+    "status": "complete",
     "loadedDateRange": [
       "2026-06-11",
       "2026-07-19"
     ],
-    "note": "Full tournament fixture skeleton is loaded. Rich previews, H2H, live status, scores and knockout participants are updated progressively."
+    "note": "All 104 official fixtures are final, with scores, knockout participants, lineups, and source-backed result coverage loaded."
   },
   "fixtures": [
     {
@@ -26149,7 +26150,9 @@
       },
       "matchEvents": {
         "sourceIds": [
-          "fifa-match-events-sync-2026-07-15"
+          "fifa-match-events-sync-2026-07-15",
+          "ap-argentina-switzerland-result-2026-07-11",
+          "guardian-argentina-switzerland-live-reaction-2026-07-11"
         ],
         "checkedAt": "2026-07-15T21:30:22.686Z",
         "home": {
@@ -26220,6 +26223,12 @@
               "playerName": "Breel Embolo",
               "type": "yellow",
               "minute": 44,
+              "side": "away"
+            },
+            {
+              "playerName": "Breel Embolo",
+              "type": "red",
+              "minute": 72,
               "side": "away"
             }
           ],
@@ -27868,6 +27877,84 @@
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
         "publishedAt": "2026-07-18T17:34:04-07:00",
         "checkedAt": "2026-07-18T17:34:04-07:00"
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-20"
+        ],
+        "checkedAt": "2026-07-20T00:32:13.407Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Ibrahima Konate",
+              "onName": "Dayot Upamecano",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Desire Doue",
+              "onName": "Bradley Barcola",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Theo Hernandez",
+              "onName": "Lucas Digne",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Rayan Cherki",
+              "onName": "Ousmane Dembele",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Malo Gusto",
+              "onName": "Jules Kounde",
+              "minute": "90+1",
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Marcus Rashford",
+              "onName": "Ollie Watkins",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Ivan Toney",
+              "onName": "Elliot Anderson",
+              "minute": 79,
+              "side": "away"
+            },
+            {
+              "offName": "Eberechi Eze",
+              "onName": "Jude Bellingham",
+              "minute": 79,
+              "side": "away"
+            },
+            {
+              "offName": "Jarell Quansah",
+              "onName": "Reece James",
+              "minute": 83,
+              "side": "away"
+            },
+            {
+              "offName": "Marc Guehi",
+              "onName": "Trevoh Chalobah",
+              "minute": "90+2",
+              "side": "away"
+            }
+          ]
+        }
       }
     },
     {
@@ -28267,7 +28354,175 @@
           "assistName": "Nico Williams"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-20",
+          "sky-spain-argentina-result-2026-07-19"
+        ],
+        "checkedAt": "2026-07-20T00:33:46.000Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Mikel Oyarzabal",
+              "onName": "Ferran Torres",
+              "minute": 62,
+              "side": "home"
+            },
+            {
+              "offName": "Fabian Ruiz",
+              "onName": "Pedri",
+              "minute": 62,
+              "side": "home"
+            },
+            {
+              "offName": "Alex Baena",
+              "onName": "Nico Williams",
+              "minute": 75,
+              "side": "home"
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 75,
+              "side": "home"
+            },
+            {
+              "offName": "Rodri",
+              "onName": "Martin Zubimendi",
+              "minute": 99,
+              "side": "home"
+            },
+            {
+              "offName": "Aymeric Laporte",
+              "onName": "Eric Garcia",
+              "minute": 99,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-4-2",
+          "cards": [
+            {
+              "playerName": "Lisandro Martinez",
+              "type": "yellow",
+              "minute": 41,
+              "side": "away"
+            },
+            {
+              "playerName": "Leandro Paredes",
+              "type": "yellow",
+              "minute": 52,
+              "side": "away"
+            },
+            {
+              "playerName": "Enzo Fernandez",
+              "type": "yellow",
+              "minute": 82,
+              "side": "away"
+            },
+            {
+              "playerName": "Cristian Romero",
+              "type": "yellow",
+              "minute": "90+2",
+              "side": "away"
+            },
+            {
+              "playerName": "Enzo Fernandez",
+              "type": "red",
+              "minute": "90+3",
+              "side": "away"
+            },
+            {
+              "playerName": "Lionel Scaloni",
+              "type": "yellow",
+              "minute": 105,
+              "staff": true,
+              "side": "away"
+            },
+            {
+              "playerName": "Alexis Mac Allister",
+              "type": "yellow",
+              "minute": 111,
+              "side": "away"
+            },
+            {
+              "playerName": "Leandro Paredes",
+              "type": "red",
+              "minute": "120+6",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Lisandro Martinez",
+              "onName": "Nicolas Otamendi",
+              "minute": 44,
+              "side": "away"
+            },
+            {
+              "offName": "Nico Gonzalez",
+              "onName": "Leandro Paredes",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Gonzalo Montiel",
+              "onName": "Nahuel Molina",
+              "minute": 58,
+              "side": "away"
+            },
+            {
+              "offName": "Cristian Romero",
+              "onName": "Facundo Medina",
+              "minute": 70,
+              "side": "away"
+            },
+            {
+              "offName": "Rodrigo De Paul",
+              "onName": "Giuliano Simeone",
+              "minute": 70,
+              "side": "away"
+            },
+            {
+              "offName": "Julian Alvarez",
+              "onName": "Marcos Senesi",
+              "minute": 102,
+              "side": "away"
+            }
+          ]
+        }
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=x-cpRHf4xd4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-19T17:32:54-07:00",
+        "checkedAt": "2026-07-19T17:32:54-07:00"
+      },
+      "resultStoryBullets": [
+        "Nico Williams headed Pedro Porro's cross back to Ferran Torres, who fired the 106th-minute winner to seal Spain's second World Cup title.",
+        "Enzo Fernández's second yellow at 90+3' left Argentina with ten men for extra time.",
+        "Emiliano Martínez made 11 saves to keep Spain scoreless through 90 minutes, but Torres finally found a way past him in extra time."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "fifa-spain-argentina-full-time-report-2026-07-19",
+          "sky-spain-argentina-result-2026-07-19"
+        ],
+        "checkedAt": "2026-07-19T17:44:27-07:00",
+        "note": "FIFA's full-time report lists 12 Spain shots on target and a 1-0 score, supporting 11 Martinez saves; Sky Sports confirmed Fernandez's second yellow and Torres's extra-time winner."
+      },
+      "resultStoryBulletsZh": [
+        "尼科·威廉斯头球回做佩德罗·波罗的传中，费兰·托雷斯第106分钟打入制胜球，帮助西班牙第二次夺得世界杯冠军。",
+        "恩佐·费尔南德斯在90+3分钟吃到第二张黄牌，阿根廷只能以十人进入加时赛。",
+        "埃米利亚诺·马丁内斯完成11次扑救，让西班牙在90分钟内未能破门，但托雷斯最终在加时赛中攻破了他的球门。"
+      ]
     }
   ]
 }

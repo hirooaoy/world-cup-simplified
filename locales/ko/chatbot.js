@@ -30,7 +30,7 @@ const copy = {
   newChat: "새 대화",
   close: "볼보이 닫기",
   suggestedQuestions: "추천 질문",
-  suggestions: ["오프사이드를 설명해 줘", "시간대 바꾸기", "아르헨티나는 어떻게 뛰어?", "오류 제보"],
+  suggestions: ["오프사이드를 설명해 줘", "지난 월드컵은 누가 우승했어?", "아르헨티나는 어떻게 뛰어?", "오류 제보"],
   showMore: "볼보이 답변 더 보기",
   moreBelow: "아래에 내용이 더 있어요",
   askLabel: "볼보이에게 질문하기",
@@ -386,6 +386,11 @@ const intents = {
     [/^(?:농담해 줘|축구 농담해 줘)$/, "tell me a joke"]
   ],
   replacements: [
+    [/월드컵 최다 우승국|가장 많이 우승한 나라/g, " who won most world cups "],
+    [/지난 월드컵|이전 월드컵|저번 월드컵|지난번/g, " last world cup "],
+    [/올해/g, " this year "], [/마지막으로|가장 최근에/g, " last "],
+    [/몇 번 우승/g, " how many world cups won "], [/누가 우승했|누가 우승/g, " who won "],
+    [/우승했|우승한|우승/g, " won "],
     [/오프사이드/g, " offside "], [/승부차기/g, " penalty shootout "], [/추가시간|인저리타임/g, " stoppage time "],
     [/연장전/g, " extra time "], [/레드카드|퇴장/g, " red card "], [/옐로카드|경고/g, " yellow card "],
     [/핸드볼|손에 맞/g, " handball "], [/페널티킥|페널티/g, " penalty kick "], [/교체/g, " substitution "],
