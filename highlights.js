@@ -1,6 +1,7 @@
 import { LANGUAGE_STORAGE_KEY } from "./app-config.js?v=2026-07-20-highlights-locales-1";
 import {
   getLanguageConfig,
+  getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
 } from "./locales/locale-runtime.js?v=2026-07-20-full-localization-audit-1";
@@ -17,6 +18,20 @@ const DEFAULT_AWARD_NAMES = Object.freeze({
   goldenBoot: "Kylian Mbappe",
   goldenGlove: "Unai Simon",
   youngPlayer: "Pau Cubarsi"
+});
+
+const BACK_LABELS = Object.freeze({
+  en: "Back",
+  es: "Volver",
+  ko: "뒤로",
+  zh: "返回"
+});
+
+const HOME_LABELS = Object.freeze({
+  en: "Back to Home",
+  es: "Volver al inicio",
+  ko: "홈으로 돌아가기",
+  zh: "返回首页"
 });
 
 const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
@@ -135,9 +150,7 @@ function captureEnglishLocale() {
     metaDescription: getElement("meta-description")?.content || "",
     metaTitle: document.title,
     ogDescription: getElement("og-description")?.content || "",
-    ogTitle: getElement("og-title")?.content || "",
-    themeDark: "Switch to dark mode",
-    themeLight: "Switch to light mode"
+    ogTitle: getElement("og-title")?.content || ""
   });
   return Object.freeze({
     schemaVersion: 1,
@@ -221,13 +234,29 @@ function updateInternalLinks() {
   });
 }
 
-function updateThemeLabel() {
-  const button = getElement("theme-toggle");
-  if (!button || !window.worldCupTheme) {
-    return;
+function updateShell() {
+  const shellText = getLocaleShellMessages(currentLanguage);
+  const settingsButton = getElement("settings-button");
+  const settingsPopover = getElement("settings-popover");
+  const languageSelect = getElement("language-select");
+  const darkModeToggle = getElement("dark-mode-toggle");
+
+  setText("back-link-label", BACK_LABELS[currentLanguage] || BACK_LABELS.en);
+  setText("settings-language-label", shellText.language);
+  setText("settings-dark-mode-label", shellText.darkMode);
+  setText("settings-home-label", HOME_LABELS[currentLanguage] || HOME_LABELS.en);
+
+  settingsButton?.setAttribute("aria-label", shellText.settings);
+  settingsButton?.setAttribute("title", shellText.settings);
+  settingsPopover?.setAttribute("aria-label", shellText.settings);
+  darkModeToggle?.setAttribute("aria-label", shellText.darkMode);
+
+  if (languageSelect) {
+    languageSelect.value = currentLanguage;
   }
-  const isDark = window.worldCupTheme.getTheme() === "dark";
-  button.setAttribute("aria-label", activeLocale.text[isDark ? "themeLight" : "themeDark"]);
+  if (darkModeToggle) {
+    darkModeToggle.checked = window.worldCupTheme?.getTheme() === "dark";
+  }
 }
 
 function applyLocale() {
@@ -247,13 +276,9 @@ function applyLocale() {
       element.setAttribute("aria-label", value);
     }
   });
-  const languageSelect = getElement("language-select");
-  if (languageSelect) {
-    languageSelect.value = currentLanguage;
-  }
   updateMetadata();
   updateInternalLinks();
-  updateThemeLabel();
+  updateShell();
   renderAwards(loadedAwards || {}, loadedProfiles || {});
 }
 
@@ -285,7 +310,10 @@ function setupLanguageSelect() {
     return;
   }
   select.addEventListener("change", async () => {
+    const control = select.closest(".language-control");
     select.disabled = true;
+    select.setAttribute("aria-busy", "true");
+    control?.classList.add("is-pending");
     try {
       await setLanguage(select.value);
     } catch (error) {
@@ -293,22 +321,58 @@ function setupLanguageSelect() {
       select.value = currentLanguage;
     } finally {
       select.disabled = false;
+      select.removeAttribute("aria-busy");
+      control?.classList.remove("is-pending");
     }
   });
 }
 
-function setupThemeToggle() {
-  const button = getElement("theme-toggle");
-  if (!button || !window.worldCupTheme) {
+function setSettingsOpen(isOpen) {
+  const button = getElement("settings-button");
+  const popover = getElement("settings-popover");
+  if (!button || !popover) {
     return;
   }
+  popover.classList.toggle("is-hidden", !isOpen);
+  button.setAttribute("aria-expanded", String(isOpen));
+}
+
+function setupSettings() {
+  const button = getElement("settings-button");
+  const popover = getElement("settings-popover");
+  const darkModeToggle = getElement("dark-mode-toggle");
+  if (!button || !popover || !darkModeToggle) {
+    return;
+  }
+
   button.addEventListener("click", () => {
-    const isDark = window.worldCupTheme.getTheme() === "dark";
-    window.worldCupTheme.setTheme(isDark ? "light" : "dark");
-    updateThemeLabel();
+    setSettingsOpen(button.getAttribute("aria-expanded") !== "true");
   });
-  window.worldCupTheme.subscribe(updateThemeLabel);
-  updateThemeLabel();
+
+  darkModeToggle.addEventListener("change", () => {
+    window.worldCupTheme?.setTheme(darkModeToggle.checked ? "dark" : "light");
+  });
+
+  window.worldCupTheme?.subscribe(({ theme }) => {
+    darkModeToggle.checked = theme === "dark";
+  });
+
+  document.addEventListener("click", (event) => {
+    if (
+      button.getAttribute("aria-expanded") === "true"
+      && !popover.contains(event.target)
+      && !button.contains(event.target)
+    ) {
+      setSettingsOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+      setSettingsOpen(false);
+      button.focus();
+    }
+  });
 }
 
 async function loadJson(url) {
@@ -340,7 +404,7 @@ function renderAwards(awards, profiles) {
 
 async function initialize() {
   setupLanguageSelect();
-  setupThemeToggle();
+  setupSettings();
 
   try {
     await setLanguage(resolveInitialLanguage(), { updateUrl: false });

@@ -181,7 +181,11 @@ const highlightsLocaleCases = [
     goldenBallMeaning: "Best overall player",
     goldenGloveStat: "Seven clean sheets in eight games.",
     goldenBootName: "Kylian Mbappé",
-    themeLabel: "Switch to dark mode"
+    backLabel: "Back",
+    settingsLabel: "Settings",
+    languageLabel: "Language",
+    darkModeLabel: "Dark mode",
+    homeLabel: "Back to Home"
   },
   {
     code: "zh",
@@ -190,7 +194,11 @@ const highlightsLocaleCases = [
     goldenBallMeaning: "赛事最佳球员",
     goldenGloveStat: "8场比赛7次零封。",
     goldenBootName: "基利安·姆巴佩",
-    themeLabel: "切换到深色模式"
+    backLabel: "返回",
+    settingsLabel: "设置",
+    languageLabel: "语言",
+    darkModeLabel: "深色模式",
+    homeLabel: "返回首页"
   },
   {
     code: "es",
@@ -199,7 +207,11 @@ const highlightsLocaleCases = [
     goldenBallMeaning: "Mejor jugador del torneo",
     goldenGloveStat: "Siete porterías a cero en ocho partidos.",
     goldenBootName: "Kylian Mbappé",
-    themeLabel: "Cambiar al modo oscuro"
+    backLabel: "Volver",
+    settingsLabel: "Configuración",
+    languageLabel: "Idioma",
+    darkModeLabel: "Modo oscuro",
+    homeLabel: "Volver al inicio"
   },
   {
     code: "ko",
@@ -208,7 +220,11 @@ const highlightsLocaleCases = [
     goldenBallMeaning: "대회 최우수 선수",
     goldenGloveStat: "8경기에서 7번 무실점.",
     goldenBootName: "킬리안 음바페",
-    themeLabel: "다크 모드로 전환"
+    backLabel: "뒤로",
+    settingsLabel: "설정",
+    languageLabel: "언어",
+    darkModeLabel: "다크 모드",
+    homeLabel: "홈으로 돌아가기"
   }
 ];
 
@@ -311,7 +327,15 @@ async function assertHighlightsLocales(browser) {
       language: document.documentElement.lang,
       languageOptions: document.querySelectorAll("#language-select option").length,
       selectedLanguage: document.querySelector("#language-select")?.value || "",
-      themeLabel: document.querySelector("#theme-toggle")?.getAttribute("aria-label") || "",
+      backLabel: document.querySelector("#back-link-label")?.textContent.trim() || "",
+      settingsLabel: document.querySelector("#settings-button")?.getAttribute("aria-label") || "",
+      languageLabel: document.querySelector("#settings-language-label")?.textContent.trim() || "",
+      darkModeLabel: document.querySelector("#settings-dark-mode-label")?.textContent.trim() || "",
+      homeLabel: document.querySelector("#settings-home-label")?.textContent.trim() || "",
+      homeHref: document.querySelector("#settings-home-link")?.getAttribute("href") || "",
+      hasSettingsPopover: Boolean(document.querySelector("#settings-popover")),
+      hasDarkModeToggle: Boolean(document.querySelector("#dark-mode-toggle")),
+      hasLegacyThemeButton: Boolean(document.querySelector("#theme-toggle")),
       title: document.querySelector("#page-title")?.textContent.trim() || "",
       urlLanguage: new URL(window.location.href).searchParams.get("lang") || "en"
     }));
@@ -328,7 +352,15 @@ async function assertHighlightsLocales(browser) {
         measured.goldenBallMeaning === locale.goldenBallMeaning &&
         measured.goldenGloveStat === locale.goldenGloveStat &&
         measured.goldenBootName === locale.goldenBootName &&
-        measured.themeLabel === locale.themeLabel &&
+        measured.backLabel === locale.backLabel &&
+        measured.settingsLabel === locale.settingsLabel &&
+        measured.languageLabel === locale.languageLabel &&
+        measured.darkModeLabel === locale.darkModeLabel &&
+        measured.homeLabel === locale.homeLabel &&
+        measured.homeHref === expectedBrandHref &&
+        measured.hasSettingsPopover &&
+        measured.hasDarkModeToggle &&
+        !measured.hasLegacyThemeButton &&
         pageErrors.length === 0,
       `${locale.code}: the awards page should render complete, localized copy and navigation without browser errors. Measured ${JSON.stringify({ measured, pageErrors })}.`
     );

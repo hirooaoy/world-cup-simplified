@@ -27,11 +27,12 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
     <link rel="stylesheet" href="styles/tokens.css?v=2026-07-17-modules-1" />
-    <link rel="stylesheet" href="highlights.css?v=2026-07-20-awards-4" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-20-historical-1950-format-1" />
+    <link rel="stylesheet" href="highlights.css?v=2026-07-20-awards-5" />
   </head>
-  <body class="is-locale-loading">
-    <header class="awards-header">
-      <a class="site-brand" href="./" data-preserve-language aria-label="World Cup Simplified home" data-i18n-aria="siteHome">
+  <body class="highlights-page is-locale-loading">
+    <header class="site-header report-header">
+      <a class="site-brand report-back-link" id="back-link" href="./" data-preserve-language>
         <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
           <path d="M18.6 24.5c-.5-4.8 1.3-9.5 4.8-12.4 3.6-2.9 8.2-3.9 12.4-2.7 4.8 1.4 8.4 4.5 10.1 8.6 1.6 4.2 1 9.3-1.3 13-2.5 4.1-6.7 6.8-11.7 6.9-5 .1-9.7-2.3-12.2-5.7-1.5-2.1-2-4.8-2.1-7.7Z" />
           <path d="M23.5 13.8c3.1.8 4.8 2.3 4.6 4.8-.1 1.7 2.5-.3 5 1.6 1.8 1.4.4 3.8-2.5 3.9-3 .1-2.6 3 .1 3.8 2.5.7 5.2 1.8 4.4 4.3-.4 1.6-2.4 2.5-2.9 5.5" />
@@ -47,26 +48,35 @@
           <path d="M21.7 55.2c5.5 1.6 15.7 1.6 20.7-.1" />
           <path d="M20.9 58.8c6.6 2 17.2 1.9 22.2-.2" />
         </svg>
-        <span data-i18n="siteBrand">World Cup Simplified</span>
+        <span class="brand-label" id="back-link-label">Back</span>
       </a>
 
-      <div class="header-actions">
-        <label class="visually-hidden" for="language-select" data-i18n="language">Language</label>
-        <select class="language-select" id="language-select" aria-label="Language" data-i18n-aria="language">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-          <option value="es">Español</option>
-          <option value="ko">한국어</option>
-        </select>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
-          <svg class="theme-toggle-sun" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="3.5"></circle>
-            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
-          </svg>
-          <svg class="theme-toggle-moon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 15.3A8 8 0 0 1 8.7 4a8.3 8.3 0 1 0 11.3 11.3Z"></path>
+      <div class="settings-shell report-settings">
+        <button class="settings-button" id="settings-button" type="button" aria-label="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-popover">
+          <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 0 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.3 7A2 2 0 0 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10 3V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 0 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 0 1 0 4H21a1.7 1.7 0 0 0-1.6.9Z" />
           </svg>
         </button>
+        <div class="settings-popover is-hidden" id="settings-popover" role="dialog" aria-label="Settings">
+          <label class="settings-section language-control">
+            <span class="settings-label" id="settings-language-label">Language</span>
+            <select class="timezone-select language-select" id="language-select" aria-labelledby="settings-language-label">
+              <option value="en" lang="en">English</option>
+              <option value="zh" lang="zh-Hans">中文</option>
+              <option value="es" lang="es-419">Español</option>
+              <option value="ko" lang="ko">한국어</option>
+            </select>
+          </label>
+          <label class="settings-section settings-toggle-control">
+            <span class="settings-label" id="settings-dark-mode-label">Dark mode</span>
+            <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox" />
+            <span class="settings-toggle-track" aria-hidden="true"></span>
+          </label>
+          <a class="settings-section settings-link-control" id="settings-home-link" href="./" data-preserve-language aria-labelledby="settings-home-label">
+            <span class="settings-label" id="settings-home-label">Back to Home</span>
+          </a>
+        </div>
       </div>
     </header>
 
@@ -202,7 +212,7 @@
         <p class="small-note"><strong data-i18n="alsoLabel">Also worth remembering:</strong> <span data-i18n="alsoText">Yoane Wissa scored DR Congo’s first-ever World Cup goal, while debutants Curaçao scored against Germany and held Ecuador to a 0–0 draw.</span></p>
       </section>
 
-      <aside class="source-note" aria-label="Sources and methodology" data-i18n-aria="sourcesAndMethodology">
+      <aside class="methodology-note" aria-label="Sources and methodology" data-i18n-aria="sourcesAndMethodology">
         <p><strong data-i18n="aboutHighlights">About these highlights</strong></p>
         <p data-i18n="methodology">Fan discussions helped us choose the moments. The awards, scores, and player totals were checked separately against match reports and the tournament data used throughout this site.</p>
         <p class="source-links">
@@ -219,10 +229,10 @@
       </aside>
     </main>
 
-    <footer class="awards-footer">
-      <p data-i18n="footer">World Cup Simplified · 2026 awards &amp; highlights</p>
+    <footer class="site-footer awards-footer">
+      <p class="source-note" data-i18n="footer">World Cup Simplified · 2026 awards &amp; highlights</p>
     </footer>
 
-    <script type="module" src="highlights.js?v=2026-07-20-full-localization-audit-1"></script>
+    <script type="module" src="highlights.js?v=2026-07-20-shell-parity-1"></script>
   </body>
 </html>
