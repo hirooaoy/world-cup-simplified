@@ -5070,59 +5070,40 @@ try {
   const postFinalCelebrationState = await postFinalCelebrationCheck.page.evaluate(() => {
     const body = document.body;
     const emptyState = document.querySelector("#match-list > .empty-state");
-    const finalAction = emptyState?.querySelector("[data-select-final-match]");
     return {
-      action: finalAction?.textContent.trim() || "",
-      actionDay: finalAction?.getAttribute("data-select-calendar-day") || "",
-      actionMatch: finalAction?.getAttribute("data-select-final-match") || "",
       bulletCount: document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li").length,
       hasCelebration: body.classList.contains("has-final-celebration"),
+      hasFinalAction: Boolean(emptyState?.querySelector("[data-select-final-match]")),
+      hasFinalInRecentMatches: Boolean(
+        document.querySelector('.yesterday-section [data-match-id="match-104-final-2026-07-19"]')
+      ),
       hasSummary: Boolean(document.querySelector("#final-celebration-banner .final-celebration-summary")),
       isCalm: body.classList.contains("is-final-celebration-calm"),
       message: emptyState
         ?.querySelector(".empty-state-post-tournament-description")
         ?.textContent.trim() || "",
-      awardsHref:
+      hasAwardsLink: Boolean(
         document.querySelector("#final-celebration-banner .final-celebration-awards-link")
-          ?.getAttribute("href") || "",
-      awardsText:
-        document.querySelector("#final-celebration-banner .final-celebration-awards-link")
-          ?.textContent.replace(/\s*→\s*$/u, "").trim() || "",
+      ),
+      recentMatchesTitle: document.querySelector(".yesterday-section-header h2")?.textContent.trim() || "",
       title: document.querySelector("#final-celebration-banner")?.textContent.replace(/\s+/g, " ").trim() || ""
     };
   });
   assert(
     postFinalCelebrationState.message === "The 2026 World Cup is over." &&
-      postFinalCelebrationState.action === "Revisit final match" &&
-      postFinalCelebrationState.actionDay === "2026-07-19" &&
-      postFinalCelebrationState.actionMatch === "match-104-final-2026-07-19" &&
       postFinalCelebrationState.bulletCount === 3 &&
       postFinalCelebrationState.hasCelebration &&
+      !postFinalCelebrationState.hasFinalAction &&
+      postFinalCelebrationState.hasFinalInRecentMatches &&
       !postFinalCelebrationState.hasSummary &&
       !postFinalCelebrationState.isCalm &&
-      postFinalCelebrationState.awardsHref === "highlights.html" &&
-      postFinalCelebrationState.awardsText === "View all awards" &&
+      !postFinalCelebrationState.hasAwardsLink &&
+      postFinalCelebrationState.recentMatchesTitle.includes("Recent matches (Jul 19)") &&
       postFinalCelebrationState.title.includes("Spain are 2026 world champions") &&
       postFinalCelebrationState.title.includes(
-        "Spain keep the ball, stretch the pitch and swarm immediately when possession is lost."
+        "Spain's philosophy is possession: keep the ball, stretch the pitch and swarm as soon as it is lost."
       ),
-    `July 20 should keep the animated champion cover and replace the exhausted next-match state with one final CTA. Measured ${JSON.stringify(postFinalCelebrationState)}.`
-  );
-  const postFinalAction = postFinalCelebrationCheck.page.locator(
-    '[data-select-final-match="match-104-final-2026-07-19"]'
-  );
-  await postFinalAction.click();
-  await postFinalCelebrationCheck.page
-    .locator('#match-info:not(.is-hidden)')
-    .waitFor({ state: "visible" });
-  assert(
-    (await postFinalCelebrationCheck.page.locator("#day-label").innerText()).trim() === "Jul 19" &&
-      (await postFinalCelebrationCheck.page
-        .locator('[data-match-id="match-104-final-2026-07-19"]')
-        .getAttribute("class"))?.includes("is-selected") &&
-      new URL(postFinalCelebrationCheck.page.url()).searchParams.get("match") ===
-        "match-104-final-2026-07-19",
-    "Revisit final match should return to July 19, select the final, and open its match details."
+    `July 20 should keep the animated champion cover, leave the final in Recent matches, and omit a redundant final CTA. Measured ${JSON.stringify(postFinalCelebrationState)}.`
   );
   await postFinalCelebrationCheck.context.close();
 
@@ -5132,24 +5113,21 @@ try {
       headline: "西班牙成为2026年世界杯冠军",
       history: "2010年",
       language: "zh",
-      philosophy: "西班牙掌控球权、拉开场地宽度，并在丢球后立即合围反抢。",
-      awardsText: "查看全部奖项"
+      philosophy: "西班牙的理念是控球：掌控球权、拉开场地宽度，并在丢球后立即合围反抢。"
     },
     {
       body: "España venció 1-0 a Argentina en la final.",
       headline: "España gana el Mundial de 2026",
       history: "2010",
       language: "es",
-      philosophy: "España conserva el balón, estira el campo y rodea al rival en cuanto pierde la posesión.",
-      awardsText: "Ver todos los premios"
+      philosophy: "La filosofía de España es la posesión: conservar el balón, estirar el campo y rodear al rival en cuanto lo pierde."
     },
     {
       body: "스페인이 결승에서 아르헨티나를 1-0으로 꺾었다.",
       headline: "스페인이 2026년 세계 챔피언에 올랐다",
       history: "2010년",
       language: "ko",
-      philosophy: "스페인은 공을 소유하고 경기장을 넓게 쓰며 공을 잃는 순간 상대를 에워싸 압박한다.",
-      awardsText: "모든 수상 보기"
+      philosophy: "스페인의 철학은 점유다: 공을 소유하고 경기장을 넓게 쓰며 공을 잃는 순간 상대를 에워싸 압박한다."
     }
   ];
   for (const localeCase of finalCelebrationLocaleCases) {
@@ -5158,16 +5136,14 @@ try {
       `/?view=matches&tz=America%2FLos_Angeles&lang=${localeCase.language}`
     );
     await localeCheck.page.waitForFunction(
-      ({ awardsText, body, headline, history, language, philosophy }) => {
+      ({ body, headline, history, philosophy }) => {
         const banner = document.querySelector("#final-celebration-banner");
-        const awardsLink = banner?.querySelector(".final-celebration-awards-link");
         const bullets = [...(banner?.querySelectorAll(".final-celebration-bullets li") || [])]
           .map((item) => item.innerText.trim());
         return (
           banner?.querySelector(".final-celebration-headline")?.textContent.trim() === headline &&
           !banner.querySelector(".final-celebration-summary") &&
-          awardsLink?.textContent.replace(/\s*→\s*$/u, "").trim() === awardsText &&
-          awardsLink?.getAttribute("href") === `highlights.html?lang=${language}` &&
+          !banner.querySelector(".final-celebration-awards-link") &&
           bullets.length === 3 &&
           bullets[0] === body &&
           bullets[1].includes(history) &&
@@ -5216,9 +5192,9 @@ try {
   await calmArchiveCheck.context.close();
 
   const postTournamentLocaleCases = [
-    { action: "重温决赛", language: "zh", message: "2026年世界杯已结束。" },
-    { action: "Volver al partido final", language: "es", message: "El Mundial 2026 ha terminado." },
-    { action: "결승전 다시 보기", language: "ko", message: "2026 월드컵이 끝났습니다." }
+    { language: "zh", message: "2026年世界杯已结束。" },
+    { language: "es", message: "El Mundial 2026 ha terminado." },
+    { language: "ko", message: "2026 월드컵이 끝났습니다." }
   ];
   for (const localeCase of postTournamentLocaleCases) {
     const localeCheck = await openPageAtTime(
@@ -5226,9 +5202,9 @@ try {
       `/?view=matches&tz=America%2FLos_Angeles&lang=${localeCase.language}`
     );
     await localeCheck.page.waitForFunction(
-      ({ action, message }) =>
+      ({ message }) =>
         document.querySelector(".empty-state-post-tournament-description")?.textContent.trim() === message &&
-        document.querySelector("[data-select-final-match]")?.textContent.trim() === action,
+        !document.querySelector("[data-select-final-match]"),
       localeCase
     );
     await localeCheck.context.close();
@@ -5533,7 +5509,7 @@ try {
     .innerText();
   assert(
     argentina2022Style ===
-      "Argentina balanced Messi's freedom with midfield runners, aggressive duels and the flexibility to change shape.",
+      "Argentina's philosophy was adaptability: free Messi, win the midfield battles and change shape whenever the match demanded it.",
     `The 2022 champion story should describe that Argentina side instead of reusing a country-level template. Measured ${argentina2022Style}.`
   );
   await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
@@ -5574,7 +5550,7 @@ try {
     .innerText();
   assert(
     argentina2022StyleZh ===
-      "阿根廷让梅西自由发挥，同时用中场前插、强硬对抗和灵活变阵维持平衡。",
+      "阿根廷的理念是适应：释放梅西、赢下中场对抗，并根据比赛需要灵活变阵。",
     `The localized 2022 champion story should preserve Argentina's edition-specific identity. Measured ${argentina2022StyleZh}.`
   );
   await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();

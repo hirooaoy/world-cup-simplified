@@ -66,7 +66,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Azzedine Ounahi opened the scoring for Morocco in the 50th minute.":
       "奥纳希在第50分钟为摩洛哥先拔头筹。",
     "archive": "存档",
-    "View all awards": "查看全部奖项",
     "He doubled Morocco's lead at 82', then Soufiane Rahimi sealed it at 90+8'.":
       "他在第82分钟将摩洛哥的优势扩大到2球，苏菲安·拉希米随后在90+8分钟再下一城。",
     "As it stands": "当前形势",
@@ -28342,25 +28341,21 @@ function getPostTournamentEmptyStateCopy(finalMatch) {
 
   if (currentLanguage === "zh") {
     return {
-      action: "重温决赛",
       message: `${editionYear}年世界杯已结束。`
     };
   }
   if (currentLanguage === "es") {
     return {
-      action: "Volver al partido final",
       message: `El Mundial ${editionYear} ha terminado.`
     };
   }
   if (currentLanguage === "ko") {
     return {
-      action: "결승전 다시 보기",
       message: `${editionYear} 월드컵이 끝났습니다.`
     };
   }
 
   return {
-    action: "Revisit final match",
     message: `The ${editionYear} World Cup is over.`
   };
 }
@@ -28405,13 +28400,10 @@ function createEmptyStateElement() {
       </div>
     ` : postTournamentCopy ? `
       <p class="empty-state-next-description empty-state-post-tournament-description">${escapeHtml(postTournamentCopy.message)}</p>
-      <div class="empty-actions">
-        <button class="primary-button empty-state-next-action" type="button" data-select-calendar-day="${escapeHtml(completedFinalDayKey)}" data-select-final-match="${escapeHtml(postTournamentFinal.id)}" aria-controls="match-info">${escapeHtml(postTournamentCopy.action)}</button>
-      </div>
     ` : ""}
   `;
-  const actionMatch = nextMatch || postTournamentFinal;
-  const actionDayKey = nextMatch ? nextMatchDayKey : completedFinalDayKey;
+  const actionMatch = nextMatch;
+  const actionDayKey = nextMatchDayKey;
   const actionButton = article.querySelector("[data-select-calendar-day]");
   actionButton?.addEventListener("click", async () => {
     selectCalendarDay(actionDayKey);
@@ -29637,51 +29629,51 @@ const FINAL_CELEBRATION_LAST_DAY_OFFSET = 14;
 
 const FINAL_CELEBRATION_STYLE_BY_EDITION = Object.freeze({
   "1930-uruguay":
-    "Uruguay played bold, direct football, with Scarone creating and a relentless forward line attacking in waves.",
+    "Uruguay's philosophy was audacity: attack directly, create through Scarone and send the forwards in waves.",
   "1934-italy":
-    "Pozzo's Italy mixed physical authority with swift, direct attacks and the invention of Meazza and Orsi.",
+    "Italy's philosophy was authority: overpower opponents, attack quickly and let Meazza and Orsi provide the invention.",
   "1938-italy":
-    "More polished than four years earlier, Italy defended with discipline and broke forward through Meazza, Piola and Colaussi.",
+    "Italy's philosophy was discipline: defend as a unit, then break through Meazza, Piola and Colaussi.",
   "1950-uruguay":
-    "Uruguay stayed composed under pressure, absorbed Brazil's waves and struck decisively through Schiaffino and Ghiggia.",
+    "Uruguay's philosophy was composure: absorb Brazil's pressure, remain patient and strike when the opening appeared.",
   "1954-germany":
-    "West Germany stayed organized, matched Hungary's intensity and believed through the rain until Rahn's late winner.",
+    "West Germany's philosophy was belief: stay organized, match Hungary's intensity and keep fighting until the final whistle.",
   "1958-brazil":
-    "Brazil gave Pelé and Garrincha room to improvise inside a balanced 4-2-4 built to attack.",
+    "Brazil's philosophy was freedom: give Pelé and Garrincha room to improvise within a balanced attacking system.",
   "1962-brazil":
-    "With Pelé injured, Brazil shifted the creative burden to Garrincha and won through depth, rhythm and wing play.",
+    "Brazil's philosophy was resilience: adapt without Pelé and win through Garrincha, rhythm and relentless wing play.",
   "1966-england":
-    "England's wingless 4-3-3 packed the midfield, released Bobby Charlton and attacked the box with runners.",
+    "England's philosophy was compactness: crowd the midfield, release Bobby Charlton and flood the box with runners.",
   "1970-brazil":
-    "Brazil let five number 10s share the ball, rotate positions and turn individual brilliance into flowing attacks.",
+    "Brazil's philosophy was expression: share the ball, rotate positions and turn individual brilliance into flowing attacks.",
   "1974-germany":
-    "West Germany combined Beckenbauer's control from the back with relentless marking and Müller's ruthless penalty-box movement.",
+    "West Germany's philosophy was control: build through Beckenbauer, mark relentlessly and let Müller rule the penalty area.",
   "1978-argentina":
-    "Menotti's Argentina played on the front foot, combining quickly and feeding Mario Kempes' driving runs from deep.",
+    "Argentina's philosophy was initiative: play forward, combine quickly and unleash Kempes from deep.",
   "1982-italy":
-    "Italy defended with patience, countered at speed and grew around Paolo Rossi's sudden burst of goals.",
+    "Italy's philosophy was patience: defend calmly, counter at speed and trust Rossi to find his moment.",
   "1986-argentina":
-    "Argentina gave Maradona the freedom to roam, with a disciplined 3-5-2 protecting the space behind him.",
+    "Argentina's philosophy was liberation: free Maradona to roam and organize everyone else around him.",
   "1990-germany":
-    "West Germany pressed higher and attacked more boldly than four years earlier, with Matthäus driving from midfield.",
+    "West Germany's philosophy was intensity: press higher, attack boldly and let Matthäus drive the team forward.",
   "1994-brazil":
-    "Brazil traded some romance for balance, with Dunga's control behind the devastating Romário-Bebeto partnership.",
+    "Brazil's philosophy was balance: control midfield through Dunga and release Romário and Bebeto to decide matches.",
   "1998-france":
-    "France built from the back, dominated midfield and let Zidane connect a powerful, tactically flexible side.",
+    "France's philosophy was structure: build from a powerful defense, dominate midfield and let Zidane connect the pieces.",
   "2002-brazil":
-    "Brazil's wing-backs stretched the field while Rivaldo and Ronaldinho created around Ronaldo's penalty-area movement.",
+    "Brazil's philosophy was width: stretch opponents with wing-backs and create around Ronaldo's penalty-box movement.",
   "2006-italy":
-    "Italy trusted an elite defense, a deep playmaker in Pirlo and timely goals from every part of the squad.",
+    "Italy's philosophy was trust: rely on an elite defense, give Pirlo the ball and expect goals from across the team.",
   "2010-spain":
-    "Spain suffocated matches with short passing, patient circulation and immediate pressure after losing the ball.",
+    "Spain's philosophy was possession: circulate patiently, compress the pitch and press immediately after losing the ball.",
   "2014-germany":
-    "Germany mixed positional interchange with fierce counter-pressing, then used their depth to keep the tempo high.",
+    "Germany's philosophy was interchange: rotate positions, counter-press fiercely and sustain the tempo through collective depth.",
   "2018-france":
-    "France defended in a compact block, then exploded into space through Mbappé while Griezmann linked the attack.",
+    "France's philosophy was transition: defend compactly, then explode into space through Mbappé and Griezmann.",
   "2022-argentina":
-    "Argentina balanced Messi's freedom with midfield runners, aggressive duels and the flexibility to change shape.",
+    "Argentina's philosophy was adaptability: free Messi, win the midfield battles and change shape whenever the match demanded it.",
   "2026-spain":
-    "Spain keep the ball, stretch the pitch and swarm immediately when possession is lost."
+    "Spain's philosophy is possession: keep the ball, stretch the pitch and swarm as soon as it is lost."
 });
 
 function getWorldCupEditionYear(fixture) {
@@ -29874,29 +29866,29 @@ function getFinalCelebrationPhilosophy(winner, editionYear) {
 
   if (currentLanguage === "zh") {
     const philosophies = {
-      "1930-uruguay": "乌拉圭踢得大胆而直接，由斯卡罗内组织进攻，锋线一波又一波向前冲击。",
-      "1934-italy": "波佐的意大利以强硬对抗配合快速直传，梅阿查和奥尔西则带来创造力。",
-      "1938-italy": "相比四年前，意大利更成熟；他们纪律严明地防守，再由梅阿查、皮奥拉和科劳西发动反击。",
-      "1950-uruguay": "乌拉圭在巨大压力下依然镇定，顶住巴西的攻势后，由斯基亚菲诺和吉贾完成致命一击。",
-      "1954-germany": "西德保持严密组织，在雨战中顶住匈牙利的强度，并一直相信自己，直到拉恩打进制胜球。",
-      "1958-brazil": "巴西以攻势足球为核心，在平衡的4-2-4体系中让贝利和加林查自由发挥。",
-      "1962-brazil": "贝利受伤后，巴西把创造重任交给加林查，并凭借阵容深度、节奏和边路进攻卫冕。",
-      "1966-england": "英格兰的“无翼奇阵”4-3-3充实中场，释放博比·查尔顿，并靠多人前插冲击禁区。",
-      "1970-brazil": "巴西让五位俱乐部的10号球员共享球权、轮转位置，把个人天赋融入行云流水的进攻。",
-      "1974-germany": "西德由贝肯鲍尔从后场掌控比赛，以紧逼限制对手，再由盖德·穆勒完成禁区内的致命一击。",
-      "1978-argentina": "梅诺蒂的阿根廷主动进攻，通过快速配合为肯佩斯从后排插上的冲击力创造空间。",
-      "1982-italy": "意大利耐心防守、快速反击，并随着保罗·罗西突然爆发的进球越战越勇。",
-      "1986-argentina": "阿根廷让马拉多纳自由游走，同时用纪律严明的3-5-2保护他身后的空间。",
-      "1990-germany": "西德比四年前压迫更靠前、进攻更大胆，马特乌斯则从中场持续推动球队。",
-      "1994-brazil": "巴西收起一部分浪漫，换来更好的攻守平衡；邓加掌控中场，罗马里奥和贝贝托在前场制造杀机。",
-      "1998-france": "法国从稳固后防出发，掌控中场，再由齐达内串联这支强悍而灵活的球队。",
-      "2002-brazil": "巴西用翼卫拉开宽度，让里瓦尔多和罗纳尔迪尼奥围绕罗纳尔多的禁区跑动创造机会。",
-      "2006-italy": "意大利依靠顶级防线、皮尔洛的后场调度，以及来自全队各个位置的关键进球。",
-      "2010-spain": "西班牙用短传和耐心控球压制比赛，丢球后立即反抢。",
-      "2014-germany": "德国把位置轮转与凶狠反抢结合起来，再用阵容深度持续维持高节奏。",
-      "2018-france": "法国保持紧凑防守，再由姆巴佩冲击身后空间，格列兹曼负责串联进攻。",
-      "2022-argentina": "阿根廷让梅西自由发挥，同时用中场前插、强硬对抗和灵活变阵维持平衡。",
-      "2026-spain": "西班牙掌控球权、拉开场地宽度，并在丢球后立即合围反抢。"
+      "1930-uruguay": "乌拉圭的理念是勇气：直接进攻，由斯卡罗内组织，让锋线一波又一波向前冲击。",
+      "1934-italy": "意大利的理念是强势：压倒对手，快速进攻，让梅阿查和奥尔西带来创造力。",
+      "1938-italy": "意大利的理念是纪律：整体防守，再由梅阿查、皮奥拉和科劳西向前突破。",
+      "1950-uruguay": "乌拉圭的理念是镇定：顶住巴西的压力，保持耐心，在机会出现时果断出击。",
+      "1954-germany": "西德的理念是信念：保持严密组织，匹敌匈牙利的强度，坚持战斗到终场哨响。",
+      "1958-brazil": "巴西的理念是自由：在平衡的进攻体系中，让贝利和加林查自由发挥。",
+      "1962-brazil": "巴西的理念是韧性：适应贝利缺阵，依靠加林查、节奏和持续的边路进攻取胜。",
+      "1966-england": "英格兰的理念是紧凑：充实中场，释放博比·查尔顿，让多人前插冲击禁区。",
+      "1970-brazil": "巴西的理念是表达：共享球权、轮转位置，把个人天赋融入行云流水的进攻。",
+      "1974-germany": "西德的理念是掌控：由贝肯鲍尔从后场组织，紧盯对手，让盖德·穆勒统治禁区。",
+      "1978-argentina": "阿根廷的理念是主动：向前推进、快速配合，让肯佩斯从后排发起冲击。",
+      "1982-italy": "意大利的理念是耐心：从容防守、快速反击，相信罗西会抓住属于他的机会。",
+      "1986-argentina": "阿根廷的理念是释放：让马拉多纳自由游走，其他人围绕他严密组织。",
+      "1990-germany": "西德的理念是强度：高位压迫、大胆进攻，让马特乌斯推动全队向前。",
+      "1994-brazil": "巴西的理念是平衡：由邓加掌控中场，让罗马里奥和贝贝托决定比赛。",
+      "1998-france": "法国的理念是结构：立足强大防线、掌控中场，让齐达内串联全队。",
+      "2002-brazil": "巴西的理念是宽度：用翼卫拉开对手，让进攻围绕罗纳尔多的禁区跑动展开。",
+      "2006-italy": "意大利的理念是信任：依靠顶级防线，把球交给皮尔洛，并期待全队贡献进球。",
+      "2010-spain": "西班牙的理念是控球：耐心传递、压缩场地，丢球后立即反抢。",
+      "2014-germany": "德国的理念是换位：轮转位置、凶狠反抢，用整体深度持续维持高节奏。",
+      "2018-france": "法国的理念是转换：保持紧凑防守，再由姆巴佩和格列兹曼迅速冲击空间。",
+      "2022-argentina": "阿根廷的理念是适应：释放梅西、赢下中场对抗，并根据比赛需要灵活变阵。",
+      "2026-spain": "西班牙的理念是控球：掌控球权、拉开场地宽度，并在丢球后立即合围反抢。"
     };
     return philosophies[editionKey] || `${translateTextToZh(winner.name)}在整体结构、共同投入和个人能力之间找到了夺冠所需的平衡。`;
   }
@@ -30028,9 +30020,6 @@ function renderFinalCelebration() {
       .map((sentence) => (/[.!?]$/u.test(sentence) ? sentence : `${sentence}.`))
       .join(" ")
   );
-  const awardsLanguageQuery = currentLanguage === "en"
-    ? ""
-    : `?lang=${encodeURIComponent(currentLanguage)}`;
   banner.innerHTML = `
     <span class="final-celebration-confetti" aria-hidden="true">
       ${getFinalCelebrationConfettiMarkup()}
@@ -30039,7 +30028,6 @@ function renderFinalCelebration() {
       <span class="final-celebration-kicker"><span class="final-celebration-trophy" aria-hidden="true">🏆</span> FIFA World Cup ${editionYear}</span>
       <strong class="final-celebration-headline">${escapeHtml(headline)}</strong>
       ${descriptionMarkup}
-      <a class="final-celebration-awards-link" href="highlights.html${awardsLanguageQuery}">${escapeHtml(localizeText("View all awards"))} <span aria-hidden="true">→</span></a>
     </span>
   `;
   document.body.dataset.finalCelebrationPalette = championItem.palette;

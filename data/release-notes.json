@@ -6,8 +6,8 @@
       "title": "World champions, richer archives, and smarter Ball Boy",
       "titleZh": "世界杯冠军、更完整的存档与更聪明的 Ball Boy",
       "highlights": [
-        "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the full celebration through August 2, then from August 3 retain only the calm World Cup is over message and Revisit final match action back to July 19.",
-        "A new 2026 highlights page brings together Spain's title run, every official award winner and why they stood out, and fan-favorite stories led by Cabo Verde; View all awards now opens it from the champion banner.",
+        "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards and a philosophy-led playing-style summary; later empty days keep the full celebration through August 2, then from August 3 retain only the calm World Cup is over message while the final remains available in Recent matches.",
+        "The dedicated 2026 highlights page brings together Spain's title run, every official award winner and why they stood out, and fan-favorite stories led by Cabo Verde, while the champion banner now stays focused on the title story.",
         "Every completed 2026 match now requires exactly three recap bullets in English and Chinese, with curated Spanish and Korean equivalents; validators, generators, and locale smoke tests enforce the contract so shortened or untranslated stories cannot silently ship.",
         "Player cards now keep initials visible while remote portraits load and retry failed Wikimedia photos through an alternate route; a new archive-wide image audit checks every verified historical photo without treating genuinely unavailable early-era portraits as broken.",
         "Ball Boy now answers who won this World Cup or the previous edition, which country has the most titles, and when a country last won across current and historical tournaments.",
@@ -20,8 +20,8 @@
         "The bottom source and freshness footer now stays on Matches and Report issue but is omitted from every Standings mode and archived Standings year."
       ],
       "highlightsZh": [
-        "已结束的决赛日现在会展示冠军横幅、彩纸、背景烟花和带球员卡片的三点夺冠故事；之后的无比赛日会保留完整庆祝效果至8月2日，从8月3日起仅保留简洁的世界杯已结束提示和返回7月19日的“重温决赛”按钮。",
-        "全新的2026年亮点页面汇集西班牙的夺冠之路、每位官方奖项得主及其获奖原因，以及以佛得角为首的球迷最爱故事；冠军横幅中的“查看全部奖项”现在可直接打开该页面。",
+        "已结束的决赛日现在会展示冠军横幅、彩纸、背景烟花，以及带球员卡片和以球队理念概括比赛风格的三点夺冠故事；之后的无比赛日会保留完整庆祝效果至8月2日，从8月3日起仅保留简洁的世界杯已结束提示，决赛仍可在近期比赛中查看。",
+        "独立的2026年亮点页面汇集西班牙的夺冠之路、每位官方奖项得主及其获奖原因，以及以佛得角为首的球迷最爱故事；冠军横幅现在则专注呈现夺冠故事。",
         "2026年所有已结束比赛现在都必须提供三条中英文赛果回顾，并配有经编辑的西班牙语和韩语版本；验证器、生成器和语言冒烟测试会共同执行该规则，避免简略或未翻译的回顾悄然上线。",
         "球员卡片现在会在远程照片加载期间保留姓名首字母，并在维基媒体照片首次失败时改用备用路径重试；新增的往届照片审计会检查每一张已验证图片，同时不会把早期赛事中确实找不到照片的球员误判为故障。",
         "Ball Boy 现在可以回答本届或上届世界杯冠军、夺冠次数最多的国家，以及各国最近一次夺冠时间等当前与历史赛事问题。",

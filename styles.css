@@ -1564,35 +1564,6 @@ body.has-final-celebration .site-header:has(
   font-weight: 800;
 }
 
-.final-celebration-awards-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 28px;
-  margin-top: 5px;
-  padding: 0 11px;
-  border: 1px solid color-mix(in srgb, var(--celebration-primary) 24%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, #ffffff 42%, transparent);
-  color: var(--celebration-ink);
-  font-size: 10px;
-  font-weight: 760;
-  line-height: 1;
-  text-decoration: none;
-  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
-}
-
-.final-celebration-awards-link:hover {
-  border-color: color-mix(in srgb, var(--celebration-primary) 42%, transparent);
-  background: color-mix(in srgb, #ffffff 68%, transparent);
-  transform: translateY(-1px);
-}
-
-.final-celebration-awards-link:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
 .final-celebration-banner:has(.final-celebration-bullets) {
   padding-block: clamp(22px, 2vw, 26px);
 }
@@ -1793,17 +1764,6 @@ html[data-theme="dark"] .final-celebration-bullets {
 
 html[data-theme="dark"] .final-celebration-bullets li::before {
   color: var(--celebration-dark-highlight);
-}
-
-html[data-theme="dark"] .final-celebration-awards-link {
-  border-color: color-mix(in srgb, var(--celebration-dark-highlight) 32%, transparent);
-  background: rgba(255, 255, 255, 0.07);
-  color: #ffffff;
-}
-
-html[data-theme="dark"] .final-celebration-awards-link:hover {
-  border-color: color-mix(in srgb, var(--celebration-dark-highlight) 56%, transparent);
-  background: rgba(255, 255, 255, 0.12);
 }
 
 .page-title {
