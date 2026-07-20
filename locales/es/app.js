@@ -3,6 +3,7 @@ import {
   getPlayerSkillCategory,
   isGeneratedPlayerCardCopy
 } from "../player-note-templates.js";
+import { translateCompoundPosition } from "../position-runtime.js";
 
 const UI = {
   adminMessage: "Mensaje del sitio",
@@ -315,6 +316,7 @@ const PLAYER_POSITIONS = {
 const EXACT = {
   "After extra time": "Tras la prórroga",
   archive: "archivo",
+  "View all awards": "Ver todos los premios",
   "As it stands": "Así está la clasificación",
   "Best third-place race": "Clasificación de los mejores terceros",
   "Bracket details are not loaded yet.": "El cuadro todavía no está disponible.",
@@ -407,6 +409,8 @@ const EXACT = {
   "Games Left": "Partidos restantes",
   Rank: "Pos.",
   Pts: "Pts",
+  "Points use this tournament's scoring: 2 for a win, 1 for a draw, 0 for a loss.":
+    "Los puntos siguen el sistema de este torneo: 2 por victoria, 1 por empate y 0 por derrota.",
   MP: "PJ",
   W: "G",
   D: "E",
@@ -419,6 +423,19 @@ const EXACT = {
   "Final round": "Ronda final",
   "Final Round": "Ronda final",
   "Final round standings": "Clasificación de la ronda final",
+  "Title decider": "Partido decisivo por el título",
+  Champion: "Campeón",
+  "No knockout final": "Sin final eliminatoria",
+  "Four group winners played a round-robin. Uruguay–Brazil decided the title on the last matchday.":
+    "Los cuatro ganadores de grupo disputaron una liguilla. Uruguay-Brasil decidió el título en la última jornada.",
+  "See the Groups tab for the complete final-round table.":
+    "Consulta la tabla completa de la ronda final en la pestaña Grupos.",
+  "This four-team table decided the 1950 world champion.":
+    "Esta tabla de cuatro selecciones decidió al campeón mundial de 1950.",
+  "1950 ended with a four-team final round. Uruguay–Brazil was the title decider.":
+    "El Mundial de 1950 terminó con una ronda final de cuatro selecciones. Uruguay-Brasil decidió el título.",
+  "First-round groups and the final-round championship table use archived results and tournament-era tie-breakers.":
+    "Los grupos de la primera ronda y la tabla de la ronda final usan resultados archivados y los criterios de desempate de la época.",
   "Second round": "Segunda ronda",
   "First round": "Primera ronda",
   "First round, Replays": "Primera ronda, desempates",
@@ -1181,19 +1198,23 @@ const PATTERNS = [
       `${translateTeamName(home)} y ${translateTeamName(away)} no se habían enfrentado antes en un Mundial masculino.`
   },
   {
+    id: "historical-replay-required",
+    match: /^The (\d+-\d+) draw required a replay to decide who advanced\.$/iu,
+    replace: (score) =>
+      `El empate ${score} obligó a disputar un partido de desempate para decidir quién avanzaba.`
+  },
+  {
+    id: "historical-replay-followup",
+    match: /^This replay followed the teams' (\d+-\d+) draw in the earlier match\.$/iu,
+    replace: (score) =>
+      `Este partido de desempate se disputó después del empate ${score} del encuentro anterior.`
+  },
+  {
     id: "loading-bracket",
     match: /^Loading\s+(.+)$/iu,
     replace: (subject) => `Cargando ${subject}`
   }
 ];
-
-function normalizePositionKey(value) {
-  return String(value || "")
-    .trim()
-    .toLocaleLowerCase("en-US")
-    .replace(/[‐‑‒–—-]/gu, " ")
-    .replace(/\s+/gu, " ");
-}
 
 export function translateTeamName(value, teamId = "") {
   const id = String(teamId || "").trim().toLocaleUpperCase("en-US");
@@ -1206,9 +1227,10 @@ export function translateTeamName(value, teamId = "") {
 
 export function translateLineupPosition(value) {
   const position = String(value || "").trim();
-  return LINEUP_POSITIONS[position.toLocaleUpperCase("en-US")] ||
-    PLAYER_POSITIONS[normalizePositionKey(position)] ||
-    position;
+  return translateCompoundPosition(position, {
+    lineupPositions: LINEUP_POSITIONS,
+    playerPositions: PLAYER_POSITIONS
+  });
 }
 
 export function formatPlayerSkill(value) {
@@ -1796,7 +1818,7 @@ export function formatAppMessage(type, data = {}) {
         case "champion-body":
           return `${winner} venció ${data.scoreText} a ${loser} en la final.`;
         case "champion-headline":
-          return `${winner} es campeón del mundo de ${data.editionYear}`;
+          return `${winner} gana el Mundial de ${data.editionYear}`;
         case "tournament-wrap-meta":
           return "Balance del torneo";
         case "golden-boot-winner-headline":
@@ -1814,6 +1836,48 @@ export function formatAppMessage(type, data = {}) {
         default:
           return "";
       }
+    }
+    case "final-celebration-review": {
+      const winner = translateTeamName(data.winner);
+      if (data.variant === "title-history-previous") {
+        const ordinalWords = ["", "primer", "segundo", "tercer", "cuarto", "quinto"];
+        const ordinal = ordinalWords[data.titleNumber] || `${data.titleNumber}.º`;
+        const playerClause = data.hasPlayers ? ` con ${data.playerNames}` : "";
+        return `Este es el ${ordinal} título mundial de ${winner}, después de su triunfo de ${data.previousTitleYear}${playerClause}.`;
+      }
+      if (data.variant === "title-history-first") {
+        return `Este es el primer título mundial de ${winner}${data.hasPlayers ? `, conquistado con ${data.playerNames}` : ""}.`;
+      }
+      if (data.variant === "philosophy") {
+        const editionKey = `${data.editionYear}-${data.teamKey}`;
+        const philosophies = {
+          "1930-uruguay": "Uruguay jugó con valentía y verticalidad, con Scarone creando y una delantera que atacaba en oleadas.",
+          "1934-italy": "La Italia de Pozzo unió autoridad física, ataques directos y rápidos, y la inventiva de Meazza y Orsi.",
+          "1938-italy": "Más pulida que cuatro años antes, Italia defendía con disciplina y salía con Meazza, Piola y Colaussi.",
+          "1950-uruguay": "Uruguay mantuvo la calma bajo presión, resistió las oleadas de Brasil y golpeó con Schiaffino y Ghiggia.",
+          "1954-germany": "Alemania Federal se mantuvo ordenada, igualó la intensidad de Hungría y creyó hasta el gol tardío de Rahn bajo la lluvia.",
+          "1958-brazil": "Brasil dio libertad a Pelé y Garrincha dentro de un 4-2-4 equilibrado y construido para atacar.",
+          "1962-brazil": "Lesionado Pelé, Brasil entregó la creatividad a Garrincha y ganó con profundidad de plantilla, ritmo y juego por bandas.",
+          "1966-england": "El 4-3-3 sin extremos de Inglaterra pobló el medio, liberó a Bobby Charlton y llenó el área de llegadores.",
+          "1970-brazil": "Brasil reunió a cinco dieces para compartir el balón, intercambiar posiciones y convertir el talento individual en ataques fluidos.",
+          "1974-germany": "Alemania Federal combinó el mando de Beckenbauer desde atrás con marcajes intensos y la letal movilidad de Müller en el área.",
+          "1978-argentina": "La Argentina de Menotti atacó de frente, combinó con rapidez y alimentó las llegadas de Mario Kempes desde atrás.",
+          "1982-italy": "Italia defendió con paciencia, contraatacó con velocidad y creció con la repentina racha goleadora de Paolo Rossi.",
+          "1986-argentina": "Argentina dio libertad a Maradona para moverse, protegida detrás por un 3-5-2 disciplinado.",
+          "1990-germany": "Alemania Federal presionó más arriba y atacó con más ambición que cuatro años antes, impulsada por Matthäus desde el medio.",
+          "1994-brazil": "Brasil cambió parte de su romanticismo por equilibrio, con Dunga al mando y la devastadora pareja Romário-Bebeto.",
+          "1998-france": "Francia se construyó desde la defensa, dominó el medio y dejó que Zidane conectara un equipo poderoso y flexible.",
+          "2002-brazil": "Los carrileros de Brasil dieron amplitud mientras Rivaldo y Ronaldinho creaban alrededor de los movimientos de Ronaldo en el área.",
+          "2006-italy": "Italia confió en una defensa de élite, Pirlo como organizador retrasado y goles oportunos desde todo el equipo.",
+          "2010-spain": "España asfixió los partidos con pases cortos, circulación paciente y presión inmediata tras perder el balón.",
+          "2014-germany": "Alemania mezcló intercambios de posición y contrapresión feroz, y usó su profundidad para sostener un ritmo alto.",
+          "2018-france": "Francia defendió en bloque compacto y después atacó el espacio con Mbappé, mientras Griezmann enlazaba el juego.",
+          "2022-argentina": "Argentina equilibró la libertad de Messi con llegadas del medio, duelos agresivos y flexibilidad para cambiar de sistema.",
+          "2026-spain": "España conserva el balón, estira el campo y rodea al rival en cuanto pierde la posesión."
+        };
+        return philosophies[editionKey] || `${winner} encontró el equilibrio necesario para ganar entre estructura, esfuerzo colectivo y calidad individual.`;
+      }
+      return "";
     }
     case "catch-up-result": {
       const winner = translateTeamName(data.winner);

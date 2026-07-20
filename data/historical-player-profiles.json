@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T04:30:26.916Z",
+  "updatedAt": "2026-07-20T06:28:02.106Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -13,7 +13,7 @@
     "note": "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs or historical goal records.",
     "imageStatus": "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
     "imageNote": "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, and add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override.",
-    "minimumImageCount": 2588,
+    "minimumImageCount": 2602,
     "finalSemiImageStatus": "targeted-final-and-semi-final-scorers-key-players-and-team-description-mentions",
     "finalSemiImageTargetCount": 294,
     "finalSemiImageCount": 260,
@@ -1962,7 +1962,14 @@
       "summary": "Historical 1930 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: United States.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的比赛方式建立在射门方向明确前的身体平衡上。他会先保护球门中央，确认能触球时才选择出击。他也会守住危险线路，直到队友能对持球人施压。",
-      "noteZh": "他在1930年世界杯代表美国，位置是门将。本站收录了他1场重点比赛。"
+      "noteZh": "他在1930年世界杯代表美国，位置是门将。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jimmy_douglas_us_goalkeeper.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Jimmy_douglas_us_goalkeeper.jpg",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Jimmy Douglas (American soccer)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Jimmy_Douglas_(American_soccer)"
     },
     "Tom Florie / United States / 1930": {
       "profileKey": "Tom Florie / United States / 1930",
@@ -6050,7 +6057,14 @@
       "summary": "Historical 1938 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "要看懂他的作用，关键是对防线身后空当的提前攻击。留意他如何移动中进入射门位置，并在最近的盯防者回位前完成终结。他也会用身体护住球，再让队友加入进攻。",
-      "noteZh": "他在1938年世界杯代表德国，位置是前锋。本届打进1球。本站收录了他1场重点比赛。"
+      "noteZh": "他在1938年世界杯代表德国，位置是前锋。本届打进1球。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Joseph_Gauchel.png?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Joseph_Gauchel.png",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "CC BY-SA 4.0",
+      "imagePageTitle": "Josef Gauchel",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Josef_Gauchel"
     },
     "Wilhelm Hahnemann / Germany / 1938": {
       "profileKey": "Wilhelm Hahnemann / Germany / 1938",
@@ -6909,7 +6923,14 @@
       "summary": "Historical 1938 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Romania.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的突出特点是对防线身后空当的提前攻击。他会用身体护住球，再让队友加入进攻。他也会在最近的防守者回位前完成射门。",
-      "noteZh": "他在1938年世界杯代表罗马尼亚，位置是前锋。本站收录了他1场重点比赛。"
+      "noteZh": "他在1938年世界杯代表罗马尼亚，位置是前锋。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Iuliu%20Prassler.01.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Iuliu_Prassler.01.jpg",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Gyula Prassler",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Gyula_Prassler"
     },
     "Iuliu Baratky / Romania / 1938": {
       "profileKey": "Iuliu Baratky / Romania / 1938",
@@ -11135,7 +11156,14 @@
       "summary": "Historical 1954 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的突出特点是对防线身后空当的提前攻击。他会用身体护住球，再让队友加入进攻。他也会在最近的防守者回位前完成射门。",
-      "noteZh": "他在1954年世界杯代表法国，位置是前锋。本站收录了他2场重点比赛。"
+      "noteZh": "他在1954年世界杯代表法国，位置是前锋。本站收录了他2场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abdelaziz-Ben-Tifour-cropped.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Abdelaziz-Ben-Tifour-cropped.jpg",
+      "imageCredit": "Abdelaziz-Ben-Tifour.jpg : Ziplatko derivative work: Clapsus ( talk )",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Abdelaziz Ben Tifour",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Abdelaziz_Ben_Tifour"
     },
     "Abderrahmane Mahjoub / France / 1954": {
       "profileKey": "Abderrahmane Mahjoub / France / 1954",
@@ -13651,7 +13679,14 @@
       "summary": "Historical 1958 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "要看懂他的作用，关键是对防线身后空当的提前攻击。留意他如何用身体护住球，再让队友加入进攻。他也会在最近的防守者回位前完成射门。",
-      "noteZh": "他在1958年世界杯代表阿根廷，位置是前锋。本站收录了他2场重点比赛。"
+      "noteZh": "他在1958年世界杯代表阿根廷，位置是前锋。本站收录了他2场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alfredo%20rojas%20lanus.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Alfredo_rojas_lanus.jpg",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Alfredo Rojas (Argentine footballer)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Alfredo_Rojas_(Argentine_footballer)"
     },
     "Ángel Labruna / Argentina / 1958": {
       "profileKey": "Ángel Labruna / Argentina / 1958",
@@ -16977,11 +17012,6 @@
       "note": "West Germany's 1958 World Cup goalkeeper. Appears in 1 featured match.",
       "summary": "Historical 1958 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: West Germany.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Verrassende_voetbalzege_in_D%C3%BCsseldorf_Weeknummer%2C_56-12_-_Open_Beelden_-_9166.ogv?width=160",
-      "imageSource": "wikimedia-commons",
-      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Verrassende_voetbalzege_in_D%C3%BCsseldorf_Weeknummer,_56-12_-_Open_Beelden_-_9166.ogv",
-      "imageCredit": "Nederlands Instituut voor Beeld en Geluid",
-      "imageLicense": "CC BY-SA 3.0 nl",
       "imagePageTitle": "Fritz Herkenrath",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Fritz_Herkenrath",
       "styleNoteZh": "他的突出特点是射门方向明确前的身体平衡。他会先保护球门中央，确认能触球时才选择出击。他也会守住危险线路，直到队友能对持球人施压。",
@@ -21634,7 +21664,14 @@
       "summary": "Historical 1966 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他最特别的地方是对防线身后空当的提前攻击。他会用身体护住球，再让队友加入进攻。他也会在最近的防守者回位前完成射门。",
-      "noteZh": "他在1966年世界杯代表阿根廷，位置是前锋。本站收录了他2场重点比赛。"
+      "noteZh": "他在1966年世界杯代表阿根廷，位置是前锋。本站收录了他2场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alfredo%20rojas%20lanus.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Alfredo_rojas_lanus.jpg",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Alfredo Rojas (Argentine footballer)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Alfredo_Rojas_(Argentine_footballer)"
     },
     "Aníbal Tarabini / Argentina / 1966": {
       "profileKey": "Aníbal Tarabini / Argentina / 1966",
@@ -25565,7 +25602,14 @@
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的比赛方式建立在身体对抗中的防守位置上。他会守住危险线路，直到队友能对持球人施压。他也会最后一传到来前回头确认跑动者的位置。",
-      "noteZh": "他在1970年世界杯代表巴西，位置是后卫。本站收录了他1场重点比赛。"
+      "noteZh": "他在1970年世界杯代表巴西，位置是后卫。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A9rcules_de_Brito_Ruas.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:H%C3%A9rcules_de_Brito_Ruas.jpg",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Brito (footballer, born 1939)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Brito_(footballer,_born_1939)"
     },
     "Carlos Alberto / Brazil / 1970": {
       "profileKey": "Carlos Alberto / Brazil / 1970",
@@ -26528,7 +26572,14 @@
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: El Salvador.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的突出特点是对中场比赛节奏的掌控。他会传球后继续移动，让球队始终保留近距离出球点。他也会侧身接球，让下一脚传球可以向前发展。",
-      "noteZh": "他在1970年世界杯代表萨尔瓦多，位置是中场。本站收录了他2场重点比赛。"
+      "noteZh": "他在1970年世界杯代表萨尔瓦多，位置是中场。本站收录了他2场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jorge_Alfredo_V%C3%A1squez.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Jorge_Alfredo_V%C3%A1squez.jpg",
+      "imageCredit": "Panini",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Jorge Vásquez (Salvadoran footballer)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Jorge_V%C3%A1squez_(Salvadoran_footballer)"
     },
     "Juan Ramón Martínez / El Salvador / 1970": {
       "profileKey": "Juan Ramón Martínez / El Salvador / 1970",
@@ -30394,7 +30445,14 @@
       "summary": "Historical 1974 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Australia.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他最特别的地方是身体对抗中的防守位置。他会守住危险线路，直到队友能对持球人施压。他也会最后一传到来前回头确认跑动者的位置。",
-      "noteZh": "他在1974年世界杯代表澳大利亚，位置是后卫。本站收录了他1场重点比赛。"
+      "noteZh": "他在1974年世界杯代表澳大利亚，位置是后卫。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Doug%20Utjesenovic%20(cropped).jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Doug_Utjesenovic_(cropped).jpg",
+      "imageCredit": "Rainer Mittelstädt",
+      "imageLicense": "CC BY-SA 3.0 de",
+      "imagePageTitle": "Doug Utjesenovic",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Doug_Utjesenovic"
     },
     "Ernie Campbell / Australia / 1974": {
       "profileKey": "Ernie Campbell / Australia / 1974",
@@ -32446,7 +32504,14 @@
       "summary": "Historical 1974 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Poland.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他最特别的地方是身体对抗中的防守位置。他会守住危险线路，直到队友能对持球人施压。他也会最后一传到来前回头确认跑动者的位置。",
-      "noteZh": "他在1974年世界杯代表波兰，位置是后卫。本站收录了他1场重点比赛。"
+      "noteZh": "他在1974年世界杯代表波兰，位置是后卫。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bundesarchiv%20Bild%20183-N0716-0306%2C%20Fu%C3%9Fball-WM%2C%20VR%20Polen%20-%20Brasilien%201-0%20(Adam%20Musia%C5%82).jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-N0716-0306,_Fu%C3%9Fball-WM,_VR_Polen_-_Brasilien_1-0_(Adam_Musia%C5%82).jpg",
+      "imageCredit": "Wurzel92",
+      "imageLicense": "CC BY-SA 3.0 de",
+      "imagePageTitle": "Adam Musiał",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Adam_Musia%C5%82"
     },
     "Andrzej Szarmach / Poland / 1974": {
       "profileKey": "Andrzej Szarmach / Poland / 1974",
@@ -52613,7 +52678,14 @@
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Uruguay.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他最特别的地方是对防线身后空当的提前攻击。他会用身体护住球，再让队友加入进攻。他也会在最近的防守者回位前完成射门。",
-      "noteZh": "他在1986年世界杯代表乌拉圭，位置是前锋。本站收录了他1场重点比赛。"
+      "noteZh": "他在1986年世界杯代表乌拉圭，位置是前锋。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Venancio%20ramos%20en%201981.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Venancio_ramos_en_1981.jpg",
+      "imageCredit": "Unknown author Unknown author",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Venancio Ramos",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Venancio_Ramos"
     },
     "Wilmar Cabrera / Uruguay / 1986": {
       "profileKey": "Wilmar Cabrera / Uruguay / 1986",
@@ -60254,7 +60326,14 @@
       "summary": "Historical 1994 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Belgium.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的突出特点是对中场比赛节奏的掌控。他会传球后继续移动，让球队始终保留近距离出球点。他也会侧身接球，让下一脚传球可以向前发展。",
-      "noteZh": "他在1994年世界杯代表比利时，位置是中场。本站收录了他1场重点比赛。"
+      "noteZh": "他在1994年世界杯代表比利时，位置是中场。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Danny_Boffin.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Danny_Boffin.jpg",
+      "imageCredit": "Panini Group",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Danny Boffin",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Danny_Boffin"
     },
     "Enzo Scifo / Belgium / 1994": {
       "profileKey": "Enzo Scifo / Belgium / 1994",
@@ -65997,7 +66076,14 @@
       "summary": "Historical 1994 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Sweden.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "要看懂他的作用，关键是对中场比赛节奏的掌控。留意他如何放慢助跑、稳住身体，再从容完成击球。他也会传球后继续移动，让球队始终保留近距离出球点。",
-      "noteZh": "他在1994年世界杯代表瑞典，位置是中场。本站收录了他1场重点比赛。"
+      "noteZh": "他在1994年世界杯代表瑞典，位置是中场。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Klas%20Ingesson%20(1994).jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Klas_Ingesson_(1994).jpg",
+      "imageCredit": "Sniper Zeta",
+      "imageLicense": "CC BY-SA 4.0",
+      "imagePageTitle": "Klas Ingesson",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Klas_Ingesson"
     },
     "Martin Dahlin / Sweden / 1994": {
       "profileKey": "Martin Dahlin / Sweden / 1994",
@@ -67201,7 +67287,14 @@
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Belgium.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "要看懂他的作用，关键是射门方向明确前的身体平衡。留意他如何先保护球门中央，确认能触球时才选择出击。他也会守住危险线路，直到队友能对持球人施压。",
-      "noteZh": "他在1998年世界杯代表比利时，位置是门将。本站收录了他1场重点比赛。"
+      "noteZh": "他在1998年世界杯代表比利时，位置是门将。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Filip_De_Wilde.jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Filip_De_Wilde.jpg",
+      "imageCredit": "Panini Group",
+      "imageLicense": "Public domain",
+      "imagePageTitle": "Filip De Wilde",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Filip_De_Wilde"
     },
     "Lorenzo Staelens / Belgium / 1998": {
       "profileKey": "Lorenzo Staelens / Belgium / 1998",
@@ -100583,7 +100676,14 @@
       "summary": "Historical 2010 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Portugal.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
       "styleNoteZh": "他的比赛方式建立在身体对抗中的防守位置上。他会守住危险线路，直到队友能对持球人施压。他也会最后一传到来前回头确认跑动者的位置。",
-      "noteZh": "他在2010年世界杯代表葡萄牙，位置是后卫。本站收录了他1场重点比赛。"
+      "noteZh": "他在2010年世界杯代表葡萄牙，位置是后卫。本站收录了他1场重点比赛。",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Duda_(Portuguese_footballer).jpg?width=160",
+      "imageSource": "wikimedia-commons",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Duda_(Portuguese_footballer).jpg",
+      "imageCredit": "Jan S0L0",
+      "imageLicense": "CC BY-SA 2.0",
+      "imagePageTitle": "Duda (footballer, born 1980)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Duda_(footballer,_born_1980)"
     },
     "Eduardo / Portugal / 2010": {
       "profileKey": "Eduardo / Portugal / 2010",

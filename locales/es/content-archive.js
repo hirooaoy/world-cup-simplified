@@ -107,7 +107,6 @@ export const CONTENT_ENTITIES = Object.freeze({
     "Estadio Pocitos, Montevideo": "Estadio Pocitos, Montevideo",
     "Estadio Ramón Sánchez Pizjuán, Seville": "Estadio Ramón Sánchez Pizjuán, Sevilla",
     "Estadio San Mamés, Bilbao": "Estadio San Mamés, Bilbao",
-    "Estadio Santiago Bernabéu": "Estadio Santiago Bernabéu",
     "Estadio Santiago Bernabéu, Madrid": "Estadio Santiago Bernabéu, Madrid",
     "Estadio Sarriá, Barcelona": "Estadio Sarriá, Barcelona",
     "Estadio Sausalito, Viña del Mar": "Estadio Sausalito, Viña del Mar",

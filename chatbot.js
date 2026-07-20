@@ -3,12 +3,12 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-19-history-final-card-1";
+} from "./chatbot-knowledge.js?v=2026-07-20-tournament-memory-7";
 import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-19-history-final-card-1";
+} from "./locales/locale-runtime.js?v=2026-07-20-historical-replay-recaps-tournament-memory-3";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -116,6 +116,12 @@ const SCOUT_COPY = {
     topScorer: "Top scorer",
     goalCount: (count) => `${count} ${count === 1 ? "goal" : "goals"}`,
     fullRecord: "Full tournament record",
+    tournamentFinish: "Tournament finish",
+    tournamentFinal: "Final",
+    tournamentAwards: "Tournament awards",
+    tournamentMatches: "Matches",
+    tournamentGoals: "Goals",
+    verifiedSources: "Verified sources",
     wins: "Wins",
     draws: "Draws",
     losses: "Losses",
@@ -249,6 +255,12 @@ const SCOUT_COPY = {
     topScorer: "队内最佳射手",
     goalCount: (count) => `${count}个进球`,
     fullRecord: "完整赛事战绩",
+    tournamentFinish: "赛事最终成绩",
+    tournamentFinal: "决胜战",
+    tournamentAwards: "赛事奖项",
+    tournamentMatches: "比赛",
+    tournamentGoals: "进球",
+    verifiedSources: "已核验来源",
     wins: "胜",
     draws: "平",
     losses: "负",
@@ -2797,12 +2809,12 @@ function renderCompactFixture(match, label) {
 function appendCountryReply(reply, options = {}) {
   const { groupStanding, record, team } = reply;
   const focus = reply.focus || "overview";
-  const showRecord = ["overview", "record"].includes(focus);
-  const showGoals = ["overview", "record", "goals", "goal-difference"].includes(focus);
+  const showRecord = ["overview", "record", "finish"].includes(focus);
+  const showGoals = ["overview", "record", "goals", "goal-difference", "finish"].includes(focus);
   const showStyle = ["overview", "style"].includes(focus);
-  const showScorer = ["overview", "top-scorer"].includes(focus);
+  const showScorer = ["overview", "top-scorer", "finish"].includes(focus);
   const showKeyPlayers = focus === "overview";
-  const shownLastMatch = focus === "overview" ? reply.lastMatch : null;
+  const shownLastMatch = ["overview", "finish"].includes(focus) ? reply.lastMatch : null;
   const shownNextMatch = ["overview", "next"].includes(focus) ? reply.nextMatch : null;
   const groupMeta = [
     Number.isFinite(Number(team.fifaRank))
@@ -2888,6 +2900,12 @@ function appendCountryReply(reply, options = {}) {
           <p>${escapeScoutHtml(groupMeta)}</p>
         </div>
       </header>
+      ${reply.tournamentFinish ? `
+        <div class="scout-tournament-finish">
+          <span>${escapeScoutHtml(scoutText("tournamentFinish"))} · ${reply.tournamentFinish.year}</span>
+          <strong>${escapeScoutHtml(reply.tournamentFinish.label)}</strong>
+        </div>
+      ` : ""}
       ${showRecord ? `
         <div class="scout-stat-strip" aria-label="${escapeScoutHtml(scoutText("fullRecord"))}">
           <div><strong>${record.wins}</strong><span>${escapeScoutHtml(scoutText("wins"))}</span></div>
@@ -3285,6 +3303,88 @@ function appendWorldCupHistoryReply(reply, options = {}) {
   );
 }
 
+function renderTournamentAwardRows(awards = []) {
+  if (!awards.length) return "";
+  return `
+    <div class="scout-tournament-awards-list">
+      ${awards.map((award) => `
+        <div class="scout-tournament-award-row">
+          <span>${escapeScoutHtml(award.label)}</span>
+          <div>${award.recipients.map((recipient) => `
+            <p><strong>${escapeScoutHtml(recipient.name)}</strong>${recipient.team ? ` · ${escapeScoutHtml(recipient.team)}` : ""}${recipient.detail ? ` · ${escapeScoutHtml(recipient.detail)}` : ""}</p>
+          `).join("")}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderTournamentSourceLinks(sourceLinks = []) {
+  if (!sourceLinks.length) return "";
+  return `
+    <div class="scout-tournament-sources">
+      <span class="scout-section-label">${escapeScoutHtml(scoutText("verifiedSources"))}</span>
+      ${sourceLinks.slice(0, 3).map((source) => {
+        const url = getSafeScoutUrl(source.url);
+        return url ? `<a href="${escapeScoutHtml(url)}" target="_blank" rel="noreferrer">${escapeScoutHtml(source.label || scoutText("official"))} ↗</a>` : "";
+      }).join("")}
+    </div>
+  `;
+}
+
+function appendTournamentAwardsReply(reply, options = {}) {
+  const body = `
+    <article class="scout-data-card scout-tournament-card is-awards-only">
+      <header class="scout-tournament-card-header">
+        <span aria-hidden="true">🏅</span>
+        <div><span>${escapeScoutHtml(String(reply.year))}</span><strong>${escapeScoutHtml(scoutText("tournamentAwards"))}</strong></div>
+      </header>
+      ${renderTournamentAwardRows(reply.awards)}
+      ${renderTournamentSourceLinks(reply.sourceLinks)}
+    </article>
+  `;
+  createScoutVisualMessage("tournament-awards", reply.lead, body, reply.followUps, options);
+}
+
+function appendTournamentWrapReply(reply, options = {}) {
+  const { final } = reply;
+  const hasScore = Number.isFinite(final.score?.home) && Number.isFinite(final.score?.away);
+  const score = hasScore ? `${Number(final.score.home)}<span aria-hidden="true">–</span>${Number(final.score.away)}` : escapeScoutHtml(getScoutVersusLabel());
+  const penalties = Number.isFinite(final.penalties?.home) && Number.isFinite(final.penalties?.away)
+    ? `<p class="scout-shootout-line">${escapeScoutHtml(scoutText("penalties"))}：${Number(final.penalties.home)}–${Number(final.penalties.away)}</p>`
+    : "";
+  const body = `
+    <article class="scout-data-card scout-tournament-card">
+      <header class="scout-tournament-card-header">
+        <span aria-hidden="true">🏆</span>
+        <div><span>${escapeScoutHtml(String(reply.year))}</span><strong>${escapeScoutHtml(reply.winner.name)}</strong></div>
+      </header>
+      <div class="scout-tournament-final">
+        <p class="scout-section-label">${escapeScoutHtml(scoutText("tournamentFinal"))}</p>
+        <div class="scout-scoreboard">
+          <div class="${final.winnerTeamId === final.teams.home?.id ? "is-winner" : ""}">
+            ${renderScoutFlag(final.teams.home, "scout-score-flag", { decorative: true })}
+            <strong>${escapeScoutHtml(final.teams.home?.name || scoutText("tbd"))}</strong>
+          </div>
+          <div class="scout-score-value">${score}</div>
+          <div class="${final.winnerTeamId === final.teams.away?.id ? "is-winner" : ""}">
+            ${renderScoutFlag(final.teams.away, "scout-score-flag", { decorative: true })}
+            <strong>${escapeScoutHtml(final.teams.away?.name || scoutText("tbd"))}</strong>
+          </div>
+        </div>
+        ${penalties}
+      </div>
+      <div class="scout-stat-strip scout-tournament-stat-strip">
+        <div><strong>${reply.stats.matches}</strong><span>${escapeScoutHtml(scoutText("tournamentMatches"))}</span></div>
+        <div><strong>${reply.stats.goals}</strong><span>${escapeScoutHtml(scoutText("tournamentGoals"))}</span></div>
+      </div>
+      ${renderTournamentAwardRows(reply.awards)}
+      ${renderTournamentSourceLinks(reply.sourceLinks)}
+    </article>
+  `;
+  createScoutVisualMessage("tournament-wrap", reply.lead, body, reply.followUps, options);
+}
+
 function getScoutTimeZoneLabel(timeZone, options = {}) {
   const option = [...(document.querySelector("#timezone-select")?.options || [])]
     .find((candidate) => candidate.value === timeZone);
@@ -3492,6 +3592,10 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
     appendPersonalityReply(reply, options);
   } else if (reply.kind === "world-cup-history") {
     appendWorldCupHistoryReply(reply, options);
+  } else if (reply.kind === "tournament-awards") {
+    appendTournamentAwardsReply(reply, options);
+  } else if (reply.kind === "tournament-wrap") {
+    appendTournamentWrapReply(reply, options);
   } else if (reply.kind === "settings-action") {
     appendSettingsActionReply(reply, options);
   } else if (reply.kind === "report-issue") {

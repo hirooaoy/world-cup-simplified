@@ -805,13 +805,13 @@ async function auditHistoricalLocaleArchitecture(
   );
   check(
     "structured historical venues",
-    expectedVenues.length === 209 &&
-      mappedVenues.length === 209 &&
+    expectedVenues.length === 208 &&
+      mappedVenues.length === 208 &&
       missingVenues.length === 0 &&
       extraVenues.length === 0 &&
       incompleteVenueRows.length === 0 &&
-      venueSource?.coverage?.uniqueVenueCount === 209,
-    `historical venue coverage is ${mappedVenues.length}/209; ${missingVenues.length} missing, ${extraVenues.length} extra, ${incompleteVenueRows.length} incomplete. ${formatSamples(
+      venueSource?.coverage?.uniqueVenueCount === 208,
+    `historical venue coverage is ${mappedVenues.length}/208; ${missingVenues.length} missing, ${extraVenues.length} extra, ${incompleteVenueRows.length} incomplete. ${formatSamples(
       missingVenues
         .map((venue) => `missing ${venue}`)
         .concat(extraVenues.map((venue) => `extra ${venue}`))
@@ -956,9 +956,9 @@ async function auditHistoricalLocaleArchitecture(
         formattedStory &&
         formattedStory !== stories[0] &&
         !formattedStory.startsWith("formatter error:") &&
-        Object.keys(moduleVenueMap).length === 209 &&
+        Object.keys(moduleVenueMap).length === 208 &&
         moduleVenueMismatches.length === 0,
-      `${language} archive module lacks its working result formatter or exact 209-venue entity map: ${formatSamples(
+      `${language} archive module lacks its working result formatter or exact 208-venue entity map: ${formatSamples(
         moduleVenueMismatches.concat(
           formattedStory.startsWith("formatter error:")
             ? [formattedStory]
@@ -1837,6 +1837,65 @@ function auditReportPack(language, pack) {
   }
 }
 
+function auditHighlightsPack(language, pack, highlightsHtml, highlightsSource) {
+  if (!pack) {
+    return;
+  }
+  const markupKeys = [
+    ...highlightsHtml.matchAll(/data-i18n(?:-aria)?="([^"]+)"/gu)
+  ].map((match) => match[1]);
+  const requiredKeys = [
+    ...new Set([
+      ...markupKeys,
+      "goldenBootTotal",
+      "loadError",
+      "metaDescription",
+      "metaTitle",
+      "ogDescription",
+      "ogTitle",
+      "themeDark",
+      "themeLight"
+    ])
+  ];
+  const missingKeys = requiredKeys.filter(
+    (key) => !String(pack.text?.[key] || "").trim()
+  );
+  check(
+    "highlights pack schema",
+    pack.schemaVersion === 1 && pack.language === language && pack.domain === "highlights",
+    `${language} highlights pack metadata is invalid`
+  );
+  check(
+    "highlights page",
+    missingKeys.length === 0,
+    `${language} highlights pack is missing: ${formatSamples(missingKeys)}`,
+    "Every standalone highlights string and ARIA label must be represented in the locale pack."
+  );
+  check(
+    "highlights page",
+    /loadLocaleDomain\([^,]+,\s*["']highlights["']\)/u.test(highlightsSource) &&
+      /id=["']language-select["']/u.test(highlightsHtml),
+    "The highlights page does not load its locale domain or expose a language selector"
+  );
+}
+
+function auditHighlightsPackParity(esPack, koPack) {
+  if (!esPack || !koPack) {
+    return;
+  }
+  const esShape = getShapePaths(esPack);
+  const koShape = getShapePaths(koPack);
+  check(
+    "highlights page parity",
+    sameMembers(esShape, koShape),
+    `Spanish/Korean highlights pack shapes differ: ${formatSamples(
+      esShape.filter((path) => !koShape.includes(path)).concat(
+        koShape.filter((path) => !esShape.includes(path))
+      )
+    )}`
+  );
+}
+
 function auditBallBoyPack(language, pack) {
   if (!pack) {
     return;
@@ -2702,6 +2761,23 @@ function auditStructuredCurrentGlossary(
     positionVariantFailures.length === 0,
     `${language} position case/dash/abbreviation normalization failed: ${formatSamples(positionVariantFailures)}`,
     "Resolve role variants through the controlled position glossary, not free-form translation."
+  );
+
+  const runtimePositionFailures = positions
+    .filter(
+      (position) =>
+        appPack?.helpers?.translateLineupPosition?.(position) !==
+        structuredTranslations[position]
+    )
+    .map(
+      (position) =>
+        `${position} -> ${appPack?.helpers?.translateLineupPosition?.(position) || "(empty)"} (expected ${structuredTranslations[position] || "(missing)"})`
+    );
+  check(
+    "runtime player positions",
+    runtimePositionFailures.length === 0,
+    `${language} runtime player cards diverge from the structured position glossary: ${formatSamples(runtimePositionFailures)}`,
+    "Exercise the browser runtime helper over every current profile position, including compound roles."
   );
 
   const controlledVariantExpectations = {
@@ -3653,6 +3729,8 @@ async function main() {
     koReportModule,
     esChatbotModule,
     koChatbotModule,
+    esHighlightsModule,
+    koHighlightsModule,
     esCurrentContentModule,
     koCurrentContentModule,
     esNamesModule,
@@ -3667,6 +3745,8 @@ async function main() {
     runtimeSource,
     indexHtml,
     reportHtml,
+    highlightsHtml,
+    highlightsSource,
     provenance,
     playerNameOverrides,
     playerNameTransliterations
@@ -3678,6 +3758,8 @@ async function main() {
     safeImport("locales/ko/report.js", "report pack schema"),
     safeImport("locales/es/chatbot.js", "Ball Boy pack schema"),
     safeImport("locales/ko/chatbot.js", "Ball Boy pack schema"),
+    safeImport("locales/es/highlights.js", "highlights pack schema"),
+    safeImport("locales/ko/highlights.js", "highlights pack schema"),
     safeImport("locales/es/content-current.js", "current content schema"),
     safeImport("locales/ko/content-current.js", "current content schema"),
     safeImport("locales/es/player-names.js", "player-name generated module"),
@@ -3692,6 +3774,8 @@ async function main() {
     readText("locales/locale-runtime.js"),
     readText("index.html"),
     readText("report.html"),
+    readText("highlights.html"),
+    readText("highlights.js"),
     readJson("data/locales/player-name-provenance.json"),
     readJson("data/locales/player-name-overrides.json"),
     readJson("data/locales/player-name-transliterations.json")
@@ -3709,6 +3793,10 @@ async function main() {
   const chatbotPacks = {
     es: esChatbotModule?.default,
     ko: koChatbotModule?.default
+  };
+  const highlightsPacks = {
+    es: esHighlightsModule?.default,
+    ko: koHighlightsModule?.default
   };
   const currentContentModules = {
     es: esCurrentContentModule,
@@ -3748,6 +3836,12 @@ async function main() {
     auditAppPack(language, appPacks[language], runtime);
     auditReportPack(language, reportPacks[language]);
     auditBallBoyPack(language, chatbotPacks[language]);
+    auditHighlightsPack(
+      language,
+      highlightsPacks[language],
+      highlightsHtml,
+      highlightsSource
+    );
     auditBallBoyCurrentEntities(
       language,
       chatbotPacks[language],
@@ -3780,6 +3874,7 @@ async function main() {
   auditAppPackParity(appPacks.es, appPacks.ko);
   auditReportPackParity(reportPacks.es, reportPacks.ko);
   auditBallBoyParity(chatbotPacks.es, chatbotPacks.ko);
+  auditHighlightsPackParity(highlightsPacks.es, highlightsPacks.ko);
   auditBallBoyTimeZoneLocaleContract(chatbotSource, chatbotPacks);
   auditSharedDataIsolation(data, appSource);
   auditStructuredH2hLocalization(

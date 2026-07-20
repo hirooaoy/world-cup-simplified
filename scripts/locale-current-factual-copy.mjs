@@ -660,6 +660,56 @@ Object.assign(REVIEWED_CURRENT_COPY.ko, {
     "에밀리아노 마르티네스는 11차례 선방으로 정규시간 90분 동안 스페인의 득점을 막았지만, 연장전에서 결국 토레스에게 골을 허용했다."
 });
 
+Object.assign(REVIEWED_CURRENT_COPY.es, {
+  "Canada's 1-0 win sent them into the round of 16 and ended South Africa's tournament.":
+    "La victoria 1-0 de Canadá le dio el pase a octavos de final y puso fin al torneo de Sudáfrica.",
+  "Brazil's 2-1 comeback carried them into the round of 16 and eliminated Japan.":
+    "La remontada 2-1 de Brasil le dio el pase a octavos de final y eliminó a Japón.",
+  "Norway's 2-1 comeback sent them into the round of 16 and eliminated Ivory Coast.":
+    "La remontada 2-1 de Noruega le dio el pase a octavos de final y eliminó a Costa de Marfil.",
+  "Portugal's comeback sent them into the round of 16 and eliminated Croatia.":
+    "La remontada de Portugal le dio el pase a octavos de final y eliminó a Croacia.",
+  "Argentina's 3-2 extra-time win sent them into the round of 16 and ended Cabo Verde's debut run.":
+    "La victoria 3-2 de Argentina tras la prórroga le dio el pase a octavos de final y puso fin al debut mundialista de Cabo Verde.",
+  "Colombia's 1-0 win eliminated Ghana and completed the round-of-16 lineup.":
+    "La victoria 1-0 de Colombia eliminó a Ghana y completó el cuadro de octavos de final.",
+  "France kept a clean sheet, and Mbappé's penalty remained the only goal of the match.":
+    "Francia mantuvo su portería a cero y el penal de Mbappé fue el único gol del partido.",
+  "Norway's 2-1 win eliminated Brazil and secured a place in the quarter-finals.":
+    "La victoria 2-1 de Noruega eliminó a Brasil y aseguró un lugar en los cuartos de final.",
+  "England's 3-2 win sent them into the quarter-finals and eliminated Mexico.":
+    "La victoria 3-2 de Inglaterra le dio el pase a cuartos de final y eliminó a México.",
+  "Spain kept a clean sheet, and Merino's stoppage-time finish was the match's only goal.":
+    "España mantuvo su portería a cero y el remate de Merino en el tiempo añadido fue el único gol del partido.",
+  "Belgium's win secured a quarter-final place and ended the United States' run.":
+    "La victoria de Bélgica aseguró un lugar en los cuartos de final y puso fin al recorrido de Estados Unidos."
+});
+
+Object.assign(REVIEWED_CURRENT_COPY.ko, {
+  "Canada's 1-0 win sent them into the round of 16 and ended South Africa's tournament.":
+    "캐나다는 1-0 승리로 16강에 올랐고 남아프리카공화국의 대회를 끝냈다.",
+  "Brazil's 2-1 comeback carried them into the round of 16 and eliminated Japan.":
+    "브라질은 2-1 역전승으로 16강에 올랐고 일본을 탈락시켰다.",
+  "Norway's 2-1 comeback sent them into the round of 16 and eliminated Ivory Coast.":
+    "노르웨이는 2-1 역전승으로 16강에 올랐고 코트디부아르를 탈락시켰다.",
+  "Portugal's comeback sent them into the round of 16 and eliminated Croatia.":
+    "포르투갈은 역전승으로 16강에 올랐고 크로아티아를 탈락시켰다.",
+  "Argentina's 3-2 extra-time win sent them into the round of 16 and ended Cabo Verde's debut run.":
+    "아르헨티나는 연장전 끝 3-2 승리로 16강에 올랐고 카보베르데의 월드컵 데뷔 여정을 끝냈다.",
+  "Colombia's 1-0 win eliminated Ghana and completed the round-of-16 lineup.":
+    "콜롬비아의 1-0 승리는 가나를 탈락시키고 16강 대진을 완성했다.",
+  "France kept a clean sheet, and Mbappé's penalty remained the only goal of the match.":
+    "프랑스는 무실점을 지켰고 음바페의 페널티킥이 경기의 유일한 골로 남았다.",
+  "Norway's 2-1 win eliminated Brazil and secured a place in the quarter-finals.":
+    "노르웨이는 2-1 승리로 브라질을 탈락시키고 8강 진출을 확정했다.",
+  "England's 3-2 win sent them into the quarter-finals and eliminated Mexico.":
+    "잉글랜드는 3-2 승리로 8강에 올랐고 멕시코를 탈락시켰다.",
+  "Spain kept a clean sheet, and Merino's stoppage-time finish was the match's only goal.":
+    "스페인은 무실점을 지켰고 메리노의 추가시간 득점이 경기의 유일한 골이었다.",
+  "Belgium's win secured a quarter-final place and ended the United States' run.":
+    "벨기에의 승리는 8강 진출을 확정하고 미국의 대회를 끝냈다."
+});
+
 function localizePlayerName(language, value) {
   const canonicalValue = PLAYER_NAME_SOURCE_ALIASES[value] || value;
   return LANGUAGE_RESOURCES[language]?.playerNames?.[canonicalValue] || canonicalValue;

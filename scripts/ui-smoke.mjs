@@ -2910,9 +2910,12 @@ try {
   await page.locator(".key-info-team p .player-link").first().focus();
   const playerCard = page.locator(".player-card:visible").first();
   await playerCard.waitFor({ state: "visible" });
+  const playerCardPhotoCount = await playerCard.locator(".player-photo img").count();
+  const playerCardFallbackCount = await playerCard.locator(".player-photo-fallback").count();
   assert(
-    (await playerCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
-    "Player hover card should include a face or initials fallback."
+    (playerCardPhotoCount === 1 && playerCardFallbackCount === 1) ||
+      (playerCardPhotoCount === 0 && playerCardFallbackCount === 1),
+    "Player hover card should keep initials available behind a remote face or as the final fallback."
   );
   const playerCardPhoto = playerCard.locator(".player-photo img");
   if ((await playerCardPhoto.count()) === 1) {
@@ -2924,6 +2927,57 @@ try {
       `Player hover card photos should keep the face-biased crop position. Measured ${playerCardPhotoPosition}.`
     );
   }
+  const playerPhotoRetryState = await page.evaluate(async () => {
+    const photo = document.createElement("span");
+    photo.className = "player-photo";
+    const fallback = document.createElement("span");
+    fallback.className = "player-photo-fallback";
+    fallback.textContent = "JV";
+    const image = document.createElement("img");
+    image.alt = "";
+    image.dataset.playerInitials = "JV";
+    image.dataset.playerImageOriginalUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jorge_Valdano_Cropped.jpg/330px-Jorge_Valdano_Cropped.jpg";
+    image.dataset.playerImageFallbackUrl =
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='58' height='58'%3E%3Crect width='58' height='58' fill='white'/%3E%3C/svg%3E";
+    photo.append(fallback, image);
+    document.body.append(photo);
+    image.dispatchEvent(new Event("error"));
+    await new Promise((resolve, reject) => {
+      const startedAt = performance.now();
+      const checkRetry = () => {
+        if (image.src.startsWith("data:image/svg+xml")) {
+          resolve();
+          return;
+        }
+        if (performance.now() - startedAt > 3000) {
+          reject(new Error("Timed out waiting for the player-photo fallback URL."));
+          return;
+        }
+        window.setTimeout(checkRetry, 25);
+      };
+      checkRetry();
+    });
+    image.dispatchEvent(new Event("load"));
+    const state = {
+      fallbackText: fallback.textContent,
+      hasImage: image.isConnected,
+      imageReady: image.classList.contains("is-image-ready"),
+      parentReady: photo.classList.contains("is-image-ready"),
+      retryAttempt: image.dataset.playerImageRetryAttempt,
+      retriedWithAlternate: image.src.startsWith("data:image/svg+xml")
+    };
+    photo.remove();
+    return state;
+  });
+  assert(
+    playerPhotoRetryState.fallbackText === "JV" &&
+      playerPhotoRetryState.hasImage &&
+      playerPhotoRetryState.imageReady &&
+      playerPhotoRetryState.parentReady &&
+      playerPhotoRetryState.retryAttempt === "1" &&
+      playerPhotoRetryState.retriedWithAlternate,
+    `Player photos should keep initials visible and retry a failed Wikimedia URL through its alternate route. Measured ${JSON.stringify(playerPhotoRetryState)}.`
+  );
   assert(
     (await playerCard.locator(".player-card-name").count()) === 1 &&
       (await playerCard.locator(".player-card-position").count()) === 1 &&
@@ -3176,11 +3230,14 @@ try {
       brazilJapanResultBlock.highlightTarget === "_blank" &&
       brazilJapanResultBlock.highlightRel.includes("noopener") &&
       brazilJapanResultBlock.highlightTooltip === "Play highlights on YouTube" &&
-      brazilJapanResultBlock.storyItems.length === 2 &&
+      brazilJapanResultBlock.storyItems.length === 3 &&
       brazilJapanResultBlock.storyItems.every((item) => !/[⚽🌟📊]/u.test(item)) &&
       brazilJapanResultBlock.storyItems[0].includes("Kaishu Sano punished Brazil in the 29th minute") &&
       brazilJapanResultBlock.storyItems[1].includes("Casemiro levelled at 56'") &&
       brazilJapanResultBlock.storyItems[1].includes("Gabriel Martinelli won it for Brazil at 90+5'") &&
+      brazilJapanResultBlock.storyItems[2].includes(
+        "Brazil's 2-1 comeback carried them into the round of 16 and eliminated Japan"
+      ) &&
       brazilJapanResultBlock.storyItems.every((item) => !/chase the match/i.test(item)) &&
       brazilJapanResultBlock.storyLinkTexts.includes("Kaishu Sano") &&
       brazilJapanResultBlock.storyLinkTexts.includes("Casemiro") &&
@@ -3851,7 +3908,7 @@ try {
     .first()
     .locator(".player-card");
   assert(
-    (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
+    (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) >= 1,
     "Single-name player hover cards should include a face or initials fallback."
   );
 
@@ -5018,22 +5075,37 @@ try {
       action: finalAction?.textContent.trim() || "",
       actionDay: finalAction?.getAttribute("data-select-calendar-day") || "",
       actionMatch: finalAction?.getAttribute("data-select-final-match") || "",
+      bulletCount: document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li").length,
       hasCelebration: body.classList.contains("has-final-celebration"),
+      hasSummary: Boolean(document.querySelector("#final-celebration-banner .final-celebration-summary")),
       isCalm: body.classList.contains("is-final-celebration-calm"),
       message: emptyState
         ?.querySelector(".empty-state-post-tournament-description")
         ?.textContent.trim() || "",
+      awardsHref:
+        document.querySelector("#final-celebration-banner .final-celebration-awards-link")
+          ?.getAttribute("href") || "",
+      awardsText:
+        document.querySelector("#final-celebration-banner .final-celebration-awards-link")
+          ?.textContent.replace(/\s*→\s*$/u, "").trim() || "",
       title: document.querySelector("#final-celebration-banner")?.textContent.replace(/\s+/g, " ").trim() || ""
     };
   });
   assert(
     postFinalCelebrationState.message === "The 2026 World Cup is over." &&
-      postFinalCelebrationState.action === "View the final" &&
+      postFinalCelebrationState.action === "Revisit final match" &&
       postFinalCelebrationState.actionDay === "2026-07-19" &&
       postFinalCelebrationState.actionMatch === "match-104-final-2026-07-19" &&
+      postFinalCelebrationState.bulletCount === 3 &&
       postFinalCelebrationState.hasCelebration &&
+      !postFinalCelebrationState.hasSummary &&
       !postFinalCelebrationState.isCalm &&
-      postFinalCelebrationState.title.includes("Spain are 2026 world champions"),
+      postFinalCelebrationState.awardsHref === "highlights.html" &&
+      postFinalCelebrationState.awardsText === "View all awards" &&
+      postFinalCelebrationState.title.includes("Spain are 2026 world champions") &&
+      postFinalCelebrationState.title.includes(
+        "Spain keep the ball, stretch the pitch and swarm immediately when possession is lost."
+      ),
     `July 20 should keep the animated champion cover and replace the exhausted next-match state with one final CTA. Measured ${JSON.stringify(postFinalCelebrationState)}.`
   );
   const postFinalAction = postFinalCelebrationCheck.page.locator(
@@ -5050,39 +5122,107 @@ try {
         .getAttribute("class"))?.includes("is-selected") &&
       new URL(postFinalCelebrationCheck.page.url()).searchParams.get("match") ===
         "match-104-final-2026-07-19",
-    "View the final should return to July 19, select the final, and open its match details."
+    "Revisit final match should return to July 19, select the final, and open its match details."
   );
   await postFinalCelebrationCheck.context.close();
 
-  const calmArchiveCheck = await openPageAtTime(
-    "2026-07-21T19:30:00Z",
+  const finalCelebrationLocaleCases = [
+    {
+      body: "西班牙在决赛中以1-0击败阿根廷。",
+      headline: "西班牙成为2026年世界杯冠军",
+      history: "2010年",
+      language: "zh",
+      philosophy: "西班牙掌控球权、拉开场地宽度，并在丢球后立即合围反抢。",
+      awardsText: "查看全部奖项"
+    },
+    {
+      body: "España venció 1-0 a Argentina en la final.",
+      headline: "España gana el Mundial de 2026",
+      history: "2010",
+      language: "es",
+      philosophy: "España conserva el balón, estira el campo y rodea al rival en cuanto pierde la posesión.",
+      awardsText: "Ver todos los premios"
+    },
+    {
+      body: "스페인이 결승에서 아르헨티나를 1-0으로 꺾었다.",
+      headline: "스페인이 2026년 세계 챔피언에 올랐다",
+      history: "2010년",
+      language: "ko",
+      philosophy: "스페인은 공을 소유하고 경기장을 넓게 쓰며 공을 잃는 순간 상대를 에워싸 압박한다.",
+      awardsText: "모든 수상 보기"
+    }
+  ];
+  for (const localeCase of finalCelebrationLocaleCases) {
+    const localeCheck = await openPageAtTime(
+      "2026-07-20T19:30:00Z",
+      `/?view=matches&tz=America%2FLos_Angeles&lang=${localeCase.language}`
+    );
+    await localeCheck.page.waitForFunction(
+      ({ awardsText, body, headline, history, language, philosophy }) => {
+        const banner = document.querySelector("#final-celebration-banner");
+        const awardsLink = banner?.querySelector(".final-celebration-awards-link");
+        const bullets = [...(banner?.querySelectorAll(".final-celebration-bullets li") || [])]
+          .map((item) => item.innerText.trim());
+        return (
+          banner?.querySelector(".final-celebration-headline")?.textContent.trim() === headline &&
+          !banner.querySelector(".final-celebration-summary") &&
+          awardsLink?.textContent.replace(/\s*→\s*$/u, "").trim() === awardsText &&
+          awardsLink?.getAttribute("href") === `highlights.html?lang=${language}` &&
+          bullets.length === 3 &&
+          bullets[0] === body &&
+          bullets[1].includes(history) &&
+          bullets[2] === philosophy
+        );
+      },
+      localeCase
+    );
+    await localeCheck.context.close();
+  }
+
+  const celebrationLastDayCheck = await openPageAtTime(
+    "2026-08-02T19:30:00Z",
     "/?view=matches&tz=America%2FLos_Angeles"
   );
-  const calmArchiveState = await calmArchiveCheck.page.evaluate(() => ({
-    confettiDisplay: getComputedStyle(document.querySelector(".final-celebration-confetti")).display,
-    fireworkDisplay: getComputedStyle(document.querySelector(".final-firework")).display,
+  const celebrationLastDayState = await celebrationLastDayCheck.page.evaluate(() => ({
     hasCelebration: document.body.classList.contains("has-final-celebration"),
     isCalm: document.body.classList.contains("is-final-celebration-calm"),
     message: document.querySelector(".empty-state-post-tournament-description")?.textContent.trim() || ""
   }));
   assert(
-    calmArchiveState.hasCelebration &&
-      calmArchiveState.isCalm &&
-      calmArchiveState.confettiDisplay === "none" &&
-      calmArchiveState.fireworkDisplay === "none" &&
+    celebrationLastDayState.hasCelebration &&
+      !celebrationLastDayState.isCalm &&
+      celebrationLastDayState.message === "The 2026 World Cup is over.",
+    `August 2 should remain the final day of the full champion celebration. Measured ${JSON.stringify(celebrationLastDayState)}.`
+  );
+  await celebrationLastDayCheck.context.close();
+
+  const calmArchiveCheck = await openPageAtTime(
+    "2026-08-03T19:30:00Z",
+    "/?view=matches&tz=America%2FLos_Angeles"
+  );
+  const calmArchiveState = await calmArchiveCheck.page.evaluate(() => ({
+    hasBackground: Boolean(document.querySelector("#final-celebration-background")),
+    hasBanner: Boolean(document.querySelector("#final-celebration-banner")),
+    hasCelebration: document.body.classList.contains("has-final-celebration"),
+    message: document.querySelector(".empty-state-post-tournament-description")?.textContent.trim() || ""
+  }));
+  assert(
+    !calmArchiveState.hasCelebration &&
+      !calmArchiveState.hasBanner &&
+      !calmArchiveState.hasBackground &&
       calmArchiveState.message === "The 2026 World Cup is over.",
-    `From July 21 onward, the champion cover and archive guidance should remain without looping celebration motion. Measured ${JSON.stringify(calmArchiveState)}.`
+    `From August 3 onward, the cover and motion should leave while the calm archive guidance remains. Measured ${JSON.stringify(calmArchiveState)}.`
   );
   await calmArchiveCheck.context.close();
 
   const postTournamentLocaleCases = [
-    { action: "查看决赛", language: "zh", message: "2026年世界杯已结束。" },
-    { action: "Ver la final", language: "es", message: "El Mundial 2026 ha terminado." },
-    { action: "결승전 보기", language: "ko", message: "2026 월드컵이 끝났습니다." }
+    { action: "重温决赛", language: "zh", message: "2026年世界杯已结束。" },
+    { action: "Volver al partido final", language: "es", message: "El Mundial 2026 ha terminado." },
+    { action: "결승전 다시 보기", language: "ko", message: "2026 월드컵이 끝났습니다." }
   ];
   for (const localeCase of postTournamentLocaleCases) {
     const localeCheck = await openPageAtTime(
-      "2026-07-21T19:30:00Z",
+      "2026-08-03T19:30:00Z",
       `/?view=matches&tz=America%2FLos_Angeles&lang=${localeCase.language}`
     );
     await localeCheck.page.waitForFunction(
@@ -5387,6 +5527,15 @@ try {
   await page.goto(`${baseUrl}?view=matches&date=2022-12-18&lang=en&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
+  const argentina2022Style = await page
+    .locator("#final-celebration-banner .final-celebration-bullets li")
+    .nth(2)
+    .innerText();
+  assert(
+    argentina2022Style ===
+      "Argentina balanced Messi's freedom with midfield runners, aggressive duels and the flexibility to change shape.",
+    `The 2022 champion story should describe that Argentina side instead of reusing a country-level template. Measured ${argentina2022Style}.`
+  );
   await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
   const historicalFinalProjectionRows = await page
     .locator("#match-info .match-prediction-block .prediction-row")
@@ -5419,6 +5568,15 @@ try {
   await page.goto(`${baseUrl}?view=matches&date=2022-12-18&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
+  const argentina2022StyleZh = await page
+    .locator("#final-celebration-banner .final-celebration-bullets li")
+    .nth(2)
+    .innerText();
+  assert(
+    argentina2022StyleZh ===
+      "阿根廷让梅西自由发挥，同时用中场前插、强硬对抗和灵活变阵维持平衡。",
+    `The localized 2022 champion story should preserve Argentina's edition-specific identity. Measured ${argentina2022StyleZh}.`
+  );
   await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
   const historicalFinalTieTooltipZh = await page
     .locator("#match-info .match-prediction-block .prediction-row")
@@ -13627,7 +13785,7 @@ try {
         "Round of 16|Quarter-finals|Semi-finals|Final" &&
       historicalTournamentCheck.finalText.includes("Argentina") &&
       historicalTournamentCheck.finalText.includes("France") &&
-      historicalTournamentCheck.finalTimeText === "Dec 18 6:00PM local" &&
+      historicalTournamentCheck.finalTimeText === "Dec 18 6:00PM local (Final)" &&
       historicalTournamentCheck.bronzeTimeText === "Dec 17 6:00PM local (3rd place match)" &&
       !historicalTournamentCheck.bronzeText.includes("Third-place play-off") &&
       historicalTournamentCheck.resultPills.includes("3-3 (4-2 pens)") &&
@@ -13706,6 +13864,156 @@ try {
     historicalStandingsCheck.summary === "Final group tables use archived results and tournament-era tie-breakers.",
     "Historical standings should explain their archived data source."
   );
+  for (const knockoutOnlyYear of [1934, 1938]) {
+    await page.goto(
+      `${baseUrl}?view=standings&standingsYear=${knockoutOnlyYear}&standingsMode=groups`,
+      { waitUntil: "load" }
+    );
+    await waitForHistoricalStandingsYear(page, knockoutOnlyYear, "tournament");
+    await page.waitForSelector(".historical-tournament-view .progress-match");
+    const knockoutOnlyArchiveCheck = await page.evaluate(() => ({
+      emptyGroupMessageVisible: [...document.querySelectorAll(".past-empty")].some((element) =>
+        element.textContent.includes("Group standings are not available")
+      ),
+      groupsTabHidden: document.querySelector("#standings-groups-tab")?.hidden === true,
+      modeTabsHidden: document.querySelector("#standings-mode-tabs")?.hidden === true,
+      tournamentCardCount: document.querySelectorAll(".historical-tournament-view .progress-match").length,
+      urlMode: new URL(window.location.href).searchParams.get("standingsMode") || ""
+    }));
+    const expectedTournamentCardCount = knockoutOnlyYear === 1934 ? 17 : 19;
+
+    assert(
+      knockoutOnlyArchiveCheck.groupsTabHidden &&
+        knockoutOnlyArchiveCheck.modeTabsHidden &&
+        !knockoutOnlyArchiveCheck.emptyGroupMessageVisible &&
+        knockoutOnlyArchiveCheck.tournamentCardCount === expectedTournamentCardCount &&
+        knockoutOnlyArchiveCheck.urlMode === "",
+      `The ${knockoutOnlyYear} straight-knockout archive should expose only Tournament, including when a Groups URL is requested. Measured ${JSON.stringify(knockoutOnlyArchiveCheck)}.`
+    );
+
+    const historicalReplayAlignmentCheck = await page.evaluate(() =>
+      [...document.querySelectorAll(".historical-tournament-view .progress-round")]
+        .filter((round) => /replay/i.test(round.dataset.roundId || round.getAttribute("aria-label") || ""))
+        .flatMap((round) =>
+          [...round.querySelectorAll(".progress-match")].map((replayMatch) => {
+            const replayRoundIndex = Number(replayMatch.dataset.roundIndex);
+            const source = [...document.querySelectorAll(
+              `.historical-tournament-view .progress-match[data-next-match="${CSS.escape(replayMatch.dataset.matchNumber || "")}"]`
+            )]
+              .filter((candidate) => Number(candidate.dataset.roundIndex) < replayRoundIndex)
+              .sort((a, b) => Number(b.dataset.roundIndex) - Number(a.dataset.roundIndex))[0];
+            const path = document.querySelector(
+              `.historical-tournament-view .progress-connectors path[data-source-match-number="${CSS.escape(source?.dataset.matchNumber || "")}"][data-target-match-number="${CSS.escape(replayMatch.dataset.matchNumber || "")}"]`
+            );
+            const sourceRect = source?.getBoundingClientRect();
+            const replayRect = replayMatch.getBoundingClientRect();
+            const sourceCenterY = sourceRect ? sourceRect.top + sourceRect.height / 2 : 0;
+            const replayCenterY = replayRect.top + replayRect.height / 2;
+            const pathData = path?.getAttribute("d") || "";
+
+            return {
+              pathData,
+              replayMatchNumber: replayMatch.dataset.matchNumber || "",
+              sourceMatchNumber: source?.dataset.matchNumber || "",
+              verticalDelta: Math.abs(sourceCenterY - replayCenterY),
+              isStraightPath: /^M\s+[\d.]+\s+[\d.]+\s+H\s+[\d.]+$/.test(pathData)
+            };
+          })
+        )
+    );
+    assert(
+      historicalReplayAlignmentCheck.length > 0 &&
+        historicalReplayAlignmentCheck.every(
+          (entry) => entry.sourceMatchNumber && entry.verticalDelta <= 1 && entry.isStraightPath
+        ),
+      `Every ${knockoutOnlyYear} replay should sit directly right of its original drawn match at the same height with a straight connector. Measured ${JSON.stringify(historicalReplayAlignmentCheck)}.`
+    );
+
+    if (knockoutOnlyYear === 1934) {
+      const historicalVenueCheck = await page.evaluate(() => {
+        const venue = document.querySelector(
+          '.historical-tournament-view .progress-match[data-match-number="6"] .knockout-match-venue'
+        );
+        return {
+          label: venue?.textContent.trim() || "",
+          tooltip: venue?.getAttribute("data-tooltip") || ""
+        };
+      });
+      assert(
+        historicalVenueCheck.label === "Milan, Italy" &&
+          historicalVenueCheck.tooltip === "Stadio San Siro • Milan, Italy",
+        `Historical venue cards should show a complete city and country, with the stadium in the tooltip. Measured ${JSON.stringify(historicalVenueCheck)}.`
+      );
+
+      const historical1934ReplayPathCheck = await page.evaluate(() => {
+        const svg = document.querySelector(".historical-tournament-view .progress-connectors");
+        const directPath = svg?.querySelector(
+          'path[data-source-match-number="12"][data-target-match-number="14"]'
+        );
+        const replayPath = svg?.querySelector(
+          'path[data-source-match-number="13"][data-target-match-number="14"]'
+        );
+        const originalDrawPath = svg?.querySelector(
+          'path[data-source-match-number="11"][data-target-match-number="13"]'
+        );
+        const originalDraw = document.querySelector(
+          '.historical-tournament-view .progress-match[data-match-number="11"]'
+        );
+        const replayMatch = document.querySelector(
+          '.historical-tournament-view .progress-match[data-match-number="13"]'
+        );
+        const replayRound = document.querySelector(
+          '.historical-tournament-view .progress-round[data-round-index="2"]'
+        );
+        const semiFinal = document.querySelector(
+          '.historical-tournament-view .progress-match[data-match-number="14"]'
+        );
+        const svgRect = svg?.getBoundingClientRect();
+        const viewBoxWidth = svg?.viewBox?.baseVal?.width || 0;
+        const scaleX = svgRect?.width ? viewBoxWidth / svgRect.width : 1;
+        const relativeX = (value) => (value - (svgRect?.left || 0)) * scaleX;
+        const directPathData = directPath?.getAttribute("d") || "";
+        const originalDrawPathData = originalDrawPath?.getAttribute("d") || "";
+        const replayPathData = replayPath?.getAttribute("d") || "";
+        const getJoinX = (pathData) => Number(/\bH\s+([\d.]+)/.exec(pathData)?.[1] || 0);
+        const getCenterY = (element) => {
+          const rect = element?.getBoundingClientRect();
+          return rect ? rect.top + rect.height / 2 : 0;
+        };
+
+        return {
+          directJoinX: getJoinX(directPathData),
+          directPathClass: directPath?.getAttribute("class") || "",
+          directPathData,
+          originalDrawCenterY: getCenterY(originalDraw),
+          originalDrawPathData,
+          originalDrawPathStraight: /^M\s+[\d.]+\s+[\d.]+\s+H\s+[\d.]+$/.test(
+            originalDrawPathData
+          ),
+          replayMatchCenterY: getCenterY(replayMatch),
+          replayJoinX: getJoinX(replayPathData),
+          replayPathData,
+          replayRoundRight: relativeX(replayRound?.getBoundingClientRect().right || 0),
+          semiFinalLeft: relativeX(semiFinal?.getBoundingClientRect().left || 0)
+        };
+      });
+
+      assert(
+        historical1934ReplayPathCheck.directPathClass.includes("is-round-skip") &&
+          historical1934ReplayPathCheck.directJoinX > historical1934ReplayPathCheck.replayRoundRight &&
+          historical1934ReplayPathCheck.directJoinX < historical1934ReplayPathCheck.semiFinalLeft &&
+          Math.abs(
+            historical1934ReplayPathCheck.directJoinX - historical1934ReplayPathCheck.replayJoinX
+          ) <= 1 &&
+          Math.abs(
+            historical1934ReplayPathCheck.originalDrawCenterY -
+              historical1934ReplayPathCheck.replayMatchCenterY
+          ) <= 1 &&
+          historical1934ReplayPathCheck.originalDrawPathStraight,
+        `The Austria-Hungary quarter-final path should bypass the Replay column, while the Italy-Spain replay should sit directly right of the drawn match on a straight horizontal path. Measured ${JSON.stringify(historical1934ReplayPathCheck)}.`
+      );
+    }
+  }
   await page.goto(`${baseUrl}?view=standings&standingsYear=2010`, { waitUntil: "load" });
   await waitForHistoricalStandingsYear(page, 2010, "tournament");
   await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="49"]');
@@ -14027,20 +14335,60 @@ try {
       roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
         heading.textContent.trim()
       ),
+      formatNote: document
+        .querySelector(".historical-tournament-format-note")
+        ?.textContent.replace(/\s+/g, " ")
+        .trim(),
       summary: document.querySelector("#standings-summary")?.textContent.trim(),
       viewLabel: document.querySelector(".historical-tournament-view")?.getAttribute("aria-label")
     };
   });
   assert(
-    historical1950ChampionshipPoolCheck.cardCount === 6 &&
-      historical1950ChampionshipPoolCheck.matchNumbers.join("|") === "17|18|19|20|21|22" &&
-      historical1950ChampionshipPoolCheck.roundHeadings.join("|") === "Final round" &&
-      historical1950ChampionshipPoolCheck.roundClassCount === 1 &&
+    historical1950ChampionshipPoolCheck.cardCount === 1 &&
+      historical1950ChampionshipPoolCheck.matchNumbers.join("|") === "22" &&
+      historical1950ChampionshipPoolCheck.roundHeadings.join("|") === "Title decider" &&
+      historical1950ChampionshipPoolCheck.roundClassCount === 0 &&
       historical1950ChampionshipPoolCheck.linkedPathCount === 0 &&
-      historical1950ChampionshipPoolCheck.summary === "Tournament path uses archived match results." &&
+      historical1950ChampionshipPoolCheck.summary ===
+        "1950 ended with a four-team final round. Uruguay–Brazil was the title decider." &&
+      historical1950ChampionshipPoolCheck.formatNote ===
+        "No knockout final Four group winners played a round-robin. Uruguay–Brazil decided the title on the last matchday. See the Groups tab for the complete final-round table." &&
       historical1950ChampionshipPoolCheck.viewLabel === "Tournament path" &&
       historical1950ChampionshipPoolCheck.progressionLabel === "Tournament progression",
-    `The 1950 archived Tournament tab should render its six-match championship pool without false knockout paths. Measured ${JSON.stringify(historical1950ChampionshipPoolCheck)}.`
+    `The 1950 archived Tournament tab should explain the format and show only the title decider, without presenting the championship pool as a knockout path. Measured ${JSON.stringify(historical1950ChampionshipPoolCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1950&standingsMode=groups`, { waitUntil: "load" });
+  await waitForHistoricalStandingsYear(page, 1950, "groups");
+  await page.waitForSelector(".historical-championship-table");
+  const historical1950FinalStandingsCheck = await page.evaluate(() => {
+    const championshipCard = document.querySelector(".historical-championship-table");
+    return {
+      championBadges: [...championshipCard.querySelectorAll(".standing-status-pill.is-champion")].map((badge) =>
+        badge.textContent.trim()
+      ),
+      groupHeadings: [...document.querySelectorAll(".standings-card h2")].map((heading) => heading.textContent.trim()),
+      note: championshipCard
+        .querySelector(".historical-championship-table-note")
+        ?.textContent.trim(),
+      order: [...championshipCard.querySelectorAll("tbody .standing-name")].map((team) => team.textContent.trim()),
+      pointsHelp: championshipCard
+        .querySelector("thead th:nth-child(2) .standing-help")
+        ?.getAttribute("data-tooltip"),
+      summary: document.querySelector("#standings-summary")?.textContent.trim()
+    };
+  });
+  assert(
+    historical1950FinalStandingsCheck.groupHeadings.join("|") ===
+      "Group 1|Group 2|Group 3|Group 4|Final round standings" &&
+      historical1950FinalStandingsCheck.order.join("|") === "Uruguay|Brazil|Sweden|Spain" &&
+      historical1950FinalStandingsCheck.championBadges.join("|") === "Champion" &&
+      historical1950FinalStandingsCheck.note ===
+        "This four-team table decided the 1950 world champion." &&
+      historical1950FinalStandingsCheck.pointsHelp ===
+        "Points use this tournament's scoring: 2 for a win, 1 for a tie, 0 for a loss." &&
+      historical1950FinalStandingsCheck.summary ===
+        "First-round groups and the final-round championship table use archived results and tournament-era tie-breakers.",
+    `The 1950 archived Groups tab should include the complete final-round championship table with Uruguay marked as champion. Measured ${JSON.stringify(historical1950FinalStandingsCheck)}.`
   );
   const historicalFinalGroupTournamentCases = [
     {
@@ -16575,7 +16923,6 @@ try {
   );
 
   const worldCupHistoryQuestions = [
-    ["who won this year", "Spain won the 2026 World Cup."],
     ["who won the most", "Brazil have won the most men's World Cups: 5. Germany and Italy are next with 4 each."],
     ["when did Brazil last win", "Brazil last won the World Cup in 2002; they have 5 titles."],
     ["when did Brazil win", "Brazil won the World Cup 5 times: 1958, 1962, 1970, 1994, and 2002."],
@@ -16606,7 +16953,7 @@ try {
     `Ball Boy's World Cup history answers should keep useful, non-repeated follow-ups without overflowing. Measured ${JSON.stringify(worldCupHistoryMetrics)}.`
   );
 
-  for (const question of ["who won last year", "Who won the last World Cup?"]) {
+  for (const question of ["Who won the previous World Cup?"]) {
     await touchPage.locator("#scout-reset").click();
     await ballBoyInput.fill(question);
     await ballBoySend.click();
@@ -16639,6 +16986,129 @@ try {
         previousWorldCupFinalMetrics.followUps <= 3 &&
         previousWorldCupFinalMetrics.overflow <= 1,
       `Ball Boy should answer "${question}" with the complete Argentina-France 2022 final card. Measured ${JSON.stringify(previousWorldCupFinalMetrics)}.`
+    );
+  }
+
+  for (const [question, expected] of [
+    ["who won this year", { lead: "Spain won the 2026 World Cup, beating Argentina 1-0 in the final.", score: "1–0", stage: "2026 World Cup final", teams: ["Spain", "Argentina"] }],
+    ["Who won the last World Cup?", { lead: "Spain won the 2026 World Cup, beating Argentina 1-0 in the final.", score: "1–0", stage: "2026 World Cup final", teams: ["Spain", "Argentina"] }],
+    ["Who won the 2018 World Cup?", { lead: "France won the 2018 World Cup, beating Croatia 4-2 in the final.", score: "4–2", stage: "2018 World Cup final", teams: ["France", "Croatia"] }]
+  ]) {
+    await touchPage.locator("#scout-reset").click();
+    await ballBoyInput.fill(question);
+    await ballBoySend.click();
+    await touchPage.locator(".scout-answer.is-match").waitFor({ state: "visible" });
+    const finalMetrics = await touchPage.evaluate(() => {
+      const answer = [...document.querySelectorAll(".scout-answer.is-match")].at(-1);
+      return {
+        followUps: answer.querySelectorAll(".scout-followup").length,
+        lead: answer.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+        overflow: answer.scrollWidth - answer.clientWidth,
+        score: answer.querySelector(".scout-score-value")?.textContent.trim() || "",
+        stage: answer.querySelector(".scout-match-meta span")?.textContent.trim() || "",
+        teams: [...answer.querySelectorAll(".scout-scoreboard strong")].map((item) => item.textContent.trim())
+      };
+    });
+    assert(
+      finalMetrics.lead === expected.lead &&
+        finalMetrics.score === expected.score &&
+        finalMetrics.stage === expected.stage &&
+        JSON.stringify(finalMetrics.teams) === JSON.stringify(expected.teams) &&
+        finalMetrics.followUps >= 2 &&
+        finalMetrics.followUps <= 3 &&
+        finalMetrics.overflow <= 1,
+      `Ball Boy should answer "${question}" with the matching edition's final card. Measured ${JSON.stringify(finalMetrics)}.`
+    );
+  }
+
+  for (const [question, expectedYear, expectedNames, expectedRows] of [
+    ["Who won the World Cup awards?", "2026", ["Rodri", "Kylian Mbappe", "Unai Simon", "Pau Cubarsi", "Netherlands"], 5],
+    ["Who won the awards at the previous World Cup?", "2022", ["Lionel Messi", "Kylian Mbappe", "Emiliano Martinez", "Enzo Fernandez", "England"], 5],
+    ["Who won the Golden Ball in 2018?", "2018", ["Luka Modric"], 1]
+  ]) {
+    await touchPage.locator("#scout-reset").click();
+    await ballBoyInput.fill(question);
+    await ballBoySend.click();
+    await touchPage.locator(".scout-answer.is-tournament-awards").waitFor({ state: "visible" });
+    const awardMetrics = await touchPage.evaluate(() => {
+      const answer = [...document.querySelectorAll(".scout-answer.is-tournament-awards")].at(-1);
+      return {
+        followUps: answer.querySelectorAll(".scout-followup").length,
+        names: [...answer.querySelectorAll(".scout-tournament-award-row strong")].map((item) => item.textContent.trim()),
+        overflow: answer.scrollWidth - answer.clientWidth,
+        rows: answer.querySelectorAll(".scout-tournament-award-row").length,
+        sources: answer.querySelectorAll(".scout-tournament-sources a").length,
+        year: answer.querySelector(".scout-tournament-card-header > div > span")?.textContent.trim() || ""
+      };
+    });
+    assert(
+      awardMetrics.year === expectedYear &&
+        awardMetrics.rows === expectedRows &&
+        expectedNames.every((name) => awardMetrics.names.includes(name)) &&
+        awardMetrics.sources >= 1 &&
+        awardMetrics.followUps >= 2 &&
+        awardMetrics.followUps <= 3 &&
+        awardMetrics.overflow <= 1,
+      `Ball Boy should answer "${question}" with verified, edition-aware award rows. Measured ${JSON.stringify(awardMetrics)}.`
+    );
+  }
+
+  for (const [question, expected] of [
+    ["How far did Argentina go in 2026?", { finish: "Runners-up", fragment: "with a 7-0-1 record." }],
+    ["How far did Brazil go in 2022?", { finish: "Quarter-finals", fragment: "with a 3-1-1 record." }]
+  ]) {
+    await touchPage.locator("#scout-reset").click();
+    await ballBoyInput.fill(question);
+    await ballBoySend.click();
+    await touchPage.locator(".scout-answer.is-country").waitFor({ state: "visible" });
+    const finishMetrics = await touchPage.evaluate(() => {
+      const answer = [...document.querySelectorAll(".scout-answer.is-country")].at(-1);
+      return {
+        finish: answer.querySelector(".scout-tournament-finish strong")?.textContent.trim() || "",
+        followUps: answer.querySelectorAll(".scout-followup").length,
+        lead: answer.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+        overflow: answer.scrollWidth - answer.clientWidth
+      };
+    });
+    assert(
+      finishMetrics.finish === expected.finish &&
+        finishMetrics.lead.includes(expected.fragment) &&
+        finishMetrics.followUps >= 2 &&
+        finishMetrics.followUps <= 3 &&
+        finishMetrics.overflow <= 1,
+      `Ball Boy should answer "${question}" with that team's edition finish and record. Measured ${JSON.stringify(finishMetrics)}.`
+    );
+  }
+
+  for (const [question, expected] of [
+    ["Summarize the 2026 World Cup", { goals: "308", matches: "104", winner: "Spain", year: "2026" }],
+    ["Summarize the 2022 World Cup", { goals: "172", matches: "64", winner: "Argentina", year: "2022" }]
+  ]) {
+    await touchPage.locator("#scout-reset").click();
+    await ballBoyInput.fill(question);
+    await ballBoySend.click();
+    await touchPage.locator(".scout-answer.is-tournament-wrap").waitFor({ state: "visible" });
+    const wrapMetrics = await touchPage.evaluate(() => {
+      const answer = [...document.querySelectorAll(".scout-answer.is-tournament-wrap")].at(-1);
+      const stats = [...answer.querySelectorAll(".scout-tournament-stat-strip strong")].map((item) => item.textContent.trim());
+      return {
+        awards: answer.querySelectorAll(".scout-tournament-award-row").length,
+        followUps: answer.querySelectorAll(".scout-followup").length,
+        overflow: answer.scrollWidth - answer.clientWidth,
+        stats,
+        winner: answer.querySelector(".scout-tournament-card-header strong")?.textContent.trim() || "",
+        year: answer.querySelector(".scout-tournament-card-header > div > span")?.textContent.trim() || ""
+      };
+    });
+    assert(
+      wrapMetrics.year === expected.year &&
+        wrapMetrics.winner === expected.winner &&
+        JSON.stringify(wrapMetrics.stats) === JSON.stringify([expected.matches, expected.goals]) &&
+        wrapMetrics.awards === 5 &&
+        wrapMetrics.followUps >= 2 &&
+        wrapMetrics.followUps <= 3 &&
+        wrapMetrics.overflow <= 1,
+      `Ball Boy should answer "${question}" with a complete edition wrap card. Measured ${JSON.stringify(wrapMetrics)}.`
     );
   }
 

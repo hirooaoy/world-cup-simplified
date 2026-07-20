@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T04:30:26.916Z",
+  "updatedAt": "2026-07-20T06:28:02.106Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -13,7 +13,7 @@
     "note": "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs or historical goal records.",
     "imageStatus": "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
     "imageNote": "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, and add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override.",
-    "minimumImageCount": 2588,
+    "minimumImageCount": 2602,
     "finalSemiImageStatus": "targeted-final-and-semi-final-scorers-key-players-and-team-description-mentions",
     "finalSemiImageTargetCount": 294,
     "finalSemiImageCount": 260,
@@ -123,7 +123,7 @@
       ]
     },
     {
-      "id": "abdelaziz ben tifour|france|Abdelaziz Ben Tifour / France / 1954",
+      "id": "abdelaziz ben tifour|france|https://en.wikipedia.org/wiki/Abdelaziz_Ben_Tifour",
       "aliases": [],
       "displayName": "Abdelaziz Ben Tifour",
       "name": "Abdelaziz Ben Tifour",
@@ -567,7 +567,7 @@
       ]
     },
     {
-      "id": "adam musia|poland|Adam Musiał / Poland / 1974",
+      "id": "adam musia|poland|https://en.wikipedia.org/wiki/Adam_Musia%C5%82",
       "aliases": [],
       "displayName": "Adam Musiał",
       "name": "Adam Musiał",
@@ -3108,7 +3108,7 @@
       ]
     },
     {
-      "id": "alfredo rojas|argentina|Alfredo Rojas / Argentina / 1958",
+      "id": "alfredo rojas|argentina|https://en.wikipedia.org/wiki/Alfredo_Rojas_(Argentine_footballer)",
       "aliases": [],
       "displayName": "Alfredo Rojas",
       "name": "Alfredo Rojas",
@@ -3117,27 +3117,12 @@
         "Forward"
       ],
       "profileKeys": [
-        "Alfredo Rojas / Argentina / 1958"
-      ],
-      "teamName": "Argentina",
-      "tournamentYears": [
-        1958
-      ]
-    },
-    {
-      "id": "alfredo rojas|argentina|Alfredo Rojas / Argentina / 1966",
-      "aliases": [],
-      "displayName": "Alfredo Rojas",
-      "name": "Alfredo Rojas",
-      "position": "Forward",
-      "positions": [
-        "Forward"
-      ],
-      "profileKeys": [
+        "Alfredo Rojas / Argentina / 1958",
         "Alfredo Rojas / Argentina / 1966"
       ],
       "teamName": "Argentina",
       "tournamentYears": [
+        1958,
         1966
       ]
     },
@@ -9160,7 +9145,7 @@
       ]
     },
     {
-      "id": "brito|brazil|Brito / Brazil / 1970",
+      "id": "brito|brazil|https://en.wikipedia.org/wiki/Brito_(footballer,_born_1939)",
       "aliases": [],
       "displayName": "Brito",
       "name": "Brito",
@@ -13097,7 +13082,7 @@
       ]
     },
     {
-      "id": "danny boffin|belgium|Danny Boffin / Belgium / 1994",
+      "id": "danny boffin|belgium|https://en.wikipedia.org/wiki/Danny_Boffin",
       "aliases": [],
       "displayName": "Danny Boffin",
       "name": "Danny Boffin",
@@ -15272,7 +15257,7 @@
       ]
     },
     {
-      "id": "doug utjesenovic|australia|Doug Utjesenovic / Australia / 1974",
+      "id": "doug utjesenovic|australia|https://en.wikipedia.org/wiki/Doug_Utjesenovic",
       "aliases": [],
       "displayName": "Doug Utjesenovic",
       "name": "Doug Utjesenovic",
@@ -15448,7 +15433,7 @@
       ]
     },
     {
-      "id": "duda|portugal|Duda / Portugal / 2010",
+      "id": "duda|portugal|https://en.wikipedia.org/wiki/Duda_(footballer,_born_1980)",
       "aliases": [],
       "displayName": "Duda",
       "name": "Duda",
@@ -18828,7 +18813,7 @@
       ]
     },
     {
-      "id": "filip de wilde|belgium|Filip De Wilde / Belgium / 1998",
+      "id": "filip de wilde|belgium|https://en.wikipedia.org/wiki/Filip_De_Wilde",
       "aliases": [],
       "displayName": "Filip De Wilde",
       "name": "Filip De Wilde",
@@ -22679,7 +22664,7 @@
       ]
     },
     {
-      "id": "gyula prassler|romania|Gyula Prassler / Romania / 1938",
+      "id": "gyula prassler|romania|https://en.wikipedia.org/wiki/Gyula_Prassler",
       "aliases": [],
       "displayName": "Gyula Prassler",
       "name": "Gyula Prassler",
@@ -27611,7 +27596,7 @@
       ]
     },
     {
-      "id": "jimmy douglas|united states|Jimmy Douglas / United States / 1930",
+      "id": "jimmy douglas|united states|https://en.wikipedia.org/wiki/Jimmy_Douglas_(American_soccer)",
       "aliases": [],
       "displayName": "Jimmy Douglas",
       "name": "Jimmy Douglas",
@@ -29030,7 +29015,7 @@
       ]
     },
     {
-      "id": "jorge vasquez|el salvador|Jorge Vásquez / El Salvador / 1970",
+      "id": "jorge vasquez|el salvador|https://en.wikipedia.org/wiki/Jorge_V%C3%A1squez_(Salvadoran_footballer)",
       "aliases": [],
       "displayName": "Jorge Vásquez",
       "name": "Jorge Vásquez",
@@ -29631,7 +29616,7 @@
       ]
     },
     {
-      "id": "josef gauchel|germany|Josef Gauchel / Germany / 1938",
+      "id": "josef gauchel|germany|https://en.wikipedia.org/wiki/Josef_Gauchel",
       "aliases": [],
       "displayName": "Josef Gauchel",
       "name": "Josef Gauchel",
@@ -32606,7 +32591,7 @@
       ]
     },
     {
-      "id": "klas ingesson|sweden|Klas Ingesson / Sweden / 1994",
+      "id": "klas ingesson|sweden|https://en.wikipedia.org/wiki/Klas_Ingesson",
       "aliases": [],
       "displayName": "Klas Ingesson",
       "name": "Klas Ingesson",
@@ -48984,7 +48969,7 @@
       ]
     },
     {
-      "id": "venancio ramos|uruguay|Venancio Ramos / Uruguay / 1986",
+      "id": "venancio ramos|uruguay|https://en.wikipedia.org/wiki/Venancio_Ramos",
       "aliases": [],
       "displayName": "Venancio Ramos",
       "name": "Venancio Ramos",

@@ -3,20 +3,23 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-19-history-final-card-1";
+} from "./locales/locale-runtime.js?v=2026-07-20-historical-replay-recaps-tournament-memory-3";
 
-const BALL_BOY_DATA_VERSION = "2026-07-19-history-6";
+const BALL_BOY_DATA_VERSION = "2026-07-20-tournament-memory-2";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${BALL_BOY_DATA_VERSION}`,
+  history: `data/history.json?v=${BALL_BOY_DATA_VERSION}`,
   historicalPlayerIndex: `data/ball-boy-historical-players.json?v=${BALL_BOY_DATA_VERSION}`,
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   liveData: `api/live-data?v=${BALL_BOY_DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   standings: `data/standings.json?v=${BALL_BOY_DATA_VERSION}`,
   teamStyleProfiles: `data/team-style-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
-  teams: `data/teams.json?v=${BALL_BOY_DATA_VERSION}`
+  teams: `data/teams.json?v=${BALL_BOY_DATA_VERSION}`,
+  tournament: `data/tournament.json?v=${BALL_BOY_DATA_VERSION}`,
+  worldCupAwards: `data/world-cup-awards.json?v=${BALL_BOY_DATA_VERSION}`
 };
 
 const COMPLETED_MATCH_STATUSES = new Set(["FT", "AET", "PEN"]);
@@ -76,36 +79,9 @@ const WORLD_CUP_CHAMPIONS = [
   [2022, "ARG", "Argentina"]
 ].map(([year, teamId, winner]) => ({ teamId, winner, year }));
 
-const PREVIOUS_WORLD_CUP_FINAL = {
-  awayTeamId: "FRA",
-  goalsAway: [
-    { minute: 80, name: "Kylian Mbappé", penalty: true },
-    { minute: 81, name: "Kylian Mbappé" },
-    { minute: 118, name: "Kylian Mbappé", penalty: true }
-  ],
-  goalsHome: [
-    { minute: 23, name: "Lionel Messi", penalty: true },
-    { minute: 36, name: "Ángel Di María" },
-    { minute: 108, name: "Lionel Messi" }
-  ],
-  highlightVideo: {
-    sourceName: "FIFA",
-    url: "https://www.youtube.com/watch?v=zhEWqfP6V_w"
-  },
-  homeTeamId: "ARG",
-  id: "wc-2022-2022-12-18-final-argentina-france",
-  kickoffUtc: "2022-12-18T15:00:00Z",
-  resultStoryBullets: [
-    "Lionel Messi put Argentina in front before Kylian Mbappé answered for France.",
-    "The 3-3 final stayed level through extra time and went to penalties.",
-    "Argentina won the shootout 4-2 to lift the 2022 World Cup."
-  ],
-  score: { away: 3, home: 3 },
-  scoreDetails: { penalties: { away: 2, home: 4 } },
-  stage: "final",
-  status: "PEN",
-  venue: "Lusail Iconic Stadium, Lusail"
-};
+const HISTORICAL_WORLD_CUP_TITLE_DECIDER_IDS = new Set([
+  "wc-1950-1950-07-16-final-round-uruguay-brazil"
+]);
 
 const WORLD_CUP_CHAMPION_ALIASES = {
   ARG: ["argentina", "阿根廷", "아르헨티나"],
@@ -832,6 +808,9 @@ let teamStyleProfilesPromise = null;
 let profilesPromise = null;
 let historicalPlayerIndexPromise = null;
 let historicalPlayerProfilesPromise = null;
+let historyPromise = null;
+let tournamentPromise = null;
+let worldCupAwardsPromise = null;
 let teamsCache = [];
 let fixturesCache = [];
 let chatbotH2hCache = {};
@@ -842,7 +821,10 @@ let teamAliasEntries = [];
 let playerIndexCache = null;
 let historicalPlayerIndexCache = null;
 let historicalPlayerProfilesCache = {};
+let historyCache = { fixtures: [], tournaments: [] };
 let profilesDataCache = {};
+let tournamentCache = { awards: {}, sources: [] };
+let worldCupAwardsCache = { editions: {}, sources: [] };
 let liveRefreshPromise = null;
 const localePackPromises = new Map();
 const localePacks = new Map();
@@ -1045,11 +1027,12 @@ function isZhLocale(locale) {
 }
 
 function getLocalizedTeamName(team, locale) {
+  const teamId = team?.localeTeamId || team?.id;
   if (isZhLocale(locale)) {
-    return ZH_TEAM_NAMES[team?.id] || team?.name || "球队";
+    return ZH_TEAM_NAMES[teamId] || team?.name || "球队";
   }
   const knowledge = getLocaleKnowledge(locale);
-  return knowledge?.teamNames?.[team?.id] || team?.name || knowledge?.templates?.fallbackTeam || "Team";
+  return knowledge?.teamNames?.[teamId] || team?.name || knowledge?.templates?.fallbackTeam || "Team";
 }
 
 function getLocalizedPlayerName(value, locale, scope = "current") {
@@ -1372,8 +1355,14 @@ function canonicalizeLocalizedQuestion(value, locale = "en") {
 
   let canonical = ` ${normalized} `;
   const replacements = [
+    [/世界杯奖项|世界杯获奖名单|谁获得了世界杯奖项/g, " world cup awards "],
+    [/金球奖/g, " golden ball "], [/金靴奖/g, " golden boot "], [/金手套奖/g, " golden glove "],
+    [/最佳年轻球员/g, " young player "], [/公平竞赛奖/g, " fair play "],
+    [/总结(?:一下)?世界杯|世界杯总结|世界杯回顾/g, " summarize world cup "],
+    [/走了多远|止步哪一轮|最终成绩如何/g, " how far did go "],
     [/谁赢得世界杯最多|谁获得世界杯冠军最多|夺冠次数最多|赢得最多|冠军最多/g, " who won most world cups "],
-    [/上届世界杯|上一届世界杯|上次世界杯|上一届/g, " last world cup "],
+    [/上届世界杯|上一届世界杯|上一届/g, " previous world cup "],
+    [/上次世界杯/g, " last world cup "],
     [/去年/g, " last year "], [/今年/g, " this year "],
     [/最近一次夺冠|上次夺冠|最后一次夺冠/g, " last won world cup "],
     [/多少次世界杯冠军|几次世界杯冠军/g, " how many world cups won "],
@@ -1597,6 +1586,39 @@ async function loadTeamStyleProfiles() {
   return teamStyleProfilesPromise;
 }
 
+async function loadHistoryArchive() {
+  if (!historyPromise) {
+    historyPromise = loadJson(BALL_BOY_DATA_URLS.history, { fixtures: [], tournaments: [] }).then((data) => {
+      historyCache = {
+        fixtures: Array.isArray(data?.fixtures) ? data.fixtures : [],
+        tournaments: Array.isArray(data?.tournaments) ? data.tournaments : []
+      };
+      return historyCache;
+    });
+  }
+  return historyPromise;
+}
+
+async function loadTournamentData() {
+  if (!tournamentPromise) {
+    tournamentPromise = loadJson(BALL_BOY_DATA_URLS.tournament, { awards: {}, sources: [] }).then((data) => {
+      tournamentCache = data && typeof data === "object" ? data : { awards: {}, sources: [] };
+      return tournamentCache;
+    });
+  }
+  return tournamentPromise;
+}
+
+async function loadWorldCupAwards() {
+  if (!worldCupAwardsPromise) {
+    worldCupAwardsPromise = loadJson(BALL_BOY_DATA_URLS.worldCupAwards, { editions: {}, sources: [] }).then((data) => {
+      worldCupAwardsCache = data && typeof data === "object" ? data : { editions: {}, sources: [] };
+      return worldCupAwardsCache;
+    });
+  }
+  return worldCupAwardsPromise;
+}
+
 function getProfileAliases(profile) {
   return [
     profile?.name,
@@ -1804,7 +1826,8 @@ function findTeamsInQuestion(question) {
   const normalized = normalizeBallBoyText(question);
   const matches = [];
   for (const entry of teamAliasEntries) {
-    if (containsPhrase(normalized, entry.key) && !matches.some((match) => match.team.id === entry.team.id)) {
+    const attachedLocalizedAlias = /[\p{Script=Han}\p{Script=Hangul}]/u.test(entry.key) && normalized.includes(entry.key);
+    if ((containsPhrase(normalized, entry.key) || attachedLocalizedAlias) && !matches.some((match) => match.team.id === entry.team.id)) {
       matches.push({
         index: normalized.indexOf(entry.key),
         team: entry.team
@@ -4398,6 +4421,257 @@ function getUnknownReply(locale = "en") {
   };
 }
 
+function getCurrentWorldCupYear(core) {
+  const counts = new Map();
+  for (const fixture of core?.fixtures || []) {
+    const year = Number(String(fixture?.kickoffUtc || "").slice(0, 4));
+    if (Number.isInteger(year)) counts.set(year, (counts.get(year) || 0) + 1);
+  }
+  return [...counts.entries()].sort((left, right) => right[1] - left[1] || right[0] - left[0])[0]?.[0]
+    || CURRENT_WORLD_CUP_YEAR;
+}
+
+function getPreviousWorldCupYear(currentYear, history) {
+  return (history?.tournaments || [])
+    .map((edition) => Number(edition.year))
+    .filter((year) => Number.isInteger(year) && year < currentYear)
+    .sort((left, right) => left - right)
+    .at(-1) || currentYear - 4;
+}
+
+function getRequestedWorldCupYear(question, currentYear, previousYear, currentEditionComplete = false) {
+  const explicitYear = Number((question.match(/\b(?:19|20)\d{2}\b/) || [])[0]);
+  if (Number.isInteger(explicitYear)) return explicitYear;
+  if (/\b(previous world cup|previous edition)\b/.test(question)) {
+    return previousYear;
+  }
+  if (/\b(last year|last time|last world cup)\b/.test(question)) {
+    return currentEditionComplete ? currentYear : previousYear;
+  }
+  return currentYear;
+}
+
+function canonicalHistoricalTeamName(value) {
+  const normalized = normalizeBallBoyText(value);
+  const aliases = {
+    "germany fr": "germany",
+    "korea republic": "south korea",
+    "united states": "usa",
+    "united states of america": "usa",
+    "west germany": "germany"
+  };
+  return aliases[normalized] || normalized;
+}
+
+function getHistoricalTeamId(name) {
+  return `history:${canonicalHistoricalTeamName(name).replace(/[^a-z0-9]+/g, "-")}`;
+}
+
+function normalizeHistoricalStage(value) {
+  const normalized = normalizeBallBoyText(value).replace(/\s+/g, "-");
+  const stages = {
+    "bronze-final": "bronze-final",
+    "final": "final",
+    "final-round": "final-round",
+    "group": "group",
+    "group-stage": "group",
+    "quarter-finals": "quarter-finals",
+    "quarterfinals": "quarter-finals",
+    "round-of-16": "round-of-16",
+    "round-of-32": "round-of-32",
+    "semi-finals": "semi-finals",
+    "semifinals": "semi-finals",
+    "third-place": "bronze-final",
+    "third-place-match": "bronze-final"
+  };
+  return stages[normalized] || normalized;
+}
+
+function getHistoricalTitleDecider(history, year) {
+  const fixtures = (history?.fixtures || []).filter((fixture) => Number(fixture.tournamentYear) === Number(year));
+  return fixtures.find((fixture) =>
+    normalizeHistoricalStage(fixture.round) === "final" ||
+    HISTORICAL_WORLD_CUP_TITLE_DECIDER_IDS.has(fixture.id)
+  ) || null;
+}
+
+function getHistoricalTeamForName(name, core) {
+  const canonical = canonicalHistoricalTeamName(name);
+  const current = (core?.teams || []).find((team) =>
+    [team.name, team.officialName, ...(EXTRA_TEAM_ALIASES[team.id] || [])]
+      .filter(Boolean)
+      .some((candidate) => canonicalHistoricalTeamName(candidate) === canonical)
+  );
+  return {
+    ...(current || {}),
+    fifaRank: null,
+    fifaRankingYear: null,
+    groupId: "",
+    id: getHistoricalTeamId(name),
+    localeTeamId: current?.id || "",
+    name,
+    officialName: name,
+    styleTags: []
+  };
+}
+
+function buildHistoricalEditionContext(history, year, core) {
+  const rawFixtures = (history?.fixtures || []).filter((fixture) => Number(fixture.tournamentYear) === Number(year));
+  if (!rawFixtures.length) return null;
+  const teamsById = new Map();
+  const rawById = new Map();
+  for (const raw of rawFixtures) {
+    for (const name of [raw.homeSlot, raw.awaySlot]) {
+      if (!name) continue;
+      const team = getHistoricalTeamForName(name, core);
+      if (!teamsById.has(team.id)) teamsById.set(team.id, team);
+    }
+  }
+  const fixtures = rawFixtures.map((raw) => {
+    const homeTeamId = getHistoricalTeamId(raw.homeSlot);
+    const awayTeamId = getHistoricalTeamId(raw.awaySlot);
+    const fixture = {
+      ...raw,
+      awayTeamId,
+      homeTeamId,
+      kickoffUtc: raw.date ? `${raw.date}T12:00:00Z` : "",
+      stage: normalizeHistoricalStage(raw.round),
+      status: raw.scoreDetails?.penalties ? "PEN" : raw.status || "FT",
+      winnerTeamId: raw.winner
+        ? getHistoricalTeamId(raw.winner)
+        : ""
+    };
+    rawById.set(fixture.id, raw);
+    return fixture;
+  });
+  return {
+    core: {
+      chatbotH2h: {},
+      fixtures,
+      standings: {},
+      teamStyleProfiles: {},
+      teams: [...teamsById.values()],
+      teamsById
+    },
+    fixtures,
+    rawById,
+    teamsById,
+    year: Number(year)
+  };
+}
+
+async function getWorldCupEditionContext(year, core, history = null) {
+  const currentYear = getCurrentWorldCupYear(core);
+  if (Number(year) === currentYear) {
+    return {
+      core,
+      fixtures: core.fixtures,
+      rawById: new Map(),
+      teamsById: core.teamsById,
+      year: currentYear
+    };
+  }
+  return buildHistoricalEditionContext(history || await loadHistoryArchive(), year, core);
+}
+
+function getEditionTitleDecider(context) {
+  return context?.fixtures.find((fixture) =>
+    normalizeHistoricalStage(fixture.stage || fixture.round) === "final" ||
+    HISTORICAL_WORLD_CUP_TITLE_DECIDER_IDS.has(fixture.id)
+  ) || null;
+}
+
+function getLocalizedEditionStage(year, stage, locale = "en") {
+  const localeCode = normalizeBallBoyLocale(locale);
+  const stageKey = normalizeHistoricalStage(stage);
+  const base = stageKey === "final-round"
+    ? isZhLocale(locale) ? "冠军赛阶段" : localeCode === "es" ? "fase final" : localeCode === "ko" ? "결선 리그" : "final round"
+    : getStageLabel({ stage: stageKey }, locale);
+  return isZhLocale(locale)
+    ? `${year}年世界杯${base}`
+    : localeCode === "es"
+      ? `${base} del Mundial ${year}`
+      : localeCode === "ko"
+        ? `${year} 월드컵 ${base}`
+        : `${year} World Cup ${String(base).toLowerCase()}`;
+}
+
+function formatHistoricalFixtureDate(rawFixture, locale = "en") {
+  return formatMatchupHistoryDate(rawFixture?.date || "", locale);
+}
+
+function getLocalizedTournamentPrompts(year, winner, locale = "en") {
+  const localeCode = normalizeBallBoyLocale(locale);
+  if (isZhLocale(locale)) return [`${year}年世界杯奖项`, `总结${year}年世界杯`, `${winner}走了多远？`];
+  if (localeCode === "es") return [`Premios del Mundial ${year}`, `Resume el Mundial ${year}`, `¿Hasta dónde llegó ${winner}?`];
+  if (localeCode === "ko") return [`${year} 월드컵 수상자는?`, `${year} 월드컵 요약`, `${winner}, 어디까지 갔어?`];
+  return [`Who won the ${year} World Cup awards?`, `Summarize the ${year} World Cup`, `How far did ${winner} go?`];
+}
+
+function getLocalizedChampionsLabel(locale = "en") {
+  const localeCode = normalizeBallBoyLocale(locale);
+  if (isZhLocale(locale)) return "冠军";
+  if (localeCode === "es") return "el campeón";
+  if (localeCode === "ko") return "우승팀";
+  return "the champions";
+}
+
+function hasKoreanBatchim(value) {
+  const text = String(value || "");
+  const lastCode = text.charCodeAt(text.length - 1);
+  return lastCode >= 0xac00 && lastCode <= 0xd7a3 && (lastCode - 0xac00) % 28 !== 0;
+}
+
+function withKoreanParticle(value, withBatchim, withoutBatchim) {
+  const text = String(value || "");
+  return `${text}${hasKoreanBatchim(text) ? withBatchim : withoutBatchim}`;
+}
+
+function withKoreanDirection(value) {
+  const text = String(value || "");
+  const last = text.at(-1) || "";
+  return `${text}${["0", "3", "6"].includes(last) ? "으로" : "로"}`;
+}
+
+function getWorldCupFinalLead(year, fixture, teams, winnerTeamId, locale = "en") {
+  const winner = winnerTeamId === fixture.homeTeamId ? teams.home : teams.away;
+  const loser = winnerTeamId === fixture.homeTeamId ? teams.away : teams.home;
+  const homeScore = Number(fixture.score?.home);
+  const awayScore = Number(fixture.score?.away);
+  const winnerScore = winnerTeamId === fixture.homeTeamId ? homeScore : awayScore;
+  const loserScore = winnerTeamId === fixture.homeTeamId ? awayScore : homeScore;
+  const penalties = fixture.scoreDetails?.penalties;
+  const winnerPen = winnerTeamId === fixture.homeTeamId ? penalties?.home : penalties?.away;
+  const loserPen = winnerTeamId === fixture.homeTeamId ? penalties?.away : penalties?.home;
+  const localeCode = normalizeBallBoyLocale(locale);
+  if (Number.isFinite(winnerPen) && Number.isFinite(loserPen)) {
+    if (isZhLocale(locale)) return `${winner.name}赢得了${year}年世界杯；决胜战与${loser.name}${homeScore}比${awayScore}战平后，点球大战${winnerPen}比${loserPen}胜出。`;
+    if (localeCode === "es") return `${winner.name} ganó el Mundial ${year} tras vencer a ${loser.name} ${winnerPen}-${loserPen} en los penaltis después de un empate ${homeScore}-${awayScore}.`;
+    if (localeCode === "ko") return `${withKoreanParticle(winner.name, "이", "가")} ${withKoreanParticle(loser.name, "과", "와")} ${withKoreanDirection(`${homeScore}-${awayScore}`)} 비긴 뒤 승부차기에서 ${withKoreanDirection(`${winnerPen}-${loserPen}`)} 이겨 ${year} 월드컵 정상에 올랐습니다.`;
+    return `${winner.name} won the ${year} World Cup, beating ${loser.name} ${winnerPen}-${loserPen} on penalties after a ${homeScore}-${awayScore} draw.`;
+  }
+  if (isZhLocale(locale)) return `${winner.name}在决胜战中以${winnerScore}比${loserScore}击败${loser.name}，赢得${year}年世界杯。`;
+  if (localeCode === "es") return `${winner.name} ganó el Mundial ${year} tras vencer ${winnerScore}-${loserScore} a ${loser.name}.`;
+  if (localeCode === "ko") return `${withKoreanParticle(winner.name, "이", "가")} 결승에서 ${withKoreanParticle(loser.name, "을", "를")} ${withKoreanDirection(`${winnerScore}-${loserScore}`)} 꺾고 ${year} 월드컵에서 우승했습니다.`;
+  return `${winner.name} won the ${year} World Cup, beating ${loser.name} ${winnerScore}-${loserScore} in the final.`;
+}
+
+async function buildWorldCupFinalReply(year, core, locale = "en", history = null) {
+  const context = await getWorldCupEditionContext(year, core, history);
+  const fixture = getEditionTitleDecider(context);
+  if (!context || !fixture || !isCompletedFixture(fixture)) return null;
+  const reply = buildMatchReply(fixture, context.core, "match overview", locale);
+  const rawFixture = context.rawById.get(fixture.id);
+  reply.fixture.kickoffLabel = rawFixture ? formatHistoricalFixtureDate(rawFixture, locale) : reply.fixture.kickoffLabel;
+  reply.fixture.stage = getLocalizedEditionStage(year, fixture.stage || fixture.round, locale);
+  reply.focus = "overview";
+  reply.lead = getWorldCupFinalLead(year, fixture, reply.teams, reply.winnerTeamId, locale);
+  const winner = reply.winnerTeamId === fixture.homeTeamId ? reply.teams.home : reply.teams.away;
+  reply.followUps = getLocalizedTournamentPrompts(year, winner?.name || "the champions", locale);
+  reply.tournamentYear = Number(year);
+  return reply;
+}
+
 function getCurrentWorldCupChampion(core) {
   const final = core.fixtures.find((fixture) =>
     String(fixture.stage || fixture.round || "").toLowerCase() === "final" &&
@@ -4410,15 +4684,39 @@ function getCurrentWorldCupChampion(core) {
   return {
     teamId,
     winner: team.name,
-    year: CURRENT_WORLD_CUP_YEAR
+    year: getCurrentWorldCupYear(core)
   };
 }
 
-function getWorldCupChampionRecords(core) {
+function getHistoricalChampionTeamId(name, core) {
+  const canonical = canonicalHistoricalTeamName(name);
+  const current = (core?.teams || []).find((team) =>
+    [team.name, team.officialName, ...(EXTRA_TEAM_ALIASES[team.id] || [])]
+      .filter(Boolean)
+      .some((candidate) => canonicalHistoricalTeamName(candidate) === canonical)
+  );
+  if (current) return current.id;
+  for (const [teamId, aliases] of Object.entries(WORLD_CUP_CHAMPION_ALIASES)) {
+    if (aliases.some((alias) => canonicalHistoricalTeamName(alias) === canonical)) return teamId;
+  }
+  return getHistoricalTeamId(name);
+}
+
+function getWorldCupChampionRecords(core, history = null) {
   const currentChampion = getCurrentWorldCupChampion(core);
+  const historicalRecords = (history?.tournaments || []).map((edition) => {
+    const decider = getHistoricalTitleDecider(history, edition.year);
+    if (!decider?.winner) return null;
+    return {
+      teamId: getHistoricalChampionTeamId(decider.winner, core),
+      winner: decider.winner,
+      year: Number(edition.year)
+    };
+  }).filter(Boolean);
+  const records = historicalRecords.length ? historicalRecords : [...WORLD_CUP_CHAMPIONS];
   return currentChampion
-    ? [...WORLD_CUP_CHAMPIONS.filter((record) => record.year !== currentChampion.year), currentChampion]
-    : [...WORLD_CUP_CHAMPIONS];
+    ? [...records.filter((record) => record.year !== currentChampion.year), currentChampion]
+    : records;
 }
 
 function findWorldCupChampionReference(question) {
@@ -4467,8 +4765,11 @@ function getWorldCupHistoryIntent(question, requestedTeam = null) {
   if (/\b(which (?:countries|teams)|what (?:countries|teams)|list)\b.*\b(world cup|champions?|winners?)\b|\bworld cup winners\b/.test(question)) {
     return { kind: "countries" };
   }
-  if (/\b(last year|last time|last world cup|previous world cup|previous edition)\b/.test(question) && hasWon) {
+  if (/\b(previous world cup|previous edition)\b/.test(question) && hasWon) {
     return { kind: "previous" };
+  }
+  if (/\b(last year|last time|last world cup)\b/.test(question) && hasWon) {
+    return { kind: "latest" };
   }
   if (year && hasWon) {
     return { kind: "year", year: Number(year) };
@@ -4511,85 +4812,49 @@ function getWorldCupHistoryFollowUps(locale = "en") {
   return ["Who won the previous World Cup?", "Who has won the most World Cups?", "When did Brazil last win?"];
 }
 
-function buildPreviousWorldCupFinalReply(core, locale = "en") {
-  const reply = buildMatchReply(PREVIOUS_WORLD_CUP_FINAL, core, "match overview", locale);
-  const localeCode = normalizeBallBoyLocale(locale);
-  const argentina = reply.teams.home?.name || getLocalizedWorldCupChampionName({ id: "ARG", name: "Argentina" }, locale, core);
-  const france = reply.teams.away?.name || getLocalizedWorldCupChampionName({ id: "FRA", name: "France" }, locale, core);
-  reply.fixture.stage = isZhLocale(locale)
-    ? "2022年世界杯决赛"
-    : localeCode === "es"
-      ? "Final del Mundial 2022"
-      : localeCode === "ko"
-        ? "2022 월드컵 결승"
-        : "2022 World Cup final";
-  reply.focus = "overview";
-  reply.followUps = getWorldCupHistoryFollowUps(locale);
-  reply.lead = isZhLocale(locale)
-    ? `${argentina}赢得了2022年世界杯；决赛与${france}3比3战平后，点球大战4比2胜出。`
-    : localeCode === "es"
-      ? `${argentina} ganó el Mundial 2022 tras vencer a ${france} 4-2 en los penaltis después de un empate 3-3.`
-      : localeCode === "ko"
-        ? `${argentina}가 ${france}와 3-3으로 비긴 뒤 승부차기에서 4-2로 이겨 2022 월드컵 정상에 올랐습니다.`
-        : `${argentina} won the 2022 World Cup, beating ${france} 4-2 on penalties after a 3-3 draw.`;
-  return reply;
-}
-
-function buildWorldCupHistoryReply(question, core, requestedTeam = null, locale = "en") {
+async function buildWorldCupHistoryReply(question, core, requestedTeam = null, locale = "en") {
   const intent = getWorldCupHistoryIntent(question, requestedTeam);
   if (!intent) return null;
 
-  const records = getWorldCupChampionRecords(core).sort((left, right) => left.year - right.year);
-  const currentChampion = records.find((record) => record.year === CURRENT_WORLD_CUP_YEAR) || null;
+  const history = await loadHistoryArchive();
+  const currentYear = getCurrentWorldCupYear(core);
+  const records = getWorldCupChampionRecords(core, history).sort((left, right) => left.year - right.year);
+  const currentChampion = records.find((record) => record.year === currentYear) || null;
   const latest = records.at(-1);
-  const previous = records.filter((record) => record.year < CURRENT_WORLD_CUP_YEAR).at(-1);
+  const previous = records.filter((record) => record.year < currentYear).at(-1);
   const localizedName = (recordOrTeam) => getLocalizedWorldCupChampionName(recordOrTeam, locale, core);
   const localeCode = normalizeBallBoyLocale(locale);
   let text = "";
 
   if (["current", "latest"].includes(intent.kind)) {
     const record = intent.kind === "current" ? currentChampion : latest;
-    if (!record || (intent.kind === "current" && record.year !== CURRENT_WORLD_CUP_YEAR)) {
+    if (!record || (intent.kind === "current" && record.year !== currentYear)) {
       text = isZhLocale(locale)
-        ? "2026年世界杯冠军尚未产生。"
+        ? `${currentYear}年世界杯冠军尚未产生。`
         : localeCode === "es"
-          ? "El campeón del Mundial 2026 todavía no está decidido."
+          ? `El campeón del Mundial ${currentYear} todavía no está decidido.`
           : localeCode === "ko"
-            ? "2026 월드컵 우승팀은 아직 결정되지 않았습니다."
-            : "The 2026 World Cup winner has not been decided yet.";
+            ? `${currentYear} 월드컵 우승팀은 아직 결정되지 않았습니다.`
+            : `The ${currentYear} World Cup winner has not been decided yet.`;
     } else {
-      const winner = localizedName(record);
-      text = isZhLocale(locale)
-        ? `${winner}赢得了${record.year}年世界杯。`
-        : localeCode === "es"
-          ? `${winner} ganó el Mundial ${record.year}.`
-          : localeCode === "ko"
-            ? `${winner}이 ${record.year} 월드컵에서 우승했습니다.`
-            : `${winner} won the ${record.year} World Cup.`;
+      const finalReply = await buildWorldCupFinalReply(record.year, core, locale, history);
+      if (finalReply) return finalReply;
     }
   } else if (intent.kind === "previous") {
-    return previous?.year === 2022
-      ? buildPreviousWorldCupFinalReply(core, locale)
-      : null;
+    return previous ? buildWorldCupFinalReply(previous.year, core, locale, history) : null;
   } else if (intent.kind === "year") {
     const record = records.find((candidate) => candidate.year === intent.year);
     if (record) {
-      const winner = localizedName(record);
+      const finalReply = await buildWorldCupFinalReply(record.year, core, locale, history);
+      if (finalReply) return finalReply;
+    } else if (intent.year === currentYear) {
       text = isZhLocale(locale)
-        ? `${winner}赢得了${record.year}年世界杯。`
+        ? `${currentYear}年世界杯冠军尚未产生。`
         : localeCode === "es"
-          ? `${winner} ganó el Mundial ${record.year}.`
+          ? `El campeón del Mundial ${currentYear} todavía no está decidido.`
           : localeCode === "ko"
-            ? `${winner}이 ${record.year} 월드컵에서 우승했습니다.`
-            : `${winner} won the ${record.year} World Cup.`;
-    } else if (intent.year === CURRENT_WORLD_CUP_YEAR) {
-      text = isZhLocale(locale)
-        ? "2026年世界杯冠军尚未产生。"
-        : localeCode === "es"
-          ? "El campeón del Mundial 2026 todavía no está decidido."
-          : localeCode === "ko"
-            ? "2026 월드컵 우승팀은 아직 결정되지 않았습니다."
-            : "The 2026 World Cup winner has not been decided yet.";
+            ? `${currentYear} 월드컵 우승팀은 아직 결정되지 않았습니다.`
+            : `The ${currentYear} World Cup winner has not been decided yet.`;
     } else {
       text = isZhLocale(locale)
         ? `${intent.year}年没有举行男足世界杯。`
@@ -4680,6 +4945,290 @@ function buildWorldCupHistoryReply(question, core, requestedTeam = null, locale 
     kind: "world-cup-history",
     text
   } : null;
+}
+
+const WORLD_CUP_AWARD_KEYS = ["goldenBall", "goldenBoot", "goldenGlove", "youngPlayer", "fairPlay"];
+
+function getWorldCupAwardLabel(key, locale = "en") {
+  const labels = {
+    en: { fairPlay: "Fair Play", goldenBall: "Golden Ball", goldenBoot: "Golden Boot", goldenGlove: "Golden Glove", youngPlayer: "Young Player" },
+    es: { fairPlay: "Juego Limpio", goldenBall: "Balón de Oro", goldenBoot: "Bota de Oro", goldenGlove: "Guante de Oro", youngPlayer: "Mejor Joven" },
+    ko: { fairPlay: "페어플레이", goldenBall: "골든볼", goldenBoot: "골든부트", goldenGlove: "골든글러브", youngPlayer: "영플레이어" },
+    zh: { fairPlay: "公平竞赛奖", goldenBall: "金球奖", goldenBoot: "金靴奖", goldenGlove: "金手套奖", youngPlayer: "最佳年轻球员" }
+  };
+  return labels[normalizeBallBoyLocale(locale)]?.[key] || labels.en[key] || key;
+}
+
+function getWorldCupAwardFocus(question) {
+  if (/\b(golden ball|best player)\b/.test(question)) return "goldenBall";
+  if (/\b(golden boot|golden shoe|top scorer|leading scorer)\b/.test(question)) return "goldenBoot";
+  if (/\b(golden glove|best goalkeeper|best keeper)\b/.test(question)) return "goldenGlove";
+  if (/\b(young player|best young player)\b/.test(question)) return "youngPlayer";
+  if (/\b(fair play)\b/.test(question)) return "fairPlay";
+  return "";
+}
+
+function isWorldCupAwardsQuestion(question) {
+  return /\b(world cup|tournament)\b.*\b(awards?|golden ball|golden boot|golden shoe|golden glove|young player|fair play|top scorer)\b/.test(question) ||
+    /\bwho won (?:the )?(?:awards?|golden ball|golden boot|golden shoe|golden glove|young player|fair play)\b/.test(question);
+}
+
+function isWorldCupWrapQuestion(question) {
+  return /\b(summarize|summary|recap|review|wrap up|wrap-up)\b.*\b(world cup|tournament)\b|\b(world cup|tournament)\b.*\b(summary|recap|review|wrap)\b/.test(question);
+}
+
+function isWorldCupTeamFinishQuestion(question) {
+  return /\b(how far did|where did .* finish|what stage did|which round did|how did .* do)\b/.test(question) &&
+    /\b(world cup|tournament|go|finish|stage|round|do)\b/.test(question);
+}
+
+function getAwardSource(sourceId, sources = []) {
+  return sources.find((source) => source.id === sourceId) || null;
+}
+
+function getLocalizedAwardTeamName(recipient, core, locale = "en") {
+  const byId = recipient?.teamId ? core.teamsById.get(recipient.teamId) : null;
+  if (byId) return getLocalizedTeamName(byId, locale);
+  const byName = (core.teams || []).find((team) =>
+    canonicalHistoricalTeamName(team.name) === canonicalHistoricalTeamName(recipient?.teamName)
+  );
+  return byName ? getLocalizedTeamName(byName, locale) : recipient?.teamName || "";
+}
+
+function normalizeWorldCupAward(key, award, sources, core, locale = "en") {
+  if (!award || (award.status && award.status !== "confirmed")) return null;
+  const recipients = Array.isArray(award.recipients) ? award.recipients : [award];
+  const normalizedRecipients = recipients.map((recipient) => {
+    const playerName = recipient.playerName || recipient.name || "";
+    return {
+      detail: Number.isFinite(Number(recipient.goals))
+        ? scoutFormatGoalCount(Number(recipient.goals), locale)
+        : "",
+      name: playerName ? getLocalizedPlayerName(playerName, locale) : getLocalizedAwardTeamName(recipient, core, locale),
+      team: playerName ? getLocalizedAwardTeamName(recipient, core, locale) : ""
+    };
+  }).filter((recipient) => recipient.name);
+  if (!normalizedRecipients.length) return null;
+  const source = getAwardSource(award.sourceId, sources);
+  return {
+    key,
+    label: getWorldCupAwardLabel(key, locale),
+    recipients: normalizedRecipients,
+    sourceLabel: source?.label || "",
+    sourceUrl: source?.url || ""
+  };
+}
+
+function scoutFormatGoalCount(count, locale = "en") {
+  const localeCode = normalizeBallBoyLocale(locale);
+  if (isZhLocale(locale)) return `${count}球`;
+  if (localeCode === "es") return `${count} ${count === 1 ? "gol" : "goles"}`;
+  if (localeCode === "ko") return `${count}골`;
+  return `${count} ${count === 1 ? "goal" : "goals"}`;
+}
+
+async function getWorldCupAwardsForYear(year, core) {
+  const currentYear = getCurrentWorldCupYear(core);
+  if (Number(year) === currentYear) {
+    const tournament = await loadTournamentData();
+    return { awards: tournament.awards || {}, sources: tournament.sources || [] };
+  }
+  const archive = await loadWorldCupAwards();
+  return {
+    awards: archive.editions?.[String(year)] || {},
+    sources: archive.sources || []
+  };
+}
+
+async function buildWorldCupAwardsReply(year, core, question, locale = "en") {
+  const data = await getWorldCupAwardsForYear(year, core);
+  const focus = getWorldCupAwardFocus(question);
+  const awards = WORLD_CUP_AWARD_KEYS
+    .filter((key) => !focus || key === focus)
+    .map((key) => normalizeWorldCupAward(key, data.awards[key], data.sources, core, locale))
+    .filter(Boolean);
+  const localeCode = normalizeBallBoyLocale(locale);
+  const lead = awards.length
+    ? isZhLocale(locale)
+      ? `这是${year}年世界杯已核验的${focus ? getWorldCupAwardLabel(focus, locale) : "主要奖项"}。`
+      : localeCode === "es"
+        ? `Estos son ${focus ? `los datos verificados del ${getWorldCupAwardLabel(focus, locale)}` : "los principales premios verificados"} del Mundial ${year}.`
+        : localeCode === "ko"
+          ? `${year} 월드컵의 검증된 ${focus ? getWorldCupAwardLabel(focus, locale) : "주요 수상 결과"}입니다.`
+          : focus
+            ? `This is the verified ${getWorldCupAwardLabel(focus, locale)} winner from the ${year} World Cup.`
+            : `These are the verified major awards from the ${year} World Cup.`
+    : isZhLocale(locale)
+      ? `${year}年世界杯的${focus ? getWorldCupAwardLabel(focus, locale) : "奖项"}尚未载入。`
+      : localeCode === "es"
+        ? `Todavía no se ha cargado ${focus ? `el ${getWorldCupAwardLabel(focus, locale)}` : "la lista de premios"} del Mundial ${year}.`
+        : localeCode === "ko"
+          ? `${year} 월드컵 ${focus ? getWorldCupAwardLabel(focus, locale) : "수상 명단"}은 아직 불러오지 않았습니다.`
+          : `The ${focus ? getWorldCupAwardLabel(focus, locale) : "award list"} for the ${year} World Cup has not been loaded yet.`;
+  const sourceLinks = uniqueBy(
+    awards.filter((award) => award.sourceUrl).map((award) => ({ label: award.sourceLabel, url: award.sourceUrl })),
+    (source) => source.url
+  );
+  return {
+    awards,
+    followUps: getLocalizedTournamentPrompts(year, getLocalizedChampionsLabel(locale), locale).filter((prompt) => !/award|premio|수상|奖项/i.test(prompt)),
+    kind: "tournament-awards",
+    lead,
+    sourceLinks,
+    year: Number(year)
+  };
+}
+
+function getTournamentStats(fixtures) {
+  const completed = fixtures.filter(isCompletedFixture);
+  return {
+    goals: completed.reduce((total, fixture) => {
+      const home = Number(fixture.score?.home);
+      const away = Number(fixture.score?.away);
+      return total + (Number.isFinite(home) ? home : 0) + (Number.isFinite(away) ? away : 0);
+    }, 0),
+    matches: completed.length
+  };
+}
+
+async function buildWorldCupWrapReply(year, core, locale = "en", history = null) {
+  const context = await getWorldCupEditionContext(year, core, history);
+  const fixture = getEditionTitleDecider(context);
+  if (!context || !fixture || !isCompletedFixture(fixture)) return null;
+  const rawTeams = getFixtureTeams(fixture, context.teamsById);
+  const teams = { away: localizeTeam(rawTeams.away, locale), home: localizeTeam(rawTeams.home, locale) };
+  const winnerTeamId = getFixtureWinnerId(fixture);
+  const winner = winnerTeamId === fixture.homeTeamId ? teams.home : teams.away;
+  const runnerUp = winnerTeamId === fixture.homeTeamId ? teams.away : teams.home;
+  const awardData = await getWorldCupAwardsForYear(year, core);
+  const awards = WORLD_CUP_AWARD_KEYS
+    .map((key) => normalizeWorldCupAward(key, awardData.awards[key], awardData.sources, core, locale))
+    .filter(Boolean);
+  const sourceLinks = uniqueBy(
+    awards.filter((award) => award.sourceUrl).map((award) => ({ label: award.sourceLabel, url: award.sourceUrl })),
+    (source) => source.url
+  );
+  const localeCode = normalizeBallBoyLocale(locale);
+  const lead = isZhLocale(locale)
+    ? `${winner.name}赢得了${year}年世界杯。这里是整届赛事速览。`
+    : localeCode === "es"
+      ? `${winner.name} ganó el Mundial ${year}. Este es el resumen del torneo.`
+      : localeCode === "ko"
+        ? `${winner.name}가 ${year} 월드컵에서 우승했습니다. 대회 전체 요약입니다.`
+        : `${winner.name} won the ${year} World Cup. Here is the tournament wrap.`;
+  return {
+    awards,
+    final: {
+      penalties: fixture.scoreDetails?.penalties || null,
+      score: fixture.score || null,
+      stage: getLocalizedEditionStage(year, fixture.stage || fixture.round, locale),
+      teams,
+      winnerTeamId
+    },
+    followUps: getLocalizedTournamentPrompts(year, winner.name, locale),
+    kind: "tournament-wrap",
+    lead,
+    runnerUp,
+    sourceLinks,
+    stats: getTournamentStats(context.fixtures),
+    winner,
+    year: Number(year)
+  };
+}
+
+function getTournamentFinishLabel(context, team, locale = "en") {
+  const final = getEditionTitleDecider(context);
+  const localeCode = normalizeBallBoyLocale(locale);
+  if (final && [final.homeTeamId, final.awayTeamId].includes(team.id)) {
+    const champion = getFixtureWinnerId(final) === team.id;
+    if (champion) return isZhLocale(locale) ? "冠军" : localeCode === "es" ? "Campeón" : localeCode === "ko" ? "우승" : "Champions";
+    return isZhLocale(locale) ? "亚军" : localeCode === "es" ? "Subcampeón" : localeCode === "ko" ? "준우승" : "Runners-up";
+  }
+  const thirdPlace = sortFixturesLatestFirst(context.fixtures.filter((fixture) =>
+    normalizeHistoricalStage(fixture.stage || fixture.round) === "bronze-final" &&
+    [fixture.homeTeamId, fixture.awayTeamId].includes(team.id)
+  ))[0];
+  if (thirdPlace) {
+    const third = getFixtureWinnerId(thirdPlace) === team.id;
+    if (third) return isZhLocale(locale) ? "季军" : localeCode === "es" ? "Tercer puesto" : localeCode === "ko" ? "3위" : "Third place";
+    return isZhLocale(locale) ? "第四名" : localeCode === "es" ? "Cuarto puesto" : localeCode === "ko" ? "4위" : "Fourth place";
+  }
+  const last = sortFixturesLatestFirst(context.fixtures.filter((fixture) =>
+    [fixture.homeTeamId, fixture.awayTeamId].includes(team.id) && isCompletedFixture(fixture)
+  ))[0];
+  const stage = normalizeHistoricalStage(last?.stage || last?.round);
+  const labels = {
+    "bronze-final": { en: "Fourth place", es: "Cuarto puesto", ko: "4위", zh: "第四名" },
+    "group": { en: "Group stage", es: "Fase de grupos", ko: "조별리그", zh: "小组赛" },
+    "quarter-finals": { en: "Quarter-finals", es: "Cuartos de final", ko: "8강", zh: "四分之一决赛" },
+    "round-of-16": { en: "Round of 16", es: "Octavos de final", ko: "16강", zh: "十六强" },
+    "round-of-32": { en: "Round of 32", es: "Dieciseisavos de final", ko: "32강", zh: "三十二强" },
+    "semi-finals": { en: "Semi-finals", es: "Semifinales", ko: "준결승", zh: "半决赛" }
+  };
+  return labels[stage]?.[normalizeBallBoyLocale(locale)] || getStageLabel({ stage }, locale);
+}
+
+function resolveTeamInEdition(question, requestedTeam, context) {
+  if (requestedTeam) {
+    const canonical = canonicalHistoricalTeamName(requestedTeam.name || requestedTeam.officialName);
+    const match = context.core.teams.find((team) => canonicalHistoricalTeamName(team.name) === canonical);
+    if (match) return match;
+    if (context.teamsById.has(requestedTeam.id)) return context.teamsById.get(requestedTeam.id);
+  }
+  return context.core.teams
+    .sort((left, right) => right.name.length - left.name.length)
+    .find((team) => containsPhrase(question, normalizeBallBoyText(team.name))) || null;
+}
+
+async function buildWorldCupTeamFinishReply(year, core, question, requestedTeam = null, locale = "en", history = null) {
+  const context = await getWorldCupEditionContext(year, core, history);
+  if (!context) return null;
+  const team = resolveTeamInEdition(question, requestedTeam, context);
+  if (!team) return null;
+  const finish = getTournamentFinishLabel(context, team, locale);
+  const reply = buildCountryReply(team, context.core, "tournament record", locale);
+  const localizedTeam = reply.team.name;
+  const localeCode = normalizeBallBoyLocale(locale);
+  reply.focus = "finish";
+  reply.lead = isZhLocale(locale)
+    ? `${localizedTeam}在${year}年世界杯止步于${finish}；总战绩为${reply.record.wins}胜、${reply.record.draws}平、${reply.record.losses}负。`
+    : localeCode === "es"
+      ? `${localizedTeam} terminó el Mundial ${year} en ${finish.toLowerCase()}, con un balance de ${reply.record.wins}-${reply.record.draws}-${reply.record.losses}.`
+      : localeCode === "ko"
+        ? `${localizedTeam}의 ${year} 월드컵 최종 성적은 ${finish}이며, ${reply.record.wins}승 ${reply.record.draws}무 ${reply.record.losses}패를 기록했습니다.`
+        : `${localizedTeam} finished the ${year} World Cup at the ${finish.toLowerCase()} stage, with a ${reply.record.wins}-${reply.record.draws}-${reply.record.losses} record.`;
+  const placementFinishes = new Set([
+    "Champions", "Runners-up", "Third place", "Fourth place",
+    "Campeón", "Subcampeón", "Tercer puesto", "Cuarto puesto",
+    "우승", "준우승", "3위", "4위",
+    "冠军", "亚军", "季军", "第四名"
+  ]);
+  if (placementFinishes.has(finish)) {
+    reply.lead = isZhLocale(locale)
+      ? `${localizedTeam}在${year}年世界杯获得${finish}，总战绩为${reply.record.wins}胜、${reply.record.draws}平、${reply.record.losses}负。`
+      : localeCode === "es"
+        ? `${localizedTeam} fue ${finish.toLowerCase()} del Mundial ${year}, con un balance de ${reply.record.wins}-${reply.record.draws}-${reply.record.losses}.`
+        : localeCode === "ko"
+          ? `${localizedTeam}: ${year} 월드컵 ${finish}. 전적은 ${reply.record.wins}승 ${reply.record.draws}무 ${reply.record.losses}패입니다.`
+          : `${localizedTeam} finished the ${year} World Cup as ${finish.toLowerCase()}, with a ${reply.record.wins}-${reply.record.draws}-${reply.record.losses} record.`;
+  }
+  reply.followUps = getLocalizedTournamentPrompts(year, localizedTeam, locale);
+  reply.tournamentFinish = { label: finish, year: Number(year) };
+  return reply;
+}
+
+async function buildTournamentPostEventReply(question, core, requestedTeam = null, locale = "en") {
+  const awardsQuestion = isWorldCupAwardsQuestion(question);
+  const wrapQuestion = isWorldCupWrapQuestion(question);
+  const finishQuestion = isWorldCupTeamFinishQuestion(question);
+  if (!awardsQuestion && !wrapQuestion && !finishQuestion) return null;
+  const history = await loadHistoryArchive();
+  const currentYear = getCurrentWorldCupYear(core);
+  const previousYear = getPreviousWorldCupYear(currentYear, history);
+  const year = getRequestedWorldCupYear(question, currentYear, previousYear, Boolean(getCurrentWorldCupChampion(core)));
+  if (awardsQuestion) return buildWorldCupAwardsReply(year, core, question, locale);
+  if (wrapQuestion) return buildWorldCupWrapReply(year, core, locale, history);
+  return buildWorldCupTeamFinishReply(year, core, question, requestedTeam, locale, history);
 }
 
 function getLocalizedCapabilityReply(rawQuestion, locale = "en") {
@@ -4889,7 +5438,11 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
 
   const core = await loadCoreData();
   let teams = findTeamsInQuestion(question);
-  const worldCupHistoryReply = buildWorldCupHistoryReply(question, core, teams[0] || null, locale);
+  const tournamentPostEventReply = await buildTournamentPostEventReply(question, core, teams[0] || null, locale);
+  if (tournamentPostEventReply) {
+    return tournamentPostEventReply;
+  }
+  const worldCupHistoryReply = await buildWorldCupHistoryReply(question, core, teams[0] || null, locale);
   if (worldCupHistoryReply) {
     return worldCupHistoryReply;
   }

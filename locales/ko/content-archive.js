@@ -107,7 +107,6 @@ export const CONTENT_ENTITIES = Object.freeze({
     "Estadio Pocitos, Montevideo": "에스타디오 포시토스, 몬테비데오",
     "Estadio Ramón Sánchez Pizjuán, Seville": "에스타디오 라몬 산체스 피스후안, 세비야",
     "Estadio San Mamés, Bilbao": "에스타디오 산 마메스, 빌바오",
-    "Estadio Santiago Bernabéu": "에스타디오 산티아고 베르나베우",
     "Estadio Santiago Bernabéu, Madrid": "에스타디오 산티아고 베르나베우, 마드리드",
     "Estadio Sarriá, Barcelona": "에스타디오 사리아, 바르셀로나",
     "Estadio Sausalito, Viña del Mar": "에스타디오 사우살리토, 비냐델마르",

@@ -4,8 +4,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const dataPath = path.join(root, "data", "player-profiles.json");
 const args = new Set(process.argv.slice(2));
+const historical = args.has("--historical");
+const allowMissing = historical || args.has("--allow-missing");
+const dataPath = path.join(
+  root,
+  "data",
+  historical ? "historical-player-profiles.json" : "player-profiles.json"
+);
 const skipCommons = args.has("--skip-commons");
 const timeoutMs = Number(process.env.PROFILE_IMAGE_AUDIT_TIMEOUT_MS || 18000);
 const directConcurrency = Number(process.env.PROFILE_IMAGE_AUDIT_CONCURRENCY || 6);
@@ -45,13 +51,38 @@ function looksLikeImage(buffer, contentType) {
 function getCommonsFileTitle(imageUrl) {
   const url = new URL(imageUrl);
   const prefix = "/wiki/Special:FilePath/";
-  if (url.hostname !== "commons.wikimedia.org" || !url.pathname.startsWith(prefix)) {
+  if (url.hostname === "commons.wikimedia.org" && url.pathname.startsWith(prefix)) {
+    const fileName = decodeURIComponent(url.pathname.slice(prefix.length))
+      .replace(/_/g, " ")
+      .replace(/^File:/i, "");
+    return fileName ? `File:${fileName}` : "";
+  }
+
+  return getUploadWikimediaFileTitle(url, "commons");
+}
+
+function getEnglishWikipediaFileTitle(imageUrl) {
+  const url = new URL(imageUrl);
+  return getUploadWikimediaFileTitle(url, "en");
+}
+
+function getUploadWikimediaFileTitle(url, project) {
+  if (url.hostname !== "upload.wikimedia.org") {
     return "";
   }
 
-  const fileName = decodeURIComponent(url.pathname.slice(prefix.length))
-    .replace(/_/g, " ")
-    .replace(/^File:/i, "");
+  const pathParts = url.pathname.split("/").filter(Boolean);
+  const wikipediaIndex = pathParts.indexOf("wikipedia");
+  if (wikipediaIndex < 0 || pathParts[wikipediaIndex + 1] !== project) {
+    return "";
+  }
+
+  const projectIndex = wikipediaIndex + 1;
+  const isThumbnail = pathParts[projectIndex + 1] === "thumb";
+  const encodedFileName = isThumbnail ? pathParts.at(-2) : pathParts.at(-1);
+  const fileName = encodedFileName
+    ? decodeURIComponent(encodedFileName).replace(/_/g, " ").replace(/^File:/i, "")
+    : "";
   return fileName ? `File:${fileName}` : "";
 }
 
@@ -81,14 +112,14 @@ async function auditDirectImage(entry) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(entry.imageUrl, {
+    const response = await fetchWithRetry(entry.imageUrl, {
       redirect: "follow",
       signal: controller.signal,
       headers: {
         "User-Agent": userAgent,
         Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
       }
-    });
+    }, 3);
     const contentType = response.headers.get("content-type") || "";
     const buffer = Buffer.from(await response.arrayBuffer());
     const ok = response.ok && looksLikeImage(buffer, contentType);
@@ -137,7 +168,11 @@ async function auditDirectImages(entries) {
   return results;
 }
 
-async function auditCommonsImages(entries) {
+async function auditCommonsImages(
+  entries,
+  apiUrl = "https://commons.wikimedia.org/w/api.php",
+  sourceLabel = "commons"
+) {
   if (!entries.length || skipCommons) {
     return entries.map((entry) => ({
       ...entry,
@@ -159,7 +194,7 @@ async function auditCommonsImages(entries) {
       iiprop: "url|mime|size",
       titles: batch.map((entry) => entry.commonsTitle).join("|")
     });
-    const response = await fetchWithRetry(`https://commons.wikimedia.org/w/api.php?${params}`, {
+    const response = await fetchWithRetry(`${apiUrl}?${params}`, {
       headers: {
         "User-Agent": userAgent,
         Accept: "application/json"
@@ -172,7 +207,7 @@ async function auditCommonsImages(entries) {
         ...batch.map((entry) => ({
           ...entry,
           ok: false,
-          reason: `commons-api-${response.status}${errorText ? `:${errorText}` : ""}`
+          reason: `${sourceLabel}-api-${response.status}${errorText ? `:${errorText}` : ""}`
         }))
       );
       continue;
@@ -214,12 +249,12 @@ async function auditCommonsImages(entries) {
         reason: ok
           ? ""
           : page?.missing
-            ? "commons-missing-file"
+            ? `${sourceLabel}-missing-file`
             : !info
-              ? "commons-missing-imageinfo"
+              ? `${sourceLabel}-missing-imageinfo`
               : !info.mime?.startsWith("image/")
-                ? `commons-non-image:${info.mime || "missing"}`
-                : "commons-zero-size"
+                ? `${sourceLabel}-non-image:${info.mime || "missing"}`
+                : `${sourceLabel}-zero-size`
       });
     }
 
@@ -234,30 +269,64 @@ async function auditCommonsImages(entries) {
 const data = JSON.parse(await readFile(dataPath, "utf8"));
 const profiles = Object.entries(data.profiles || {}).map(([name, profile]) => ({
   name,
-  teamId: profile.teamId || "",
+  teamId: profile.teamId || profile.teamName || "",
   imageUrl: profile.imageUrl || ""
 }));
 const missing = profiles.filter((entry) => !entry.imageUrl);
-const imageEntries = profiles.filter((entry) => entry.imageUrl);
+const minimumHistoricalImageCount = historical
+  ? Number(data.coverage?.minimumImageCount || 0)
+  : 0;
+const imageEntryByUrl = new Map();
+for (const entry of profiles.filter((profile) => profile.imageUrl)) {
+  const existing = imageEntryByUrl.get(entry.imageUrl);
+  if (existing) {
+    existing.referenceCount += 1;
+    continue;
+  }
+  imageEntryByUrl.set(entry.imageUrl, { ...entry, referenceCount: 1 });
+}
+const imageEntries = [...imageEntryByUrl.values()];
 const commonsEntries = [];
+const englishWikipediaEntries = [];
 const directEntries = [];
 
 for (const entry of imageEntries) {
   const commonsTitle = getCommonsFileTitle(entry.imageUrl);
   if (commonsTitle) {
     commonsEntries.push({ ...entry, commonsTitle });
+    continue;
+  }
+  const englishWikipediaTitle = getEnglishWikipediaFileTitle(entry.imageUrl);
+  if (englishWikipediaTitle) {
+    englishWikipediaEntries.push({ ...entry, commonsTitle: englishWikipediaTitle });
   } else {
     directEntries.push(entry);
   }
 }
 
-const [directResults, commonsResults] = await Promise.all([
+const [directResults, commonsResults, englishWikipediaResults] = await Promise.all([
   auditDirectImages(directEntries),
-  auditCommonsImages(commonsEntries)
+  auditCommonsImages(commonsEntries),
+  auditCommonsImages(
+    englishWikipediaEntries,
+    "https://en.wikipedia.org/w/api.php",
+    "wikipedia"
+  )
 ]);
-const results = [...directResults, ...commonsResults];
+const results = [...directResults, ...commonsResults, ...englishWikipediaResults];
+const coverageFailures = historical && profiles.length - missing.length < minimumHistoricalImageCount
+  ? [
+      {
+        name: "Historical image coverage",
+        ok: false,
+        reason: `${profiles.length - missing.length}-below-minimum-${minimumHistoricalImageCount}`,
+        imageUrl: ""
+      }
+    ]
+  : [];
 const failed = [
-  ...missing.map((entry) => ({ ...entry, ok: false, reason: "missing-image-url" })),
+  ...coverageFailures,
+  ...(allowMissing ? [] : missing.map((entry) => ({ ...entry, ok: false, reason: "missing-image-url" }))),
   ...results.filter((result) => !result.ok)
 ];
 const skipped = results.filter((result) => result.skipped);
@@ -265,8 +334,12 @@ const skipped = results.filter((result) => result.skipped);
 console.log(
   [
     `Audited ${profiles.length} player profiles.`,
+    `Profiles without image URLs: ${missing.length}${allowMissing ? " (allowed)" : ""}.`,
+    historical ? `Historical coverage floor: ${minimumHistoricalImageCount}.` : "",
+    `Unique image URLs: ${imageEntries.length}.`,
     `Direct image checks: ${directEntries.length}.`,
     `Commons metadata checks: ${commonsEntries.length}${skipCommons ? " (skipped)" : ""}.`,
+    `English Wikipedia metadata checks: ${englishWikipediaEntries.length}${skipCommons ? " (skipped)" : ""}.`,
     skipped.length ? `Skipped: ${skipped.length}.` : "",
     `Failures: ${failed.length}.`
   ]
@@ -277,7 +350,7 @@ console.log(
 if (failed.length) {
   for (const failure of failed) {
     console.log(
-      `- ${failure.name}${failure.teamId ? ` (${failure.teamId})` : ""}: ${failure.reason} ${failure.imageUrl}`.trim()
+      `- ${failure.name}${failure.teamId ? ` (${failure.teamId})` : ""}: ${failure.reason}${failure.referenceCount > 1 ? ` across ${failure.referenceCount} profiles` : ""} ${failure.imageUrl}`.trim()
     );
   }
   process.exit(1);

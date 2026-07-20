@@ -84,6 +84,10 @@ export function formatHistoricalResultStory(data = {}) {
       return `${data.stage} 경기는 ${
         data.ending === "extra-time" ? "연장전 뒤에도" : "경기 종료까지"
       } 승부가 나지 않았다.`;
+    case "replay-required":
+      return `${data.score} 무승부로 진출 팀을 가리기 위한 재경기가 필요했다.`;
+    case "replay-followup":
+      return `이 재경기는 앞선 경기의 ${data.score} 무승부 뒤에 열렸다.`;
     case "shootout-grind":
       return `${data.score}의 팽팽한 흐름이 이어졌고 토너먼트 승부는 승부차기로 넘어갔다.`;
     case "shootout-win":

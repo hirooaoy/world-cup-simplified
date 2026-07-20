@@ -3031,6 +3031,20 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
+  const isCompletedCurrentFixture = ["FT", "AET", "PEN"].includes(
+    String(fixture.status || "").toUpperCase()
+  );
+  if (isCompletedCurrentFixture) {
+    assert(
+      Array.isArray(fixture.resultStoryBullets) && fixture.resultStoryBullets.length === 3,
+      `Completed fixture "${fixture.id}" must include exactly three English result-story bullets`
+    );
+    assert(
+      Array.isArray(fixture.resultStoryBulletsZh) && fixture.resultStoryBulletsZh.length === 3,
+      `Completed fixture "${fixture.id}" must include exactly three Chinese result-story bullets`
+    );
+  }
+
   if (fixture.resultHighlights !== undefined) {
     assert(fixture.status === "FT", `Fixture "${fixture.id}" resultHighlights should only be used after full time`);
     assert(Array.isArray(fixture.resultHighlights), `Fixture "${fixture.id}" resultHighlights must be an array`);
@@ -3050,8 +3064,8 @@ for (const fixture of fixturesData.fixtures || []) {
   if (fixture.resultStoryBullets !== undefined) {
     assert(Array.isArray(fixture.resultStoryBullets), `Fixture "${fixture.id}" resultStoryBullets must be an array`);
     assert(
-      fixture.resultStoryBullets.length <= 3,
-      `Fixture "${fixture.id}" resultStoryBullets should include no more than three bullets`
+      fixture.resultStoryBullets.length === 3,
+      `Fixture "${fixture.id}" resultStoryBullets should include exactly three bullets`
     );
 
     for (const [index, highlight] of (fixture.resultStoryBullets || []).entries()) {
@@ -3077,8 +3091,8 @@ for (const fixture of fixturesData.fixtures || []) {
   if (fixture.resultStoryBulletsZh !== undefined) {
     assert(Array.isArray(fixture.resultStoryBulletsZh), `Fixture "${fixture.id}" resultStoryBulletsZh must be an array`);
     assert(
-      fixture.resultStoryBulletsZh.length <= 3,
-      `Fixture "${fixture.id}" resultStoryBulletsZh should include no more than three bullets`
+      fixture.resultStoryBulletsZh.length === 3,
+      `Fixture "${fixture.id}" resultStoryBulletsZh should include exactly three bullets`
     );
 
     for (const [index, highlight] of (fixture.resultStoryBulletsZh || []).entries()) {
@@ -4000,6 +4014,50 @@ const historicalYouTubeDispositionFixtureIds = new Set();
 const historicalFixtures = historyData.fixtures || [];
 let historicalShootoutOutlookCount = 0;
 
+const historicalHostCountryByYear = new Map([
+  [1930, "Uruguay"],
+  [1934, "Italy"],
+  [1938, "France"],
+  [1950, "Brazil"],
+  [1954, "Switzerland"],
+  [1958, "Sweden"],
+  [1962, "Chile"],
+  [1966, "England"],
+  [1970, "Mexico"],
+  [1974, "West Germany"],
+  [1978, "Argentina"],
+  [1982, "Spain"],
+  [1986, "Mexico"],
+  [1990, "Italy"],
+  [1994, "USA"],
+  [1998, "France"],
+  [2006, "Germany"],
+  [2010, "South Africa"],
+  [2014, "Brazil"],
+  [2018, "Russia"],
+  [2022, "Qatar"]
+]);
+const southKorea2002VenueCities = new Set([
+  "Busan",
+  "Daegu",
+  "Daejeon",
+  "Gwangju",
+  "Incheon",
+  "Jeju",
+  "Jeonju",
+  "Seoul",
+  "Suwon",
+  "Ulsan"
+]);
+
+function getExpectedHistoricalVenueCountry(fixture) {
+  if (fixture?.tournamentYear === 2002) {
+    const city = String(fixture?.venue || "").split(",").at(-1)?.trim() || "";
+    return southKorea2002VenueCities.has(city) ? "South Korea" : "Japan";
+  }
+  return historicalHostCountryByYear.get(fixture?.tournamentYear) || "";
+}
+
 function getHistoricalShootoutTeamKey(teamName) {
   const key = String(teamName || "")
     .normalize("NFD")
@@ -4067,6 +4125,14 @@ for (const fixture of historyData.fixtures || []) {
   assert(fixture.homeSlot, `Historical fixture "${fixture.id}" must include homeSlot`);
   assert(fixture.awaySlot, `Historical fixture "${fixture.id}" must include awaySlot`);
   assert(fixture.venue, `Historical fixture "${fixture.id}" must include venue`);
+  assert(
+    String(fixture.venue || "").includes(","),
+    `Historical fixture "${fixture.id}" venue must include its city`
+  );
+  assert(
+    fixture.venueCountry === getExpectedHistoricalVenueCountry(fixture),
+    `Historical fixture "${fixture.id}" venueCountry must match its host venue`
+  );
   assert(
     ["FT", "SCHEDULED", "CANCELLED"].includes(fixture.status),
     `Historical fixture "${fixture.id}" has invalid status`

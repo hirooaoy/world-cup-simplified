@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-18-locale-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
 import {
   LOCALE_PACK_VERSION,
   LOCALE_SCHEMA_VERSION,
@@ -7,7 +7,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-19-match-info-close-1";
+} from "./locales/locale-runtime.js?v=2026-07-20-full-localization-audit-1";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -47,7 +47,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-19-historical-rankings-2";
+} from "./app-config.js?v=2026-07-19-historical-replay-recaps-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -66,6 +66,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Azzedine Ounahi opened the scoring for Morocco in the 50th minute.":
       "奥纳希在第50分钟为摩洛哥先拔头筹。",
     "archive": "存档",
+    "View all awards": "查看全部奖项",
     "He doubled Morocco's lead at 82', then Soufiane Rahimi sealed it at 90+8'.":
       "他在第82分钟将摩洛哥的优势扩大到2球，苏菲安·拉希米随后在90+8分钟再下一城。",
     "As it stands": "当前形势",
@@ -83,6 +84,15 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
     "Tournament path uses archived match results.":
       "赛事路径使用存档比赛结果。",
+    "1950 ended with a four-team final round. Uruguay–Brazil was the title decider.":
+      "1950年世界杯以四队决赛轮收官，乌拉圭对巴西一战决定了冠军。",
+    "First-round groups and the final-round championship table use archived results and tournament-era tie-breakers.":
+      "首轮小组与决赛轮冠军积分榜使用存档赛果和当届赛事的排名规则。",
+    "No knockout final": "没有单场淘汰赛决赛",
+    "Four group winners played a round-robin. Uruguay–Brazil decided the title on the last matchday.":
+      "四个小组第一进行单循环赛，乌拉圭对巴西一战在最后一个比赛日决定冠军。",
+    "See the Groups tab for the complete final-round table.":
+      "完整的决赛轮积分榜请见“小组”标签页。",
     "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
       "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
     "Current score": "当前比分",
@@ -129,6 +139,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Final group table uses archived results and tournament-era tie-breakers.": "最终小组表使用存档比赛结果及当届赛事的排名规则。",
     "Final group tables use archived results and tournament-era tie-breakers.": "最终小组表使用存档比赛结果及当届赛事的排名规则。",
     "Final round": "决赛轮",
+    "Title decider": "冠军决定战",
+    "Champion": "冠军",
+    "This four-team table decided the 1950 world champion.":
+      "这张四队积分榜决定了1950年世界杯冠军。",
     "Final round standings": "决赛轮积分榜",
     "Final round table data is not available for this archived match.":
       "这场存档比赛没有可用的决赛轮积分榜数据。",
@@ -388,6 +402,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Quarter-finals": "四分之一决赛",
     "Points rank teams in the group: 3 for a win, 1 for a draw, 0 for a loss. More points usually means a better chance to advance.":
       "积分决定小组排名：胜3分，平1分，负0分。积分越多通常越有机会晋级。",
+    "Points use this tournament's scoring: 2 for a win, 1 for a draw, 0 for a loss.":
+      "积分采用当届赛事规则：胜2分，平1分，负0分。",
     "Points compare third-place teams: 3 for a win, 1 for a draw, 0 for a loss. More points puts a team closer to the top eight.":
       "积分用于比较各组第三名球队：胜3分，平1分，负0分。积分越多越接近前八。",
     "FIFA world ranking during the 2026 World Cup":
@@ -2824,6 +2840,14 @@ const ZH_PATTERN_TRANSLATIONS = [
       `平局让${translateTextToZh(round)}对决在${translateTextToZh(ending)}后仍未决出胜负。`
   },
   {
+    pattern: /^The (\d+-\d+) draw required a replay to decide who advanced\.$/,
+    replace: (_, score) => `这场${score}平局需要通过重赛决定晋级者。`
+  },
+  {
+    pattern: /^This replay followed the teams' (\d+-\d+) draw in the earlier match\.$/,
+    replace: (_, score) => `双方此前以${score}战平，这场重赛随后决出了晋级者。`
+  },
+  {
     pattern: /^📊 Both sides took one point from (.+)\.$/,
     replace: (_, context) => `📊 双方都从 ${translateTextToZh(context)} 中拿到1分。`
   },
@@ -3261,12 +3285,18 @@ const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables use archived results and tournament-era tie-breakers.";
 const HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY =
   "Tournament path uses archived match results.";
+const HISTORICAL_1950_TOURNAMENT_STANDINGS_SUMMARY =
+  "1950 ended with a four-team final round. Uruguay–Brazil was the title decider.";
+const HISTORICAL_1950_GROUP_STANDINGS_SUMMARY =
+  "First-round groups and the final-round championship table use archived results and tournament-era tie-breakers.";
 const HISTORICAL_FINAL_GROUP_STAGE_CONFIGS = {
   1950: {
     includeWithoutGroup: true,
     label: "Final round",
     maxMatchNumber: 22,
-    minMatchNumber: 17
+    minMatchNumber: 17,
+    standingsLabel: "Final round standings",
+    tournamentMatchNumbers: [22]
   },
   1974: {
     label: "Final round",
@@ -4068,7 +4098,8 @@ function getRequiredLocaleContentScopes() {
   if (
     selectedStandingsYear !== CURRENT_STANDINGS_YEAR ||
     isShowingOlderTeamMatches ||
-    activeFixture?.isHistorical
+    activeFixture?.isHistorical ||
+    getFinalCelebrationMatchForDay(selectedDayKey)
   ) {
     scopes.add("archive");
   }
@@ -8300,10 +8331,6 @@ function applyHistoricalPlayerProfilesData(historicalPlayerProfilesData = { prof
   historicalPlayerProfilesByVersion = historicalProfileLookups.byVersion;
   hasLoadedHistoricalPlayerProfiles = true;
 
-  if (historicalPlayerProfilesData?.updatedAt) {
-    siteUpdatedAt = getLatestUpdatedAt([{ updatedAt: siteUpdatedAt }, historicalPlayerProfilesData]);
-  }
-
   return historicalPlayerProfilesData;
 }
 
@@ -8862,6 +8889,16 @@ function isHistoricalFinalGroupStageFixture(fixture) {
   );
 }
 
+function isHistoricalFinalGroupStageTournamentFixture(fixture) {
+  const config = getHistoricalFinalGroupStageConfig(fixture?.tournamentYear);
+  const matchNumber = Number(fixture?.matchNumber);
+
+  return Boolean(
+    isHistoricalFinalGroupStageFixture(fixture) &&
+      config?.tournamentMatchNumbers?.includes(matchNumber)
+  );
+}
+
 function isHistoricalGroupPlayoffRoundLabel(label) {
   return /^Group\s+.+\s+Play-?off$/i.test(String(label || "").trim());
 }
@@ -8875,6 +8912,10 @@ function isHistoricalKnockoutBracketFixture(fixture) {
 }
 
 function isHistoricalTournamentViewFixture(fixture) {
+  if (isHistoricalFinalGroupStageFixture(fixture)) {
+    return isHistoricalFinalGroupStageTournamentFixture(fixture);
+  }
+
   return isHistoricalKnockoutBracketFixture(fixture);
 }
 
@@ -8882,8 +8923,16 @@ function isHistoricalAdvancementFixture(fixture) {
   return isHistoricalFinalGroupStageFixture(fixture) || isHistoricalTournamentViewFixture(fixture);
 }
 
-function getHistoricalTournamentStandingsSummary() {
-  return HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY;
+function getHistoricalTournamentStandingsSummary(year) {
+  return Number(year) === 1950
+    ? HISTORICAL_1950_TOURNAMENT_STANDINGS_SUMMARY
+    : HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY;
+}
+
+function getHistoricalGroupStandingsSummary(year) {
+  return Number(year) === 1950
+    ? HISTORICAL_1950_GROUP_STANDINGS_SUMMARY
+    : HISTORICAL_STANDINGS_SUMMARY;
 }
 
 function getHistoricalTournamentFixturesForYear(year) {
@@ -8902,12 +8951,24 @@ function hasHistoricalTournamentFixtures(year) {
   return getHistoricalTournamentFixturesForYear(year).length > 0;
 }
 
+function hasHistoricalStandingsGroups(year) {
+  return getHistoricalStandingsGroups(year).length > 0;
+}
+
 function getAvailableStandingsModes(year = selectedStandingsYear) {
   if (year === CURRENT_STANDINGS_YEAR) {
     return ["tournament", "groups", "third-place"];
   }
 
-  return hasHistoricalTournamentFixtures(year) ? ["tournament", "groups"] : ["groups"];
+  const availableModes = [];
+  if (hasHistoricalTournamentFixtures(year)) {
+    availableModes.push("tournament");
+  }
+  if (hasHistoricalStandingsGroups(year)) {
+    availableModes.push("groups");
+  }
+
+  return availableModes.length ? availableModes : ["groups"];
 }
 
 function getDefaultStandingsModeForYear(year = selectedStandingsYear) {
@@ -10317,7 +10378,33 @@ function shouldIgnoreContainerInteractionForTooltip(target) {
   return Boolean(getNonLinkTooltipElement(target));
 }
 
+function getHistoricalVenueDisplayParts(match) {
+  if (!match?.isHistorical || !match.venue) {
+    return null;
+  }
+
+  const venue =
+    currentLanguage === "zh"
+      ? localizeHistoricalVenueText(match.venue)
+      : activeLocaleContentEntities.historicalVenues?.[match.venue] ||
+        localizeDisplayText(match.venue);
+  const country = localizeText(match.venueCountry || "");
+  const separatorIndex = venue.indexOf(",");
+  const venueName = separatorIndex >= 0 ? venue.slice(0, separatorIndex).trim() : venue;
+  const city = separatorIndex >= 0 ? venue.slice(separatorIndex + 1).trim() : "";
+  const location = [city, country].filter(Boolean).join(", ");
+
+  return { location, venue, venueName };
+}
+
 function getVenueLabel(match) {
+  const historicalVenueParts = getHistoricalVenueDisplayParts(match);
+  if (historicalVenueParts) {
+    return historicalVenueParts.location
+      ? `${historicalVenueParts.venueName} \u2022 ${historicalVenueParts.location}`
+      : historicalVenueParts.venue;
+  }
+
   if (currentLanguage === "zh") {
     const venue = zhVenueNames[match.venue] || localizeHistoricalVenueText(match.venue);
     const location = zhVenueLocations[match.venue] || localizeHistoricalVenueText(venueLocations[match.venue] || "");
@@ -10342,6 +10429,11 @@ function getVenueLabel(match) {
 function getTournamentVenueLabel(match) {
   if (!match?.venue) {
     return "";
+  }
+
+  const historicalVenueParts = getHistoricalVenueDisplayParts(match);
+  if (historicalVenueParts) {
+    return historicalVenueParts.location || historicalVenueParts.venue;
   }
 
   if (currentLanguage === "zh") {
@@ -12454,11 +12546,23 @@ function renderStandingHeaderCell(header) {
   `;
 }
 
-function renderStandingsTableHead() {
+function renderStandingsTableHead(options = {}) {
+  const winPoints = Number(options.winPoints);
+  const headers = Number.isFinite(winPoints) && winPoints !== 3
+    ? STANDING_HEADERS.map((header) =>
+        header.label === "Pts"
+          ? {
+              ...header,
+              help: `Points use this tournament's scoring: ${winPoints} for a win, 1 for a draw, 0 for a loss.`
+            }
+          : header
+      )
+    : STANDING_HEADERS;
+
   return `
     <thead>
       <tr>
-        ${STANDING_HEADERS.map(renderStandingHeaderCell).join("")}
+        ${headers.map(renderStandingHeaderCell).join("")}
       </tr>
     </thead>
   `;
@@ -12637,9 +12741,19 @@ function getHistoricalStandingsGroups(year) {
       }
     });
 
-  return [...groups.values()].sort((a, b) =>
+  const groupNames = [...groups.values()].sort((a, b) =>
     a.localeCompare(b, "en", { numeric: true, sensitivity: "base" })
   );
+  const finalRoundStandingsLabel = getHistoricalFinalGroupStageConfig(year)?.standingsLabel;
+
+  return finalRoundStandingsLabel
+    ? [...groupNames, finalRoundStandingsLabel]
+    : groupNames;
+}
+
+function isHistoricalFinalRoundStandingsGroup(year, groupName) {
+  const standingsLabel = getHistoricalFinalGroupStageConfig(year)?.standingsLabel;
+  return Boolean(standingsLabel && groupName === standingsLabel);
 }
 
 function getHistoricalStandingsWinPoints(year) {
@@ -12710,8 +12824,15 @@ function getHistoricalStandingsRowsFromFixtures(fixtures, year) {
 }
 
 function getHistoricalGroupStandingsForYear(year, groupName) {
+  const isFinalRoundStandings = isHistoricalFinalRoundStandingsGroup(year, groupName);
   const groupFixtures = historicalFixtures
-    .filter((fixture) => fixture.tournamentYear === year && fixture.group === groupName)
+    .filter(
+      (fixture) =>
+        fixture.tournamentYear === year &&
+        (isFinalRoundStandings
+          ? isHistoricalFinalGroupStageFixture(fixture)
+          : fixture.group === groupName)
+    )
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
 
   const rows = getHistoricalStandingsRowsFromFixtures(groupFixtures, year);
@@ -12735,6 +12856,11 @@ function getHistoricalGroupStandingsForYear(year, groupName) {
 }
 
 function getHistoricalGroupAdvancingTeamNames(year, groupName) {
+  if (isHistoricalFinalRoundStandingsGroup(year, groupName)) {
+    const champion = getHistoricalGroupStandingsForYear(year, groupName)[0]?.teamName;
+    return new Set(champion ? [champion] : []);
+  }
+
   const groupFixtures = historicalFixtures.filter(
     (fixture) => fixture.tournamentYear === year && fixture.group === groupName
   );
@@ -12778,18 +12904,22 @@ function getHistoricalRoundStandingsForYear(year, roundName) {
   return getHistoricalStandingsRowsFromFixtures(roundFixtures, year);
 }
 
-function renderHistoricalStandingTeam(teamName, year) {
+function renderHistoricalStandingTeam(teamName, year, options = {}) {
   const team = getHistoricalTeam(teamName, year);
-  return team ? renderStandingTeam(team) : "";
+  return team ? renderStandingTeam(team, options) : "";
 }
 
-function renderHistoricalStandingRow(row, year, groupName) {
+function renderHistoricalStandingRow(row, year, groupName, rowIndex) {
   const isAdvancing = shouldHighlightHistoricalStanding(row, year, groupName);
+  const isChampion = isHistoricalFinalRoundStandingsGroup(year, groupName) && rowIndex === 0;
+  const championBadge = isChampion
+    ? `<span class="standing-status-pill is-champion">${escapeHtml(localizeText("Champion"))}</span>`
+    : "";
 
   return `
     <tr class="${isAdvancing ? "is-advancing" : ""}">
       <td>
-        ${renderHistoricalStandingTeam(row.teamName, year)}
+        ${renderHistoricalStandingTeam(row.teamName, year, { trailingHtml: championBadge })}
       </td>
       <td>${escapeHtml(row.points)}</td>
       <td>${escapeHtml(row.wins)}-${escapeHtml(row.draws)}-${escapeHtml(row.losses)}</td>
@@ -12803,9 +12933,9 @@ function renderHistoricalStandingsTable(year, groupName) {
 
   return `
     <table class="standings-table">
-      ${renderStandingsTableHead()}
+      ${renderStandingsTableHead({ winPoints: getHistoricalStandingsWinPoints(year) })}
       <tbody>${rows
-        .map((row) => renderHistoricalStandingRow(row, year, groupName))
+        .map((row, rowIndex) => renderHistoricalStandingRow(row, year, groupName, rowIndex))
         .join("")}</tbody>
     </table>
   `;
@@ -13483,7 +13613,7 @@ function getTournamentMatchDateLabel(match) {
   const timeLabel = getMatchTimeLabel(match);
   const baseLabel = [navDateFormatter.format(getDateFromKey(dateKey)), timeLabel].filter(Boolean).join(" ");
 
-  if (match.stage === "final" || match.matchNumber === 104) {
+  if (isWorldCupTitleDecider(match)) {
     return `${baseLabel} (${localizeText("Final")})`;
   }
 
@@ -13497,7 +13627,7 @@ function getTournamentMatchDateLabel(match) {
 function renderTournamentMatchDateLabel(match) {
   const label = getTournamentMatchDateLabel(match);
 
-  if (!(match?.stage === "final" || match?.matchNumber === 104)) {
+  if (!isWorldCupTitleDecider(match)) {
     return escapeHtml(label);
   }
 
@@ -15249,6 +15379,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
   const cardClasses = [
     options.className || "progress-match",
     isComplete ? "is-complete" : "",
+    isWorldCupTitleDecider(match) ? "is-championship-final" : "",
     isNext ? "is-next" : "",
     isDelayed ? "is-delayed" : "",
     isProjected ? "is-projected" : "",
@@ -15616,6 +15747,10 @@ function getHistoricalFinalGroupStageRoundLabel(fixture) {
 }
 
 function getHistoricalTournamentRoundLabel(fixture) {
+  if (isHistoricalFinalGroupStageTournamentFixture(fixture)) {
+    return "Title decider";
+  }
+
   if (isHistoricalFinalGroupStageFixture(fixture)) {
     return getHistoricalFinalGroupStageRoundLabel(fixture);
   }
@@ -15633,6 +15768,10 @@ function getHistoricalTournamentRoundLabel(fixture) {
 }
 
 function getHistoricalTournamentRoundKey(fixture) {
+  if (isHistoricalFinalGroupStageTournamentFixture(fixture)) {
+    return "final";
+  }
+
   if (isHistoricalFinalGroupStageFixture(fixture)) {
     return `final-group-${normalizeTextKey(fixture.group).replace(/\s+/g, "-") || "group"}`;
   }
@@ -15682,6 +15821,125 @@ function getHistoricalTournamentRoundSortValue(fixture) {
   return `2:${getFixtureSortValue(fixture)}`;
 }
 
+function hasSameHistoricalTournamentParticipants(firstMatch, secondMatch) {
+  const firstParticipants = [firstMatch?.homeSlot, firstMatch?.awaySlot].filter(Boolean);
+  const secondParticipants = [secondMatch?.homeSlot, secondMatch?.awaySlot].filter(Boolean);
+
+  return (
+    firstParticipants.length === 2 &&
+    secondParticipants.length === 2 &&
+    firstParticipants.every((teamName) => secondParticipants.includes(teamName))
+  );
+}
+
+function getHistoricalTournamentSuccessorMatch(fixtures, match) {
+  const currentSortValue = getFixtureSortValue(match);
+  const winner = getHistoricalWinner(match);
+  const laterFixtures = fixtures.filter(
+    (fixture) => getFixtureSortValue(fixture) > currentSortValue
+  );
+
+  if (winner) {
+    return (
+      laterFixtures.find(
+        (fixture) => fixture.homeSlot === winner || fixture.awaySlot === winner
+      ) || null
+    );
+  }
+
+  const replay = laterFixtures.find((fixture) =>
+    hasSameHistoricalTournamentParticipants(match, fixture)
+  );
+  if (replay) {
+    return replay;
+  }
+
+  const participants = [match?.homeSlot, match?.awaySlot].filter(Boolean);
+  return (
+    laterFixtures.find((fixture) =>
+      participants.some(
+        (teamName) => fixture.homeSlot === teamName || fixture.awaySlot === teamName
+      )
+    ) || null
+  );
+}
+
+function isHistoricalReplayRound(round) {
+  return /replay/i.test(String(round?.label || ""));
+}
+
+function orderHistoricalTournamentRoundsByPath(rounds) {
+  const fixtures = rounds
+    .flatMap((round) => round.fixtures)
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+  const pathKeyByMatchNumber = new Map();
+
+  for (let roundIndex = rounds.length - 1; roundIndex >= 0; roundIndex -= 1) {
+    const round = rounds[roundIndex];
+
+    if (roundIndex === rounds.length - 1) {
+      round.fixtures.forEach((fixture, fixtureIndex) => {
+        pathKeyByMatchNumber.set(
+          String(fixture.matchNumber),
+          String(fixtureIndex).padStart(3, "0")
+        );
+      });
+      continue;
+    }
+
+    const orderedFixtures = round.fixtures
+      .map((fixture, originalIndex) => {
+        const successor = getHistoricalTournamentSuccessorMatch(fixtures, fixture);
+        return {
+          fixture,
+          originalIndex,
+          targetKey: successor
+            ? pathKeyByMatchNumber.get(String(successor.matchNumber)) || "999"
+            : "999"
+        };
+      })
+      .sort(
+        (a, b) =>
+          a.targetKey.localeCompare(b.targetKey) || a.originalIndex - b.originalIndex
+      );
+    const targetFixtureCounts = new Map();
+
+    round.fixtures = orderedFixtures.map(({ fixture, targetKey }) => {
+      const targetFixtureIndex = targetFixtureCounts.get(targetKey) || 0;
+      targetFixtureCounts.set(targetKey, targetFixtureIndex + 1);
+      pathKeyByMatchNumber.set(
+        String(fixture.matchNumber),
+        `${targetKey}.${String(targetFixtureIndex).padStart(3, "0")}`
+      );
+      return fixture;
+    });
+  }
+
+  rounds.forEach((round, roundIndex) => {
+    if (!isHistoricalReplayRound(round)) {
+      return;
+    }
+
+    const originalRound = rounds[roundIndex - 1];
+    round.pathPlacementTargets = round.fixtures.map((fixture) => {
+      const originalMatchIndex = originalRound?.fixtures.findIndex((candidateFixture) =>
+        hasSameHistoricalTournamentParticipants(candidateFixture, fixture)
+      ) ?? -1;
+
+      if (!originalRound || originalMatchIndex < 0) {
+        return null;
+      }
+
+      return {
+        matchCount: originalRound.fixtures.length,
+        matchIndex: originalMatchIndex
+      };
+    });
+  });
+
+  return rounds;
+}
+
 function getHistoricalTournamentRounds(year) {
   const rounds = [];
   const roundsByKey = new Map();
@@ -15689,7 +15947,9 @@ function getHistoricalTournamentRounds(year) {
   for (const fixture of getHistoricalTournamentFixturesForYear(year)) {
     const key = getHistoricalTournamentRoundKey(fixture);
     if (!roundsByKey.has(key)) {
-      const isGroupPool = isHistoricalFinalGroupStageFixture(fixture);
+      const isGroupPool =
+        isHistoricalFinalGroupStageFixture(fixture) &&
+        !isHistoricalFinalGroupStageTournamentFixture(fixture);
       const round = {
         fixtures: [],
         isGroupPool,
@@ -15710,11 +15970,13 @@ function getHistoricalTournamentRounds(year) {
     );
   });
 
-  return rounds.sort((a, b) => a.orderValue.localeCompare(b.orderValue));
+  return orderHistoricalTournamentRoundsByPath(
+    rounds.sort((a, b) => a.orderValue.localeCompare(b.orderValue))
+  );
 }
 
 function getHistoricalTournamentPathRowCount(rounds) {
-  return Math.max(TOURNAMENT_PROGRESS_PATH_ROWS, ...rounds.map((round) => round.fixtures.length));
+  return Math.max(1, ...rounds.map((round) => round.fixtures.length));
 }
 
 function getHistoricalTournamentProgressPlacement(round, index, rowCount) {
@@ -15729,9 +15991,11 @@ function getHistoricalTournamentProgressPlacement(round, index, rowCount) {
     return finalPlacements[index] || finalPlacements.at(-1);
   }
 
-  const matchCount = Math.max(1, round.fixtures.length);
+  const placementTarget = round.pathPlacementTargets?.[index];
+  const matchCount = Math.max(1, placementTarget?.matchCount || round.fixtures.length);
+  const matchIndex = Math.max(0, placementTarget?.matchIndex ?? index);
   const pathSpan = Math.max(1, Math.floor(rowCount / matchCount));
-  const pathRow = Math.floor((index * rowCount) / matchCount) + 1;
+  const pathRow = Math.floor((matchIndex * rowCount) / matchCount) + 1;
 
   return { pathRow, pathSpan };
 }
@@ -15783,6 +16047,20 @@ function getHistoricalTournamentMatchDateLabel(match) {
   }
 
   return baseLabel;
+}
+
+function renderHistoricalTournamentMatchDateLabel(match) {
+  const label = getHistoricalTournamentMatchDateLabel(match);
+
+  if (isHistoricalFinalGroupStageTournamentFixture(match)) {
+    return escapeHtml(label);
+  }
+
+  if (!isWorldCupTitleDecider(match)) {
+    return escapeHtml(label);
+  }
+
+  return `${escapeHtml(label)} <span class="tournament-final-label">(${escapeHtml(localizeText("Final"))})</span>`;
 }
 
 function getHistoricalNextTournamentMatchNumber(fixtures, match, teamName) {
@@ -15846,8 +16124,8 @@ function renderHistoricalTournamentMatchCard(match, context, options = {}) {
   const venueLabel = match.venue ? getTournamentVenueLabel(match) : "";
   const venueTooltip = match.venue ? getVenueLabel(match) : "";
   const shouldRenderPath = !options.isGroupPool;
-  const nextMatchNumber = shouldRenderPath && winnerSide
-    ? getHistoricalNextTournamentMatchNumber(context.fixtures, match, match[`${winnerSide}Slot`])
+  const nextMatchNumber = shouldRenderPath
+    ? getHistoricalTournamentSuccessorMatch(context.fixtures, match)?.matchNumber || ""
     : "";
   const loserSide = winnerSide === "home" ? "away" : winnerSide === "away" ? "home" : "";
   const runnerUpNextMatchNumber = shouldRenderPath && loserSide
@@ -15857,6 +16135,7 @@ function renderHistoricalTournamentMatchCard(match, context, options = {}) {
     "progress-match",
     "historical-progress-match",
     isComplete ? "is-complete" : "",
+    isWorldCupTitleDecider(match) ? "is-championship-final" : "",
     "is-openable"
   ]
     .filter(Boolean)
@@ -15866,7 +16145,7 @@ function renderHistoricalTournamentMatchCard(match, context, options = {}) {
     <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}" data-round-id="${escapeHtml(options.roundId || "")}" data-round-index="${escapeHtml(options.roundIndex)}" data-match-index="${escapeHtml(options.matchIndex)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${runnerUpNextMatchNumber ? ` data-runner-up-next-match="${escapeHtml(runnerUpNextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""} data-open-match-id="${escapeHtml(match.id)}" role="button" tabindex="0" aria-label="${escapeHtml(getTournamentOpenMatchLabel(participants))}" style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};">
       <header class="knockout-match-header">
         <span class="knockout-match-meta">
-          <time datetime="${escapeHtml(match.date || "")}">${escapeHtml(getHistoricalTournamentMatchDateLabel(match))}</time>
+          <time datetime="${escapeHtml(match.date || "")}">${renderHistoricalTournamentMatchDateLabel(match)}</time>
           ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
         </span>
       </header>
@@ -15912,6 +16191,22 @@ function renderHistoricalTournamentRound(round, context, roundIndex, rowCount) {
   `;
 }
 
+function renderHistoricalTournamentFormatNote(year) {
+  if (Number(year) !== 1950) {
+    return "";
+  }
+
+  return `
+    <aside class="historical-tournament-format-note" aria-label="${escapeHtml(localizeText("No knockout final"))}">
+      <div>
+        <strong>${escapeHtml(localizeText("No knockout final"))}</strong>
+        <p>${escapeHtml(localizeText("Four group winners played a round-robin. Uruguay–Brazil decided the title on the last matchday."))}</p>
+      </div>
+      <span>${escapeHtml(localizeText("See the Groups tab for the complete final-round table."))}</span>
+    </aside>
+  `;
+}
+
 function renderHistoricalTournamentView(year) {
   const rounds = getHistoricalTournamentRounds(year);
 
@@ -15930,9 +16225,14 @@ function renderHistoricalTournamentView(year) {
   const pathRows = getHistoricalTournamentPathRowCount(rounds);
   const historicalViewLabel = localizeText("Tournament path");
   const historicalProgressionLabel = localizeText("Tournament progression");
+  const isTitleDeciderOnly =
+    rounds.length === 1 &&
+    rounds[0].fixtures.length === 1 &&
+    isHistoricalFinalGroupStageTournamentFixture(rounds[0].fixtures[0]);
 
   return `
-    <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(historicalViewLabel)}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
+    <section class="tournament-view historical-tournament-view${isTitleDeciderOnly ? " is-title-decider-only" : ""}" aria-label="${escapeHtml(historicalViewLabel)}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
+      ${renderHistoricalTournamentFormatNote(year)}
       <div class="tournament-canvas-shell">
         <section class="tournament-progression" aria-label="${escapeHtml(historicalProgressionLabel)}" tabindex="0">
           <div class="tournament-board-surface">
@@ -16697,6 +16997,45 @@ function scheduleTournamentConnectorUpdate(retries = 6) {
   });
 }
 
+function alignHistoricalReplayCards(progression, scale = 1) {
+  if (!progression.closest(".historical-tournament-view")) {
+    return;
+  }
+
+  const replayCards = [...progression.querySelectorAll(".progress-round")]
+    .filter((round) => /replay/i.test(round.dataset.roundId || round.getAttribute("aria-label") || ""))
+    .flatMap((round) => [...round.querySelectorAll(".progress-match")]);
+
+  replayCards.forEach((card) => {
+    card.style.top = "0px";
+  });
+
+  if (isTournamentMobileLayout()) {
+    return;
+  }
+
+  replayCards.forEach((card) => {
+    const replayRoundIndex = Number(card.dataset.roundIndex);
+    const source = [...progression.querySelectorAll(
+      `.progress-match[data-next-match="${CSS.escape(card.dataset.matchNumber || "")}"]`
+    )]
+      .filter((candidate) => Number(candidate.dataset.roundIndex) < replayRoundIndex)
+      .sort((a, b) => Number(b.dataset.roundIndex) - Number(a.dataset.roundIndex))[0];
+
+    if (!source) {
+      return;
+    }
+
+    const sourceRect = source.getBoundingClientRect();
+    const replayRect = card.getBoundingClientRect();
+    const sourceCenterY = sourceRect.top + sourceRect.height / 2;
+    const replayCenterY = replayRect.top + replayRect.height / 2;
+    const offsetY = (sourceCenterY - replayCenterY) / Math.max(scale, 0.01);
+
+    card.style.top = `${Math.round(offsetY * 2) / 2}px`;
+  });
+}
+
 function updateTournamentConnectors() {
   const progression = standingsGrid?.querySelector(".tournament-progression");
   const surface = progression?.querySelector(".tournament-board-surface");
@@ -16707,6 +17046,8 @@ function updateTournamentConnectors() {
     return false;
   }
 
+  const scale = getTournamentBoardScale(progression);
+  alignHistoricalReplayCards(progression, scale);
   const progressionRect = progression.getBoundingClientRect();
   const roundsRect = rounds.getBoundingClientRect();
   if (progressionRect.width < 1 || progressionRect.height < 1 || roundsRect.width < 1) {
@@ -16724,7 +17065,6 @@ function updateTournamentConnectors() {
     return true;
   }
 
-  const scale = getTournamentBoardScale(progression);
   const width = Math.ceil(roundsRect.width / scale);
   const height = Math.ceil(roundsRect.height / scale);
 
@@ -16785,19 +17125,45 @@ function updateTournamentConnectors() {
       return false;
     }
 
-    const joinX = roundPoint(sourcePoint.x + (targetPoint.x - sourcePoint.x) / 2);
+    const sourceRoundIndex = Number(source.dataset.roundIndex);
+    const targetRoundIndex = Number(target.dataset.roundIndex);
+    const skipsRound =
+      Number.isInteger(sourceRoundIndex) &&
+      Number.isInteger(targetRoundIndex) &&
+      targetRoundIndex - sourceRoundIndex > 1;
+    let joinX = roundPoint(sourcePoint.x + (targetPoint.x - sourcePoint.x) / 2);
+
+    if (skipsRound) {
+      const targetRound = target.closest(".progress-round");
+      const previousRound = targetRound?.previousElementSibling;
+      const previousRoundRect = previousRound?.getBoundingClientRect();
+      const previousRoundRight = previousRoundRect
+        ? (previousRoundRect.right - svgRect.left) * scaleX
+        : 0;
+
+      if (previousRoundRight > sourcePoint.x && previousRoundRight < targetPoint.x) {
+        joinX = roundPoint(previousRoundRight + (targetPoint.x - previousRoundRight) / 2);
+      }
+    }
+
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     if (className) {
       path.classList.add(className);
     }
+    if (skipsRound) {
+      path.classList.add("is-round-skip");
+    }
+    path.dataset.sourceMatchNumber = source.dataset.matchNumber || "";
+    path.dataset.targetMatchNumber = targetMatchNumber;
+    const sourceX = roundPoint(sourcePoint.x);
+    const sourceY = roundPoint(sourcePoint.y);
+    const targetX = roundPoint(targetPoint.x);
+    const targetY = roundPoint(targetPoint.y);
     path.setAttribute(
       "d",
-      [
-        `M ${roundPoint(sourcePoint.x)} ${roundPoint(sourcePoint.y)}`,
-        `H ${joinX}`,
-        `V ${roundPoint(targetPoint.y)}`,
-        `H ${roundPoint(targetPoint.x)}`
-      ].join(" ")
+      sourceY === targetY
+        ? `M ${sourceX} ${sourceY} H ${targetX}`
+        : [`M ${sourceX} ${sourceY}`, `H ${joinX}`, `V ${targetY}`, `H ${targetX}`].join(" ")
     );
     svg.append(path);
     return true;
@@ -16949,14 +17315,22 @@ function renderHistoricalStandingsCards(year) {
   }
 
   return groups
-    .map(
-      (groupName) => `
-        <article class="standings-card">
+    .map((groupName) => {
+      const isFinalRoundStandings = isHistoricalFinalRoundStandingsGroup(year, groupName);
+      return `
+        <article class="standings-card${isFinalRoundStandings ? " historical-championship-table" : ""}">
           <h2>${escapeHtml(localizeText(groupName))}</h2>
+          ${
+            isFinalRoundStandings
+              ? `<p class="historical-championship-table-note">${escapeHtml(
+                  localizeText("This four-team table decided the 1950 world champion.")
+                )}</p>`
+              : ""
+          }
           ${renderHistoricalStandingsTable(year, groupName)}
         </article>
-      `
-    )
+      `;
+    })
     .join("");
 }
 
@@ -17040,7 +17414,7 @@ function updateStandingsControls() {
           : CURRENT_STANDINGS_SUMMARY
         : selectedStandingsMode === "tournament"
           ? getHistoricalTournamentStandingsSummary(selectedStandingsYear)
-          : HISTORICAL_STANDINGS_SUMMARY;
+          : getHistoricalGroupStandingsSummary(selectedStandingsYear);
     standingsSummary.textContent = localizeText(summaryText);
   }
 
@@ -23789,11 +24163,15 @@ function renderPlayerPhoto(player, profile, options = {}) {
   }
 
   if (profile?.imageUrl) {
+    const fallbackImageUrl = getWikimediaPlayerImageFallbackUrl(profile.imageUrl);
     return `
+      <span class="player-photo-fallback" aria-hidden="true">${escapeHtml(initials)}</span>
       <img
         src="${escapeHtml(profile.imageUrl)}"
         alt=""
         data-player-initials="${escapeHtml(initials)}"
+        data-player-image-original-url="${escapeHtml(profile.imageUrl)}"
+        ${fallbackImageUrl ? `data-player-image-fallback-url="${escapeHtml(fallbackImageUrl)}"` : ""}
         loading="lazy"
         decoding="async"
         referrerpolicy="no-referrer"
@@ -23804,7 +24182,69 @@ function renderPlayerPhoto(player, profile, options = {}) {
   return `<span class="player-photo-fallback">${escapeHtml(initials)}</span>`;
 }
 
+function getWikimediaPlayerImageFallbackUrl(imageUrl) {
+  try {
+    const url = new URL(imageUrl);
+    if (url.hostname !== "upload.wikimedia.org") {
+      return "";
+    }
+
+    const pathParts = url.pathname.split("/").filter(Boolean);
+    const commonsIndex = pathParts.indexOf("commons");
+    if (commonsIndex < 0) {
+      return "";
+    }
+
+    const isThumbnail = pathParts[commonsIndex + 1] === "thumb";
+    const fileName = isThumbnail ? pathParts.at(-2) : pathParts.at(-1);
+    if (!fileName) {
+      return "";
+    }
+
+    return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(decodeURIComponent(fileName))}?width=160`;
+  } catch {
+    return "";
+  }
+}
+
+const PLAYER_PHOTO_RETRY_DELAY_MS = 350;
+
+function retryBrokenPlayerPhoto(image) {
+  if (image.dataset.playerImageRetryAttempt === "1") {
+    return false;
+  }
+
+  const originalUrl = image.dataset.playerImageOriginalUrl || image.getAttribute("src") || "";
+  const fallbackUrl = image.dataset.playerImageFallbackUrl || "";
+  const retryUrl = fallbackUrl && fallbackUrl !== originalUrl ? fallbackUrl : originalUrl;
+  if (!retryUrl) {
+    return false;
+  }
+
+  image.dataset.playerImageRetryAttempt = "1";
+  image.classList.remove("is-image-ready");
+  image.closest(".player-photo")?.classList.remove("is-image-ready");
+  window.setTimeout(() => {
+    if (image.isConnected) {
+      image.src = retryUrl;
+    }
+  }, PLAYER_PHOTO_RETRY_DELAY_MS);
+  return true;
+}
+
 function replaceBrokenPlayerPhoto(image) {
+  if (retryBrokenPlayerPhoto(image)) {
+    return;
+  }
+
+  const photo = image.closest(".player-photo");
+  const existingFallback = photo?.querySelector(".player-photo-fallback");
+  if (existingFallback) {
+    photo.classList.remove("is-image-ready");
+    image.remove();
+    return;
+  }
+
   const fallback = document.createElement("span");
   fallback.className = "player-photo-fallback";
   fallback.textContent = image.dataset.playerInitials || "";
@@ -25926,7 +26366,7 @@ function renderHistoricalGroupStandings(match) {
     <section class="info-block">
       <h3>${escapeHtml(localizeText("Group standings"))}</h3>
       <table class="standings-table">
-        ${renderStandingsTableHead()}
+        ${renderStandingsTableHead({ winPoints: getHistoricalStandingsWinPoints(match.tournamentYear) })}
         <tbody>
           ${rows
             .map(
@@ -25969,7 +26409,7 @@ function renderHistoricalFinalRoundStandings(match) {
     <section class="info-block">
       <h3>${escapeHtml(localizeText("Final round standings"))}</h3>
       <table class="standings-table">
-        ${renderStandingsTableHead()}
+        ${renderStandingsTableHead({ winPoints: getHistoricalStandingsWinPoints(match.tournamentYear) })}
         <tbody>
           ${rows
             .map(
@@ -27618,6 +28058,8 @@ function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
 }
 
 let finalCelebrationLayoutAnimation = null;
+let finalCelebrationFooterAnimation = null;
+let finalCelebrationFooterAnimationFrame = 0;
 
 function setMatchInfoLayoutState(hasMatchInfo) {
   const matchesView = viewPanels.matches;
@@ -27628,6 +28070,7 @@ function setMatchInfoLayoutState(hasMatchInfo) {
     hadMatchInfo !== hasMatchInfo &&
     window.matchMedia("(min-width: 1161px) and (prefers-reduced-motion: no-preference)").matches;
   const previousWidth = shouldAnimate ? banner.getBoundingClientRect().width : 0;
+  const previousFooterTop = shouldAnimate ? siteFooter?.getBoundingClientRect().top : 0;
 
   matchesView.classList.toggle("has-match-info", hasMatchInfo);
 
@@ -27636,28 +28079,59 @@ function setMatchInfoLayoutState(hasMatchInfo) {
   }
 
   const nextWidth = banner.getBoundingClientRect().width;
-  if (Math.abs(previousWidth - nextWidth) < 1) {
-    return;
+  if (Math.abs(previousWidth - nextWidth) >= 1) {
+    finalCelebrationLayoutAnimation?.cancel();
+    finalCelebrationLayoutAnimation = banner.animate(
+      [
+        { width: `${previousWidth}px` },
+        { width: `${nextWidth}px` }
+      ],
+      {
+        duration: 480,
+        easing: "cubic-bezier(0.2, 0.72, 0.18, 1)"
+      }
+    );
+    finalCelebrationLayoutAnimation.addEventListener(
+      "finish",
+      () => {
+        finalCelebrationLayoutAnimation = null;
+      },
+      { once: true }
+    );
   }
 
-  finalCelebrationLayoutAnimation?.cancel();
-  finalCelebrationLayoutAnimation = banner.animate(
-    [
-      { width: `${previousWidth}px` },
-      { width: `${nextWidth}px` }
-    ],
-    {
-      duration: 480,
-      easing: "cubic-bezier(0.2, 0.72, 0.18, 1)"
+  window.cancelAnimationFrame(finalCelebrationFooterAnimationFrame);
+  finalCelebrationFooterAnimationFrame = window.requestAnimationFrame(() => {
+    finalCelebrationFooterAnimationFrame = 0;
+    const nextFooterTop = siteFooter?.getBoundingClientRect().top;
+    if (!Number.isFinite(previousFooterTop) || !Number.isFinite(nextFooterTop)) {
+      return;
     }
-  );
-  finalCelebrationLayoutAnimation.addEventListener(
-    "finish",
-    () => {
-      finalCelebrationLayoutAnimation = null;
-    },
-    { once: true }
-  );
+
+    const footerOffset = previousFooterTop - nextFooterTop;
+    if (Math.abs(footerOffset) < 1) {
+      return;
+    }
+
+    finalCelebrationFooterAnimation?.cancel();
+    finalCelebrationFooterAnimation = siteFooter.animate(
+      [
+        { transform: `translateY(${footerOffset}px)` },
+        { transform: "translateY(0)" }
+      ],
+      {
+        duration: 480,
+        easing: "cubic-bezier(0.2, 0.72, 0.18, 1)"
+      }
+    );
+    finalCelebrationFooterAnimation.addEventListener(
+      "finish",
+      () => {
+        finalCelebrationFooterAnimation = null;
+      },
+      { once: true }
+    );
+  });
 }
 
 function renderMatchInfoCloseControl() {
@@ -27868,25 +28342,25 @@ function getPostTournamentEmptyStateCopy(finalMatch) {
 
   if (currentLanguage === "zh") {
     return {
-      action: "查看决赛",
+      action: "重温决赛",
       message: `${editionYear}年世界杯已结束。`
     };
   }
   if (currentLanguage === "es") {
     return {
-      action: "Ver la final",
+      action: "Volver al partido final",
       message: `El Mundial ${editionYear} ha terminado.`
     };
   }
   if (currentLanguage === "ko") {
     return {
-      action: "결승전 보기",
+      action: "결승전 다시 보기",
       message: `${editionYear} 월드컵이 끝났습니다.`
     };
   }
 
   return {
-    action: "View the final",
+    action: "Revisit final match",
     message: `The ${editionYear} World Cup is over.`
   };
 }
@@ -29159,24 +29633,55 @@ const FINAL_CELEBRATION_PALETTE_BY_TEAM = Object.freeze({
   uruguay: "uruguay",
   "west germany": "germany"
 });
+const FINAL_CELEBRATION_LAST_DAY_OFFSET = 14;
 
-const FINAL_CELEBRATION_PHILOSOPHY_BY_TEAM = Object.freeze({
-  argentina:
-    "Argentina's philosophy is team football: stay compact, combine around creative players and fight for every ball.",
-  brazil:
-    "Brazil's philosophy is team football: create space, combine freely and let skill serve the team.",
-  england:
-    "England's philosophy is team football: play with tempo, attack the box and work together without the ball.",
-  france:
-    "France's philosophy is team football: defend together, attack space quickly and give match-winners freedom.",
-  germany:
-    "Germany's philosophy is team football: keep structure, move with purpose and press together.",
-  italy:
-    "Italy's philosophy is team football: stay compact, read danger early and attack at the right moment.",
-  spain:
-    "Spain's philosophy is team football: keep the ball, use the full width and press together.",
-  uruguay:
-    "Uruguay's philosophy is team football: defend with courage, compete for every ball and attack with purpose."
+const FINAL_CELEBRATION_STYLE_BY_EDITION = Object.freeze({
+  "1930-uruguay":
+    "Uruguay played bold, direct football, with Scarone creating and a relentless forward line attacking in waves.",
+  "1934-italy":
+    "Pozzo's Italy mixed physical authority with swift, direct attacks and the invention of Meazza and Orsi.",
+  "1938-italy":
+    "More polished than four years earlier, Italy defended with discipline and broke forward through Meazza, Piola and Colaussi.",
+  "1950-uruguay":
+    "Uruguay stayed composed under pressure, absorbed Brazil's waves and struck decisively through Schiaffino and Ghiggia.",
+  "1954-germany":
+    "West Germany stayed organized, matched Hungary's intensity and believed through the rain until Rahn's late winner.",
+  "1958-brazil":
+    "Brazil gave Pelé and Garrincha room to improvise inside a balanced 4-2-4 built to attack.",
+  "1962-brazil":
+    "With Pelé injured, Brazil shifted the creative burden to Garrincha and won through depth, rhythm and wing play.",
+  "1966-england":
+    "England's wingless 4-3-3 packed the midfield, released Bobby Charlton and attacked the box with runners.",
+  "1970-brazil":
+    "Brazil let five number 10s share the ball, rotate positions and turn individual brilliance into flowing attacks.",
+  "1974-germany":
+    "West Germany combined Beckenbauer's control from the back with relentless marking and Müller's ruthless penalty-box movement.",
+  "1978-argentina":
+    "Menotti's Argentina played on the front foot, combining quickly and feeding Mario Kempes' driving runs from deep.",
+  "1982-italy":
+    "Italy defended with patience, countered at speed and grew around Paolo Rossi's sudden burst of goals.",
+  "1986-argentina":
+    "Argentina gave Maradona the freedom to roam, with a disciplined 3-5-2 protecting the space behind him.",
+  "1990-germany":
+    "West Germany pressed higher and attacked more boldly than four years earlier, with Matthäus driving from midfield.",
+  "1994-brazil":
+    "Brazil traded some romance for balance, with Dunga's control behind the devastating Romário-Bebeto partnership.",
+  "1998-france":
+    "France built from the back, dominated midfield and let Zidane connect a powerful, tactically flexible side.",
+  "2002-brazil":
+    "Brazil's wing-backs stretched the field while Rivaldo and Ronaldinho created around Ronaldo's penalty-area movement.",
+  "2006-italy":
+    "Italy trusted an elite defense, a deep playmaker in Pirlo and timely goals from every part of the squad.",
+  "2010-spain":
+    "Spain suffocated matches with short passing, patient circulation and immediate pressure after losing the ball.",
+  "2014-germany":
+    "Germany mixed positional interchange with fierce counter-pressing, then used their depth to keep the tempo high.",
+  "2018-france":
+    "France defended in a compact block, then exploded into space through Mbappé while Griezmann linked the attack.",
+  "2022-argentina":
+    "Argentina balanced Messi's freedom with midfield runners, aggressive duels and the flexibility to change shape.",
+  "2026-spain":
+    "Spain keep the ball, stretch the pitch and swarm immediately when possession is lost."
 });
 
 function getWorldCupEditionYear(fixture) {
@@ -29217,15 +29722,20 @@ function getFinalCelebrationMatchForDay(dayKey) {
   }
 
   const completedTournamentFinal = getCompletedTournamentFinal();
-  return completedTournamentFinal && dayKey > getFixtureDayKey(completedTournamentFinal)
+  return completedTournamentFinal &&
+    dayKey > getFixtureDayKey(completedTournamentFinal) &&
+    isFinalCelebrationWindowActive(completedTournamentFinal)
     ? completedTournamentFinal
     : null;
 }
 
-function isFinalCelebrationMotionActive(finalMatch) {
+function isFinalCelebrationWindowActive(finalMatch) {
   const finalDayKey = getFixtureDayKey(finalMatch);
   const currentDayKey = getDayKey(new Date(), selectedTimeZone);
-  return currentDayKey >= finalDayKey && currentDayKey <= shiftDayKey(finalDayKey, 1);
+  return (
+    currentDayKey >= finalDayKey &&
+    currentDayKey <= shiftDayKey(finalDayKey, FINAL_CELEBRATION_LAST_DAY_OFFSET)
+  );
 }
 
 function getFinalCelebrationPalette(teamName) {
@@ -29320,23 +29830,86 @@ function getFinalCelebrationTitleHistoryBullet(finalMatch, winner, editionYear) 
   const referenceTitle = previousTitle || titles[titleNumber - 1] || getWorldCupTitleResult(finalMatch);
   const mentionPlayers = getFinalCelebrationTitlePlayers(referenceTitle);
   const playerNames = mentionPlayers.map(getPlayerName).filter(Boolean);
-  const playerCopy = playerNames.length
-    ? ` with ${formatGoldenBootPlayerList(mentionPlayers)}`
-    : "";
+  const localizedPlayerNames = formatGoldenBootPlayerList(mentionPlayers, currentLanguage);
+  const hasPlayers = Boolean(playerNames.length);
+  const playerCopy = hasPlayers ? ` with ${formatGoldenBootPlayerList(mentionPlayers)}` : "";
   const possessiveTeamName = getFinalCelebrationPossessiveTeamName(winner.name);
-  const bullet = previousTitle
+  const englishBullet = previousTitle
     ? `This ${verb} ${possessiveTeamName} ${getFinalCelebrationTitleOrdinal(titleNumber)} title, after their ${previousTitle.year} triumph${playerCopy}.`
     : `This ${verb} ${possessiveTeamName} first title${playerCopy ? `, won${playerCopy}` : ""}.`;
+  let bullet = englishBullet;
+
+  if (currentLanguage === "zh") {
+    const winnerName = translateTextToZh(winner.name);
+    const titleCounts = ["", "一", "二", "三", "四", "五"];
+    const titleCount = titleCounts[titleNumber] || String(titleNumber);
+    const playerClause = hasPlayers ? `，当时阵中有${localizedPlayerNames}` : "";
+    bullet = previousTitle
+      ? `这是${winnerName}第${titleCount}次夺得世界杯冠军，上一次是${previousTitle.year}年夺冠${playerClause}。`
+      : `这是${winnerName}首次夺得世界杯冠军${hasPlayers ? `，阵中有${localizedPlayerNames}` : ""}。`;
+  } else if (currentLanguage === "es" || currentLanguage === "ko") {
+    bullet = formatActiveLocaleMessage(
+      "final-celebration-review",
+      {
+        hasPlayers,
+        playerNames: localizedPlayerNames,
+        previousTitleYear: previousTitle?.year || null,
+        titleNumber,
+        variant: previousTitle ? "title-history-previous" : "title-history-first",
+        winner: winner.name
+      },
+      englishBullet
+    );
+  }
 
   return { bullet, mentionPlayers };
 }
 
-function getFinalCelebrationPhilosophy(winner) {
+function getFinalCelebrationPhilosophy(winner, editionYear) {
   const teamKey = getFinalCelebrationTeamKey(winner?.name);
-  return (
-    FINAL_CELEBRATION_PHILOSOPHY_BY_TEAM[teamKey] ||
-    `${winner.name}'s philosophy is team football: stay connected, share the work and play with purpose.`
-  );
+  const editionKey = `${editionYear}-${teamKey}`;
+  const englishPhilosophy =
+    FINAL_CELEBRATION_STYLE_BY_EDITION[editionKey] ||
+    `${winner.name} found a winning balance between structure, shared effort and individual quality.`;
+
+  if (currentLanguage === "zh") {
+    const philosophies = {
+      "1930-uruguay": "乌拉圭踢得大胆而直接，由斯卡罗内组织进攻，锋线一波又一波向前冲击。",
+      "1934-italy": "波佐的意大利以强硬对抗配合快速直传，梅阿查和奥尔西则带来创造力。",
+      "1938-italy": "相比四年前，意大利更成熟；他们纪律严明地防守，再由梅阿查、皮奥拉和科劳西发动反击。",
+      "1950-uruguay": "乌拉圭在巨大压力下依然镇定，顶住巴西的攻势后，由斯基亚菲诺和吉贾完成致命一击。",
+      "1954-germany": "西德保持严密组织，在雨战中顶住匈牙利的强度，并一直相信自己，直到拉恩打进制胜球。",
+      "1958-brazil": "巴西以攻势足球为核心，在平衡的4-2-4体系中让贝利和加林查自由发挥。",
+      "1962-brazil": "贝利受伤后，巴西把创造重任交给加林查，并凭借阵容深度、节奏和边路进攻卫冕。",
+      "1966-england": "英格兰的“无翼奇阵”4-3-3充实中场，释放博比·查尔顿，并靠多人前插冲击禁区。",
+      "1970-brazil": "巴西让五位俱乐部的10号球员共享球权、轮转位置，把个人天赋融入行云流水的进攻。",
+      "1974-germany": "西德由贝肯鲍尔从后场掌控比赛，以紧逼限制对手，再由盖德·穆勒完成禁区内的致命一击。",
+      "1978-argentina": "梅诺蒂的阿根廷主动进攻，通过快速配合为肯佩斯从后排插上的冲击力创造空间。",
+      "1982-italy": "意大利耐心防守、快速反击，并随着保罗·罗西突然爆发的进球越战越勇。",
+      "1986-argentina": "阿根廷让马拉多纳自由游走，同时用纪律严明的3-5-2保护他身后的空间。",
+      "1990-germany": "西德比四年前压迫更靠前、进攻更大胆，马特乌斯则从中场持续推动球队。",
+      "1994-brazil": "巴西收起一部分浪漫，换来更好的攻守平衡；邓加掌控中场，罗马里奥和贝贝托在前场制造杀机。",
+      "1998-france": "法国从稳固后防出发，掌控中场，再由齐达内串联这支强悍而灵活的球队。",
+      "2002-brazil": "巴西用翼卫拉开宽度，让里瓦尔多和罗纳尔迪尼奥围绕罗纳尔多的禁区跑动创造机会。",
+      "2006-italy": "意大利依靠顶级防线、皮尔洛的后场调度，以及来自全队各个位置的关键进球。",
+      "2010-spain": "西班牙用短传和耐心控球压制比赛，丢球后立即反抢。",
+      "2014-germany": "德国把位置轮转与凶狠反抢结合起来，再用阵容深度持续维持高节奏。",
+      "2018-france": "法国保持紧凑防守，再由姆巴佩冲击身后空间，格列兹曼负责串联进攻。",
+      "2022-argentina": "阿根廷让梅西自由发挥，同时用中场前插、强硬对抗和灵活变阵维持平衡。",
+      "2026-spain": "西班牙掌控球权、拉开场地宽度，并在丢球后立即合围反抢。"
+    };
+    return philosophies[editionKey] || `${translateTextToZh(winner.name)}在整体结构、共同投入和个人能力之间找到了夺冠所需的平衡。`;
+  }
+
+  if (currentLanguage === "es" || currentLanguage === "ko") {
+    return formatActiveLocaleMessage(
+      "final-celebration-review",
+      { editionYear, teamKey, variant: "philosophy", winner: winner.name },
+      englishPhilosophy
+    );
+  }
+
+  return englishPhilosophy;
 }
 
 function getFinalCelebrationFireworksMarkup() {
@@ -29382,10 +29955,6 @@ function getFinalCelebrationConfettiMarkup() {
 }
 
 function getFinalCelebrationReviewContent(finalMatch, fallbackBody) {
-  if (currentLanguage !== "en") {
-    return null;
-  }
-
   const editionYear = getWorldCupEditionYear(finalMatch);
   const score = getCatchUpScore(finalMatch);
   const winnerSide = getResultWinnerSide(finalMatch, score);
@@ -29398,7 +29967,7 @@ function getFinalCelebrationReviewContent(finalMatch, fallbackBody) {
   const bullets = [
     fallbackBody,
     titleHistory.bullet,
-    getFinalCelebrationPhilosophy(winner)
+    getFinalCelebrationPhilosophy(winner, editionYear)
   ];
 
   return { bullets, mentionPlayers: titleHistory.mentionPlayers };
@@ -29459,6 +30028,9 @@ function renderFinalCelebration() {
       .map((sentence) => (/[.!?]$/u.test(sentence) ? sentence : `${sentence}.`))
       .join(" ")
   );
+  const awardsLanguageQuery = currentLanguage === "en"
+    ? ""
+    : `?lang=${encodeURIComponent(currentLanguage)}`;
   banner.innerHTML = `
     <span class="final-celebration-confetti" aria-hidden="true">
       ${getFinalCelebrationConfettiMarkup()}
@@ -29467,13 +30039,14 @@ function renderFinalCelebration() {
       <span class="final-celebration-kicker"><span class="final-celebration-trophy" aria-hidden="true">🏆</span> FIFA World Cup ${editionYear}</span>
       <strong class="final-celebration-headline">${escapeHtml(headline)}</strong>
       ${descriptionMarkup}
+      <a class="final-celebration-awards-link" href="highlights.html${awardsLanguageQuery}">${escapeHtml(localizeText("View all awards"))} <span aria-hidden="true">→</span></a>
     </span>
   `;
   document.body.dataset.finalCelebrationPalette = championItem.palette;
   document.body.classList.add("has-final-celebration");
   document.body.classList.toggle(
     "is-final-celebration-calm",
-    !isFinalCelebrationMotionActive(completedFinal)
+    !isFinalCelebrationWindowActive(completedFinal)
   );
   positionPlayerCards();
 }
@@ -32390,6 +32963,7 @@ document.addEventListener(
       )
     ) {
       image.classList.add("is-image-ready");
+      image.closest(".player-photo")?.classList.add("is-image-ready");
     }
   },
   true
@@ -32399,12 +32973,15 @@ document.addEventListener(
   "error",
   (event) => {
     const image = event.target;
-    if (image instanceof HTMLImageElement && image.matches(".player-photo img")) {
+    if (
+      image instanceof HTMLImageElement &&
+      image.matches(".lineup-coach-avatar img, .lineup-coach-card-photo img")
+    ) {
+      replaceBrokenLineupCoachPhoto(image);
+    } else if (image instanceof HTMLImageElement && image.matches(".player-photo img")) {
       replaceBrokenPlayerPhoto(image);
     } else if (image instanceof HTMLImageElement && image.matches(".lineup-avatar-image")) {
       replaceBrokenLineupAvatar(image);
-    } else if (image instanceof HTMLImageElement && image.matches(".lineup-coach-avatar img, .lineup-coach-card-photo img")) {
-      replaceBrokenLineupCoachPhoto(image);
     }
   },
   true

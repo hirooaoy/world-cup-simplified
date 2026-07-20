@@ -1,6 +1,6 @@
 const DEFAULT_LANGUAGE = "en";
 export const LOCALE_SCHEMA_VERSION = 1;
-export const LOCALE_PACK_VERSION = "2026-07-19-match-info-close-1";
+export const LOCALE_PACK_VERSION = "2026-07-20-full-localization-audit-1";
 
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {
@@ -290,7 +290,7 @@ const LANGUAGE_CONFIGS = Object.freeze({
 });
 
 const SUPPORTED_LANGUAGE_CONFIGS = Object.freeze(Object.values(LANGUAGE_CONFIGS));
-const SUPPORTED_DOMAINS = new Set(["app", "report", "chatbot"]);
+const SUPPORTED_DOMAINS = new Set(["app", "report", "chatbot", "highlights"]);
 
 function isRecord(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -304,19 +304,22 @@ const DOMAIN_PACK_VALIDATORS = Object.freeze({
     isRecord(pack.helpers) &&
     typeof pack.helpers.translateText === "function",
   report: (pack) => isRecord(pack.text) && isRecord(pack.footerText),
-  chatbot: (pack) => isRecord(pack.copy) && isRecord(pack.knowledge)
+  chatbot: (pack) => isRecord(pack.copy) && isRecord(pack.knowledge),
+  highlights: (pack) => isRecord(pack.text) && isRecord(pack.entities)
 });
 
 const DOMAIN_LOADERS = Object.freeze({
   es: Object.freeze({
     app: () => import(`./es/app.js?v=${LOCALE_PACK_VERSION}`),
     report: () => import(`./es/report.js?v=${LOCALE_PACK_VERSION}`),
-    chatbot: () => import(`./es/chatbot.js?v=${LOCALE_PACK_VERSION}`)
+    chatbot: () => import(`./es/chatbot.js?v=${LOCALE_PACK_VERSION}`),
+    highlights: () => import(`./es/highlights.js?v=${LOCALE_PACK_VERSION}`)
   }),
   ko: Object.freeze({
     app: () => import(`./ko/app.js?v=${LOCALE_PACK_VERSION}`),
     report: () => import(`./ko/report.js?v=${LOCALE_PACK_VERSION}`),
-    chatbot: () => import(`./ko/chatbot.js?v=${LOCALE_PACK_VERSION}`)
+    chatbot: () => import(`./ko/chatbot.js?v=${LOCALE_PACK_VERSION}`),
+    highlights: () => import(`./ko/highlights.js?v=${LOCALE_PACK_VERSION}`)
   })
 });
 

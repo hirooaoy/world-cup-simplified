@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "3fd1728d1dacf38c3f08be5d2e36fdfd9ecb2a8d95a5eda883febeab62243978"
+  "sourceFingerprint": "fb7c7e05102809d997e3f5de457d202d7b5ca88fca940d5e2fcf0eb9c7cc743c"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Ball Boy now answers who won this World Cup or the previous edition, which country has the most titles, and when a country last won across current and historical tournaments.": "Ball Boy는 이제 이번 월드컵이나 이전 대회 우승팀, 최다 우승국, 그리고 현재 및 역대 대회에서 각 나라가 마지막으로 우승한 시점을 답할 수 있습니다.",
-  "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the champion cover, say the 2026 World Cup is over, and offer one View the final action back to July 19.": "결승전이 끝난 날에는 이제 우승팀 배너, 색종이, 배경 불꽃놀이와 선수 카드가 포함된 세 가지 우승 이야기가 표시됩니다. 이후 경기 없는 날에는 우승팀 표지와 2026년 월드컵 종료 안내를 유지하고, 7월 19일로 돌아가는 ‘결승전 보기’ 버튼 하나를 제공합니다.",
-  "Every archived World Cup now shows a tournament-era ranking pill in group tables and knockout paths: retrospective Elo for 1930-1990 and FIFA world rankings for 1994-2022.": "모든 역대 월드컵은 이제 조별리그 순위표와 토너먼트 대진표에 당시 기준 순위 배지를 표시합니다. 1930-1990년은 회고적 Elo 랭킹, 1994-2022년은 FIFA 세계 랭킹을 사용합니다.",
-  "World champions, clearer mobile bracket zoom, and cleaner Standings": "월드컵 우승, 더 선명한 모바일 대진표 확대/축소와 더 깔끔한 순위"
+  "A new 2026 highlights page brings together Spain's title run, every official award winner and why they stood out, and fan-favorite stories led by Cabo Verde; View all awards now opens it from the champion banner.": "새로운 2026 하이라이트 페이지에는 스페인의 우승 여정, 모든 공식 수상자와 선정 이유, 카보베르데를 중심으로 한 팬 인기 이야기가 한데 모이며, 이제 챔피언 배너의 ‘모든 수상 보기’에서 바로 열 수 있습니다.",
+  "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the full celebration through August 2, then from August 3 retain only the calm World Cup is over message and Revisit final match action back to July 19.": "결승전이 끝난 날에는 이제 우승팀 배너, 색종이, 배경 불꽃놀이와 선수 카드가 포함된 세 가지 우승 이야기가 표시됩니다. 이후 경기 없는 날에는 8월 2일까지 축하 효과 전체를 유지하고, 8월 3일부터는 차분한 월드컵 종료 안내와 7월 19일로 돌아가는 ‘결승전 다시 보기’ 버튼만 남깁니다.",
+  "Every completed 2026 match now requires exactly three recap bullets in English and Chinese, with curated Spanish and Korean equivalents; validators, generators, and locale smoke tests enforce the contract so shortened or untranslated stories cannot silently ship.": "2026년 종료된 모든 경기는 이제 영어와 중국어로 정확히 세 개의 경기 요약 항목을 제공해야 하며, 검토된 스페인어와 한국어 번역도 함께 제공합니다. 검증기, 생성기와 언어 스모크 테스트가 이 규칙을 강제해 축약되거나 번역되지 않은 이야기가 조용히 배포되지 않도록 합니다.",
+  "World champions, richer archives, and smarter Ball Boy": "월드컵 우승, 더 풍부한 아카이브와 더 똑똑한 Ball Boy"
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

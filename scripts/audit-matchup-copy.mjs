@@ -127,6 +127,8 @@ const authoredChineseCopyPatterns = [
   /^(.+) survived from the spot after the (.+) draw\.$/,
   /^(.+) were cleaner from the spot, winning the (.+) through the shootout (.+) after the (.+) draw\.$/,
   /^(.+) lifted the (.+) title through the shootout\.$/,
+  /^The (\d+-\d+) draw required a replay to decide who advanced\.$/,
+  /^This replay followed the teams' (\d+-\d+) draw in the earlier match\.$/,
   /^📊 Both sides took one point from (.+)\.$/,
   /^📊 Both teams took one point from (.+)\.$/,
   /^📊 (.+) took three points from (.+)\.$/,

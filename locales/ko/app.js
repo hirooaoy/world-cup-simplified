@@ -3,6 +3,7 @@ import {
   getPlayerSkillCategory,
   isGeneratedPlayerCardCopy
 } from "../player-note-templates.js";
+import { translateCompoundPosition } from "../position-runtime.js";
 
 const UI = {
   adminMessage: "공지 메시지",
@@ -314,6 +315,7 @@ const PLAYER_POSITIONS = {
 const EXACT = {
   "After extra time": "연장전 후",
   archive: "아카이브",
+  "View all awards": "모든 수상 보기",
   "As it stands": "현재 순위",
   "Best third-place race": "조 3위 팀 순위",
   "Bracket details are not loaded yet.": "대진표 정보가 아직 없습니다.",
@@ -406,6 +408,8 @@ const EXACT = {
   "Games Left": "남은 경기",
   Rank: "순위",
   Pts: "승점",
+  "Points use this tournament's scoring: 2 for a win, 1 for a draw, 0 for a loss.":
+    "이 대회의 승점 규정을 적용합니다. 승리 2점, 무승부 1점, 패배 0점입니다.",
   MP: "경기",
   W: "승",
   D: "무",
@@ -418,6 +422,19 @@ const EXACT = {
   "Final round": "최종 라운드",
   "Final Round": "최종 라운드",
   "Final round standings": "최종 라운드 순위",
+  "Title decider": "우승 결정전",
+  Champion: "우승",
+  "No knockout final": "단판 결승전 없음",
+  "Four group winners played a round-robin. Uruguay–Brazil decided the title on the last matchday.":
+    "네 조의 1위 팀이 풀리그를 치렀고, 마지막 경기일의 우루과이-브라질전에서 우승팀이 결정됐습니다.",
+  "See the Groups tab for the complete final-round table.":
+    "최종 라운드 전체 순위는 조별리그 탭에서 확인할 수 있습니다.",
+  "This four-team table decided the 1950 world champion.":
+    "이 네 팀의 순위표로 1950년 월드컵 우승팀이 결정됐습니다.",
+  "1950 ended with a four-team final round. Uruguay–Brazil was the title decider.":
+    "1950년 월드컵은 네 팀의 최종 라운드로 끝났고, 우루과이-브라질전이 우승 결정전이었습니다.",
+  "First-round groups and the final-round championship table use archived results and tournament-era tie-breakers.":
+    "1라운드 조별리그와 최종 라운드 우승 순위표는 당시 경기 결과와 대회 규정을 사용합니다.",
   "Second round": "2라운드",
   "First round": "1라운드",
   "First round, Replays": "1라운드 재경기",
@@ -1168,16 +1185,18 @@ const PATTERNS = [
       const awayName = translateTeamName(away);
       return `${withKoreanParticle(translateTeamName(home), "과", "와")} ${withKoreanParticle(awayName, "은", "는")} 이 경기 전까지 남자 월드컵에서 만난 적이 없습니다.`;
     }
+  },
+  {
+    id: "historical-replay-required",
+    match: /^The (\d+-\d+) draw required a replay to decide who advanced\.$/iu,
+    replace: (score) => `${score} 무승부로 진출 팀을 가리기 위한 재경기가 필요했다.`
+  },
+  {
+    id: "historical-replay-followup",
+    match: /^This replay followed the teams' (\d+-\d+) draw in the earlier match\.$/iu,
+    replace: (score) => `이 재경기는 앞선 경기의 ${score} 무승부 뒤에 열렸다.`
   }
 ];
-
-function normalizePositionKey(value) {
-  return String(value || "")
-    .trim()
-    .toLocaleLowerCase("en-US")
-    .replace(/[‐‑‒–—-]/gu, " ")
-    .replace(/\s+/gu, " ");
-}
 
 export function translateTeamName(value, teamId = "") {
   const id = String(teamId || "").trim().toLocaleUpperCase("en-US");
@@ -1190,9 +1209,10 @@ export function translateTeamName(value, teamId = "") {
 
 export function translateLineupPosition(value) {
   const position = String(value || "").trim();
-  return LINEUP_POSITIONS[position.toLocaleUpperCase("en-US")] ||
-    PLAYER_POSITIONS[normalizePositionKey(position)] ||
-    position;
+  return translateCompoundPosition(position, {
+    lineupPositions: LINEUP_POSITIONS,
+    playerPositions: PLAYER_POSITIONS
+  });
 }
 
 export function formatPlayerSkill(value) {
@@ -1738,11 +1758,11 @@ export function formatAppMessage(type, data = {}) {
         case "golden-boot-meta":
           return "골든부트 경쟁";
         case "champion-body-penalties":
-          return `${withKoreanParticle(winner, "이", "가")} 결승에서 ${data.scoreText}로 비긴 뒤 승부차기에서 ${withKoreanParticle(loser, "을", "를")} 꺾었다.`;
+          return `${withKoreanParticle(winner, "이", "가")} 결승에서 ${withKoreanDirectionParticle(data.scoreText)} 비긴 뒤 승부차기에서 ${withKoreanParticle(loser, "을", "를")} 꺾었다.`;
         case "champion-body-final-round":
-          return `${withKoreanParticle(winner, "이", "가")} 우승을 결정한 결선 리그 경기에서 ${withKoreanParticle(loser, "을", "를")} ${data.scoreText}로 꺾었다.`;
+          return `${withKoreanParticle(winner, "이", "가")} 우승을 결정한 결선 리그 경기에서 ${withKoreanParticle(loser, "을", "를")} ${withKoreanDirectionParticle(data.scoreText)} 꺾었다.`;
         case "champion-body":
-          return `${withKoreanParticle(winner, "이", "가")} 결승에서 ${withKoreanParticle(loser, "을", "를")} ${data.scoreText}로 꺾었다.`;
+          return `${withKoreanParticle(winner, "이", "가")} 결승에서 ${withKoreanParticle(loser, "을", "를")} ${withKoreanDirectionParticle(data.scoreText)} 꺾었다.`;
         case "champion-headline":
           return `${withKoreanParticle(winner, "이", "가")} ${data.editionYear}년 세계 챔피언에 올랐다`;
         case "tournament-wrap-meta":
@@ -1762,6 +1782,48 @@ export function formatAppMessage(type, data = {}) {
         default:
           return "";
       }
+    }
+    case "final-celebration-review": {
+      const winner = translateTeamName(data.winner);
+      if (data.variant === "title-history-previous") {
+        const titleCounts = ["", "한", "두", "세", "네", "다섯"];
+        const titleCount = titleCounts[data.titleNumber] || String(data.titleNumber);
+        const playerClause = data.hasPlayers ? ` 당시 ${withKoreanParticle(data.playerNames, "이", "가")} 함께했다.` : "";
+        return `${winner}의 ${titleCount} 번째 월드컵 우승이다. ${data.previousTitleYear}년 우승에 이은 쾌거다.${playerClause}`;
+      }
+      if (data.variant === "title-history-first") {
+        return `${winner}의 첫 월드컵 우승이다${data.hasPlayers ? `. ${withKoreanParticle(data.playerNames, "이", "가")} 우승을 함께했다.` : "."}`;
+      }
+      if (data.variant === "philosophy") {
+        const editionKey = `${data.editionYear}-${data.teamKey}`;
+        const philosophies = {
+          "1930-uruguay": "우루과이는 스카로네의 창조성을 중심으로 과감하고 직선적인 축구를 펼치며 공격을 거듭했다.",
+          "1934-italy": "포초의 이탈리아는 강한 몸싸움과 빠른 직선 공격에 메아차와 오르시의 창의성을 더했다.",
+          "1938-italy": "4년 전보다 완성도를 높인 이탈리아는 조직적으로 수비하고 메아차, 피올라, 콜라우시를 앞세워 빠르게 전진했다.",
+          "1950-uruguay": "우루과이는 압박 속에서도 침착함을 잃지 않고 브라질의 공세를 견딘 뒤 스키아피노와 기지아로 결정타를 날렸다.",
+          "1954-germany": "서독은 조직을 유지하고 헝가리의 강도에 맞섰으며 빗속에서도 믿음을 잃지 않아 란의 결승골을 만들었다.",
+          "1958-brazil": "브라질은 공격적인 4-2-4의 균형 속에서 펠레와 가린샤가 자유롭게 재능을 펼치게 했다.",
+          "1962-brazil": "펠레가 다치자 브라질은 가린샤에게 창조성을 맡겼고 선수층, 리듬, 측면 공격으로 우승했다.",
+          "1966-england": "잉글랜드의 '윙 없는' 4-3-3은 중원을 두껍게 하고 보비 찰턴을 풀어주며 여러 선수가 박스로 침투하게 했다.",
+          "1970-brazil": "브라질은 다섯 명의 10번이 공을 나누고 위치를 바꾸며 개인 기량을 유려한 공격으로 엮게 했다.",
+          "1974-germany": "서독은 베켄바워의 후방 지휘, 끈질긴 대인 수비, 뮐러의 치명적인 박스 움직임을 결합했다.",
+          "1978-argentina": "메노티의 아르헨티나는 빠르게 연계하며 주도적으로 공격했고 마리오 켐페스의 후방 침투를 살렸다.",
+          "1982-italy": "이탈리아는 인내심 있게 수비하고 빠르게 역습했으며 파올로 로시의 갑작스러운 득점 폭발과 함께 살아났다.",
+          "1986-argentina": "아르헨티나는 마라도나에게 자유롭게 움직일 권한을 주고 규율 잡힌 3-5-2로 그 뒤 공간을 지켰다.",
+          "1990-germany": "서독은 4년 전보다 높은 위치에서 압박하고 더 과감하게 공격했으며 마테우스가 중원에서 전진을 이끌었다.",
+          "1994-brazil": "브라질은 낭만을 조금 덜어내고 균형을 택했으며 둥가의 통제 아래 호마리우와 베베투가 상대를 무너뜨렸다.",
+          "1998-france": "프랑스는 강한 수비를 바탕으로 중원을 장악했고 지단이 강력하고 유연한 팀을 하나로 연결했다.",
+          "2002-brazil": "브라질은 윙백으로 폭을 넓히고 히바우두와 호나우지뉴가 호나우두의 박스 움직임을 중심으로 기회를 만들었다.",
+          "2006-italy": "이탈리아는 최고의 수비, 피를로의 후방 조율, 그리고 포지션을 가리지 않은 결정적인 득점을 믿었다.",
+          "2010-spain": "스페인은 짧은 패스와 인내심 있는 볼 순환으로 경기를 질식시키고 공을 잃으면 즉시 압박했다.",
+          "2014-germany": "독일은 유기적인 위치 교환과 거센 역압박을 섞고 두터운 선수층으로 높은 템포를 유지했다.",
+          "2018-france": "프랑스는 촘촘한 블록으로 수비한 뒤 음바페가 공간을 폭발적으로 파고들고 그리즈만이 공격을 연결했다.",
+          "2022-argentina": "아르헨티나는 메시의 자유에 미드필더의 침투, 강한 경합, 유연한 전형 변화를 더해 균형을 잡았다.",
+          "2026-spain": "스페인은 공을 소유하고 경기장을 넓게 쓰며 공을 잃는 순간 상대를 에워싸 압박한다."
+        };
+        return philosophies[editionKey] || `${winner}은 조직, 공동의 노력, 개인 기량 사이에서 우승에 필요한 균형을 찾았다.`;
+      }
+      return "";
     }
     case "catch-up-result": {
       const winner = translateTeamName(data.winner);
@@ -2062,6 +2124,22 @@ function hasKoreanFinalConsonant(value) {
 function withKoreanParticle(value, finalConsonantParticle, vowelParticle) {
   const text = String(value || "").trim();
   return `${text}${hasKoreanFinalConsonant(text) ? finalConsonantParticle : vowelParticle}`;
+}
+
+function withKoreanDirectionParticle(value) {
+  const text = String(value || "").trim();
+  const lastCharacter = Array.from(text).at(-1) || "";
+  if (/\d/u.test(lastCharacter)) {
+    return `${text}${/[013678]/u.test(lastCharacter) ? "으로" : "로"}`;
+  }
+
+  const codePoint = lastCharacter.codePointAt(0) || 0;
+  if (codePoint >= 0xac00 && codePoint <= 0xd7a3) {
+    const finalConsonant = (codePoint - 0xac00) % 28;
+    return `${text}${finalConsonant !== 0 && finalConsonant !== 8 ? "으로" : "로"}`;
+  }
+
+  return `${text}로`;
 }
 
 export function formatWorldCupShootoutHistory(type, data = {}) {

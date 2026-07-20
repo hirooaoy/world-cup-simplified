@@ -1,22 +1,34 @@
 {
-  "updatedAt": "2026-07-19T20:26:40-07:00",
+  "updatedAt": "2026-07-19T22:53:41-07:00",
   "releases": [
     {
       "date": "2026-07-19",
-      "title": "World champions, clearer mobile bracket zoom, and cleaner Standings",
-      "titleZh": "世界杯冠军、更清晰的移动端对阵图缩放与更简洁的积分榜",
+      "title": "World champions, richer archives, and smarter Ball Boy",
+      "titleZh": "世界杯冠军、更完整的存档与更聪明的 Ball Boy",
       "highlights": [
-        "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the champion cover, say the 2026 World Cup is over, and offer one View the final action back to July 19.",
+        "Completed final days now open with a champion banner, confetti, background fireworks, and a three-point title story with player cards; later empty days keep the full celebration through August 2, then from August 3 retain only the calm World Cup is over message and Revisit final match action back to July 19.",
+        "A new 2026 highlights page brings together Spain's title run, every official award winner and why they stood out, and fan-favorite stories led by Cabo Verde; View all awards now opens it from the champion banner.",
+        "Every completed 2026 match now requires exactly three recap bullets in English and Chinese, with curated Spanish and Korean equivalents; validators, generators, and locale smoke tests enforce the contract so shortened or untranslated stories cannot silently ship.",
+        "Player cards now keep initials visible while remote portraits load and retry failed Wikimedia photos through an alternate route; a new archive-wide image audit checks every verified historical photo without treating genuinely unavailable early-era portraits as broken.",
         "Ball Boy now answers who won this World Cup or the previous edition, which country has the most titles, and when a country last won across current and historical tournaments.",
         "Every archived World Cup now shows a tournament-era ranking pill in group tables and knockout paths: retrospective Elo for 1930-1990 and FIFA world rankings for 1994-2022.",
+        "The 1950 archive now presents its six-match championship round as a table: Groups shows the complete final-round standings with Uruguay marked champion, while Tournament explains the format and shows only Uruguay-Brazil as the title decider.",
+        "The 1934 and 1938 archives now show only Tournament because those editions used straight knockout and had no group stage; each replay now sits directly right of its drawn match on the same horizontal path, while other advancing paths bypass Replay columns cleanly.",
+        "All 965 historical match records now carry an explicit venue country—including individually mapped South Korea and Japan sites from 2002—and the archive displays localized city-country context instead of ambiguous city-only labels.",
         "On phones, tournament pinch zoom now stops at 80% so cards and type stay clear and readable instead of collapsing into a tiny all-round overview.",
         "The mobile zoom percentage badge has been removed; intermediate round labels stay aligned, archived brackets share the same behavior, and desktop zoom remains unchanged.",
         "The bottom source and freshness footer now stays on Matches and Report issue but is omitted from every Standings mode and archived Standings year."
       ],
       "highlightsZh": [
-        "已结束的决赛日现在会展示冠军横幅、彩纸、背景烟花和带球员卡片的三点夺冠故事；之后的无比赛日会保留冠军封面，提示2026年世界杯已结束，并提供一个返回7月19日的“查看决赛”按钮。",
+        "已结束的决赛日现在会展示冠军横幅、彩纸、背景烟花和带球员卡片的三点夺冠故事；之后的无比赛日会保留完整庆祝效果至8月2日，从8月3日起仅保留简洁的世界杯已结束提示和返回7月19日的“重温决赛”按钮。",
+        "全新的2026年亮点页面汇集西班牙的夺冠之路、每位官方奖项得主及其获奖原因，以及以佛得角为首的球迷最爱故事；冠军横幅中的“查看全部奖项”现在可直接打开该页面。",
+        "2026年所有已结束比赛现在都必须提供三条中英文赛果回顾，并配有经编辑的西班牙语和韩语版本；验证器、生成器和语言冒烟测试会共同执行该规则，避免简略或未翻译的回顾悄然上线。",
+        "球员卡片现在会在远程照片加载期间保留姓名首字母，并在维基媒体照片首次失败时改用备用路径重试；新增的往届照片审计会检查每一张已验证图片，同时不会把早期赛事中确实找不到照片的球员误判为故障。",
         "Ball Boy 现在可以回答本届或上届世界杯冠军、夺冠次数最多的国家，以及各国最近一次夺冠时间等当前与历史赛事问题。",
         "每届往届世界杯现在都会在小组积分榜和淘汰赛路径中显示当届赛事排名：1930年至1990年使用回溯Elo排名，1994年至2022年使用FIFA世界排名。",
+        "1950年世界杯存档现在会把六场冠军轮比赛作为积分榜呈现：“小组”显示完整的决赛轮积分榜并标记乌拉圭夺冠，“赛事”则说明赛制并只展示决定冠军的乌拉圭对巴西一战。",
+        "1934年和1938年世界杯采用直接淘汰赛制、没有小组赛，因此这两届存档现在只显示“赛事”视图；每场重赛会与原平局比赛保持同一高度并直接显示在右侧，无需重赛的晋级路径则会清晰绕过“重赛”列。",
+        "全部965场历史比赛现在都明确记录场地所属国家，包括逐一映射的2002年韩国和日本场馆；存档会显示本地化的城市与国家信息，不再只显示含糊的城市名称。",
         "在手机端，赛事对阵图的双指缩放现在最低停在80%，让卡片和文字保持清晰易读，不再缩成过小的全局总览。",
         "移动端的缩放百分比按钮已移除；中间缩放状态的轮次标签保持对齐，往届对阵图采用相同行为，桌面端缩放保持不变。",
         "底部的来源与数据刷新页脚继续保留在“比赛”和“报告问题”页面，但会从所有积分榜模式与往届积分榜年份中移除。"

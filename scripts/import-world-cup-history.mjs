@@ -34,6 +34,58 @@ const years = [
   2022
 ];
 
+const hostCountryByYear = new Map([
+  [1930, "Uruguay"],
+  [1934, "Italy"],
+  [1938, "France"],
+  [1950, "Brazil"],
+  [1954, "Switzerland"],
+  [1958, "Sweden"],
+  [1962, "Chile"],
+  [1966, "England"],
+  [1970, "Mexico"],
+  [1974, "West Germany"],
+  [1978, "Argentina"],
+  [1982, "Spain"],
+  [1986, "Mexico"],
+  [1990, "Italy"],
+  [1994, "USA"],
+  [1998, "France"],
+  [2006, "Germany"],
+  [2010, "South Africa"],
+  [2014, "Brazil"],
+  [2018, "Russia"],
+  [2022, "Qatar"]
+]);
+
+const southKorea2002VenueCities = new Set([
+  "Busan",
+  "Daegu",
+  "Daejeon",
+  "Gwangju",
+  "Incheon",
+  "Jeju",
+  "Jeonju",
+  "Seoul",
+  "Suwon",
+  "Ulsan"
+]);
+
+function normalizeVenue(venue, year) {
+  if (year === 1982 && venue === "Estadio Santiago Bernabéu") {
+    return "Estadio Santiago Bernabéu, Madrid";
+  }
+  return venue;
+}
+
+function getVenueCountry(venue, year) {
+  if (year === 2002) {
+    const city = String(venue || "").split(",").at(-1)?.trim() || "";
+    return southKorea2002VenueCities.has(city) ? "South Korea" : "Japan";
+  }
+  return hostCountryByYear.get(year) || "";
+}
+
 function slugify(value) {
   return String(value || "")
     .normalize("NFKD")
@@ -124,6 +176,7 @@ function normalizeFixture(match, year, tournamentName, index, duplicateCounts) {
   duplicateCounts.set(slugBase, duplicateCount + 1);
   const score = getScorePair(match.score);
   const sourcePath = `${year}/worldcup.json`;
+  const venue = normalizeVenue(match.ground || "", year);
 
   return {
     id: duplicateCount ? `${slugBase}-${duplicateCount + 1}` : slugBase,
@@ -140,7 +193,8 @@ function normalizeFixture(match, year, tournamentName, index, duplicateCounts) {
     ...(match.group ? { group: match.group } : {}),
     homeSlot: match.team1 || "TBD",
     awaySlot: match.team2 || "TBD",
-    venue: match.ground || "",
+    venue,
+    venueCountry: getVenueCountry(venue, year),
     status: getStatus(match),
     ...(score ? { score } : {}),
     scoreDetails: getScoreDetails(match.score),

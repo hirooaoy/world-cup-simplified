@@ -827,8 +827,8 @@ const storyParityIssues = completedCurrentFixtures.filter(
   (fixture) =>
     !Array.isArray(fixture.resultStoryBullets) ||
     !Array.isArray(fixture.resultStoryBulletsZh) ||
-    !fixture.resultStoryBullets.length ||
-    fixture.resultStoryBullets.length !== fixture.resultStoryBulletsZh.length ||
+    fixture.resultStoryBullets.length !== 3 ||
+    fixture.resultStoryBulletsZh.length !== 3 ||
     fixture.resultStoryBulletsZh.some((bullet) => !String(bullet || "").trim())
 );
 check(

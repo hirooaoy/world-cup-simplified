@@ -408,12 +408,19 @@ const curatedCommonsFileOverrides = new Map(
 const rejectedCommonsImageFileKeys = [
   "Alexander Wood, Brentford FC footballer, 1928.jpg",
   "Belgium vs ussr 1986.jpg",
+  "FIFA World Cup 2006 - UKR vs TUN.jpg",
+  "FIFA World Cup 2006, Iran 1-1 Angola (21).jpg",
+  "Francescoli fouled scotland.jpg",
   "Jim Brown (1961) (cropped).jpg",
+  "Julio Ricardo Cruz.jpg",
+  "Marshall Leonard MLS Cup 2006.jpg",
   "Maradona vs belgium world cup 1986.jpg",
   "Rudolf Noack.jpg",
   "Slavia Prague 1930. Champions of the football league.jpg",
+  "Tottenham Hotspur Stadium South Stand.jpg",
   "USA team line up 13 July.jpg",
   "Velez equipo 1995apertura.jpg",
+  "Wolverhampton Wanderers F.C. 1955.jpg",
   "Yugoslavia nationalteam 1930.jpg"
 ].map((fileName) => normalizePlayerName(fileName));
 const groupImageIndicatorKeys = [
@@ -990,8 +997,20 @@ function isLikelyLandscapeGroupImage(fileName, imageInfo) {
   return groupImageIndicatorKeys.some((indicatorKey) => imageTextKey.includes(indicatorKey));
 }
 
+function isNonImageMediaReference(value) {
+  return /\.(?:djvu|flac|m4a|mp3|mp4|oga|ogg|ogv|pdf|wav|webm)(?:$|[?#])/i.test(
+    String(value || "")
+  );
+}
+
 function isUnsuitableCommonsImage(fileName, imageInfo) {
-  return isRejectedCommonsImageReference(fileName) || isLikelyLandscapeGroupImage(fileName, imageInfo);
+  const mime = String(imageInfo?.mime || "").toLowerCase();
+  return (
+    isRejectedCommonsImageReference(fileName) ||
+    isNonImageMediaReference(fileName) ||
+    (mime && !mime.startsWith("image/")) ||
+    isLikelyLandscapeGroupImage(fileName, imageInfo)
+  );
 }
 
 async function fetchWikipedia(params, attempt = 0) {
@@ -1425,7 +1444,10 @@ function clearRejectedWikimediaImageFields(profile) {
     profile.imagePageTitle,
     profile.imagePageUrl
   ];
-  if (!imageReferences.some(isRejectedCommonsImageReference)) {
+  if (
+    !imageReferences.some(isRejectedCommonsImageReference) &&
+    !imageReferences.some(isNonImageMediaReference)
+  ) {
     return false;
   }
 
@@ -1434,9 +1456,7 @@ function clearRejectedWikimediaImageFields(profile) {
     "imageSource",
     "imageSourceUrl",
     "imageCredit",
-    "imageLicense",
-    "imagePageTitle",
-    "imagePageUrl"
+    "imageLicense"
   ]) {
     delete profile[fieldName];
   }
@@ -1466,7 +1486,11 @@ async function lookupCommonsImage(profile) {
       fullurl: summary?.content_urls?.desktop?.page || ""
     };
 
-    if (summaryImageUrl && isLikelyPlayerPage(profile, summaryPage, overrideTitle)) {
+    if (
+      summaryImageUrl &&
+      !isNonImageMediaReference(summaryImageUrl) &&
+      isLikelyPlayerPage(profile, summaryPage, overrideTitle)
+    ) {
       const imageFields = {
         imageUrl: summaryImageUrl,
         imageSource: wikipediaSummarySourceId,

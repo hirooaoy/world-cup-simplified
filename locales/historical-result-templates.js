@@ -324,6 +324,20 @@ export function parseHistoricalResultStory(value) {
   }
 
   match = text.match(
+    /^The (\d+-\d+) draw required a replay to decide who advanced\.$/u
+  );
+  if (match) {
+    return result("replay-required", { score: match[1] });
+  }
+
+  match = text.match(
+    /^This replay followed the teams' (\d+-\d+) draw in the earlier match\.$/u
+  );
+  if (match) {
+    return result("replay-followup", { score: match[1] });
+  }
+
+  match = text.match(
     /^The (\d+-\d+) grind stayed tense enough to leave the knockout tie to penalties\.$/u
   );
   if (match) {

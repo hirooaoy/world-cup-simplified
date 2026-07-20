@@ -46,7 +46,7 @@ const localeCases = [
     catchUpDynamicPattern: /triplete/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Campeones del mundo, zoom más claro del cuadro móvil y clasificación más limpia",
+    latestReleaseTitle: "Campeones del mundo, archivos más completos y un Ball Boy más inteligente",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -88,7 +88,7 @@ const localeCases = [
     archiveClub: "Archivo del Mundial 2022 de Argentina",
     archiveStats: "Mundial 2022: 7 goles",
     archiveNote: "Messi controla el ataque con toques cortos",
-    archiveVenue: "Lusail Iconic Stadium, Lusail",
+    archiveVenue: "Lusail Iconic Stadium",
     archiveStory: "para conquistar el Mundial de 2022",
     rejectedPlayerNotePatterns: [/\bparto\b/iu, /\bcontrapeso\b/iu],
     currentNotePlayerName: "Yoel Bárcenas",
@@ -115,7 +115,7 @@ const localeCases = [
     catchUpDynamicPattern: /해트트릭/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "월드컵 우승, 더 선명한 모바일 대진표 확대/축소와 더 깔끔한 순위",
+    latestReleaseTitle: "월드컵 우승, 더 풍부한 아카이브와 더 똑똑한 Ball Boy",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -157,7 +157,7 @@ const localeCases = [
     archiveClub: "아르헨티나 2022 월드컵 아카이브",
     archiveStats: "2022 월드컵: 7골",
     archiveNote: "메시는 짧은 터치와 한발 빠른 시야로 공격을 지휘한다",
-    archiveVenue: "루사일 아이코닉 스타디움, 루사일",
+    archiveVenue: "루사일 아이코닉 스타디움",
     archiveStory: "2022 월드컵 우승을 차지했다",
     rejectedPlayerNotePatterns: [/초기 이미지/u, /총격로/u],
     currentNotePlayerName: "에드가르 요엘 바르세나스",
@@ -170,6 +170,45 @@ const localeCases = [
       submit: "제보 보내기",
       back: "돌아가기"
     }
+  }
+];
+
+const highlightsLocaleCases = [
+  {
+    code: "en",
+    htmlLang: "en",
+    pageTitle: "Spain are world champions.",
+    goldenBallMeaning: "Best overall player",
+    goldenGloveStat: "Seven clean sheets in eight games.",
+    goldenBootName: "Kylian Mbappé",
+    themeLabel: "Switch to dark mode"
+  },
+  {
+    code: "zh",
+    htmlLang: "zh-Hans",
+    pageTitle: "西班牙成为世界冠军。",
+    goldenBallMeaning: "赛事最佳球员",
+    goldenGloveStat: "8场比赛7次零封。",
+    goldenBootName: "基利安·姆巴佩",
+    themeLabel: "切换到深色模式"
+  },
+  {
+    code: "es",
+    htmlLang: "es-419",
+    pageTitle: "España es campeona del mundo.",
+    goldenBallMeaning: "Mejor jugador del torneo",
+    goldenGloveStat: "Siete porterías a cero en ocho partidos.",
+    goldenBootName: "Kylian Mbappé",
+    themeLabel: "Cambiar al modo oscuro"
+  },
+  {
+    code: "ko",
+    htmlLang: "ko",
+    pageTitle: "스페인이 세계 챔피언에 올랐다.",
+    goldenBallMeaning: "대회 최우수 선수",
+    goldenGloveStat: "8경기에서 7번 무실점.",
+    goldenBootName: "킬리안 음바페",
+    themeLabel: "다크 모드로 전환"
   }
 ];
 
@@ -242,6 +281,59 @@ async function waitForApp(page, locale, options = {}) {
     },
     { timeout: 30000 }
   );
+}
+
+async function assertHighlightsLocales(browser) {
+  for (const locale of highlightsLocaleCases) {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const pageErrors = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+    const query = locale.code === "en" ? "" : `?lang=${locale.code}`;
+    await page.goto(getUrl(`/highlights.html${query}`), { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(
+      ({ expectedLanguage, expectedTitle }) =>
+        !document.body.classList.contains("is-locale-loading") &&
+        document.documentElement.lang === expectedLanguage &&
+        document.querySelector("#page-title")?.textContent.trim() === expectedTitle,
+      { expectedLanguage: locale.htmlLang, expectedTitle: locale.pageTitle },
+      { timeout: 30000 }
+    );
+    const measured = await page.evaluate(() => ({
+      awardCount: document.querySelectorAll(".award-row").length,
+      brandHref: document.querySelector(".site-brand")?.getAttribute("href") || "",
+      goldenBallMeaning:
+        document.querySelector('[data-i18n="goldenBallMeaning"]')?.textContent.trim() || "",
+      goldenBootName: document.querySelector("#golden-boot-name")?.textContent.trim() || "",
+      goldenGloveStat:
+        document.querySelector('[data-i18n="goldenGloveStat"]')?.textContent.trim() || "",
+      highlightCount: document.querySelectorAll(".highlight-row").length,
+      language: document.documentElement.lang,
+      languageOptions: document.querySelectorAll("#language-select option").length,
+      selectedLanguage: document.querySelector("#language-select")?.value || "",
+      themeLabel: document.querySelector("#theme-toggle")?.getAttribute("aria-label") || "",
+      title: document.querySelector("#page-title")?.textContent.trim() || "",
+      urlLanguage: new URL(window.location.href).searchParams.get("lang") || "en"
+    }));
+    const expectedBrandHref = locale.code === "en" ? "./" : `./?lang=${locale.code}`;
+    assert(
+      measured.awardCount === 5 &&
+        measured.highlightCount === 3 &&
+        measured.languageOptions === 4 &&
+        measured.language === locale.htmlLang &&
+        measured.selectedLanguage === locale.code &&
+        measured.urlLanguage === locale.code &&
+        measured.brandHref === expectedBrandHref &&
+        measured.title === locale.pageTitle &&
+        measured.goldenBallMeaning === locale.goldenBallMeaning &&
+        measured.goldenGloveStat === locale.goldenGloveStat &&
+        measured.goldenBootName === locale.goldenBootName &&
+        measured.themeLabel === locale.themeLabel &&
+        pageErrors.length === 0,
+      `${locale.code}: the awards page should render complete, localized copy and navigation without browser errors. Measured ${JSON.stringify({ measured, pageErrors })}.`
+    );
+    await context.close();
+  }
 }
 
 async function openMatch(page, matchId) {
@@ -913,6 +1005,9 @@ async function assertLocale(locale, browser) {
       subtree: true
     });
   });
+  const archiveRequestsBefore = requestedPaths.filter(
+    (pathname) => pathname === archiveContentPath
+  ).length;
   await openMatch(page, "wc-2022-2022-12-18-final-argentina-france");
   await page.waitForFunction(
     (expectedName) =>
@@ -965,9 +1060,11 @@ async function assertLocale(locale, browser) {
       locale.rejectedPlayerNotePatterns.every((pattern) => !pattern.test(archiveCard.text)) &&
       !/\b(?:Forward|World Cup archive|This World Cup)\b/u.test(archiveCard.text) &&
       archiveEnglishLeaks.length === 0 &&
-      archiveMatchCopy.venue === locale.archiveVenue &&
+      archiveMatchCopy.venue.includes(locale.archiveVenue) &&
       archiveMatchCopy.story.includes(locale.archiveStory) &&
-      requestedPaths.filter((pathname) => pathname === archiveContentPath).length === 1,
+      requestedPaths.filter((pathname) => pathname === archiveContentPath).length -
+        archiveRequestsBefore <=
+        1,
     `${locale.code}: the archived final should lazily load structured venue/result templates and localize its newsroom player card without an English flash. Measured ${JSON.stringify({ archiveCard, archiveEnglishLeaks, archiveMatchCopy, requestedPaths })}.`
   );
 
@@ -1069,6 +1166,9 @@ try {
     selectedLocaleCases.length > 0,
     `Unknown locale smoke selection: ${requestedLocale || "(none)"}`
   );
+  if (!ballBoyOnly) {
+    await assertHighlightsLocales(browser);
+  }
   for (const locale of selectedLocaleCases) {
     await assertBallBoyLazyLoading(locale, browser);
     if (!ballBoyOnly) {

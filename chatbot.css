@@ -1824,6 +1824,127 @@ body.is-juggle-active .scout-pupil {
   background: #ffffff;
 }
 
+.scout-tournament-finish {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 13px;
+  border-top: 1px solid rgba(10, 10, 10, 0.07);
+  background: #ffffff;
+}
+
+.scout-tournament-finish span {
+  color: rgba(10, 10, 10, 0.56);
+  font-size: 10px;
+}
+
+.scout-tournament-finish strong {
+  font-size: 13px;
+}
+
+.scout-tournament-card {
+  background: #ffffff;
+}
+
+.scout-tournament-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  background: #ffffff;
+}
+
+.scout-tournament-card-header > span {
+  font-size: 26px;
+}
+
+.scout-tournament-card-header > div {
+  display: grid;
+  gap: 2px;
+}
+
+.scout-tournament-card-header div > span {
+  color: rgba(10, 10, 10, 0.52);
+  font-size: 10px;
+  font-weight: 730;
+}
+
+.scout-tournament-card-header strong {
+  font-size: 17px;
+}
+
+.scout-tournament-final {
+  border-top: 1px solid rgba(10, 10, 10, 0.07);
+  background: #ffffff;
+}
+
+.scout-tournament-final > .scout-section-label {
+  display: block;
+  padding: 9px 13px 0;
+}
+
+.scout-tournament-final .scout-scoreboard {
+  padding-top: 10px;
+}
+
+.scout-tournament-stat-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scout-tournament-awards-list {
+  border-top: 1px solid rgba(10, 10, 10, 0.07);
+  background: #ffffff;
+}
+
+.scout-tournament-award-row {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 10px;
+  padding: 9px 13px;
+}
+
+.scout-tournament-award-row + .scout-tournament-award-row {
+  border-top: 1px solid rgba(10, 10, 10, 0.06);
+}
+
+.scout-tournament-award-row > span {
+  color: rgba(10, 10, 10, 0.52);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.scout-tournament-award-row p {
+  color: rgba(10, 10, 10, 0.62);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.scout-tournament-award-row p + p {
+  margin-top: 4px;
+}
+
+.scout-tournament-award-row strong {
+  color: #0a0a0a;
+  font-size: 11px;
+}
+
+.scout-tournament-sources {
+  display: grid;
+  gap: 5px;
+  padding: 10px 13px 12px;
+  border-top: 1px solid rgba(10, 10, 10, 0.07);
+  background: #ffffff;
+}
+
+.scout-tournament-sources a {
+  color: rgba(10, 10, 10, 0.66);
+  font-size: 10px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-underline-offset: 2px;
+}
+
 .scout-country-card .scout-section-label {
   color: rgba(10, 10, 10, 0.56);
   font-size: 10px;
@@ -3555,6 +3676,12 @@ html[data-theme="dark"] .scout-player-facts,
 html[data-theme="dark"] .scout-skill-section,
 html[data-theme="dark"] .scout-skill-flow,
 html[data-theme="dark"] .scout-country-card,
+html[data-theme="dark"] .scout-tournament-card,
+html[data-theme="dark"] .scout-tournament-card-header,
+html[data-theme="dark"] .scout-tournament-final,
+html[data-theme="dark"] .scout-tournament-awards-list,
+html[data-theme="dark"] .scout-tournament-sources,
+html[data-theme="dark"] .scout-tournament-finish,
 html[data-theme="dark"] .scout-goal-balance,
 html[data-theme="dark"] .scout-stat-note,
 html[data-theme="dark"] .scout-country-card .scout-explainer,
@@ -3576,6 +3703,9 @@ html[data-theme="dark"] .scout-rule-card .scout-source-link {
 html[data-theme="dark"] .scout-entity-copy h3,
 html[data-theme="dark"] .scout-country-header h3,
 html[data-theme="dark"] .scout-rule-card h3,
+html[data-theme="dark"] .scout-tournament-card-header strong,
+html[data-theme="dark"] .scout-tournament-award-row strong,
+html[data-theme="dark"] .scout-tournament-finish strong,
 html[data-theme="dark"] .scout-player-fact-row strong,
 html[data-theme="dark"] .scout-stat-strip strong,
 html[data-theme="dark"] .scout-goal-balance strong,
@@ -3598,6 +3728,11 @@ html[data-theme="dark"] .scout-clarify-list button {
 
 html[data-theme="dark"] .scout-entity-copy p,
 html[data-theme="dark"] .scout-country-header p,
+html[data-theme="dark"] .scout-tournament-card-header div > span,
+html[data-theme="dark"] .scout-tournament-award-row > span,
+html[data-theme="dark"] .scout-tournament-award-row p,
+html[data-theme="dark"] .scout-tournament-finish span,
+html[data-theme="dark"] .scout-tournament-sources a,
 html[data-theme="dark"] .scout-entity-copy small,
 html[data-theme="dark"] .scout-player-fact-row span,
 html[data-theme="dark"] .scout-player-fact-row .scout-value-label em,
@@ -3679,6 +3814,11 @@ html[data-theme="dark"] .scout-player-fact-row > div + div,
 html[data-theme="dark"] .scout-skill-section,
 html[data-theme="dark"] .scout-skill-flow,
 html[data-theme="dark"] .scout-form-row,
+html[data-theme="dark"] .scout-tournament-final,
+html[data-theme="dark"] .scout-tournament-awards-list,
+html[data-theme="dark"] .scout-tournament-award-row + .scout-tournament-award-row,
+html[data-theme="dark"] .scout-tournament-sources,
+html[data-theme="dark"] .scout-tournament-finish,
 html[data-theme="dark"] .scout-top-scorer,
 html[data-theme="dark"] .scout-key-players,
 html[data-theme="dark"] .scout-matchup-history,

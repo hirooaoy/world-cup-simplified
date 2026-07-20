@@ -83,6 +83,10 @@ export function formatHistoricalResultStory(data = {}) {
         data.ending === "extra-time" ? "el tiempo extra" : "el pitazo final"
       }.`;
     }
+    case "replay-required":
+      return `El empate ${data.score} obligó a disputar un partido de desempate para decidir quién avanzaba.`;
+    case "replay-followup":
+      return `Este partido de desempate se disputó después del empate ${data.score} del encuentro anterior.`;
     case "shootout-grind":
       return `El empate ${data.score} mantuvo la tensión y llevó la eliminatoria a los penales.`;
     case "shootout-win":

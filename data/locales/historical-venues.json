@@ -4,7 +4,7 @@
   "coverage": {
     "field": "fixtures[].venue",
     "status": "complete",
-    "uniqueVenueCount": 209
+    "uniqueVenueCount": 208
   },
   "methodology": {
     "es": "Preserve each official or historical venue name exactly as stored, while using established Spanish city names where a conventional form exists.",
@@ -306,10 +306,6 @@
     "Estadio San Mamés, Bilbao": {
       "es": "Estadio San Mamés, Bilbao",
       "ko": "에스타디오 산 마메스, 빌바오"
-    },
-    "Estadio Santiago Bernabéu": {
-      "es": "Estadio Santiago Bernabéu",
-      "ko": "에스타디오 산티아고 베르나베우"
     },
     "Estadio Santiago Bernabéu, Madrid": {
       "es": "Estadio Santiago Bernabéu, Madrid",

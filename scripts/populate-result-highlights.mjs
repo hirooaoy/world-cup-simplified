@@ -1370,7 +1370,7 @@ function hasGeneratedCurrentStoryBullets(fixture) {
 }
 
 function alignChineseStoryBullets(fixture, bullets) {
-  const target = Math.min(3, Math.max(1, fixture.resultStoryBullets?.length || bullets.length || 1));
+  const target = 3;
   if (bullets.length < target) {
     throw new Error(
       `Structured Chinese story for ${fixture.id} has ${bullets.length} bullet(s); expected ${target}.`
@@ -1754,7 +1754,7 @@ if (syncChineseStories) {
     const existing = Array.isArray(fixture.resultStoryBulletsZh)
       ? fixture.resultStoryBulletsZh.filter((bullet) => typeof bullet === "string" && bullet.trim())
       : [];
-    const targetCount = Math.min(3, Math.max(1, fixture.resultStoryBullets?.length || 1));
+    const targetCount = 3;
     const needsStructuredSync =
       existing.length !== targetCount || existing.some((bullet) => weakChineseCurrentStoryPattern.test(bullet));
     if (!needsStructuredSync) {

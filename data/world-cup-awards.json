@@ -1,0 +1,73 @@
+{
+  "updatedAt": "2026-07-20T02:30:00Z",
+  "coverage": "Golden Boot or leading-scorer records cover every men's World Cup from 1930 through 2026. Golden Ball records begin with the award's 1978 introduction. Complete five-award sets are archived for 2022 and 2026; the active edition is also read from tournament.json.",
+  "editions": {
+    "1930": { "goldenBoot": { "recipients": [{ "playerName": "Guillermo Stabile", "teamName": "Argentina", "goals": 8 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1934": { "goldenBoot": { "recipients": [{ "playerName": "Oldrich Nejedly", "teamName": "Czechoslovakia", "goals": 5 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1938": { "goldenBoot": { "recipients": [{ "playerName": "Leonidas", "teamName": "Brazil", "goals": 7 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1950": { "goldenBoot": { "recipients": [{ "playerName": "Ademir de Menezes", "teamName": "Brazil", "goals": 9 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1954": { "goldenBoot": { "recipients": [{ "playerName": "Sandor Kocsis", "teamName": "Hungary", "goals": 11 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1958": { "goldenBoot": { "recipients": [{ "playerName": "Just Fontaine", "teamName": "France", "goals": 13 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1962": { "goldenBoot": { "recipients": [{ "playerName": "Florian Albert", "teamName": "Hungary", "goals": 4 }, { "playerName": "Garrincha", "teamName": "Brazil", "goals": 4 }, { "playerName": "Valentin Ivanov", "teamName": "Soviet Union", "goals": 4 }, { "playerName": "Drazan Jerkovic", "teamName": "Yugoslavia", "goals": 4 }, { "playerName": "Leonel Sanchez", "teamName": "Chile", "goals": 4 }, { "playerName": "Vava", "teamName": "Brazil", "goals": 4 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1966": { "goldenBoot": { "recipients": [{ "playerName": "Eusebio", "teamName": "Portugal", "goals": 9 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1970": { "goldenBoot": { "recipients": [{ "playerName": "Gerd Muller", "teamName": "West Germany", "goals": 10 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1974": { "goldenBoot": { "recipients": [{ "playerName": "Grzegorz Lato", "teamName": "Poland", "goals": 7 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1978": { "goldenBall": { "recipients": [{ "playerName": "Mario Kempes", "teamName": "Argentina" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Mario Kempes", "teamName": "Argentina", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1982": { "goldenBall": { "recipients": [{ "playerName": "Paolo Rossi", "teamName": "Italy" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Paolo Rossi", "teamName": "Italy", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1986": { "goldenBall": { "recipients": [{ "playerName": "Diego Maradona", "teamName": "Argentina" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Gary Lineker", "teamName": "England", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1990": { "goldenBall": { "recipients": [{ "playerName": "Salvatore Schillaci", "teamName": "Italy" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Salvatore Schillaci", "teamName": "Italy", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1994": { "goldenBall": { "recipients": [{ "playerName": "Romario", "teamName": "Brazil" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Oleg Salenko", "teamName": "Russia", "goals": 6 }, { "playerName": "Hristo Stoichkov", "teamName": "Bulgaria", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "1998": { "goldenBall": { "recipients": [{ "playerName": "Ronaldo", "teamName": "Brazil" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Davor Suker", "teamName": "Croatia", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "2002": { "goldenBall": { "recipients": [{ "playerName": "Oliver Kahn", "teamName": "Germany" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Ronaldo", "teamName": "Brazil", "goals": 8 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "2006": { "goldenBall": { "recipients": [{ "playerName": "Zinedine Zidane", "teamName": "France" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Miroslav Klose", "teamName": "Germany", "goals": 5 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "2010": { "goldenBall": { "recipients": [{ "playerName": "Diego Forlan", "teamName": "Uruguay" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Thomas Muller", "teamName": "Germany", "goals": 5 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "2014": { "goldenBall": { "recipients": [{ "playerName": "Lionel Messi", "teamName": "Argentina" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "James Rodriguez", "teamName": "Colombia", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "2018": { "goldenBall": { "recipients": [{ "playerName": "Luka Modric", "teamName": "Croatia" }], "sourceId": "fifa-golden-ball-history-2025" }, "goldenBoot": { "recipients": [{ "playerName": "Harry Kane", "teamName": "England", "goals": 6 }], "sourceId": "fifa-golden-boot-history-2026" } },
+    "2022": {
+      "goldenBall": { "recipients": [{ "playerName": "Lionel Messi", "teamName": "Argentina" }], "sourceId": "fifa-qatar-2022-awards" },
+      "goldenBoot": { "recipients": [{ "playerName": "Kylian Mbappe", "teamName": "France", "goals": 8 }], "sourceId": "fifa-qatar-2022-awards" },
+      "goldenGlove": { "recipients": [{ "playerName": "Emiliano Martinez", "teamName": "Argentina" }], "sourceId": "fifa-qatar-2022-awards" },
+      "youngPlayer": { "recipients": [{ "playerName": "Enzo Fernandez", "teamName": "Argentina" }], "sourceId": "fifa-qatar-2022-awards" },
+      "fairPlay": { "recipients": [{ "teamName": "England" }], "sourceId": "fifa-qatar-2022-awards" }
+    },
+    "2026": {
+      "goldenBall": { "recipients": [{ "playerName": "Rodri", "teamName": "Spain" }], "sourceId": "rfef-world-cup-awards-2026-07-20" },
+      "goldenBoot": { "recipients": [{ "playerName": "Kylian Mbappe", "teamName": "France", "goals": 10 }], "sourceId": "sky-world-cup-golden-boot-2026-07-19" },
+      "goldenGlove": { "recipients": [{ "playerName": "Unai Simon", "teamName": "Spain" }], "sourceId": "rfef-world-cup-awards-2026-07-20" },
+      "youngPlayer": { "recipients": [{ "playerName": "Pau Cubarsi", "teamName": "Spain" }], "sourceId": "rfef-world-cup-awards-2026-07-20" },
+      "fairPlay": { "recipients": [{ "teamName": "Netherlands" }], "sourceId": "onmanorama-world-cup-awards-2026-07-20" }
+    }
+  },
+  "sources": [
+    {
+      "id": "fifa-golden-boot-history-2026",
+      "label": "FIFA World Cup leading scorers",
+      "url": "https://www.fifa.com/en/articles/golden-boot-top-goalscorer"
+    },
+    {
+      "id": "fifa-golden-ball-history-2025",
+      "label": "FIFA World Cup Golden Ball winners",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/articles/golden-ball-winners-highlights"
+    },
+    {
+      "id": "fifa-qatar-2022-awards",
+      "label": "FIFA World Cup Qatar 2022 awards",
+      "url": "https://www.fifa.com/en/articles/lionel-messi-argentina-wins-golden-ball-award-best-player-fifa-world-cup-qatar-2022"
+    },
+    {
+      "id": "rfef-world-cup-awards-2026-07-20",
+      "label": "RFEF World Cup 2026 individual awards report",
+      "url": "https://rfef.es/es/noticias/rodrigo-hernandez-mejor-jugador-del-mundial"
+    },
+    {
+      "id": "sky-world-cup-golden-boot-2026-07-19",
+      "label": "Sky Sports World Cup 2026 Golden Boot report",
+      "url": "https://www.skysports.com/football/news/11095/13564837/world-cup-2026-golden-boot-race-kylian-mbappe-beats-lionel-messi-to-become-top-goalscorer"
+    },
+    {
+      "id": "onmanorama-world-cup-awards-2026-07-20",
+      "label": "Onmanorama World Cup 2026 awards report",
+      "url": "https://www.onmanorama.com/sports/football/2026/07/20/rodri-leads-spain-s-awards-sweep-after-world-cup-triumph-over-argentina.html"
+    }
+  ]
+}
