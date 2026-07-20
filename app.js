@@ -16340,18 +16340,6 @@ function getTournamentMinimumScale(progression, rounds) {
   );
 }
 
-function updateTournamentZoomState(progression) {
-  const rounds = progression?.querySelector(".progress-rounds");
-
-  if (!progression || !rounds) {
-    return;
-  }
-
-  const scale = getTournamentBoardScale(progression);
-  const minimumScale = getTournamentMinimumScale(progression, rounds);
-  progression.dataset.tournamentZoomMinimum = minimumScale.toFixed(3);
-}
-
 function getDefaultTournamentZoomAnchor(progression) {
   const rect = progression.getBoundingClientRect();
   const visibleTop = Math.max(0, rect.top);
@@ -16377,7 +16365,8 @@ function applyTournamentBoardScale(progression, requestedScale, options = {}) {
   const oldScale = getTournamentBoardScale(progression);
   const minimumScale = getTournamentMinimumScale(progression, rounds);
   const nextScale = clampNumber(requestedScale, minimumScale, TOURNAMENT_ZOOM_MAX);
-  const shouldPreserveAnchor = options.preserveAnchor !== false && Math.abs(nextScale - oldScale) > 0.0005;
+  const didScaleChange = Math.abs(nextScale - oldScale) > 0.0005;
+  const shouldPreserveAnchor = options.preserveAnchor !== false && didScaleChange;
   const anchor = options.anchor || getDefaultTournamentZoomAnchor(progression);
   const oldSurfaceRect = shouldPreserveAnchor ? surface.getBoundingClientRect() : null;
   const logicalAnchor = oldSurfaceRect
@@ -16389,6 +16378,7 @@ function applyTournamentBoardScale(progression, requestedScale, options = {}) {
 
   tournamentBoardScale = nextScale;
   progression.dataset.tournamentZoom = nextScale.toFixed(3);
+  progression.dataset.tournamentZoomMinimum = minimumScale.toFixed(3);
   const isZoomed = nextScale < TOURNAMENT_ZOOM_MAX - 0.001;
   const isOverview = isTournamentMobileLayout() && nextScale < TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD;
   progression.classList.toggle("is-zoomed", isZoomed);
@@ -16411,10 +16401,11 @@ function applyTournamentBoardScale(progression, requestedScale, options = {}) {
     }
   }
 
-  updateTournamentZoomState(progression);
   updateTournamentShowNextButtonVisibility();
-  scheduleTournamentRoundHeaderUpdate();
-  scheduleTournamentConnectorUpdate();
+  if (didScaleChange) {
+    scheduleTournamentRoundHeaderUpdate();
+    scheduleTournamentConnectorUpdate();
+  }
   return nextScale;
 }
 
