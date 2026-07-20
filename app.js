@@ -1,4 +1,5 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
+import { renderFootballInlineHtml } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   LOCALE_PACK_VERSION,
   LOCALE_SCHEMA_VERSION,
@@ -7,7 +8,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-full-localization-audit-1";
+} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -47,7 +48,26 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-19-historical-replay-recaps-1";
+} from "./app-config.js?v=2026-07-20-final-cutover-1";
+import {
+  isEditionLiveSyncActive,
+  requestLiveDataForActiveEdition
+} from "./edition-runtime.js?v=2026-07-20-final-cutover-1";
+import {
+  formatLineupNumberLabel as formatSharedLineupNumberLabel,
+  formatLineupShortName as formatSharedLineupShortName,
+  renderLineupAvatarFrame,
+  renderLineupBenchPanel as renderSharedLineupBenchPanel,
+  renderLineupControlBand,
+  renderLineupPitchCard,
+  renderLineupPlayerMarkerShell,
+  updateLineupTabIndicators as updateSharedLineupTabIndicators
+} from "./lineup-ui.js?v=2026-07-20-final-cutover-1";
+import {
+  formatPlayerClubLine,
+  formatPlayerPosition as formatSharedPlayerPosition,
+  getPlayerCardUniformNumber
+} from "./player-card-ui.js?v=2026-07-20-final-cutover-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -464,8 +484,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Show all matches": "显示全部比赛",
     "Hide matches": "隐藏比赛",
     "See all": "查看全部",
+    "Release notes": "发布说明",
     "See release notes": "查看发布说明",
     "See sources": "查看来源",
+    "Sources": "来源",
     "Source links stay available inside the tooltip.": "来源链接仍可在提示框中打开。",
     "Sources now open in a compact hover tooltip.": "来源现在可在紧凑悬停提示框中查看。",
     "Sources:": "来源：",
@@ -3121,6 +3143,35 @@ const calendarGrid = document.querySelector("#calendar-grid");
 const calendarMonthLabel = document.querySelector("#calendar-month-label");
 const calendarPrevMonth = document.querySelector("#calendar-prev-month");
 const calendarNextMonth = document.querySelector("#calendar-next-month");
+
+const INITIAL_SKELETON_DELAY_MS = 180;
+const INITIAL_ENTRANCE_CLEANUP_MS = 900;
+let isInitialPageEntrancePending = document.body.classList.contains("is-initial-page-load");
+let initialPageEntranceCleanupTimer = 0;
+const initialSkeletonRevealTimer = window.setTimeout(() => {
+  if (isInitialPageEntrancePending) {
+    document.body.classList.add("is-initial-skeleton-visible");
+  }
+}, INITIAL_SKELETON_DELAY_MS);
+
+function completeInitialPageEntrance() {
+  if (!isInitialPageEntrancePending) {
+    return;
+  }
+
+  isInitialPageEntrancePending = false;
+  window.clearTimeout(initialSkeletonRevealTimer);
+  document.body.classList.remove("is-initial-skeleton-visible");
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      document.body.classList.add("is-initial-content-ready");
+      window.clearTimeout(initialPageEntranceCleanupTimer);
+      initialPageEntranceCleanupTimer = window.setTimeout(() => {
+        document.body.classList.remove("is-initial-page-load", "is-initial-content-ready");
+      }, INITIAL_ENTRANCE_CLEANUP_MS);
+    });
+  });
+}
 const calendarYesterdayButton = document.querySelector("#calendar-yesterday");
 const calendarTodayButton = document.querySelector("#calendar-today");
 const catchUpButton = document.querySelector("#catch-up-button");
@@ -3984,6 +4035,7 @@ let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
 let liveDataCheckedAt = "";
+let liveDataRefreshIntervalId = 0;
 let calendarDayMatchCounts = null;
 let calendarAvailableDayKeys = null;
 let calendarAvailableMonthKeys = null;
@@ -8442,56 +8494,6 @@ function getLatestUpdatedAt(items) {
   return latestTimestamp ? new Date(latestTimestamp).toISOString() : "";
 }
 
-function formatSiteUpdatedAt(value) {
-  const timestamp = getValidTimestamp(value);
-
-  if (timestamp === null) {
-    return "";
-  }
-
-  const updatedAt = new Date(timestamp);
-  const todayKey = getDayKey(new Date(), selectedTimeZone);
-  const updatedDayKey = getDayKey(updatedAt, selectedTimeZone);
-  const isToday = updatedDayKey === todayKey;
-  const relativeDay = updatedDayKey === getRelativeDayKey(todayKey, -1)
-    ? localizeText("Yesterday").toLocaleLowerCase(getAppLocale())
-    : "";
-
-  if (isToday || relativeDay) {
-    const timeText = new Intl.DateTimeFormat(getAppLocale(), {
-      hour: "numeric",
-      minute: "2-digit",
-      timeZone: selectedTimeZone
-    }).format(updatedAt);
-
-    if (isToday) {
-      if (currentLanguage === "es") {
-        return `a las ${timeText}`;
-      }
-      if (currentLanguage === "zh" || currentLanguage === "ko") {
-        return timeText;
-      }
-      return `at ${timeText}`;
-    }
-    if (currentLanguage === "es") {
-      return `${relativeDay} a las ${timeText}`;
-    }
-    if (currentLanguage === "zh" || currentLanguage === "ko") {
-      return `${relativeDay} ${timeText}`;
-    }
-    return `${relativeDay} at ${timeText}`;
-  }
-
-  return new Intl.DateTimeFormat(getAppLocale(), {
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    month: "short",
-    timeZone: selectedTimeZone,
-    year: "numeric"
-  }).format(updatedAt);
-}
-
 function getTimeZoneAbbreviation(timeZone, date = new Date()) {
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone,
@@ -9407,12 +9409,7 @@ function updateLineupTabIndicators(root = document) {
   const blocks = root?.matches?.(".lineup-preview-block")
     ? [root]
     : Array.from(root?.querySelectorAll?.(".lineup-preview-block") || []);
-
-  blocks.forEach((block) => {
-    block.querySelectorAll(".lineup-tabs").forEach((tabs) => {
-      updateTabIndicator(tabs, tabs.querySelector(".lineup-tab.is-active"));
-    });
-  });
+  blocks.forEach(updateSharedLineupTabIndicators);
 }
 
 function updateTabIndicators() {
@@ -20152,23 +20149,7 @@ function getMockFormationNotes(formation) {
 }
 
 function formatLineupShortName(name) {
-  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
-  if (parts.length <= 1) {
-    return parts[0] || "";
-  }
-
-  const first = parts[0].charAt(0);
-  const lastParts = [parts.at(-1)];
-  const particles = new Set(["al", "da", "de", "del", "der", "di", "el", "van", "von"]);
-  for (let index = parts.length - 2; index > 0; index -= 1) {
-    const part = parts[index];
-    if (!particles.has(part.toLowerCase())) {
-      break;
-    }
-    lastParts.unshift(part);
-  }
-
-  return `${first}. ${lastParts.join(" ")}`;
+  return formatSharedLineupShortName(name);
 }
 
 function isLineupPlayerCaptain(player) {
@@ -20193,12 +20174,7 @@ function isLineupPlayerCaptain(player) {
 }
 
 function formatLineupNumberLabel(number, isCaptain) {
-  const text = String(number || "").trim();
-  if (!text) {
-    return "";
-  }
-
-  return isCaptain && !/\(C\)$/i.test(text) ? `${text}(C)` : text;
+  return formatSharedLineupNumberLabel(number, isCaptain);
 }
 
 function getLineupProfileByName(teamId, name) {
@@ -21781,29 +21757,28 @@ function renderLineupTeamBand(match, lineup, teamLineup, side) {
   const benchCount = Array.isArray(teamLineup.bench) ? teamLineup.bench.length : 0;
   const benchLabel = localizeText("Bench");
   const benchAriaLabel = benchCount ? `${benchLabel}: ${benchCount}` : benchLabel;
-  return `
-    <div class="lineup-team-band">
-      <div class="lineup-tabs lineup-card-tabs" role="tablist" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(match, lineup)))}">
-        ${renderLineupTabButton(match, "home", side === "home", side)}
-        ${renderLineupTabButton(match, "away", side === "away", side)}
-      </div>
-      <div class="lineup-team-actions">
-        ${teamLineup.coach ? renderLineupCoachIconMention(teamLineup.coach) : ""}
-        ${renderLineupFormationMention(teamLineup)}
-        <button
-          class="lineup-bench-button"
-          type="button"
-          data-lineup-bench-toggle="${escapeHtml(side)}"
-          aria-expanded="false"
-          aria-controls="${escapeHtml(benchId)}"
-          aria-label="${escapeHtml(benchAriaLabel)}"
-        >
-          <span>${escapeHtml(benchLabel)}</span>
-          ${benchCount ? `<span class="lineup-bench-count">${escapeHtml(benchCount)}</span>` : ""}
-        </button>
-      </div>
-    </div>
-  `;
+  return renderLineupControlBand({
+    tabsAttributes: `role="tablist" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(match, lineup)))}"`,
+    tabsMarkup: `
+      ${renderLineupTabButton(match, "home", side === "home", side)}
+      ${renderLineupTabButton(match, "away", side === "away", side)}
+    `,
+    actionsMarkup: `
+      ${teamLineup.coach ? renderLineupCoachIconMention(teamLineup.coach) : ""}
+      ${renderLineupFormationMention(teamLineup)}
+      <button
+        class="lineup-bench-button"
+        type="button"
+        data-lineup-bench-toggle="${escapeHtml(side)}"
+        aria-expanded="false"
+        aria-controls="${escapeHtml(benchId)}"
+        aria-label="${escapeHtml(benchAriaLabel)}"
+      >
+        <span>${escapeHtml(benchLabel)}</span>
+        ${benchCount ? `<span class="lineup-bench-count">${escapeHtml(benchCount)}</span>` : ""}
+      </button>
+    `
+  });
 }
 
 function renderLineupTabButton(match, side, isSelected, tabContext = "main") {
@@ -22139,46 +22114,40 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     getLocalizedLineupPosition(lineupPlayer.position),
     eventSummary
   ].filter(Boolean).join(", ");
-  const avatarMarkup = `
-    <span class="lineup-avatar-frame">
-      <span class="lineup-avatar-wrap" aria-hidden="true">
-        ${renderLineupAvatar(lineupPlayer, profile)}
-        ${numberLabel ? `<span class="lineup-player-number">${escapeHtml(numberLabel)}</span>` : ""}
-      </span>
-      ${avatarLeftEventMarkup}
-      ${avatarRightEventMarkup}
-    </span>
-  `;
+  const avatarMarkup = renderLineupAvatarFrame({
+    avatarMarkup: renderLineupAvatar(lineupPlayer, profile),
+    numberMarkup: numberLabel ? `<span class="lineup-player-number">${escapeHtml(numberLabel)}</span>` : "",
+    leftEventsMarkup: avatarLeftEventMarkup,
+    rightEventsMarkup: avatarRightEventMarkup
+  });
   const valueMarkup = renderLineupPlayerValueLine(profile);
   const localizedVisibleLabel = currentLanguage === "zh" ? playerLabel : "";
   const shouldAnimateEntrance = Boolean(options.animateEntrance);
   const markerClasses = [
-    "lineup-player-marker",
     isPreviewActive ? "is-substitution-preview" : "",
     shouldAnimateEntrance ? "is-lineup-entering" : ""
   ].filter(Boolean).join(" ");
   const revealDelay = `${shouldAnimateEntrance ? getLineupMarkerRevealDelayMs(lineupPlayer.y) : 0}ms`;
   const displayY = getLineupDisplayY(lineupPlayer.y, lineupPlayer.position);
 
-  return `
-    <span
-      class="${escapeHtml(markerClasses)}"
-      style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(displayY)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)}; --lineup-reveal-delay: ${escapeHtml(revealDelay)};"
+  return renderLineupPlayerMarkerShell({
+    className: markerClasses,
+    style: `--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(displayY)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)}; --lineup-reveal-delay: ${escapeHtml(revealDelay)};`,
+    attributes: `
       aria-label="${escapeHtml(ariaLabel)}"
       data-lineup-marker-key="${escapeHtml(substitutionKey || normalizeLineupEventName(starterName))}"
       data-lineup-player-name="${escapeHtml(lineupPlayer.name)}"
       data-lineup-position="${escapeHtml(lineupPlayer.position)}"
       data-lineup-starter-name="${escapeHtml(starterName)}"
-    >
-      ${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer, {
+    `,
+    content: renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer, {
         beforeTriggerMarkup: avatarMarkup,
         afterTriggerMarkup: valueMarkup,
         triggerClass: "lineup-player-name",
         wrapperClass: "lineup-player-hover",
         ...(localizedVisibleLabel ? { visibleLabel: localizedVisibleLabel } : {})
-      })}
-    </span>
-  `;
+      })
+  });
 }
 
 function renderLineupBenchPlayer(player, team, teamLineup) {
@@ -22298,22 +22267,14 @@ function renderLineupBenchPanel(match, team, teamLineup, side) {
   const bench = Array.isArray(teamLineup.bench) ? teamLineup.bench : [];
   const benchUnavailable = Array.isArray(teamLineup.benchUnavailable) ? teamLineup.benchUnavailable : [];
   const benchId = `lineup-bench-${match.id}-${side}`;
-
-  return `
-    <div
-      class="lineup-bench-panel"
-      id="${escapeHtml(benchId)}"
-      data-lineup-bench-panel="${escapeHtml(side)}"
-      aria-hidden="true"
-    >
-      <div class="lineup-bench-panel-inner">
-        <ul class="lineup-bench-list">
-          ${bench.map((player) => renderLineupBenchPlayer(player, team, teamLineup)).join("")}
-          ${benchUnavailable.map((entry) => renderLineupBenchUnavailablePlayer(entry, team, teamLineup)).join("")}
-        </ul>
-      </div>
-    </div>
-  `;
+  return renderSharedLineupBenchPanel({
+    id: escapeHtml(benchId),
+    panelAttributes: `data-lineup-bench-panel="${escapeHtml(side)}"`,
+    itemsMarkup: `
+      ${bench.map((player) => renderLineupBenchPlayer(player, team, teamLineup)).join("")}
+      ${benchUnavailable.map((entry) => renderLineupBenchUnavailablePlayer(entry, team, teamLineup)).join("")}
+    `
+  });
 }
 
 function renderLineupPitchPanel(match, lineup, side, isSelected, options = {}) {
@@ -22331,22 +22292,14 @@ function renderLineupPitchPanel(match, lineup, side, isSelected, options = {}) {
       aria-labelledby="${escapeHtml(tabId)}"
       ${isSelected ? "" : "hidden"}
     >
-      <div class="lineup-pitch-card">
-        ${renderLineupTeamBand(match, lineup, teamLineup, side)}
-        ${renderLineupBenchPanel(match, team, teamLineup, side)}
-        <div class="lineup-pitch" role="img" aria-label="${escapeHtml(`${getLocalizedTeamName(team)} ${teamLineup.formation}`)}">
-          <div class="lineup-pitch-surface">
-            <span class="lineup-pitch-line is-mid"></span>
-            <span class="lineup-pitch-line is-circle"></span>
-            <span class="lineup-pitch-line is-spot"></span>
-            <span class="lineup-pitch-line is-box is-top"></span>
-            <span class="lineup-pitch-line is-six is-top"></span>
-            <span class="lineup-pitch-line is-box is-bottom"></span>
-            <span class="lineup-pitch-line is-six is-bottom"></span>
-            ${teamLineup.players.map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side, options)).join("")}
-          </div>
-        </div>
-      </div>
+      ${renderLineupPitchCard({
+        bandMarkup: renderLineupTeamBand(match, lineup, teamLineup, side),
+        benchMarkup: renderLineupBenchPanel(match, team, teamLineup, side),
+        pitchAttributes: `role="img" aria-label="${escapeHtml(`${getLocalizedTeamName(team)} ${teamLineup.formation}`)}"`,
+        markerMarkup: teamLineup.players
+          .map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side, options))
+          .join("")
+      })}
     </div>
   `;
 }
@@ -23041,6 +22994,10 @@ function getHistoricalPlayerProfile(player) {
     return null;
   }
 
+  if (player.historicalProfile) {
+    return player.historicalProfile;
+  }
+
   if (!hasLoadedHistoricalPlayerProfiles) {
     scheduleHistoricalPlayerProfilesLoad();
   }
@@ -23112,18 +23069,7 @@ function shouldPreserveLocalizedMentionLabel(label) {
 }
 
 function getPlayerUniformNumber(player, profile = getPlayerProfile(player)) {
-  const value =
-    profile?.uniformNumber ??
-    profile?.shirtNumber ??
-    profile?.jerseyNumber ??
-    profile?.squadNumber ??
-    player?.uniformNumber ??
-    player?.shirtNumber ??
-    player?.jerseyNumber ??
-    player?.squadNumber;
-  const number = Number(value);
-
-  return Number.isInteger(number) && number > 0 ? number : null;
+  return getPlayerCardUniformNumber(player, profile);
 }
 
 function getPlayerInitials(name) {
@@ -23172,7 +23118,7 @@ function getPlayerClubLine(player, profile = getPlayerProfile(player)) {
         ? getGoalScorerTeamLine(player)
         : "Club to verify");
   const league = getPlayerLeagueValue(player, profile);
-  return league ? `${club} (${league})` : club;
+  return formatPlayerClubLine({ club, league });
 }
 
 const ZH_PLAYER_POSITION_PART_TRANSLATIONS = {
@@ -23214,14 +23160,7 @@ const ZH_PLAYER_POSITION_EXACT_TRANSLATIONS = {
 };
 
 function formatPlayerPosition(position) {
-  const text = String(position || "").trim().replace(/\s+/g, " ");
-  if (!text) {
-    return "";
-  }
-
-  return text.replace(/(^|[,/]\s*)(\p{Letter})/gu, (_, prefix, letter) => {
-    return `${prefix}${letter.toLocaleUpperCase("en-US")}`;
-  });
+  return formatSharedPlayerPosition(position);
 }
 
 function normalizePlayerPositionTranslationKey(value) {
@@ -23419,7 +23358,7 @@ function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) 
     const league = getPlayerLeagueValue(player, profile)
       ? localizeDisplayText(getPlayerLeagueValue(player, profile))
       : "";
-    return league ? `${club} (${league})` : club;
+    return formatPlayerClubLine({ club, league, language: currentLanguage });
   }
 
   const club = getPlayerClubValue(player, profile)
@@ -23430,7 +23369,7 @@ function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) 
         ? getGoalScorerTeamLine(player, { localized: true })
         : localizeText("Club to verify");
   const league = getPlayerLeagueValue(player, profile) ? localizePlayerLeagueName(getPlayerLeagueValue(player, profile)) : "";
-  return league ? `${club}（${league}）` : club;
+  return formatPlayerClubLine({ club, league, language: currentLanguage });
 }
 
 function exposeLocalPlayerCardLocalizationTestHooks() {
@@ -24406,6 +24345,7 @@ function renderPlayerMention(label, player, options = {}) {
 let floatingPlayerCard = null;
 let floatingPlayerCardSource = null;
 let floatingPlayerCardHideTimer = 0;
+const PLAYER_CARD_HOVER_HANDOFF_MS = 220;
 
 function ensureFloatingPlayerCard() {
   if (floatingPlayerCard) {
@@ -24486,7 +24426,7 @@ function queueFloatingPlayerCardHide() {
     if (!isFloatingPlayerCardActive()) {
       hideFloatingPlayerCard();
     }
-  }, 80);
+  }, PLAYER_CARD_HOVER_HANDOFF_MS);
 }
 
 function shouldUseFloatingPlayerCard(playerHover) {
@@ -24837,7 +24777,7 @@ function openPlayerHoverCard(playerHover) {
 function renderPlayerLinkedText(text, players = []) {
   const entries = getPlayerMentionEntriesForText(players);
   if (!entries.length) {
-    return escapeHtml(text);
+    return renderFootballInlineHtml(text, escapeHtml);
   }
 
   const playerByAlias = new Map(entries.map((entry) => [entry.alias, entry.player]));
@@ -24859,12 +24799,12 @@ function renderPlayerLinkedText(text, players = []) {
       continue;
     }
 
-    html += escapeHtml(text.slice(cursor, start));
+    html += renderFootballInlineHtml(text.slice(cursor, start), escapeHtml);
     html += renderPlayerMention(`${alias}${possessive}`, player);
     cursor = end;
   }
 
-  html += escapeHtml(text.slice(cursor));
+  html += renderFootballInlineHtml(text.slice(cursor), escapeHtml);
   return html;
 }
 
@@ -28397,6 +28337,9 @@ function createEmptyStateElement() {
   const postTournamentCopy = postTournamentFinal
     ? getPostTournamentEmptyStateCopy(postTournamentFinal)
     : null;
+  const recapHref = currentLanguage === DEFAULT_LANGUAGE
+    ? "highlights.html"
+    : `highlights.html?lang=${encodeURIComponent(currentLanguage)}`;
   article.innerHTML = `
     ${nextMatchCopy ? `
       <p class="empty-state-next-description">${escapeHtml(nextMatchCopy.before)}<span class="empty-state-next-matchup">${renderFlag(nextMatch.homeTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.homeName)}</span> <span class="empty-state-next-versus">${escapeHtml(nextMatchCopy.versusText)}</span> ${renderFlag(nextMatch.awayTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.awayName)}</span></span>${escapeHtml(nextMatchCopy.after)}</p>
@@ -28405,6 +28348,9 @@ function createEmptyStateElement() {
       </div>
     ` : postTournamentCopy ? `
       <p class="empty-state-next-description empty-state-post-tournament-description">${escapeHtml(postTournamentCopy.message)}</p>
+      <div class="empty-actions">
+        <a class="primary-button empty-state-recap-action" href="${escapeHtml(recapHref)}">${escapeHtml(t("viewRecap"))}</a>
+      </div>
     ` : ""}
   `;
   const actionMatch = nextMatch;
@@ -29681,6 +29627,49 @@ const FINAL_CELEBRATION_STYLE_BY_EDITION = Object.freeze({
     "Spain's philosophy is possession: keep the ball, stretch the pitch and swarm as soon as it is lost."
 });
 
+const FINAL_CELEBRATION_STYLE_PLAYER_OVERRIDES = Object.freeze({
+  "1958-brazil": [
+    {
+      historical: true,
+      historicalTeamName: "Brazil",
+      historicalProfile: {
+        club: "Brazil 1958 World Cup archive",
+        displayName: "Garrincha",
+        historical: true,
+        name: "Garrincha",
+        note: "Brazil's 1958 World Cup player.",
+        position: "Player",
+        teamName: "Brazil",
+        teams: ["Brazil"],
+        tournamentYear: 1958,
+        tournamentYears: [1958]
+      },
+      name: "Garrincha",
+      tournamentYear: 1958
+    }
+  ],
+  "1974-germany": [
+    {
+      historical: true,
+      historicalTeamName: "West Germany",
+      historicalProfile: {
+        club: "West Germany 1974 World Cup archive",
+        displayName: "Franz Beckenbauer",
+        historical: true,
+        name: "Franz Beckenbauer",
+        note: "West Germany's 1974 World Cup player.",
+        position: "Player",
+        teamName: "West Germany",
+        teams: ["West Germany"],
+        tournamentYear: 1974,
+        tournamentYears: [1974]
+      },
+      name: "Franz Beckenbauer",
+      tournamentYear: 1974
+    }
+  ]
+});
+
 function getWorldCupEditionYear(fixture) {
   const tournamentYear = Number(fixture?.tournamentYear);
   if (Number.isInteger(tournamentYear)) {
@@ -29732,6 +29721,13 @@ function isFinalCelebrationWindowActive(finalMatch) {
   return (
     currentDayKey >= finalDayKey &&
     currentDayKey <= shiftDayKey(finalDayKey, FINAL_CELEBRATION_LAST_DAY_OFFSET)
+  );
+}
+
+function isFinalCelebrationMotionActive(finalMatch) {
+  return (
+    getFixtureDayKey(finalMatch) === selectedDayKey ||
+    isFinalCelebrationWindowActive(finalMatch)
   );
 }
 
@@ -29808,6 +29804,33 @@ function getFinalCelebrationTitlePlayers(titleResult) {
       return getFinalCelebrationTeamKey(playerTeamName) === teamKey;
     })
     .slice(0, 2);
+}
+
+function getFinalCelebrationEditionMentionPlayers(winner, editionYear) {
+  const winnerTeamKey = getFinalCelebrationTeamKey(winner?.name);
+  if (!winnerTeamKey || !Number.isInteger(editionYear)) {
+    return [];
+  }
+
+  const editionPlayers = getCalendarFixtures()
+    .filter((fixture) => {
+      if (Number(fixture?.tournamentYear) !== editionYear) {
+        return false;
+      }
+
+      return [
+        getHistoricalMatchTeamName(fixture, "home"),
+        getHistoricalMatchTeamName(fixture, "away")
+      ].some((teamName) => getFinalCelebrationTeamKey(teamName) === winnerTeamKey);
+    })
+    .flatMap((fixture) => getHistoricalMentionPlayers(fixture));
+  const authoredPlayers =
+    FINAL_CELEBRATION_STYLE_PLAYER_OVERRIDES[`${editionYear}-${winnerTeamKey}`] || [];
+
+  return getUniqueMentionPlayers([...authoredPlayers, ...editionPlayers]).filter((player) =>
+    getFinalCelebrationTeamKey(player.historicalTeamName || player.team?.name || "") ===
+    winnerTeamKey
+  );
 }
 
 function getFinalCelebrationTitleOrdinal(titleNumber) {
@@ -29960,21 +29983,28 @@ function getFinalCelebrationReviewContent(finalMatch, fallbackBody) {
     return null;
   }
 
-  const titleHistory = getFinalCelebrationTitleHistoryBullet(finalMatch, winner, editionYear);
+  const titleHistory =
+    !isDeferredDataLoading && historicalFixtures.length > 0
+      ? getFinalCelebrationTitleHistoryBullet(finalMatch, winner, editionYear)
+      : null;
   const bullets = [
     fallbackBody,
-    titleHistory.bullet,
+    titleHistory?.bullet,
     getFinalCelebrationPhilosophy(winner, editionYear)
-  ];
+  ].filter(Boolean);
+  const mentionPlayers = getUniqueMentionPlayers([
+    ...(titleHistory?.mentionPlayers || []),
+    ...getFinalCelebrationEditionMentionPlayers(winner, editionYear)
+  ]);
 
-  return { bullets, mentionPlayers: titleHistory.mentionPlayers };
+  return { bullets, mentionPlayers };
 }
 
 function renderFinalCelebration() {
   const matchesView = viewPanels.matches;
   const completedFinal =
     activeView === "matches" ? getFinalCelebrationMatchForDay(selectedDayKey) : null;
-  const shouldCelebrate = Boolean(completedFinal);
+  const shouldCelebrate = Boolean(completedFinal) && !isDeferredDataLoading;
   let banner = document.querySelector("#final-celebration-banner");
   let background = document.querySelector("#final-celebration-background");
 
@@ -29999,7 +30029,6 @@ function renderFinalCelebration() {
           .join("")}
       </ul>`
     : `<span class="final-celebration-summary">${escapeHtml(body)}</span>`;
-
   if (!background) {
     background = document.createElement("div");
     background.className = "final-celebration-background";
@@ -30011,11 +30040,16 @@ function renderFinalCelebration() {
 
   if (!banner) {
     banner = document.createElement("section");
-    banner.className = "final-celebration-banner";
+    banner.className = "final-celebration-banner is-entering";
     banner.id = "final-celebration-banner";
     banner.setAttribute("role", "status");
     banner.setAttribute("aria-live", "polite");
     matchesView.prepend(banner);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        banner?.classList.remove("is-entering");
+      });
+    });
   }
 
   banner.setAttribute(
@@ -30039,7 +30073,7 @@ function renderFinalCelebration() {
   document.body.classList.add("has-final-celebration");
   document.body.classList.toggle(
     "is-final-celebration-calm",
-    !isFinalCelebrationWindowActive(completedFinal)
+    !isFinalCelebrationMotionActive(completedFinal)
   );
   positionPlayerCards();
 }
@@ -31549,13 +31583,14 @@ function getReleaseNoteHighlights(releaseNote) {
 }
 
 function getCreatorCreditMarkup() {
-  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
-  const creatorText =
-    currentLanguage === "zh"
-      ? `由 ${creatorLink} 制作`
-      : `${escapeHtml(localizeText("Made by"))} ${creatorLink}`;
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">HA</a>`;
+  const creatorText = {
+    es: `Creado por ${creatorLink}`,
+    ko: `${creatorLink} 제작`,
+    zh: `由 ${creatorLink} 制作`
+  }[currentLanguage] || `${escapeHtml(localizeText("Made by"))} ${creatorLink}`;
 
-  return `<span class="release-tooltip-note">${creatorText}</span>`;
+  return `<span class="source-credit">${creatorText}</span>`;
 }
 
 function getReleaseTooltipLoadingMarkup() {
@@ -31570,7 +31605,6 @@ function getReleaseTooltipLoadingMarkup() {
         </span>
       `).join("")}
     </span>
-    ${getCreatorCreditMarkup()}
   `.trim();
 }
 
@@ -31642,7 +31676,6 @@ function getReleaseTooltipMarkup() {
     <ul>
       ${releaseTooltipItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
     </ul>
-    ${getCreatorCreditMarkup()}
   `.trim();
 }
 
@@ -31674,21 +31707,11 @@ function renderSourceNote() {
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Head-to-head records"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.nationalFootballTeams, "National Football Teams")}${itemSeparator}${sourceLink(sourceUrls.elevenVeleven, "11v11")}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
-  const isDataFreshnessLoading = isInitialDataLoading || isInitialLiveDataLoading;
-  const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
-  const freshnessText = isDataFreshnessLoading
-    ? localizeText("Checking data freshness…")
-    : updatedAtText
-      ? `${localizeText("Data refreshed")} ${updatedAtText}`
-      : "";
-  const dataRefreshed = freshnessText
-    ? `<span class="source-freshness${isDataFreshnessLoading ? " is-loading" : ""}" role="status" aria-live="polite" aria-atomic="true">${escapeHtml(freshnessText)}</span>`
-    : "";
-  const seeSourcesText = localizeText("See sources");
-  const releaseNotesText = localizeText("See release notes");
+  const sourcesText = localizeText("Sources");
+  const releaseNotesText = localizeText("Release notes");
   const sourceTooltip = `
     <span class="source-tooltip-wrapper">
-      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</button>
+      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(sourcesText)}</button>
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
         <strong>${escapeHtml(localizeText("Sources:"))}</strong>
         <span class="source-tooltip-list">${sourceTooltipRows.join(" ")}</span>
@@ -31705,9 +31728,7 @@ function renderSourceNote() {
       </span>
     </span>
   `.trim();
-  sourceNote.innerHTML = [sourceTooltip, dataRefreshed, releaseTooltip]
-    .filter(Boolean)
-    .join(" • ");
+  sourceNote.innerHTML = [sourceTooltip, releaseTooltip, getCreatorCreditMarkup()].join(" • ");
   updateTooltipBounds(sourceNote);
 }
 
@@ -31732,6 +31753,7 @@ function renderLoadError(error) {
     </article>
   `;
   applyLanguageToPage();
+  completeInitialPageEntrance();
 }
 
 function renderAppError(error) {
@@ -31755,6 +31777,7 @@ function renderAppError(error) {
     </article>
   `;
   applyLanguageToPage();
+  completeInitialPageEntrance();
 }
 
 function hasLiveDataSnapshot(liveData) {
@@ -32030,11 +32053,16 @@ async function loadReleaseNotes() {
 }
 
 async function loadLiveData() {
-  const liveData = await loadOptionalJson(DATA_URLS.liveData, null, {
-    timeoutMs: LIVE_DATA_TIMEOUT_MS
-  });
+  const liveDataRequest = await requestLiveDataForActiveEdition(
+    editionLifecycle,
+    () =>
+      loadOptionalJson(DATA_URLS.liveData, null, {
+        timeoutMs: LIVE_DATA_TIMEOUT_MS
+      })
+  );
+  const liveData = liveDataRequest.value;
 
-  if (!hasLiveDataSnapshot(liveData)) {
+  if (!liveDataRequest.requested || !hasLiveDataSnapshot(liveData)) {
     return false;
   }
 
@@ -32070,6 +32098,10 @@ function renderLoadedApp(options = {}) {
     renderSourceNote();
     applyLanguageToPage();
   });
+
+  if (!isInitialDataLoading && !isInitialLiveDataLoading) {
+    completeInitialPageEntrance();
+  }
 }
 
 async function setLanguage(language) {
@@ -32136,6 +32168,14 @@ async function setLanguage(language) {
 }
 
 async function refreshData() {
+  if (!isEditionLiveSyncActive(editionLifecycle)) {
+    if (liveDataRefreshIntervalId) {
+      clearInterval(liveDataRefreshIntervalId);
+      liveDataRefreshIntervalId = 0;
+    }
+    return;
+  }
+
   let didUpdate = false;
   const previousAccessibilitySnapshots = getLiveMatchAccessibilitySnapshot();
 
@@ -32190,12 +32230,15 @@ async function boot() {
   try {
     readUrlState({ forceToday: isReloadNavigation() });
     await ensureRequiredActiveLocaleContentScopes();
-    isInitialLiveDataLoading = true;
+    const isLiveSyncActive = isEditionLiveSyncActive(editionLifecycle);
+    isInitialLiveDataLoading = isLiveSyncActive;
     renderLoadedApp({ syncActiveView: true });
     setInterval(renderSchedule, 60 * 1000);
     setInterval(renderAdminMessage, 60 * 1000);
-    setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
-    loadInitialLiveData();
+    if (isLiveSyncActive) {
+      liveDataRefreshIntervalId = setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
+      loadInitialLiveData();
+    }
     loadDeferredData().catch((error) => {
       console.warn("Unable to load optional history, lineup, or profile enrichment", error);
     });

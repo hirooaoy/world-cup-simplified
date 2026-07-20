@@ -62,6 +62,7 @@ const UI = {
   timeZoneSearchPlaceholder: "Buscar ciudad, país o abreviatura",
   timeZoneSearchResults: "Resultados de búsqueda",
   tournament: "Fase eliminatoria",
+  viewRecap: "Ver resumen",
   worldCupViews: "Secciones del Mundial"
 };
 
@@ -803,8 +804,10 @@ Object.assign(EXACT, {
   "Score details are not loaded for this historical record.":
     "Los detalles del marcador no están disponibles para este registro histórico.",
   "See all": "Ver todo",
+  "Release notes": "Notas de la versión",
   "See release notes": "Ver notas de la versión",
   "See sources": "Ver fuentes",
+  "Sources": "Fuentes",
   "Tournament facts": "Datos del torneo",
   "Tournament facts & confirmed lineups": "Datos del torneo y alineaciones confirmadas",
   Forecasts: "Pronósticos",
@@ -1481,7 +1484,7 @@ export function getSeoHomeCopy() {
   return {
     title: "Mundial 2026: partidos, resultados, clasificación y alineaciones | Mundial simplificado",
     description:
-      "Sigue el Mundial 2026 en tu zona horaria con horarios, alineaciones verificadas, resultados en vivo, clasificación, pronósticos, resúmenes breves y videos oficiales."
+      "Explora el Mundial 2026 ya terminado: los 104 resultados, alineaciones verificadas, clasificación, resúmenes breves, videos oficiales, premios e historia del torneo."
   };
 }
 

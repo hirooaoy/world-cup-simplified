@@ -2,12 +2,34 @@ name: Lineup Matchday Geometry
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/5 * 11-30 6 *"
-    - cron: "*/5 * 1-19 7 *"
+    inputs:
+      operation:
+        description: Preview only, prepare an active-edition update, or prepare an archived-edition correction
+        required: true
+        type: choice
+        default: preview
+        options:
+          - preview
+          - live-update
+          - late-correction
+      confirm_write:
+        description: Allow a review branch and pull request to be written (never writes directly to main)
+        required: true
+        type: boolean
+        default: false
+      correction_reason:
+        description: Required explanation for a late correction to an archived edition
+        required: false
+        type: string
+        default: ""
+      correction_fixture:
+        description: Required fixture id or match number for an archived-edition correction
+        required: false
+        type: string
+        default: ""
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: world-cup-data-sync
@@ -19,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       active: ${{ steps.lifecycle.outputs.active }}
+      edition: ${{ steps.lifecycle.outputs.edition }}
+      state: ${{ steps.lifecycle.outputs.state }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
@@ -28,10 +52,15 @@ jobs:
         run: node scripts/tournament-edition-window.mjs --github-output
 
   update:
-    name: Sync FIFA XI and official pitch geometry
+    name: Preview or prepare FIFA lineup geometry
     needs: edition-window
-    if: needs.edition-window.outputs.active == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      allow_write: ${{ steps.operation.outputs.allow_write }}
+      branch: ${{ steps.operation.outputs.branch }}
+      changed: ${{ steps.changes.outputs.changed }}
     env:
       WORLD_CUP_TZ: America/Los_Angeles
       LINEUP_MATCHDAY_AFTER_MINUTES: "180"
@@ -41,36 +70,103 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          token: ${{ secrets.SYNC_PR_TOKEN || github.token }}
+          persist-credentials: false
+
+      - name: Validate requested operation
+        id: operation
+        env:
+          ACTIVE: ${{ needs.edition-window.outputs.active }}
+          CONFIRM_WRITE: ${{ inputs.confirm_write }}
+          CORRECTION_REASON: ${{ inputs.correction_reason }}
+          CORRECTION_FIXTURE: ${{ inputs.correction_fixture }}
+          EDITION: ${{ needs.edition-window.outputs.edition }}
+          LIFECYCLE_STATE: ${{ needs.edition-window.outputs.state }}
+          REQUESTED_OPERATION: ${{ inputs.operation }}
+        run: |
+          allow_write=false
+          branch=""
+
+          case "$REQUESTED_OPERATION" in
+            preview)
+              ;;
+            live-update)
+              if [ "$ACTIVE" != "true" ]; then
+                echo "::error title=Live edition is closed::live-update is allowed only while the configured edition lifecycle is active."
+                exit 1
+              fi
+              if [ "$CONFIRM_WRITE" != "true" ]; then
+                echo "::error title=Write confirmation required::Set confirm_write to create a review branch."
+                exit 1
+              fi
+              allow_write=true
+              branch="codex/lineup-${EDITION}-live-update-${GITHUB_RUN_ID}"
+              ;;
+            late-correction)
+              if [ "$LIFECYCLE_STATE" != "archived" ]; then
+                echo "::error title=Edition is not archived::late-correction is reserved for an archived edition."
+                exit 1
+              fi
+              if [ "$CONFIRM_WRITE" != "true" ]; then
+                echo "::error title=Write confirmation required::Set confirm_write to create a reviewed late-correction branch."
+                exit 1
+              fi
+              if [ -z "${CORRECTION_REASON//[[:space:]]/}" ]; then
+                echo "::error title=Correction reason required::Explain why archived tournament data needs correction."
+                exit 1
+              fi
+              if [ -z "${CORRECTION_FIXTURE//[[:space:]]/}" ]; then
+                echo "::error title=Correction fixture required::Provide the archived fixture id or match number to review."
+                exit 1
+              fi
+              allow_write=true
+              branch="codex/lineup-${EDITION}-late-correction-${GITHUB_RUN_ID}"
+              ;;
+            *)
+              echo "::error title=Unsupported operation::$REQUESTED_OPERATION"
+              exit 1
+              ;;
+          esac
+
+          echo "allow_write=$allow_write" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
       - name: Check matchday window
         id: window
         run: node scripts/lineup-matchday-window.mjs --github-output
 
       - name: Set up project
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
         uses: ./.github/actions/setup-project
 
       - name: Sync FIFA official matchday lineups
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
         env:
+          REQUESTED_OPERATION: ${{ inputs.operation }}
           FIFA_LINEUPS_WINDOW_BEFORE_MINUTES: "90"
           FIFA_LINEUPS_WINDOW_AFTER_MINUTES: "20"
-        run: pnpm sync:fifa:lineups:matchday
+        run: |
+          if [ "$REQUESTED_OPERATION" = "late-correction" ]; then
+            pnpm sync:fifa:lineups
+          else
+            pnpm sync:fifa:lineups:matchday
+          fi
 
       - name: Sync FIFA official tactical lineup documents
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
-        run: pnpm sync:fifa:tactical-lineups
+        env:
+          CORRECTION_FIXTURE: ${{ inputs.correction_fixture }}
+          REQUESTED_OPERATION: ${{ inputs.operation }}
+        run: |
+          if [ "$REQUESTED_OPERATION" = "late-correction" ]; then
+            pnpm sync:fifa:tactical-lineups -- --fixture="$CORRECTION_FIXTURE"
+          else
+            pnpm sync:fifa:tactical-lineups
+          fi
 
       - name: Verify fallback kickoff geometry
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
         env:
           LINEUP_LAYOUT_LIVE_START_BEFORE_MINUTES: "10"
           LINEUP_LAYOUT_LIVE_START_AFTER_MINUTES: "20"
         run: pnpm lineups:verify-live-start
 
       - name: Validate lineup data
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           pnpm validate
           pnpm smoke:lineup-layouts
@@ -78,7 +174,6 @@ jobs:
           pnpm smoke:live-lineups
 
       - name: Detect matchday lineup changes
-        if: steps.window.outputs.eligible == 'true' || github.event_name == 'workflow_dispatch'
         id: changes
         run: |
           if [ -n "$(git status --porcelain -- data/fixtures.json data/lineups.json data/lineup-layout-overrides.json data/fifa-tactical-lineup-index.json data/tournament.json data/lineup-prediction-history.json)" ]; then
@@ -87,11 +182,92 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit matchday lineups to main and trigger Vercel
-        if: steps.changes.outputs.changed == 'true'
+      - name: Upload candidate lineup data
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: lineup-geometry-${{ needs.edition-window.outputs.edition }}-${{ github.run_id }}
+          path: |
+            data/fixtures.json
+            data/lineups.json
+            data/lineup-layout-overrides.json
+            data/fifa-tactical-lineup-index.json
+            data/tournament.json
+            data/lineup-prediction-history.json
+          if-no-files-found: error
+          retention-days: 3
+
+  publish:
+    name: Publish lineup candidate for review
+    needs:
+      - edition-window
+      - update
+    if: needs.update.outputs.changed == 'true' && needs.update.outputs.allow_write == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Download validated lineup candidate
+        uses: actions/download-artifact@v8
+        with:
+          name: lineup-geometry-${{ needs.edition-window.outputs.edition }}-${{ github.run_id }}
+          path: data
+
+      - name: Build pull request body
+        env:
+          CORRECTION_REASON: ${{ inputs.correction_reason }}
+          CORRECTION_FIXTURE: ${{ inputs.correction_fixture }}
+          EDITION: ${{ needs.edition-window.outputs.edition }}
+          LIFECYCLE_STATE: ${{ needs.edition-window.outputs.state }}
+          REQUESTED_OPERATION: ${{ inputs.operation }}
         run: |
+          {
+            echo "Manual FIFA lineup and pitch-geometry candidate."
+            echo
+            echo "- Edition: $EDITION"
+            echo "- Lifecycle state: $LIFECYCLE_STATE"
+            echo "- Operation: $REQUESTED_OPERATION"
+            if [ "$REQUESTED_OPERATION" = "late-correction" ]; then
+              echo "- Correction reason: $CORRECTION_REASON"
+              echo "- Correction fixture: $CORRECTION_FIXTURE"
+              echo
+              echo "This archived-edition correction must include a superseding archive version and checksum before merge."
+            fi
+            echo
+            echo "The workflow never commits directly to main; validation and human review are required."
+          } > lineup-geometry-pr.md
+
+      - name: Commit candidate data to a review branch
+        env:
+          BRANCH: ${{ needs.update.outputs.branch }}
+          GH_TOKEN: ${{ secrets.SYNC_PR_TOKEN || github.token }}
+        run: |
+          gh auth setup-git
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
           git add data/fixtures.json data/lineups.json data/lineup-layout-overrides.json data/fifa-tactical-lineup-index.json data/tournament.json data/lineup-prediction-history.json
-          git commit -m "Update matchday lineup placement"
-          git push origin HEAD:main
+          git commit -m "Prepare ${{ needs.edition-window.outputs.edition }} lineup data update"
+          git push origin "$BRANCH"
+
+      - name: Open or update pull request
+        env:
+          BRANCH: ${{ needs.update.outputs.branch }}
+          EDITION: ${{ needs.edition-window.outputs.edition }}
+          GH_TOKEN: ${{ secrets.SYNC_PR_TOKEN || github.token }}
+          REQUESTED_OPERATION: ${{ inputs.operation }}
+        run: |
+          title="Prepare $EDITION lineup data ($REQUESTED_OPERATION)"
+          pr_number="$(gh pr list --base main --head "$BRANCH" --state open --json number --jq '.[0].number // ""')"
+          if [ -n "$pr_number" ]; then
+            gh pr edit "$pr_number" --base main --title "$title" --body-file lineup-geometry-pr.md
+          else
+            gh pr create --base main --head "$BRANCH" --title "$title" --body-file lineup-geometry-pr.md
+          fi

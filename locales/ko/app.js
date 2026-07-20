@@ -61,6 +61,7 @@ const UI = {
   timeZoneSearchPlaceholder: "도시, 국가 또는 약어 검색",
   timeZoneSearchResults: "검색 결과",
   tournament: "토너먼트",
+  viewRecap: "대회 돌아보기",
   worldCupViews: "월드컵 메뉴"
 };
 
@@ -795,8 +796,10 @@ Object.assign(EXACT, {
   "Round path": "라운드 진출 경로",
   "Score details are not loaded for this historical record.": "이 과거 기록의 상세 스코어가 없습니다.",
   "See all": "전체 보기",
+  "Release notes": "릴리스 노트",
   "See release notes": "업데이트 내역 보기",
   "See sources": "출처 보기",
+  "Sources": "출처",
   "Tournament facts": "대회 공식 정보",
   "Tournament facts & confirmed lineups": "대회 공식 정보 및 확정 라인업",
   Forecasts: "예측",
@@ -1446,7 +1449,7 @@ export function getSeoHomeCopy() {
   return {
     title: "2026 월드컵 일정·결과·순위·라인업 | 월드컵 한눈에",
     description:
-      "내 시간대에 맞춘 2026 월드컵 일정, 확인된 라인업, 실시간 결과, 순위, 전망, 짧은 경기 요약과 공식 하이라이트를 확인하세요."
+      "종료된 2026 월드컵의 104경기 결과, 확인된 라인업, 순위, 짧은 경기 요약, 공식 하이라이트, 수상 내역과 대회 역사를 살펴보세요."
   };
 }
 

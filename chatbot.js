@@ -3,12 +3,16 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-20-tournament-memory-7";
+} from "./chatbot-knowledge.js?v=2026-07-20-final-archive-1";
+import {
+  appendFootballInlineText,
+  renderFootballInlineHtml
+} from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-historical-replay-recaps-tournament-memory-3";
+} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -1073,6 +1077,7 @@ let currentAnswerPrompt = "";
 let eyeExpressionTimer = 0;
 let eyeExpressionToken = 0;
 let isEyeExpressionActive = false;
+let heldEyeExpression = null;
 let isJuggleActive = false;
 let juggleTrackingFrame = 0;
 let juggleStartTimer = 0;
@@ -1296,7 +1301,25 @@ function removeEyeExpressionClasses() {
   widget.classList.remove(...SCOUT_EYE_EXPRESSION_CLASSES);
 }
 
+function applyHeldEyeExpression() {
+  if (!heldEyeExpression) {
+    return false;
+  }
+
+  pauseRandomBlink();
+  isEyeExpressionActive = true;
+  widget.classList.remove("is-eye-thinking");
+  removeEyeExpressionClasses();
+  widget.classList.add(heldEyeExpression.className);
+  setPupilPosition(heldEyeExpression.pupil.x, heldEyeExpression.pupil.y);
+  return true;
+}
+
 function syncEyeAttention() {
+  if (applyHeldEyeExpression()) {
+    return;
+  }
+
   const shouldLookAtThinking = isReplyPending && !isJuggleActive && !isEyeExpressionActive;
   widget.classList.toggle("is-eye-thinking", shouldLookAtThinking);
 
@@ -1371,6 +1394,27 @@ function playEyeSequence(steps) {
   };
 
   advance(0);
+}
+
+function handleHeldEyeExpression(event) {
+  const { active, expression, source } = event.detail || {};
+  if (source !== "champion-photo" || expression !== "pleased") {
+    return;
+  }
+
+  if (active) {
+    heldEyeExpression = {
+      className: "is-eye-pleased",
+      pupil: { x: 0, y: -0.35 },
+      source
+    };
+  } else if (heldEyeExpression?.source === source) {
+    heldEyeExpression = null;
+  } else {
+    return;
+  }
+
+  clearEyeExpression();
 }
 
 function getVisibleTournamentShowNextButton() {
@@ -2258,7 +2302,7 @@ function appendMessage(text, speaker, { className = "", scroll = true } = {}) {
   }
 
   const copy = document.createElement("p");
-  copy.textContent = text;
+  appendFootballInlineText(copy, text);
   message.append(copy);
   messages.append(message);
   if (scroll) {
@@ -2621,7 +2665,7 @@ function createScoutVisualMessage(kind, lead, body, followUps = [], options = {}
   message.innerHTML = `
     <div class="scout-answer-intro ${lead ? "" : "has-no-lead"}">
       ${renderScoutAnswerHeading()}
-      ${lead ? `<p class="scout-answer-lead">${escapeScoutHtml(lead)}</p>` : ""}
+      ${lead ? `<p class="scout-answer-lead">${renderFootballInlineHtml(lead, escapeScoutHtml)}</p>` : ""}
     </div>
     ${body}
   `;
@@ -3992,6 +4036,7 @@ scoutTournamentDockMedia.addEventListener?.(
   queueTournamentShowNextSync
 );
 window.addEventListener("worldcup:languagechange", handleScoutLanguageChange);
+window.addEventListener("worldcup:scoutexpression", handleHeldEyeExpression);
 const scoutDocumentLanguageObserver = new MutationObserver(() => {
   handleScoutLanguageChange();
 });

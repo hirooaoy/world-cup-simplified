@@ -1,4 +1,4 @@
-export const DATA_VERSION = "2026-07-19-historical-replay-recaps-1";
+export const DATA_VERSION = "2026-07-20-final-archive-1";
 
 export const DATA_URLS = Object.freeze({
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
@@ -26,12 +26,12 @@ export const HOME_SEO = Object.freeze({
   en: {
     title: "World Cup Simplified",
     description:
-      "Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
+      "Explore the completed 2026 World Cup with all 104 results, verified lineups, standings, concise recaps, official highlights, awards, and tournament history."
   },
   zh: {
     title: "2026世界杯赛程、赛果、积分榜与阵容 | 世界杯简明指南",
     description:
-      "按你的时区查看2026世界杯赛程、已验证阵容、实时赛果、积分榜、预测、简明回顾和官方集锦。"
+      "回顾已结束的2026世界杯：全部104场赛果、已验证阵容、积分榜、简明回顾、官方集锦、奖项与赛事历史。"
   }
 });
 export const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";

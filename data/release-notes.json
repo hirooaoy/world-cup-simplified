@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-07-19T22:53:41-07:00",
+  "updatedAt": "2026-07-20T09:02:12-07:00",
   "releases": [
+    {
+      "date": "2026-07-20",
+      "title": "A finished 2026 archive, awards recap, and quieter off-season",
+      "titleZh": "完整的2026存档、奖项回顾与更安静的休赛期",
+      "highlights": [
+        "The completed 2026 World Cup is now preserved as an immutable, checksum-verified snapshot with all 104 results, official line-ups, standings, profiles, availability, awards, multilingual recaps, Ball Boy knowledge, and source provenance.",
+        "A new Awards & Highlights recap preserves Spain's title story, the official awards, an editorial Best XI with 15 Honorable Mentions and Best Coach, two-part evidence and footballing notes for all 26 displayed players, a rights-safe trophy illustration, and a compact three-milestone timeline toward 2030; both the homepage and recap now open with a calm, reduced-motion-aware fade.",
+        "Outside an active tournament window, the homepage, Ball Boy, Report issue, and live-data API now use static edition data without polling providers; matchday schedules are retired, with monthly archive health checks and reviewed late-correction paths retained.",
+        "On phones, the Tournament view can now zoom out to 70%, while round labels and all 29 connector rails scale and stay aligned without adding controls."
+      ],
+      "highlightsZh": [
+        "2026年世界杯现已保存为不可变且经过校验和验证的快照，涵盖全部104场比赛结果、官方阵容、积分榜、球员资料、出场状态、奖项、多语言回顾、Ball Boy知识和来源依据。",
+        "全新的“奖项与亮点”回顾保存了西班牙夺冠故事、官方奖项、包含15名荣誉提名球员和最佳教练的编辑评选最佳阵容，为全部26名展示球员提供分为数据依据与足球表现的两段说明、采用版权安全的奖杯插画，并以三个时间线节点展望2030年；首页与回顾页现在都会以平静且支持减少动态效果的淡入方式打开。",
+        "在赛事非活跃时段，首页、Ball Boy、“报告问题”页面和实时数据API现在会使用静态赛事数据，不再轮询数据提供方；比赛日定时任务已停用，同时保留每月存档健康检查和经审核的赛后更正流程。",
+        "在手机端，“赛事”视图现在可缩小至70%，轮次标签与全部29条连接线会同步缩放并保持对齐，无需新增控件。"
+      ]
+    },
     {
       "date": "2026-07-19",
       "title": "World champions, richer archives, and smarter Ball Boy",

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "edition": 2026,
+  "name": "FIFA World Cup 2026 test lifecycle",
+  "state": "archived",
+  "timeZone": "America/Los_Angeles",
+  "tournamentStartsAt": "2026-06-11T16:00:00Z",
+  "liveSyncEndsAt": "2026-07-20T07:00:00Z",
+  "archiveEligibleAfter": "2026-07-20T07:00:00Z",
+  "archivedAt": "2026-07-20T08:00:00Z",
+  "archiveVersion": "2026-final-test"
+}

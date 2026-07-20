@@ -4,27 +4,26 @@
 [![Vercel](https://img.shields.io/badge/Vercel-live-black?logo=vercel)](https://world-cup-simplified.vercel.app)
 [![pnpm](https://img.shields.io/badge/pnpm-11.0.7-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 
-The simplest way to follow the FIFA World Cup.
+A historical archive of the 2026 FIFA World Cup, with fixtures, results,
+standings, team and player profiles, forecasts, and official highlights.
 
-It puts the schedule, standings, team guides, predictions, results, and official highlights in one place.
+**Live archive:** <https://world-cup-simplified.vercel.app>
 
-**Live demo:** <https://world-cup-simplified.vercel.app>
+> The 2026 tournament has ended. The site now uses its final archived data.
+> Live-data tools remain in the repository for maintenance and future editions.
 
 ![World Cup Simplified home match preview](assets/readme/preview.png)
 
-## What You Can Do
+## Features
 
-- Find every match, with kickoff times in your time zone.
-- See what is live, final, or coming up next.
-- Follow groups, knockout paths, and the third-place race.
-- Learn about every team before they play.
-- Know the key players on each squad.
-- See what matters in each matchup.
-- See match predictions and qualification chances when there is enough data.
-- Watch official highlights after FIFA publishes them.
-- Use the app in English, Chinese, Spanish, or Korean.
+- Fixtures and results with kickoff times in the visitor's time zone
+- Group standings and the complete knockout bracket
+- Team, coach, and player profiles
+- Pre-match forecasts preserved for historical context
+- Official highlight links
+- English, Chinese, Spanish, and Korean support
 
-## Quick Start
+## Run Locally
 
 Install dependencies and run the checks:
 
@@ -33,58 +32,45 @@ pnpm install
 pnpm test
 ```
 
-`pnpm test` validates the data, checks match and result writing, audits player-card coverage, checks freshness, and runs a Playwright smoke test.
+The frontend is a static browser application. Serve the repository root with a
+local HTTP server, for example:
+
+```sh
+python3 -m http.server 4173
+```
+
+Then open <http://localhost:4173>.
 
 ## How It Works
 
-```mermaid
-flowchart TD
-  Browser[Browser app] --> Live[/api/live-data/]
-  Browser --> Static[Static JSON]
-  Live --> Provider[Live score provider]
-  Provider --> FIFA[FIFA official scores]
-  FIFA --> Goals[FIFA goal events]
-  Goals --> Standings[Standings]
-  Standings --> Browser
-  Static --> Browser
-```
+The main application is loaded from `index.html`, `styles.css`, `app.js`, and
+JSON files in `data/`. Historical information and player profiles load after
+the main match data so they do not block the first useful screen.
 
-Most of the site is static. The browser loads the match-day core first from `index.html`, `styles.css`, `app.js`, and the essential JSON files in `data/`; historical and profile enrichment can load afterward without blocking the first useful screen.
+The app reads `data/edition-lifecycle.json` before choosing a data source.
+Archived editions use committed JSON without polling a live provider. During an
+active tournament window, the app can request `/api/live-data` and fall back to
+the committed data if needed.
 
-In production, the app tries `/api/live-data` first. If that route is unavailable, it uses the committed JSON files instead.
+## Project Structure
 
-## Project Layout
+- `api/`: live-data and report-form endpoints
+- `assets/`: images and other static assets
+- `data/`: fixtures, standings, profiles, tournament data, and release notes
+- `docs/`: project and release documentation
+- `locales/`: translated content
+- `scripts/`: data sync, enrichment, validation, and audit tools
+- `.github/workflows/`: CI and guarded maintenance workflows
 
-- `index.html`, `styles.css`, `app.js`: the browser app.
-- `data/`: matches, standings, teams, player profiles, tournament data, release notes, and fallback data.
-- `api/live-data.js`: live score and status updates for Vercel.
-- `api/report-issue.js`: the report form endpoint.
-- `scripts/`: sync, enrichment, validation, audits, and browser smoke checks.
-- `.github/workflows/`: CI and scheduled data jobs.
+## Useful Commands
 
-## Development
-
-Use risk-based checks while developing:
-
-- Small isolated changes: run focused checks for the affected area and the
-  relevant browser check for visual or interactive behavior. Let exact-SHA CI
-  provide the comprehensive release gate.
-- Factual or generated-data changes: verify the source and methodology, then run
-  the relevant data, integrity, forecast, lineup, or historical checks.
-- Large or cross-cutting changes: run focused checks while working, then run
-  `pnpm test` once against the final settled tree.
-
-Do not rerun the complete suite when the settled tree has not materially
-changed. A narrow late fix only needs its affected checks rerun.
-
-Inspect the current local, GitHub, CI, Vercel, and production state without
-changing it:
+Inspect the repository, CI, deployment, and production state:
 
 ```sh
 pnpm release:status
 ```
 
-Run a focused browser/data smoke group, or one of the three stable CI shards:
+List or run focused browser checks:
 
 ```sh
 pnpm smoke:group -- --list
@@ -92,179 +78,48 @@ pnpm smoke:group -- --group=ball-boy
 pnpm smoke:shard -- --shard=2/3
 ```
 
-`pnpm smoke:full` preserves the complete existing smoke coverage. The fixed
-shards split lineup checks, locale/Ball Boy/tournament checks, and the full app
-shell/UI suite so CI can run them concurrently without silently dropping tests.
+Find completed matches that are missing sourced result notes:
 
-On match days, refresh the static snapshot first:
+```sh
+pnpm results:research
+```
+
+The matchday update tools remain available for maintenance and future editions:
 
 ```sh
 pnpm matchday:update
+pnpm matchday:update:verify
 ```
 
-`pnpm matchday:update` refreshes scores, status, goal events, player cards when needed, result facts, and official highlight links. It also runs the same checks as `pnpm test`.
+The second command forces the complete verification pass.
 
-Live/source refresh steps always run. Locally, the expensive deterministic
-verification tail is skipped when its full data, script, app, locale, and style
-fingerprint matches the last successful run. Use `pnpm matchday:update:verify`
-to force the complete verification tail; CI always forces it.
+## Data Sources and Configuration
 
-The command does not write current-match story bullets. Add those only after a source-backed post-match research pass.
+The live endpoint supports football-data.org, API-Football, Sportmonks, and
+FIFA fallbacks for scores, match status, and goal events. The archived site does
+not need provider credentials unless its live-data path is being maintained.
 
-Use `pnpm results:research` to find finished matches that still need sourced story bullets. It reports what needs work. It does not call paid APIs or write prose.
-
-To build cards for one team before a match, run:
-
-```sh
-pnpm profiles:country -- --teams=CRO
-```
-
-That workflow builds only the selected squad cards, merges them into the existing profile file, and runs the card checks. Use `--skip-smoke` only for a quick local pass.
-
-Update `data/release-notes.json` only when a meaningful user-facing behavior or
-content change ships. Test-harness fixes, CI stabilization, invisible
-refactoring, workflow-only changes, deployment retries, and unchanged redeploys
-do not need public release notes. CI runs `pnpm release-notes:check` as a guard.
+See [`.env.example`](.env.example) for common configuration. The report form
+requires a Resend API key, destination address, verified sender, and allowed
+origin. Keep API keys and local `.env` files out of Git.
 
 ## Deployment
 
-The Vercel project is linked to this GitHub repository with `main` as its
-production branch. A normal push to `main` creates the production deployment;
-do not also run a separate `vercel --prod` deployment for the same release.
-Use a manual deployment only for an explicit redeploy, a failed Git-triggered
-deployment, promotion of a verified deployment, or recovery/rollback.
+The production site is hosted on Vercel. Pushes to `main` create the production
+deployment automatically, so a separate `vercel --prod` command is not needed
+for a normal release.
 
-For routine solo development, `push latest` means: wait quietly until relevant
-World Cup repository tasks are idle; ignore unrelated tasks; inspect the
-settled combined diff; include all completed and approved work except anything
-explicitly unfinished, experimental, conflicting, or excluded; test according
-to risk; update release notes only for meaningful user-visible changes; commit
-and push without force; rely on the Git-triggered Vercel deployment; verify CI,
-production, commit alignment, and remaining local state; then stop. A shared
-dirty checkout is normal while relevant tasks are working.
+Static pages are served from the repository root. `/api/live-data` provides
+live match data when enabled, and `/api/report-issue` handles report-form
+submissions.
 
-Do not repeatedly ask what to include when `push latest` or `push all` is clear.
-Temporary worktrees, hash inventories, partial patch extraction, release
-manifests, and staged-hunk approval are reserved for partial releases,
-unfinished conflicts, mixed experimental work, or explicit review. The
-publishing task may fix a regression directly caused by or clearly part of the
-settled release batch. If validation finds an unrelated issue, optional
-improvement, new methodology decision, or broad refactor, stop and report it as
-separate work.
-
-Publishing recovery is limited to one root cause. Investigate, repair, and
-revalidate that cause until it is resolved or genuinely blocked. Do not expand
-the publishing pass to unrelated failures. If validation reveals a different
-root cause, stop and move it to a separate implementation task. Do not continue
-feature development inside the publishing task.
-
-Static pages are served from the repo root. `/api/live-data` refreshes match
-data. `/api/report-issue` handles the report form.
-
-Before launch:
-
-1. Confirm the production origin. The current metadata, `robots.txt`, and `sitemap.xml` use `https://world-cup-simplified.vercel.app/`.
-2. Confirm the Git-triggered Vercel production deployment is healthy so the API
-   routes are available.
-3. Create a Resend API key.
-4. Add the environment variables below in Vercel.
-5. Use a verified sender or domain for `REPORT_FROM_EMAIL`.
-6. Run the relevant factual and generated-data checks before promoting a data
-   update; use the complete suite for large or cross-cutting changes.
-
-## Environment Variables
-
-Keep local `.env` files private. `.env.example` lists the supported keys without real values.
-
-Required for the report form:
-
-```sh
-RESEND_API_KEY=
-REPORT_TO_EMAIL=
-REPORT_FROM_EMAIL=
-ALLOWED_REPORT_ORIGINS=https://world-cup-simplified.vercel.app
-```
-
-Optional report-form tuning:
-
-```sh
-REPORT_RATE_LIMIT_MAX=5
-REPORT_RATE_LIMIT_WINDOW_MS=600000
-REPORT_MAX_BODY_BYTES=16384
-RESEND_TIMEOUT_MS=8000
-```
-
-Optional result-story queue tuning:
-
-```sh
-RESULT_RESEARCH_LOOKBACK_HOURS=36
-```
-
-Automatic data updates:
-
-```sh
-LIVE_DATA_PROVIDER=football-data
-LIVE_DATA_CACHE_SECONDS=300
-LIVE_DATA_STALE_SECONDS=300
-FOOTBALL_DATA_API_KEY=
-FOOTBALL_DATA_COMPETITION=WC
-FOOTBALL_DATA_SEASON=2026
-FOOTBALL_DATA_WINDOW_BEFORE_DAYS=2
-FOOTBALL_DATA_WINDOW_AFTER_DAYS=2
-FOOTBALL_DATA_TIMEOUT_MS=8000
-FIFA_FALLBACK_TIMEOUT_MS=2000
-FIFA_GOAL_EVENTS_ENABLED=true
-FIFA_GOAL_EVENTS_TIMEOUT_MS=5000
-FIFA_GOAL_EVENTS_MAX_FIXTURES=8
-API_FOOTBALL_API_KEY=
-API_FOOTBALL_LEAGUE_ID=1
-API_FOOTBALL_SEASON=2026
-API_FOOTBALL_WINDOW_BEFORE_DAYS=1
-API_FOOTBALL_WINDOW_AFTER_DAYS=1
-API_FOOTBALL_TIMEOUT_MS=8000
-API_FOOTBALL_MAX_PAGES=5
-API_FOOTBALL_TIMEZONE=America/Los_Angeles
-SPORTMONKS_API_TOKEN=
-SPORTMONKS_SEASON_ID=
-SPORTMONKS_LEAGUE_ID=
-SPORTMONKS_WINDOW_BEFORE_DAYS=1
-SPORTMONKS_WINDOW_AFTER_DAYS=1
-SPORTMONKS_TIMEOUT_MS=8000
-SPORTMONKS_MAX_PAGES=5
-SYNC_TIMEZONE=America/Los_Angeles
-```
-
-## Data Updates
-
-Production tries `/api/live-data` before it uses static JSON. The route fetches recent provider matches, applies FIFA score and status corrections, adds FIFA goal events when they are available, recomputes standings, and returns a cached snapshot.
-
-The default provider is football-data.org. The site defaults to competition `WC` and season `2026`.
-
-To enable football-data.org:
-
-1. Create a football-data.org account.
-2. Add `FOOTBALL_DATA_API_KEY` in Vercel.
-3. Keep `FOOTBALL_DATA_COMPETITION=WC` and `FOOTBALL_DATA_SEASON=2026` unless football-data.org changes its World Cup mapping.
-4. Optionally copy `data/provider-map.example.json` to `data/provider-map.json` and add provider IDs if name matching is not enough.
-5. Deploy.
-
-The live endpoint is cached for 5 minutes by default. Change `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS` if you need fewer provider calls. Failed fallback responses use `no-store`; when the main sync times out, the API first tries a fast FIFA official score fallback controlled by `FIFA_FALLBACK_TIMEOUT_MS`.
-
-API-Football and Sportmonks are also supported. Set `LIVE_DATA_PROVIDER=api-football` or `LIVE_DATA_PROVIDER=sportmonks`, then add the matching token and optional league or season IDs.
-
-The GitHub Data Quality workflow validates an official results snapshot before testing.
-
-The `Sync FIFA Results Hybrid` workflow runs every 30 minutes during the 2026 tournament window. It can commit official fallback files to `main` when scores, statuses, or standings change. Richer updates, such as player cards, highlight dispositions, and research needs, open or update the review PR on `codex/fifa-results-sync`.
-
-In GitHub, make sure **Settings -> Actions -> General -> Workflow permissions** allows read/write access. Add a fine-scoped `SYNC_PR_TOKEN` repository secret if bot pushes need to trigger downstream workflows.
+The internal publishing and recovery process is documented in
+[`docs/codex-operating-manual.md`](docs/codex-operating-manual.md).
 
 ## Contributing
 
-Before opening a PR:
-
-1. Run focused checks appropriate to the change; run `pnpm test` for large or
-   cross-cutting changes.
-2. Update `data/release-notes.json` only for meaningful user-facing behavior or
-   content changes.
-3. Keep provider keys and local `.env` files out of git.
-4. Use verified official data and highlight sources whenever possible.
+- Run checks related to the files you changed
+- Run `pnpm test` for large or cross-cutting changes
+- Use reliable, preferably official, sources for factual data
+- Do not commit provider keys or local environment files
+- Update `data/release-notes.json` only for meaningful user-facing changes

@@ -3,13 +3,11 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-19-1";
+} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
 
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
 const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
-const FOOTER_LIVE_DATA_URL = "/api/live-data";
-const FOOTER_FIXTURES_URL = "data/fixtures.json";
 const FOOTER_RELEASE_NOTES_URL = "data/release-notes.json";
 const LEGACY_REPORT_TYPE_ALIASES = {
   "no-matches": "match-score-schedule",
@@ -173,9 +171,7 @@ const footerText = {
 };
 const ft = activeLocalePack?.footerText || footerText[currentLanguage] || footerText.en;
 const dateLabel = getDateLabel(reportDate);
-let footerUpdatedAt = "";
 let footerReleaseNotes = { releases: [] };
-let isReportFooterFreshnessLoading = true;
 let activeReportFooterTooltipTrigger = null;
 const zhTimeZoneNames = {
   "America/Los_Angeles": "洛杉矶",
@@ -326,97 +322,6 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function getFooterTimeZone() {
-  const storedTimeZone = String(localStorage.getItem(TIMEZONE_STORAGE_KEY) || "").trim();
-  const deviceTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
-
-  if (storedTimeZone === "device") {
-    return deviceTimeZone;
-  }
-
-  return storedTimeZone || reportTimeZone || deviceTimeZone;
-}
-
-function getFooterDayKey(value, timeZone) {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone,
-    year: "numeric"
-  }).formatToParts(value);
-  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-  return `${values.year}-${values.month}-${values.day}`;
-}
-
-function getPreviousFooterDayKey(dayKey) {
-  const [year, month, day] = dayKey.split("-").map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day - 1, 12));
-  return [date.getUTCFullYear(), String(date.getUTCMonth() + 1).padStart(2, "0"), String(date.getUTCDate()).padStart(2, "0")].join("-");
-}
-
-function formatFooterRelativeTime(dayLabel, timeText) {
-  if (currentLanguage === "es") {
-    return `${dayLabel} a las ${timeText}`;
-  }
-  if (currentLanguage === "zh" || currentLanguage === "ko") {
-    return `${dayLabel} ${timeText}`;
-  }
-  return `${dayLabel} at ${timeText}`;
-}
-
-function formatFooterUpdatedAt(value) {
-  const timestamp = Date.parse(value || "");
-  if (Number.isNaN(timestamp)) {
-    return "";
-  }
-
-  try {
-    const timeZone = getFooterTimeZone();
-    const updatedAt = new Date(timestamp);
-    const todayKey = getFooterDayKey(new Date(), timeZone);
-    const updatedDayKey = getFooterDayKey(updatedAt, timeZone);
-    const isToday = updatedDayKey === todayKey;
-    const relativeDay = updatedDayKey === getPreviousFooterDayKey(todayKey)
-      ? { en: "yesterday", es: "ayer", ko: "어제", zh: "昨天" }[currentLanguage]
-      : "";
-
-    if (isToday || relativeDay) {
-      const timeText = new Intl.DateTimeFormat(getIntlLocale(), {
-        hour: "numeric",
-        minute: "2-digit",
-        timeZone
-      }).format(updatedAt);
-      if (isToday) {
-        if (currentLanguage === "es") {
-          return `a las ${timeText}`;
-        }
-        if (currentLanguage === "zh" || currentLanguage === "ko") {
-          return timeText;
-        }
-        return `at ${timeText}`;
-      }
-      return formatFooterRelativeTime(relativeDay, timeText);
-    }
-
-    return new Intl.DateTimeFormat(getIntlLocale(), {
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      month: "short",
-      timeZone,
-      year: "numeric"
-    }).format(updatedAt);
-  } catch {
-    return new Intl.DateTimeFormat(getIntlLocale(), {
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      month: "short",
-      year: "numeric"
-    }).format(new Date(timestamp));
-  }
-}
-
 function getFooterReleaseContent() {
   const latestRelease = Array.isArray(footerReleaseNotes?.releases)
     ? footerReleaseNotes.releases[0]
@@ -489,29 +394,20 @@ function renderReportFooter() {
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.headToHeadRecords)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.nationalFootballTeams, "National Football Teams")}${itemSeparator}${sourceLink(sourceUrls.elevenVeleven, "11v11")}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(ft.officialHighlights)}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];
-  const updatedAtText = formatFooterUpdatedAt(footerUpdatedAt);
-  const freshnessText = isReportFooterFreshnessLoading
-    ? ft.checkingDataFreshness
-    : updatedAtText
-      ? `${ft.dataRefreshed} ${updatedAtText}`
-      : "";
-  const dataRefreshed = freshnessText
-    ? `<span class="source-freshness${isReportFooterFreshnessLoading ? " is-loading" : ""}" role="status" aria-live="polite" aria-atomic="true">${escapeHtml(freshnessText)}</span>`
-    : "";
-  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">HA</a>`;
   const creatorText = activeLocalePack?.formatting?.creatorPattern
     ? escapeHtml(activeLocalePack.formatting.creatorPattern).replace("{creator}", creatorLink)
     : currentLanguage === "zh"
       ? `${escapeHtml(ft.madeBy)} ${creatorLink} 制作`
       : `${escapeHtml(ft.madeBy)} ${creatorLink}`;
-  const creatorCredit = `<span class="release-tooltip-note">${creatorText}</span>`;
+  const creatorCredit = `<span class="source-credit">${creatorText}</span>`;
   const releaseContent = getFooterReleaseContent();
   const sourceHeadingSeparator = (
     activeLocalePack?.formatting?.labelSeparator || (currentLanguage === "zh" ? "：" : ":")
   ).trimEnd();
   const sourceTooltip = `
     <span class="source-tooltip-wrapper">
-      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(ft.seeSources)}</button>
+      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(ft.sources)}</button>
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
         <strong>${escapeHtml(ft.sources)}${escapeHtml(sourceHeadingSeparator)}</strong>
         <span class="source-tooltip-list">${sourceTooltipRows.join("")}</span>
@@ -521,18 +417,15 @@ function renderReportFooter() {
   `.trim();
   const releaseTooltip = `
     <span class="release-tooltip-wrapper">
-      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(ft.releaseNotes)}</button>
+      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(ft.releaseNotesLabel)}</button>
       <span class="release-tooltip" id="release-tooltip" role="tooltip">
         <strong>${escapeHtml(ft.releaseNotesLabel)}${currentLanguage === "zh" ? "：" : ": "}${escapeHtml(releaseContent.title)}</strong>
         <ul>${releaseContent.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        ${creatorCredit}
       </span>
     </span>
   `.trim();
 
-  sourceNote.innerHTML = [sourceTooltip, dataRefreshed, releaseTooltip]
-    .filter(Boolean)
-    .join(" • ");
+  sourceNote.innerHTML = [sourceTooltip, releaseTooltip, creatorCredit].join(" • ");
   updateReportFooterTooltipBounds();
 }
 
@@ -653,26 +546,12 @@ async function fetchFooterJson(url) {
 }
 
 async function loadReportFooterData() {
-  const [liveDataResult, fixturesResult, releaseNotesResult] = await Promise.allSettled([
-    fetchFooterJson(FOOTER_LIVE_DATA_URL),
-    fetchFooterJson(FOOTER_FIXTURES_URL),
-    fetchFooterJson(FOOTER_RELEASE_NOTES_URL)
-  ]);
-
-  const liveCheckedAt = liveDataResult.status === "fulfilled" && liveDataResult.value?.syncStatus?.ok === true
-    ? liveDataResult.value.syncStatus.checkedAt
-    : "";
-
-  if (!Number.isNaN(Date.parse(liveCheckedAt || ""))) {
-    footerUpdatedAt = liveCheckedAt;
-  } else if (fixturesResult.status === "fulfilled" && fixturesResult.value?.updatedAt) {
-    footerUpdatedAt = fixturesResult.value.updatedAt;
-  }
-  if (releaseNotesResult.status === "fulfilled") {
-    footerReleaseNotes = releaseNotesResult.value;
+  try {
+    footerReleaseNotes = await fetchFooterJson(FOOTER_RELEASE_NOTES_URL);
+  } catch {
+    // The fallback release-note copy remains available when the request fails.
   }
 
-  isReportFooterFreshnessLoading = false;
   renderReportFooter();
 }
 

@@ -19,6 +19,9 @@ try {
 }
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const liveLifecycleData = JSON.parse(
+  await readFile(path.join(root, "scripts", "fixtures", "edition-lifecycle-live.json"), "utf8")
+);
 const matchId = "match-95-round-of-16-2026-07-07";
 const predictedMatchId = "match-102-semi-final-2026-07-15";
 const predictedMatchDate = "2026-07-15";
@@ -41,6 +44,16 @@ function safePath(urlPath) {
   }
 
   return resolved;
+}
+
+async function routeLiveLifecycle(context) {
+  await context.route("**/data/edition-lifecycle.json*", async (route) => {
+    await route.fulfill({
+      body: JSON.stringify(liveLifecycleData),
+      contentType: "application/json",
+      status: 200
+    });
+  });
 }
 
 function player(name, number, position) {
@@ -372,6 +385,7 @@ try {
       liveDataServed = resolve;
     });
     const context = await browser.newContext();
+    await routeLiveLifecycle(context);
 
     await context.addInitScript(() => {
       const RealDate = Date;
@@ -542,6 +556,7 @@ try {
       expectedLineupsServed = resolve;
     });
     const context = await browser.newContext();
+    await routeLiveLifecycle(context);
 
     await context.addInitScript(({ mockNowValue }) => {
       const RealDate = Date;
@@ -645,6 +660,7 @@ try {
       liveDataServed = resolve;
     });
     const context = await browser.newContext();
+    await routeLiveLifecycle(context);
 
     await context.addInitScript(() => {
       const RealDate = Date;
@@ -726,8 +742,11 @@ try {
     missingLineupPayload.syncStatus.lineupUpdates = 0;
     let liveRequestCount = 0;
     const context = await browser.newContext();
+    await routeLiveLifecycle(context);
 
     await context.addInitScript(() => {
+      const RealDate = Date;
+      const mockNow = new RealDate("2026-07-07T17:45:00Z");
       const nativeSetInterval = window.setInterval.bind(window);
       window.__lineupRefreshCallback = null;
       window.setInterval = (callback, delay, ...args) => {
@@ -736,6 +755,18 @@ try {
         }
         return nativeSetInterval(callback, delay, ...args);
       };
+
+      class MockDate extends RealDate {
+        constructor(...args) {
+          return args.length === 0 ? new RealDate(mockNow) : new RealDate(...args);
+        }
+
+        static now() {
+          return mockNow.getTime();
+        }
+      }
+
+      window.Date = MockDate;
     });
     await context.route("**/data/lineups.json*", async (route) => {
       await route.fulfill({ body: JSON.stringify({ lineups: {} }), contentType: "application/json", status: 200 });

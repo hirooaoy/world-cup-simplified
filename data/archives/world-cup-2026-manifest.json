@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "edition": 2026,
+  "latestArchiveVersion": "2026-final-2026-07-20T23-37-05-227Z",
+  "updatedAt": "2026-07-20T23:37:05.227Z",
+  "entries": [
+    {
+      "archiveVersion": "2026-final-2026-07-20T23-37-05-227Z",
+      "archivedAt": "2026-07-20T23:37:05.227Z",
+      "file": "data/archives/world-cup-2026-final-2026-07-20T23-37-05-227Z.json",
+      "sha256": "eb8b613d5db1861db4f88c0dee22286d42ab253c9d2b400edd33513b4b940ef9",
+      "lateCorrection": false
+    }
+  ]
+}

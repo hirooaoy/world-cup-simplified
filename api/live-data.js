@@ -13,6 +13,7 @@ import {
   applyLineupLayoutOverride,
   getVerifiedLayoutOverride
 } from "../scripts/lineup-layout-overrides.mjs";
+import { getEditionLiveSyncStatus } from "../edition-runtime.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -24,6 +25,8 @@ const DEFAULT_PROVIDER_MAX_PAGES = 5;
 const DEFAULT_LIVE_DATA_CACHE_SECONDS = 30 * 60;
 const DEFAULT_LIVE_DATA_STALE_SECONDS = 30 * 60;
 const DEFAULT_LIVE_DATA_SYNC_DEADLINE_MS = 7500;
+const DEFAULT_INACTIVE_DATA_CACHE_SECONDS = 24 * 60 * 60;
+const DEFAULT_INACTIVE_DATA_STALE_SECONDS = 7 * 24 * 60 * 60;
 const DEFAULT_FIFA_FALLBACK_TIMEOUT_MS = 2000;
 const FOOTBALL_DATA_PROVIDER_KEY = "footballData";
 const API_FOOTBALL_PROVIDER_KEY = "apiFootball";
@@ -88,6 +91,22 @@ export default async function handler(request, response) {
   if (request.method !== "GET") {
     response.setHeader("Allow", "GET");
     sendJson(response, 405, { error: "Method not allowed" }, "no-store");
+    return;
+  }
+
+  const editionLifecycle = await readEditionLifecycle();
+  const lifecycleStatus = getEditionLiveSyncStatus(
+    editionLifecycle,
+    process.env.TOURNAMENT_LIFECYCLE_NOW || Date.now()
+  );
+
+  if (!lifecycleStatus.active) {
+    sendJson(
+      response,
+      200,
+      buildInactiveEditionPayload(editionLifecycle, lifecycleStatus),
+      getInactiveDataCacheControl(lifecycleStatus)
+    );
     return;
   }
 
@@ -334,6 +353,36 @@ function getLiveDataCacheControl(provider = {}) {
   return `public, s-maxage=${freshSeconds}, stale-while-revalidate=${staleSeconds}`;
 }
 
+function getInactiveDataCacheControl(lifecycleStatus) {
+  const freshSeconds = positiveInteger(
+    process.env.INACTIVE_DATA_CACHE_SECONDS,
+    DEFAULT_INACTIVE_DATA_CACHE_SECONDS
+  );
+  const staleSeconds = positiveInteger(
+    process.env.INACTIVE_DATA_STALE_SECONDS,
+    DEFAULT_INACTIVE_DATA_STALE_SECONDS
+  );
+
+  if (!lifecycleStatus.valid) {
+    return "public, s-maxage=60";
+  }
+
+  if (
+    lifecycleStatus.state === "live" &&
+    lifecycleStatus.now !== null &&
+    lifecycleStatus.startsAt !== null &&
+    lifecycleStatus.now < lifecycleStatus.startsAt
+  ) {
+    const secondsUntilStart = Math.max(
+      1,
+      Math.floor((lifecycleStatus.startsAt - lifecycleStatus.now) / 1000)
+    );
+    return `public, s-maxage=${Math.min(freshSeconds, secondsUntilStart)}`;
+  }
+
+  return `public, s-maxage=${freshSeconds}, stale-while-revalidate=${staleSeconds}`;
+}
+
 function getLiveDataSyncDeadlineMs() {
   return positiveInteger(process.env.LIVE_DATA_SYNC_DEADLINE_MS, DEFAULT_LIVE_DATA_SYNC_DEADLINE_MS);
 }
@@ -402,6 +451,56 @@ function startOfficialLiveLineupMerge({
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
+}
+
+async function readEditionLifecycle() {
+  const lifecyclePath = process.env.TOURNAMENT_LIFECYCLE_FILE
+    ? path.resolve(process.env.TOURNAMENT_LIFECYCLE_FILE)
+    : path.join(dataDir, "edition-lifecycle.json");
+  return JSON.parse(await readFile(lifecyclePath, "utf8"));
+}
+
+function getInactiveSnapshotTimestamp(lifecycle, lifecycleStatus) {
+  const archivedAt = new Date(lifecycle?.archivedAt || "");
+  if (!Number.isNaN(archivedAt.getTime())) {
+    return archivedAt.toISOString();
+  }
+
+  if (
+    lifecycleStatus.endsAt !== null &&
+    lifecycleStatus.now !== null &&
+    lifecycleStatus.now >= lifecycleStatus.endsAt
+  ) {
+    return new Date(lifecycleStatus.endsAt).toISOString();
+  }
+
+  return undefined;
+}
+
+function buildInactiveEditionPayload(lifecycle, lifecycleStatus) {
+  return {
+    editionLifecycle: {
+      active: false,
+      archivedAt: lifecycle?.archivedAt || null,
+      archiveVersion: lifecycle?.archiveVersion || null,
+      edition: lifecycleStatus.edition,
+      state: lifecycleStatus.state || null
+    },
+    staticData: {
+      fixturesDataUrl: "/data/fixtures.json",
+      standingsDataUrl: "/data/standings.json",
+      tournamentDataUrl: "/data/tournament.json"
+    },
+    syncStatus: {
+      active: false,
+      checkedAt: getInactiveSnapshotTimestamp(lifecycle, lifecycleStatus),
+      mode: "static",
+      ok: lifecycleStatus.valid,
+      provider: "static",
+      reason: lifecycleStatus.valid ? undefined : "Edition lifecycle is invalid; live sync is disabled.",
+      state: lifecycleStatus.state || null
+    }
+  };
 }
 
 async function readOptionalJson(fileName) {

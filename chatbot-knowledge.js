@@ -3,12 +3,14 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-historical-replay-recaps-tournament-memory-3";
+} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
+import { requestLiveDataForActiveEdition } from "./edition-runtime.js?v=2026-07-20-final-cutover-1";
 
-const BALL_BOY_DATA_VERSION = "2026-07-20-tournament-memory-2";
+const BALL_BOY_DATA_VERSION = "2026-07-20-final-archive-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
+  editionLifecycle: `data/edition-lifecycle.json?v=${BALL_BOY_DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${BALL_BOY_DATA_VERSION}`,
   history: `data/history.json?v=${BALL_BOY_DATA_VERSION}`,
   historicalPlayerIndex: `data/ball-boy-historical-players.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -801,6 +803,7 @@ const ZH_PERSONALITY_COPY = {
 
 let teamsPromise = null;
 let fixturesPromise = null;
+let editionLifecyclePromise = null;
 let chatbotH2hPromise = null;
 let coachProfilesPromise = null;
 let standingsPromise = null;
@@ -1507,32 +1510,41 @@ async function refreshFixturesFromLiveData() {
     return liveRefreshPromise;
   }
 
-  liveRefreshPromise = (async () => {
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 4000);
-    try {
-      const response = await fetch(BALL_BOY_DATA_URLS.liveData, {
-        headers: { Accept: "application/json" },
-        signal: controller.signal
-      });
-      if (!response.ok) {
-        return;
+  liveRefreshPromise = loadEditionLifecycle().then((lifecycle) =>
+    requestLiveDataForActiveEdition(lifecycle, async () => {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 4000);
+      try {
+        const response = await fetch(BALL_BOY_DATA_URLS.liveData, {
+          headers: { Accept: "application/json" },
+          signal: controller.signal
+        });
+        if (!response.ok) {
+          return;
+        }
+        const liveData = await response.json();
+        if (Array.isArray(liveData?.fixturesData?.fixtures)) {
+          fixturesCache = liveData.fixturesData.fixtures;
+        }
+        if (liveData?.standingsData?.groups) {
+          standingsCache = liveData.standingsData.groups;
+        }
+      } catch {
+        // Static data is the intentional local and offline fallback.
+      } finally {
+        window.clearTimeout(timeout);
       }
-      const liveData = await response.json();
-      if (Array.isArray(liveData?.fixturesData?.fixtures)) {
-        fixturesCache = liveData.fixturesData.fixtures;
-      }
-      if (liveData?.standingsData?.groups) {
-        standingsCache = liveData.standingsData.groups;
-      }
-    } catch {
-      // Static data is the intentional local and offline fallback.
-    } finally {
-      window.clearTimeout(timeout);
-    }
-  })();
+    })
+  );
 
   return liveRefreshPromise;
+}
+
+async function loadEditionLifecycle() {
+  if (!editionLifecyclePromise) {
+    editionLifecyclePromise = loadJson(BALL_BOY_DATA_URLS.editionLifecycle, null);
+  }
+  return editionLifecyclePromise;
 }
 
 async function loadFixtures() {

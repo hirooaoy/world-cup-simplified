@@ -6,8 +6,15 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 15 * * *"
+    # Off-season archive health: 15:17 UTC on the first day of each month.
+    - cron: "17 15 1 * *"
   workflow_dispatch:
+    inputs:
+      refresh_live_data:
+        description: Refresh upstream data when the configured edition lifecycle is active
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -37,13 +44,22 @@ jobs:
   prepare:
     name: Prepare synchronized data
     needs: edition-window
-    if: github.event_name != 'schedule' || needs.edition-window.outputs.active == 'true'
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+
+      - name: Reject refresh outside the live edition window
+        if: >-
+          github.event_name == 'workflow_dispatch' &&
+          inputs.refresh_live_data == true &&
+          needs.edition-window.outputs.active != 'true'
+        run: |
+          echo "::error title=Live edition is closed::Upstream refresh is allowed only while the configured edition lifecycle is active."
+          exit 1
 
       - name: Set up project
         uses: ./.github/actions/setup-project
@@ -52,7 +68,9 @@ jobs:
         run: pnpm release-notes:check
 
       - name: Sync release-candidate data
-        if: needs.edition-window.outputs.active == 'true' || github.event_name == 'workflow_dispatch'
+        if: >-
+          needs.edition-window.outputs.active == 'true' &&
+          (github.event_name != 'workflow_dispatch' || inputs.refresh_live_data == true)
         run: |
           pnpm sync:fifa
           pnpm sync:fifa:lineups
@@ -79,6 +97,7 @@ jobs:
     needs:
       - edition-window
       - prepare
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -88,9 +107,11 @@ jobs:
             install_browser: false
             command: >-
               pnpm validate &&
+              node scripts/audit-workflow-safety.mjs &&
               pnpm edition:window:smoke &&
               pnpm events:corrections:smoke &&
               pnpm archive:2026:smoke &&
+              pnpm archive:verify &&
               pnpm run audit &&
               pnpm audit:tournament &&
               pnpm results:check &&
@@ -131,3 +152,23 @@ jobs:
 
       - name: Run ${{ matrix.name }}
         run: ${{ matrix.command }}
+
+  archive-health:
+    name: Verify archived edition health
+    needs: edition-window
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up project
+        uses: ./.github/actions/setup-project
+
+      - name: Verify lifecycle, archive, and tournament integrity
+        run: |
+          pnpm edition:window
+          pnpm archive:verify
+          pnpm archive:2026:smoke
+          pnpm audit:tournament
+          node scripts/audit-workflow-safety.mjs

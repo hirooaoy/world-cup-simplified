@@ -19,6 +19,7 @@ try {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ballBoyOnly = process.argv.includes("--ball-boy-only");
+const highlightsClubLinesOnly = process.argv.includes("--highlights-club-lines-only");
 const requestedLocale = process.argv
   .find((argument) => argument.startsWith("--locale="))
   ?.slice("--locale=".length);
@@ -46,7 +47,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Campeones del mundo, archivos más completos y un Ball Boy más inteligente",
+    latestReleaseTitle: "Un archivo definitivo de 2026, un resumen de premios y una temporada baja más tranquila",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -115,7 +116,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "월드컵 우승, 더 풍부한 아카이브와 더 똑똑한 Ball Boy",
+    latestReleaseTitle: "완료된 2026 아카이브, 수상 요약과 더 조용한 비시즌",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -177,10 +178,21 @@ const highlightsLocaleCases = [
   {
     code: "en",
     htmlLang: "en",
-    pageTitle: "Spain are world champions.",
+    pageTitle: "Spain are 2026 world champions.",
     goldenBallMeaning: "Best overall player",
+    goldenBallImpact: "His consistency and leadership were central to their title run.",
     goldenGloveStat: "Seven clean sheets in eight games.",
+    fairPlayStat: "They finished their last three matches without a card.",
+    vanDijkClubLine: "Liverpool (Premier League)",
+    bestXiClubLine: "Athletic Bilbao (La Liga)",
     goldenBootName: "Kylian Mbappé",
+    bestXiInfo: "Selected by the site admin.",
+    bestCoachLabel: "Best coach",
+    bestXiTitle: "Best XI of 2026",
+    starterGoalkeeper: "G. Kobel",
+    honourableGoalkeeper: "U. Simón",
+    benchLabel: "Bench",
+    honourableMentions: "Honorable Mentions",
     backLabel: "Back",
     settingsLabel: "Settings",
     languageLabel: "Language",
@@ -190,10 +202,21 @@ const highlightsLocaleCases = [
   {
     code: "zh",
     htmlLang: "zh-Hans",
-    pageTitle: "西班牙成为世界冠军。",
+    pageTitle: "西班牙成为2026年世界杯冠军。",
     goldenBallMeaning: "赛事最佳球员",
+    goldenBallImpact: "他的稳定发挥和领导力是球队夺冠的关键。",
     goldenGloveStat: "8场比赛7次零封。",
+    fairPlayStat: "他们在最后三场比赛中没有领到任何牌。",
+    vanDijkClubLine: "利物浦（英超）",
+    bestXiClubLine: "毕尔巴鄂竞技（西甲）",
     goldenBootName: "基利安·姆巴佩",
+    bestXiInfo: "由网站管理员选出。",
+    bestCoachLabel: "最佳教练",
+    bestXiTitle: "2026年最佳阵容",
+    starterGoalkeeper: "格雷戈·科贝尔",
+    honourableGoalkeeper: "乌奈·西蒙",
+    benchLabel: "替补席",
+    honourableMentions: "荣誉提名",
     backLabel: "返回",
     settingsLabel: "设置",
     languageLabel: "语言",
@@ -203,10 +226,21 @@ const highlightsLocaleCases = [
   {
     code: "es",
     htmlLang: "es-419",
-    pageTitle: "España es campeona del mundo.",
+    pageTitle: "España es campeona del Mundial 2026.",
     goldenBallMeaning: "Mejor jugador del torneo",
+    goldenBallImpact: "Su regularidad y liderazgo fueron claves en el título.",
     goldenGloveStat: "Siete porterías a cero en ocho partidos.",
+    fairPlayStat: "Terminó sus últimos tres partidos sin recibir tarjetas.",
+    vanDijkClubLine: "Liverpool (Premier League)",
+    bestXiClubLine: "Athletic Bilbao (LaLiga)",
     goldenBootName: "Kylian Mbappé",
+    bestXiInfo: "Elegido por el administrador del sitio.",
+    bestCoachLabel: "Mejor entrenador",
+    bestXiTitle: "Mejor once de 2026",
+    starterGoalkeeper: "G. Kobel",
+    honourableGoalkeeper: "U. Simón",
+    benchLabel: "Suplentes",
+    honourableMentions: "Menciones honoríficas",
     backLabel: "Volver",
     settingsLabel: "Configuración",
     languageLabel: "Idioma",
@@ -216,10 +250,21 @@ const highlightsLocaleCases = [
   {
     code: "ko",
     htmlLang: "ko",
-    pageTitle: "스페인이 세계 챔피언에 올랐다.",
+    pageTitle: "스페인이 2026년 월드컵 챔피언이 됐다.",
     goldenBallMeaning: "대회 최우수 선수",
+    goldenBallImpact: "꾸준함과 리더십은 우승의 핵심이었다.",
     goldenGloveStat: "8경기에서 7번 무실점.",
+    fairPlayStat: "마지막 세 경기에서는 카드를 한 장도 받지 않았다.",
+    vanDijkClubLine: "리버풀 (프리미어리그)",
+    bestXiClubLine: "아틀레틱 빌바오 (라리가)",
     goldenBootName: "킬리안 음바페",
+    bestXiInfo: "사이트 운영자가 선정했습니다.",
+    bestCoachLabel: "최우수 감독",
+    bestXiTitle: "2026년 베스트 11",
+    starterGoalkeeper: "그. 코벨",
+    honourableGoalkeeper: "우. 시몬",
+    benchLabel: "교체 명단",
+    honourableMentions: "명예 선정",
     backLabel: "뒤로",
     settingsLabel: "설정",
     languageLabel: "언어",
@@ -227,6 +272,37 @@ const highlightsLocaleCases = [
     homeLabel: "홈으로 돌아가기"
   }
 ];
+
+const timelineLocaleContracts = Object.freeze({
+  en: {
+    heading: "See you next time",
+    lead: "Morocco, Portugal, and Spain will host, with centenary matches in Argentina, Paraguay, and Uruguay.",
+    dates: ["Already set", "", "8 Jun 2030"],
+    titles: ["Six teams have their places", "The groups are drawn", "The 2030 World Cup begins"],
+    hostsBody: "Morocco, Portugal, and Spain will host the main tournament. Argentina, Paraguay, and Uruguay will stage the centenary matches. All six qualify automatically.",
+  },
+  zh: {
+    heading: "下次见",
+    lead: "摩洛哥、葡萄牙和西班牙将主办2030年世界杯，阿根廷、巴拉圭和乌拉圭将承办百年纪念赛。",
+    dates: ["已经确定", "", "2030年6月8日"],
+    titles: ["六支球队已锁定席位", "小组抽签", "2030年世界杯开幕"],
+    hostsBody: "摩洛哥、葡萄牙和西班牙将主办主要赛事；阿根廷、巴拉圭和乌拉圭将承办百年纪念赛。六队均自动晋级。",
+  },
+  es: {
+    heading: "Nos vemos la próxima vez",
+    lead: "Marruecos, Portugal y España serán las sedes, con partidos del centenario en Argentina, Paraguay y Uruguay.",
+    dates: ["Ya definidos", "", "8 jun 2030"],
+    titles: ["Seis selecciones ya tienen su lugar", "Se sortean los grupos", "Comienza el Mundial de 2030"],
+    hostsBody: "Marruecos, Portugal y España albergarán el torneo principal. Argentina, Paraguay y Uruguay recibirán los partidos del centenario. Las seis selecciones se clasifican automáticamente.",
+  },
+  ko: {
+    heading: "다음에 또 만나요",
+    lead: "모로코·포르투갈·스페인이 개최하며, 아르헨티나·파라과이·우루과이에서는 100주년 기념 경기가 열린다.",
+    dates: ["이미 확정", "", "2030년 6월 8일"],
+    titles: ["여섯 팀은 이미 본선에 진출했다", "조 추첨이 열린다", "2030 월드컵 개막"],
+    hostsBody: "모로코·포르투갈·스페인이 본 대회를 개최한다. 아르헨티나·파라과이·우루과이는 100주년 기념 경기를 연다. 여섯 팀 모두 자동 진출한다.",
+  }
+});
 
 function assert(condition, message) {
   if (!condition) {
@@ -299,8 +375,57 @@ async function waitForApp(page, locale, options = {}) {
   );
 }
 
+async function assertArchivedHomeSeo(browser) {
+  const cases = [
+    { code: "en", htmlLang: "en", required: "completed 2026 World Cup", forbidden: /\blive results\b|\bpredictions\b/iu },
+    { code: "zh", htmlLang: "zh-Hans", required: "已结束的2026世界杯", forbidden: /实时赛果|预测/u },
+    { code: "es", htmlLang: "es-419", required: "Mundial 2026 ya terminado", forbidden: /resultados en vivo|pronósticos/iu },
+    { code: "ko", htmlLang: "ko", required: "종료된 2026 월드컵", forbidden: /실시간 결과|전망|예측/u }
+  ];
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  for (const locale of cases) {
+    await page.goto(getUrl(`/?view=matches&lang=${locale.code}`), { waitUntil: "domcontentloaded" });
+    await waitForApp(page, locale, { expectRows: false });
+    await page.waitForFunction(
+      (required) => [
+        document.querySelector('meta[name="description"]')?.content || "",
+        document.querySelector('meta[property="og:description"]')?.content || "",
+        document.querySelector('meta[name="twitter:description"]')?.content || ""
+      ].every((value) => value.includes(required)),
+      locale.required,
+      { timeout: 30000 }
+    );
+    const metadata = await page.evaluate(() => ({
+      description: document.querySelector('meta[name="description"]')?.content || "",
+      openGraph: document.querySelector('meta[property="og:description"]')?.content || "",
+      structuredDescription: (() => {
+        try {
+          return JSON.parse(document.querySelector("#seo-structured-data")?.textContent || "{}").description || "";
+        } catch {
+          return "";
+        }
+      })(),
+      twitter: document.querySelector('meta[name="twitter:description"]')?.content || ""
+    }));
+    const values = Object.values(metadata);
+    assert(
+      values.every((value) => value.includes(locale.required) && value.includes("104") && !locale.forbidden.test(value)),
+      `${locale.code}: archived home metadata must describe the completed 104-match edition without live-results or live-predictions wording. Measured ${JSON.stringify(metadata)}.`
+    );
+  }
+  await context.close();
+}
+
 async function assertHighlightsLocales(browser) {
-  for (const locale of highlightsLocaleCases) {
+  const selectedHighlightsLocaleCases = highlightsClubLinesOnly && requestedLocale
+    ? highlightsLocaleCases.filter((locale) => locale.code === requestedLocale)
+    : highlightsLocaleCases;
+  assert(
+    selectedHighlightsLocaleCases.length > 0,
+    `Unknown highlights locale smoke selection: ${requestedLocale || "(none)"}`
+  );
+  for (const locale of selectedHighlightsLocaleCases) {
     const context = await browser.newContext();
     const page = await context.newPage();
     const pageErrors = [];
@@ -310,6 +435,7 @@ async function assertHighlightsLocales(browser) {
     await page.waitForFunction(
       ({ expectedLanguage, expectedTitle }) =>
         !document.body.classList.contains("is-locale-loading") &&
+        !document.body.classList.contains("is-initial-page-load") &&
         document.documentElement.lang === expectedLanguage &&
         document.querySelector("#page-title")?.textContent.trim() === expectedTitle,
       { expectedLanguage: locale.htmlLang, expectedTitle: locale.pageTitle },
@@ -317,17 +443,148 @@ async function assertHighlightsLocales(browser) {
     );
     const measured = await page.evaluate(() => ({
       awardCount: document.querySelectorAll(".award-row").length,
+      championIllustration: Boolean(
+        document.querySelector(".champion-illustration .champion-illustration-trophy")
+      ),
+      championPhotoCount: document.querySelectorAll('.champion-photo, img[src*="spain-world-champions"]').length,
+      pageTitleTypography: (() => {
+        const title = document.querySelector("#page-title");
+        const style = title ? getComputedStyle(title) : null;
+        return {
+          family: style?.fontFamily || "",
+          size: Number.parseFloat(style?.fontSize || "0"),
+          style: style?.fontStyle || "",
+          transform: style?.textTransform || ""
+        };
+      })(),
       brandHref: document.querySelector(".site-brand")?.getAttribute("href") || "",
       goldenBallMeaning:
         document.querySelector('[data-i18n="goldenBallMeaning"]')?.textContent.trim() || "",
-      goldenBootName: document.querySelector("#golden-boot-name")?.textContent.trim() || "",
+      goldenBallImpact:
+        document.querySelector('strong[data-i18n="goldenBallImpact"]')?.textContent.trim() || "",
+      goldenBootName:
+        document.querySelector("#golden-boot-name [data-highlight-player-trigger]")?.textContent.trim() ||
+        Array.from(document.querySelector("#golden-boot-name")?.childNodes || [])
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent || "")
+          .join("")
+          .trim(),
+      awardPlayerNumbers: ["golden-ball-name", "golden-boot-name", "golden-glove-name", "young-player-name"]
+        .map((id) => document.querySelector(`#${id} .player-card-number`)?.textContent.trim() || ""),
       goldenGloveStat:
         document.querySelector('[data-i18n="goldenGloveStat"]')?.textContent.trim() || "",
+      fairPlayStat:
+        document.querySelector('strong[data-i18n="fairPlayStat"]')?.textContent.trim() || "",
+      vanDijkClubLine:
+        document.querySelector('[data-highlight-player-name="Virgil van Dijk"] .player-card-club')?.textContent.trim() || "",
       highlightCount: document.querySelectorAll(".highlight-row").length,
+      highlightPlayerCardCount: document.querySelectorAll(
+        ".highlight-player-card:not(.lineup-coach-card)"
+      ).length,
+      highlightPlayerCardsHaveAgeAndValue: Array.from(
+        document.querySelectorAll(".highlight-player-card:not(.lineup-coach-card)")
+      ).every((card) => {
+        const meta = card.querySelector(".player-card-meta");
+        return Boolean(
+          meta &&
+          meta.textContent.includes("•") &&
+          meta.textContent.includes("€") &&
+          /\d/.test(meta.textContent) &&
+          meta.querySelector(".player-card-value-help")
+        );
+      }),
+      bestXiTitle: document.querySelector("#best-xi-title")?.textContent.trim() || "",
+      bestXiInfo: document.querySelector(".best-xi-info-button")?.getAttribute("data-tooltip") || "",
+      bestXiTabHasWorldMapEmoji: Boolean(
+        document.querySelector(
+          '.best-xi-tabs .lineup-tab-label-compact[aria-hidden="true"] .best-xi-world-map-icon'
+        )?.textContent.trim() === "🗺️"
+      ),
+      bestXiTabText:
+        document.querySelector(".best-xi-tabs .lineup-tab-label-compact")?.textContent.trim() || "",
+      bestCoachTriggerText: document.querySelector(".best-xi-coach-trigger")?.textContent.trim() || "",
+      bestCoachAria: document.querySelector(".best-xi-coach-trigger")?.getAttribute("aria-label") || "",
+      bestCoachCardCopy: document.querySelector(".best-xi-coach-card")?.textContent.trim() || "",
+      bestCoachHasPortrait: Boolean(document.querySelector("#best-xi-coach-avatar img[src]")),
+      bestCoachBeforeHonourables: (() => {
+        const coach = document.querySelector(".best-xi-coach-trigger")?.getBoundingClientRect();
+        const honourables = document.querySelector(".best-xi-honourables-button")?.getBoundingClientRect();
+        return Boolean(coach && honourables && coach.right <= honourables.left);
+      })(),
+      bestXiFormationAbsent: !document.querySelector(".best-xi-band .lineup-formation-pill"),
+      bestXiMarkerCount: document.querySelectorAll(".best-xi-marker").length,
+      bestXiToggleCount: document.querySelectorAll("[data-best-xi-toggle]").length,
+      honourableMentionsLabel:
+        document.querySelector(".best-xi-honourables-button > span:first-child")?.textContent.trim() || "",
+      honourableMentionsCount:
+        document.querySelector(".best-xi-honourables-button .lineup-bench-count")?.textContent.trim() || "",
+      honourableMentionsExpanded:
+        document.querySelector(".best-xi-honourables-button")?.getAttribute("aria-expanded") || "",
+      honourableMentionsHidden:
+        document.querySelector(".best-xi-honourables-panel")?.getAttribute("aria-hidden") || "",
+      honourableMentionsPlayerCount:
+        document.querySelectorAll(".best-xi-honourables-panel .lineup-bench-player").length,
+      honourableMentionsNumericBadgeCount:
+        document.querySelectorAll(".best-xi-honourables-panel .lineup-bench-number").length,
+      hasLegacyBestXiViewToggle: Boolean(document.querySelector(".best-xi-view-toggle")),
+      bestXiNumericBadgeCount: document.querySelectorAll(".best-xi-marker .lineup-player-number").length,
+      bestXiScoringBadgeCount: document.querySelectorAll(".best-xi-marker .lineup-avatar-score-events .lineup-event-score").length,
+      bestXiRodriScoringBadges: Array.from(
+        document.querySelectorAll('[data-best-xi-slot="dm"] .lineup-avatar-score-events .lineup-event-score-label'),
+        (badge) => badge.textContent.trim()
+      ),
+      bestXiJudeScoringBadges: Array.from(
+        document.querySelectorAll('[data-best-xi-slot="rcm"] .lineup-avatar-score-events .lineup-event-score-label'),
+        (badge) => badge.textContent.trim()
+      ),
+      bestXiMbappeScoringBadges: Array.from(
+        document.querySelectorAll('[data-best-xi-slot="lw"] .lineup-avatar-score-events .lineup-event-score-label'),
+        (badge) => badge.textContent.trim()
+      ),
+      hasBestXiLegend: Boolean(document.querySelector(".best-xi-legend")),
+      hasBestXiSourceStrip: Boolean(document.querySelector(".best-xi-source")),
+      hasChampionStats: Boolean(document.querySelector(".intro-stats")),
+      hasHighlightFootnote: Boolean(document.querySelector(".small-note")),
+      hasMethodologyNote: Boolean(document.querySelector(".methodology-note")),
+      hasAwardsFooter: Boolean(document.querySelector(".awards-footer")),
+      headerVisible: (() => {
+        const header = document.querySelector(".site-header");
+        const bounds = header?.getBoundingClientRect();
+        return Boolean(
+          header &&
+          getComputedStyle(header).display !== "none" &&
+          bounds &&
+          bounds.width > 0 &&
+          bounds.height > 0
+        );
+      })(),
+      starterGoalkeeper:
+        document.querySelector('[data-best-xi-slot="gk"] .lineup-player-name')?.textContent.trim() || "",
       portraitCount: document.querySelectorAll(".award-player-photo").length,
       portraitImageCount: document.querySelectorAll(".award-player-photo img[src]").length,
+      identityMetaCount: document.querySelectorAll(".award-row .award-meta").length,
+      awardReadingOrder: Array.from(document.querySelectorAll(".award-row")).every((row) => {
+        const summary = row.querySelector(".award-summary")?.getBoundingClientRect();
+        const details = row.querySelector(".award-details")?.getBoundingClientRect();
+        const recipient = row.querySelector(".award-recipient")?.getBoundingClientRect();
+        const explanation = row.querySelector(".award-explanation")?.getBoundingClientRect();
+        const portrait = row.querySelector(".award-player-photo")?.getBoundingClientRect();
+        const name = row.querySelector(".award-player-name")?.getBoundingClientRect();
+        const country = row.querySelector(".award-meta")?.getBoundingClientRect();
+        if (!summary || !details || !recipient || !explanation || !name || !country) {
+          return false;
+        }
+        return summary.right <= details.left && recipient.bottom <= explanation.top &&
+          (!portrait || portrait.right <= name.left) && name.bottom <= country.top;
+      }),
+      alignedWinnerNames:
+        new Set(
+          Array.from(document.querySelectorAll(".award-player-name"), (name) =>
+            Math.round(name.getBoundingClientRect().left * 10) / 10
+          )
+        ).size <= 2,
       fairPlayHasPortrait: Boolean(
-        document.querySelector("#fair-play-name")?.closest(".award-copy")?.querySelector(".award-player-photo")
+        document.querySelector("#fair-play-name")?.closest(".award-row")?.querySelector(".award-player-photo")
       ),
       language: document.documentElement.lang,
       languageOptions: document.querySelectorAll("#language-select option").length,
@@ -341,15 +598,170 @@ async function assertHighlightsLocales(browser) {
       hasSettingsPopover: Boolean(document.querySelector("#settings-popover")),
       hasDarkModeToggle: Boolean(document.querySelector("#dark-mode-toggle")),
       hasLegacyThemeButton: Boolean(document.querySelector("#theme-toggle")),
+      timeline: {
+        count: document.querySelectorAll(".next-world-cup-timeline .timeline-item").length,
+        heading: document.querySelector("#next-world-cup-title")?.textContent.trim() || "",
+        lead: document.querySelector('[data-i18n="nextWorldCupLead"]')?.textContent.trim() || "",
+        dates: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-date"), (node) =>
+          node.textContent.replace(/\s+/gu, " ").trim()
+        ),
+        titles: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-copy h3"), (node) =>
+          node.textContent.trim()
+        ),
+        hostsBody: document.querySelector('[data-i18n="timelineHostsBody"]')?.textContent.trim() || "",
+        stateOrder: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-item"), (item) =>
+          item.classList.contains("is-complete") ? "complete" : item.classList.contains("is-scheduled") ? "scheduled" : "pending"
+        ),
+        sourceCount: document.querySelectorAll(".next-world-cup-source").length
+      },
       title: document.querySelector("#page-title")?.textContent.trim() || "",
       urlLanguage: new URL(window.location.href).searchParams.get("lang") || "en"
     }));
+
+    assert(
+      measured.headerVisible,
+      `${locale.code}: The Awards page should keep its shared Back and Settings header visible.`
+    );
+
+    if (highlightsClubLinesOnly) {
+      assert(
+        measured.vanDijkClubLine === locale.vanDijkClubLine &&
+          JSON.stringify(measured.awardPlayerNumbers) === JSON.stringify(["#16", "#10", "#23", "#22"]),
+        `${locale.code}: awards cards should show localized club and league copy plus tournament shirt numbers. Measured ${JSON.stringify({ club: measured.vanDijkClubLine, numbers: measured.awardPlayerNumbers })}.`
+      );
+      await page.locator(".best-xi-honourables-button").click();
+      await page.locator(
+        '.best-xi-honourables-panel [data-best-xi-slot="gk"][data-best-xi-player-index="0"] [data-best-xi-player-trigger]'
+      ).click();
+      const bestXiClubLine = await page.locator("#best-xi-player-card .player-card-club").innerText();
+      const bestXiFlagCount = await page.locator("#best-xi-player-card .player-card-flag .flag").count();
+      const bestXiNumber = await page.locator("#best-xi-player-card .player-card-number").innerText();
+      assert(
+        bestXiClubLine.trim() === locale.bestXiClubLine &&
+          bestXiFlagCount === 1 &&
+          bestXiNumber.trim() === "#23",
+        `${locale.code}: the Best XI card should show its flag, tournament shirt number, and localized club and league instead of the national team. Measured ${JSON.stringify({ club: bestXiClubLine.trim(), flagCount: bestXiFlagCount, number: bestXiNumber.trim() })}.`
+      );
+      await page.keyboard.press("Escape");
+      await page.locator(".best-xi-honourables-button").click();
+      await page.locator(
+        '.best-xi-marker[data-best-xi-slot="rcm"] [data-best-xi-player-trigger]'
+      ).click();
+      const judeMetadata = await page.evaluate(() => {
+        const card = document.querySelector("#best-xi-player-card");
+        return {
+          club: card?.querySelector(".player-card-club")?.textContent.trim() || "",
+          flagClass: card?.querySelector(".player-card-flag .flag")?.className || "",
+          flagLabel: card?.querySelector(".player-card-flag .flag")?.getAttribute("aria-label") || ""
+        };
+      });
+      assert(
+        judeMetadata.club.length > 4 &&
+          /[（(].+[）)]/u.test(judeMetadata.club) &&
+          judeMetadata.flagClass.split(/\s+/u).includes("flag-england") &&
+          judeMetadata.flagLabel.length > 4,
+        `${locale.code}: Jude Bellingham's Best XI card should render the CSS-drawn England flag and profile club metadata. Measured ${JSON.stringify(judeMetadata)}.`
+      );
+      await page.keyboard.press("Escape");
+      await page.locator(".best-xi-honourables-button").click();
+      await page.locator(
+        '.best-xi-honourables-panel [data-best-xi-player-name="Michael Olise"] [data-best-xi-player-trigger]'
+      ).click();
+      const oliseMetadata = await page.evaluate(() => {
+        const card = document.querySelector("#best-xi-player-card");
+        return {
+          club: card?.querySelector(".player-card-club")?.textContent.trim() || "",
+          flagCount: card?.querySelectorAll(".player-card-flag .flag").length || 0,
+          number: card?.querySelector(".player-card-number")?.textContent.trim() || "",
+          position: card?.querySelector(".player-card-position")?.textContent.trim() || "",
+          skillCount: card?.querySelectorAll(".player-skill-list > span").length || 0
+        };
+      });
+      assert(
+        oliseMetadata.flagCount === 1 &&
+          oliseMetadata.number === "#11" &&
+          oliseMetadata.skillCount >= 3 &&
+          /[（(].+[）)]/u.test(oliseMetadata.club) &&
+          oliseMetadata.position.length > 4 &&
+          (locale.code !== "en" || (
+            oliseMetadata.position === "Winger, Attacking midfielder" &&
+            oliseMetadata.club === "Bayern Munich (Bundesliga)"
+          )),
+        `${locale.code}: Michael Olise should reuse the original profile card metadata. Measured ${JSON.stringify(oliseMetadata)}.`
+      );
+      assert(
+        pageErrors.length === 0,
+        `${locale.code}: club-line rendering should not raise browser errors. Measured ${JSON.stringify(pageErrors)}.`
+      );
+      await page.goto(getUrl(`/${query}`), { waitUntil: "domcontentloaded" });
+      await waitForApp(page, locale, { expectRows: false });
+      const mainAppClubLine = await page.evaluate(async () => {
+        const playerData = await fetch("data/player-profiles.json").then((response) => response.json());
+        const profile = playerData.profiles?.["Virgil van Dijk"];
+        return window.__worldCupTestHooks?.playerCards?.getLocalizedPlayerClubLine?.(
+          { name: "Virgil van Dijk" },
+          profile
+        ) || "";
+      });
+      assert(
+        mainAppClubLine === locale.vanDijkClubLine,
+        `${locale.code}: the main app should use the same localized club and league formatter. Measured ${JSON.stringify(mainAppClubLine)}.`
+      );
+      await context.close();
+      continue;
+    }
+
     const expectedBrandHref = locale.code === "en" ? "./" : `./?lang=${locale.code}`;
+    const timelineContract = timelineLocaleContracts[locale.code];
     assert(
       measured.awardCount === 5 &&
+        measured.championIllustration &&
+        measured.championPhotoCount === 0 &&
+        measured.pageTitleTypography.family.includes("Avenir Next Condensed") &&
+        measured.pageTitleTypography.size <= 30 &&
+        measured.pageTitleTypography.style === "italic" &&
+        measured.pageTitleTypography.transform === "uppercase" &&
         measured.highlightCount === 3 &&
+        measured.highlightPlayerCardCount > 0 &&
+        measured.highlightPlayerCardsHaveAgeAndValue &&
+        measured.vanDijkClubLine === locale.vanDijkClubLine &&
+        measured.bestXiTitle === locale.bestXiTitle &&
+        measured.bestXiInfo === locale.bestXiInfo &&
+        measured.bestXiTabHasWorldMapEmoji &&
+        measured.bestXiTabText === "🗺️" &&
+        measured.bestCoachTriggerText === "" &&
+        measured.bestCoachAria.includes("Luis de la Fuente") &&
+        measured.bestCoachCardCopy.includes("Luis De La Fuente") &&
+        measured.bestCoachHasPortrait &&
+        measured.bestCoachBeforeHonourables &&
+        measured.bestXiFormationAbsent &&
+        measured.bestXiMarkerCount === 11 &&
+        measured.bestXiToggleCount === 0 &&
+        measured.honourableMentionsLabel === locale.benchLabel &&
+        measured.honourableMentionsCount === "15" &&
+        measured.honourableMentionsExpanded === "false" &&
+        measured.honourableMentionsHidden === "true" &&
+        measured.honourableMentionsPlayerCount === 15 &&
+        measured.honourableMentionsNumericBadgeCount === 0 &&
+        !measured.hasLegacyBestXiViewToggle &&
+        measured.bestXiNumericBadgeCount === 0 &&
+        measured.bestXiScoringBadgeCount === 10 &&
+        measured.bestXiRodriScoringBadges.length === 0 &&
+        JSON.stringify(measured.bestXiJudeScoringBadges) === JSON.stringify(["7G", "1A"]) &&
+        JSON.stringify(measured.bestXiMbappeScoringBadges) === JSON.stringify(["10G", "4A"]) &&
+        !measured.hasBestXiLegend &&
+        !measured.hasBestXiSourceStrip &&
+        !measured.hasChampionStats &&
+        !measured.hasHighlightFootnote &&
+        !measured.hasMethodologyNote &&
+        measured.hasAwardsFooter &&
+        measured.headerVisible &&
+        measured.starterGoalkeeper === locale.starterGoalkeeper &&
         measured.portraitCount === 4 &&
         measured.portraitImageCount === 4 &&
+        measured.identityMetaCount === 5 &&
+        measured.awardReadingOrder &&
+        measured.alignedWinnerNames &&
         !measured.fairPlayHasPortrait &&
         measured.languageOptions === 4 &&
         measured.language === locale.htmlLang &&
@@ -358,20 +770,430 @@ async function assertHighlightsLocales(browser) {
         measured.brandHref === expectedBrandHref &&
         measured.title === locale.pageTitle &&
         measured.goldenBallMeaning === locale.goldenBallMeaning &&
+        measured.goldenBallImpact === locale.goldenBallImpact &&
         measured.goldenGloveStat === locale.goldenGloveStat &&
+        measured.fairPlayStat === locale.fairPlayStat &&
         measured.goldenBootName === locale.goldenBootName &&
+        JSON.stringify(measured.awardPlayerNumbers) === JSON.stringify(["#16", "#10", "#23", "#22"]) &&
         measured.backLabel === locale.backLabel &&
         measured.settingsLabel === locale.settingsLabel &&
         measured.languageLabel === locale.languageLabel &&
         measured.darkModeLabel === locale.darkModeLabel &&
         measured.homeLabel === locale.homeLabel &&
         measured.homeHref === expectedBrandHref &&
+        measured.timeline.count === 3 &&
+        measured.timeline.heading === timelineContract.heading &&
+        measured.timeline.lead === timelineContract.lead &&
+        JSON.stringify(measured.timeline.dates) === JSON.stringify(timelineContract.dates) &&
+        JSON.stringify(measured.timeline.titles) === JSON.stringify(timelineContract.titles) &&
+        measured.timeline.hostsBody === timelineContract.hostsBody &&
+        JSON.stringify(measured.timeline.stateOrder) === JSON.stringify(["complete", "pending", "scheduled"]) &&
+        measured.timeline.sourceCount === 0 &&
         measured.hasSettingsPopover &&
         measured.hasDarkModeToggle &&
         !measured.hasLegacyThemeButton &&
         pageErrors.length === 0,
       `${locale.code}: the awards page should render complete, localized copy and navigation without browser errors. Measured ${JSON.stringify({ measured, pageErrors })}.`
     );
+
+    if (locale.code === "en") {
+      const ferranHover = page.locator('[data-highlight-player-name="Ferran Torres"]');
+      const ferranTrigger = ferranHover.locator("[data-highlight-player-trigger]");
+      const ferranCard = ferranHover.locator(".highlight-player-card");
+      for (const shouldOpenBelow of [false, true]) {
+        if (shouldOpenBelow) {
+          const triggerDocumentTop = await ferranTrigger.evaluate(
+            (trigger) => trigger.getBoundingClientRect().top + window.scrollY
+          );
+          await page.evaluate((top) => window.scrollTo(0, Math.max(0, top - 80)), triggerDocumentTop);
+        } else {
+          await page.evaluate(() => window.scrollTo(0, 0));
+        }
+        await ferranTrigger.hover();
+        await ferranCard.waitFor({ state: "visible" });
+        const triggerBox = await ferranTrigger.boundingBox();
+        const cardBox = await ferranCard.boundingBox();
+        assert(triggerBox && cardBox, "Ferran Torres hover geometry should be measurable.");
+        const bridgeX = Math.min(
+          cardBox.x + cardBox.width - 4,
+          Math.max(cardBox.x + 4, triggerBox.x + triggerBox.width / 2)
+        );
+        const cardIsAbove = cardBox.y + cardBox.height <= triggerBox.y;
+        const bridgeY = cardIsAbove
+          ? (cardBox.y + cardBox.height + triggerBox.y) / 2
+          : (triggerBox.y + triggerBox.height + cardBox.y) / 2;
+        await page.mouse.move(triggerBox.x + triggerBox.width / 2, triggerBox.y + triggerBox.height / 2);
+        await page.mouse.move(bridgeX, bridgeY, { steps: 8 });
+        await page.waitForTimeout(30);
+        const visibleAcrossGap = await ferranCard.isVisible();
+        const valueHelp = ferranCard.locator(".player-card-value-help").first();
+        const valueBox = await valueHelp.boundingBox();
+        assert(valueBox, "Ferran Torres Value help geometry should be measurable.");
+        await page.mouse.move(valueBox.x + valueBox.width / 2, valueBox.y + valueBox.height / 2, { steps: 8 });
+        await page.waitForTimeout(160);
+        const hoverState = await ferranCard.evaluate((card) => {
+          const value = card.querySelector(".player-card-value-help");
+          const tooltip = value ? getComputedStyle(value, "::after") : null;
+          const bridge = getComputedStyle(card, "::before");
+          return {
+            below: card.closest(".highlight-player-hover")?.classList.contains("is-card-below") || false,
+            bridgeHeight: Number.parseFloat(bridge.height || "0"),
+            cardVisible: getComputedStyle(card).visibility === "visible",
+            tooltipOpacity: Number.parseFloat(tooltip?.opacity || "0"),
+            tooltipVisibility: tooltip?.visibility || ""
+          };
+        });
+        assert(
+          visibleAcrossGap &&
+            hoverState.cardVisible &&
+            hoverState.below === shouldOpenBelow &&
+            hoverState.bridgeHeight >= 10 &&
+            hoverState.tooltipOpacity >= 0.99 &&
+            hoverState.tooltipVisibility === "visible",
+          `Highlights player cards should stay open across the ${shouldOpenBelow ? "below" : "above"} hover gap and expose Value help. Measured ${JSON.stringify(hoverState)}.`
+        );
+        await page.mouse.move(0, 0);
+        await page.waitForTimeout(35);
+        const fadeOutState = await ferranCard.evaluate((card) => {
+          const styles = getComputedStyle(card);
+          return {
+            display: styles.display,
+            opacity: Number.parseFloat(styles.opacity || "0"),
+            visibility: styles.visibility
+          };
+        });
+        assert(
+          fadeOutState.display === "grid" &&
+            fadeOutState.opacity > 0 &&
+            fadeOutState.opacity < 1 &&
+            fadeOutState.visibility === "visible",
+          `Highlights player cards should fade out instead of disappearing immediately. Measured ${JSON.stringify(fadeOutState)}.`
+        );
+        await page.waitForTimeout(280);
+        await ferranCard.waitFor({ state: "hidden" });
+      }
+      await page.evaluate(() => window.scrollTo(0, 0));
+    }
+
+    const coachTrigger = page.locator(".best-xi-coach-trigger");
+    await coachTrigger.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(50);
+    await page.mouse.move(0, 0);
+    await coachTrigger.hover();
+    await page.waitForFunction(
+      () => document.querySelector(".best-xi-coach-trigger")?.getAttribute("aria-expanded") === "true",
+      null,
+      { timeout: 5000 }
+    );
+    const coachHoverState = await page.evaluate(() => {
+      const trigger = document.querySelector(".best-xi-coach-trigger");
+      const sourceCard = document.querySelector(".best-xi-coach-card");
+      const card = document.querySelector("#highlight-player-card");
+      const rect = card?.getBoundingClientRect();
+      return {
+        expanded: trigger?.getAttribute("aria-expanded") || "",
+        open: trigger?.closest(".best-xi-coach-hover")?.classList.contains("is-card-open") || false,
+        portaled: trigger?.closest(".best-xi-coach-hover")?.classList.contains("is-card-portaled") || false,
+        display: card ? getComputedStyle(card).display : "",
+        visibility: card ? getComputedStyle(card).visibility : "",
+        sourceDisplay: sourceCard ? getComputedStyle(sourceCard).display : "",
+        sourceHidden: sourceCard ? (
+          getComputedStyle(sourceCard).display === "none" ||
+          getComputedStyle(sourceCard).visibility === "hidden" ||
+          Number.parseFloat(getComputedStyle(sourceCard).opacity || "1") === 0 ||
+          sourceCard.getClientRects().length === 0
+        ) : false,
+        withinViewport: Boolean(
+          rect && rect.left >= 0 && rect.top >= 0 &&
+          rect.right <= window.innerWidth && rect.bottom <= window.innerHeight
+        ),
+        triggerText: trigger?.textContent.trim() || ""
+      };
+    });
+    assert(
+        coachHoverState.expanded === "true" && coachHoverState.open && coachHoverState.portaled &&
+        coachHoverState.display === "grid" && coachHoverState.visibility === "visible" &&
+        coachHoverState.sourceHidden && coachHoverState.withinViewport &&
+        coachHoverState.triggerText === "",
+      `${locale.code}: The avatar-only coach control should open its full card on hover. Measured ${JSON.stringify(coachHoverState)}.`
+    );
+    await coachTrigger.click();
+    const coachCardState = await page.evaluate(() => {
+      const trigger = document.querySelector(".best-xi-coach-trigger");
+      const card = document.querySelector("#highlight-player-card");
+      const rect = card?.getBoundingClientRect();
+      return {
+        expanded: trigger?.getAttribute("aria-expanded") || "",
+        display: card ? getComputedStyle(card).display : "",
+        hasPortrait: Boolean(card?.querySelector(".lineup-coach-card-photo img[src]")),
+        hasProfileStructure: Boolean(
+          card?.querySelector(".player-card-header") &&
+          card?.querySelectorAll(".player-skill-list span").length === 3 &&
+          card?.querySelectorAll(".lineup-coach-copy .player-card-note").length >= 3
+        ),
+        withinViewport: Boolean(
+          rect && rect.left >= 0 && rect.top >= 0 && rect.right <= window.innerWidth && rect.bottom <= window.innerHeight
+        )
+      };
+    });
+    assert(
+      coachCardState.expanded === "true" && coachCardState.display === "grid" &&
+        coachCardState.hasPortrait && coachCardState.hasProfileStructure && coachCardState.withinViewport,
+      `${locale.code}: Best coach should reuse the complete lineup coach profile card inside the viewport. Measured ${JSON.stringify(coachCardState)}.`
+    );
+    await page.keyboard.press("Escape");
+
+    await page.locator(".best-xi-honourables-button").click();
+    const honourableState = await page.evaluate(() => ({
+      cardHidden: document.querySelector("#best-xi-player-card")?.getAttribute("aria-hidden"),
+      expanded: document.querySelector(".best-xi-honourables-button")?.getAttribute("aria-expanded") || "",
+      panelHidden: document.querySelector(".best-xi-honourables-panel")?.getAttribute("aria-hidden") || "",
+      panelOpen: document.querySelector(".best-xi-honourables-panel")?.classList.contains("is-open") || false,
+      playerCount: document.querySelectorAll(".best-xi-honourables-panel .best-xi-honourable-player").length,
+      goalkeeperName:
+        document.querySelector('.best-xi-honourables-panel [data-best-xi-slot="gk"][data-best-xi-player-index="0"] [data-best-xi-player-trigger]')?.textContent.trim() || "",
+      extraPlayerCount: document.querySelectorAll(
+        '.best-xi-honourables-panel [data-best-xi-player-index="1"]'
+      ).length,
+      vozinhaCount: document.querySelectorAll(
+        '.best-xi-honourables-panel [data-best-xi-player-name="Vozinha"]'
+      ).length,
+      starterGoalkeeper:
+        document.querySelector('.best-xi-marker[data-best-xi-slot="gk"] .lineup-player-name')?.textContent.trim() || "",
+      subToggleCount: document.querySelectorAll("[data-best-xi-toggle]").length
+    }));
+    assert(
+      honourableState.expanded === "true" &&
+        honourableState.panelHidden === "false" &&
+        honourableState.panelOpen &&
+        honourableState.playerCount === 15 &&
+        honourableState.extraPlayerCount === 4 &&
+        honourableState.vozinhaCount === 1 &&
+        honourableState.goalkeeperName === locale.honourableGoalkeeper &&
+        honourableState.starterGoalkeeper === locale.starterGoalkeeper &&
+        honourableState.subToggleCount === 0 &&
+        honourableState.cardHidden === "true",
+      `${locale.code}: Honorable Mentions should open as a 15-player bench with four researched additions, including Vozinha, without replacing the Best XI. Measured ${JSON.stringify(honourableState)}.`
+    );
+
+    const honourableGoalkeeperTrigger = page.locator(
+      '.best-xi-honourables-panel [data-best-xi-slot="gk"][data-best-xi-player-index="0"] [data-best-xi-player-trigger]'
+    );
+    await honourableGoalkeeperTrigger.click();
+    const cardState = await page.evaluate(() => {
+      const trigger = document.querySelector('.best-xi-honourables-panel [data-best-xi-slot="gk"] [data-best-xi-player-trigger]');
+      const card = document.querySelector("#best-xi-player-card");
+      const rect = card?.getBoundingClientRect();
+      return {
+        describedBy: trigger?.getAttribute("aria-describedby") || "",
+        expanded: trigger?.getAttribute("aria-expanded") || "",
+        hidden: card?.getAttribute("aria-hidden") || "",
+        hasAgeAndValue: Boolean(
+          card?.querySelector(".player-card-meta")?.textContent.includes("•") &&
+          card?.querySelector(".player-card-meta")?.textContent.includes("€") &&
+          /\d/.test(card?.querySelector(".player-card-meta")?.textContent || "") &&
+          card?.querySelector(".player-card-meta .player-card-value-help")
+        ),
+        skillPills: Array.from(
+          card?.querySelectorAll(".player-skill-list > span") || [],
+          (item) => item.textContent.trim()
+        ),
+        referenceSkillPills: Array.from(
+          document.querySelectorAll("#golden-glove-name .player-skill-list > span"),
+          (item) => item.textContent.trim()
+        ),
+        hasFlag: Boolean(card?.querySelector(".player-card-flag .flag")),
+        number: card?.querySelector(".player-card-number")?.textContent.trim() || "",
+        clubLine: card?.querySelector(".player-card-club")?.textContent.trim() || "",
+        reasonParagraphs: Array.from(
+          card?.querySelectorAll(".best-xi-player-reason") || [],
+          (paragraph) => paragraph.textContent.trim()
+        ),
+        withinViewport: Boolean(
+          rect && rect.left >= 0 && rect.top >= 0 && rect.right <= window.innerWidth && rect.bottom <= window.innerHeight
+        )
+      };
+    });
+    assert(
+      cardState.describedBy === "best-xi-player-card" &&
+        cardState.expanded === "true" &&
+        cardState.hidden === "false" &&
+        cardState.clubLine === locale.bestXiClubLine &&
+        cardState.hasAgeAndValue &&
+        cardState.skillPills.length > 0 &&
+        JSON.stringify(cardState.skillPills) === JSON.stringify(cardState.referenceSkillPills) &&
+        cardState.hasFlag &&
+        cardState.number === "#23" &&
+        /[（(].+[）)]/u.test(cardState.clubLine) &&
+        cardState.reasonParagraphs.length === 2 &&
+        cardState.reasonParagraphs.every(Boolean) &&
+        cardState.withinViewport,
+      `${locale.code}: the player trigger should open one associated, readable card inside the viewport. Measured ${JSON.stringify(cardState)}.`
+    );
+    if (locale.code === "en") {
+      const bestXiCard = page.locator("#best-xi-player-card");
+      const triggerBox = await honourableGoalkeeperTrigger.boundingBox();
+      const cardBox = await bestXiCard.boundingBox();
+      assert(triggerBox && cardBox, "Best XI hover geometry should be measurable.");
+      const bridgeX = Math.min(
+        cardBox.x + cardBox.width - 4,
+        Math.max(cardBox.x + 4, triggerBox.x + triggerBox.width / 2)
+      );
+      const cardIsAbove = cardBox.y + cardBox.height <= triggerBox.y;
+      const bridgeY = cardIsAbove
+        ? (cardBox.y + cardBox.height + triggerBox.y) / 2
+        : (triggerBox.y + triggerBox.height + cardBox.y) / 2;
+      await page.mouse.move(triggerBox.x + triggerBox.width / 2, triggerBox.y + triggerBox.height / 2);
+      await page.mouse.move(bridgeX, bridgeY, { steps: 6 });
+      await page.waitForTimeout(150);
+      const visibleDuringHandoff = await bestXiCard.isVisible();
+      const valueHelp = bestXiCard.locator(".player-card-value-help").first();
+      const valueBox = await valueHelp.boundingBox();
+      assert(valueBox, "Best XI Value help geometry should be measurable.");
+      await page.mouse.move(valueBox.x + valueBox.width / 2, valueBox.y + valueBox.height / 2, { steps: 6 });
+      await page.waitForTimeout(160);
+      const bestXiHoverState = await bestXiCard.evaluate((card) => {
+        const value = card.querySelector(".player-card-value-help");
+        const tooltip = value ? getComputedStyle(value, "::after") : null;
+        const cardRect = card.getBoundingClientRect();
+        const valueRect = value?.getBoundingClientRect();
+        const transform = tooltip?.transform.match(/^matrix\((.+)\)$/);
+        const translateX = transform
+          ? Number.parseFloat(transform[1].split(",")[4]) || 0
+          : 0;
+        const tooltipWidth = tooltip
+          ? Number.parseFloat(tooltip.width || "0") +
+            Number.parseFloat(tooltip.paddingLeft || "0") +
+            Number.parseFloat(tooltip.paddingRight || "0") +
+            Number.parseFloat(tooltip.borderLeftWidth || "0") +
+            Number.parseFloat(tooltip.borderRightWidth || "0")
+          : 0;
+        const tooltipLeft = valueRect && tooltip
+          ? valueRect.left + Number.parseFloat(tooltip.left || "0") + translateX
+          : 0;
+        const clipLeft = cardRect.left + card.clientLeft;
+        const clipRight = clipLeft + card.clientWidth;
+        return {
+          cardVisible: card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false",
+          tooltipOpacity: Number.parseFloat(tooltip?.opacity || "0"),
+          tooltipVisibility: tooltip?.visibility || "",
+          tooltipWithinCard: tooltipLeft >= clipLeft + 5 && tooltipLeft + tooltipWidth <= clipRight - 5,
+          tooltipBounds: {
+            clipLeft,
+            clipRight,
+            left: tooltipLeft,
+            right: tooltipLeft + tooltipWidth
+          }
+        };
+      });
+      assert(
+        visibleDuringHandoff &&
+          bestXiHoverState.cardVisible &&
+          bestXiHoverState.tooltipOpacity >= 0.99 &&
+          bestXiHoverState.tooltipVisibility === "visible" &&
+          bestXiHoverState.tooltipWithinCard,
+        `Best XI player cards should survive the hover handoff and expose Value help. Measured ${JSON.stringify(bestXiHoverState)}.`
+      );
+      await page.mouse.move(0, 0);
+      await page.waitForTimeout(255);
+      const bestXiFadeOutState = await bestXiCard.evaluate((card) => {
+        const styles = getComputedStyle(card);
+        return {
+          opacity: Number.parseFloat(styles.opacity || "0"),
+          visibility: styles.visibility
+        };
+      });
+      assert(
+        bestXiFadeOutState.opacity > 0 &&
+          bestXiFadeOutState.opacity < 1 &&
+          bestXiFadeOutState.visibility === "visible",
+        `Best XI player cards should fade out after the hover handoff. Measured ${JSON.stringify(bestXiFadeOutState)}.`
+      );
+      await page.waitForTimeout(280);
+      await bestXiCard.waitFor({ state: "hidden" });
+    }
+    await page.keyboard.press("Escape");
+
+    for (const width of [390, 360, 320]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.evaluate(() => new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve))
+      ));
+      await coachTrigger.click();
+      const responsiveAwardLayout = await page.evaluate(() => {
+        const pitch = document.querySelector("#best-xi-pitch")?.getBoundingClientRect();
+        const band = document.querySelector(".best-xi-band")?.getBoundingClientRect();
+        const coach = document.querySelector(".best-xi-coach-trigger")?.getBoundingClientRect();
+        const honourables = document.querySelector(".best-xi-honourables-button")?.getBoundingClientRect();
+        const coachCard = document.querySelector("#highlight-player-card")?.getBoundingClientRect();
+        const timeline = document.querySelector(".next-world-cup-section")?.getBoundingClientRect();
+        const timelineItems = Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-item"));
+        const scoringBadges = Array.from(document.querySelectorAll(".best-xi-marker .lineup-avatar-score-events"));
+        const playerTargets = Array.from(document.querySelectorAll(
+          ".best-xi-marker :is(.lineup-avatar-frame, .lineup-player-name)"
+        ));
+        const overlaps = (first, second) =>
+          first.left < second.right && first.right > second.left &&
+          first.top < second.bottom && first.bottom > second.top;
+        const scoringBadgeIssues = scoringBadges.flatMap((badge) => {
+          const badgeBounds = badge.getBoundingClientRect();
+          const ownMarker = badge.closest(".best-xi-marker");
+          const issues = [];
+          if (pitch && (badgeBounds.left < pitch.left - 1 || badgeBounds.right > pitch.right + 1 || badgeBounds.top < pitch.top - 1 || badgeBounds.bottom > pitch.bottom + 1)) {
+            issues.push("outside-pitch");
+          }
+          for (const target of playerTargets) {
+            if (target.closest(".best-xi-marker") !== ownMarker && overlaps(badgeBounds, target.getBoundingClientRect())) {
+              issues.push(`overlap:${target.closest(".best-xi-marker")?.dataset.bestXiSlot || "unknown"}`);
+            }
+          }
+          return issues.map((issue) => ({
+            badge: badge.textContent.replace(/\s+/gu, " ").trim(),
+            badgeBounds: { left: badgeBounds.left, right: badgeBounds.right },
+            issue,
+            pitchBounds: pitch ? { left: pitch.left, right: pitch.right } : null,
+            slot: ownMarker?.dataset.bestXiSlot || ""
+          }));
+        });
+        return {
+          bestCoachLayoutClear: Boolean(band && coach && honourables) &&
+            coach.left >= band.left && honourables.right <= band.right &&
+            (coach.bottom <= honourables.top || coach.right <= honourables.left) &&
+            Boolean(coachCard) && coachCard.left >= 0 && coachCard.right <= window.innerWidth &&
+            coachCard.top >= 0 && coachCard.bottom <= window.innerHeight,
+          bestXiScoringBadgesClear: Boolean(pitch) && scoringBadgeIssues.length === 0,
+          bestXiScoringBadgeIssues: scoringBadgeIssues,
+          hasOverflow: document.documentElement.scrollWidth > window.innerWidth,
+          timelineContained: Boolean(timeline) &&
+            timeline.left >= 0 && timeline.right <= window.innerWidth &&
+            timelineItems.length === 3 && timelineItems.every((item) => {
+              const bounds = item.getBoundingClientRect();
+              return bounds.left >= 0 && bounds.right <= window.innerWidth;
+            }),
+          rowsFollowReadingOrder: Array.from(document.querySelectorAll(".award-row")).every((row) => {
+          const summary = row.querySelector(".award-summary")?.getBoundingClientRect();
+          const details = row.querySelector(".award-details")?.getBoundingClientRect();
+          const recipient = row.querySelector(".award-recipient")?.getBoundingClientRect();
+          const explanation = row.querySelector(".award-explanation")?.getBoundingClientRect();
+          const portrait = row.querySelector(".award-player-photo")?.getBoundingClientRect();
+          const name = row.querySelector(".award-player-name")?.getBoundingClientRect();
+          const country = row.querySelector(".award-meta")?.getBoundingClientRect();
+          if (!summary || !details || !recipient || !explanation || !name || !country) {
+            return false;
+          }
+          return summary.right <= details.left && recipient.bottom <= explanation.top &&
+            (!portrait || portrait.right <= name.left) && name.bottom <= country.top;
+          })
+        };
+      });
+      await page.keyboard.press("Escape");
+      assert(
+        !responsiveAwardLayout.hasOverflow && responsiveAwardLayout.rowsFollowReadingOrder &&
+          responsiveAwardLayout.bestCoachLayoutClear && responsiveAwardLayout.bestXiScoringBadgesClear &&
+          responsiveAwardLayout.timelineContained,
+        `${locale.code}: awards and Best XI controls should preserve their reading order and collision-free mobile layout at ${width}px. Measured ${JSON.stringify(responsiveAwardLayout)}.`
+      );
+    }
     await context.close();
   }
 }
@@ -1151,9 +1973,14 @@ async function assertLocale(locale, browser) {
     cancelable: true,
     pointerType: "touch"
   });
-  await reportPage.evaluate(() =>
-    new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
-  );
+  await reportPage.waitForFunction(() => {
+    const trigger = document.querySelector(".source-tooltip-trigger");
+    const rect = document.querySelector(".source-tooltip")?.getBoundingClientRect();
+    return Boolean(
+      trigger?.classList.contains("is-touch-tooltip-open") &&
+      rect && rect.left >= 5 && rect.right <= 385 && rect.top >= 0 && rect.bottom <= 844
+    );
+  }, null, { timeout: 5000 });
   const report = await reportPage.evaluate(() => ({
     back: document.querySelector("#back-link-label")?.textContent.trim() || "",
     backHref: document.querySelector("#back-link")?.getAttribute("href") || "",
@@ -1199,6 +2026,15 @@ const baseUrl = `http://127.0.0.1:${port}`;
 const browser = await chromium.launch();
 
 try {
+  if (highlightsClubLinesOnly) {
+    await assertHighlightsLocales(browser);
+    console.log(
+      requestedLocale
+        ? `${requestedLocale} main app, awards, and Best XI club-line smoke test passed.`
+        : "Four-locale main app, awards, and Best XI club-line smoke tests passed."
+    );
+    process.exitCode = 0;
+  } else {
   const selectedLocaleCases = requestedLocale
     ? localeCases.filter((locale) => locale.code === requestedLocale)
     : localeCases;
@@ -1207,6 +2043,7 @@ try {
     `Unknown locale smoke selection: ${requestedLocale || "(none)"}`
   );
   if (!ballBoyOnly) {
+    await assertArchivedHomeSeo(browser);
     await assertHighlightsLocales(browser);
   }
   for (const locale of selectedLocaleCases) {
@@ -1221,6 +2058,7 @@ try {
       ? "Spanish and Korean Ball Boy locale smoke tests passed."
       : "Spanish and Korean locale smoke tests passed."
   );
+  }
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));

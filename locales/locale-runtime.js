@@ -1,6 +1,6 @@
 const DEFAULT_LANGUAGE = "en";
 export const LOCALE_SCHEMA_VERSION = 1;
-export const LOCALE_PACK_VERSION = "2026-07-20-full-localization-audit-1";
+export const LOCALE_PACK_VERSION = "2026-07-20-final-cutover-1";
 
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {
@@ -71,6 +71,7 @@ export const SHELL_MESSAGES = deepFreeze({
     timeZoneSearchPlaceholder: "Search city, country, or abbreviation",
     timeZoneSearchResults: "Search results",
     tournament: "Tournament",
+    viewRecap: "View recap",
     worldCupViews: "World Cup views"
   },
   zh: {
@@ -129,6 +130,7 @@ export const SHELL_MESSAGES = deepFreeze({
     timeZoneSearchPlaceholder: "搜索城市、国家或缩写",
     timeZoneSearchResults: "搜索结果",
     tournament: "淘汰赛",
+    viewRecap: "查看回顾",
     worldCupViews: "世界杯视图"
   },
   es: {
@@ -188,6 +190,7 @@ export const SHELL_MESSAGES = deepFreeze({
     timeZoneSearchPlaceholder: "Buscar ciudad, país o abreviatura",
     timeZoneSearchResults: "Resultados de búsqueda",
     tournament: "Fase eliminatoria",
+    viewRecap: "Ver resumen",
     worldCupViews: "Secciones del Mundial"
   },
   ko: {
@@ -246,6 +249,7 @@ export const SHELL_MESSAGES = deepFreeze({
     timeZoneSearchPlaceholder: "도시, 국가 또는 약어 검색",
     timeZoneSearchResults: "검색 결과",
     tournament: "토너먼트",
+    viewRecap: "대회 돌아보기",
     worldCupViews: "월드컵 메뉴"
   }
 });

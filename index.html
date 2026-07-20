@@ -6,7 +6,7 @@
     <title>World Cup Simplified</title>
     <meta
       name="description"
-      content="Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
+      content="Explore the completed 2026 World Cup with all 104 results, verified lineups, standings, concise recaps, official highlights, awards, and tournament history."
     />
     <link rel="canonical" href="https://world-cup-simplified.vercel.app/" />
     <meta property="og:type" content="website" />
@@ -14,7 +14,7 @@
     <meta property="og:title" content="World Cup Simplified" />
     <meta
       property="og:description"
-      content="Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
+      content="Explore the completed 2026 World Cup with all 104 results, verified lineups, standings, concise recaps, official highlights, awards, and tournament history."
     />
     <meta property="og:image" content="https://world-cup-simplified.vercel.app/assets/site-thumbnail.png?v=2026-06-17-1213" />
     <meta property="og:image:width" content="1200" />
@@ -24,22 +24,22 @@
     <meta name="twitter:title" content="World Cup Simplified" />
     <meta
       name="twitter:description"
-      content="Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
+      content="Explore the completed 2026 World Cup with all 104 results, verified lineups, standings, concise recaps, official highlights, awards, and tournament history."
     />
     <meta name="twitter:image" content="https://world-cup-simplified.vercel.app/assets/site-thumbnail.png?v=2026-06-17-1213" />
     <meta name="twitter:image:alt" content="World Cup Simplified" />
     <script id="seo-structured-data" type="application/ld+json">
-      {"@context":"https://schema.org","@type":"WebSite","name":"World Cup Simplified","url":"https://world-cup-simplified.vercel.app/","description":"Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."}
+      {"@context":"https://schema.org","@type":"WebSite","name":"World Cup Simplified","url":"https://world-cup-simplified.vercel.app/","description":"Explore the completed 2026 World Cup with all 104 results, verified lineups, standings, concise recaps, official highlights, awards, and tournament history."}
     </script>
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
     <link rel="stylesheet" href="styles/tokens.css?v=2026-07-17-modules-1" />
-    <link rel="stylesheet" href="styles.css?v=2026-07-20-historical-1950-format-1" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-20-final-cutover-1" />
     <link rel="stylesheet" href="chatbot.css?v=2026-07-20-tournament-memory-2" />
   </head>
-  <body>
+  <body class="is-initial-page-load">
     <header class="site-header">
       <div class="site-brand-lockup">
         <a class="site-brand" href="./" aria-label="World Cup Simplified home">
@@ -335,7 +335,7 @@
     <footer class="site-footer">
       <div class="source-note" id="source-note">
         <span class="source-tooltip-wrapper">
-          <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">See sources</button>
+          <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">Sources</button>
           <span class="source-tooltip" id="source-tooltip" role="tooltip">
             <strong>Sources:</strong>
             <span class="source-tooltip-list">
@@ -348,23 +348,24 @@
             </span>
             <span class="source-tooltip-note">Exact sources vary by match.</span>
           </span>
-        </span> • <span class="source-freshness is-loading" role="status" aria-live="polite" aria-atomic="true">Checking data freshness…</span> •
+        </span> •
         <span class="release-tooltip-wrapper">
-          <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">See release notes</button>
+          <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">Release notes</button>
           <span class="release-tooltip" id="release-tooltip" role="tooltip">
             <strong>Release notes: Latest changes</strong>
             <ul>
               <li>Release notes load from data/release-notes.json.</li>
             </ul>
-            <span class="release-tooltip-note">Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a></span>
           </span>
-        </span>
+        </span> •
+        <span class="source-credit">Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">HA</a></span>
       </div>
     </footer>
 
     <script type="module" src="clarity.js"></script>
     <script type="module" src="analytics.js"></script>
-    <script type="module" src="app.js?v=2026-07-20-full-localization-audit-1"></script>
-  <script type="module" src="chatbot.js?v=2026-07-20-tournament-memory-7"></script>
+    <script type="module" src="football-typography.js?v=2026-07-20-final-cutover-1"></script>
+    <script type="module" src="app.js?v=2026-07-20-final-cutover-1"></script>
+  <script type="module" src="chatbot.js?v=2026-07-20-final-cutover-1"></script>
   </body>
 </html>

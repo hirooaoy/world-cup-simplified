@@ -42,7 +42,7 @@ async function restoreFile(targetPath, originalContents, committedContents) {
   await rename(temporaryPath, targetPath);
 }
 
-export async function commit2026Archive({ dataDir, plan, snapshots }) {
+export async function commit2026Archive({ dataDir, rootDir = path.dirname(dataDir), plan, snapshots, surfaceSnapshots = new Map(), beforeLifecycleCommit = null }) {
   const archivesDir = path.join(dataDir, "archives");
   await mkdir(archivesDir, { recursive: true });
 
@@ -50,6 +50,12 @@ export async function commit2026Archive({ dataDir, plan, snapshots }) {
     const currentContents = await readTextIfPresent(path.join(dataDir, fileName));
     if (currentContents !== expectedContents) {
       throw new Error(`${fileName} changed during archive planning. Re-run the finalizer against one consistent snapshot.`);
+    }
+  }
+  for (const [fileName, expectedContents] of surfaceSnapshots) {
+    const currentContents = await readTextIfPresent(path.join(rootDir, fileName));
+    if (currentContents !== expectedContents) {
+      throw new Error(`${fileName} changed during archive planning. Re-run the finalizer against one consistent release surface.`);
     }
   }
 
@@ -102,6 +108,30 @@ export async function commit2026Archive({ dataDir, plan, snapshots }) {
     committed.push("manifest");
 
     // Lifecycle is the commit marker and is replaced last so scheduled jobs do not stop early.
+    if (beforeLifecycleCommit) {
+      await beforeLifecycleCommit();
+    }
+    for (const [fileName, expectedContents] of snapshots) {
+      if (["tournament.json", "edition-lifecycle.json", path.join("archives", ARCHIVE_MANIFEST_NAME)].includes(fileName)) {
+        continue;
+      }
+      const currentContents = await readTextIfPresent(path.join(dataDir, fileName));
+      if (currentContents !== expectedContents) {
+        throw new Error(`${fileName} changed before the archive lifecycle commit; the mutable data and immutable snapshot were not allowed to diverge.`);
+      }
+    }
+    for (const [fileName, expectedContents] of surfaceSnapshots) {
+      const currentContents = await readTextIfPresent(path.join(rootDir, fileName));
+      if (currentContents !== expectedContents) {
+        throw new Error(`${fileName} changed before the archive lifecycle commit; the release surface and immutable snapshot were not allowed to diverge.`);
+      }
+    }
+    if (await readTextIfPresent(tournamentPath) !== contents.tournament) {
+      throw new Error("tournament.json changed after the archive transaction published it; the lifecycle remains open for recovery.");
+    }
+    if (await readTextIfPresent(manifestPath) !== contents.manifest) {
+      throw new Error("The archive manifest changed after this transaction published it; the lifecycle remains open for recovery.");
+    }
     if (await readTextIfPresent(lifecyclePath) !== original.lifecycle) {
       throw new Error("edition-lifecycle.json changed before archive commit; live-job state was not overwritten.");
     }

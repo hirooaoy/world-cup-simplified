@@ -7,7 +7,7 @@
     <meta
       id="meta-description"
       name="description"
-      content="Spain's 2026 World Cup title, the official award winners, and a few tournament stories worth remembering."
+      content="Spain's 2026 World Cup title, our editorial Best XI, the official award winners, and a few tournament stories worth remembering."
     />
     <link rel="canonical" href="https://world-cup-simplified.vercel.app/highlights.html" />
     <meta property="og:type" content="website" />
@@ -16,21 +16,48 @@
     <meta
       id="og-description"
       property="og:description"
-      content="The champions, the official awards, and the stories worth remembering."
+      content="The champions, our editorial Best XI, the official awards, and the stories worth remembering."
     />
     <meta property="og:image" content="https://world-cup-simplified.vercel.app/assets/site-thumbnail.png?v=2026-06-17-1213" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta id="twitter-title" name="twitter:title" content="2026 World Cup awards and highlights" />
-    <meta id="twitter-description" name="twitter:description" content="The champions, the official awards, and the stories worth remembering." />
+    <meta id="twitter-description" name="twitter:description" content="The champions, our editorial Best XI, the official awards, and the stories worth remembering." />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
     <link rel="stylesheet" href="styles/tokens.css?v=2026-07-17-modules-1" />
-    <link rel="stylesheet" href="styles.css?v=2026-07-20-historical-1950-format-1" />
-    <link rel="stylesheet" href="highlights.css?v=2026-07-20-awards-6" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-20-final-cutover-1" />
+    <link rel="stylesheet" href="highlights.css?v=2026-07-20-final-cutover-1" />
+    <link rel="stylesheet" href="chatbot.css?v=2026-07-20-tournament-memory-2" />
   </head>
-  <body class="highlights-page is-locale-loading">
+  <body class="highlights-page has-final-celebration is-locale-loading is-initial-page-load" id="top" data-final-celebration-palette="spain">
+    <div class="final-celebration-background" id="final-celebration-background" aria-hidden="true">
+      <span class="final-firework" style="--firework-color: var(--celebration-primary); --firework-delay: -0.2s; --firework-scale: 0.78; --firework-x: 10%; --firework-y: 10%;">
+        <b></b>
+        <i style="--spark-angle: 0deg;"></i><i style="--spark-angle: 30deg;"></i><i style="--spark-angle: 60deg;"></i><i style="--spark-angle: 90deg;"></i><i style="--spark-angle: 120deg;"></i><i style="--spark-angle: 150deg;"></i><i style="--spark-angle: 180deg;"></i><i style="--spark-angle: 210deg;"></i><i style="--spark-angle: 240deg;"></i><i style="--spark-angle: 270deg;"></i><i style="--spark-angle: 300deg;"></i><i style="--spark-angle: 330deg;"></i>
+      </span>
+      <span class="final-firework" style="--firework-color: var(--celebration-accent); --firework-delay: -2.1s; --firework-scale: 0.96; --firework-x: 29%; --firework-y: 53%;">
+        <b></b>
+        <i style="--spark-angle: 0deg;"></i><i style="--spark-angle: 30deg;"></i><i style="--spark-angle: 60deg;"></i><i style="--spark-angle: 90deg;"></i><i style="--spark-angle: 120deg;"></i><i style="--spark-angle: 150deg;"></i><i style="--spark-angle: 180deg;"></i><i style="--spark-angle: 210deg;"></i><i style="--spark-angle: 240deg;"></i><i style="--spark-angle: 270deg;"></i><i style="--spark-angle: 300deg;"></i><i style="--spark-angle: 330deg;"></i>
+      </span>
+      <span class="final-firework" style="--firework-color: var(--celebration-secondary); --firework-delay: -1.1s; --firework-scale: 0.84; --firework-x: 51%; --firework-y: 8%;">
+        <b></b>
+        <i style="--spark-angle: 0deg;"></i><i style="--spark-angle: 30deg;"></i><i style="--spark-angle: 60deg;"></i><i style="--spark-angle: 90deg;"></i><i style="--spark-angle: 120deg;"></i><i style="--spark-angle: 150deg;"></i><i style="--spark-angle: 180deg;"></i><i style="--spark-angle: 210deg;"></i><i style="--spark-angle: 240deg;"></i><i style="--spark-angle: 270deg;"></i><i style="--spark-angle: 300deg;"></i><i style="--spark-angle: 330deg;"></i>
+      </span>
+      <span class="final-firework" style="--firework-color: var(--celebration-primary); --firework-delay: -3.1s; --firework-scale: 0.98; --firework-x: 73%; --firework-y: 57%;">
+        <b></b>
+        <i style="--spark-angle: 0deg;"></i><i style="--spark-angle: 30deg;"></i><i style="--spark-angle: 60deg;"></i><i style="--spark-angle: 90deg;"></i><i style="--spark-angle: 120deg;"></i><i style="--spark-angle: 150deg;"></i><i style="--spark-angle: 180deg;"></i><i style="--spark-angle: 210deg;"></i><i style="--spark-angle: 240deg;"></i><i style="--spark-angle: 270deg;"></i><i style="--spark-angle: 300deg;"></i><i style="--spark-angle: 330deg;"></i>
+      </span>
+      <span class="final-firework" style="--firework-color: var(--celebration-secondary); --firework-delay: -1.7s; --firework-scale: 0.8; --firework-x: 89%; --firework-y: 15%;">
+        <b></b>
+        <i style="--spark-angle: 0deg;"></i><i style="--spark-angle: 30deg;"></i><i style="--spark-angle: 60deg;"></i><i style="--spark-angle: 90deg;"></i><i style="--spark-angle: 120deg;"></i><i style="--spark-angle: 150deg;"></i><i style="--spark-angle: 180deg;"></i><i style="--spark-angle: 210deg;"></i><i style="--spark-angle: 240deg;"></i><i style="--spark-angle: 270deg;"></i><i style="--spark-angle: 300deg;"></i><i style="--spark-angle: 330deg;"></i>
+      </span>
+      <span class="final-firework" style="--firework-color: var(--celebration-accent); --firework-delay: -2.7s; --firework-scale: 0.74; --firework-x: 82%; --firework-y: 81%;">
+        <b></b>
+        <i style="--spark-angle: 0deg;"></i><i style="--spark-angle: 30deg;"></i><i style="--spark-angle: 60deg;"></i><i style="--spark-angle: 90deg;"></i><i style="--spark-angle: 120deg;"></i><i style="--spark-angle: 150deg;"></i><i style="--spark-angle: 180deg;"></i><i style="--spark-angle: 210deg;"></i><i style="--spark-angle: 240deg;"></i><i style="--spark-angle: 270deg;"></i><i style="--spark-angle: 300deg;"></i><i style="--spark-angle: 330deg;"></i>
+      </span>
+    </div>
     <header class="site-header report-header">
       <a class="site-brand report-back-link" id="back-link" href="./" data-preserve-language>
         <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
@@ -82,177 +109,249 @@
 
     <main class="awards-main">
       <section class="page-intro" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow" data-i18n="worldCup">2026 World Cup · Awards &amp; highlights</p>
-          <h1 id="page-title" data-i18n="pageTitle">Spain are world champions.</h1>
-          <p class="intro-copy" data-i18n="intro">Spain beat Argentina 1–0 after extra time, with Ferran Torres scoring in the 106th minute. Their control and defending shaped the title run.</p>
-          <dl class="intro-stats" aria-label="Spain's tournament summary" data-i18n-aria="championStatsLabel">
-            <div><dt data-i18n="matches">Matches</dt><dd>8</dd></div>
-            <div><dt data-i18n="cleanSheets">Clean sheets</dt><dd>7</dd></div>
-            <div><dt data-i18n="worldTitles">World titles</dt><dd>2</dd></div>
-          </dl>
-        </div>
         <img class="intro-doodle doodle" src="assets/award-doodles/trophy.svg" alt="" />
+        <div class="champion-copy">
+          <h1 id="page-title" data-i18n="pageTitle">Spain are 2026 world champions.</h1>
+          <p class="intro-copy" data-i18n="intro" data-highlight-player-mentions="Ferran Torres">Spain beat Argentina 1–0 after extra time, with Ferran Torres scoring in the 106th minute. Their control and defending shaped the title run.</p>
+        </div>
+        <figure class="champion-photo-frame champion-illustration" aria-hidden="true">
+          <span class="champion-illustration-orbit champion-illustration-orbit-one"></span>
+          <span class="champion-illustration-orbit champion-illustration-orbit-two"></span>
+          <span class="champion-illustration-flag">🇪🇸</span>
+          <img class="champion-illustration-trophy doodle" src="assets/award-doodles/trophy.svg" alt="" />
+          <span class="champion-illustration-star champion-illustration-star-one">✦</span>
+          <span class="champion-illustration-star champion-illustration-star-two">✦</span>
+        </figure>
+      </section>
+
+      <section class="content-section best-xi-section" aria-labelledby="best-xi-title">
+        <div class="section-heading best-xi-heading">
+          <div>
+            <div class="best-xi-title-row">
+              <h2 id="best-xi-title" data-i18n="bestXiTitle">Best XI of 2026</h2>
+              <button
+                class="info-tooltip-button best-xi-info-button"
+                type="button"
+                aria-label="Selected by the site admin."
+                data-tooltip="Selected by the site admin."
+                data-i18n-tooltip="bestXiInfo"
+              >i</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="best-xi-lineup-root"></div>
+
+        <span class="visually-hidden" id="best-xi-status" aria-live="polite"></span>
       </section>
 
       <section class="content-section" aria-labelledby="awards-title">
         <div class="section-heading">
           <div>
             <h2 id="awards-title" data-i18n="officialAwards">Official awards</h2>
-            <p data-i18n="awardsLead">What each award means, who won it, and why.</p>
           </div>
         </div>
 
         <div class="award-list">
           <article class="award-row">
-            <div class="award-kind">
-              <p class="award-label" data-i18n="goldenBall">Golden Ball</p>
-              <span data-i18n="goldenBallMeaning">Best overall player</span>
+            <div class="award-summary">
+              <img class="award-doodle doodle" src="assets/award-doodles/ball.svg" alt="" />
+              <div class="award-kind">
+                <p class="award-label" data-i18n="goldenBall">Golden Ball</p>
+                <span data-i18n="goldenBallMeaning">Best overall player</span>
+              </div>
             </div>
-            <div class="award-copy">
-              <div class="award-winner">
-                <h3 id="golden-ball-name">Rodri</h3>
+            <div class="award-details">
+              <div class="award-recipient">
                 <span class="player-photo award-player-photo" id="golden-ball-photo" aria-hidden="true">
                   <span class="player-photo-fallback">R</span>
                 </span>
+                <div class="award-recipient-copy">
+                  <h3 class="award-player-name" id="golden-ball-name">Rodri</h3>
+                  <span class="award-meta" data-i18n="goldenBallMeta">🇪🇸 Spain</span>
+                </div>
               </div>
-              <p data-i18n="goldenBallWhy">He controlled the pace from midfield and kept Spain organized under pressure. His consistency and leadership were central to their title run.</p>
-              <span data-i18n="goldenBallMeta">🇪🇸 Spain</span>
+              <p class="award-explanation"><span data-i18n="goldenBallWhy">He controlled the pace from midfield and kept Spain organized under pressure.</span> <strong data-i18n="goldenBallImpact">His consistency and leadership were central to their title run.</strong></p>
             </div>
-            <img class="award-doodle doodle" src="assets/award-doodles/ball.svg" alt="" />
           </article>
 
           <article class="award-row">
-            <div class="award-kind">
-              <p class="award-label" data-i18n="goldenBoot">Golden Boot</p>
-              <span data-i18n="goldenBootMeaning">Top scorer</span>
+            <div class="award-summary">
+              <img class="award-doodle doodle" src="assets/award-doodles/boot.svg" alt="" />
+              <div class="award-kind">
+                <p class="award-label" data-i18n="goldenBoot">Golden Boot</p>
+                <span data-i18n="goldenBootMeaning">Top scorer</span>
+              </div>
             </div>
-            <div class="award-copy">
-              <div class="award-winner">
-                <h3 id="golden-boot-name">Kylian Mbappé</h3>
+            <div class="award-details">
+              <div class="award-recipient">
                 <span class="player-photo award-player-photo" id="golden-boot-photo" aria-hidden="true">
                   <span class="player-photo-fallback">KM</span>
                 </span>
+                <div class="award-recipient-copy">
+                  <h3 class="award-player-name" id="golden-boot-name">Kylian Mbappé</h3>
+                  <span class="award-meta" data-i18n="goldenBootMeta">🇫🇷 France</span>
+                </div>
               </div>
-              <p><strong id="golden-boot-total">10 goals · 4 assists.</strong> <span data-i18n="goldenBootWhy">His two goals against England in the third-place match took him past Lionel Messi and secured the award.</span></p>
-              <span data-i18n="goldenBootMeta">🇫🇷 France</span>
+              <p class="award-explanation"><strong id="golden-boot-total">10 goals · 4 assists.</strong> <span data-i18n="goldenBootWhy" data-highlight-player-mentions="Lionel Messi">His two goals against England in the third-place match took him past Lionel Messi and secured the award.</span></p>
             </div>
-            <img class="award-doodle doodle" src="assets/award-doodles/boot.svg" alt="" />
           </article>
 
           <article class="award-row">
-            <div class="award-kind">
-              <p class="award-label" data-i18n="goldenGlove">Golden Glove</p>
-              <span data-i18n="goldenGloveMeaning">Best goalkeeper</span>
+            <div class="award-summary">
+              <img class="award-doodle doodle" src="assets/award-doodles/glove.svg" alt="" />
+              <div class="award-kind">
+                <p class="award-label" data-i18n="goldenGlove">Golden Glove</p>
+                <span data-i18n="goldenGloveMeaning">Best goalkeeper</span>
+              </div>
             </div>
-            <div class="award-copy">
-              <div class="award-winner">
-                <h3 id="golden-glove-name">Unai Simón</h3>
+            <div class="award-details">
+              <div class="award-recipient">
                 <span class="player-photo award-player-photo" id="golden-glove-photo" aria-hidden="true">
                   <span class="player-photo-fallback">US</span>
                 </span>
+                <div class="award-recipient-copy">
+                  <h3 class="award-player-name" id="golden-glove-name">Unai Simón</h3>
+                  <span class="award-meta" data-i18n="goldenGloveMeta">🇪🇸 Spain</span>
+                </div>
               </div>
-              <p><strong data-i18n="goldenGloveStat">Seven clean sheets in eight games.</strong> <span data-i18n="goldenGloveWhy">A clean sheet means finishing without conceding; he allowed only one goal all tournament.</span></p>
-              <span data-i18n="goldenGloveMeta">🇪🇸 Spain</span>
+              <p class="award-explanation"><strong data-i18n="goldenGloveStat">Seven clean sheets in eight games.</strong> <span data-i18n="goldenGloveWhy">A clean sheet means finishing without conceding; he allowed only one goal all tournament.</span></p>
             </div>
-            <img class="award-doodle doodle" src="assets/award-doodles/glove.svg" alt="" />
           </article>
 
           <article class="award-row">
-            <div class="award-kind">
-              <p class="award-label" data-i18n="youngPlayer">Best Young Player</p>
-              <span data-i18n="youngPlayerMeaning">Top young talent</span>
+            <div class="award-summary">
+              <img class="award-doodle doodle" src="assets/award-doodles/star.svg" alt="" />
+              <div class="award-kind">
+                <p class="award-label" data-i18n="youngPlayer">Best Young Player</p>
+                <span data-i18n="youngPlayerMeaning">Top young talent</span>
+              </div>
             </div>
-            <div class="award-copy">
-              <div class="award-winner">
-                <h3 id="young-player-name">Pau Cubarsí</h3>
+            <div class="award-details">
+              <div class="award-recipient">
                 <span class="player-photo award-player-photo" id="young-player-photo" aria-hidden="true">
                   <span class="player-photo-fallback">PC</span>
                 </span>
+                <div class="award-recipient-copy">
+                  <h3 class="award-player-name" id="young-player-name">Pau Cubarsí</h3>
+                  <span class="award-meta" data-i18n="youngPlayerMeta">🇪🇸 Spain</span>
+                </div>
               </div>
-              <p><strong data-i18n="youngPlayerStat">Every minute at just 19.</strong> <span data-i18n="youngPlayerWhy">Playing in central defence, he stopped attacks and helped Spain begin their own with calm, accurate passing.</span></p>
-              <span data-i18n="youngPlayerMeta">🇪🇸 Spain</span>
+              <p class="award-explanation"><strong data-i18n="youngPlayerStat">Every minute at just 19.</strong> <span data-i18n="youngPlayerWhy">Playing in central defence, he stopped attacks and helped Spain begin their own with calm, accurate passing.</span></p>
             </div>
-            <img class="award-doodle doodle" src="assets/award-doodles/star.svg" alt="" />
           </article>
 
-          <article class="award-row">
-            <div class="award-kind">
-              <p class="award-label" data-i18n="fairPlay">FIFA Fair Play</p>
-              <span data-i18n="fairPlayMeaning">Sporting conduct</span>
+          <article class="award-row is-team-award">
+            <div class="award-summary">
+              <img class="award-doodle doodle" src="assets/award-doodles/fair-play.svg" alt="" />
+              <div class="award-kind">
+                <p class="award-label" data-i18n="fairPlay">FIFA Fair Play</p>
+                <span data-i18n="fairPlayMeaning">Sporting conduct</span>
+              </div>
             </div>
-            <div class="award-copy">
-              <h3 id="fair-play-name" data-i18n="fairPlayName">Netherlands</h3>
-              <p data-i18n="fairPlayWhy">FIFA selected the Netherlands for its team award recognizing fair play and sporting conduct.</p>
-              <span data-i18n="fairPlayMeta">Team award</span>
+            <div class="award-details">
+              <div class="award-recipient">
+                <div class="award-recipient-copy">
+                  <h3 class="award-player-name award-team-name">
+                    <span class="flag" aria-hidden="true">🇳🇱</span>
+                    <span id="fair-play-name" data-i18n="fairPlayName">Netherlands</span>
+                  </h3>
+                  <span class="award-meta" data-i18n="fairPlayMeta" data-highlight-player-mentions="Virgil van Dijk">Led by Captain Virgil van Dijk</span>
+                </div>
+              </div>
+              <p class="award-explanation"><span data-i18n="fairPlayWhy">The Netherlands played with discipline and respect throughout the tournament.</span> <strong data-i18n="fairPlayStat">They finished their last three matches without a card.</strong></p>
             </div>
-            <img class="award-doodle doodle" src="assets/award-doodles/fair-play.svg" alt="" />
           </article>
         </div>
 
-        <p class="inline-source">
-          <span data-i18n="awardSources">Award sources:</span>
-          <a href="https://rfef.es/es/noticias/rodrigo-hernandez-mejor-jugador-del-mundial" target="_blank" rel="noreferrer">RFEF</a>
-          <span aria-hidden="true">·</span>
-          <a href="https://www.skysports.com/football/news/11095/13564837/world-cup-2026-golden-boot-race-kylian-mbappe-beats-lionel-messi-to-become-top-goalscorer" target="_blank" rel="noreferrer">Sky Sports</a>
-          <span aria-hidden="true">·</span>
-          <a href="https://www.foxsports.com/stories/soccer/2026-fifa-world-cup-every-individual-award-winner" target="_blank" rel="noreferrer">FOX Sports</a>
-        </p>
       </section>
 
       <section class="content-section" aria-labelledby="highlights-title">
         <div class="section-heading">
           <div>
-            <h2 id="highlights-title" data-i18n="moreHighlights">A few more highlights</h2>
-            <p data-i18n="highlightsLead">The stories that kept coming up after the final whistle.</p>
+            <h2 id="highlights-title" data-i18n="moreHighlights">Underdog highlights</h2>
           </div>
         </div>
 
         <div class="highlight-list">
           <article class="highlight-row">
             <div>
-              <h3 data-i18n="caboTitle">Cabo Verde made their debut count.</h3>
-              <p data-i18n="caboBody">They drew all three group matches — against Spain, Uruguay, and Saudi Arabia — then took Argentina to extra time before losing 3–2. A remarkable first World Cup.</p>
+              <h3 data-i18n="caboTitle" data-highlight-team-id="CPV">Cabo Verde made their debut count</h3>
+              <p data-i18n="caboBody" data-highlight-body-team-id="CPV">They drew all three group matches against Spain, Uruguay, and Saudi Arabia. They then took Argentina to extra time before losing 3–2. It was a remarkable first World Cup.</p>
             </div>
           </article>
           <article class="highlight-row">
             <div>
-              <h3 data-i18n="paraguayTitle">Paraguay knocked out Germany.</h3>
-              <p data-i18n="paraguayBody">After a 1–1 draw, Orlando Gill saved penalties from Kai Havertz and Nick Woltemade as Paraguay won the shootout 4–3.</p>
+              <h3 data-i18n="paraguayTitle" data-highlight-team-id="PAR">Paraguay knocked out Germany</h3>
+              <p data-i18n="paraguayBody" data-highlight-player-mentions="Orlando Gill|Kai Havertz|Nick Woltemade" data-highlight-body-team-ids="PAR">After a 1–1 draw, Orlando Gill saved penalties from Kai Havertz and Nick Woltemade as Paraguay won the shootout 4–3.</p>
             </div>
           </article>
           <article class="highlight-row">
             <div>
-              <h3 data-i18n="moroccoTitle">Morocco went deep again.</h3>
-              <p data-i18n="moroccoBody">After their historic semi-final run in 2022, Morocco reached the quarter-finals again — beating the Netherlands on penalties and Canada 3–0.</p>
+              <h3 data-i18n="curacaoTitle" data-highlight-team-id="CUW">Curaçao earned their first World Cup point</h3>
+              <p data-i18n="curacaoBody" data-highlight-player-mentions="Eloy Room|Leandro Bacuna|Tahith Chong" data-highlight-body-team-ids="CUW|ECU">Eloy Room kept the clean sheet, while captain Leandro Bacuna and Tahith Chong helped Curaçao hold Ecuador to a 0–0 draw and earn their first World Cup point.</p>
             </div>
           </article>
         </div>
-
-        <p class="small-note"><strong data-i18n="alsoLabel">Also worth remembering:</strong> <span data-i18n="alsoText">Yoane Wissa scored DR Congo’s first-ever World Cup goal, while debutants Curaçao scored against Germany and held Ecuador to a 0–0 draw.</span></p>
       </section>
 
-      <aside class="methodology-note" aria-label="Sources and methodology" data-i18n-aria="sourcesAndMethodology">
-        <p><strong data-i18n="aboutHighlights">About these highlights</strong></p>
-        <p data-i18n="methodology">Fan discussions helped us choose the moments. The awards, scores, and player totals were checked separately against match reports and the tournament data used throughout this site.</p>
-        <p class="source-links">
-          <a href="https://www.fifa.com/en/articles/cabo-verde-reaction-exit-argentina" target="_blank" rel="noreferrer">FIFA</a>
-          <span>·</span>
-          <a href="https://rfef.es/es/noticias/rodrigo-hernandez-mejor-jugador-del-mundial" target="_blank" rel="noreferrer">RFEF</a>
-          <span>·</span>
-          <a href="https://www.skysports.com/football/news/11095/13564837/world-cup-2026-golden-boot-race-kylian-mbappe-beats-lionel-messi-to-become-top-goalscorer" target="_blank" rel="noreferrer">Sky Sports</a>
-          <span>·</span>
-          <a href="https://www.foxsports.com/stories/soccer/2026-fifa-world-cup-every-individual-award-winner" target="_blank" rel="noreferrer">FOX Sports</a>
-          <span>·</span>
-          <a href="https://www.reddit.com/r/worldcup/comments/1uy72j1/with_just_two_games_to_go_whats_been_your/" target="_blank" rel="noreferrer" data-i18n="fanDiscussion">Fan discussion</a>
-        </p>
-      </aside>
+      <section class="content-section next-world-cup-section" aria-labelledby="next-world-cup-title">
+        <header class="section-heading next-world-cup-header">
+          <div class="next-world-cup-heading">
+            <h2 id="next-world-cup-title" data-i18n="seeYouNextTime">See you next time</h2>
+            <p data-i18n="nextWorldCupLead">Morocco, Portugal, and Spain will host, with centenary matches in Argentina, Paraguay, and Uruguay.</p>
+          </div>
+        </header>
+
+        <ol class="next-world-cup-timeline" role="list">
+            <li class="timeline-item is-complete">
+              <div class="timeline-date">
+                <span data-i18n="timelineAlreadySet">Already set</span>
+              </div>
+              <span class="timeline-marker" aria-hidden="true"><i>✓</i></span>
+              <div class="timeline-copy">
+                <h3 data-i18n="timelineHostsTitle">Six teams have their places</h3>
+                <p data-i18n="timelineHostsBody">Morocco, Portugal, and Spain will host the main tournament. Argentina, Paraguay, and Uruguay will stage the centenary matches. All six qualify automatically.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item is-pending">
+              <div class="timeline-date" aria-hidden="true"></div>
+              <span class="timeline-marker" aria-hidden="true"><i>1</i></span>
+              <div class="timeline-copy">
+                <h3 data-i18n="timelineDrawTitle">The groups are drawn</h3>
+                <p data-i18n="timelineDrawBody">The final draw will set the tournament groups.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item is-scheduled">
+              <div class="timeline-date">
+                <span data-i18n="timelineStartDate">8 Jun 2030</span>
+              </div>
+              <span class="timeline-marker" aria-hidden="true"><i>2</i></span>
+              <div class="timeline-copy">
+                <h3 data-i18n="timelineStartTitle">The 2030 World Cup begins</h3>
+                <p data-i18n="timelineStartBody">The centenary World Cup gets underway in South America.</p>
+              </div>
+            </li>
+        </ol>
+
+      </section>
     </main>
 
     <footer class="site-footer awards-footer">
-      <p class="source-note" data-i18n="footer">World Cup Simplified · 2026 awards &amp; highlights</p>
+      <div class="source-note">
+        <a id="footer-top-link" href="#top" aria-labelledby="footer-top-label">
+          <span id="footer-top-label">Back to top</span>
+        </a>
+      </div>
     </footer>
 
-    <script type="module" src="highlights.js?v=2026-07-20-award-portraits-1"></script>
+    <span class="player-card player-card-floating best-xi-player-card" id="best-xi-player-card" role="tooltip" aria-hidden="true" aria-live="polite"></span>
+    <span class="player-card player-card-floating highlight-player-card-floating" id="highlight-player-card" role="tooltip" aria-hidden="true" aria-live="polite"></span>
+
+    <script type="module" src="football-typography.js?v=2026-07-20-final-cutover-1"></script>
+    <script type="module" src="highlights.js?v=2026-07-20-final-cutover-1"></script>
+    <script type="module" src="chatbot.js?v=2026-07-20-final-cutover-1"></script>
   </body>
 </html>

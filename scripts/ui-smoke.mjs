@@ -23,6 +23,14 @@ try {
 }
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const uiSmokeLiveLifecycle = {
+  ...JSON.parse(
+    await readFile(path.join(root, "scripts", "fixtures", "edition-lifecycle-live.json"), "utf8")
+  ),
+  tournamentStartsAt: "2000-01-01T00:00:00.000Z",
+  liveSyncEndsAt: "2100-01-01T00:00:00.000Z"
+};
+const uiSmokeLiveLifecycleContents = JSON.stringify(uiSmokeLiveLifecycle);
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
   [".html", "text/html; charset=utf-8"],
@@ -495,6 +503,16 @@ function safePath(urlPath) {
 }
 
 const server = createServer(async (request, response) => {
+  const requestUrl = new URL(request.url || "/", "http://127.0.0.1");
+  if (requestUrl.pathname === "/data/edition-lifecycle.json") {
+    response.writeHead(200, {
+      "Content-Length": Buffer.byteLength(uiSmokeLiveLifecycleContents),
+      "Content-Type": "application/json; charset=utf-8"
+    });
+    response.end(uiSmokeLiveLifecycleContents);
+    return;
+  }
+
   const filePath = safePath(request.url || "/");
 
   if (!filePath) {
@@ -622,7 +640,6 @@ const [
   standingsData,
   tournamentData
 ] = sourceNoteData;
-const sourceNoteRefreshData = sourceNoteData.filter((_, index) => ![4, 6].includes(index));
 
 function normalizeResultMentionName(value) {
   return String(value || "")
@@ -1939,48 +1956,6 @@ function getDayKeyForTimeZone(value, timeZone = "America/Los_Angeles") {
   return `${values.year}-${values.month}-${values.day}`;
 }
 
-function getLatestUpdatedAt(items) {
-  const latestTimestamp = items.reduce((latest, item) => {
-    const timestamp = new Date(item?.updatedAt || "").getTime();
-    return Number.isFinite(timestamp) && timestamp > latest ? timestamp : latest;
-  }, 0);
-
-  return latestTimestamp ? new Date(latestTimestamp).toISOString() : "";
-}
-
-function formatExpectedSourceUpdatedAt(
-  value,
-  now = new Date(),
-  timeZone = "America/Los_Angeles"
-) {
-  const updatedAt = new Date(value);
-  const updatedDayKey = getDayKeyForTimeZone(updatedAt, timeZone);
-  const todayKey = getDayKeyForTimeZone(now, timeZone);
-  const [todayYear, todayMonth, todayDay] = todayKey.split("-").map(Number);
-  const yesterday = new Date(Date.UTC(todayYear, todayMonth - 1, todayDay - 1, 12));
-  const yesterdayKey = getDayKeyForTimeZone(yesterday, "UTC");
-  const isToday = updatedDayKey === todayKey;
-  const relativeDay = updatedDayKey === yesterdayKey ? "yesterday" : "";
-
-  if (isToday || relativeDay) {
-    const timeText = new Intl.DateTimeFormat("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      timeZone
-    }).format(updatedAt);
-    return isToday ? `at ${timeText}` : `${relativeDay} at ${timeText}`;
-  }
-
-  return new Intl.DateTimeFormat("en-US", {
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    month: "short",
-    timeZone,
-    year: "numeric"
-  }).format(updatedAt);
-}
-
 function getExpectedReleaseTooltipText(data) {
   const release = [...(data.releases || [])]
     .filter((item) => item && typeof item === "object")
@@ -1990,7 +1965,7 @@ function getExpectedReleaseTooltipText(data) {
     ? release.highlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
     : [];
 
-  return [`Release notes: ${title}`, ...highlights, "Made by H"].filter(Boolean).join(" ");
+  return [`Release notes: ${title}`, ...highlights].filter(Boolean).join(" ");
 }
 
 async function useDesktopPointerMedia(context) {
@@ -2214,6 +2189,32 @@ try {
   await themeTogglePage.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await themeReportPage.goto(`${baseUrl}/report.html`, { waitUntil: "domcontentloaded" });
   await themeTogglePage.waitForSelector("#dark-mode-toggle", { state: "attached" });
+  const sharedHeaderVisibility = await Promise.all(
+    [themeTogglePage, themeReportPage].map((headerPage) =>
+      headerPage.evaluate(() => {
+        const header = document.querySelector(".site-header");
+        const settingsButton = document.querySelector("#settings-button");
+        const headerBounds = header?.getBoundingClientRect();
+        const settingsBounds = settingsButton?.getBoundingClientRect();
+        return {
+          display: header ? getComputedStyle(header).display : "",
+          headerHeight: headerBounds?.height || 0,
+          settingsHeight: settingsBounds?.height || 0,
+          settingsWidth: settingsBounds?.width || 0
+        };
+      })
+    )
+  );
+  assert(
+    sharedHeaderVisibility.every(
+      (headerState) =>
+        headerState.display !== "none" &&
+        headerState.headerHeight > 0 &&
+        headerState.settingsHeight > 0 &&
+        headerState.settingsWidth > 0
+    ),
+    `The main and Report issue pages should keep their shared header and Settings control visible. Measured ${JSON.stringify(sharedHeaderVisibility)}.`
+  );
   await themeTogglePage.locator("#settings-button").click();
   const themeToggleOrder = await themeTogglePage.evaluate(() => {
     const yesterdaySetting = document.querySelector("#show-yesterday-toggle")?.closest(".settings-section");
@@ -2499,18 +2500,18 @@ try {
   }, getExpectedReleaseTooltipText(releaseNotesData));
   await releaseNotesLoadingContext.close();
 
-  const homeFreshnessLoadingContext = await browser.newContext();
-  let releaseHomeFreshness;
-  let resolveHomeFreshnessRequest;
-  const homeFreshnessDelay = new Promise((resolve) => {
-    releaseHomeFreshness = resolve;
+  const compactFooterContext = await browser.newContext();
+  let releaseHomeLiveData;
+  let resolveHomeLiveDataRequest;
+  const homeLiveDataDelay = new Promise((resolve) => {
+    releaseHomeLiveData = resolve;
   });
-  const homeFreshnessRequested = new Promise((resolve) => {
-    resolveHomeFreshnessRequest = resolve;
+  const homeLiveDataRequested = new Promise((resolve) => {
+    resolveHomeLiveDataRequest = resolve;
   });
-  await homeFreshnessLoadingContext.route("**/api/live-data*", async (route) => {
-    resolveHomeFreshnessRequest();
-    await homeFreshnessDelay;
+  await compactFooterContext.route("**/api/live-data*", async (route) => {
+    resolveHomeLiveDataRequest();
+    await homeLiveDataDelay;
     await route.fulfill({
       body: JSON.stringify({
         fixturesData,
@@ -2522,73 +2523,43 @@ try {
       status: 200
     });
   });
-  const homeFreshnessLoadingPage = await homeFreshnessLoadingContext.newPage();
-  await homeFreshnessLoadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
-  await homeFreshnessRequested;
-  const homeFreshnessLoadingState = await homeFreshnessLoadingPage.locator("#source-note").evaluate((note) => ({
-    freshness: note.querySelector(".source-freshness")?.textContent.trim(),
-    isLoading: note.querySelector(".source-freshness")?.classList.contains("is-loading"),
-    statusRole: note.querySelector(".source-freshness")?.getAttribute("role"),
+  const compactHomeFooterPage = await compactFooterContext.newPage();
+  await compactHomeFooterPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await homeLiveDataRequested;
+  const compactHomeFooterState = await compactHomeFooterPage.locator("#source-note").evaluate((note) => ({
+    creator: note.querySelector(".source-credit")?.textContent.trim(),
+    freshnessCount: note.querySelectorAll(".source-freshness").length,
+    releaseTooltipCreatorCount: note.querySelectorAll(".release-tooltip .source-credit, .release-tooltip-note").length,
     sourceButton: note.querySelector(".source-tooltip-trigger")?.textContent.trim(),
     releaseButton: note.querySelector(".release-tooltip-trigger")?.textContent.trim()
   }));
   assert(
-    homeFreshnessLoadingState.freshness === "Checking data freshness…" &&
-      homeFreshnessLoadingState.isLoading &&
-      homeFreshnessLoadingState.statusRole === "status" &&
-      homeFreshnessLoadingState.sourceButton === "See sources" &&
-      homeFreshnessLoadingState.releaseButton === "See release notes",
-    `The home footer should keep both controls available and show one honest freshness loading state until live data settles. Measured ${JSON.stringify(homeFreshnessLoadingState)}.`
+    compactHomeFooterState.creator === "Made by HA" &&
+      compactHomeFooterState.freshnessCount === 0 &&
+      compactHomeFooterState.releaseTooltipCreatorCount === 0 &&
+      compactHomeFooterState.sourceButton === "Sources" &&
+      compactHomeFooterState.releaseButton === "Release notes",
+    `The home footer should show its creator credit outside the Release notes tooltip while live data loads. Measured ${JSON.stringify(compactHomeFooterState)}.`
   );
-  releaseHomeFreshness();
-  await homeFreshnessLoadingPage.waitForFunction(() => {
-    const freshness = document.querySelector("#source-note .source-freshness");
-    return freshness && !freshness.classList.contains("is-loading") && freshness.textContent.includes("Data refreshed");
-  });
-  await homeFreshnessLoadingContext.close();
-
-  const reportFreshnessLoadingContext = await browser.newContext();
-  let releaseReportFreshness;
-  let resolveReportFreshnessRequest;
-  const reportFreshnessDelay = new Promise((resolve) => {
-    releaseReportFreshness = resolve;
-  });
-  const reportFreshnessRequested = new Promise((resolve) => {
-    resolveReportFreshnessRequest = resolve;
-  });
-  await reportFreshnessLoadingContext.route("**/api/live-data*", async (route) => {
-    resolveReportFreshnessRequest();
-    await reportFreshnessDelay;
-    await route.fulfill({
-      body: JSON.stringify({
-        syncStatus: { checkedAt: "2026-07-19T16:32:00.000Z", ok: true }
-      }),
-      contentType: "application/json",
-      status: 200
-    });
-  });
-  const reportFreshnessLoadingPage = await reportFreshnessLoadingContext.newPage();
-  await reportFreshnessLoadingPage.goto(`${baseUrl}/report.html`, { waitUntil: "domcontentloaded" });
-  await reportFreshnessRequested;
-  const reportFreshnessLoadingState = await reportFreshnessLoadingPage.locator("#source-note").evaluate((note) => ({
-    freshness: note.querySelector(".source-freshness")?.textContent.trim(),
-    isLoading: note.querySelector(".source-freshness")?.classList.contains("is-loading"),
+  releaseHomeLiveData();
+  const compactReportFooterPage = await compactFooterContext.newPage();
+  await compactReportFooterPage.goto(`${baseUrl}/report.html`, { waitUntil: "domcontentloaded" });
+  const compactReportFooterState = await compactReportFooterPage.locator("#source-note").evaluate((note) => ({
+    creator: note.querySelector(".source-credit")?.textContent.trim(),
+    freshnessCount: note.querySelectorAll(".source-freshness").length,
+    releaseTooltipCreatorCount: note.querySelectorAll(".release-tooltip .source-credit, .release-tooltip-note").length,
     sourceButton: note.querySelector(".source-tooltip-trigger")?.textContent.trim(),
     releaseButton: note.querySelector(".release-tooltip-trigger")?.textContent.trim()
   }));
   assert(
-    reportFreshnessLoadingState.freshness === "Checking data freshness…" &&
-      reportFreshnessLoadingState.isLoading &&
-      reportFreshnessLoadingState.sourceButton === "See sources" &&
-      reportFreshnessLoadingState.releaseButton === "See release notes",
-    `The Report footer should keep both controls available and show the same freshness loading state. Measured ${JSON.stringify(reportFreshnessLoadingState)}.`
+    compactReportFooterState.creator === "Made by HA" &&
+      compactReportFooterState.freshnessCount === 0 &&
+      compactReportFooterState.releaseTooltipCreatorCount === 0 &&
+      compactReportFooterState.sourceButton === "Sources" &&
+      compactReportFooterState.releaseButton === "Release notes",
+    `The Report footer should show its creator credit outside the Release notes tooltip. Measured ${JSON.stringify(compactReportFooterState)}.`
   );
-  releaseReportFreshness();
-  await reportFreshnessLoadingPage.waitForFunction(() => {
-    const freshness = document.querySelector("#source-note .source-freshness");
-    return freshness && !freshness.classList.contains("is-loading") && freshness.textContent.includes("Data refreshed");
-  });
-  await reportFreshnessLoadingContext.close();
+  await compactFooterContext.close();
 
   {
   const defaultMatchViewCheck = await openPageAtTime("2026-07-07T12:00:00-07:00", "/", {
@@ -2910,6 +2881,11 @@ try {
   await page.locator(".key-info-team p .player-link").first().focus();
   const playerCard = page.locator(".player-card:visible").first();
   await playerCard.waitFor({ state: "visible" });
+  const playerCardTextAlign = await playerCard.evaluate((card) => getComputedStyle(card).textAlign);
+  assert(
+    playerCardTextAlign === "left" || playerCardTextAlign === "start",
+    `Player hover cards should keep their content left aligned regardless of the trigger's parent alignment. Measured ${playerCardTextAlign}.`
+  );
   const playerCardPhotoCount = await playerCard.locator(".player-photo img").count();
   const playerCardFallbackCount = await playerCard.locator(".player-photo-fallback").count();
   assert(
@@ -2997,6 +2973,75 @@ try {
       firstCardBox.x + firstCardBox.width <= viewportSize.width,
     "Player hover card should stay inside the viewport horizontally."
   );
+  await page.keyboard.press("Escape");
+  await page.mouse.move(0, 0);
+  await keyboardPlayerTrigger.hover();
+  const floatingHoverCard = page.locator(".player-card-floating");
+  await floatingHoverCard.waitFor({ state: "visible" });
+  const hoverTriggerBox = await keyboardPlayerTrigger.boundingBox();
+  const floatingHoverCardBox = await floatingHoverCard.boundingBox();
+  assert(
+    hoverTriggerBox && floatingHoverCardBox,
+    "Floating player-card hover geometry should be measurable."
+  );
+  const hoverBridgeX = Math.min(
+    floatingHoverCardBox.x + floatingHoverCardBox.width - 4,
+    Math.max(floatingHoverCardBox.x + 4, hoverTriggerBox.x + hoverTriggerBox.width / 2)
+  );
+  const floatingCardIsAbove =
+    floatingHoverCardBox.y + floatingHoverCardBox.height <= hoverTriggerBox.y;
+  const hoverBridgeY = floatingCardIsAbove
+    ? (floatingHoverCardBox.y + floatingHoverCardBox.height + hoverTriggerBox.y) / 2
+    : (hoverTriggerBox.y + hoverTriggerBox.height + floatingHoverCardBox.y) / 2;
+  await page.mouse.move(
+    hoverTriggerBox.x + hoverTriggerBox.width / 2,
+    hoverTriggerBox.y + hoverTriggerBox.height / 2
+  );
+  await page.mouse.move(hoverBridgeX, hoverBridgeY, { steps: 6 });
+  await page.waitForTimeout(150);
+  const floatingCardVisibleDuringHandoff = await floatingHoverCard.isVisible();
+  const floatingValueHelp = floatingHoverCard.locator(".player-card-value-help").first();
+  const floatingValueHelpBox = await floatingValueHelp.boundingBox();
+  assert(floatingValueHelpBox, "Floating player-card Value help geometry should be measurable.");
+  await page.mouse.move(
+    floatingValueHelpBox.x + floatingValueHelpBox.width / 2,
+    floatingValueHelpBox.y + floatingValueHelpBox.height / 2,
+    { steps: 6 }
+  );
+  await page.waitForTimeout(160);
+  const floatingHoverState = await floatingHoverCard.evaluate((card) => {
+    const value = card.querySelector(".player-card-value-help");
+    const tooltip = value ? getComputedStyle(value, "::after") : null;
+    return {
+      cardVisible: card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false",
+      tooltipOpacity: Number.parseFloat(tooltip?.opacity || "0"),
+      tooltipVisibility: tooltip?.visibility || ""
+    };
+  });
+  assert(
+    floatingCardVisibleDuringHandoff &&
+      floatingHoverState.cardVisible &&
+      floatingHoverState.tooltipOpacity >= 0.99 &&
+      floatingHoverState.tooltipVisibility === "visible",
+    `Floating player cards should survive the hover handoff and expose Value help. Measured ${JSON.stringify(floatingHoverState)}.`
+  );
+  await page.mouse.move(0, 0);
+  await page.waitForTimeout(255);
+  const floatingFadeOutState = await floatingHoverCard.evaluate((card) => {
+    const styles = getComputedStyle(card);
+    return {
+      opacity: Number.parseFloat(styles.opacity || "0"),
+      visibility: styles.visibility
+    };
+  });
+  assert(
+    floatingFadeOutState.opacity > 0 &&
+      floatingFadeOutState.opacity < 1 &&
+      floatingFadeOutState.visibility === "visible",
+    `Floating player cards should fade out after the hover handoff. Measured ${JSON.stringify(floatingFadeOutState)}.`
+  );
+  await page.waitForTimeout(280);
+  await floatingHoverCard.waitFor({ state: "hidden" });
   await defaultMatchViewCheck.context.close();
   }
 
@@ -5065,13 +5110,59 @@ try {
 
   const postFinalCelebrationCheck = await openPageAtTime(
     "2026-07-20T19:30:00Z",
-    "/?view=matches&tz=America%2FLos_Angeles"
+    "/?view=matches&tz=America%2FLos_Angeles",
+    {
+      initScript: () => {
+        window.__initialBannerOpacitySamples = [];
+        const recordBannerOpacity = (label) => {
+          const banner = document.querySelector("#final-celebration-banner");
+          if (!banner) return;
+          window.__initialBannerOpacitySamples.push({
+            label,
+            opacity: Number.parseFloat(getComputedStyle(banner).opacity)
+          });
+        };
+        const attachObserver = () => {
+          if (!document.documentElement) {
+            window.requestAnimationFrame(attachObserver);
+            return;
+          }
+          const observer = new MutationObserver(() => {
+            if (!document.querySelector("#final-celebration-banner")) return;
+            observer.disconnect();
+            recordBannerOpacity("insert");
+            window.requestAnimationFrame(() => {
+              recordBannerOpacity("raf-1");
+              window.requestAnimationFrame(() => recordBannerOpacity("raf-2"));
+            });
+            window.setTimeout(() => recordBannerOpacity("mid"), 180);
+            window.setTimeout(() => recordBannerOpacity("end"), 700);
+          });
+          observer.observe(document.documentElement, { childList: true, subtree: true });
+        };
+        attachObserver();
+      }
+    }
+  );
+  await postFinalCelebrationCheck.page.waitForFunction(
+    () => window.__initialBannerOpacitySamples?.some((sample) => sample.label === "end")
+  );
+  await postFinalCelebrationCheck.page.waitForFunction(
+    () => !document.body.classList.contains("is-initial-page-load")
   );
   const postFinalCelebrationState = await postFinalCelebrationCheck.page.evaluate(() => {
     const body = document.body;
     const emptyState = document.querySelector("#match-list > .empty-state");
+    const recapLink = emptyState?.querySelector(".empty-state-recap-action");
+    const postTournamentMessage = emptyState?.querySelector(".empty-state-post-tournament-description");
+    const banner = document.querySelector("#final-celebration-banner");
+    const recapLinkBounds = recapLink?.getBoundingClientRect();
+    const messageBounds = postTournamentMessage?.getBoundingClientRect();
+    const bannerStyles = banner ? getComputedStyle(banner) : null;
+    const recapLinkStyles = recapLink ? getComputedStyle(recapLink) : null;
     return {
       bulletCount: document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li").length,
+      bannerEntranceSamples: window.__initialBannerOpacitySamples || [],
       hasCelebration: body.classList.contains("has-final-celebration"),
       hasFinalAction: Boolean(emptyState?.querySelector("[data-select-final-match]")),
       hasFinalInRecentMatches: Boolean(
@@ -5079,38 +5170,142 @@ try {
       ),
       hasSummary: Boolean(document.querySelector("#final-celebration-banner .final-celebration-summary")),
       isCalm: body.classList.contains("is-final-celebration-calm"),
-      message: emptyState
-        ?.querySelector(".empty-state-post-tournament-description")
-        ?.textContent.trim() || "",
-      hasAwardsLink: Boolean(
-        document.querySelector("#final-celebration-banner .final-celebration-awards-link")
+      message: postTournamentMessage?.textContent.trim() || "",
+      hasBannerAwardsLink: Boolean(banner?.querySelector(".final-celebration-awards-link")),
+      initialEntranceComplete: !body.classList.contains("is-initial-page-load"),
+      loadingPlaceholderCount: document.querySelectorAll("#match-list > .match-loading").length,
+      settledOpacities: [
+        banner,
+        document.querySelector("#matches-view .page-title"),
+        emptyState,
+        document.querySelector("#match-list > .yesterday-section")
+      ].map((element) => element ? getComputedStyle(element).opacity : "missing"),
+      recapHref: recapLink?.getAttribute("href") || "",
+      recapLabel: recapLink?.textContent.trim() || "",
+      recapBackground: recapLinkStyles?.backgroundColor || "",
+      recapHeight: recapLinkBounds?.height || 0,
+      recapWidth: recapLinkBounds?.width || 0,
+      recapBelowMessage: Boolean(messageBounds && recapLinkBounds && recapLinkBounds.top >= messageBounds.bottom + 12),
+      bannerAnimationName: bannerStyles?.animationName || "",
+      bannerTransitionDuration: bannerStyles?.transitionDuration || "",
+      bannerTransitionProperty: bannerStyles?.transitionProperty || "",
+      bannerPaddingBalanced: Boolean(
+        bannerStyles &&
+        Number.parseFloat(bannerStyles.paddingTop) >= 20 &&
+        Math.abs(Number.parseFloat(bannerStyles.paddingTop) - Number.parseFloat(bannerStyles.paddingBottom)) <= 1 &&
+        Math.abs(Number.parseFloat(bannerStyles.paddingLeft) - Number.parseFloat(bannerStyles.paddingRight)) <= 1
       ),
       recentMatchesTitle: document.querySelector(".yesterday-section-header h2")?.textContent.trim() || "",
       title: document.querySelector("#final-celebration-banner")?.textContent.replace(/\s+/g, " ").trim() || ""
     };
   });
+  const bannerEntranceStart = postFinalCelebrationState.bannerEntranceSamples.find(
+    (sample) => sample.label === "insert"
+  );
+  const bannerEntranceMid = postFinalCelebrationState.bannerEntranceSamples.find(
+    (sample) => sample.label === "mid"
+  );
+  const bannerEntranceEnd = postFinalCelebrationState.bannerEntranceSamples.find(
+    (sample) => sample.label === "end"
+  );
   assert(
-    postFinalCelebrationState.message === "The 2026 World Cup is over." &&
+    bannerEntranceStart?.opacity === 0 &&
+      bannerEntranceMid?.opacity > 0 &&
+      bannerEntranceMid?.opacity < 1 &&
+      bannerEntranceEnd?.opacity === 1 &&
+      postFinalCelebrationState.message === "The 2026 World Cup is over." &&
       postFinalCelebrationState.bulletCount === 3 &&
       postFinalCelebrationState.hasCelebration &&
       !postFinalCelebrationState.hasFinalAction &&
       postFinalCelebrationState.hasFinalInRecentMatches &&
       !postFinalCelebrationState.hasSummary &&
       !postFinalCelebrationState.isCalm &&
-      !postFinalCelebrationState.hasAwardsLink &&
+      !postFinalCelebrationState.hasBannerAwardsLink &&
+      postFinalCelebrationState.initialEntranceComplete &&
+      postFinalCelebrationState.loadingPlaceholderCount === 0 &&
+      postFinalCelebrationState.settledOpacities.every((opacity) => opacity === "1") &&
+      postFinalCelebrationState.recapHref === "highlights.html" &&
+      postFinalCelebrationState.recapLabel === "View recap" &&
+      postFinalCelebrationState.recapHeight >= 38 &&
+      postFinalCelebrationState.recapHeight <= 46 &&
+      postFinalCelebrationState.recapWidth >= 80 &&
+      postFinalCelebrationState.recapWidth <= 130 &&
+      postFinalCelebrationState.recapBelowMessage &&
+      postFinalCelebrationState.bannerAnimationName === "none" &&
+      postFinalCelebrationState.bannerTransitionDuration.includes("0.48s") &&
+      postFinalCelebrationState.bannerTransitionProperty.includes("opacity") &&
+      postFinalCelebrationState.bannerPaddingBalanced &&
+      postFinalCelebrationState.recapBackground !== "rgba(0, 0, 0, 0)" &&
       postFinalCelebrationState.recentMatchesTitle.includes("Recent matches (Jul 19)") &&
       postFinalCelebrationState.title.includes("Spain are 2026 world champions") &&
       postFinalCelebrationState.title.includes(
         "Spain's philosophy is possession: keep the ball, stretch the pitch and swarm as soon as it is lost."
       ),
-    `July 20 should keep the animated champion cover, leave the final in Recent matches, and omit a redundant final CTA. Measured ${JSON.stringify(postFinalCelebrationState)}.`
+    `July 20 should keep the animated champion cover, leave the final in Recent matches, and put one compact recap action below the post-tournament message. Measured ${JSON.stringify(postFinalCelebrationState)}.`
   );
   await postFinalCelebrationCheck.context.close();
+
+  const reducedMotionEntranceCheck = await openPageAtTime(
+    "2026-07-20T19:30:00Z",
+    "/?view=matches&tz=America%2FLos_Angeles",
+    { contextOptions: { reducedMotion: "reduce" } }
+  );
+  const reducedMotionEntranceState = await reducedMotionEntranceCheck.page.evaluate(() => {
+    const elements = [
+      document.querySelector("#final-celebration-banner"),
+      document.querySelector("#matches-view .page-title"),
+      document.querySelector("#match-list > .empty-state"),
+      document.querySelector("#match-list > .yesterday-section")
+    ];
+    return {
+      reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      opacities: elements.map((element) => element ? getComputedStyle(element).opacity : "missing"),
+      transitionDurations: elements.map(
+        (element) => element ? getComputedStyle(element).transitionDuration : "missing"
+      )
+    };
+  });
+  assert(
+    reducedMotionEntranceState.reduced &&
+      reducedMotionEntranceState.opacities.every((opacity) => opacity === "1") &&
+      reducedMotionEntranceState.transitionDurations.every((duration) => duration === "0s"),
+    `Reduced-motion visitors should see the complete first-load page immediately. Measured ${JSON.stringify(reducedMotionEntranceState)}.`
+  );
+  await reducedMotionEntranceCheck.context.close();
 
   const postFinalMobileCalendarCheck = await openPageAtTime(
     "2026-07-20T19:30:00Z",
     "/?view=matches&tz=America%2FLos_Angeles",
     { contextOptions: { viewport: { width: 430, height: 732 } } }
+  );
+  const postFinalMobileRecapLayout = await postFinalMobileCalendarCheck.page.evaluate(() => {
+    const banner = document.querySelector("#final-celebration-banner");
+    const emptyState = document.querySelector("#match-list > .empty-state");
+    const message = emptyState?.querySelector(".empty-state-post-tournament-description");
+    const recapLink = emptyState?.querySelector(".empty-state-recap-action");
+    const emptyBounds = emptyState?.getBoundingClientRect();
+    const messageBounds = message?.getBoundingClientRect();
+    const linkBounds = recapLink?.getBoundingClientRect();
+    return {
+      belowMessage: Boolean(messageBounds && linkBounds && linkBounds.top >= messageBounds.bottom + 12),
+      hasBannerLink: Boolean(banner?.querySelector(".final-celebration-awards-link")),
+      hasOverflow: document.documentElement.scrollWidth > window.innerWidth,
+      leftAligned: Boolean(emptyBounds && linkBounds && Math.abs(emptyBounds.left - linkBounds.left) <= 1),
+      label: recapLink?.textContent.trim() || "",
+      height: linkBounds?.height || 0,
+      width: linkBounds?.width || 0
+    };
+  });
+  assert(
+    postFinalMobileRecapLayout.belowMessage &&
+      !postFinalMobileRecapLayout.hasBannerLink &&
+      !postFinalMobileRecapLayout.hasOverflow &&
+      postFinalMobileRecapLayout.leftAligned &&
+      postFinalMobileRecapLayout.label === "View recap" &&
+      postFinalMobileRecapLayout.height === 34 &&
+      postFinalMobileRecapLayout.width >= 76 &&
+      postFinalMobileRecapLayout.width <= 120,
+    `The compact post-tournament empty state should place a right-sized View recap action below its message. Measured ${JSON.stringify(postFinalMobileRecapLayout)}.`
   );
   await postFinalMobileCalendarCheck.page.locator("#day-label").click();
   const postFinalCalendarLayerState = await postFinalMobileCalendarCheck.page.evaluate(() => {
@@ -5147,6 +5342,7 @@ try {
 
   const finalCelebrationLocaleCases = [
     {
+      recapLabel: "查看回顾",
       body: "西班牙在决赛中以1-0击败阿根廷。",
       headline: "西班牙成为2026年世界杯冠军",
       history: "2010年",
@@ -5154,6 +5350,7 @@ try {
       philosophy: "西班牙的理念是控球：掌控球权、拉开场地宽度，并在丢球后立即合围反抢。"
     },
     {
+      recapLabel: "Ver resumen",
       body: "España venció 1-0 a Argentina en la final.",
       headline: "España gana el Mundial de 2026",
       history: "2010",
@@ -5161,6 +5358,7 @@ try {
       philosophy: "La filosofía de España es la posesión: conservar el balón, estirar el campo y rodear al rival en cuanto lo pierde."
     },
     {
+      recapLabel: "대회 돌아보기",
       body: "스페인이 결승에서 아르헨티나를 1-0으로 꺾었다.",
       headline: "스페인이 2026년 세계 챔피언에 올랐다",
       history: "2010년",
@@ -5174,14 +5372,17 @@ try {
       `/?view=matches&tz=America%2FLos_Angeles&lang=${localeCase.language}`
     );
     await localeCheck.page.waitForFunction(
-      ({ body, headline, history, philosophy }) => {
+      ({ recapLabel, body, headline, history, language, philosophy }) => {
         const banner = document.querySelector("#final-celebration-banner");
+        const recapLink = document.querySelector("#match-list > .empty-state .empty-state-recap-action");
         const bullets = [...(banner?.querySelectorAll(".final-celebration-bullets li") || [])]
           .map((item) => item.innerText.trim());
         return (
           banner?.querySelector(".final-celebration-headline")?.textContent.trim() === headline &&
           !banner.querySelector(".final-celebration-summary") &&
           !banner.querySelector(".final-celebration-awards-link") &&
+          recapLink?.textContent.trim() === recapLabel &&
+          recapLink?.getAttribute("href") === `highlights.html?lang=${language}` &&
           bullets.length === 3 &&
           bullets[0] === body &&
           bullets[1].includes(history) &&
@@ -5230,9 +5431,9 @@ try {
   await calmArchiveCheck.context.close();
 
   const postTournamentLocaleCases = [
-    { language: "zh", message: "2026年世界杯已结束。" },
-    { language: "es", message: "El Mundial 2026 ha terminado." },
-    { language: "ko", message: "2026 월드컵이 끝났습니다." }
+    { action: "查看回顾", language: "zh", message: "2026年世界杯已结束。" },
+    { action: "Ver resumen", language: "es", message: "El Mundial 2026 ha terminado." },
+    { action: "대회 돌아보기", language: "ko", message: "2026 월드컵이 끝났습니다." }
   ];
   for (const localeCase of postTournamentLocaleCases) {
     const localeCheck = await openPageAtTime(
@@ -5240,8 +5441,10 @@ try {
       `/?view=matches&tz=America%2FLos_Angeles&lang=${localeCase.language}`
     );
     await localeCheck.page.waitForFunction(
-      ({ message }) =>
+      ({ action, language, message }) =>
         document.querySelector(".empty-state-post-tournament-description")?.textContent.trim() === message &&
+        document.querySelector(".empty-state-recap-action")?.textContent.trim() === action &&
+        document.querySelector(".empty-state-recap-action")?.getAttribute("href") === `highlights.html?lang=${language}` &&
         !document.querySelector("[data-select-final-match]"),
       localeCase
     );
@@ -5538,9 +5741,77 @@ try {
     `The first historical shootout forecast should use only the record known before kickoff and expose an accessible Tie tooltip. Measured ${JSON.stringify(firstWorldCupShootoutTieRow)}.`
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=1930-07-30&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  const scaronePhilosophyLink = page.locator(
+    "#final-celebration-banner .final-celebration-bullets li:nth-child(3) .player-link"
+  );
+  await scaronePhilosophyLink.waitFor({ state: "visible" });
+  const scaronePhilosophyLinkState = await scaronePhilosophyLink.evaluate((link) => ({
+    ariaLabel: link.getAttribute("aria-label") || "",
+    hasPlayerLinkClass: link.classList.contains("player-link"),
+    role: link.getAttribute("role") || "",
+    text: link.textContent.trim()
+  }));
+  assert(
+    scaronePhilosophyLinkState.text === "Scarone" &&
+      scaronePhilosophyLinkState.ariaLabel.startsWith("Héctor Scarone:") &&
+      scaronePhilosophyLinkState.hasPlayerLinkClass &&
+      scaronePhilosophyLinkState.role === "button",
+    `The 1930 philosophy should link its short Scarone mention to Héctor Scarone. Measured ${JSON.stringify(scaronePhilosophyLinkState)}.`
+  );
+
+  const finalCelebrationAuthoredPlayerCases = [
+    {
+      date: "1958-06-29",
+      expectedLinks: ["Pelé", "Garrincha"],
+      year: 1958
+    },
+    {
+      date: "1974-07-07",
+      expectedLinks: ["Beckenbauer", "Müller"],
+      year: 1974
+    }
+  ];
+  for (const playerCase of finalCelebrationAuthoredPlayerCases) {
+    await page.goto(
+      `${baseUrl}?view=matches&date=${playerCase.date}&lang=en&tz=America%2FLos_Angeles`,
+      { waitUntil: "load" }
+    );
+    const philosophyLinks = page.locator(
+      "#final-celebration-banner .final-celebration-bullets li:nth-child(3) .player-link"
+    );
+    await philosophyLinks.first().waitFor({ state: "visible" });
+    const linkedNames = await philosophyLinks.allTextContents();
+    assert(
+      linkedNames.join("|") === playerCase.expectedLinks.join("|"),
+      `The ${playerCase.year} philosophy should link every authored player name. Measured ${JSON.stringify(linkedNames)}.`
+    );
+  }
+
   await page.goto(`${baseUrl}?view=matches&date=2022-12-18&lang=en&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
+  await page.waitForSelector("#final-celebration-background .final-firework");
+  const argentina2022Celebration = await page.evaluate(() => {
+    const firework = document.querySelector("#final-celebration-background .final-firework");
+    return {
+      fireworkAnimation: firework ? getComputedStyle(firework, "::after").animationName : "",
+      fireworkColor: firework ? getComputedStyle(firework, "::after").backgroundColor : "",
+      fireworkCount: document.querySelectorAll("#final-celebration-background .final-firework").length,
+      isCalm: document.body.classList.contains("is-final-celebration-calm"),
+      palette: document.body.dataset.finalCelebrationPalette || ""
+    };
+  });
+  assert(
+    !argentina2022Celebration.isCalm &&
+      argentina2022Celebration.palette === "argentina" &&
+      argentina2022Celebration.fireworkCount === 6 &&
+      argentina2022Celebration.fireworkAnimation === "final-firework-core" &&
+      argentina2022Celebration.fireworkColor === "rgb(112, 188, 227)",
+    `Historical final days should replay the winner-colored fireworks. Measured ${JSON.stringify(argentina2022Celebration)}.`
+  );
   const argentina2022Style = await page
     .locator("#final-celebration-banner .final-celebration-bullets li")
     .nth(2)
@@ -6031,7 +6302,7 @@ try {
         (option) => option.language === "en" && option.text === "English"
       ) &&
       zhGroupLabelRegressionCheck.footerLinks.includes("FIFA") &&
-      zhGroupLabelRegressionCheck.footerLinks.includes("H"),
+      zhGroupLabelRegressionCheck.footerLinks.includes("HA"),
     `Chinese localization should not phonetically transliterate language tabs, group labels, FIFA, or creator initials. Measured ${JSON.stringify(zhGroupLabelRegressionCheck)}.`
   );
   await zhLocalizationRegressionPage.goto(
@@ -7064,6 +7335,20 @@ try {
   });
   await sadikiLineupTrigger.focus();
   await finalLineupModeCheck.page.keyboard.press("Enter");
+  await finalLineupModeCheck.page.waitForFunction(() => {
+    if (!document.body.classList.contains("is-juggle-active")) return false;
+    return [...document.querySelectorAll(".player-card")].every((card) => {
+      const style = getComputedStyle(card);
+      const rect = card.getBoundingClientRect();
+      return (
+        style.display === "none" ||
+        style.visibility === "hidden" ||
+        Number(style.opacity) <= 0.05 ||
+        rect.width <= 0 ||
+        rect.height <= 0
+      );
+    });
+  });
   const activeJugglePlayerCardState = await finalLineupModeCheck.page.evaluate(() => ({
     activeElementIsPlayerTrigger: Boolean(
       document.activeElement?.matches?.("[data-player-card-trigger='true']")
@@ -10963,42 +11248,11 @@ try {
   );
   await latestKnockoutChineseCheck.context.close();
 
-  const sourceFreshnessNow = new Date("2026-07-18T08:00:00.000Z");
-  const sourceFreshnessLiveCheckedAt = "2026-07-18T07:42:00.000Z";
-  const sourceFreshnessCheck = await openPageAtTime(
-    sourceFreshnessNow.toISOString(),
-    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
-    {
-      liveDataResponse: {
-        fixturesData,
-        standingsData,
-        syncStatus: {
-          checkedAt: sourceFreshnessLiveCheckedAt,
-          ok: true
-        },
-        tournamentData
-      }
-    }
+  const compactSourceFooterCheck = await openPageAtTime(
+    "2026-07-18T08:00:00.000Z",
+    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles"
   );
-  await sourceFreshnessCheck.liveDataRequested;
-  const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
-  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(
-    sourceFreshnessLiveCheckedAt,
-    sourceFreshnessNow,
-    "America/Los_Angeles"
-  );
-  const expectedSourceFreshnessText = `Data refreshed ${expectedSourceUpdatedAt}`;
-  const settledSourceFreshness = sourceNote
-    .locator(".source-freshness:not(.is-loading)")
-    .filter({ hasText: expectedSourceFreshnessText });
-  await settledSourceFreshness.waitFor({ state: "attached" });
-  assert(
-    (await settledSourceFreshness.innerText()).trim() === expectedSourceFreshnessText,
-    `The home footer should settle on the verified live-data timestamp. Measured ${JSON.stringify({
-      actual: (await sourceNote.locator(".source-freshness").innerText()).trim(),
-      expected: expectedSourceFreshnessText
-    })}.`
-  );
+  const sourceNote = compactSourceFooterCheck.page.locator("#source-note");
   const sourceNoteText = await sourceNote.innerText();
   const normalizedSourceNoteText = sourceNoteText
     .replace(/\s+/g, " ")
@@ -11051,16 +11305,15 @@ try {
       visibility: styles.visibility
     };
   });
-  const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
-  const latestSourceUpdatedAt = sourceFreshnessLiveCheckedAt;
-  const expectedSourceNoteText = `See sources • Data refreshed ${expectedSourceUpdatedAt} • See release notes`;
+  const creatorHref = await sourceNote.locator("a", { hasText: /^HA$/ }).getAttribute("href");
+  const expectedSourceNoteText = "Sources • Release notes • Made by HA";
   assert(
     normalizedSourceNoteText === expectedSourceNoteText,
-    `The source note should omit the prediction disclaimer and show relative freshness without a timezone suffix. Expected "${expectedSourceNoteText}", received "${normalizedSourceNoteText}".`
+    `The source note should show Sources, Release notes, and the creator credit. Expected "${expectedSourceNoteText}", received "${normalizedSourceNoteText}".`
   );
   assert(
     sourceLinkLabels ===
-      "FIFA|Opta Analyst|public betting markets|FIFA|Sports Mole|Racing Post|Sky Sports|Wikipedia|Wikimedia Commons|Transfermarkt|National Football Teams|11v11|FIFA|FOX Sports|H",
+      "FIFA|Opta Analyst|public betting markets|FIFA|Sports Mole|Racing Post|Sky Sports|Wikipedia|Wikimedia Commons|Transfermarkt|National Football Teams|11v11|FIFA|FOX Sports|HA",
     "The source note should link each main source family and the creator without repeating the Settings report link."
   );
   assert(
@@ -11092,7 +11345,7 @@ try {
     "The release notes tooltip should be hidden before hover or focus."
   );
   await sourceNote.locator(".source-tooltip-trigger").focus();
-  await sourceFreshnessCheck.page.waitForFunction(() => {
+  await compactSourceFooterCheck.page.waitForFunction(() => {
     const tooltip = document.querySelector("#source-note .source-tooltip");
     if (!tooltip) {
       return false;
@@ -11119,7 +11372,7 @@ try {
     "The source tooltip should appear on focus."
   );
   await sourceNote.locator(".release-tooltip-trigger").focus();
-  await sourceFreshnessCheck.page.waitForFunction(() => {
+  await compactSourceFooterCheck.page.waitForFunction(() => {
     const tooltip = document.querySelector("#source-note .release-tooltip");
     if (!tooltip) {
       return false;
@@ -11147,7 +11400,7 @@ try {
   );
   assert(
     creatorHref === "https://www.linkedin.com/in/hirooaoy",
-    "The release notes tooltip should link H to LinkedIn."
+    "The visible footer creator credit should link HA to LinkedIn."
   );
   assert(
     !sourceNoteText.includes("Core data") &&
@@ -11156,106 +11409,34 @@ try {
       !sourceNoteText.includes("Source data checked"),
     "The source note should not show diagnostic freshness details."
   );
-  await sourceFreshnessCheck.page.locator("#settings-button").click();
-  await sourceFreshnessCheck.page.locator("#timezone-picker-trigger").click();
-  await sourceFreshnessCheck.page.locator("#timezone-search-input").fill("Japan");
-  await sourceFreshnessCheck.page
+  await compactSourceFooterCheck.page.locator("#settings-button").click();
+  await compactSourceFooterCheck.page.locator("#timezone-picker-trigger").click();
+  await compactSourceFooterCheck.page.locator("#timezone-search-input").fill("Japan");
+  await compactSourceFooterCheck.page
     .locator('.timezone-picker-option[data-time-zone="Asia/Tokyo"]')
     .click();
-  const tokyoSourceUpdatedAt = formatExpectedSourceUpdatedAt(
-    latestSourceUpdatedAt,
-    sourceFreshnessNow,
-    "Asia/Tokyo"
-  );
   const tokyoSourceNoteText = (await sourceNote.innerText())
     .replace(/\s+/g, " ")
     .replace(/\s+([.,。])/g, "$1")
     .trim();
   assert(
-    tokyoSourceNoteText === `See sources • Data refreshed ${tokyoSourceUpdatedAt} • See release notes`,
-    `The footer freshness day and time should update with the saved timezone. Measured "${tokyoSourceNoteText}".`
+    tokyoSourceNoteText === expectedSourceNoteText,
+    `Changing timezone should leave the compact footer unchanged. Measured "${tokyoSourceNoteText}".`
   );
 
-  const reportFooterPage = await sourceFreshnessCheck.context.newPage();
+  const reportFooterPage = await compactSourceFooterCheck.context.newPage();
   await reportFooterPage.goto(`${baseUrl}/report.html`, { waitUntil: "load" });
-  const expectedReportUpdatedAt = formatExpectedSourceUpdatedAt(
-    sourceFreshnessLiveCheckedAt,
-    sourceFreshnessNow,
-    "Asia/Tokyo"
-  );
-  await reportFooterPage.waitForFunction(
-    (expectedText) => document.querySelector("#source-note")?.innerText.includes(expectedText),
-    `Data refreshed ${expectedReportUpdatedAt}`
-  );
   const reportFooterText = (await reportFooterPage.locator("#source-note").innerText())
     .replace(/\s+/g, " ")
     .replace(/\s+([.,。])/g, "$1")
     .trim();
   assert(
-    reportFooterText === `See sources • Data refreshed ${expectedReportUpdatedAt} • See release notes`,
-    `The report footer should use the successful live check in the saved timezone. Measured "${reportFooterText}".`
+    reportFooterText === expectedSourceNoteText &&
+      (await reportFooterPage.locator("#source-note .source-freshness").count()) === 0,
+    `The report footer should show Sources, Release notes, and the creator credit. Measured "${reportFooterText}".`
   );
   await reportFooterPage.close();
-
-  await sourceFreshnessCheck.context.unroute("**/api/live-data*");
-  const reportFallbackPage = await sourceFreshnessCheck.context.newPage();
-  await reportFallbackPage.goto(`${baseUrl}/report.html`, { waitUntil: "load" });
-  const expectedReportFallbackUpdatedAt = formatExpectedSourceUpdatedAt(
-    fixturesData.updatedAt,
-    sourceFreshnessNow,
-    "Asia/Tokyo"
-  );
-  await reportFallbackPage.waitForFunction(
-    (expectedText) => document.querySelector("#source-note")?.innerText.includes(expectedText),
-    `Data refreshed ${expectedReportFallbackUpdatedAt}`
-  );
-  const reportFallbackFooterText = (await reportFallbackPage.locator("#source-note").innerText())
-    .replace(/\s+/g, " ")
-    .replace(/\s+([.,。])/g, "$1")
-    .trim();
-  assert(
-    reportFallbackFooterText ===
-      `See sources • Data refreshed ${expectedReportFallbackUpdatedAt} • See release notes`,
-    `The report footer should fall back to fixtures.json when live data is unavailable. Measured "${reportFallbackFooterText}".`
-  );
-  await sourceFreshnessCheck.context.close();
-
-  const failedFreshnessNow = new Date("2026-07-19T08:00:00.000Z");
-  const failedLiveCheckedAt = "2026-07-19T07:42:00.000Z";
-  const failedLiveFreshnessCheck = await openPageAtTime(
-    failedFreshnessNow.toISOString(),
-    "/?view=matches&date=2026-07-19&tz=America%2FLos_Angeles",
-    {
-      liveDataResponse: {
-        fixturesData,
-        standingsData: { ...standingsData, updatedAt: failedLiveCheckedAt },
-        syncStatus: {
-          checkedAt: failedLiveCheckedAt,
-          ok: false
-        },
-        tournamentData
-      }
-    }
-  );
-  await failedLiveFreshnessCheck.liveDataRequested;
-  await failedLiveFreshnessCheck.page.evaluate(
-    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
-  );
-  const expectedFailedLiveFallbackUpdatedAt = formatExpectedSourceUpdatedAt(
-    getLatestUpdatedAt(sourceNoteRefreshData),
-    failedFreshnessNow,
-    "America/Los_Angeles"
-  );
-  const failedLiveFooterText = (await failedLiveFreshnessCheck.page.locator("#source-note").innerText())
-    .replace(/\s+/g, " ")
-    .replace(/\s+([.,。])/g, "$1")
-    .trim();
-  assert(
-    failedLiveFooterText ===
-      `See sources • Data refreshed ${expectedFailedLiveFallbackUpdatedAt} • See release notes`,
-    `The main footer should retain the static timestamp when live sync reports ok false. Measured "${failedLiveFooterText}".`
-  );
-  await failedLiveFreshnessCheck.context.close();
+  await compactSourceFooterCheck.context.close();
 
   const tomorrowDuringKickoff = await openPageAtTime(
     "2026-06-18T15:55:00.000Z",

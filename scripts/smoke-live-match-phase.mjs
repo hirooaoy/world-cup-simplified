@@ -1,18 +1,25 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
+import { fileURLToPath } from "node:url";
 
 const previousFetch = globalThis.fetch;
 const previousEnv = {
   FIFA_GOAL_EVENTS_ENABLED: process.env.FIFA_GOAL_EVENTS_ENABLED,
   FIFA_LIVE_LINEUP_TIMEOUT_MS: process.env.FIFA_LIVE_LINEUP_TIMEOUT_MS,
   FOOTBALL_DATA_API_KEY: process.env.FOOTBALL_DATA_API_KEY,
-  LIVE_DATA_PROVIDER: process.env.LIVE_DATA_PROVIDER
+  LIVE_DATA_PROVIDER: process.env.LIVE_DATA_PROVIDER,
+  TOURNAMENT_LIFECYCLE_FILE: process.env.TOURNAMENT_LIFECYCLE_FILE,
+  TOURNAMENT_LIFECYCLE_NOW: process.env.TOURNAMENT_LIFECYCLE_NOW
 };
 
 process.env.FIFA_GOAL_EVENTS_ENABLED = "0";
 process.env.FIFA_LIVE_LINEUP_TIMEOUT_MS = "100";
 process.env.FOOTBALL_DATA_API_KEY = "test-token";
 process.env.LIVE_DATA_PROVIDER = "footballData";
+process.env.TOURNAMENT_LIFECYCLE_FILE = fileURLToPath(
+  new URL("./fixtures/edition-lifecycle-live.json", import.meta.url)
+);
+process.env.TOURNAMENT_LIFECYCLE_NOW = "2026-07-14T18:00:00Z";
 
 function localized(value) {
   return [{ Locale: "en-GB", Description: value }];

@@ -3105,6 +3105,14 @@
       "type": "cross-check",
       "checkedAt": "2026-07-20T01:13:10Z",
       "note": "Full award-list cross-check, including the Netherlands as FIFA Fair Play Award winner."
+    },
+    {
+      "id": "world-cup-2026-final-archive",
+      "label": "World Cup 2026 final official snapshot",
+      "url": "data/archives/world-cup-2026-final-2026-07-20T23-37-05-227Z.json",
+      "type": "official-archive",
+      "checkedAt": "2026-07-20T23:37:05.227Z",
+      "note": "Immutable 104-match archive 2026-final-2026-07-20T23-37-05-227Z; SHA-256 eb8b613d5db1861db4f88c0dee22286d42ab253c9d2b400edd33513b4b940ef9."
     }
   ],
   "groups": [
