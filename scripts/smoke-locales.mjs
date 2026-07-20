@@ -324,6 +324,11 @@ async function assertHighlightsLocales(browser) {
       goldenGloveStat:
         document.querySelector('[data-i18n="goldenGloveStat"]')?.textContent.trim() || "",
       highlightCount: document.querySelectorAll(".highlight-row").length,
+      portraitCount: document.querySelectorAll(".award-player-photo").length,
+      portraitImageCount: document.querySelectorAll(".award-player-photo img[src]").length,
+      fairPlayHasPortrait: Boolean(
+        document.querySelector("#fair-play-name")?.closest(".award-copy")?.querySelector(".award-player-photo")
+      ),
       language: document.documentElement.lang,
       languageOptions: document.querySelectorAll("#language-select option").length,
       selectedLanguage: document.querySelector("#language-select")?.value || "",
@@ -343,6 +348,9 @@ async function assertHighlightsLocales(browser) {
     assert(
       measured.awardCount === 5 &&
         measured.highlightCount === 3 &&
+        measured.portraitCount === 4 &&
+        measured.portraitImageCount === 4 &&
+        !measured.fairPlayHasPortrait &&
         measured.languageOptions === 4 &&
         measured.language === locale.htmlLang &&
         measured.selectedLanguage === locale.code &&

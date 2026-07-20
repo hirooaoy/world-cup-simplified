@@ -179,6 +179,37 @@ html[data-theme="dark"] .doodle {
   line-height: 1.2;
 }
 
+.award-winner {
+  display: flex;
+  width: 100%;
+  max-width: 510px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.award-winner h3 {
+  min-width: 0;
+  margin: 0;
+}
+
+.award-player-photo,
+.award-player-photo img,
+.award-player-photo .player-photo-fallback {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.award-player-photo {
+  flex: 0 0 40px;
+}
+
+.award-player-photo .player-photo-fallback {
+  font-size: 12px;
+}
+
 .award-copy p,
 .highlight-row p {
   max-width: 510px;

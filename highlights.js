@@ -13,6 +13,15 @@ const AWARD_NAME_IDS = Object.freeze({
   youngPlayer: "young-player-name"
 });
 
+const AWARD_PHOTO_IDS = Object.freeze({
+  goldenBall: "golden-ball-photo",
+  goldenBoot: "golden-boot-photo",
+  goldenGlove: "golden-glove-photo",
+  youngPlayer: "young-player-photo"
+});
+
+const AWARD_PHOTO_RETRY_DELAY_MS = 350;
+
 const DEFAULT_AWARD_NAMES = Object.freeze({
   goldenBall: "Rodri",
   goldenBoot: "Kylian Mbappe",
@@ -383,11 +392,76 @@ async function loadJson(url) {
   return response.json();
 }
 
+function getPlayerInitials(name) {
+  return String(name || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+function renderAwardPhoto(elementId, displayName, profile) {
+  const photo = getElement(elementId);
+  if (!photo) {
+    return;
+  }
+
+  const fallback = document.createElement("span");
+  fallback.className = "player-photo-fallback";
+  fallback.textContent = getPlayerInitials(displayName);
+  photo.classList.remove("is-image-ready");
+
+  if (!profile?.imageUrl) {
+    photo.replaceChildren(fallback);
+    return;
+  }
+
+  const image = document.createElement("img");
+  image.alt = "";
+  image.loading = "lazy";
+  image.decoding = "async";
+  image.referrerPolicy = "no-referrer";
+  image.dataset.playerImageOriginalUrl = profile.imageUrl;
+
+  image.addEventListener("load", () => {
+    image.classList.add("is-image-ready");
+    photo.classList.add("is-image-ready");
+  });
+
+  image.addEventListener("error", () => {
+    if (image.dataset.playerImageRetryAttempt !== "1") {
+      image.dataset.playerImageRetryAttempt = "1";
+      image.classList.remove("is-image-ready");
+      photo.classList.remove("is-image-ready");
+      window.setTimeout(() => {
+        if (image.isConnected) {
+          image.src = profile.imageUrl;
+        }
+      }, AWARD_PHOTO_RETRY_DELAY_MS);
+      return;
+    }
+    image.remove();
+    photo.classList.remove("is-image-ready");
+  });
+
+  photo.replaceChildren(fallback, image);
+  image.src = profile.imageUrl;
+  if (image.complete && image.naturalWidth > 0) {
+    image.classList.add("is-image-ready");
+    photo.classList.add("is-image-ready");
+  }
+}
+
 function renderAwards(awards, profiles) {
   Object.entries(AWARD_NAME_IDS).forEach(([awardKey, elementId]) => {
     const playerName = awards[awardKey]?.playerName || DEFAULT_AWARD_NAMES[awardKey];
-    const displayName = profiles[playerName]?.displayName || playerName;
-    setText(elementId, localizeEntity("players", playerName) || displayName);
+    const profile = profiles[playerName];
+    const displayName = profile?.displayName || playerName;
+    const localizedName = localizeEntity("players", playerName) || displayName;
+    setText(elementId, localizedName);
+    renderAwardPhoto(AWARD_PHOTO_IDS[awardKey], localizedName, profile);
   });
 
   const goldenBoot = awards.goldenBoot;

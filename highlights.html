@@ -28,7 +28,7 @@
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
     <link rel="stylesheet" href="styles/tokens.css?v=2026-07-17-modules-1" />
     <link rel="stylesheet" href="styles.css?v=2026-07-20-historical-1950-format-1" />
-    <link rel="stylesheet" href="highlights.css?v=2026-07-20-awards-5" />
+    <link rel="stylesheet" href="highlights.css?v=2026-07-20-awards-6" />
   </head>
   <body class="highlights-page is-locale-loading">
     <header class="site-header report-header">
@@ -110,7 +110,12 @@
               <span data-i18n="goldenBallMeaning">Best overall player</span>
             </div>
             <div class="award-copy">
-              <h3 id="golden-ball-name">Rodri</h3>
+              <div class="award-winner">
+                <h3 id="golden-ball-name">Rodri</h3>
+                <span class="player-photo award-player-photo" id="golden-ball-photo" aria-hidden="true">
+                  <span class="player-photo-fallback">R</span>
+                </span>
+              </div>
               <p data-i18n="goldenBallWhy">He controlled the pace from midfield and kept Spain organized under pressure. His consistency and leadership were central to their title run.</p>
               <span data-i18n="goldenBallMeta">🇪🇸 Spain</span>
             </div>
@@ -123,7 +128,12 @@
               <span data-i18n="goldenBootMeaning">Top scorer</span>
             </div>
             <div class="award-copy">
-              <h3 id="golden-boot-name">Kylian Mbappé</h3>
+              <div class="award-winner">
+                <h3 id="golden-boot-name">Kylian Mbappé</h3>
+                <span class="player-photo award-player-photo" id="golden-boot-photo" aria-hidden="true">
+                  <span class="player-photo-fallback">KM</span>
+                </span>
+              </div>
               <p><strong id="golden-boot-total">10 goals · 4 assists.</strong> <span data-i18n="goldenBootWhy">His two goals against England in the third-place match took him past Lionel Messi and secured the award.</span></p>
               <span data-i18n="goldenBootMeta">🇫🇷 France</span>
             </div>
@@ -136,7 +146,12 @@
               <span data-i18n="goldenGloveMeaning">Best goalkeeper</span>
             </div>
             <div class="award-copy">
-              <h3 id="golden-glove-name">Unai Simón</h3>
+              <div class="award-winner">
+                <h3 id="golden-glove-name">Unai Simón</h3>
+                <span class="player-photo award-player-photo" id="golden-glove-photo" aria-hidden="true">
+                  <span class="player-photo-fallback">US</span>
+                </span>
+              </div>
               <p><strong data-i18n="goldenGloveStat">Seven clean sheets in eight games.</strong> <span data-i18n="goldenGloveWhy">A clean sheet means finishing without conceding; he allowed only one goal all tournament.</span></p>
               <span data-i18n="goldenGloveMeta">🇪🇸 Spain</span>
             </div>
@@ -149,7 +164,12 @@
               <span data-i18n="youngPlayerMeaning">Top young talent</span>
             </div>
             <div class="award-copy">
-              <h3 id="young-player-name">Pau Cubarsí</h3>
+              <div class="award-winner">
+                <h3 id="young-player-name">Pau Cubarsí</h3>
+                <span class="player-photo award-player-photo" id="young-player-photo" aria-hidden="true">
+                  <span class="player-photo-fallback">PC</span>
+                </span>
+              </div>
               <p><strong data-i18n="youngPlayerStat">Every minute at just 19.</strong> <span data-i18n="youngPlayerWhy">Playing in central defence, he stopped attacks and helped Spain begin their own with calm, accurate passing.</span></p>
               <span data-i18n="youngPlayerMeta">🇪🇸 Spain</span>
             </div>
@@ -233,6 +253,6 @@
       <p class="source-note" data-i18n="footer">World Cup Simplified · 2026 awards &amp; highlights</p>
     </footer>
 
-    <script type="module" src="highlights.js?v=2026-07-20-shell-parity-1"></script>
+    <script type="module" src="highlights.js?v=2026-07-20-award-portraits-1"></script>
   </body>
 </html>
