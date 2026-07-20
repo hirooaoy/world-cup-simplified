@@ -408,9 +408,26 @@ function renderAwardPhoto(elementId, displayName, profile) {
     return;
   }
 
+  const initials = getPlayerInitials(displayName);
+  const existingImage = photo.querySelector("img");
+  if (
+    profile?.imageUrl
+    && existingImage?.dataset.playerImageOriginalUrl === profile.imageUrl
+  ) {
+    const existingFallback = photo.querySelector(".player-photo-fallback");
+    if (existingFallback) {
+      existingFallback.textContent = initials;
+    }
+    if (existingImage.complete && existingImage.naturalWidth > 0) {
+      existingImage.classList.add("is-image-ready");
+      photo.classList.add("is-image-ready");
+    }
+    return;
+  }
+
   const fallback = document.createElement("span");
   fallback.className = "player-photo-fallback";
-  fallback.textContent = getPlayerInitials(displayName);
+  fallback.textContent = initials;
   photo.classList.remove("is-image-ready");
 
   if (!profile?.imageUrl) {
