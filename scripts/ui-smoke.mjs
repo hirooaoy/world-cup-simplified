@@ -5107,6 +5107,44 @@ try {
   );
   await postFinalCelebrationCheck.context.close();
 
+  const postFinalMobileCalendarCheck = await openPageAtTime(
+    "2026-07-20T19:30:00Z",
+    "/?view=matches&tz=America%2FLos_Angeles",
+    { contextOptions: { viewport: { width: 430, height: 732 } } }
+  );
+  await postFinalMobileCalendarCheck.page.locator("#day-label").click();
+  const postFinalCalendarLayerState = await postFinalMobileCalendarCheck.page.evaluate(() => {
+    const calendar = document.querySelector("#date-popover");
+    const footer = document.querySelector(".site-footer");
+    const pageShell = document.querySelector(".page-shell");
+    const calendarBounds = calendar?.getBoundingClientRect();
+    const footerBounds = footer?.getBoundingClientRect();
+    const overlapPoint = calendarBounds && footerBounds
+      ? {
+          x: Math.max(calendarBounds.left, footerBounds.left) + 12,
+          y: Math.max(calendarBounds.top, footerBounds.top) + 8
+        }
+      : null;
+    const topElement = overlapPoint
+      ? document.elementFromPoint(overlapPoint.x, overlapPoint.y)
+      : null;
+
+    return {
+      calendarBottom: calendarBounds?.bottom ?? null,
+      footerTop: footerBounds?.top ?? null,
+      overlapTopElementInsideCalendar: Boolean(topElement?.closest("#date-popover")),
+      pageShellLayer: Number.parseInt(getComputedStyle(pageShell).zIndex, 10),
+      footerLayer: Number.parseInt(getComputedStyle(footer).zIndex, 10)
+    };
+  });
+  assert(
+    postFinalCalendarLayerState.calendarBottom > postFinalCalendarLayerState.footerTop &&
+      postFinalCalendarLayerState.pageShellLayer > postFinalCalendarLayerState.footerLayer &&
+      postFinalCalendarLayerState.overlapTopElementInsideCalendar,
+    `The open mobile calendar should paint above the championship footer wherever their bounds overlap. Measured ${JSON.stringify(postFinalCalendarLayerState)}.`
+  );
+  await postFinalMobileCalendarCheck.context.close();
+
   const finalCelebrationLocaleCases = [
     {
       body: "西班牙在决赛中以1-0击败阿根廷。",

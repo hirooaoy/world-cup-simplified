@@ -1180,6 +1180,10 @@ body.has-final-celebration :is(.admin-message-banner, .page-shell, .site-footer)
   z-index: 1;
 }
 
+body.has-final-celebration .page-shell:has(#day-label[aria-expanded="true"]) {
+  z-index: 2;
+}
+
 body.has-final-celebration {
   --celebration-primary: #b84a32;
   --celebration-secondary: #e4b547;
