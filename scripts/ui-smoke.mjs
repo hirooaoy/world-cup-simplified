@@ -544,10 +544,15 @@ await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 
 const { port } = server.address();
 const baseUrl = `http://127.0.0.1:${port}`;
-const [chatbotSource, chatbotCssSource] = await Promise.all([
+const [chatbotSource, chatbotCssSource, appSource] = await Promise.all([
   readFile(path.join(root, "chatbot.js"), "utf8"),
-  readFile(path.join(root, "chatbot.css"), "utf8")
+  readFile(path.join(root, "chatbot.css"), "utf8"),
+  readFile(path.join(root, "app.js"), "utf8")
 ]);
+assert(
+  appSource.includes("const PLAYER_CARD_HOVER_HANDOFF_MS = 220;"),
+  "Floating player cards should preserve the 220ms pointer handoff grace period."
+);
 assert(
   chatbotSource.includes("const SCOUT_IDLE_BLINK_MIN_MS = 9000;") &&
     chatbotSource.includes("const SCOUT_IDLE_BLINK_RANGE_MS = 6000;") &&
@@ -2997,16 +3002,18 @@ try {
     hoverTriggerBox.x + hoverTriggerBox.width / 2,
     hoverTriggerBox.y + hoverTriggerBox.height / 2
   );
+  await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
   await keyboardPlayerTrigger.evaluate((trigger) => {
     const source = trigger.closest(".player-hover") || trigger;
-    window.__worldCupFloatingCardGraceProbe = new Promise((resolve) => {
+    const eventRoot = source.closest("#matches-view") || document;
+    window.__worldCupFloatingCardLeaveProbe = new Promise((resolve) => {
       let settled = false;
       const finish = (result) => {
         if (settled) {
           return;
         }
         settled = true;
-        document.removeEventListener("pointerleave", handlePointerLeave, true);
+        eventRoot.removeEventListener("pointerleave", handlePointerLeave, true);
         window.clearTimeout(fallbackTimer);
         resolve(result);
       };
@@ -3014,33 +3021,33 @@ try {
         if (event.target !== source && !source.contains(event.target)) {
           return;
         }
-        document.removeEventListener("pointerleave", handlePointerLeave, true);
+        eventRoot.removeEventListener("pointerleave", handlePointerLeave, true);
         window.setTimeout(() => {
           const card = document.querySelector(".player-card-floating");
-          const survived =
+          const stayedOpen =
             card?.classList.contains("is-visible") &&
             card.getAttribute("aria-hidden") === "false";
           card?.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
-          finish({ fired: true, survived: Boolean(survived) });
-        }, 150);
+          finish({ fired: true, stayedOpen: Boolean(stayedOpen) });
+        }, 0);
       };
       const fallbackTimer = window.setTimeout(
-        () => finish({ fired: false, survived: false }),
+        () => finish({ fired: false, stayedOpen: false }),
         2000
       );
-      document.addEventListener("pointerleave", handlePointerLeave, true);
+      eventRoot.addEventListener("pointerleave", handlePointerLeave, true);
     });
   });
   await page.mouse.move(hoverBridgeX, hoverBridgeY);
-  const floatingCardGraceProbe = await page.evaluate(
-    () => window.__worldCupFloatingCardGraceProbe
+  const floatingCardLeaveProbe = await page.evaluate(
+    () => window.__worldCupFloatingCardLeaveProbe
   );
   await page.evaluate(() => {
-    delete window.__worldCupFloatingCardGraceProbe;
+    delete window.__worldCupFloatingCardLeaveProbe;
   });
   assert(
-    floatingCardGraceProbe?.fired && floatingCardGraceProbe.survived,
-    `Floating player cards should remain open through a native 150ms handoff gap. Measured ${JSON.stringify(floatingCardGraceProbe)}.`
+    floatingCardLeaveProbe?.fired && floatingCardLeaveProbe.stayedOpen,
+    `Floating player cards should not close during the native pointer-leave cascade. Measured ${JSON.stringify(floatingCardLeaveProbe)}.`
   );
   await floatingHoverCard.hover({ force: true });
   await page.waitForFunction(() => {
