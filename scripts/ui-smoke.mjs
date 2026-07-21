@@ -5940,6 +5940,7 @@ try {
         Math.abs(bannerBounds.height - linkBounds.height) <= 2.1
       ),
       href: link?.getAttribute("href") || "",
+      hoverCapable: matchMedia("(hover: hover) and (pointer: fine)").matches,
       playerPointerEvents: playerLink ? getComputedStyle(playerLink).pointerEvents : "",
       restingOverlayOpacity: banner ? getComputedStyle(banner, "::after").opacity : ""
     };
@@ -5956,8 +5957,9 @@ try {
       argentina2022BannerLinkState.copyPointerEvents === "none" &&
       argentina2022BannerLinkState.playerPointerEvents === "auto" &&
       argentina2022BannerLinkState.restingOverlayOpacity === "0" &&
-      argentina2022BannerHoverOpacity === "1",
-    `The full champion banner should link to its edition highlights, keep player links interactive, and show a slight hover wash. Measured ${JSON.stringify({ ...argentina2022BannerLinkState, hoverOpacity: argentina2022BannerHoverOpacity })}.`
+      argentina2022BannerHoverOpacity ===
+        (argentina2022BannerLinkState.hoverCapable ? "1" : "0"),
+    `The full champion banner should link to its edition highlights, keep player links interactive, and show a slight wash only on hover-capable devices. Measured ${JSON.stringify({ ...argentina2022BannerLinkState, hoverOpacity: argentina2022BannerHoverOpacity })}.`
   );
   await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
   const historicalFinalProjectionRows = await page
