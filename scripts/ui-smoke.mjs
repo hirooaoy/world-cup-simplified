@@ -2998,17 +2998,26 @@ try {
     hoverTriggerBox.y + hoverTriggerBox.height / 2
   );
   await page.mouse.move(hoverBridgeX, hoverBridgeY, { steps: 6 });
-  await page.waitForTimeout(150);
+  await floatingHoverCard.dispatchEvent("pointerenter", {
+    bubbles: false,
+    pointerType: "mouse"
+  });
   const floatingCardVisibleDuringHandoff = await floatingHoverCard.isVisible();
   const floatingValueHelp = floatingHoverCard.locator(".player-card-value-help").first();
   const floatingValueHelpBox = await floatingValueHelp.boundingBox();
   assert(floatingValueHelpBox, "Floating player-card Value help geometry should be measurable.");
-  await page.mouse.move(
-    floatingValueHelpBox.x + floatingValueHelpBox.width / 2,
-    floatingValueHelpBox.y + floatingValueHelpBox.height / 2,
-    { steps: 6 }
-  );
-  await page.waitForTimeout(160);
+  await floatingValueHelp.hover();
+  await page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating");
+    const value = card?.querySelector(".player-card-value-help");
+    const tooltip = value ? getComputedStyle(value, "::after") : null;
+    return (
+      card?.classList.contains("is-visible") &&
+      card.getAttribute("aria-hidden") === "false" &&
+      Number.parseFloat(tooltip?.opacity || "0") >= 0.99 &&
+      tooltip?.visibility === "visible"
+    );
+  });
   const floatingHoverState = await floatingHoverCard.evaluate((card) => {
     const value = card.querySelector(".player-card-value-help");
     const tooltip = value ? getComputedStyle(value, "::after") : null;
