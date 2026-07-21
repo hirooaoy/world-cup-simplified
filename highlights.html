@@ -28,7 +28,7 @@
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
     <link rel="stylesheet" href="styles/tokens.css?v=2026-07-17-modules-1" />
     <link rel="stylesheet" href="styles.css?v=2026-07-20-final-cutover-1" />
-    <link rel="stylesheet" href="highlights.css?v=2026-07-20-final-cutover-1" />
+    <link rel="stylesheet" href="highlights.css?v=2026-07-20-all-free-champion-photos-1" />
     <link rel="stylesheet" href="chatbot.css?v=2026-07-20-tournament-memory-2" />
   </head>
   <body class="highlights-page has-final-celebration is-locale-loading is-initial-page-load" id="top" data-final-celebration-palette="spain">
@@ -95,6 +95,12 @@
               <option value="ko" lang="ko">한국어</option>
             </select>
           </label>
+          <label class="settings-section language-control">
+            <span class="settings-label" id="settings-edition-label">World Cup</span>
+            <select class="timezone-select language-select" id="edition-select" aria-labelledby="settings-edition-label">
+              <option value="2026">2026</option>
+            </select>
+          </label>
           <label class="settings-section settings-toggle-control">
             <span class="settings-label" id="settings-dark-mode-label">Dark mode</span>
             <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox" />
@@ -114,10 +120,10 @@
           <h1 id="page-title" data-i18n="pageTitle">Spain are 2026 world champions.</h1>
           <p class="intro-copy" data-i18n="intro" data-highlight-player-mentions="Ferran Torres">Spain beat Argentina 1–0 after extra time, with Ferran Torres scoring in the 106th minute. Their control and defending shaped the title run.</p>
         </div>
-        <figure class="champion-photo-frame champion-illustration" aria-hidden="true">
+        <figure class="champion-photo-frame champion-illustration" id="champion-photo" aria-hidden="true">
           <span class="champion-illustration-orbit champion-illustration-orbit-one"></span>
           <span class="champion-illustration-orbit champion-illustration-orbit-two"></span>
-          <span class="champion-illustration-flag">🇪🇸</span>
+          <span class="champion-illustration-flag" id="champion-flag">🇪🇸</span>
           <img class="champion-illustration-trophy doodle" src="assets/award-doodles/trophy.svg" alt="" />
           <span class="champion-illustration-star champion-illustration-star-one">✦</span>
           <span class="champion-illustration-star champion-illustration-star-two">✦</span>
@@ -127,16 +133,7 @@
       <section class="content-section best-xi-section" aria-labelledby="best-xi-title">
         <div class="section-heading best-xi-heading">
           <div>
-            <div class="best-xi-title-row">
-              <h2 id="best-xi-title" data-i18n="bestXiTitle">Best XI of 2026</h2>
-              <button
-                class="info-tooltip-button best-xi-info-button"
-                type="button"
-                aria-label="Selected by the site admin."
-                data-tooltip="Selected by the site admin."
-                data-i18n-tooltip="bestXiInfo"
-              >i</button>
-            </div>
+            <h2 id="best-xi-title" data-i18n="bestXiTitle">Best XI of 2026</h2>
           </div>
         </div>
 
@@ -153,7 +150,7 @@
         </div>
 
         <div class="award-list">
-          <article class="award-row">
+          <article class="award-row" data-award-key="goldenBall">
             <div class="award-summary">
               <img class="award-doodle doodle" src="assets/award-doodles/ball.svg" alt="" />
               <div class="award-kind">
@@ -168,14 +165,14 @@
                 </span>
                 <div class="award-recipient-copy">
                   <h3 class="award-player-name" id="golden-ball-name">Rodri</h3>
-                  <span class="award-meta" data-i18n="goldenBallMeta">🇪🇸 Spain</span>
+                  <span class="award-meta" id="golden-ball-meta" data-i18n="goldenBallMeta">🇪🇸 Spain</span>
                 </div>
               </div>
-              <p class="award-explanation"><span data-i18n="goldenBallWhy">He controlled the pace from midfield and kept Spain organized under pressure.</span> <strong data-i18n="goldenBallImpact">His consistency and leadership were central to their title run.</strong></p>
+              <p class="award-explanation" id="golden-ball-explanation"><span data-i18n="goldenBallWhy">He controlled the pace from midfield and kept Spain organized under pressure.</span> <strong data-i18n="goldenBallImpact">His consistency and leadership were central to their title run.</strong></p>
             </div>
           </article>
 
-          <article class="award-row">
+          <article class="award-row" data-award-key="goldenBoot">
             <div class="award-summary">
               <img class="award-doodle doodle" src="assets/award-doodles/boot.svg" alt="" />
               <div class="award-kind">
@@ -190,14 +187,14 @@
                 </span>
                 <div class="award-recipient-copy">
                   <h3 class="award-player-name" id="golden-boot-name">Kylian Mbappé</h3>
-                  <span class="award-meta" data-i18n="goldenBootMeta">🇫🇷 France</span>
+                  <span class="award-meta" id="golden-boot-meta" data-i18n="goldenBootMeta">🇫🇷 France</span>
                 </div>
               </div>
-              <p class="award-explanation"><strong id="golden-boot-total">10 goals · 4 assists.</strong> <span data-i18n="goldenBootWhy" data-highlight-player-mentions="Lionel Messi">His two goals against England in the third-place match took him past Lionel Messi and secured the award.</span></p>
+              <p class="award-explanation" id="golden-boot-explanation"><strong id="golden-boot-total">10 goals · 4 assists.</strong> <span data-i18n="goldenBootWhy" data-highlight-player-mentions="Lionel Messi">His two goals against England in the third-place match took him past Lionel Messi and secured the award.</span></p>
             </div>
           </article>
 
-          <article class="award-row">
+          <article class="award-row" data-award-key="goldenGlove">
             <div class="award-summary">
               <img class="award-doodle doodle" src="assets/award-doodles/glove.svg" alt="" />
               <div class="award-kind">
@@ -212,14 +209,14 @@
                 </span>
                 <div class="award-recipient-copy">
                   <h3 class="award-player-name" id="golden-glove-name">Unai Simón</h3>
-                  <span class="award-meta" data-i18n="goldenGloveMeta">🇪🇸 Spain</span>
+                  <span class="award-meta" id="golden-glove-meta" data-i18n="goldenGloveMeta">🇪🇸 Spain</span>
                 </div>
               </div>
-              <p class="award-explanation"><strong data-i18n="goldenGloveStat">Seven clean sheets in eight games.</strong> <span data-i18n="goldenGloveWhy">A clean sheet means finishing without conceding; he allowed only one goal all tournament.</span></p>
+              <p class="award-explanation" id="golden-glove-explanation"><strong data-i18n="goldenGloveStat">Seven clean sheets in eight games.</strong> <span data-i18n="goldenGloveWhy">A clean sheet means finishing without conceding; he allowed only one goal all tournament.</span></p>
             </div>
           </article>
 
-          <article class="award-row">
+          <article class="award-row" data-award-key="youngPlayer">
             <div class="award-summary">
               <img class="award-doodle doodle" src="assets/award-doodles/star.svg" alt="" />
               <div class="award-kind">
@@ -234,14 +231,14 @@
                 </span>
                 <div class="award-recipient-copy">
                   <h3 class="award-player-name" id="young-player-name">Pau Cubarsí</h3>
-                  <span class="award-meta" data-i18n="youngPlayerMeta">🇪🇸 Spain</span>
+                  <span class="award-meta" id="young-player-meta" data-i18n="youngPlayerMeta">🇪🇸 Spain</span>
                 </div>
               </div>
-              <p class="award-explanation"><strong data-i18n="youngPlayerStat">Every minute at just 19.</strong> <span data-i18n="youngPlayerWhy">Playing in central defence, he stopped attacks and helped Spain begin their own with calm, accurate passing.</span></p>
+              <p class="award-explanation" id="young-player-explanation"><strong data-i18n="youngPlayerStat">Every minute at just 19.</strong> <span data-i18n="youngPlayerWhy">Playing in central defence, he stopped attacks and helped Spain begin their own with calm, accurate passing.</span></p>
             </div>
           </article>
 
-          <article class="award-row is-team-award">
+          <article class="award-row is-team-award" data-award-key="fairPlay">
             <div class="award-summary">
               <img class="award-doodle doodle" src="assets/award-doodles/fair-play.svg" alt="" />
               <div class="award-kind">
@@ -253,13 +250,13 @@
               <div class="award-recipient">
                 <div class="award-recipient-copy">
                   <h3 class="award-player-name award-team-name">
-                    <span class="flag" aria-hidden="true">🇳🇱</span>
+                    <span class="flag" id="fair-play-flag" aria-hidden="true">🇳🇱</span>
                     <span id="fair-play-name" data-i18n="fairPlayName">Netherlands</span>
                   </h3>
-                  <span class="award-meta" data-i18n="fairPlayMeta" data-highlight-player-mentions="Virgil van Dijk">Led by Captain Virgil van Dijk</span>
+                  <span class="award-meta" id="fair-play-meta" data-i18n="fairPlayMeta" data-highlight-player-mentions="Virgil van Dijk">Led by Captain Virgil van Dijk</span>
                 </div>
               </div>
-              <p class="award-explanation"><span data-i18n="fairPlayWhy">The Netherlands played with discipline and respect throughout the tournament.</span> <strong data-i18n="fairPlayStat">They finished their last three matches without a card.</strong></p>
+              <p class="award-explanation" id="fair-play-explanation"><span data-i18n="fairPlayWhy">The Netherlands played with discipline and respect throughout the tournament.</span> <strong data-i18n="fairPlayStat">They finished their last three matches without a card.</strong></p>
             </div>
           </article>
         </div>
@@ -273,7 +270,7 @@
           </div>
         </div>
 
-        <div class="highlight-list">
+        <div class="highlight-list" id="highlight-list">
           <article class="highlight-row">
             <div>
               <h3 data-i18n="caboTitle" data-highlight-team-id="CPV">Cabo Verde made their debut count</h3>
@@ -299,39 +296,41 @@
         <header class="section-heading next-world-cup-header">
           <div class="next-world-cup-heading">
             <h2 id="next-world-cup-title" data-i18n="seeYouNextTime">See you next time</h2>
-            <p data-i18n="nextWorldCupLead">Morocco, Portugal, and Spain will host, with centenary matches in Argentina, Paraguay, and Uruguay.</p>
+            <p id="next-world-cup-lead" data-i18n="nextWorldCupLead">Morocco, Portugal, and Spain will host, with special 100th-anniversary matches in Argentina, Paraguay, and Uruguay.</p>
           </div>
         </header>
 
         <ol class="next-world-cup-timeline" role="list">
             <li class="timeline-item is-complete">
               <div class="timeline-date">
-                <span data-i18n="timelineAlreadySet">Already set</span>
+                <span id="timeline-first-date" data-i18n="timelineHostsDate">4 Oct 2023</span>
               </div>
               <span class="timeline-marker" aria-hidden="true"><i>✓</i></span>
               <div class="timeline-copy">
-                <h3 data-i18n="timelineHostsTitle">Six teams have their places</h3>
-                <p data-i18n="timelineHostsBody">Morocco, Portugal, and Spain will host the main tournament. Argentina, Paraguay, and Uruguay will stage the centenary matches. All six qualify automatically.</p>
+                <h3 id="timeline-first-title" data-i18n="timelineHostsTitle">Six teams have their places</h3>
+                <p id="timeline-first-body" data-i18n="timelineHostsBody">Morocco, Portugal, and Spain will host the main tournament. Argentina, Paraguay, and Uruguay will stage the centenary matches. All six qualify automatically.</p>
               </div>
             </li>
 
             <li class="timeline-item is-pending">
-              <div class="timeline-date" aria-hidden="true"></div>
-              <span class="timeline-marker" aria-hidden="true"><i>1</i></span>
+              <div class="timeline-date">
+                <span id="timeline-second-date" data-i18n="timelineDrawDate">Date TBA</span>
+              </div>
+              <span class="timeline-marker" aria-hidden="true"><i></i></span>
               <div class="timeline-copy">
-                <h3 data-i18n="timelineDrawTitle">The groups are drawn</h3>
-                <p data-i18n="timelineDrawBody">The final draw will set the tournament groups.</p>
+                <h3 id="timeline-second-title" data-i18n="timelineDrawTitle">The groups are drawn</h3>
+                <p id="timeline-second-body" data-i18n="timelineDrawBody">The final draw will set the tournament groups.</p>
               </div>
             </li>
 
             <li class="timeline-item is-scheduled">
               <div class="timeline-date">
-                <span data-i18n="timelineStartDate">8 Jun 2030</span>
+                <span id="timeline-third-date" data-i18n="timelineStartDate">13 Jun 2030</span>
               </div>
-              <span class="timeline-marker" aria-hidden="true"><i>2</i></span>
+              <span class="timeline-marker" aria-hidden="true"><i></i></span>
               <div class="timeline-copy">
-                <h3 data-i18n="timelineStartTitle">The 2030 World Cup begins</h3>
-                <p data-i18n="timelineStartBody">The centenary World Cup gets underway in South America.</p>
+                <h3 id="timeline-third-title" data-i18n="timelineStartTitle">The 2030 World Cup begins</h3>
+                <p id="timeline-third-body" data-i18n="timelineStartBody">The centenary World Cup gets underway in South America.</p>
               </div>
             </li>
         </ol>
@@ -344,6 +343,10 @@
         <a id="footer-top-link" href="#top" aria-labelledby="footer-top-label">
           <span id="footer-top-label">Back to top</span>
         </a>
+        <span id="footer-link-separator" aria-hidden="true"> • </span>
+        <a id="footer-previous-link" href="highlights.html?year=2022" aria-labelledby="footer-previous-label">
+          <span id="footer-previous-label">See previous world cup</span>
+        </a>
       </div>
     </footer>
 
@@ -351,7 +354,7 @@
     <span class="player-card player-card-floating highlight-player-card-floating" id="highlight-player-card" role="tooltip" aria-hidden="true" aria-live="polite"></span>
 
     <script type="module" src="football-typography.js?v=2026-07-20-final-cutover-1"></script>
-    <script type="module" src="highlights.js?v=2026-07-20-final-cutover-1"></script>
+    <script type="module" src="highlights.js?v=2026-07-20-historical-next-previews-1"></script>
     <script type="module" src="chatbot.js?v=2026-07-20-final-cutover-1"></script>
   </body>
 </html>

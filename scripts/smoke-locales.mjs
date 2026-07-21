@@ -186,7 +186,7 @@ const highlightsLocaleCases = [
     vanDijkClubLine: "Liverpool (Premier League)",
     bestXiClubLine: "Athletic Bilbao (La Liga)",
     goldenBootName: "Kylian Mbappé",
-    bestXiInfo: "Selected by the site admin.",
+    bestXiInfo: "Selected by admin",
     bestCoachLabel: "Best coach",
     bestXiTitle: "Best XI of 2026",
     starterGoalkeeper: "G. Kobel",
@@ -210,7 +210,7 @@ const highlightsLocaleCases = [
     vanDijkClubLine: "利物浦（英超）",
     bestXiClubLine: "毕尔巴鄂竞技（西甲）",
     goldenBootName: "基利安·姆巴佩",
-    bestXiInfo: "由网站管理员选出。",
+    bestXiInfo: "管理员精选",
     bestCoachLabel: "最佳教练",
     bestXiTitle: "2026年最佳阵容",
     starterGoalkeeper: "格雷戈·科贝尔",
@@ -234,7 +234,7 @@ const highlightsLocaleCases = [
     vanDijkClubLine: "Liverpool (Premier League)",
     bestXiClubLine: "Athletic Bilbao (LaLiga)",
     goldenBootName: "Kylian Mbappé",
-    bestXiInfo: "Elegido por el administrador del sitio.",
+    bestXiInfo: "Selección del administrador",
     bestCoachLabel: "Mejor entrenador",
     bestXiTitle: "Mejor once de 2026",
     starterGoalkeeper: "G. Kobel",
@@ -258,7 +258,7 @@ const highlightsLocaleCases = [
     vanDijkClubLine: "리버풀 (프리미어리그)",
     bestXiClubLine: "아틀레틱 빌바오 (라리가)",
     goldenBootName: "킬리안 음바페",
-    bestXiInfo: "사이트 운영자가 선정했습니다.",
+    bestXiInfo: "운영자 선정",
     bestCoachLabel: "최우수 감독",
     bestXiTitle: "2026년 베스트 11",
     starterGoalkeeper: "그. 코벨",
@@ -276,33 +276,68 @@ const highlightsLocaleCases = [
 const timelineLocaleContracts = Object.freeze({
   en: {
     heading: "See you next time",
-    lead: "Morocco, Portugal, and Spain will host, with centenary matches in Argentina, Paraguay, and Uruguay.",
-    dates: ["Already set", "", "8 Jun 2030"],
+    lead: "Morocco, Portugal, and Spain will host, with special 100th-anniversary matches in Argentina, Paraguay, and Uruguay.",
+    dates: ["4 Oct 2023", "Date TBA", "13 Jun 2030"],
     titles: ["Six teams have their places", "The groups are drawn", "The 2030 World Cup begins"],
     hostsBody: "Morocco, Portugal, and Spain will host the main tournament. Argentina, Paraguay, and Uruguay will stage the centenary matches. All six qualify automatically.",
   },
   zh: {
     heading: "下次见",
     lead: "摩洛哥、葡萄牙和西班牙将主办2030年世界杯，阿根廷、巴拉圭和乌拉圭将承办百年纪念赛。",
-    dates: ["已经确定", "", "2030年6月8日"],
+    dates: ["2023年10月4日", "日期待定", "2030年6月13日"],
     titles: ["六支球队已锁定席位", "小组抽签", "2030年世界杯开幕"],
     hostsBody: "摩洛哥、葡萄牙和西班牙将主办主要赛事；阿根廷、巴拉圭和乌拉圭将承办百年纪念赛。六队均自动晋级。",
   },
   es: {
     heading: "Nos vemos la próxima vez",
     lead: "Marruecos, Portugal y España serán las sedes, con partidos del centenario en Argentina, Paraguay y Uruguay.",
-    dates: ["Ya definidos", "", "8 jun 2030"],
+    dates: ["4 oct 2023", "Fecha por confirmar", "13 jun 2030"],
     titles: ["Seis selecciones ya tienen su lugar", "Se sortean los grupos", "Comienza el Mundial de 2030"],
     hostsBody: "Marruecos, Portugal y España albergarán el torneo principal. Argentina, Paraguay y Uruguay recibirán los partidos del centenario. Las seis selecciones se clasifican automáticamente.",
   },
   ko: {
     heading: "다음에 또 만나요",
     lead: "모로코·포르투갈·스페인이 개최하며, 아르헨티나·파라과이·우루과이에서는 100주년 기념 경기가 열린다.",
-    dates: ["이미 확정", "", "2030년 6월 8일"],
+    dates: ["2023년 10월 4일", "날짜 미정", "2030년 6월 13일"],
     titles: ["여섯 팀은 이미 본선에 진출했다", "조 추첨이 열린다", "2030 월드컵 개막"],
     hostsBody: "모로코·포르투갈·스페인이 본 대회를 개최한다. 아르헨티나·파라과이·우루과이는 100주년 기념 경기를 연다. 여섯 팀 모두 자동 진출한다.",
   }
 });
+
+const historical2022TimelineContracts = Object.freeze({
+  en: {
+    heading: "See you next time",
+    lead: "Canada, Mexico, and the United States will stage the first 48-team World Cup and the first hosted by three countries.",
+    dates: ["", "5 Dec 2025", "11 Jun 2026"],
+    titles: ["Three hosts have their places", "The groups are drawn", "The 2026 World Cup begins"]
+  },
+  zh: {
+    heading: "下次见",
+    lead: "加拿大、墨西哥和美国将共同举办首届48队世界杯，也是首次由三个国家共同主办。",
+    dates: ["", "2025年12月5日", "2026年6月11日"],
+    titles: ["三个东道主已锁定席位", "小组抽签", "2026年世界杯开幕"]
+  },
+  es: {
+    heading: "Nos vemos la próxima vez",
+    lead: "Canadá, México y Estados Unidos albergarán el primer Mundial de 48 selecciones y el primero organizado por tres países.",
+    dates: ["", "5 dic 2025", "11 jun 2026"],
+    titles: ["Tres anfitriones tienen su lugar", "Se sortean los grupos", "Comienza el Mundial de 2026"]
+  },
+  ko: {
+    heading: "다음에 또 만나요",
+    lead: "캐나다·멕시코·미국이 사상 첫 48개 팀 월드컵이자 세 나라가 공동 개최하는 첫 대회를 연다.",
+    dates: ["", "2025년 12월 5일", "2026년 6월 11일"],
+    titles: ["세 개최국은 이미 본선에 진출했다", "조 추첨이 열린다", "2026 월드컵 개막"]
+  }
+});
+
+const historicalPreviewChain = Object.freeze([
+  [1930, 1934], [1934, 1938], [1938, 1950], [1950, 1954], [1954, 1958],
+  [1958, 1962], [1962, 1966], [1966, 1970], [1970, 1974], [1974, 1978],
+  [1978, 1982], [1982, 1986], [1986, 1990], [1990, 1994], [1994, 1998],
+  [1998, 2002], [2002, 2006], [2006, 2010], [2010, 2014], [2014, 2018],
+  [2018, 2022], [2022, 2026]
+]);
 
 function assert(condition, message) {
   if (!condition) {
@@ -446,7 +481,7 @@ async function assertHighlightsLocales(browser) {
       championIllustration: Boolean(
         document.querySelector(".champion-illustration .champion-illustration-trophy")
       ),
-      championPhotoCount: document.querySelectorAll('.champion-photo, img[src*="spain-world-champions"]').length,
+      championPhotoCount: document.querySelectorAll(".champion-photo-image").length,
       pageTitleTypography: (() => {
         const title = document.querySelector("#page-title");
         const style = title ? getComputedStyle(title) : null;
@@ -494,14 +529,15 @@ async function assertHighlightsLocales(browser) {
         );
       }),
       bestXiTitle: document.querySelector("#best-xi-title")?.textContent.trim() || "",
-      bestXiInfo: document.querySelector(".best-xi-info-button")?.getAttribute("data-tooltip") || "",
+      bestXiInfo: document.querySelector(".best-xi-tabs .lineup-tab")?.getAttribute("aria-label") || "",
+      bestXiHeaderInfoAbsent: !document.querySelector(".best-xi-info-button"),
       bestXiTabHasWorldMapEmoji: Boolean(
         document.querySelector(
           '.best-xi-tabs .lineup-tab-label-compact[aria-hidden="true"] .best-xi-world-map-icon'
         )?.textContent.trim() === "🗺️"
       ),
       bestXiTabText:
-        document.querySelector(".best-xi-tabs .lineup-tab-label-compact")?.textContent.trim() || "",
+        document.querySelector(".best-xi-tabs .lineup-tab-label-compact")?.textContent.replace(/\s+/g, " ").trim() || "",
       bestCoachTriggerText: document.querySelector(".best-xi-coach-trigger")?.textContent.trim() || "",
       bestCoachAria: document.querySelector(".best-xi-coach-trigger")?.getAttribute("aria-label") || "",
       bestCoachCardCopy: document.querySelector(".best-xi-coach-card")?.textContent.trim() || "",
@@ -715,8 +751,8 @@ async function assertHighlightsLocales(browser) {
     const timelineContract = timelineLocaleContracts[locale.code];
     assert(
       measured.awardCount === 5 &&
-        measured.championIllustration &&
-        measured.championPhotoCount === 0 &&
+        !measured.championIllustration &&
+        measured.championPhotoCount === 1 &&
         measured.pageTitleTypography.family.includes("Avenir Next Condensed") &&
         measured.pageTitleTypography.size <= 30 &&
         measured.pageTitleTypography.style === "italic" &&
@@ -727,8 +763,9 @@ async function assertHighlightsLocales(browser) {
         measured.vanDijkClubLine === locale.vanDijkClubLine &&
         measured.bestXiTitle === locale.bestXiTitle &&
         measured.bestXiInfo === locale.bestXiInfo &&
+        measured.bestXiHeaderInfoAbsent &&
         measured.bestXiTabHasWorldMapEmoji &&
-        measured.bestXiTabText === "🗺️" &&
+        measured.bestXiTabText === `🗺️ ${locale.bestXiInfo}` &&
         measured.bestCoachTriggerText === "" &&
         measured.bestCoachAria.includes("Luis de la Fuente") &&
         measured.bestCoachCardCopy.includes("Luis De La Fuente") &&
@@ -958,6 +995,9 @@ async function assertHighlightsLocales(browser) {
       vozinhaCount: document.querySelectorAll(
         '.best-xi-honourables-panel [data-best-xi-player-name="Vozinha"]'
       ).length,
+      positionCodes: Array.from(
+        document.querySelectorAll(".best-xi-honourables-panel .lineup-bench-position")
+      ).map((position) => position.textContent.trim()),
       starterGoalkeeper:
         document.querySelector('.best-xi-marker[data-best-xi-slot="gk"] .lineup-player-name')?.textContent.trim() || "",
       subToggleCount: document.querySelectorAll("[data-best-xi-toggle]").length
@@ -969,6 +1009,9 @@ async function assertHighlightsLocales(browser) {
         honourableState.playerCount === 15 &&
         honourableState.extraPlayerCount === 4 &&
         honourableState.vozinhaCount === 1 &&
+        JSON.stringify(honourableState.positionCodes) === JSON.stringify([
+          "GK", "GK", "RB", "CB", "CB", "CB", "LB", "DM", "DM", "CM", "CM", "RW", "RW", "ST", "RW"
+        ]) &&
         honourableState.goalkeeperName === locale.honourableGoalkeeper &&
         honourableState.starterGoalkeeper === locale.starterGoalkeeper &&
         honourableState.subToggleCount === 0 &&
@@ -1193,6 +1236,71 @@ async function assertHighlightsLocales(browser) {
           responsiveAwardLayout.timelineContained,
         `${locale.code}: awards and Best XI controls should preserve their reading order and collision-free mobile layout at ${width}px. Measured ${JSON.stringify(responsiveAwardLayout)}.`
       );
+    }
+
+    const historicalQuery = locale.code === "en" ? "?year=2022" : `?year=2022&lang=${locale.code}`;
+    const historicalTimelineContract = historical2022TimelineContracts[locale.code];
+    await page.goto(getUrl(`/highlights.html${historicalQuery}`), { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(
+      ({ expectedHeading, expectedLanguage }) =>
+        !document.body.classList.contains("is-locale-loading") &&
+        !document.body.classList.contains("is-initial-page-load") &&
+        document.documentElement.lang === expectedLanguage &&
+        document.querySelector("#edition-select")?.value === "2022" &&
+        document.querySelector("#next-world-cup-title")?.textContent.trim() === expectedHeading,
+      { expectedHeading: historicalTimelineContract.heading, expectedLanguage: locale.htmlLang },
+      { timeout: 30000 }
+    );
+    const historicalTimeline = await page.evaluate(() => ({
+      dates: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-date"), (node) =>
+        node.textContent.replace(/\s+/gu, " ").trim()
+      ),
+      hasArchivedNextLink: Boolean(document.querySelector(".historical-next-edition-link")),
+      heading: document.querySelector("#next-world-cup-title")?.textContent.trim() || "",
+      lead: document.querySelector("#next-world-cup-lead")?.textContent.trim() || "",
+      titles: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-copy h3"), (node) =>
+        node.textContent.trim()
+      )
+    }));
+    assert(
+      historicalTimeline.heading === historicalTimelineContract.heading &&
+        historicalTimeline.lead === historicalTimelineContract.lead &&
+        JSON.stringify(historicalTimeline.dates) === JSON.stringify(historicalTimelineContract.dates) &&
+        JSON.stringify(historicalTimeline.titles) === JSON.stringify(historicalTimelineContract.titles) &&
+        !historicalTimeline.hasArchivedNextLink,
+      `${locale.code}: the 2022 highlights page should show the researched, localized 2026 preview. Measured ${JSON.stringify(historicalTimeline)}.`
+    );
+    if (locale.code === "en") {
+      for (const [editionYear, nextYear] of historicalPreviewChain) {
+        await page.goto(getUrl(`/highlights.html?year=${editionYear}&lang=en`), { waitUntil: "domcontentloaded" });
+        await page.waitForFunction(
+          ({ expectedEdition, expectedOpeningTitle }) =>
+            !document.body.classList.contains("is-locale-loading") &&
+            !document.body.classList.contains("is-initial-page-load") &&
+            document.querySelector("#edition-select")?.value === String(expectedEdition) &&
+            document.querySelector("#timeline-third-title")?.textContent.trim() === expectedOpeningTitle,
+          { expectedEdition: editionYear, expectedOpeningTitle: `The ${nextYear} World Cup begins` },
+          { timeout: 30000 }
+        );
+        const previewChainItem = await page.evaluate(() => ({
+          dates: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-date"), (node) =>
+            node.textContent.replace(/\s+/gu, " ").trim()
+          ),
+          firstUndated: document.querySelector(".next-world-cup-timeline .timeline-item")?.classList.contains("is-undated") || false,
+          itemCount: document.querySelectorAll(".next-world-cup-timeline .timeline-item").length,
+          lead: document.querySelector("#next-world-cup-lead")?.textContent.trim() || ""
+        }));
+        const firstMilestoneShouldBeDated = editionYear === 1930 || editionYear === 1982;
+        assert(
+          previewChainItem.itemCount === 3 &&
+            previewChainItem.dates[1].length > 0 &&
+            previewChainItem.dates[2].length > 0 &&
+            previewChainItem.firstUndated === !firstMilestoneShouldBeDated &&
+            !previewChainItem.lead.includes("2030") &&
+            !previewChainItem.lead.includes("Morocco, Portugal, and Spain"),
+          `${editionYear}: the historical highlights page should render its own ${nextYear} preview. Measured ${JSON.stringify(previewChainItem)}.`
+        );
+      }
     }
     await context.close();
   }

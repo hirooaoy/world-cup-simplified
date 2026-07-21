@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-07-20",
+  "qualification": "Use a photo only when a freely reusable source clearly shows the winning squad together with the trophy.",
+  "editions": [
+    { "year": 1930, "champion": "Uruguay", "status": "illustration" },
+    { "year": 1934, "champion": "Italy", "status": "illustration" },
+    { "year": 1938, "champion": "Italy", "status": "illustration" },
+    { "year": 1950, "champion": "Uruguay", "status": "illustration" },
+    { "year": 1954, "champion": "West Germany", "status": "illustration" },
+    { "year": 1958, "champion": "Brazil", "status": "illustration" },
+    { "year": 1962, "champion": "Brazil", "status": "illustration" },
+    { "year": 1966, "champion": "England", "status": "illustration" },
+    { "year": 1970, "champion": "Brazil", "status": "illustration" },
+    { "year": 1974, "champion": "West Germany", "status": "illustration" },
+    { "year": 1978, "champion": "Argentina", "status": "illustration" },
+    { "year": 1982, "champion": "Italy", "status": "illustration" },
+    { "year": 1986, "champion": "Argentina", "status": "illustration" },
+    { "year": 1990, "champion": "West Germany", "status": "illustration" },
+    { "year": 1994, "champion": "Brazil", "status": "illustration" },
+    { "year": 1998, "champion": "France", "status": "illustration" },
+    { "year": 2002, "champion": "Brazil", "status": "illustration" },
+    { "year": 2006, "champion": "Italy", "status": "illustration" },
+    { "year": 2010, "champion": "Spain", "status": "illustration" },
+    { "year": 2014, "champion": "Germany", "status": "photo" },
+    { "year": 2018, "champion": "France", "status": "photo" },
+    { "year": 2022, "champion": "Argentina", "status": "photo" },
+    { "year": 2026, "champion": "Spain", "status": "photo" }
+  ]
+}

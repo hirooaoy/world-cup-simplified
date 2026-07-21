@@ -7,6 +7,7 @@
   "scripts": {
     "audit": "node scripts/audit-data.mjs",
     "audit:copy": "node scripts/audit-matchup-copy.mjs",
+    "audit:highlights": "node scripts/audit-historical-highlights.mjs",
     "audit:locales": "node scripts/audit-locales.mjs",
     "audit:zh": "node scripts/audit-zh-semantics.mjs",
     "audit:schedule": "node scripts/audit-fifa-schedule.mjs",

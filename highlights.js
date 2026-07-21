@@ -20,7 +20,35 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
+} from "./locales/locale-runtime.js?v=2026-07-20-host-selection-date-1";
+import {
+  HISTORICAL_HIGHLIGHTS,
+  HISTORICAL_NEXT_WORLD_CUP_PREVIEWS
+} from "./data/highlights-history.js?v=2026-07-20-next-previews-1";
+import { CHAMPION_PHOTOS } from "./data/champion-photos.js?v=2026-07-20-all-free-1";
+
+const WORLD_CUP_EDITIONS = Object.freeze([
+  1930, 1934, 1938, 1950, 1954, 1958, 1962, 1966, 1970, 1974, 1978,
+  1982, 1986, 1990, 1994, 1998, 2002, 2006, 2010, 2014, 2018, 2022, 2026
+]);
+
+const CURRENT_CHAMPION_EDITION = Object.freeze({
+  champion: "Spain",
+  flag: "🇪🇸"
+});
+
+const TEAM_FLAGS = Object.freeze({
+  Argentina: "🇦🇷", Austria: "🇦🇹", Belgium: "🇧🇪", Brazil: "🇧🇷", Bulgaria: "🇧🇬",
+  Cameroon: "🇨🇲", Chile: "🇨🇱", Colombia: "🇨🇴", "Costa Rica": "🇨🇷", Croatia: "🇭🇷",
+  Czechoslovakia: "🇨🇿", Denmark: "🇩🇰", England: "🏴", France: "🇫🇷", Germany: "🇩🇪",
+  Ghana: "🇬🇭", Hungary: "🇭🇺", Italy: "🇮🇹", Mexico: "🇲🇽", Morocco: "🇲🇦",
+  Netherlands: "🇳🇱", "New Zealand": "🇳🇿", "Northern Ireland": "🇬🇧", Paraguay: "🇵🇾",
+  Peru: "🇵🇪", Poland: "🇵🇱", Portugal: "🇵🇹", Romania: "🇷🇴", Russia: "🇷🇺",
+  "Saudi Arabia": "🇸🇦", Senegal: "🇸🇳", Spain: "🇪🇸", Sweden: "🇸🇪",
+  Switzerland: "🇨🇭", "South Korea": "🇰🇷", "Soviet Union": "🇷🇺", Tunisia: "🇹🇳",
+  Turkey: "🇹🇷", Uruguay: "🇺🇾", USA: "🇺🇸", "United States": "🇺🇸", Yugoslavia: "🇷🇸",
+  "West Germany": "🇩🇪"
+});
 
 const AWARD_NAME_IDS = Object.freeze({
   goldenBall: "golden-ball-name",
@@ -42,6 +70,13 @@ const BEST_XI_IMAGE_RETRY_DELAY_MS = 350;
 const HIGHLIGHT_PLAYER_CARD_ID = "highlight-player-card";
 const CHAMPION_PHOTO_SCOUT_EXPRESSION_SOURCE = "champion-photo";
 const PLAYER_CARD_HOVER_HANDOFF_MS = 220;
+
+const CHAMPION_PHOTO_CREDIT_LABELS = Object.freeze({
+  en: "Photo",
+  es: "Foto",
+  ko: "사진",
+  zh: "照片"
+});
 
 const HIGHLIGHT_STORIES = Object.freeze([
   Object.freeze({
@@ -147,6 +182,27 @@ const FOOTER_TOP_LABELS = Object.freeze({
   zh: "返回顶部"
 });
 
+const FOOTER_PREVIOUS_LABELS = Object.freeze({
+  en: "See previous world cup",
+  es: "Ver el Mundial anterior",
+  ko: "이전 월드컵 보기",
+  zh: "查看上一届世界杯"
+});
+
+const EDITION_LABELS = Object.freeze({
+  en: "World Cup",
+  es: "Mundial",
+  ko: "월드컵",
+  zh: "世界杯"
+});
+
+const HISTORICAL_UI = Object.freeze({
+  en: Object.freeze({ awards: "Official awards", stories: "Stories worth remembering", watch: "Watch the official FIFA highlight ↗" }),
+  es: Object.freeze({ awards: "Premios oficiales", stories: "Historias para recordar", watch: "Ver el resumen oficial de la FIFA ↗" }),
+  ko: Object.freeze({ awards: "공식 수상", stories: "기억할 이야기", watch: "FIFA 공식 하이라이트 보기 ↗" }),
+  zh: Object.freeze({ awards: "官方奖项", stories: "值得记住的故事", watch: "观看FIFA官方集锦 ↗" })
+});
+
 const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
   schemaVersion: 1,
   language: "zh",
@@ -162,7 +218,7 @@ const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
     bestCoachAria: "最佳教练：{name}。{reason}",
     bestCoachLabel: "最佳教练",
     bestXiFormationLabel: "阵型4-3-3",
-    bestXiInfo: "由网站管理员选出。",
+    bestXiInfo: "管理员精选",
     benchLabel: "替补席",
     formationLabel: "阵型",
     bestXiLead: "“荣誉提名”面板按11个位置展示15名球员；部分位置包含额外的资料核查候选人。",
@@ -266,13 +322,14 @@ const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
     worldChampions: "世界冠军",
     worldCup: "2026年世界杯 · 奖项与亮点",
     worldTitles: "世界杯冠军",
-    timelineAlreadySet: "已经确定",
     timelineDrawBody: "最终抽签将确定赛事小组。",
+    timelineDrawDate: "日期待定",
     timelineDrawTitle: "小组抽签",
     timelineHostsBody: "摩洛哥、葡萄牙和西班牙将主办主要赛事；阿根廷、巴拉圭和乌拉圭将承办百年纪念赛。六队均自动晋级。",
+    timelineHostsDate: "2023年10月4日",
     timelineHostsTitle: "六支球队已锁定席位",
     timelineStartBody: "百年纪念届世界杯将在南美洲拉开帷幕。",
-    timelineStartDate: "2030年6月8日",
+    timelineStartDate: "2030年6月13日",
     timelineStartTitle: "2030年世界杯开幕",
     youngPlayer: "最佳年轻球员",
     youngPlayerMeaning: "最佳年轻球员",
@@ -380,6 +437,61 @@ function setupChampionPhotoScoutReaction() {
   championPhoto.addEventListener("pointerleave", () => setHappy(false));
 }
 
+function getChampionIllustrationMarkup(flag) {
+  return `
+    <span class="champion-illustration-orbit champion-illustration-orbit-one"></span>
+    <span class="champion-illustration-orbit champion-illustration-orbit-two"></span>
+    <span class="champion-illustration-flag" id="champion-flag">${escapeHtml(flag)}</span>
+    <img class="champion-illustration-trophy doodle" src="assets/award-doodles/trophy.svg" alt="" />
+    <span class="champion-illustration-star champion-illustration-star-one">✦</span>
+    <span class="champion-illustration-star champion-illustration-star-two">✦</span>
+  `;
+}
+
+function renderChampionPhoto(editorialEdition) {
+  const frame = getElement("champion-photo");
+  const photo = CHAMPION_PHOTOS[activeEdition];
+  if (!frame || !photo || photo.champion !== editorialEdition?.champion) {
+    return;
+  }
+
+  const alt = photo.alt[currentLanguage] || photo.alt.en;
+  const creditLabel = CHAMPION_PHOTO_CREDIT_LABELS[currentLanguage]
+    || CHAMPION_PHOTO_CREDIT_LABELS.en;
+  frame.classList.remove("champion-illustration");
+  frame.classList.add("has-champion-photo");
+  frame.removeAttribute("aria-hidden");
+  frame.style.setProperty("--champion-photo-position", photo.focalPoint);
+  frame.innerHTML = `
+    <picture class="champion-photo-picture">
+      <source srcset="${escapeHtml(photo.avif)}" type="image/avif" />
+      <img
+        class="champion-photo-image"
+        src="${escapeHtml(photo.jpg)}"
+        alt="${escapeHtml(alt)}"
+        width="1600"
+        height="1000"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </picture>
+    <figcaption class="champion-photo-credit">
+      ${escapeHtml(creditLabel)}:
+      <a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(photo.author)}</a>
+      <span aria-hidden="true">·</span>
+      <a href="${escapeHtml(photo.licenseUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(photo.license)}</a>
+    </figcaption>
+  `;
+
+  frame.querySelector(".champion-photo-image")?.addEventListener("error", () => {
+    frame.classList.remove("has-champion-photo");
+    frame.classList.add("champion-illustration");
+    frame.setAttribute("aria-hidden", "true");
+    frame.style.removeProperty("--champion-photo-position");
+    frame.innerHTML = getChampionIllustrationMarkup(editorialEdition.flag);
+  }, { once: true });
+}
+
 function captureEnglishLocale() {
   const text = {};
   document.querySelectorAll("[data-i18n]").forEach((element) => {
@@ -397,9 +509,7 @@ function captureEnglishLocale() {
   Object.assign(text, {
     bestCoachAria: "Best coach: {name}. {reason}",
     benchLabel: "Bench",
-    bestXiInfo:
-      document.querySelector('[data-i18n-tooltip="bestXiInfo"]')?.getAttribute("data-tooltip") ||
-      "Selected by the site admin.",
+    bestXiInfo: "Selected by admin",
     bestXiPitchLabel: "World Cup Simplified Best XI",
     formationLabel: "Formation",
     honourableMentionsAria: "Honorable Mentions: {count}",
@@ -470,6 +580,9 @@ let loadedTeams = null;
 let loadedStructuredGlossary = null;
 let loadedBestXi = null;
 let loadedRankingYear = null;
+let loadedHistory = null;
+let loadedHistoricalAwards = null;
+let activeEdition = 2026;
 let activeHighlightRankPill = null;
 let activeHighlightPlayerHover = null;
 let activeBestXiPlayer = null;
@@ -481,6 +594,11 @@ function resolveInitialLanguage() {
   return normalizeLanguage(
     params.get("lang") || localStorage.getItem(LANGUAGE_STORAGE_KEY) || "en"
   );
+}
+
+function resolveInitialEdition() {
+  const requestedYear = Number(new URLSearchParams(window.location.search).get("year"));
+  return WORLD_CUP_EDITIONS.includes(requestedYear) ? requestedYear : 2026;
 }
 
 function validateHighlightsLocale(locale, language) {
@@ -520,10 +638,36 @@ function formatMessage(template, values = {}) {
 }
 
 function localizeEntity(group, value) {
-  return activeLocale?.entities?.[group]?.[value] || "";
+  return activeLocale?.entities?.[group]?.[value]
+    || (group === "teams" ? activeAppLocalePack?.entities?.teamNames?.[value] : "")
+    || "";
+}
+
+function getBestXiEditionTitle() {
+  if (activeEdition === 2026) {
+    return activeLocale.text.bestXiTitle || "Best XI of 2026";
+  }
+  return ({
+    en: `Best XI of ${activeEdition}`,
+    es: `Mejor XI de ${activeEdition}`,
+    ko: `${activeEdition}년 베스트 11`,
+    zh: `${activeEdition}年最佳阵容`
+  })[currentLanguage] || `Best XI of ${activeEdition}`;
 }
 
 function updateMetadata() {
+  if (activeEdition !== 2026) {
+    const historicalEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
+    const title = `${activeEdition} World Cup awards and highlights | World Cup Simplified`;
+    const description = `${historicalEdition.champion}'s ${activeEdition} title, our researched editorial Best XI, the official awards, and three tournament stories worth remembering.`;
+    document.title = title;
+    getElement("meta-description")?.setAttribute("content", description);
+    getElement("og-title")?.setAttribute("content", `${activeEdition} World Cup awards and highlights`);
+    getElement("og-description")?.setAttribute("content", description);
+    getElement("twitter-title")?.setAttribute("content", `${activeEdition} World Cup awards and highlights`);
+    getElement("twitter-description")?.setAttribute("content", description);
+    return;
+  }
   document.title = activeLocale.text.metaTitle;
   getElement("meta-description")?.setAttribute("content", activeLocale.text.metaDescription);
   getElement("og-title")?.setAttribute("content", activeLocale.text.ogTitle);
@@ -544,13 +688,39 @@ function updateShell() {
   const settingsButton = getElement("settings-button");
   const settingsPopover = getElement("settings-popover");
   const languageSelect = getElement("language-select");
+  const editionSelect = getElement("edition-select");
   const darkModeToggle = getElement("dark-mode-toggle");
+  const footerPreviousLink = getElement("footer-previous-link");
+  const footerLinkSeparator = getElement("footer-link-separator");
+  const activeEditionIndex = WORLD_CUP_EDITIONS.indexOf(activeEdition);
+  const previousEdition = activeEditionIndex > 0
+    ? WORLD_CUP_EDITIONS[activeEditionIndex - 1]
+    : null;
 
   setText("back-link-label", BACK_LABELS[currentLanguage] || BACK_LABELS.en);
   setText("settings-language-label", shellText.language);
+  setText("settings-edition-label", EDITION_LABELS[currentLanguage] || EDITION_LABELS.en);
   setText("settings-dark-mode-label", shellText.darkMode);
   setText("settings-home-label", HOME_LABELS[currentLanguage] || HOME_LABELS.en);
   setText("footer-top-label", FOOTER_TOP_LABELS[currentLanguage] || FOOTER_TOP_LABELS.en);
+  setText(
+    "footer-previous-label",
+    FOOTER_PREVIOUS_LABELS[currentLanguage] || FOOTER_PREVIOUS_LABELS.en
+  );
+
+  if (footerPreviousLink) {
+    footerPreviousLink.hidden = !previousEdition;
+    if (previousEdition) {
+      const params = new URLSearchParams({ year: String(previousEdition) });
+      if (currentLanguage !== "en") {
+        params.set("lang", currentLanguage);
+      }
+      footerPreviousLink.setAttribute("href", `highlights.html?${params.toString()}`);
+    }
+  }
+  if (footerLinkSeparator) {
+    footerLinkSeparator.hidden = !previousEdition;
+  }
 
   settingsButton?.setAttribute("aria-label", shellText.settings);
   settingsButton?.setAttribute("title", shellText.settings);
@@ -559,6 +729,9 @@ function updateShell() {
 
   if (languageSelect) {
     languageSelect.value = currentLanguage;
+  }
+  if (editionSelect) {
+    editionSelect.value = String(activeEdition);
   }
   if (darkModeToggle) {
     darkModeToggle.checked = window.worldCupTheme?.getTheme() === "dark";
@@ -597,6 +770,10 @@ function applyLocale() {
   renderBestXi();
   renderHighlightStoryTitles();
   renderHighlightPlayerMentions();
+  if (activeEdition === 2026) {
+    renderChampionPhoto(CURRENT_CHAMPION_EDITION);
+  }
+  renderHistoricalEdition();
 }
 
 function updateLanguageUrl() {
@@ -647,6 +824,36 @@ function setupLanguageSelect() {
       select.removeAttribute("aria-busy");
       control?.classList.remove("is-pending");
     }
+  });
+}
+
+function setupEditionSelect() {
+  const select = getElement("edition-select");
+  if (!(select instanceof HTMLSelectElement)) {
+    return;
+  }
+  select.replaceChildren(...WORLD_CUP_EDITIONS
+    .slice()
+    .reverse()
+    .map((year) => {
+      const option = document.createElement("option");
+      option.value = String(year);
+      option.textContent = String(year);
+      return option;
+    }));
+  select.value = String(activeEdition);
+  select.addEventListener("change", () => {
+    const year = Number(select.value);
+    if (!WORLD_CUP_EDITIONS.includes(year)) {
+      return;
+    }
+    const url = new URL(window.location.href);
+    if (year === 2026) {
+      url.searchParams.delete("year");
+    } else {
+      url.searchParams.set("year", String(year));
+    }
+    window.location.assign(`${url.pathname}${url.search}${url.hash}`);
   });
 }
 
@@ -704,6 +911,555 @@ async function loadJson(url) {
     throw new Error(`Unable to load ${url}: ${response.status}`);
   }
   return response.json();
+}
+
+function normalizeHistoricalName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/[^a-z0-9]/gi, "")
+    .toLowerCase();
+}
+
+function getHistoricalProfile(profileData, playerName, year) {
+  const target = normalizeHistoricalName(playerName);
+  return Object.values(profileData?.profiles || {}).find((profile) =>
+    Number(profile?.tournamentYear) === Number(year)
+      && normalizeHistoricalName(profile?.name) === target
+  ) || null;
+}
+
+function getHistoricalSlotCoordinates(rows) {
+  const yStops = rows.length === 5 ? [91, 73, 55, 36, 18] : [91, 69, 45, 22];
+  return rows.flatMap((row, rowIndex) => {
+    const xStops = row.length === 1
+      ? [50]
+      : row.length === 2
+        ? [66, 34]
+        : row.length === 3
+          ? [82, 50, 18]
+          : row.length === 4
+            ? [89, 63, 37, 11]
+            : [93, 71.5, 50, 28.5, 7];
+    return row.map((entry, entryIndex) => ({
+      entry,
+      x: xStops[entryIndex],
+      y: yStops[rowIndex]
+    }));
+  });
+}
+
+function buildHistoricalBestXi(editorialEdition, profileData) {
+  const usedSlotIds = new Map();
+  const toPlayer = (entry, isHonourable = false) => {
+    const profile = getHistoricalProfile(profileData, entry.playerName, activeEdition);
+    const facts = [];
+    if (Number(profile?.goals) > 0) {
+      facts.push({ type: "goals", value: Number(profile.goals) });
+    }
+    if (entry.teamName === editorialEdition.champion) {
+      facts.push({ type: "champion" });
+    }
+    return {
+      playerName: entry.playerName,
+      teamId: entry.teamName,
+      position: entry.position,
+      facts,
+      reason: entry.reason || (isHonourable ? { en: profile?.styleNote || profile?.note || "" } : { en: "" })
+    };
+  };
+  const slots = getHistoricalSlotCoordinates(editorialEdition.rows).map(({ entry, x, y }) => {
+    const baseId = String(entry.position || "slot").toLowerCase();
+    const count = (usedSlotIds.get(baseId) || 0) + 1;
+    usedSlotIds.set(baseId, count);
+    return {
+      id: `${baseId}-${count}`,
+      x,
+      y,
+      starter: toPlayer(entry),
+      honourables: (entry.honourables || []).map((candidate) => toPlayer(candidate, true))
+    };
+  });
+  return {
+    schemaVersion: 1,
+    edition: activeEdition,
+    selection: {
+      status: "complete",
+      selectionType: "editorial",
+      official: false,
+      formation: editorialEdition.formation,
+      methodology: HISTORICAL_HIGHLIGHTS.methodology,
+      sources: HISTORICAL_HIGHLIGHTS.sources,
+      coach: {
+        ...editorialEdition.coach,
+        teamId: editorialEdition.coach.teamName
+      },
+      slots
+    }
+  };
+}
+
+function buildHistoricalTeams(editorialEdition, awardsEdition) {
+  const names = new Set([
+    editorialEdition.champion,
+    editorialEdition.coach.teamName,
+    ...editorialEdition.rows.flatMap((row) => row.flatMap((entry) => [
+      entry.teamName,
+      ...(entry.honourables || []).map((candidate) => candidate.teamName)
+    ])),
+    ...Object.values(awardsEdition || {}).flatMap((award) =>
+      (award?.recipients || []).map((recipient) => recipient.teamName)
+    )
+  ]);
+  return Object.fromEntries([...names].filter(Boolean).map((name) => [name, {
+    id: name,
+    name,
+    flag: TEAM_FLAGS[name] || "🌍"
+  }]));
+}
+
+function buildHistoricalProfiles(editorialEdition, profileData, awardsEdition) {
+  const selectedPlayers = editorialEdition.rows.flatMap((row) => row.flatMap((entry) => [
+    entry,
+    ...(entry.honourables || [])
+  ]));
+  const awardPlayers = Object.values(awardsEdition || {}).flatMap((award) =>
+    (award?.recipients || [])
+      .filter((recipient) => recipient.playerName)
+      .map((recipient) => ({
+        playerName: recipient.playerName,
+        teamName: recipient.teamName,
+        position: ""
+      }))
+  );
+  return Object.fromEntries([...selectedPlayers, ...awardPlayers].map((entry) => {
+    const sourced = getHistoricalProfile(profileData, entry.playerName, activeEdition);
+    const profile = sourced
+      ? { ...sourced }
+      : {
+          name: entry.playerName,
+          displayName: entry.playerName,
+          position: entry.position,
+          club: `${entry.teamName} · ${activeEdition} World Cup archive`,
+          skills: ["Tournament role", "Historical selection"],
+          note: `${entry.teamName}'s ${activeEdition} World Cup ${String(entry.position || "player").toLowerCase()}.`
+        };
+    profile.teamId = entry.teamName;
+    profile.teamName = entry.teamName;
+    return [entry.playerName, profile];
+  }));
+}
+
+function getHistoricalEditionAwardData() {
+  return loadedHistoricalAwards?.editions?.[String(activeEdition)] || {};
+}
+
+function getAwardEditorialReason(playerName) {
+  const selected = getBestXiPlayerByName(playerName);
+  return selected?.reason?.en || loadedProfiles?.[playerName]?.styleNote || loadedProfiles?.[playerName]?.note || "";
+}
+
+function setHistoricalAwardLabel(awardKey, label, meaning) {
+  const row = document.querySelector(`[data-award-key="${awardKey}"]`);
+  if (!row) {
+    return;
+  }
+  const labelElement = row.querySelector(".award-label");
+  const meaningElement = row.querySelector(".award-kind > span");
+  if (labelElement) labelElement.textContent = label;
+  if (meaningElement) meaningElement.textContent = meaning;
+}
+
+function renderHistoricalAwards() {
+  if (activeEdition === 2026 || !loadedHistoricalAwards) {
+    return;
+  }
+  const awards = getHistoricalEditionAwardData();
+  document.querySelectorAll("[data-award-key]").forEach((row) => {
+    row.toggleAttribute("hidden", !awards[row.dataset.awardKey]);
+  });
+
+  const playerAwards = {
+    goldenBall: { nameId: "golden-ball-name", photoId: "golden-ball-photo", metaId: "golden-ball-meta", explanationId: "golden-ball-explanation" },
+    goldenBoot: { nameId: "golden-boot-name", photoId: "golden-boot-photo", metaId: "golden-boot-meta", explanationId: "golden-boot-explanation" },
+    goldenGlove: { nameId: "golden-glove-name", photoId: "golden-glove-photo", metaId: "golden-glove-meta", explanationId: "golden-glove-explanation" },
+    youngPlayer: { nameId: "young-player-name", photoId: "young-player-photo", metaId: "young-player-meta", explanationId: "young-player-explanation" }
+  };
+  Object.entries(playerAwards).forEach(([awardKey, ids]) => {
+    const award = awards[awardKey];
+    if (!award) return;
+    const recipients = award.recipients || [];
+    const first = recipients[0] || {};
+    const displayNames = recipients.map((recipient) => loadedProfiles?.[recipient.playerName]?.displayName || recipient.playerName);
+    setText(ids.nameId, displayNames.join(" & "));
+    setText(ids.metaId, recipients.map((recipient) => `${TEAM_FLAGS[recipient.teamName] || "🌍"} ${recipient.teamName}`).join(" · "));
+    renderAwardPhoto(ids.photoId, displayNames[0], loadedProfiles?.[first.playerName]);
+    const reason = getAwardEditorialReason(first.playerName);
+    const goals = recipients.map((recipient) => Number(recipient.goals)).filter(Number.isFinite);
+    const lead = awardKey === "goldenBoot"
+      ? `${goals.length ? `${goals[0]} goals. ` : ""}${activeEdition < 1982 ? "The tournament's leading scorer." : "Winner of the FIFA scoring award."}`
+      : awardKey === "goldenBall"
+        ? "Officially named the tournament's best player."
+        : awardKey === "goldenGlove"
+          ? "Winner of FIFA's goalkeeper award."
+          : "Winner of FIFA's young-player award.";
+    const explanation = getElement(ids.explanationId);
+    if (explanation) {
+      explanation.textContent = "";
+      const strong = document.createElement("strong");
+      strong.textContent = lead;
+      explanation.append(strong);
+      if (reason) explanation.append(document.createTextNode(` ${reason}`));
+    }
+  });
+
+  const fairPlay = awards.fairPlay;
+  if (fairPlay) {
+    const teams = (fairPlay.recipients || []).map((recipient) => recipient.teamName);
+    setText("fair-play-flag", TEAM_FLAGS[teams[0]] || "🌍");
+    setText("fair-play-name", teams.join(" & "));
+    setText("fair-play-meta", teams.map((team) => `${TEAM_FLAGS[team] || "🌍"} ${team}`).join(" · "));
+    setText("fair-play-explanation", `${teams.join(" and ")} received FIFA's Fair Play Award for the tournament.`);
+  }
+
+  setHistoricalAwardLabel("goldenBall", "Golden Ball", "Best overall player · awarded from 1978");
+  setHistoricalAwardLabel("goldenBoot", activeEdition < 1982 ? "Leading scorer" : "Golden Boot", "Top scorer");
+  setHistoricalAwardLabel("goldenGlove", "Golden Glove", "Best goalkeeper · awarded from 1994");
+  setHistoricalAwardLabel("youngPlayer", "Best Young Player", "Official award · awarded from 2006");
+  setHistoricalAwardLabel("fairPlay", "FIFA Fair Play", "Sporting conduct · awarded from 1970");
+}
+
+function renderHistoricalHighlights(editorialEdition) {
+  const root = getElement("highlight-list");
+  if (!root || !loadedHistory) return;
+  const ui = HISTORICAL_UI[currentLanguage] || HISTORICAL_UI.en;
+  root.innerHTML = editorialEdition.highlights.map((story) => {
+    const match = story.matchId
+      ? loadedHistory.fixtures?.find((fixture) => fixture.id === story.matchId)
+      : null;
+    const video = match?.highlightVideo;
+    return `
+      <article class="highlight-row">
+        <div>
+          <h3>${escapeHtml(story.title)}</h3>
+          <p>${escapeHtml(story.body)}</p>
+          ${video?.url ? `<a class="historical-highlight-link" href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ui.watch)}</a>` : ""}
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+const PREVIEW_DATE_LOCALES = Object.freeze({
+  en: "en-GB",
+  es: "es-ES",
+  ko: "ko-KR",
+  zh: "zh-CN"
+});
+
+const ZH_PREVIEW_TEAM_NAMES = Object.freeze({
+  Argentina: "阿根廷",
+  Belgium: "比利时",
+  Bolivia: "玻利维亚",
+  Brazil: "巴西",
+  Bulgaria: "保加利亚",
+  Cameroon: "喀麦隆",
+  Canada: "加拿大",
+  Chile: "智利",
+  "Costa Rica": "哥斯达黎加",
+  Croatia: "克罗地亚",
+  Ecuador: "厄瓜多尔",
+  England: "英格兰",
+  France: "法国",
+  Germany: "德国",
+  Greece: "希腊",
+  Italy: "意大利",
+  Japan: "日本",
+  Mexico: "墨西哥",
+  Poland: "波兰",
+  Qatar: "卡塔尔",
+  Russia: "俄罗斯",
+  "Saudi Arabia": "沙特阿拉伯",
+  Senegal: "塞内加尔",
+  "South Africa": "南非",
+  "South Korea": "韩国",
+  "Soviet Union": "苏联",
+  Spain: "西班牙",
+  Sweden: "瑞典",
+  Switzerland: "瑞士",
+  "United States": "美国",
+  Uruguay: "乌拉圭",
+  "West Germany": "西德",
+  Yugoslavia: "南斯拉夫"
+});
+
+function formatPreviewDate(dateValue) {
+  if (!dateValue) return "";
+  const date = new Date(`${dateValue}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat(PREVIEW_DATE_LOCALES[currentLanguage] || PREVIEW_DATE_LOCALES.en, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC"
+  }).format(date);
+}
+
+function localizePreviewTeam(teamName) {
+  if (currentLanguage === "zh") {
+    return ZH_PREVIEW_TEAM_NAMES[teamName] || localizeEntity("teams", teamName) || teamName;
+  }
+  return localizeEntity("teams", teamName) || teamName;
+}
+
+function formatPreviewTeamList(teamNames) {
+  const localizedNames = teamNames.map(localizePreviewTeam);
+  return new Intl.ListFormat(PREVIEW_DATE_LOCALES[currentLanguage] || PREVIEW_DATE_LOCALES.en, {
+    style: "long",
+    type: "conjunction"
+  }).format(localizedNames);
+}
+
+function getPreviewOpening(preview) {
+  if (preview.opening && preview.startDate) {
+    return {
+      home: preview.opening.home,
+      away: preview.opening.away,
+      venue: preview.opening.venue,
+      startDate: preview.startDate,
+      simultaneousMatchCount: 1
+    };
+  }
+  const fixture = loadedHistory?.fixtures?.find(({ id }) => id === preview.openingFixtureId);
+  if (!fixture) return null;
+  const simultaneousMatchCount = loadedHistory.fixtures.filter(({ tournamentYear, date }) =>
+    tournamentYear === preview.nextYear && date === fixture.date
+  ).length;
+  return {
+    home: fixture.homeSlot,
+    away: fixture.awaySlot,
+    venue: fixture.venue,
+    startDate: fixture.date,
+    simultaneousMatchCount
+  };
+}
+
+function getSpanishNextWorldCupPreview(preview, opening) {
+  const hosts = formatPreviewTeamList(preview.hosts);
+  const holder = localizePreviewTeam(preview.holder);
+  const pluralHosts = preview.hosts.length > 1;
+  if (preview.nextYear === 2026) {
+    return {
+      lead: "Canadá, México y Estados Unidos albergarán el primer Mundial de 48 selecciones y el primero organizado por tres países.",
+      firstTitle: "Tres anfitriones tienen su lugar",
+      firstBody: "Canadá, México y Estados Unidos disputarán el torneo en 16 ciudades. Los tres se clasifican automáticamente.",
+      drawTitle: "Se sortean los grupos",
+      drawBody: "El sorteo final en el Kennedy Center de Washington definirá los 12 grupos.",
+      openingTitle: "Comienza el Mundial de 2026",
+      openingBody: "México se enfrentará a Sudáfrica en el Estadio Ciudad de México."
+    };
+  }
+  let firstTitle;
+  let firstBody;
+  if (preview.qualificationMode === "host_must_qualify") {
+    firstTitle = "Italia logra su plaza";
+    firstBody = "Italia es el único país anfitrión que ha tenido que clasificarse. Vence 4–0 a Grecia en San Siro, en Milán, y Grecia se retira antes del partido de vuelta.";
+  } else if (preview.qualificationMode === "replacement_host") {
+    firstTitle = "México asume la organización";
+    firstBody = "La FIFA elige a México como sede sustituta tras la renuncia de Colombia. México y la campeona Italia se clasifican automáticamente.";
+  } else if (preview.qualificationMode === "hosts_and_holders") {
+    firstTitle = pluralHosts ? "Anfitriones y campeón ya tienen su plaza" : `${hosts} y ${holder} ya tienen su plaza`;
+    firstBody = `${hosts} ${pluralHosts ? "se clasifican" : "se clasifica"} automáticamente como ${pluralHosts ? "anfitriones" : "anfitrión"}. ${holder} regresa como campeón vigente.`;
+  } else {
+    firstTitle = pluralHosts ? "Los anfitriones ya tienen su plaza" : `${hosts} ya tiene su plaza`;
+    firstBody = `${hosts} ${pluralHosts ? "se clasifican" : "se clasifica"} automáticamente como ${pluralHosts ? "anfitriones" : "anfitrión"}. El campeón ${holder} debe disputar la fase de clasificación.`;
+  }
+  const drawTitle = preview.groupCount ? "Se sortean los grupos" : "Se sortea el cuadro eliminatorio";
+  const drawBody = preview.groupCount
+    ? `El sorteo final en ${preview.drawLocation} definirá ${preview.groupCount} grupos.`
+    : `El sorteo final en ${preview.drawLocation} definirá el cuadro eliminatorio de 16 selecciones.`;
+  const home = localizePreviewTeam(opening.home);
+  const away = localizePreviewTeam(opening.away);
+  const openingBody = opening.simultaneousMatchCount > 1
+    ? `La jornada inaugural tendrá ${opening.simultaneousMatchCount} partidos. ${home} se enfrentará a ${away} en ${opening.venue}.`
+    : `${home} se enfrentará a ${away} en ${opening.venue}.`;
+  return {
+    lead: `${hosts} ${pluralHosts ? "albergarán" : "albergará"} el Mundial de ${preview.nextYear}.`,
+    firstTitle,
+    firstBody,
+    drawTitle,
+    drawBody,
+    openingTitle: `Comienza el Mundial de ${preview.nextYear}`,
+    openingBody
+  };
+}
+
+function getKoreanNextWorldCupPreview(preview, opening) {
+  const hosts = formatPreviewTeamList(preview.hosts);
+  const holder = localizePreviewTeam(preview.holder);
+  if (preview.nextYear === 2026) {
+    return {
+      lead: "캐나다·멕시코·미국이 사상 첫 48개 팀 월드컵이자 세 나라가 공동 개최하는 첫 대회를 연다.",
+      firstTitle: "세 개최국은 이미 본선에 진출했다",
+      firstBody: "캐나다·멕시코·미국이 16개 도시에서 대회를 개최한다. 세 나라 모두 자동 진출한다.",
+      drawTitle: "조 추첨이 열린다",
+      drawBody: "워싱턴 케네디 센터에서 열리는 본선 조 추첨으로 12개 조가 정해진다.",
+      openingTitle: "2026 월드컵 개막",
+      openingBody: "멕시코와 남아프리카공화국이 멕시코시티 스타디움에서 맞붙는다."
+    };
+  }
+  let firstTitle;
+  let firstBody;
+  if (preview.qualificationMode === "host_must_qualify") {
+    firstTitle = "이탈리아가 본선 진출권을 얻었다";
+    firstBody = "이탈리아는 예선을 치러야 했던 유일한 개최국이다. 밀라노 산 시로에서 그리스를 4대0으로 이겼고, 그리스는 2차전을 앞두고 기권했다.";
+  } else if (preview.qualificationMode === "replacement_host") {
+    firstTitle = "멕시코가 개최권을 넘겨받았다";
+    firstBody = "콜롬비아의 개최 포기 후 FIFA가 멕시코를 대체 개최국으로 선정했다. 멕시코와 디펜딩 챔피언 이탈리아가 자동 진출한다.";
+  } else if (preview.qualificationMode === "hosts_and_holders") {
+    firstTitle = "개최국과 디펜딩 챔피언이 본선에 진출했다";
+    firstBody = `자동 진출 팀은 개최국 ${hosts}, 디펜딩 챔피언 ${holder}이다.`;
+  } else {
+    firstTitle = preview.hosts.length > 1 ? "개최국들이 본선에 진출했다" : "개최국이 본선에 진출했다";
+    firstBody = `개최국 ${hosts}의 자동 진출이 확정됐다. 디펜딩 챔피언 ${holder}에게는 예선이 필요하다.`;
+  }
+  const drawTitle = preview.groupCount ? "조 추첨이 열린다" : "토너먼트 대진이 정해진다";
+  const drawBody = preview.groupCount
+    ? `${preview.drawLocation}에서 열리는 본선 조 추첨으로 ${preview.groupCount}개 조가 정해진다.`
+    : `${preview.drawLocation}에서 열리는 본선 추첨으로 16강 토너먼트 대진이 정해진다.`;
+  const home = localizePreviewTeam(opening.home);
+  const away = localizePreviewTeam(opening.away);
+  const openingBody = opening.simultaneousMatchCount > 1
+    ? `개막일에 ${opening.simultaneousMatchCount}경기가 열린다. 그중 ${home}와 ${away}의 경기는 ${opening.venue}에서 열린다.`
+    : `${home}와 ${away}의 경기가 ${opening.venue}에서 열린다.`;
+  return {
+    lead: `${hosts}에서 ${preview.nextYear}년 월드컵이 열린다.`,
+    firstTitle,
+    firstBody,
+    drawTitle,
+    drawBody,
+    openingTitle: `${preview.nextYear} 월드컵 개막`,
+    openingBody
+  };
+}
+
+function getChineseNextWorldCupPreview(preview, opening) {
+  const hosts = formatPreviewTeamList(preview.hosts);
+  const holder = localizePreviewTeam(preview.holder);
+  if (preview.nextYear === 2026) {
+    return {
+      lead: "加拿大、墨西哥和美国将共同举办首届48队世界杯，也是首次由三个国家共同主办。",
+      firstTitle: "三个东道主已锁定席位",
+      firstBody: "加拿大、墨西哥和美国将在16座城市举办赛事，三个东道主均自动晋级。",
+      drawTitle: "小组抽签",
+      drawBody: "在华盛顿肯尼迪中心举行的决赛圈抽签将确定12个小组。",
+      openingTitle: "2026年世界杯开幕",
+      openingBody: "墨西哥与南非将在墨西哥城体育场交锋。"
+    };
+  }
+  let firstTitle;
+  let firstBody;
+  if (preview.qualificationMode === "host_must_qualify") {
+    firstTitle = "意大利取得参赛资格";
+    firstBody = "意大利是唯一需要参加预选赛的东道主。他们在米兰圣西罗球场4比0击败希腊，希腊随后退出次回合比赛。";
+  } else if (preview.qualificationMode === "replacement_host") {
+    firstTitle = "墨西哥接替主办";
+    firstBody = "哥伦比亚退出后，国际足联选择墨西哥作为替代东道主。墨西哥与卫冕冠军意大利自动晋级。";
+  } else if (preview.qualificationMode === "hosts_and_holders") {
+    firstTitle = "东道主与卫冕冠军锁定席位";
+    firstBody = `东道主${hosts}与卫冕冠军${holder}自动晋级。`;
+  } else {
+    firstTitle = preview.hosts.length > 1 ? "东道主锁定三个席位" : "东道主锁定席位";
+    firstBody = `东道主${hosts}自动晋级，卫冕冠军${holder}需要参加预选赛。`;
+  }
+  const drawTitle = preview.groupCount ? "小组抽签" : "淘汰赛对阵抽签";
+  const drawBody = preview.groupCount
+    ? `在${preview.drawLocation}举行的决赛圈抽签将确定${preview.groupCount}个小组。`
+    : `在${preview.drawLocation}举行的决赛圈抽签将确定16队淘汰赛对阵。`;
+  const home = localizePreviewTeam(opening.home);
+  const away = localizePreviewTeam(opening.away);
+  const openingBody = opening.simultaneousMatchCount > 1
+    ? `开幕日将进行${opening.simultaneousMatchCount}场比赛，其中${home}与${away}将在${opening.venue}交锋。`
+    : `${home}与${away}将在${opening.venue}交锋。`;
+  return {
+    lead: `${preview.nextYear}年世界杯将在${hosts}举行。`,
+    firstTitle,
+    firstBody,
+    drawTitle,
+    drawBody,
+    openingTitle: `${preview.nextYear}年世界杯开幕`,
+    openingBody
+  };
+}
+
+function getLocalizedNextWorldCupPreview(preview, opening) {
+  if (currentLanguage === "es") return getSpanishNextWorldCupPreview(preview, opening);
+  if (currentLanguage === "ko") return getKoreanNextWorldCupPreview(preview, opening);
+  if (currentLanguage === "zh") return getChineseNextWorldCupPreview(preview, opening);
+  return {
+    lead: preview.lead,
+    firstTitle: preview.firstTitle,
+    firstBody: preview.firstBody,
+    drawTitle: preview.drawTitle,
+    drawBody: preview.drawBody,
+    openingTitle: `The ${preview.nextYear} World Cup begins`,
+    openingBody: preview.openingBody
+  };
+}
+
+function renderNextWorldCupPreview() {
+  const preview = HISTORICAL_NEXT_WORLD_CUP_PREVIEWS[activeEdition];
+  const opening = preview ? getPreviewOpening(preview) : null;
+  if (!preview || !opening) return;
+  const copy = getLocalizedNextWorldCupPreview(preview, opening);
+  setText("next-world-cup-lead", copy.lead);
+  const firstDate = getElement("timeline-first-date");
+  const formattedFirstDate = formatPreviewDate(preview.firstDate);
+  if (firstDate) {
+    firstDate.textContent = formattedFirstDate;
+    firstDate.closest(".timeline-date")?.toggleAttribute("aria-hidden", !formattedFirstDate);
+  }
+  setText("timeline-first-title", copy.firstTitle);
+  setText("timeline-first-body", copy.firstBody);
+  setText("timeline-second-date", formatPreviewDate(preview.drawDate));
+  setText("timeline-second-title", copy.drawTitle);
+  setText("timeline-second-body", copy.drawBody);
+  setText("timeline-third-date", formatPreviewDate(opening.startDate));
+  setText("timeline-third-title", copy.openingTitle);
+  setText("timeline-third-body", copy.openingBody);
+  firstDate?.closest(".timeline-item")?.classList.toggle("is-undated", !formattedFirstDate);
+}
+
+function renderHistoricalEdition() {
+  if (activeEdition === 2026 || !loadedBestXi || !loadedProfiles || !loadedTeams) {
+    return;
+  }
+  const editorialEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
+  if (!editorialEdition) return;
+  const palette = editorialEdition.champion === "West Germany" ? "germany" : editorialEdition.champion.toLowerCase();
+  const ui = HISTORICAL_UI[currentLanguage] || HISTORICAL_UI.en;
+  const championName = localizeEntity("teams", editorialEdition.champion) || editorialEdition.champion;
+  document.body.dataset.finalCelebrationPalette = palette;
+  setText("page-title", ({
+    en: `${editorialEdition.champion} were ${activeEdition} world champions.`,
+    es: `${championName}, campeón del mundo en ${activeEdition}.`,
+    ko: `${championName}, ${activeEdition}년 세계 챔피언.`,
+    zh: `${championName}是${activeEdition}年世界杯冠军。`
+  })[currentLanguage] || `${editorialEdition.champion} were ${activeEdition} world champions.`);
+  setText("champion-flag", editorialEdition.flag);
+  renderChampionPhoto(editorialEdition);
+  const intro = document.querySelector(".intro-copy");
+  if (intro) {
+    intro.textContent = editorialEdition.intro;
+    intro.removeAttribute("data-highlight-player-mentions");
+  }
+  setText("best-xi-title", getBestXiEditionTitle());
+  setText("awards-title", ui.awards);
+  setText("highlights-title", ui.stories);
+  renderHistoricalAwards();
+  renderHistoricalHighlights(editorialEdition);
+  renderNextWorldCupPreview();
+  updateMetadata();
 }
 
 function getPlayerInitials(name) {
@@ -1740,11 +2496,29 @@ function getBestXiHonourableEntries(selection) {
     .flatMap((slot) => getBestXiHonourables(slot).map((player, index) => ({ slot, player, index })));
 }
 
+function getBestXiCompactPositionCode(player, profile, slot) {
+  const selectionCode = String(player?.position || slot?.starter?.position || "").trim().toUpperCase();
+  const compactCode = ["RCM", "LCM"].includes(selectionCode) ? "CM" : selectionCode;
+  const profilePosition = String(profile?.position || "").trim().toLowerCase();
+
+  if (["LW", "RW"].includes(compactCode)) {
+    if (/\bright (?:wing|winger|midfielder)\b/.test(profilePosition)) {
+      return "RW";
+    }
+    if (/\bleft (?:wing|winger|midfielder)\b/.test(profilePosition)) {
+      return "LW";
+    }
+  }
+
+  return compactCode;
+}
+
 function renderBestXiHonourablePlayer(slot, player, index = 0) {
   const profile = loadedProfiles?.[player.playerName];
   const displayName = getBestXiDisplayName(player);
   const lineupLabel = currentLanguage === "zh" ? displayName : formatLineupShortName(displayName);
-  const positionLabel = getHighlightPlayerPosition(profile) || getBestXiPositionLabel(player.position || slot?.starter?.position);
+  const positionCode = getBestXiCompactPositionCode(player, profile, slot);
+  const positionLabel = getHighlightPlayerPosition(profile) || getBestXiPositionLabel(positionCode);
   const clubLine = getHighlightPlayerClubLine(profile);
   const scoringSummary = getBestXiScoringFacts(player).map(formatBestXiFact).filter(Boolean);
   return `
@@ -1766,7 +2540,7 @@ function renderBestXiHonourablePlayer(slot, player, index = 0) {
           aria-expanded="false"
         >${escapeHtml(lineupLabel)}</span>
       </span>
-      <span class="lineup-bench-position">${escapeHtml(positionLabel)}</span>
+      <span class="lineup-bench-position">${escapeHtml(positionCode)}</span>
     </li>
   `;
 }
@@ -1913,7 +2687,7 @@ function renderBestXiCoachCard(coach, profile) {
       ? `${age}岁`
       : activeAppLocalePack?.helpers?.translateText?.(`Age ${age}`) || `Age ${age}`;
   const styles = (profile?.styles || []).slice(0, 3).map(getBestXiCoachCopy).filter(Boolean);
-  const note = getBestXiCoachCopy(profile?.note);
+  const note = getBestXiCoachCopy(profile?.note) || getBestXiCoachCopy(coach?.reason);
   const history = getBestXiCoachCopy(profile?.history);
   const initials = getPlayerInitials(displayName);
   const imageUrl = profile?.imageUrl || coach?.imageUrl || "";
@@ -1980,7 +2754,7 @@ function renderBestXiCoachMention() {
 function renderBestXiBand(selection) {
   const entries = getBestXiHonourableEntries(selection);
   const benchLabel = activeLocale.text.benchLabel || getBestXiAppText("Bench");
-  const tabLabel = activeLocale.text.bestXiTitle || "Best XI";
+  const tabLabel = getBestXiEditionTitle();
   return renderLineupControlBand({
     bandClass: "best-xi-band",
     actionsClass: "best-xi-band-details",
@@ -1992,11 +2766,12 @@ function renderBestXiBand(selection) {
         type="button"
         role="tab"
         aria-selected="true"
-        aria-label="${escapeHtml(tabLabel)}"
+        aria-label="${escapeHtml(activeLocale.text.bestXiInfo)}"
       >
         <span class="lineup-tab-label lineup-tab-label-full">${escapeHtml(tabLabel)}</span>
         <span class="lineup-tab-label lineup-tab-label-compact" aria-hidden="true">
           <span class="best-xi-world-map-icon">🗺️</span>
+          <span>${escapeHtml(activeLocale.text.bestXiInfo)}</span>
         </span>
       </button>
     `,
@@ -2030,7 +2805,7 @@ function renderBestXiPitchCard(selection) {
         .join("")
     }),
     pitchClass: "best-xi-pitch",
-    surfaceAttributes: `id="best-xi-pitch" role="list" aria-label="${escapeHtml(activeLocale.text.bestXiPitchLabel)}"`,
+    surfaceAttributes: `id="best-xi-pitch" role="list" aria-label="${escapeHtml(activeEdition === 2026 ? activeLocale.text.bestXiPitchLabel : `${getBestXiEditionTitle()} · ${selection.formation}`)}"`,
     markerMarkup: selection.slots.map((slot) => renderBestXiMarker(slot)).join("")
   });
 }
@@ -2046,7 +2821,6 @@ function renderBestXi() {
   renderBestXiHonourables(selection);
   activateBestXiImages(root);
   updateLineupTabIndicators(root);
-  updateBestXiInfoTooltipBounds();
 }
 
 function getBestXiPlayerFromElement(playerElement) {
@@ -2202,26 +2976,9 @@ function toggleBestXiHonourables() {
   panel.setAttribute("aria-hidden", String(!nextOpen));
 }
 
-function updateBestXiInfoTooltipBounds() {
-  [
-    [document.querySelector(".best-xi-info-button"), Math.min(224, window.innerWidth * 0.72)]
-  ].forEach(([button, width]) => {
-    if (!(button instanceof HTMLElement)) {
-      return;
-    }
-    button.style.removeProperty("--tooltip-shift-x");
-    const buttonRect = button.getBoundingClientRect();
-    const margin = 10;
-    const idealLeft = buttonRect.left + buttonRect.width / 2 - width / 2;
-    const clampedLeft = Math.min(window.innerWidth - width - margin, Math.max(margin, idealLeft));
-    button.style.setProperty("--tooltip-shift-x", `${Math.round(clampedLeft - idealLeft)}px`);
-  });
-}
-
 function setupBestXiInteractions() {
   const section = document.querySelector(".best-xi-section");
   const card = getElement(BEST_XI_CARD_ID);
-  const infoButton = document.querySelector(".best-xi-info-button");
   if (!section || !card) {
     return;
   }
@@ -2289,13 +3046,6 @@ function setupBestXiInteractions() {
 
   card.addEventListener("pointerenter", () => window.clearTimeout(bestXiCardHideTimer));
   card.addEventListener("pointerleave", queueBestXiPlayerCardHide);
-  infoButton?.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    updateBestXiInfoTooltipBounds();
-    infoButton.classList.toggle("is-touch-tooltip-open");
-  });
-
   document.addEventListener("pointerdown", (event) => {
     if (
       activeBestXiPlayer
@@ -2303,9 +3053,6 @@ function setupBestXiInteractions() {
       && !card.contains(event.target)
     ) {
       hideBestXiPlayerCard();
-    }
-    if (infoButton && !infoButton.contains(event.target)) {
-      infoButton.classList.remove("is-touch-tooltip-open");
     }
   });
   document.addEventListener("keydown", (event) => {
@@ -2315,10 +3062,6 @@ function setupBestXiInteractions() {
     if (activeBestXiPlayer) {
       hideBestXiPlayerCard();
     }
-    if (infoButton?.classList.contains("is-touch-tooltip-open")) {
-      infoButton.classList.remove("is-touch-tooltip-open");
-      infoButton.focus();
-    }
     const honourablesButton = document.querySelector(".best-xi-honourables-button");
     if (honourablesButton?.getAttribute("aria-expanded") === "true") {
       toggleBestXiHonourables();
@@ -2327,7 +3070,6 @@ function setupBestXiInteractions() {
   });
   window.addEventListener("resize", () => {
     positionBestXiPlayerCard();
-    updateBestXiInfoTooltipBounds();
     updateLineupTabIndicators(getElement("best-xi-lineup-root"));
   });
   window.addEventListener("scroll", positionBestXiPlayerCard, { passive: true });
@@ -2425,7 +3167,9 @@ function renderAwards(awards, profiles) {
 }
 
 async function initialize() {
+  activeEdition = resolveInitialEdition();
   setupLanguageSelect();
+  setupEditionSelect();
   setupSettings();
   setupChampionPhotoScoutReaction();
   setupBestXiInteractions();
@@ -2442,35 +3186,60 @@ async function initialize() {
     applyLocale();
   }
 
-  try {
-    const [tournament, playerData, coachData, teamData, structuredGlossary] = await Promise.all([
-      loadJson("data/tournament.json"),
-      loadJson("data/player-profiles.json"),
-      loadJson("data/coach-profiles.json"),
-      loadJson("data/teams.json"),
-      loadJson("data/locales/structured-content-glossary.json")
-    ]);
-    loadedAwards = tournament.awards || {};
-    loadedProfiles = playerData.profiles || {};
-    loadedCoachProfiles = coachData.profiles || {};
-    loadedTeams = Object.fromEntries((teamData.teams || []).map((team) => [team.id, team]));
-    loadedStructuredGlossary = structuredGlossary || {};
-    loadedRankingYear = Number(teamData.rankingYear) || null;
-    renderAwards(loadedAwards, loadedProfiles);
-    renderHighlightStoryTitles();
-    renderHighlightPlayerMentions();
-  } catch (error) {
-    console.error(activeLocale.text.loadError, error);
-  }
+  if (activeEdition === 2026) {
+    try {
+      const [tournament, playerData, coachData, teamData, structuredGlossary] = await Promise.all([
+        loadJson("data/tournament.json"),
+        loadJson("data/player-profiles.json"),
+        loadJson("data/coach-profiles.json"),
+        loadJson("data/teams.json"),
+        loadJson("data/locales/structured-content-glossary.json")
+      ]);
+      loadedAwards = tournament.awards || {};
+      loadedProfiles = playerData.profiles || {};
+      loadedCoachProfiles = coachData.profiles || {};
+      loadedTeams = Object.fromEntries((teamData.teams || []).map((team) => [team.id, team]));
+      loadedStructuredGlossary = structuredGlossary || {};
+      loadedRankingYear = Number(teamData.rankingYear) || null;
+      renderAwards(loadedAwards, loadedProfiles);
+      renderHighlightStoryTitles();
+      renderHighlightPlayerMentions();
+    } catch (error) {
+      console.error(activeLocale.text.loadError, error);
+    }
 
-  try {
-    loadedBestXi = await loadJson("data/highlights-best-xi.json");
-    renderAwards(loadedAwards || {}, loadedProfiles || {});
-    renderHighlightStoryTitles();
-    renderHighlightPlayerMentions();
-    renderBestXi();
-  } catch (error) {
-    console.error("Unable to load Best XI", error);
+    try {
+      loadedBestXi = await loadJson("data/highlights-best-xi.json");
+      renderAwards(loadedAwards || {}, loadedProfiles || {});
+      renderHighlightStoryTitles();
+      renderHighlightPlayerMentions();
+      renderBestXi();
+    } catch (error) {
+      console.error("Unable to load Best XI", error);
+    }
+  } else {
+    try {
+      const [historyData, historicalProfileData, historicalAwardData, structuredGlossary] = await Promise.all([
+        loadJson("data/history.json"),
+        loadJson("data/historical-player-profiles.json"),
+        loadJson("data/world-cup-awards.json"),
+        loadJson("data/locales/structured-content-glossary.json")
+      ]);
+      const editorialEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
+      const awardsEdition = historicalAwardData.editions?.[String(activeEdition)] || {};
+      loadedHistory = historyData;
+      loadedHistoricalAwards = historicalAwardData;
+      loadedProfiles = buildHistoricalProfiles(editorialEdition, historicalProfileData, awardsEdition);
+      loadedCoachProfiles = {};
+      loadedTeams = buildHistoricalTeams(editorialEdition, awardsEdition);
+      loadedStructuredGlossary = structuredGlossary || {};
+      loadedRankingYear = activeEdition;
+      loadedBestXi = buildHistoricalBestXi(editorialEdition, historicalProfileData);
+      renderBestXi();
+      renderHistoricalEdition();
+    } catch (error) {
+      console.error("Unable to load historical awards and highlights", error);
+    }
   }
 
   if (!loadedBestXi || !loadedProfiles || !loadedTeams) {

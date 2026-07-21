@@ -28,6 +28,11 @@ continuous delivery by a solo developer using multiple Codex threads.
 - One publishing task waits for relevant World Cup tasks to become idle, then
   ships the settled repository batch. Do not keep restarting a valid push for
   work that finishes after validation begins; that work goes in the next push.
+- Waiting is passive and read-only. The publishing task may list relevant
+  threads, read their status, and wait or poll for completion. It must not send
+  messages, delegation prompts, follow-ups, interruptions, freeze notices,
+  `wrap it up` requests, ownership transfers, or handoff instructions to those
+  threads unless the user explicitly asks for that exact cross-thread action.
 - A shared dirty checkout is normal during parallel work. Do not treat the
   presence of changes as evidence that they are unfinished; task activity and
   the settled diff determine whether the batch is ready.
@@ -48,6 +53,16 @@ multiple World Cup Codex threads. A shared dirty checkout is normal while
 relevant threads are working.
 
 1. Wait quietly until all relevant World Cup repository tasks are idle.
+   - Use read-only thread listing, status reads, or passive waiting only.
+   - Do not call thread messaging, follow-up, interruption, delegation,
+     ownership-transfer, or handoff tools as part of the wait.
+   - If a relevant thread needs user input, report that blocker in the
+     publishing thread and continue waiting; do not answer or steer it from
+     another thread.
+   - A bare `push latest` or `push to GitHub and Vercel` does not cancel an
+     existing wait. Only an explicit user instruction such as `do it now`
+     overrides it, and that override still does not authorize steering sibling
+     threads.
 2. Ignore unrelated ChatGPT or Codex tasks.
 3. Inspect the settled combined World Cup diff.
 4. Include all completed and approved work unless something is explicitly
@@ -229,6 +244,11 @@ While waiting for relevant threads, do not repeatedly narrate polling or task
 details. Use concise updates only when relevant work is still active, final
 validation begins, a blocker is found, the release is pushed, or production and
 CI are verified.
+
+Cross-thread silence is part of this communication rule. Routine publishing
+must never insert synthetic user messages into another chat. Observing that a
+thread is active is not permission to tell it to stop, finish, summarize,
+freeze, or hand off its work.
 
 The final release record should contain:
 

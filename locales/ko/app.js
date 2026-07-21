@@ -61,7 +61,7 @@ const UI = {
   timeZoneSearchPlaceholder: "도시, 국가 또는 약어 검색",
   timeZoneSearchResults: "검색 결과",
   tournament: "토너먼트",
-  viewRecap: "대회 돌아보기",
+  viewRecap: "하이라이트 보기",
   worldCupViews: "월드컵 메뉴"
 };
 

@@ -5,12 +5,12 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "567a865abef44440ed4538cb13d4bb4317cac0db280bd96a7c74176d25a00db6"
+  "sourceFingerprint": "35a6d302a55dbbd77426e01b5ebdc2264271071e6328767e7729068eb484800f"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
   "A finished 2026 archive, awards recap, and quieter off-season": "완료된 2026 아카이브, 수상 요약과 더 조용한 비시즌",
-  "A new Awards & Highlights recap preserves Spain's title story, the official awards, an editorial Best XI with 15 Honorable Mentions and Best Coach, two-part evidence and footballing notes for all 26 displayed players, a rights-safe trophy illustration, and a compact three-milestone timeline toward 2030; both the homepage and recap now open with a calm, reduced-motion-aware fade.": "새로운 수상 및 하이라이트 요약에는 스페인의 우승 이야기, 공식 수상 내역, 15명의 명예 후보와 최우수 감독을 포함한 편집 베스트 11, 화면에 표시되는 26명 전원의 근거와 축구적 평가를 나눈 두 단락 설명, 게시 권리가 안전한 트로피 일러스트, 2030년까지의 간결한 3단계 타임라인이 담깁니다. 홈페이지와 요약 페이지는 이제 동작 줄이기를 지원하는 차분한 페이드인으로 열립니다.",
-  "Outside an active tournament window, the homepage, Ball Boy, Report issue, and live-data API now use static edition data without polling providers; matchday schedules are retired, with monthly archive health checks and reviewed late-correction paths retained.": "활성 대회 기간이 아닐 때는 홈페이지, Ball Boy, 문제 신고 페이지와 실시간 데이터 API가 제공자를 반복 조회하지 않고 정적 대회 데이터를 사용합니다. 경기일 예약 작업은 종료됐으며 월간 아카이브 상태 점검과 검토된 사후 수정 절차는 유지됩니다.",
+  "A new Awards & Highlights recap preserves Spain's title story, the official awards, an editorial Best XI with 15 Honorable Mentions and Best Coach, and two-part evidence and footballing notes for all 26 displayed players; archived champions now use licensed team celebration photos where suitable sources exist, with trophy illustrations otherwise.": "새로운 수상 및 하이라이트 요약에는 스페인의 우승 이야기, 공식 수상 내역, 15명의 명예 후보와 최우수 감독을 포함한 편집 베스트 11, 화면에 표시되는 26명 전원의 근거와 축구적 평가를 나눈 두 단락 설명이 담깁니다. 역대 우승팀은 적절한 출처가 있을 경우 라이선스를 확보한 팀 우승 세리머니 사진을 사용하고, 그렇지 않은 경우에는 트로피 일러스트를 유지합니다.",
+  "Every archived edition now closes with three milestones toward the World Cup that followed it, while 2026 keeps its separate timeline toward 2030; both the homepage and recap open with a calm, reduced-motion-aware fade.": "이제 모든 역대 대회는 그다음 월드컵까지의 세 가지 이정표로 마무리되며, 2026년 대회는 2030년까지의 별도 타임라인을 유지합니다. 홈페이지와 요약 페이지는 동작 줄이기를 지원하는 차분한 페이드인으로 열립니다.",
   "The completed 2026 World Cup is now preserved as an immutable, checksum-verified snapshot with all 104 results, official line-ups, standings, profiles, availability, awards, multilingual recaps, Ball Boy knowledge, and source provenance.": "완료된 2026 월드컵은 이제 104경기 결과, 공식 선발 명단, 순위표, 프로필, 출전 가능 정보, 수상 내역, 다국어 요약, Ball Boy 지식과 출처 근거를 모두 담은 변경 불가 체크섬 검증 스냅샷으로 보존됩니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});

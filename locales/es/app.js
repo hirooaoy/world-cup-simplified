@@ -62,7 +62,7 @@ const UI = {
   timeZoneSearchPlaceholder: "Buscar ciudad, país o abreviatura",
   timeZoneSearchResults: "Resultados de búsqueda",
   tournament: "Fase eliminatoria",
-  viewRecap: "Ver resumen",
+  viewRecap: "Ver momentos destacados",
   worldCupViews: "Secciones del Mundial"
 };
 

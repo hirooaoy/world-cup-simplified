@@ -5142,12 +5142,31 @@ try {
     {
       initScript: () => {
         window.__initialBannerOpacitySamples = [];
+        const trackPreBannerTitle = () => {
+          if (document.querySelector("#final-celebration-banner")) return;
+          const pageTitle = document.querySelector("#matches-view .page-title");
+          if (pageTitle) {
+            window.__preBannerTitleTop = pageTitle.getBoundingClientRect().top;
+          }
+          window.requestAnimationFrame(trackPreBannerTitle);
+        };
+        window.requestAnimationFrame(trackPreBannerTitle);
         const recordBannerOpacity = (label) => {
           const banner = document.querySelector("#final-celebration-banner");
           if (!banner) return;
+          const pageTitle = document.querySelector("#matches-view .page-title");
+          const reveal = document.querySelector("#final-celebration-reveal");
           window.__initialBannerOpacitySamples.push({
             label,
-            opacity: Number.parseFloat(getComputedStyle(banner).opacity)
+            bannerHeight: banner.getBoundingClientRect().height,
+            loadingPlaceholderCount: document.querySelectorAll("#match-list > .match-loading").length,
+            matchListTop: document.querySelector("#match-list")?.getBoundingClientRect().top ?? -1,
+            nextElementClass: reveal?.nextElementSibling?.className || "",
+            opacity: Number.parseFloat(getComputedStyle(banner).opacity),
+            preBannerTitleTop: window.__preBannerTitleTop ?? -1,
+            revealHeight: reveal?.getBoundingClientRect().height ?? -1,
+            titleTop: pageTitle?.getBoundingClientRect().top ?? -1,
+            titleOpacity: pageTitle ? Number.parseFloat(getComputedStyle(pageTitle).opacity) : -1
           });
         };
         const attachObserver = () => {
@@ -5164,7 +5183,7 @@ try {
               window.requestAnimationFrame(() => recordBannerOpacity("raf-2"));
             });
             window.setTimeout(() => recordBannerOpacity("mid"), 180);
-            window.setTimeout(() => recordBannerOpacity("end"), 700);
+            window.setTimeout(() => recordBannerOpacity("end"), 1150);
           });
           observer.observe(document.documentElement, { childList: true, subtree: true });
         };
@@ -5184,12 +5203,20 @@ try {
     const recapLink = emptyState?.querySelector(".empty-state-recap-action");
     const postTournamentMessage = emptyState?.querySelector(".empty-state-post-tournament-description");
     const banner = document.querySelector("#final-celebration-banner");
+    const pageTitle = document.querySelector("#matches-view .page-title");
+    const bannerBounds = banner?.getBoundingClientRect();
+    const pageTitleBounds = pageTitle?.getBoundingClientRect();
     const recapLinkBounds = recapLink?.getBoundingClientRect();
     const messageBounds = postTournamentMessage?.getBoundingClientRect();
     const bannerStyles = banner ? getComputedStyle(banner) : null;
     const recapLinkStyles = recapLink ? getComputedStyle(recapLink) : null;
     return {
       bulletCount: document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li").length,
+      bannerAboveToday: Boolean(
+        bannerBounds &&
+        pageTitleBounds &&
+        bannerBounds.bottom <= pageTitleBounds.top
+      ),
       bannerEntranceSamples: window.__initialBannerOpacitySamples || [],
       hasCelebration: body.classList.contains("has-final-celebration"),
       hasFinalAction: Boolean(emptyState?.querySelector("[data-select-final-match]")),
@@ -5238,10 +5265,23 @@ try {
   );
   assert(
     bannerEntranceStart?.opacity === 0 &&
+      bannerEntranceStart?.loadingPlaceholderCount === 0 &&
+      bannerEntranceStart?.nextElementClass === "page-title" &&
+      bannerEntranceStart?.revealHeight <= 1 &&
+      Math.abs(bannerEntranceStart?.titleTop - bannerEntranceStart?.preBannerTitleTop) <= 1 &&
+      bannerEntranceStart?.titleOpacity === 1 &&
       bannerEntranceMid?.opacity > 0 &&
       bannerEntranceMid?.opacity < 1 &&
+      bannerEntranceMid?.revealHeight > bannerEntranceStart?.revealHeight &&
+      bannerEntranceMid?.revealHeight < bannerEntranceEnd?.revealHeight &&
+      bannerEntranceMid?.titleTop > bannerEntranceStart?.titleTop &&
+      bannerEntranceMid?.titleTop < bannerEntranceEnd?.titleTop &&
+      bannerEntranceMid?.matchListTop > bannerEntranceStart?.matchListTop &&
+      bannerEntranceMid?.matchListTop < bannerEntranceEnd?.matchListTop &&
       bannerEntranceEnd?.opacity === 1 &&
+      Math.abs(bannerEntranceEnd?.revealHeight - bannerEntranceEnd?.bannerHeight) <= 1 &&
       postFinalCelebrationState.message === "The 2026 World Cup is over." &&
+      postFinalCelebrationState.bannerAboveToday &&
       postFinalCelebrationState.bulletCount === 3 &&
       postFinalCelebrationState.hasCelebration &&
       !postFinalCelebrationState.hasFinalAction &&
@@ -5253,14 +5293,14 @@ try {
       postFinalCelebrationState.loadingPlaceholderCount === 0 &&
       postFinalCelebrationState.settledOpacities.every((opacity) => opacity === "1") &&
       postFinalCelebrationState.recapHref === "highlights.html" &&
-      postFinalCelebrationState.recapLabel === "View recap" &&
+      postFinalCelebrationState.recapLabel === "View highlights" &&
       postFinalCelebrationState.recapHeight >= 38 &&
       postFinalCelebrationState.recapHeight <= 46 &&
       postFinalCelebrationState.recapWidth >= 80 &&
-      postFinalCelebrationState.recapWidth <= 130 &&
+      postFinalCelebrationState.recapWidth <= 132 &&
       postFinalCelebrationState.recapBelowMessage &&
       postFinalCelebrationState.bannerAnimationName === "none" &&
-      postFinalCelebrationState.bannerTransitionDuration.includes("0.48s") &&
+      postFinalCelebrationState.bannerTransitionDuration.includes("0.9s") &&
       postFinalCelebrationState.bannerTransitionProperty.includes("opacity") &&
       postFinalCelebrationState.bannerPaddingBalanced &&
       postFinalCelebrationState.recapBackground !== "rgba(0, 0, 0, 0)" &&
@@ -5338,11 +5378,11 @@ try {
       !postFinalMobileRecapLayout.hasBannerLink &&
       !postFinalMobileRecapLayout.hasOverflow &&
       postFinalMobileRecapLayout.leftAligned &&
-      postFinalMobileRecapLayout.label === "View recap" &&
+      postFinalMobileRecapLayout.label === "View highlights" &&
       postFinalMobileRecapLayout.height === 34 &&
       postFinalMobileRecapLayout.width >= 76 &&
-      postFinalMobileRecapLayout.width <= 120,
-    `The compact post-tournament empty state should place a right-sized View recap action below its message. Measured ${JSON.stringify(postFinalMobileRecapLayout)}.`
+      postFinalMobileRecapLayout.width <= 130,
+    `The compact post-tournament empty state should place a right-sized View highlights action below its message. Measured ${JSON.stringify(postFinalMobileRecapLayout)}.`
   );
   await postFinalMobileCalendarCheck.page.locator("#day-label").click();
   const postFinalCalendarLayerState = await postFinalMobileCalendarCheck.page.evaluate(() => {
@@ -5364,22 +5404,27 @@ try {
     return {
       calendarBottom: calendarBounds?.bottom ?? null,
       footerTop: footerBounds?.top ?? null,
+      overlapsFooter: Boolean(
+        calendarBounds && footerBounds && calendarBounds.bottom > footerBounds.top
+      ),
       overlapTopElementInsideCalendar: Boolean(topElement?.closest("#date-popover")),
       pageShellLayer: Number.parseInt(getComputedStyle(pageShell).zIndex, 10),
       footerLayer: Number.parseInt(getComputedStyle(footer).zIndex, 10)
     };
   });
   assert(
-    postFinalCalendarLayerState.calendarBottom > postFinalCalendarLayerState.footerTop &&
-      postFinalCalendarLayerState.pageShellLayer > postFinalCalendarLayerState.footerLayer &&
-      postFinalCalendarLayerState.overlapTopElementInsideCalendar,
+    postFinalCalendarLayerState.pageShellLayer > postFinalCalendarLayerState.footerLayer &&
+      (
+        !postFinalCalendarLayerState.overlapsFooter ||
+        postFinalCalendarLayerState.overlapTopElementInsideCalendar
+      ),
     `The open mobile calendar should paint above the championship footer wherever their bounds overlap. Measured ${JSON.stringify(postFinalCalendarLayerState)}.`
   );
   await postFinalMobileCalendarCheck.context.close();
 
   const finalCelebrationLocaleCases = [
     {
-      recapLabel: "查看回顾",
+      recapLabel: "查看亮点",
       body: "西班牙在决赛中以1-0击败阿根廷。",
       headline: "西班牙成为2026年世界杯冠军",
       history: "2010年",
@@ -5387,7 +5432,7 @@ try {
       philosophy: "西班牙的理念是控球：掌控球权、拉开场地宽度，并在丢球后立即合围反抢。"
     },
     {
-      recapLabel: "Ver resumen",
+      recapLabel: "Ver momentos destacados",
       body: "España venció 1-0 a Argentina en la final.",
       headline: "España gana el Mundial de 2026",
       history: "2010",
@@ -5395,7 +5440,7 @@ try {
       philosophy: "La filosofía de España es la posesión: conservar el balón, estirar el campo y rodear al rival en cuanto lo pierde."
     },
     {
-      recapLabel: "대회 돌아보기",
+      recapLabel: "하이라이트 보기",
       body: "스페인이 결승에서 아르헨티나를 1-0으로 꺾었다.",
       headline: "스페인이 2026년 세계 챔피언에 올랐다",
       history: "2010년",
@@ -5468,9 +5513,9 @@ try {
   await calmArchiveCheck.context.close();
 
   const postTournamentLocaleCases = [
-    { action: "查看回顾", language: "zh", message: "2026年世界杯已结束。" },
-    { action: "Ver resumen", language: "es", message: "El Mundial 2026 ha terminado." },
-    { action: "대회 돌아보기", language: "ko", message: "2026 월드컵이 끝났습니다." }
+    { action: "查看亮点", language: "zh", message: "2026年世界杯已结束。" },
+    { action: "Ver momentos destacados", language: "es", message: "El Mundial 2026 ha terminado." },
+    { action: "하이라이트 보기", language: "ko", message: "2026 월드컵이 끝났습니다." }
   ];
   for (const localeCase of postTournamentLocaleCases) {
     const localeCheck = await openPageAtTime(
@@ -5745,6 +5790,10 @@ try {
   await page.goto(`${baseUrl}?view=matches&date=1978-06-25&lang=en&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
+  await page.mouse.move(0, 0);
+  await page.waitForFunction(
+    () => !document.querySelector(".player-card-floating.is-visible")
+  );
   await page.locator('[data-match-id="wc-1978-1978-06-25-final-netherlands-argentina"]').click();
   const firstEligibleShootoutTieTooltip = await page
     .locator("#match-info .match-prediction-block .prediction-row")
@@ -13331,17 +13380,17 @@ try {
   });
   assert(
     tournamentZoomInitial.scale === 1 &&
-      tournamentZoomInitial.minimum === 0.7 &&
+      tournamentZoomInitial.minimum === 0.6 &&
       tournamentZoomInitial.resetCount === 0 &&
       tournamentZoomInitial.visibleControls === 0,
-    `Tournament zoom should open at full size, stop at a 70% phone minimum, and render no zoom controls. Measured ${JSON.stringify(tournamentZoomInitial)}.`
+    `Tournament zoom should open at full size, stop at a 60% phone minimum, and render no zoom controls. Measured ${JSON.stringify(tournamentZoomInitial)}.`
   );
   await tournamentProgression.focus();
-  for (let zoomStep = 0; zoomStep < 10; zoomStep += 1) {
+  for (let zoomStep = 0; zoomStep < 3; zoomStep += 1) {
     await page.keyboard.press("-");
     await page.waitForTimeout(45);
   }
-  const tournamentZoomedOut = await page.evaluate(() => {
+  const tournamentDetailedZoomState = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
     const progressionRect = progression.getBoundingClientRect();
     const progressionStyle = getComputedStyle(progression);
@@ -13406,12 +13455,19 @@ try {
           ? 1
           : Math.hypot(connectorMatrix.a, connectorMatrix.b)),
       headingGeometry,
+      metaDisplay: getComputedStyle(
+        progression.querySelector(".progress-match .knockout-match-meta")
+      ).display,
       minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
       nativeHeadingVisibility: [...progression.querySelectorAll(".progress-round > h3")].map(
         (heading) => getComputedStyle(heading).visibility
       ),
+      overview: progression.classList.contains("is-zoom-overview"),
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       progressionClientWidth: progression.clientWidth,
+      rankDisplay: getComputedStyle(
+        progression.querySelector(".progress-match .rank-pill")
+      ).display,
       resetCount: document.querySelectorAll(".tournament-zoom-reset").length,
       scale,
       scrollWidth: progression.scrollWidth,
@@ -13429,22 +13485,22 @@ try {
     };
   });
   assert(
-    tournamentZoomedOut.scale === 0.7 &&
-      Math.abs(tournamentZoomedOut.scale - tournamentZoomedOut.minimum) <= 0.002 &&
+    tournamentDetailedZoomState.scale === 0.7 &&
+      tournamentDetailedZoomState.minimum === 0.6 &&
       Math.abs(
-        tournamentZoomedOut.cardWidth / mobileTournamentCanvasInitial.cardWidth - 0.7
+        tournamentDetailedZoomState.cardWidth / mobileTournamentCanvasInitial.cardWidth - 0.7
       ) <= 0.015 &&
-      tournamentZoomedOut.connectorPathCount >= 29 &&
-      tournamentZoomedOut.connectorOrdinaryPathCount > 0 &&
-      tournamentZoomedOut.connectorEndpointMaxError <= 1 &&
+      tournamentDetailedZoomState.connectorPathCount >= 29 &&
+      tournamentDetailedZoomState.connectorOrdinaryPathCount > 0 &&
+      tournamentDetailedZoomState.connectorEndpointMaxError <= 1 &&
       Math.abs(
-        tournamentZoomedOut.connectorRenderedStrokeWidth /
+        tournamentDetailedZoomState.connectorRenderedStrokeWidth /
           tournamentZoomInitial.connectorRenderedStrokeWidth -
           0.7
       ) <= 0.03 &&
-      tournamentZoomedOut.stickyOverlay &&
-      tournamentZoomedOut.stickyLabelCount === 5 &&
-      tournamentZoomedOut.headingGeometry.every(
+      tournamentDetailedZoomState.stickyOverlay &&
+      tournamentDetailedZoomState.stickyLabelCount === 5 &&
+      tournamentDetailedZoomState.headingGeometry.every(
         (geometry) =>
           geometry.leftDelta <= 1 &&
           geometry.widthDelta <= 1 &&
@@ -13453,20 +13509,133 @@ try {
             geometry.fontSize / tournamentZoomInitial.nativeHeadingFontSize - 0.7
           ) <= 0.02
       ) &&
-      Math.abs(tournamentZoomedOut.stickyOverlayLeftInset) <= 0.5 &&
-      Math.abs(tournamentZoomedOut.stickyOverlayRightInset) <= 0.5 &&
-      tournamentZoomedOut.stickyLabelStyle.background ===
+      Math.abs(tournamentDetailedZoomState.stickyOverlayLeftInset) <= 0.5 &&
+      Math.abs(tournamentDetailedZoomState.stickyOverlayRightInset) <= 0.5 &&
+      tournamentDetailedZoomState.stickyLabelStyle.background ===
         tournamentZoomInitial.nativeHeadingStyle.background &&
-      tournamentZoomedOut.stickyLabelStyle.border ===
+      tournamentDetailedZoomState.stickyLabelStyle.border ===
         tournamentZoomInitial.nativeHeadingStyle.border &&
-      tournamentZoomedOut.stickyLabelStyle.color ===
+      tournamentDetailedZoomState.stickyLabelStyle.color ===
         tournamentZoomInitial.nativeHeadingStyle.color &&
-      tournamentZoomedOut.nativeHeadingVisibility.every((visibility) => visibility === "hidden") &&
+      tournamentDetailedZoomState.nativeHeadingVisibility.every(
+        (visibility) => visibility === "hidden"
+      ) &&
+      !tournamentDetailedZoomState.overview &&
+      tournamentDetailedZoomState.metaDisplay !== "none" &&
+      tournamentDetailedZoomState.rankDisplay !== "none" &&
+      tournamentDetailedZoomState.resetCount === 0 &&
+      tournamentDetailedZoomState.scrollWidth >
+        tournamentDetailedZoomState.progressionClientWidth + 2 &&
+      tournamentDetailedZoomState.scrollWidth < mobileTournamentCanvasInitial.roundsWidth &&
+      tournamentDetailedZoomState.pageOverflow <= 1,
+    `The 70% phone zoom step should retain detailed cards, scaled sticky labels, aligned connectors, and no reset badge. Measured ${JSON.stringify(tournamentDetailedZoomState)}.`
+  );
+  await tournamentProgression.focus();
+  await page.keyboard.press("-");
+  await page.waitForTimeout(70);
+  const tournamentZoomedOut = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const firstCard = progression.querySelector(".progress-match");
+    const score = firstCard.querySelector(".knockout-result-pill");
+    const scoreStyle = getComputedStyle(score);
+    const connectorPath = progression.querySelector(
+      ".progress-connectors path:not(.is-final-rail)"
+    );
+    const connectorPathStyle = getComputedStyle(connectorPath);
+    const connectorMatrix = connectorPath.getScreenCTM();
+    const screenPoint = (path, atEnd) => {
+      const point = path.getPointAtLength(atEnd ? path.getTotalLength() : 0);
+      return new DOMPoint(point.x, point.y).matrixTransform(path.getScreenCTM());
+    };
+    const connectorEndpointErrors = [
+      ...progression.querySelectorAll(".progress-connectors path:not(.is-final-rail)")
+    ].flatMap((path) => {
+      const source = progression.querySelector(
+        `.progress-match[data-match-number="${CSS.escape(path.dataset.sourceMatchNumber || "")}"]`
+      );
+      const target = progression.querySelector(
+        `.progress-match[data-match-number="${CSS.escape(path.dataset.targetMatchNumber || "")}"]`
+      );
+      const sourceRect = source.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const start = screenPoint(path, false);
+      const end = screenPoint(path, true);
+
+      return [
+        Math.abs(start.x - sourceRect.right),
+        Math.abs(start.y - (sourceRect.top + sourceRect.height / 2)),
+        Math.abs(end.x - targetRect.left),
+        Math.abs(end.y - (targetRect.top + targetRect.height / 2))
+      ];
+    });
+
+    return {
+      cardWidth: Math.round(firstCard.getBoundingClientRect().width),
+      connectorEndpointMaxError: Math.max(...connectorEndpointErrors),
+      connectorPathCount: progression.querySelectorAll(".progress-connectors path").length,
+      connectorRenderedStrokeWidth:
+        Number.parseFloat(connectorPathStyle.strokeWidth) *
+        (connectorPathStyle.vectorEffect === "non-scaling-stroke"
+          ? 1
+          : Math.hypot(connectorMatrix.a, connectorMatrix.b)),
+      headingFontSizes: [...progression.querySelectorAll(".progress-round > h3")].map(
+        (heading) => Number.parseFloat(getComputedStyle(heading).fontSize)
+      ),
+      metaDisplay: getComputedStyle(firstCard.querySelector(".knockout-match-meta")).display,
+      minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      nativeHeadingVisibility: [...progression.querySelectorAll(".progress-round > h3")].map(
+        (heading) => getComputedStyle(heading).visibility
+      ),
+      overview: progression.classList.contains("is-zoom-overview"),
+      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      progressionClientWidth: progression.clientWidth,
+      rankDisplay: getComputedStyle(firstCard.querySelector(".rank-pill")).display,
+      resetCount: document.querySelectorAll(".tournament-zoom-reset").length,
+      scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
+      scoreBackground: scoreStyle.backgroundColor,
+      scoreBorderWidth: scoreStyle.borderTopWidth,
+      scoreBorderRadius: scoreStyle.borderRadius,
+      scoreFontSize: Number.parseFloat(scoreStyle.fontSize),
+      scrollWidth: progression.scrollWidth,
+      stickyLabelCount: progression.querySelectorAll(".tournament-sticky-round-label").length,
+      stickyOverlay: progression.classList.contains("is-round-labels-sticky"),
+      teamFontSize: Number.parseFloat(
+        getComputedStyle(firstCard.querySelector(".knockout-team-copy strong")).fontSize
+      )
+    };
+  });
+  assert(
+    tournamentZoomedOut.scale === 0.6 &&
+      Math.abs(tournamentZoomedOut.scale - tournamentZoomedOut.minimum) <= 0.002 &&
+      Math.abs(
+        tournamentZoomedOut.cardWidth / mobileTournamentCanvasInitial.cardWidth - 0.6
+      ) <= 0.015 &&
+      tournamentZoomedOut.overview &&
+      tournamentZoomedOut.metaDisplay === "none" &&
+      tournamentZoomedOut.rankDisplay === "none" &&
+      tournamentZoomedOut.teamFontSize === 12 &&
+      tournamentZoomedOut.scoreFontSize === 11 &&
+      tournamentZoomedOut.scoreBackground === "rgba(0, 0, 0, 0)" &&
+      tournamentZoomedOut.scoreBorderWidth === "0px" &&
+      tournamentZoomedOut.scoreBorderRadius === "0px" &&
+      tournamentZoomedOut.connectorPathCount >= 29 &&
+      tournamentZoomedOut.connectorEndpointMaxError <= 1 &&
+      Math.abs(
+        tournamentZoomedOut.connectorRenderedStrokeWidth /
+          tournamentZoomInitial.connectorRenderedStrokeWidth -
+          0.6
+      ) <= 0.03 &&
+      tournamentZoomedOut.headingFontSizes.every((fontSize) => fontSize === 12) &&
+      tournamentZoomedOut.nativeHeadingVisibility.every(
+        (visibility) => visibility === "visible"
+      ) &&
+      !tournamentZoomedOut.stickyOverlay &&
+      tournamentZoomedOut.stickyLabelCount === 0 &&
       tournamentZoomedOut.resetCount === 0 &&
       tournamentZoomedOut.scrollWidth > tournamentZoomedOut.progressionClientWidth + 2 &&
       tournamentZoomedOut.scrollWidth < mobileTournamentCanvasInitial.roundsWidth &&
       tournamentZoomedOut.pageOverflow <= 1,
-    `Zooming fully out on a phone should stop at a readable 70% size with proportionally scaled labels, aligned connectors, and no reset badge. Measured ${JSON.stringify(tournamentZoomedOut)}.`
+    `Zooming fully out on a phone should stop at a readable 60% compact overview with hidden metadata and ranks, plain scores, aligned connectors, and native round labels. Measured ${JSON.stringify(tournamentZoomedOut)}.`
   );
   await tournamentProgression.focus();
   await page.keyboard.press("0");
@@ -13527,17 +13696,19 @@ try {
     const progression = document.querySelector(".tournament-progression");
     return {
       minimum: Number.parseFloat(progression.dataset.tournamentZoomMinimum || "0"),
+      overview: progression.classList.contains("is-zoom-overview"),
       resetCount: document.querySelectorAll(".tournament-zoom-reset").length,
       scale: Number.parseFloat(progression.dataset.tournamentZoom || "0"),
       stickyOverlay: progression.classList.contains("is-round-labels-sticky")
     };
   });
   assert(
-    tournamentPinchZoomState.scale === 0.7 &&
+    tournamentPinchZoomState.scale === 0.6 &&
       Math.abs(tournamentPinchZoomState.scale - tournamentPinchZoomState.minimum) <= 0.002 &&
+      tournamentPinchZoomState.overview &&
       tournamentPinchZoomState.resetCount === 0 &&
-      tournamentPinchZoomState.stickyOverlay,
-    `A two-finger pinch should reach the same 70% minimum without adding zoom UI. Measured ${JSON.stringify(tournamentPinchZoomState)}.`
+      !tournamentPinchZoomState.stickyOverlay,
+    `A two-finger pinch should reach the same 60% compact minimum without adding zoom UI. Measured ${JSON.stringify(tournamentPinchZoomState)}.`
   );
   await tournamentProgression.focus();
   await page.keyboard.press("0");

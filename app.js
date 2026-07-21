@@ -3145,9 +3145,8 @@ const calendarPrevMonth = document.querySelector("#calendar-prev-month");
 const calendarNextMonth = document.querySelector("#calendar-next-month");
 
 const INITIAL_SKELETON_DELAY_MS = 180;
-const INITIAL_ENTRANCE_CLEANUP_MS = 900;
 let isInitialPageEntrancePending = document.body.classList.contains("is-initial-page-load");
-let initialPageEntranceCleanupTimer = 0;
+let hasInitialScheduleContentPainted = !isInitialPageEntrancePending;
 const initialSkeletonRevealTimer = window.setTimeout(() => {
   if (isInitialPageEntrancePending) {
     document.body.classList.add("is-initial-skeleton-visible");
@@ -3161,14 +3160,14 @@ function completeInitialPageEntrance() {
 
   isInitialPageEntrancePending = false;
   window.clearTimeout(initialSkeletonRevealTimer);
-  document.body.classList.remove("is-initial-skeleton-visible");
+  document.body.classList.remove(
+    "is-initial-page-load",
+    "is-initial-skeleton-visible"
+  );
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => {
-      document.body.classList.add("is-initial-content-ready");
-      window.clearTimeout(initialPageEntranceCleanupTimer);
-      initialPageEntranceCleanupTimer = window.setTimeout(() => {
-        document.body.classList.remove("is-initial-page-load", "is-initial-content-ready");
-      }, INITIAL_ENTRANCE_CLEANUP_MS);
+      hasInitialScheduleContentPainted = true;
+      renderFinalCelebration();
     });
   });
 }
@@ -3178,6 +3177,7 @@ const catchUpButton = document.querySelector("#catch-up-button");
 const catchUpPopover = document.querySelector("#catch-up-popover");
 const catchUpList = document.querySelector("#catch-up-list");
 const standingsYearButton = document.querySelector("#standings-year-button");
+const standingsAwardsLink = document.querySelector("#standings-awards-link");
 const standingsYearPopover = document.querySelector("#standings-year-popover");
 const standingsYearGrid = document.querySelector("#standings-year-grid");
 const standingsModeTabs = document.querySelectorAll(".standings-mode-tab");
@@ -3378,9 +3378,9 @@ const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
 const TOURNAMENT_DESKTOP_ZOOM_FLOOR = 0.65;
-const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.7;
+const TOURNAMENT_MOBILE_ZOOM_FLOOR = 0.6;
 const TOURNAMENT_ZOOM_MAX = 1;
-const TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD = 0.5;
+const TOURNAMENT_ZOOM_OVERVIEW_THRESHOLD = 0.66;
 const TOURNAMENT_ZOOM_STEP = 0.1;
 const TOURNAMENT_SCROLL_TIMELINE_SUPPORTED =
   typeof CSS !== "undefined" &&
@@ -17419,6 +17419,23 @@ function updateStandingsControls() {
     standingsSummary.textContent = localizeText(summaryText);
   }
 
+  if (standingsAwardsLink) {
+    const recapUrl = new URL("highlights.html", window.location.href);
+    if (selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
+      recapUrl.searchParams.set("year", String(selectedStandingsYear));
+    }
+    if (currentLanguage !== DEFAULT_LANGUAGE) {
+      recapUrl.searchParams.set("lang", currentLanguage);
+    }
+    standingsAwardsLink.href = `${recapUrl.pathname.split("/").pop()}${recapUrl.search}`;
+    standingsAwardsLink.textContent = ({
+      en: "Awards & highlights",
+      es: "Premios y momentos destacados",
+      ko: "수상 및 하이라이트",
+      zh: "奖项与亮点"
+    })[currentLanguage] || "Awards & highlights";
+  }
+
   renderStandingsYearPicker();
   updateStandingsModeControls();
 }
@@ -30004,12 +30021,21 @@ function renderFinalCelebration() {
   const matchesView = viewPanels.matches;
   const completedFinal =
     activeView === "matches" ? getFinalCelebrationMatchForDay(selectedDayKey) : null;
-  const shouldCelebrate = Boolean(completedFinal) && !isDeferredDataLoading;
+  const shouldCelebrate =
+    Boolean(completedFinal) &&
+    !isInitialDataLoading &&
+    !isInitialLiveDataLoading &&
+    !isDeferredDataLoading &&
+    hasInitialScheduleContentPainted;
   let banner = document.querySelector("#final-celebration-banner");
+  let reveal = document.querySelector("#final-celebration-reveal");
   let background = document.querySelector("#final-celebration-background");
 
   if (!shouldCelebrate) {
-    banner?.remove();
+    reveal?.remove();
+    if (!reveal) {
+      banner?.remove();
+    }
     background?.remove();
     document.body.classList.remove("has-final-celebration");
     document.body.classList.remove("is-final-celebration-calm");
@@ -30039,17 +30065,16 @@ function renderFinalCelebration() {
   }
 
   if (!banner) {
+    reveal = document.createElement("div");
+    reveal.className = "final-celebration-reveal is-entering";
+    reveal.id = "final-celebration-reveal";
     banner = document.createElement("section");
     banner.className = "final-celebration-banner is-entering";
     banner.id = "final-celebration-banner";
     banner.setAttribute("role", "status");
     banner.setAttribute("aria-live", "polite");
-    matchesView.prepend(banner);
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        banner?.classList.remove("is-entering");
-      });
-    });
+    reveal.append(banner);
+    matchesView.prepend(reveal);
   }
 
   banner.setAttribute(
@@ -30069,6 +30094,31 @@ function renderFinalCelebration() {
       ${descriptionMarkup}
     </span>
   `;
+  if (reveal?.classList.contains("is-entering")) {
+    const bannerStyles = window.getComputedStyle(banner);
+    const expandedHeight =
+      banner.getBoundingClientRect().height +
+      Number.parseFloat(bannerStyles.marginTop || "0") +
+      Number.parseFloat(bannerStyles.marginBottom || "0");
+    reveal.style.setProperty(
+      "--final-celebration-reveal-height",
+      `${Math.ceil(expandedHeight)}px`
+    );
+    const settleReveal = (event) => {
+      if (event.target !== reveal || event.propertyName !== "max-height") {
+        return;
+      }
+      reveal.classList.add("is-settled");
+      reveal.removeEventListener("transitionend", settleReveal);
+    };
+    reveal.addEventListener("transitionend", settleReveal);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        reveal?.classList.remove("is-entering");
+        banner?.classList.remove("is-entering");
+      });
+    });
+  }
   document.body.dataset.finalCelebrationPalette = championItem.palette;
   document.body.classList.add("has-final-celebration");
   document.body.classList.toggle(
