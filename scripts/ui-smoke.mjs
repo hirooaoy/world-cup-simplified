@@ -2999,10 +2999,15 @@ try {
   );
   await page.mouse.move(hoverBridgeX, hoverBridgeY, { steps: 6 });
   await page.waitForTimeout(150);
-  await page.mouse.move(
-    floatingHoverCardBox.x + floatingHoverCardBox.width / 2,
-    floatingHoverCardBox.y + floatingHoverCardBox.height / 2
+  const floatingCardSurvivedGap = await floatingHoverCard.evaluate(
+    (card) => card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false"
   );
+  assert(
+    floatingCardSurvivedGap,
+    "Floating player cards should remain open through the intentional 150ms handoff gap."
+  );
+  await floatingHoverCard.dispatchEvent("pointerenter");
+  await floatingHoverCard.hover({ force: true });
   await page.waitForFunction(() => {
     const card = document.querySelector(".player-card-floating");
     return (
