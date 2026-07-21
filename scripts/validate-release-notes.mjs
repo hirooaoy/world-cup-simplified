@@ -3,6 +3,9 @@ import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
 const RELEASE_NOTES_PATH = "data/release-notes.json";
+const MAX_TITLE_LENGTH = 72;
+const MAX_HIGHLIGHT_LENGTH = 120;
+const VISIBLE_HIGHLIGHT_COUNT = 3;
 const ZERO_SHA = /^0+$/;
 const PRODUCT_PATH_PATTERNS = [
   /^api\/.+\.js$/,
@@ -114,7 +117,40 @@ function formatFiles(files) {
   return files.map((file) => `- ${file}`).join("\n");
 }
 
+function validateLatestReleaseCopy() {
+  const releaseNotes = JSON.parse(readFileSync(RELEASE_NOTES_PATH, "utf8"));
+  const latestRelease = releaseNotes?.releases?.[0];
+  const errors = [];
+
+  if (!latestRelease) {
+    errors.push("Latest release entry is missing.");
+  } else {
+    const title = String(latestRelease.title || "").trim();
+    if (title.length > MAX_TITLE_LENGTH) {
+      errors.push(`Latest release title is ${title.length} characters; limit it to ${MAX_TITLE_LENGTH}.`);
+    }
+
+    const highlights = Array.isArray(latestRelease.highlights)
+      ? latestRelease.highlights.slice(0, VISIBLE_HIGHLIGHT_COUNT)
+      : [];
+    highlights.forEach((highlight, index) => {
+      const length = String(highlight || "").trim().length;
+      if (length > MAX_HIGHLIGHT_LENGTH) {
+        errors.push(
+          `Latest release bullet ${index + 1} is ${length} characters; limit it to ${MAX_HIGHLIGHT_LENGTH}.`
+        );
+      }
+    });
+  }
+
+  if (errors.length) {
+    throw new Error(`Release-note copy is too long:\n${formatFiles(errors)}`);
+  }
+}
+
 function main() {
+  validateLatestReleaseCopy();
+
   const includeWorkingTree =
     args.has("include-working-tree") || process.env.RELEASE_NOTES_INCLUDE_WORKING_TREE === "1";
   const base = getFallbackBase({ includeWorkingTree });

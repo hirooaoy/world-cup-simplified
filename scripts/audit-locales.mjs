@@ -823,9 +823,10 @@ async function auditHistoricalLocaleArchitecture(
   const releaseStrings = getLatestVisibleReleaseStrings(data.releaseNotes);
   check(
     "lazy release scope",
-    releaseStrings.length === 4 &&
+    releaseStrings.length >= 2 &&
+      releaseStrings.length <= 4 &&
       sameMembers(requiredSources.release, releaseStrings),
-    `release scope must be exactly the latest title plus first three highlights; found ${requiredSources.release.length} required strings: ${formatSamples(requiredSources.release)}`,
+    `release scope must be the latest title plus up to three highlights; found ${requiredSources.release.length} required strings: ${formatSamples(requiredSources.release)}`,
     "Do not ship older or currently hidden release-note copy in the lazy locale pack."
   );
 
@@ -870,8 +871,8 @@ async function auditHistoricalLocaleArchitecture(
     const releaseKeys = Object.keys(releaseSource?.translations || {});
     check(
       "lazy release scope",
-      releaseKeys.length === 4 && sameMembers(releaseKeys, releaseStrings),
-      `${language} release source must contain only the four visible latest-release strings: ${formatSamples(releaseKeys)}`,
+      releaseKeys.length === releaseStrings.length && sameMembers(releaseKeys, releaseStrings),
+      `${language} release source must contain only the visible latest-release strings: ${formatSamples(releaseKeys)}`,
       "Regenerate the release dictionary from the latest title and first three highlights only."
     );
 

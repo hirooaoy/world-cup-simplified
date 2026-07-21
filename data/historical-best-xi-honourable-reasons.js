@@ -104,7 +104,7 @@ const HONOURABLE_REASON_BY_YEAR = {
     "Ferenc Bene": "Bene scored in all four Hungary matches, including against Brazil and in the quarter-final, with sharp movement across the front line."
   },
   "1970": {
-    "Gordon Banks": "Banks conceded once in three group matches and produced the recovery save from Pelé that remains the clearest image of elite World Cup goalkeeping.",
+    "Gordon Banks": "Banks conceded once in three group matches and produced the recovery save from Pelé that became the tournament's clearest image of elite goalkeeping.",
     "Berti Vogts": "Vogts defended aggressively at right-back and supported West Germany's repeated comebacks, helping the side recover from the England quarter-final to finish third.",
     "Roberto Rosato": "Rosato gave Italy front-foot marking and recovery pace through a demanding knockout route, sharing the stopping work as the side reached the final.",
     "Brito": "Brito was Brazil's dedicated stopper beside Piazza, handling the first duel so the converted midfielder could begin attacks for the unbeaten champions.",

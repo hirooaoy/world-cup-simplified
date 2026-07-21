@@ -10,6 +10,7 @@ import {
   buildHistoricalProjection,
   normalizeHistoricalForecastModel
 } from "./historical-forecast-model.mjs";
+import { getRequestedWorldCupYear } from "../chatbot-knowledge.js";
 
 let chromium;
 const require = createRequire(import.meta.url);
@@ -45,6 +46,13 @@ function assert(condition, message) {
     throw new Error(message);
   }
 }
+
+assert(
+  getRequestedWorldCupYear("who won the last world cup this year", 2026, 2022, true, 2026) === 2022 &&
+    getRequestedWorldCupYear("who won the last world cup", 2026, 2022, true, 2027) === 2026 &&
+    getRequestedWorldCupYear("who won the 2026 world cup", 2026, 2022, true, 2026) === 2026,
+  "Ball Boy should treat 2026 as this World Cup through 2026, then treat it as the last World Cup from 2027 onward."
+);
 
 function githubAnnotationValue(value) {
   return String(value || "")
@@ -3405,8 +3413,9 @@ try {
   );
   const lukakuCardText = await lukakuCard.innerText();
   assert(
-    lukakuCardText.includes("Value €6m (Prime €100m)"),
-    "Current player cards should show Prime value when the sourced peak is higher than the current value."
+    lukakuCardText.includes("Value €6m (Prime €100m)") &&
+      lukakuCardText.includes("At the 2026 World Cup"),
+    "Current player cards should show Prime value and identify the 2026 World Cup snapshot."
   );
   const playerTournamentStatsCheck = await openPageAtTime(
     "2026-06-21T12:00:00.000Z",
@@ -5582,7 +5591,8 @@ try {
     [...document.querySelectorAll("#match-info .player-card")].some((card) =>
       !card.classList.contains("is-profile-loading") &&
         card.getAttribute("aria-busy") !== "true" &&
-        card.textContent.includes("Ecuador 2022 World Cup archive")
+        card.textContent.includes("Fenerbahçe") &&
+        card.textContent.includes("At the 2022 World Cup")
     )
   );
   assert(
@@ -5628,7 +5638,8 @@ try {
   await page.locator(".match-row").first().click();
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .player-card")].some((card) =>
-      card.textContent.includes("Ecuador 2022 World Cup archive")
+      card.textContent.includes("Fenerbahçe") &&
+        card.textContent.includes("At the 2022 World Cup")
     )
   );
   const historicalGroupDetailText = await page.locator("#match-info").innerText();
@@ -5720,7 +5731,7 @@ try {
   assert(
       historicalScorerCardText.includes("Enner Valencia") &&
       historicalScorerCardText.includes("Forward") &&
-      historicalScorerCardText.includes("Ecuador 2022 World Cup archive") &&
+      historicalScorerCardText.includes("Fenerbahçe") &&
       historicalScorerCardText.includes(
         "Valencia stands out for attacking the space behind defenders before it fully opens."
       ) &&
@@ -5728,8 +5739,9 @@ try {
         "He arrives on the move and gets his finish away before the nearest marker recovers."
       ) &&
       historicalScorerCardText.includes("2022 World Cup: 3 goals") &&
-      historicalScorerCardText.includes("2022 age 33") &&
+      historicalScorerCardText.includes("Age 33") &&
       historicalScorerCardText.includes("Peak value €11m") &&
+      historicalScorerCardText.includes("At the 2022 World Cup") &&
       !historicalScorerCardText.includes("Qatar (2-0 win)") &&
       !historicalScorerCardText.includes("scored 2 goals in this match"),
     "Historical player cards should separate evergreen play-style copy from the fixed year-labeled stat row."
@@ -6093,9 +6105,10 @@ try {
   const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
-      scorerOnlyHistoricalCardText.includes("Brazil 1970 World Cup archive") &&
+      scorerOnlyHistoricalCardText.includes("Santos") &&
       scorerOnlyHistoricalCardText.includes("Alberto stands out for creating a clean shot before the defense can reset.") &&
       scorerOnlyHistoricalCardText.includes("1970 World Cup: 1 goal") &&
+      scorerOnlyHistoricalCardText.includes("At the 1970 World Cup") &&
       !scorerOnlyHistoricalCardText.includes("Italy in the Final (4-1 win)") &&
       !scorerOnlyHistoricalCardText.includes("Credited with 1 World Cup goal"),
     "Historical scorer-only names should separate evergreen play-style copy from the fixed year-labeled stat row."
@@ -6226,6 +6239,59 @@ try {
       historicalRoundOf16NextWinner.names.includes("Portugal") &&
       historicalRoundOf16NextWinner.weights.every((weight) => weight >= 600),
     `Historical Round of 16 Next context should semibold the resolved opponent winner. Measured ${JSON.stringify(historicalRoundOf16NextWinner)}.`
+  );
+  const historicalRoundOf16StageLink = await page
+    .locator("#match-info [data-open-tournament-tab]")
+    .evaluate((link) => ({
+      className: link.className,
+      matchNumber: link.dataset.tournamentMatchNumber || "",
+      tagName: link.tagName,
+      text: link.textContent.trim(),
+      textDecorationLine: getComputedStyle(link).textDecorationLine,
+      tournamentYear: link.dataset.tournamentYear || ""
+    }));
+  assert(
+    historicalRoundOf16StageLink.tagName === "BUTTON" &&
+      historicalRoundOf16StageLink.className.includes("match-stage-link") &&
+      historicalRoundOf16StageLink.text === "World Cup 2022 / Round of 16" &&
+      historicalRoundOf16StageLink.matchNumber === "55" &&
+      historicalRoundOf16StageLink.tournamentYear === "2022" &&
+      historicalRoundOf16StageLink.textDecorationLine.includes("underline"),
+    `Historical knockout headings should match the current tournament stage-link treatment and carry their archive target. Measured ${JSON.stringify(historicalRoundOf16StageLink)}.`
+  );
+  await page.locator("#match-info [data-open-tournament-tab]").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-tab")?.getAttribute("aria-selected") === "true" &&
+      document.querySelector("#standings-year-button")?.textContent.trim() === "2022" &&
+      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+      document
+        .querySelector('.historical-tournament-view .progress-match[data-match-number="55"]')
+        ?.classList.contains("is-drill-target") &&
+      document.activeElement ===
+        document.querySelector('.historical-tournament-view .progress-match[data-match-number="55"]')
+  );
+  const historicalRoundOf16CanvasTarget = await page.evaluate(() => {
+    const params = new URL(window.location.href).searchParams;
+    const target = document.querySelector(
+      '.historical-tournament-view .progress-match[data-match-number="55"]'
+    );
+
+    return {
+      activeMatchNumber: document.activeElement?.dataset?.matchNumber || "",
+      highlighted: target?.classList.contains("is-drill-target") || false,
+      standingsMode: params.get("standingsMode"),
+      standingsYear: params.get("standingsYear"),
+      view: params.get("view")
+    };
+  });
+  assert(
+    historicalRoundOf16CanvasTarget.activeMatchNumber === "55" &&
+      historicalRoundOf16CanvasTarget.highlighted === true &&
+      historicalRoundOf16CanvasTarget.standingsMode === null &&
+      historicalRoundOf16CanvasTarget.standingsYear === "2022" &&
+      historicalRoundOf16CanvasTarget.view === "standings",
+    `Clicking a historical knockout heading should open its archived Tournament canvas and focus the exact match. Measured ${JSON.stringify(historicalRoundOf16CanvasTarget)}.`
   );
 
   const languageTimezoneCheck = await openPageAtTime(
@@ -13785,10 +13851,11 @@ try {
       mobileTournamentCanvasAfterDrag.urlMatch === "",
     `Mobile tournament should behave like a draggable two-axis canvas with all rounds still present. Measured ${JSON.stringify({ mobileTournamentCanvasInitial, mobileTournamentCanvasAfterDrag })}.`
   );
-  const mobileTournamentCanvasTopHandoff = await page.evaluate(() => {
+  const mobileTournamentCanvasTopContainment = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 120);
     progression.scrollTop = 0;
+    const startPageScrollY = Math.round(window.scrollY);
 
     const calls = [];
     const originalScrollTo = window.scrollTo.bind(window);
@@ -13823,19 +13890,19 @@ try {
 
     return {
       calls,
-      minRequestedTop: Math.min(...calls.map((call) => call.top)),
       overscrollBehaviorY: getComputedStyle(progression).overscrollBehaviorY,
       pageScrollY: Math.round(window.scrollY),
+      startPageScrollY,
       scrollTop: Math.round(progression.scrollTop)
     };
   });
   assert(
-    mobileTournamentCanvasTopHandoff.calls.length > 0 &&
-      mobileTournamentCanvasTopHandoff.minRequestedTop >= 0 &&
-      mobileTournamentCanvasTopHandoff.pageScrollY === 0 &&
-      mobileTournamentCanvasTopHandoff.scrollTop === 0 &&
-      mobileTournamentCanvasTopHandoff.overscrollBehaviorY === "contain",
-    `Dragging past the top of the mobile tournament canvas should not request negative page scroll or expose top whitespace. Measured ${JSON.stringify(mobileTournamentCanvasTopHandoff)}.`
+    mobileTournamentCanvasTopContainment.calls.length === 0 &&
+      mobileTournamentCanvasTopContainment.pageScrollY ===
+        mobileTournamentCanvasTopContainment.startPageScrollY &&
+      mobileTournamentCanvasTopContainment.scrollTop === 0 &&
+      mobileTournamentCanvasTopContainment.overscrollBehaviorY === "contain",
+    `Dragging past the top of the mobile tournament canvas should stay inside the canvas without scrolling the page. Measured ${JSON.stringify(mobileTournamentCanvasTopContainment)}.`
   );
   await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
@@ -13843,7 +13910,7 @@ try {
     progression.scrollTop = progression.scrollHeight - progression.clientHeight;
   });
   await page.waitForTimeout(60);
-  const mobileTournamentCanvasEdgeHandoff = await page.evaluate(() => {
+  const mobileTournamentCanvasBottomContainment = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
     const maxScrollTop = progression.scrollHeight - progression.clientHeight;
     const calls = [];
@@ -13885,20 +13952,19 @@ try {
       canvasRemainingBottom: Math.round(maxScrollTop - progression.scrollTop),
       calls,
       hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].length,
-      maxRequestedTop: Math.max(...calls.map((call) => call.top)),
       pageScrollY: Math.round(window.scrollY),
       scrollTop: Math.round(progression.scrollTop),
       urlMatch: new URL(window.location.href).searchParams.get("match") || ""
     };
   });
   assert(
-    mobileTournamentCanvasEdgeHandoff.activeRoundId === "" &&
-      mobileTournamentCanvasEdgeHandoff.calls.length > 0 &&
-      mobileTournamentCanvasEdgeHandoff.hiddenRounds === 0 &&
-      mobileTournamentCanvasEdgeHandoff.canvasRemainingBottom <= 2 &&
-      mobileTournamentCanvasEdgeHandoff.maxRequestedTop >= 80 &&
-      mobileTournamentCanvasEdgeHandoff.urlMatch === "",
-    `Dragging past the bottom of the mobile tournament canvas should request vertical page movement. Measured ${JSON.stringify(mobileTournamentCanvasEdgeHandoff)}.`
+    mobileTournamentCanvasBottomContainment.activeRoundId === "" &&
+      mobileTournamentCanvasBottomContainment.calls.length === 0 &&
+      mobileTournamentCanvasBottomContainment.hiddenRounds === 0 &&
+      mobileTournamentCanvasBottomContainment.canvasRemainingBottom <= 2 &&
+      mobileTournamentCanvasBottomContainment.pageScrollY === 0 &&
+      mobileTournamentCanvasBottomContainment.urlMatch === "",
+    `Dragging past the bottom of the mobile tournament canvas should stay inside the canvas without scrolling the page. Measured ${JSON.stringify(mobileTournamentCanvasBottomContainment)}.`
   );
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.waitForTimeout(90);
@@ -16522,7 +16588,7 @@ try {
   assert(
     JSON.stringify(initialBallBoyPrompts) === JSON.stringify([
       "Explain offside",
-      "Who won the last World Cup?",
+      "Who won the 2026 World Cup?",
       "How does Argentina play?",
       "Report issue"
     ]) &&
@@ -17470,7 +17536,7 @@ try {
 
   for (const [question, expected] of [
     ["who won this year", { lead: "Spain won the 2026 World Cup, beating Argentina 1-0 in the final.", score: "1–0", stage: "2026 World Cup final", teams: ["Spain", "Argentina"] }],
-    ["Who won the last World Cup?", { lead: "Spain won the 2026 World Cup, beating Argentina 1-0 in the final.", score: "1–0", stage: "2026 World Cup final", teams: ["Spain", "Argentina"] }],
+    ["Who won the last World Cup?", { lead: "Argentina won the 2022 World Cup, beating France 4-2 on penalties after a 3-3 draw.", score: "3–3", stage: "2022 World Cup final", teams: ["Argentina", "France"] }],
     ["Who won the 2018 World Cup?", { lead: "France won the 2018 World Cup, beating Croatia 4-2 in the final.", score: "4–2", stage: "2018 World Cup final", teams: ["France", "Croatia"] }]
   ]) {
     await touchPage.locator("#scout-reset").click();
@@ -17702,7 +17768,7 @@ try {
       zhBallBoyShell.sendAria === "发送问题" &&
       JSON.stringify(zhBallBoyShell.prompts) === JSON.stringify([
         "解释越位",
-        "上届世界杯谁赢了？",
+        "2026年世界杯谁赢了？",
         "阿根廷怎么踢？",
         "报告问题"
       ]) &&

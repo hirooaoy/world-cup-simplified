@@ -3,7 +3,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-20-final-archive-1";
+} from "./chatbot-knowledge.js?v=2026-07-21-player-club-context-1";
 import {
   appendFootballInlineText,
   renderFootballInlineHtml
@@ -12,7 +12,8 @@ import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
+} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
+import { formatPlayerCardWorldCupContext } from "./player-card-ui.js?v=2026-07-21-world-cup-context-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -53,7 +54,7 @@ const SCOUT_COPY = {
     newChat: "New chat",
     close: "Close Ball Boy",
     suggestedQuestions: "Suggested questions",
-    suggestions: ["Explain offside", "Who won the last World Cup?", "How does Argentina play?", "Report issue"],
+    suggestions: ["Explain offside", "Who won the 2026 World Cup?", "How does Argentina play?", "Report issue"],
     showMore: "Show more of Ball Boy's answer",
     moreBelow: "More below",
     askLabel: "Ask Ball Boy a question",
@@ -81,6 +82,7 @@ const SCOUT_COPY = {
     thisWorldCup: "This World Cup",
     worldCupArchive: "World Cup archive",
     worldCupEditions: "World Cups",
+    worldCupContext: (years, count) => `At the ${years} World Cup${count === 1 ? "" : "s"}`,
     featuredMatches: "Featured matches",
     playerDetails: "Player details",
     goals: "Goals",
@@ -192,7 +194,7 @@ const SCOUT_COPY = {
     newChat: "新对话",
     close: "关闭球童聊天",
     suggestedQuestions: "推荐问题",
-    suggestions: ["解释越位", "上届世界杯谁赢了？", "阿根廷怎么踢？", "报告问题"],
+    suggestions: ["解释越位", "2026年世界杯谁赢了？", "阿根廷怎么踢？", "报告问题"],
     showMore: "显示球童回答的更多内容",
     moreBelow: "下方还有内容",
     askLabel: "向球童提问",
@@ -220,6 +222,7 @@ const SCOUT_COPY = {
     thisWorldCup: "本届世界杯",
     worldCupArchive: "世界杯档案",
     worldCupEditions: "参赛届数",
+    worldCupContext: (years) => `${years}年世界杯期间`,
     featuredMatches: "重点比赛",
     playerDetails: "球员资料",
     goals: "进球",
@@ -2711,6 +2714,56 @@ function formatScoutMarketValue(value) {
   return `€${Number.isInteger(millions) ? millions : millions.toFixed(1)}m`;
 }
 
+function getScoutTournamentYears(years = []) {
+  return [...new Set(years.map(Number).filter(Number.isInteger))].sort((left, right) => left - right);
+}
+
+function formatScoutTournamentYears(years = []) {
+  const values = getScoutTournamentYears(years);
+  if (isScoutZh()) {
+    return values.join("、");
+  }
+  if (scoutLocale === "ko") {
+    return values.map((year) => `${year}년`).join(", ");
+  }
+  if (values.length < 2) {
+    return String(values[0] || "");
+  }
+  const conjunction = scoutLocale === "es" ? " y " : " and ";
+  return values.length === 2
+    ? values.join(conjunction)
+    : `${values.slice(0, -1).join(", ")},${conjunction}${values.at(-1)}`;
+}
+
+function formatScoutWorldCupContext(years = []) {
+  const values = getScoutTournamentYears(years);
+  if (values.length === 1) {
+    return formatPlayerCardWorldCupContext({ language: scoutLocale, year: values[0] });
+  }
+  return values.length
+    ? scoutText("worldCupContext", formatScoutTournamentYears(values), values.length)
+    : "";
+}
+
+function formatScoutHistoricalClubLine(clubEditions = []) {
+  const editions = clubEditions.filter((edition) => edition?.club && Number.isInteger(Number(edition.year)));
+  if (!editions.length) {
+    return "";
+  }
+  const grouped = new Map();
+  for (const edition of editions) {
+    const years = grouped.get(edition.club) || [];
+    years.push(Number(edition.year));
+    grouped.set(edition.club, years);
+  }
+  if (grouped.size === 1) {
+    return grouped.keys().next().value;
+  }
+  return [...grouped.entries()]
+    .map(([club, years]) => `${club} (${formatScoutTournamentYears(years)})`)
+    .join(isScoutZh() ? "；" : " · ");
+}
+
 function renderScoutWatchList(note) {
   const points = String(note || "")
     .trim()
@@ -2737,11 +2790,12 @@ function appendPlayerReply(reply, options = {}) {
   const historical = Boolean(reply.historical || profile.historical);
   const tournamentYears = (profile.tournamentYears || []).join(", ");
   const shirt = profile.shirtNumber !== "" && focus !== "number" ? ` · #${profile.shirtNumber}` : "";
-  const clubLine = historical && tournamentYears
-    ? `${scoutText("worldCupEditions")}: ${tournamentYears}`
+  const clubLine = historical
+    ? formatScoutHistoricalClubLine(profile.clubEditions)
     : profile.club && !["club", "league"].includes(focus)
     ? `${profile.club}${profile.league ? ` (${profile.league})` : ""}`
     : "";
+  const worldCupContext = formatScoutWorldCupContext(profile.tournamentYears);
   const marketValue = formatScoutMarketValue(profile.marketValue?.value);
   const marketValueLabel = profile.marketValue?.estimated ? scoutText("estimatedValue") : scoutText("value");
   const marketValueTitle = profile.marketValue?.estimated
@@ -2810,6 +2864,7 @@ function appendPlayerReply(reply, options = {}) {
           <h3>${escapeScoutHtml(profile.displayName)}</h3>
           <p>${renderScoutFlag(team, "scout-inline-flag", { decorative: true })}<span>${escapeScoutHtml(team?.name || "")}${team ? " · " : ""}${escapeScoutHtml(profile.position)}${historical && tournamentYears ? ` • ${escapeScoutHtml(tournamentYears)}` : escapeScoutHtml(shirt)}</span></p>
           ${clubLine ? `<small title="${escapeScoutHtml(clubLine)}">${escapeScoutHtml(clubLine)}</small>` : ""}
+          ${worldCupContext ? `<small class="scout-player-world-cup-context">${escapeScoutHtml(worldCupContext)}</small>` : ""}
         </div>
       </header>
       ${playerFacts}

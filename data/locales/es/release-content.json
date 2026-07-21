@@ -2,12 +2,10 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "17a4fae84a44c3a393575ed83dc9141bd86c02e61c27e90c78b49c21d90012b9",
+  "sourceFingerprint": "f0dfa3a6ceb251406b8840c5734d22135353c0fccfaff1ae02ce804234e2522b",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Deeper World Cup archives, rebuilt Best XIs, and every champion together": "Archivos mundialistas más completos, Mejores XI renovados y todos los campeones juntos",
-    "Every completed edition from 1930 through 2026 now opens with an authentic, team-first champion photo and a visible source link, using the strongest surviving squad celebration or winning-team portrait for each tournament.": "Cada edición finalizada de 1930 a 2026 abre ahora con una foto auténtica del campeón centrada en el equipo y un enlace visible a la fuente, usando para cada torneo la mejor celebración del plantel o foto del equipo ganador que se conserva.",
-    "Every World Cup from 1930 through 2022 now has a researched awards recap and a rebuilt editorial Best XI, with stronger selections, distinct Honorable Mentions, tournament-specific roles, and clear two-part reasons for every choice.": "Cada Mundial de 1930 a 2022 cuenta ahora con un resumen de premios investigado y un Mejor XI editorial renovado, con selecciones más sólidas, Menciones honoríficas distintas, funciones propias de cada torneo y razones claras en dos partes para cada elección.",
-    "Historical player cards now have broader portrait, profile, name, club, shirt-number, and provenance coverage across English, Chinese, Spanish, and Korean, while Ball Boy can find the expanded archive player set.": "Las tarjetas de jugadores históricos ahora ofrecen una cobertura más amplia de fotos, perfiles, nombres, clubes, dorsales y procedencia en inglés, chino, español y coreano, mientras que Ball Boy puede encontrar el conjunto ampliado de jugadores del archivo."
+    "Mobile bracket drags now stay inside the Tournament canvas without scrolling the page.": "Los arrastres del cuadro ahora permanecen dentro del lienzo de Torneo móvil sin desplazar la página.",
+    "Simpler mobile Tournament canvas": "Lienzo de Torneo más sencillo en móviles"
   }
 }

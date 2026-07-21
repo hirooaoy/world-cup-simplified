@@ -6835,6 +6835,12 @@ h1 {
   line-height: 1.38;
 }
 
+.player-card-world-cup-context {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.78;
+}
+
 .player-card-tournament-stats {
   color: rgba(10, 10, 10, 0.78);
   font-weight: 700;

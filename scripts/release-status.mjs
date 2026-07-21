@@ -105,6 +105,22 @@ async function readCiState(repository, sha) {
   }
 }
 
+function classifyCiState(ci) {
+  if (ci.status === "completed") {
+    if (ci.conclusion === "success") return "success";
+    if (["failure", "timed_out", "startup_failure"].includes(ci.conclusion)) {
+      return "failed";
+    }
+    if (ci.conclusion) return ci.conclusion;
+    return "unavailable";
+  }
+  if (["queued", "requested", "pending", "waiting"].includes(ci.status)) {
+    return "queued";
+  }
+  if (ci.status === "in_progress") return "running";
+  return "unavailable";
+}
+
 async function readDeploymentState(repository, sha) {
   try {
     const query = new URLSearchParams({ sha, environment: "Production", per_page: "10" });
@@ -153,13 +169,16 @@ async function readProductionState(productionUrl) {
 }
 
 function classify(local, ci, deployment, production) {
-  if (local.dirty) return "pending-local-changes";
   if (!local.originMain) return "remote-state-unavailable";
   if (local.head !== local.originMain) return "local-and-origin-diverged";
-  if (ci.status !== "completed" || ci.conclusion !== "success") return "ci-not-green";
+  if (ci.state === "failed") return "ci-failed";
   if (deployment.state !== "success") return "production-deployment-not-green";
   if (!production.reachable) return "production-unreachable";
-  return "already-current";
+  if (ci.state === "running") return "production-verified-ci-running";
+  if (ci.state === "queued") return "production-verified-ci-queued";
+  if (ci.state === "unavailable") return "production-verified-ci-unavailable";
+  if (ci.state !== "success") return `production-verified-ci-${ci.state}`;
+  return "production-verified";
 }
 
 function line(label, value) {
@@ -180,13 +199,13 @@ function printHuman(report) {
   console.log(
     line(
       "Working tree",
-      report.local.dirty ? `${report.local.dirtyCount} pending path(s)` : "clean"
+      report.local.dirty ? `${report.local.dirtyCount} local change path(s)` : "clean"
     )
   );
   console.log(
     line(
       "Data Quality",
-      report.ci.conclusion || report.ci.status || "unavailable"
+      report.ci.state
     )
   );
   console.log(
@@ -203,7 +222,7 @@ function printHuman(report) {
   );
 
   if (report.local.dirtyFiles.length) {
-    console.log("\nPending paths:");
+    console.log("\nLocal changes:");
     report.local.dirtyFiles.forEach((file) => console.log(`- ${file}`));
   }
   if (report.ci.url) console.log(`\nCI: ${report.ci.url}`);
@@ -213,11 +232,12 @@ function printHuman(report) {
 async function main() {
   const local = readLocalState();
   const productionUrl = args.get("production-url") || DEFAULT_PRODUCTION_URL;
-  const [ci, deployment, production] = await Promise.all([
+  const [rawCi, deployment, production] = await Promise.all([
     readCiState(local.repository, local.head),
     readDeploymentState(local.repository, local.head),
     readProductionState(productionUrl)
   ]);
+  const ci = { ...rawCi, state: classifyCiState(rawCi) };
   const report = {
     checkedAt: new Date().toISOString(),
     decision: classify(local, ci, deployment, production),

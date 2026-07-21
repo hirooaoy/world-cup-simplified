@@ -100,6 +100,7 @@ const highlightsLocale = {
     playerPrimeTooltip: "Valor de mercado máximo de su carrera según los datos de Transfermarkt.",
     playerValue: "Valor",
     playerValueTooltip: "Valor de mercado procedente de datos públicos de valoración de jugadores.",
+    playerTournamentValueTooltip: "Último valor de mercado con fuente registrado antes del inicio de este Mundial.",
     rankAria: "{label}. {tooltip}",
     eloRankLabel: "{teamName}, puesto {rank} de la clasificación Elo retrospectiva ({year})",
     eloRankTooltip: "Clasificación Elo retrospectiva durante el Mundial de {year}",

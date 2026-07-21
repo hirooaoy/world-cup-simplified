@@ -100,6 +100,7 @@ const highlightsLocale = {
     playerPrimeTooltip: "Transfermarkt 자료 기준 선수 경력 최고 시장 가치입니다.",
     playerValue: "시장 가치",
     playerValueTooltip: "출처가 확인된 선수 가치 자료의 시장 가치입니다.",
+    playerTournamentValueTooltip: "이 월드컵 개막 전에 기록된 가장 최근의 출처 확인 시장 가치입니다.",
     rankAria: "{label}. {tooltip}",
     eloRankLabel: "{teamName} 회고 Elo 랭킹 {rank}위 ({year})",
     eloRankTooltip: "{year}년 월드컵 당시 회고 Elo 랭킹",

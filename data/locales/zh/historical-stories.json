@@ -71,7 +71,7 @@
       },
       {
         "title": "{player:Sándor Kocsis|柯奇士}树立了淘汰赛标杆",
-        "body": "对{team:West Germany|西德}进4球、对{team:Brazil|巴西}进2球，再在对{team:Uruguay|乌拉圭}的加时赛攻入2球：他的11球至今仍是除{player:Just Fontaine|方丹}之外无人企及的标杆。"
+        "body": "对{team:West Germany|西德}进4球、对{team:Brazil|巴西}进2球，再在对{team:Uruguay|乌拉圭}的加时赛攻入2球：他的11球创下世界杯新纪录，并带领{team:Hungary|匈牙利}闯入决赛。"
       }
     ],
     "1958": [
@@ -81,7 +81,7 @@
       },
       {
         "title": "{player:Just Fontaine|方丹}打进第13球",
-        "body": "{team:France|法国}的季军赛原本可能无关紧要，{player:Just Fontaine|方丹}却对{team:West Germany|西德}独进4球，创下至今仍近乎不可触及的单届进球纪录。"
+        "body": "{team:France|法国}的季军赛原本可能无关紧要，{player:Just Fontaine|方丹}却对{team:West Germany|西德}独进4球，把单届进球新纪录定格在13球。"
       },
       {
         "title": "17岁的少年主宰了决赛",
@@ -113,7 +113,7 @@
       },
       {
         "title": "争议之后，{player:Geoff Hurst|赫斯特}仍在向前跑",
-        "body": "他的第二球至今仍有争议，第三球却毫无疑问。球迷已经冲进场内时，{player:Geoff Hurst|赫斯特}接到{player:Bobby Moore|摩尔}的传球，完成世界杯决赛史上首个帽子戏法。"
+        "body": "他的第二球有争议，第三球却毫无疑问。球迷已经冲进场内时，{player:Geoff Hurst|赫斯特}接到{player:Bobby Moore|摩尔}的传球，完成世界杯决赛史上首个帽子戏法。"
       }
     ],
     "1970": [
@@ -133,7 +133,7 @@
     "1974": [
       {
         "title": "{team:East Germany|东德}赢下了改变{team:West Germany|西德}的比赛",
-        "body": "{player:Jürgen Sparwasser|于尔根·施帕瓦瑟}的进球决定了两国成年国家队唯一一次交锋。这场失利也把东道主送进更有利的第二阶段小组，并促使他们调整阵容。"
+        "body": "{player:Jürgen Sparwasser|于尔根·施帕瓦瑟}的进球决定了两国成年国家队首次交锋。这场失利也把东道主送进更有利的第二阶段小组，并促使他们调整阵容。"
       },
       {
         "title": "{team:Netherlands|荷兰}用压迫击垮卫冕冠军",
@@ -161,7 +161,7 @@
     "1982": [
       {
         "title": "{team:Algeria|阿尔及利亚}击败{team:West Germany|西德}，却仍然出局",
-        "body": "{player:Rabah Madjer|拉巴赫·马杰尔}和{player:Lakhdar Belloumi|拉赫达尔·贝卢米}带来历史性的2比1胜利。此后{team:West Germany|西德}对{team:Austria|奥地利}的赛果淘汰了{team:Algeria|阿尔及利亚}，也永久改变了末轮同时开球的规则。"
+        "body": "{player:Rabah Madjer|拉巴赫·马杰尔}和{player:Lakhdar Belloumi|拉赫达尔·贝卢米}带来历史性的2比1胜利。此后{team:West Germany|西德}对{team:Austria|奥地利}的赛果淘汰了{team:Algeria|阿尔及利亚}，也暴露了小组末轮错峰开球的风险。"
       },
       {
         "title": "{player:Paolo Rossi|罗西}终结了{team:Brazil|巴西}的杰作",
@@ -220,8 +220,8 @@
         "body": "{player:Frank de Boer|弗兰克·德波尔}送出60码长传，一次丝滑停球、一次内切晃过{player:Roberto Ayala|阿亚拉}，再用外脚背完成射门，在第90分钟淘汰{team:Argentina|阿根廷}。"
       },
       {
-        "title": "{player:Lilian Thuram|图拉姆}打进一生中最需要的两球",
-        "body": "{team:Croatia|克罗地亚}由{player:Davor Šuker|苏克}在半决赛率先破门。{player:Lilian Thuram|图拉姆}立即扳平，随后弧线球反超——那也是他142次代表{team:France|法国}出场仅有的两粒进球。"
+        "title": "{player:Lilian Thuram|图拉姆}亲手扭转半决赛",
+        "body": "{team:Croatia|克罗地亚}由{player:Davor Šuker|苏克}在半决赛率先破门。{player:Lilian Thuram|图拉姆}立即扳平，随后弧线球反超，把{team:France|法国}送入队史首次世界杯决赛。"
       },
       {
         "title": "{player:Zinedine Zidane|齐达内}冲击{team:Brazil|巴西}的区域缝隙",

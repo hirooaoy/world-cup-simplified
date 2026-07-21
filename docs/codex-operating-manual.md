@@ -67,13 +67,18 @@ relevant threads are working.
 3. Inspect the settled combined World Cup diff.
 4. Include all completed and approved work unless something is explicitly
    unfinished, experimental, conflicting, or excluded.
-5. Run tests according to risk.
-6. Update release notes only for meaningful user-visible changes.
-7. Commit the settled batch.
-8. Push without force.
+5. Run tests according to risk, reusing a prior successful check only when its
+   relevant files have not materially changed.
+6. Follow the Release Notes rules and update them only for meaningful
+   user-visible changes.
+7. Create one release commit by default.
+8. Push `main` without force. Once pushed, never rewrite that release commit.
 9. Rely on the existing Git-triggered Vercel deployment.
-10. Verify CI, production, commit alignment, and remaining local state.
-11. Stop.
+10. Verify the exact commit is live on the healthy production alias, confirm
+    local `HEAD` matches `origin/main`, record the current CI state, and report
+    remaining local work.
+11. If exact-SHA CI is queued or running after production is verified, report
+    it and stop. Investigate only an actual failed job.
 
 Do not repeatedly ask what to include when `push latest` or `push all` is clear.
 Do not use temporary worktrees, hash inventories, partial patch extraction,
@@ -112,7 +117,9 @@ Wait only for the specific World Cup repository thread identified by the user.
 
 After relevant World Cup tasks are idle, the settled tree at the start of final
 validation is the release. Work that arrives later belongs to the next frequent
-push unless it fixes a confirmed blocker in the current candidate.
+push unless it fixes a confirmed blocker in the current candidate. Preserve and
+report newer local work; it does not make the verified release unsuccessful or
+require the shared checkout to be completely clean.
 
 ## Exceptional Release Tools
 
@@ -144,7 +151,8 @@ small Ball Boy behavior fix.
 
 - Run focused local checks for the changed area.
 - Run the relevant browser check for visual or interactive behavior.
-- Use the exact-SHA GitHub workflow as the authoritative comprehensive gate.
+- Use the exact-SHA GitHub workflow as authoritative comprehensive remote
+  validation.
 - Do not automatically duplicate the complete suite locally.
 
 ### Factual or generated-data changes
@@ -162,8 +170,29 @@ data synchronization, or forecast methodology.
 - Run `pnpm test` once against the final settled tree.
 - Run exact-SHA CI and verify production.
 
-Do not rerun the complete local suite unless files materially change after the
-previous complete run. For a narrow late change, rerun only affected checks.
+Reuse a successful focused check, large audit, or complete-suite result only
+when the files relevant to that check have not materially changed since it ran.
+Do not rerun the full browser matrix or large audits against the same settled
+candidate without a concrete reason. For a narrow late change, rerun only the
+affected checks; rerun the complete local suite only when the final risk category
+requires it.
+
+## Archived-Edition Corrections
+
+- Ordinary UI, accessibility, copy, caching, tooling, and test changes do not
+  change protected tournament history and must not create an immutable
+  correction snapshot.
+- Use the reviewed late-correction workflow only when protected archived
+  tournament data truly changes and the repository requires a correction.
+- Before creating a correction plan, settle the protected product data, public
+  release note, localized release metadata, UI, and relevant validation. When
+  release-note content changes, run `pnpm locales:content:sync` before creating
+  the plan.
+- Generate and review one final correction plan for the settled release, then
+  consume it once to create one final immutable correction snapshot. Do not
+  consume intermediate plans or create multiple snapshots while the same
+  release is still being assembled.
+- After writing the correction, run the repository's required archive verifier.
 
 ## Release Notes
 
@@ -174,11 +203,17 @@ previous complete run. For a narrow late change, rerun only affected checks.
   retries, or redeploying an unchanged commit.
 - When a release note is required, inspect the file directly and ensure its top
   entry matches the user-visible release scope.
+- When release-note content changes, run `pnpm locales:content:sync` so the
+  Spanish and Korean release metadata and generated modules stay aligned.
 - Combine related visual-polish changes into one concise entry instead of
   repeatedly rewriting it during the same micro-release.
 - `pnpm release-notes:check` is a guard, not a substitute for judgment. Test,
   CI, documentation, and workflow files are intentionally not release-note
   eligible on their own.
+- The current path-based guard cannot perfectly decide whether a change is
+  meaningful or represent every user-facing surface. Keep the useful check in
+  place, review the settled diff directly, and handle validator redesign as a
+  separate task rather than weakening it during publishing.
 - For a pending local batch, use
   `pnpm release-notes:check -- --include-working-tree`; it checks only pending
   changes unless an explicit `--base=<ref>` is supplied. CI continues to check
@@ -189,16 +224,23 @@ previous complete run. For a narrow late change, rerun only affected checks.
 1. Wait for relevant World Cup tasks to become idle and inspect the settled
    repository diff.
 2. If nothing changed, report current status and stop.
-3. Update release notes only when user-visible behavior or content changed and
-   run checks appropriate to the actual risk. Use exceptional release tools
-   only for unfinished conflicts, requested partial releases, or explicit
-   review.
-4. Commit and push the settled batch without losing unfinished or unrelated
-   work. If `origin/main` moved, integrate it safely and rerun affected checks.
-5. Treat exact-SHA GitHub CI as the comprehensive remote gate.
+3. Follow the Release Notes rules and run checks appropriate to the actual risk.
+   Use exceptional release tools only for unfinished conflicts, requested
+   partial releases, or explicit review.
+4. Create one release commit by default and push it without force. A second
+   normal commit is allowed only to fix a genuine failure caused or exposed by
+   that release. If `origin/main` moved, integrate it safely before pushing and
+   rerun affected checks. Once the release commit has been pushed, never amend,
+   rebase, force-push, or otherwise rewrite it.
+5. Record the exact-SHA GitHub CI state and apply the stopping rule under CI and
+   Release Boundaries.
 6. Let the repository's Vercel Git integration deploy `main`; do not also run
    `vercel --prod` for the same release.
-7. Verify the exact production commit and relevant assets or APIs, then stop.
+7. Verify the exact production commit, public alias, and relevant assets or
+   APIs, and confirm local `HEAD` matches `origin/main`.
+8. If CI has failed, investigate the exact failed job. If CI is queued or
+   running, report that state and stop once production and commit alignment are
+   verified.
 
 Use a manual Vercel deployment only for an explicitly requested redeploy, a
 failed Git-triggered deployment, promotion of a specific verified deployment,
@@ -222,6 +264,11 @@ or recovery/rollback.
   feature development.
 - For CI failures, inspect the exact run, job log, SHA, and workflow steps. Do
   not infer the cause from an email summary alone.
+- Queued or running CI is not a failed release. Once the exact commit is live,
+  the production alias is healthy, and local `HEAD` matches `origin/main`,
+  report the pending CI state and stop rather than waiting indefinitely.
+- Investigate CI only after a job has actually failed. Missing or unavailable
+  status should be reported honestly without being relabeled as a test failure.
 - After integration or a blocker fix, rerun the checks materially affected by
   that change; rerun the full local suite only when the risk category requires
   it.
@@ -242,8 +289,8 @@ or recovery/rollback.
 
 While waiting for relevant threads, do not repeatedly narrate polling or task
 details. Use concise updates only when relevant work is still active, final
-validation begins, a blocker is found, the release is pushed, or production and
-CI are verified.
+validation begins, a blocker is found, the release is pushed, or production is
+verified and the current CI state is recorded.
 
 Cross-thread silence is part of this communication rule. Routine publishing
 must never insert synthetic user messages into another chat. Observing that a

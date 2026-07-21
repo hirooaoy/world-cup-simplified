@@ -1,4 +1,5 @@
 import { getHistoricalHonourableReason } from "./historical-best-xi-honourable-reasons.js?v=2026-07-21-best-xi-rebuild-2";
+import { ENGLAND_FLAG } from "../team-flag-data.js?v=2026-07-21-shared-historical-flags-1";
 
 const HISTORICAL_COACH_PORTRAITS = Object.freeze({
   "Alberto Suppici": Object.freeze({
@@ -128,7 +129,10 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     teamName: "Argentina",
     teams: Object.freeze(["Argentina"]),
     position: "Centre-back",
-    club: "Argentina 1998 World Cup archive",
+    club: "Napoli",
+    clubAtTournament: "Napoli",
+    clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+    clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-1998-squads.html",
     skills: Object.freeze(["Positioning", "Aerial defending", "Recovery pace"]),
     note: "Argentina's 1998 World Cup centre-back. His late duel with Dennis Bergkamp decided the quarter-final.",
     noteZh: "他是阿根廷队在1998年世界杯的中后卫；四分之一决赛最后时刻，他与丹尼斯·博格坎普的对决决定了比赛。"
@@ -143,7 +147,10 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     teamName: "Brazil",
     teams: Object.freeze(["Brazil"]),
     position: "Central midfielder",
-    club: "Brazil 2002 World Cup archive",
+    club: "Atlético Paranaense",
+    clubAtTournament: "Atlético Paranaense",
+    clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+    clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2002-squads.html",
     skills: Object.freeze(["Progressive passing", "Box-to-box running", "Chance creation"]),
     note: "Brazil's 2002 World Cup central midfielder. He started the last three matches and helped create Ronaldo's second goal in the final.",
     noteZh: "他是巴西队在2002年世界杯的中前卫，最后三场全部首发，并参与制造了罗纳尔多在决赛中的第二粒进球。"
@@ -155,7 +162,10 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     teamName: "Spain",
     teams: Object.freeze(["Spain"]),
     position: "Central midfielder",
-    club: "Spain 2010 World Cup archive",
+    club: "Arsenal",
+    clubAtTournament: "Arsenal",
+    clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+    clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2010-squads.html",
     skills: Object.freeze(["Line-breaking passing", "Tempo control", "Final-third vision"]),
     note: "Spain's 2010 World Cup central midfielder. From the bench, he supplied the pass for Andrés Iniesta's winning goal in the final.",
     noteZh: "他是西班牙队在2010年世界杯的中前卫，并在决赛替补登场后助攻安德烈斯·伊涅斯塔打进制胜球。"
@@ -170,7 +180,10 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     teamName: "Morocco",
     teams: Object.freeze(["Morocco"]),
     position: "Left winger",
-    club: "Morocco 2022 World Cup archive",
+    club: "Angers",
+    clubAtTournament: "Angers",
+    clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+    clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2022-squads.html",
     skills: Object.freeze(["Close control", "Ball carrying", "Press resistance"]),
     note: "Morocco's 2022 World Cup left winger. His close control and carrying helped the first African semi-finalists progress without losing their attacking outlet.",
     noteZh: "他是摩洛哥队在2022年世界杯的左边锋，以近距离控球和推进能力帮助首支非洲四强球队始终保留反击出口。"
@@ -185,7 +198,10 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     teamName: "Argentina",
     teams: Object.freeze(["Argentina"]),
     position: "Right-back",
-    club: "Argentina 2022 World Cup archive",
+    club: "Sevilla",
+    clubAtTournament: "Sevilla",
+    clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+    clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2022-squads.html",
     skills: Object.freeze(["One-on-one defending", "Recovery pace", "Penalty taking"]),
     note: "Argentina's 2022 World Cup right-back. He converted the decisive penalty in the final shootout to seal the title.",
     noteZh: "他是阿根廷队在2022年世界杯的右后卫，并在决赛点球大战罚入制胜点球，为球队锁定冠军。"
@@ -429,7 +445,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       highlights: [
         { title: "The favourites were beaten twice before the final", body: "Hungary survived Brazil's fury and Uruguay's extra-time comeback. Those wins proved their quality but drained a side already carrying Puskás' injury." },
         { title: "Rahn had one more shot in him", body: "Germany recovered from 2–0 down inside 18 minutes. With six minutes left, Rahn shifted the ball onto his left foot and found the bottom corner for 3–2.", matchId: "wc-1954-1954-07-04-final-hungary-west-germany" },
-        { title: "Kocsis set a knockout-stage standard", body: "Four against West Germany, two against Brazil and two more in extra time against Uruguay: his 11-goal total still stands as the benchmark for anyone not named Fontaine." }
+        { title: "Kocsis set a knockout-stage standard", body: "Four against West Germany, two against Brazil and two more in extra time against Uruguay: his 11-goal total set a new World Cup benchmark and carried Hungary to the final." }
       ]
     }),
     1958: edition({
@@ -458,13 +474,13 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Garrincha", "Brazil", "RW", "Garrincha's first three minutes against the Soviet Union changed Brazil's tournament; he repeatedly fixed two defenders and still delivered the cut-back.", ["Kurt Hamrin", "Sweden"]),
           player("Pelé", "Brazil", "SS", "Six knockout goals at 17, but the detail was the variety: chest control, volleys, headers, combinations and the audacity to lift the ball over a defender in the final.", ["Vavá", "Brazil", "ST"]),
-          player("Just Fontaine", "France", "ST", "Thirteen goals from every type of finish remain the record, powered by Kopa's supply but also Fontaine's constant first movement across the near centre-back.", ["Agne Simonsson", "Sweden"]),
+          player("Just Fontaine", "France", "ST", "Thirteen goals from every type of finish set a new World Cup record, powered by Kopa's supply but also Fontaine's constant first movement across the near centre-back.", ["Agne Simonsson", "Sweden"]),
           player("Raymond Kopa", "France", "LW", "Kopa was the tournament's most elusive creator, starting wide, drifting inside and feeding Fontaine while adding three goals of his own.", ["Lennart Skoglund", "Sweden"])
         ]
       ],
       highlights: [
         { title: "Brazil found the XI that changed football", body: "After a goalless draw with England, Garrincha, Pelé and Zito entered the side. The new balance produced 13 goals across the last four matches." },
-        { title: "Fontaine reached thirteen", body: "France's third-place match could have been an afterthought. Fontaine scored four against West Germany instead, setting a single-tournament record that still looks untouchable." },
+        { title: "Fontaine reached thirteen", body: "France's third-place match could have been an afterthought. Fontaine scored four against West Germany instead and set a new single-tournament record of 13 goals." },
         { title: "A 17-year-old owned the final", body: "Pelé scored twice against Sweden, including the lift over Bengt Gustavsson and volley that made the world's biggest match look like street football.", matchId: "wc-1958-1958-06-29-final-sweden-brazil" }
       ]
     }),
@@ -507,7 +523,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
     1966: edition({
       year: 1966,
       champion: "England",
-      flag: "🏴",
+      flag: ENGLAND_FLAG,
       formation: "4-3-1-2",
       intro: "England beat West Germany 4–2 after extra time. Alf Ramsey's wingless structure crowded the decisive central spaces, Bobby Moore passed through pressure, and Bobby Charlton's movement gave Geoff Hurst room to finish.",
       coach: {
@@ -519,7 +535,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [player("Gordon Banks", "England", "GK", "Banks conceded only once before the final, controlling his box so cleanly that England could defend narrow without fearing every cross.", ["Lev Yashin", "Soviet Union"])],
         [
           player("George Cohen", "England", "RB", "Cohen supplied the width Ramsey removed from midfield, choosing his overlaps carefully and recovering quickly enough to keep England's rest-defence intact.", ["Vicente Lucas", "Portugal"]),
-          player("Bobby Moore", "England", "CB", "Moore defended by arriving early, not violently, then turned recoveries into attacks—the clipped pass for Hurst's fourth remains the final's coldest decision.", ["Willi Schulz", "West Germany"]),
+          player("Bobby Moore", "England", "CB", "Moore defended by arriving early, not violently, then turned recoveries into attacks—the clipped pass for Hurst's fourth was the final's coldest decision.", ["Willi Schulz", "West Germany"]),
           player("Jack Charlton", "England", "CB", "Charlton attacked the first ball and protected Moore's freedom to read behind him; the partnership conceded three goals in six matches before extra time.", ["Roberto Perfumo", "Argentina"]),
           player("Silvio Marzolini", "Argentina", "LB", "Marzolini was Argentina's cleanest outlet and best one-on-one defender, advancing with control even in the quarter-final's hostile rhythm.", ["Ray Wilson", "England"])
         ],
@@ -537,7 +553,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       highlights: [
         { title: "North Korea went 3–0 up—and Eusébio answered", body: "Korea DPR led 3–0 after 25 minutes. Eusébio scored four times to turn Portugal's quarter-final into a 5–3 win.", matchId: "wc-1966-1966-07-23-quarter-finals-portugal-north-korea" },
         { title: "Charlton won the semi-final's central duel", body: "Portugal had Eusébio, but England denied him clean transitions. Bobby Charlton twice arrived outside the crowded holding line to make the difference." },
-        { title: "Hurst kept running after the argument", body: "His second goal remains debated; his third does not. With supporters already on the pitch, Hurst finished Moore's pass to complete the first World Cup final hat-trick.", matchId: "wc-1966-1966-07-30-final-england-west-germany" }
+        { title: "Hurst kept running after the argument", body: "His second goal is debated; his third is not. With supporters already on the pitch, Hurst finished Moore's pass to complete the first World Cup final hat-trick.", matchId: "wc-1966-1966-07-30-final-england-west-germany" }
       ]
     }),
     1970: edition({
@@ -607,7 +623,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         ]
       ],
       highlights: [
-        { title: "East Germany won the match that changed West Germany", body: "Jürgen Sparwasser's goal settled the only senior meeting between the states. The defeat also pushed the hosts into a more favourable second-round group and sharpened their selection." },
+        { title: "East Germany won the match that changed West Germany", body: "Jürgen Sparwasser's goal settled the first senior meeting between the states. The defeat also pushed the hosts into a more favourable second-round group and sharpened their selection." },
         { title: "The Netherlands pressed the holders off the pitch", body: "Against Brazil, the Dutch pressure arrived in waves until Neeskens and Cruyff scored. It was Total Football's clearest World Cup demonstration." },
         { title: "West Germany survived the opening minute", body: "The Netherlands scored before a German player touched the ball. Vogts then crowded Cruyff, Breitner equalized and Müller needed one half-chance to win the final.", matchId: "wc-1974-1974-07-07-final-netherlands-west-germany" }
       ]
@@ -638,7 +654,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         ],
         [player("Mario Kempes", "Argentina", "AM", "Menotti dropped him off the front line and unlocked the tournament. Kempes scored six in the second phase onward, including two surging finishes in the final.", ["Roberto Bettega", "Italy", "SS"])],
         [
-          player("Paolo Rossi", "Italy", "ST", "Rossi's three goals mattered, but his diagonal runs were the bigger story: they opened Italy's combinations and announced the striker he would become in 1982.", ["Roberto Dinamite", "Brazil"]),
+          player("Paolo Rossi", "Italy", "ST", "Rossi's three goals mattered, but his diagonal runs were the bigger story: they opened Italy's combinations and made him the attack's sharpest forward.", ["Roberto Dinamite", "Brazil"]),
           player("Rob Rensenbrink", "Netherlands", "SS", "Five goals and constant left-sided threat; one late final shot hit the post, centimetres from turning a brilliant tournament into a title.", ["Leopoldo Luque", "Argentina", "ST"])
         ]
       ],
@@ -679,7 +695,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         ]
       ],
       highlights: [
-        { title: "Algeria beat West Germany and still went home", body: "Rabah Madjer and Lakhdar Belloumi produced a historic 2–1 win. The later West Germany–Austria result eliminated Algeria and changed simultaneous-kickoff rules forever." },
+        { title: "Algeria beat West Germany and still went home", body: "Rabah Madjer and Lakhdar Belloumi produced a historic 2–1 win. The later West Germany–Austria result eliminated Algeria and exposed the danger of staggered final group matches." },
         { title: "Rossi ended Brazil's masterpiece", body: "Brazil needed a draw and twice equalized. Rossi kept attacking the blind side, scored a hat-trick and turned Italy from cautious survivor into favourite." },
         { title: "Seville swung from 1–3 to penalties", body: "France led West Germany by two in extra time. Rummenigge and Klaus Fischer brought it back before the first shootout in World Cup history decided the semi-final.", matchId: "wc-1982-1982-07-08-semi-finals-west-germany-france" }
       ]
@@ -806,7 +822,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       rows: [
         [player("Fabien Barthez", "France", "GK", "Barthez's speed off his line supported France's compression; he conceded only twice, against Denmark in the group and Croatia in the semi-final.", ["José Luis Chilavert", "Paraguay"])],
         [
-          player("Lilian Thuram", "France", "RB", "Thuram erased France's right side for most of the tournament, then scored the only two international goals of his career to reverse the semi-final.", ["Cafu", "Brazil"]),
+          player("Lilian Thuram", "France", "RB", "Thuram erased France's right side for most of the tournament, then scored twice to reverse the semi-final and send the hosts into their first World Cup final.", ["Cafu", "Brazil"]),
           player("Marcel Desailly", "France", "CB", "Desailly dominated the space in front of Barthez and covered Leboeuf in the final, his red card the only blemish on a commanding tournament.", ["Frank de Boer", "Netherlands"]),
           player("Carlos Gamarra", "Paraguay", "CB", "Gamarra completed every tackle without committing a foul, anchoring a side that conceded twice in four matches and took France to a golden goal.", ["Frank Leboeuf", "France"]),
           player("Roberto Carlos", "Brazil", "LB", "His recovery pace allowed Brazil to play asymmetrically around Cafu; the crossing and set-piece threat remained a constant route even when the centre stalled.", ["Bixente Lizarazu", "France"])
@@ -826,7 +842,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       ],
       highlights: [
         { title: "Bergkamp needed three touches", body: "Frank de Boer's 60-yard pass, one velvet control, a cut inside Ayala and an outside-foot finish eliminated Argentina in the 90th minute." },
-        { title: "Thuram scored the only two he ever needed", body: "Croatia led the semi-final through Šuker. Thuram immediately equalized, then curled in the winner—his only goals in 142 France appearances." },
+        { title: "Thuram turned the semi-final himself", body: "Croatia led the semi-final through Šuker. Thuram immediately equalized, then curled in the winner to send France into their first World Cup final." },
         { title: "Zidane attacked Brazil's zonal seam", body: "France targeted corners between the near zonal defender and man-markers. Zidane reached that space twice, and the final was effectively over by half-time.", matchId: "wc-1998-1998-07-12-final-brazil-france" }
       ]
     }),

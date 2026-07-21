@@ -58,13 +58,27 @@ body.is-initial-page-load.is-initial-content-ready .awards-footer {
   z-index: 1;
 }
 
+html:not([data-theme="dark"]) .highlights-page .final-celebration-background {
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      color-mix(in srgb, var(--celebration-primary) 24%, transparent),
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--celebration-primary) 20%, transparent) 0%,
+      color-mix(in srgb, var(--celebration-primary) 12%, transparent) 56%,
+      color-mix(in srgb, var(--celebration-primary) 8%, transparent) 100%
+    );
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-#footer-top-link,
-#footer-previous-link {
+#footer-top-link {
   text-decoration: none;
 }
 
@@ -273,6 +287,21 @@ a {
   font-size: clamp(38px, 7vw, 58px);
   line-height: 1;
   transform: rotate(7deg);
+}
+
+.champion-illustration-flag.flag-england {
+  width: clamp(52px, 9vw, 76px);
+  height: auto;
+  aspect-ratio: 5 / 3;
+  font-size: 0;
+}
+
+.champion-illustration-flag.flag-england::before {
+  height: clamp(6px, 1.1vw, 9px);
+}
+
+.champion-illustration-flag.flag-england::after {
+  width: clamp(6px, 1.1vw, 9px);
 }
 
 .champion-illustration-orbit {
@@ -531,6 +560,16 @@ html[data-theme="dark"] .best-xi-player-card .best-xi-player-reason {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.award-team-flags,
+.award-meta-team {
+  display: inline-flex;
+  align-items: center;
+}
+
+.award-team-flags {
+  gap: 4px;
 }
 
 .award-meta {

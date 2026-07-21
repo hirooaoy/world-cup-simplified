@@ -25,10 +25,23 @@ const imageFieldNames = [
 const preservedEnrichmentFieldNames = [
   ...imageFieldNames,
   "birthDate",
+  "birthDateSource",
+  "birthDateSourceUrl",
   "clubAtTournament",
+  "clubAtTournamentSource",
+  "clubAtTournamentSourceUrl",
+  "tournamentAppearances",
+  "tournamentStarts",
+  "teamTournamentMatchCount",
+  "teamTournamentCleanSheets",
+  "teamTournamentGoalsFor",
+  "teamTournamentGoalsAgainst",
+  "tournamentTeamPerformance",
   "marketValueAtTournamentEurMillions",
+  "marketValueAtTournamentDate",
   "marketValueAtTournamentSource",
   "marketValueAtTournamentSourceUrl",
+  "marketValueAtTournamentUnavailableReason",
   "peakMarketValueEurMillions",
   "peakMarketValueSource",
   "peakMarketValueSourceUrl"
@@ -201,11 +214,8 @@ function pickPreservedEnrichmentFields(profile) {
 function createHistoricalEnrichmentLookup(profilesData) {
   const lookup = new Map();
   for (const profile of Object.values(profilesData?.profiles || {})) {
-    addProfileAliases(lookup, {
-      ...pickPreservedEnrichmentFields(profile),
-      name: profile.name,
-      displayName: profile.displayName
-    });
+    const key = historicalRecordKey(profile.name, profile.teamName, profile.tournamentYear);
+    lookup.set(key, pickPreservedEnrichmentFields(profile));
   }
   return lookup;
 }
@@ -230,14 +240,14 @@ function createCurrentImageLookup(profilesData) {
   return lookup;
 }
 
-function getEnrichmentFieldsForName(name, historicalEnrichmentLookup, currentImageLookup) {
-  const key = normalizePlayerName(name);
-  const historicalFields = pickPreservedEnrichmentFields(historicalEnrichmentLookup.get(key));
+function getEnrichmentFieldsForRecord(record, historicalEnrichmentLookup, currentImageLookup) {
+  const historicalKey = historicalRecordKey(record.name, record.teamName, record.tournamentYear);
+  const historicalFields = pickPreservedEnrichmentFields(historicalEnrichmentLookup.get(historicalKey));
   if (Object.keys(historicalFields).length) {
     return historicalFields;
   }
 
-  return pickPreservedEnrichmentFields(currentImageLookup.get(key));
+  return pickPreservedEnrichmentFields(currentImageLookup.get(normalizePlayerName(record.name)));
 }
 
 function getRecord(records, name, fixture, teamName) {
@@ -937,7 +947,7 @@ function buildProfile(record, imageFields = {}) {
     tournamentYear: record.tournamentYear,
     tournamentYears: years,
     position,
-    club: imageFields.clubAtTournament || `${primaryTeam} ${record.tournamentYear} World Cup archive`,
+    club: imageFields.clubAtTournament || "",
     uniformNumber: Number.isInteger(shirtNumber) && shirtNumber > 0 ? shirtNumber : undefined,
     goals: record.goalCount,
     ownGoals: record.ownGoalCount,
@@ -987,7 +997,7 @@ const generatedProfiles = Object.fromEntries(
   [...records.values()]
     .sort((a, b) => a.tournamentYear - b.tournamentYear || a.teamName.localeCompare(b.teamName) || a.name.localeCompare(b.name))
     .map((record) => {
-      const profile = buildProfile(record, getEnrichmentFieldsForName(record.name, historicalEnrichmentLookup, currentImageLookup));
+      const profile = buildProfile(record, getEnrichmentFieldsForRecord(record, historicalEnrichmentLookup, currentImageLookup));
       return [profile.profileKey, profile];
     })
 );

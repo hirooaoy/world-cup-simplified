@@ -399,9 +399,9 @@
   },
   "historicalBackfill": {
     "scope": "Only curate historical cards for players shown in archive UI: scorers and linked/key description players.",
-    "status": "versioned-foundation",
+    "status": "club-at-tournament-complete",
     "notes": [
-      "Historical cards are keyed by player, national team and tournament year. Exact club-at-tournament and tournament-year market value still require a source before those fields should replace archive labels."
+      "Historical cards are keyed by player, national team and tournament year. Tournament-time clubs are complete for every archived card and carry edition-specific source metadata; tournament-year market values remain a separate sourced workflow."
     ]
   }
 }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T18:51:05.680Z",
+  "updatedAt": "2026-07-21T21:11:06.468Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -7,7 +7,10 @@
     "wikimedia-commons",
     "wikipedia-page-summaries",
     "transfermarkt-market-values-2026-06-23",
-    "curated-official-and-editorial-player-portraits"
+    "curated-official-and-editorial-player-portraits",
+    "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+    "universitario-player-history",
+    "ac-milan-roster-archive"
   ],
   "coverage": {
     "status": "complete-men-1930-2022-key-players-scorers-and-best-xi-by-team-year",
@@ -22,7 +25,10 @@
     "bestXiImageStatus": "editorial-best-xi-starters-and-honourable-mentions",
     "bestXiImageTargetCount": 484,
     "bestXiImageCount": 484,
-    "minimumBestXiImageCount": 484
+    "minimumBestXiImageCount": 484,
+    "clubStatus": "complete-tournament-time-clubs-1930-2022",
+    "clubProfileCount": 3647,
+    "clubNote": "Club is the player's club at that World Cup, resolved per player, team and tournament year."
   },
   "players": [
     {

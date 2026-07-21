@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-20T01:13:10Z",
+  "updatedAt": "2026-07-21T21:42:36Z",
   "coverageNote": "The final 2026 dataset covers all 104 official fixtures from June 11 through July 19, including results, standings, lineups, match events, multilingual recaps, highlights, and awards.",
   "catchUp": [
     {
@@ -1014,6 +1014,31 @@
       "type": "cross-check",
       "checkedAt": "2026-06-22T18:05:00-07:00",
       "license": "CC-BY-SA-4.0"
+    },
+    {
+      "id": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+      "label": "Fjelstul World Cup Database archived Wikipedia squad pages",
+      "url": "https://github.com/jfjelstul/worldcup/tree/35a8667f518b07469182ae16d35574dd0e7a00fb",
+      "type": "cross-check",
+      "checkedAt": "2026-07-21T21:42:36Z",
+      "license": "CC-BY-SA-4.0",
+      "note": "Tournament-time club records are parsed from the edition squad pages preserved at this exact dataset revision."
+    },
+    {
+      "id": "universitario-player-history",
+      "label": "Universitario player history for Jorge Gongora",
+      "url": "https://universitario.pe/noticias/historia-jugador/jorge-gongora-el-primer-centro-delantero-de-la-u",
+      "type": "official",
+      "checkedAt": "2026-07-21T21:42:36Z",
+      "note": "Narrow club-history fallback for a 1930 squad row without a usable club value."
+    },
+    {
+      "id": "ac-milan-roster-archive",
+      "label": "AC Milan 1950 first-team roster archive",
+      "url": "https://www.acmilan.com/en/roster-archive/men-first-team-archive/acmilan-1950-roster",
+      "type": "official",
+      "checkedAt": "2026-07-21T21:42:36Z",
+      "note": "Narrow club-history fallback for a 1950 squad row without a usable club value."
     },
     {
       "id": "historical-player-card-baseline-2026-06-23",
@@ -3117,10 +3142,10 @@
     {
       "id": "world-cup-2026-final-archive",
       "label": "World Cup 2026 final official snapshot",
-      "url": "data/archives/world-cup-2026-final-2026-07-21T20-06-29-599Z.json",
+      "url": "data/archives/world-cup-2026-final-2026-07-21T21-43-20-201Z.json",
       "type": "official-archive",
-      "checkedAt": "2026-07-21T20:06:29.599Z",
-      "note": "Immutable 104-match archive 2026-final-2026-07-21T20-06-29-599Z; SHA-256 2d7aefa8322fa26262e6b42cd5d5733d10a856d3da9a7d5669da1d80cdbf3558."
+      "checkedAt": "2026-07-21T21:43:20.201Z",
+      "note": "Immutable 104-match archive 2026-final-2026-07-21T21-43-20-201Z; SHA-256 6f4a97474a7a14ea0d63abbb1c737059e742042a6761339a168d6aaf6cef5750."
     }
   ],
   "groups": [

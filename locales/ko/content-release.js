@@ -5,13 +5,11 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "17a4fae84a44c3a393575ed83dc9141bd86c02e61c27e90c78b49c21d90012b9"
+  "sourceFingerprint": "f0dfa3a6ceb251406b8840c5734d22135353c0fccfaff1ae02ce804234e2522b"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Deeper World Cup archives, rebuilt Best XIs, and every champion together": "더 깊어진 월드컵 아카이브, 새로 구성한 베스트 XI, 한자리에 모인 역대 챔피언",
-  "Every completed edition from 1930 through 2026 now opens with an authentic, team-first champion photo and a visible source link, using the strongest surviving squad celebration or winning-team portrait for each tournament.": "1930년부터 2026년까지 모든 완료된 대회는 이제 팀을 중심으로 한 실제 우승 사진과 보이는 출처 링크로 시작하며, 각 대회에서 남아 있는 가장 좋은 선수단 세리머니 또는 우승팀 단체 사진을 사용합니다.",
-  "Every World Cup from 1930 through 2022 now has a researched awards recap and a rebuilt editorial Best XI, with stronger selections, distinct Honorable Mentions, tournament-specific roles, and clear two-part reasons for every choice.": "1930년부터 2022년까지 모든 월드컵에 조사 기반 수상 요약과 새로 구성한 편집 베스트 XI가 추가되었습니다. 더 설득력 있는 선발, 중복 없는 명예 후보, 대회별 역할, 모든 선택에 대한 명확한 두 부분 근거를 제공합니다.",
-  "Historical player cards now have broader portrait, profile, name, club, shirt-number, and provenance coverage across English, Chinese, Spanish, and Korean, while Ball Boy can find the expanded archive player set.": "역대 선수 카드의 사진, 프로필, 이름, 소속팀, 등번호, 출처 정보가 영어, 중국어, 스페인어, 한국어 전반에서 더 넓게 보강되었으며, Ball Boy도 확장된 아카이브 선수 목록을 검색할 수 있습니다."
+  "Mobile bracket drags now stay inside the Tournament canvas without scrolling the page.": "모바일 대진표 드래그가 이제 페이지를 스크롤하지 않고 토너먼트 캔버스 안에 유지됩니다.",
+  "Simpler mobile Tournament canvas": "더 단순해진 모바일 토너먼트 캔버스"
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

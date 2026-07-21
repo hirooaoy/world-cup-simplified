@@ -54,7 +54,7 @@
       "goldenBoot": {
         "recipientNames": ["Just Fontaine"],
         "stat": "13 goals in 6 matches.",
-        "context": "Fontaine scored four in the third-place win over West Germany, setting the single-tournament record that still stands."
+        "context": "Fontaine scored four in the third-place win over West Germany and set a new single-tournament record of 13 goals."
       }
     },
     "1962": {
@@ -125,7 +125,7 @@
       },
       "fairPlay": {
         "captainMeta": "Led by Captain Sócrates",
-        "stat": "Brazil's first of 4 World Cup Fair Play awards.",
+        "stat": "Brazil's first World Cup Fair Play award.",
         "context": "FIFA honored their sporting conduct during a five-match run to the second group stage."
       }
     },
@@ -143,7 +143,7 @@
       "fairPlay": {
         "captainMeta": "Led by Captain Edinho",
         "stat": "A second straight Fair Play award.",
-        "context": "Brazil collected their second of four overall during a run to the quarter-finals."
+        "context": "Brazil collected the award during a run to the quarter-finals."
       }
     },
     "1990": {
@@ -159,7 +159,7 @@
       },
       "fairPlay": {
         "captainMeta": "Led by Captains Bryan Robson, Peter Shilton and Terry Butcher",
-        "stat": "England's first of 3 World Cup Fair Play awards.",
+        "stat": "England's first World Cup Fair Play award.",
         "context": "Their campaign reached the semi-finals and produced their best finish since winning in 1966."
       }
     },
@@ -181,7 +181,7 @@
       },
       "fairPlay": {
         "captainMeta": "Led by Captains Raí and Dunga",
-        "stat": "Brazil's third of 4 World Cup Fair Play awards.",
+        "stat": "Brazil's third World Cup Fair Play award.",
         "context": "They paired the honor with their fourth world title."
       }
     },
@@ -211,7 +211,7 @@
       "goldenBall": {
         "recipientNames": ["Oliver Kahn"],
         "stat": "7 appearances · 5 clean sheets · 3 goals conceded.",
-        "context": "Kahn conceded only once before the final and remains the only goalkeeper to win the Golden Ball."
+        "context": "Kahn conceded only once before the final and became the first goalkeeper to win the Golden Ball."
       },
       "goldenBoot": {
         "recipientNames": ["Ronaldo"],
@@ -225,7 +225,7 @@
       },
       "fairPlay": {
         "captainMeta": "Led by Captain Marc Wilmots",
-        "stat": "Belgium's first and only World Cup Fair Play award.",
+        "stat": "Belgium's first World Cup Fair Play award.",
         "context": "They reached the last 16 and lost only to eventual champions Brazil."
       }
     },

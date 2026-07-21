@@ -1,6 +1,11 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
 import { renderFootballInlineHtml } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
+  HISTORICAL_TEAM_COUNTRY_CODES,
+  HISTORICAL_TEAM_FLAG_OVERRIDES,
+  countryCodeToFlag
+} from "./team-flag-data.js?v=2026-07-21-shared-historical-flags-1";
+import {
   LOCALE_PACK_VERSION,
   LOCALE_SCHEMA_VERSION,
   SHELL_MESSAGES,
@@ -8,7 +13,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
+} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -48,7 +53,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-20-final-cutover-1";
+} from "./app-config.js?v=2026-07-21-player-club-context-1";
 import {
   isEditionLiveSyncActive,
   requestLiveDataForActiveEdition
@@ -65,9 +70,11 @@ import {
 } from "./lineup-ui.js?v=2026-07-20-final-cutover-1";
 import {
   formatPlayerClubLine,
+  formatPlayerCardWorldCupContext,
   formatPlayerPosition as formatSharedPlayerPosition,
+  getPlayerCardWorldCupReferenceDate,
   getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-20-final-cutover-1";
+} from "./player-card-ui.js?v=2026-07-21-world-cup-context-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -3492,96 +3499,6 @@ const TEAM_SEARCH_EXACT_ONLY_ALIAS_KEYS = new Set(
     .map(normalizeTextKey)
     .filter((key) => /[a-z]/.test(key) && !TEAM_SEARCH_PREFIX_ALIAS_KEYS.has(key))
 );
-const WALES_FLAG = "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}";
-const HISTORICAL_TEAM_COUNTRY_CODES = {
-  Algeria: "DZ",
-  Angola: "AO",
-  Argentina: "AR",
-  Australia: "AU",
-  Austria: "AT",
-  Belgium: "BE",
-  Bolivia: "BO",
-  "Bosnia-Herzegovina": "BA",
-  Brazil: "BR",
-  Bulgaria: "BG",
-  Cameroon: "CM",
-  Canada: "CA",
-  Chile: "CL",
-  China: "CN",
-  Colombia: "CO",
-  "Costa Rica": "CR",
-  Croatia: "HR",
-  Cuba: "CU",
-  "Czech Republic": "CZ",
-  Czechoslovakia: "CZ",
-  Denmark: "DK",
-  "Dutch East Indies": "ID",
-  "East Germany": "DE",
-  Ecuador: "EC",
-  Egypt: "EG",
-  "El Salvador": "SV",
-  France: "FR",
-  Germany: "DE",
-  Ghana: "GH",
-  Greece: "GR",
-  Haiti: "HT",
-  Honduras: "HN",
-  Hungary: "HU",
-  Iceland: "IS",
-  Iran: "IR",
-  Iraq: "IQ",
-  Ireland: "IE",
-  Israel: "IL",
-  Italy: "IT",
-  Jamaica: "JM",
-  Japan: "JP",
-  Kuwait: "KW",
-  Mexico: "MX",
-  Morocco: "MA",
-  Netherlands: "NL",
-  "New Zealand": "NZ",
-  Nigeria: "NG",
-  "North Korea": "KP",
-  "Northern Ireland": "GB",
-  Norway: "NO",
-  Panama: "PA",
-  Paraguay: "PY",
-  Peru: "PE",
-  Poland: "PL",
-  Portugal: "PT",
-  Qatar: "QA",
-  Romania: "RO",
-  Russia: "RU",
-  "Saudi Arabia": "SA",
-  Senegal: "SN",
-  Serbia: "RS",
-  "Serbia and Montenegro": "RS",
-  Slovakia: "SK",
-  Slovenia: "SI",
-  "South Africa": "ZA",
-  "South Korea": "KR",
-  Spain: "ES",
-  Sweden: "SE",
-  Switzerland: "CH",
-  Togo: "TG",
-  "Trinidad and Tobago": "TT",
-  Tunisia: "TN",
-  Turkey: "TR",
-  Ukraine: "UA",
-  "United Arab Emirates": "AE",
-  "United States": "US",
-  Uruguay: "UY",
-  USA: "US",
-  "West Germany": "DE",
-  Zaire: "CD"
-};
-const HISTORICAL_TEAM_FLAG_OVERRIDES = {
-  England: { flagClass: "flag-england" },
-  Scotland: { flagClass: "flag-scotland" },
-  Wales: { flag: WALES_FLAG },
-  "Soviet Union": { flagClass: "flag-soviet-union" },
-  Yugoslavia: { flagClass: "flag-yugoslavia" }
-};
 const HISTORICAL_STYLE_TAGS_BY_NAME = {
   Czechoslovakia: ["Technical midfield", "Compact shape", "Set pieces"],
   "East Germany": ["Organized block", "Direct counters", "Aerial duels"],
@@ -8286,16 +8203,6 @@ const historicalTeamFlagOverridesByName = new Map(
     metadata
   ])
 );
-
-function countryCodeToFlag(countryCode) {
-  const code = String(countryCode || "").trim().toUpperCase();
-
-  if (!/^[A-Z]{2}$/.test(code)) {
-    return "";
-  }
-
-  return String.fromCodePoint(...[...code].map((char) => char.charCodeAt(0) + 127397));
-}
 
 function buildTeamNameLookup(teams = []) {
   const lookup = new Map();
@@ -16741,12 +16648,10 @@ function handleTournamentBoardPointerDown(event) {
 
   tournamentBoardDragGesture = {
     didDrag: false,
-    didWindowScrollHandoff: false,
     pointerId: event.pointerId,
     progression,
     startScrollLeft: progression.scrollLeft,
     startScrollTop: progression.scrollTop,
-    startWindowScrollY: window.scrollY,
     startX: event.clientX,
     startY: event.clientY
   };
@@ -16835,23 +16740,9 @@ function handleTournamentBoardPointerMove(event) {
       tournamentBoardDragGesture.progression.clientHeight
   );
   const nextScrollTop = clampNumber(desiredScrollTop, 0, maxScrollTop);
-  const verticalOverflow = desiredScrollTop - nextScrollTop;
 
   tournamentBoardDragGesture.progression.scrollLeft = desiredScrollLeft;
   tournamentBoardDragGesture.progression.scrollTop = nextScrollTop;
-
-  if (verticalOverflow !== 0 || tournamentBoardDragGesture.didWindowScrollHandoff) {
-    tournamentBoardDragGesture.didWindowScrollHandoff = true;
-    const nextWindowScrollY = clampNumber(
-      tournamentBoardDragGesture.startWindowScrollY + verticalOverflow,
-      0,
-      getWindowMaxScrollY()
-    );
-    window.scrollTo({
-      left: window.scrollX,
-      top: nextWindowScrollY
-    });
-  }
 }
 
 function finishTournamentBoardPointerGesture(event) {
@@ -23245,14 +23136,6 @@ function getLocalizedPlayerPosition(player, profile = getPlayerProfile(player)) 
     localizeText(formattedPosition || "Position to verify");
 }
 
-function getHistoricalArchiveClubLineZh(player, profile) {
-  const teamName =
-    (Array.isArray(profile?.teams) && profile.teams[0]) ||
-    String(getPlayerClubValue(player, profile) || "").replace(/\s+World Cup archive$/i, "").trim();
-
-  return teamName ? `${translateEntityNameToZh(teamName)}世界杯存档` : "历史世界杯存档";
-}
-
 function hasLowercaseLatinWord(value) {
   return /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(String(value || ""));
 }
@@ -23329,26 +23212,10 @@ function localizePlayerLeagueName(value) {
 }
 
 function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) {
-  if (currentLanguage === "zh" && isHistoricalPlayerCard(player)) {
-    return getHistoricalArchiveClubLineZh(player, profile);
-  }
-
   if (currentLanguage !== "zh") {
     const clubValue = getPlayerClubValue(player, profile);
-    const historicalArchiveMatch = isHistoricalPlayerCard(player)
-      ? String(clubValue || "").trim().match(/^(.+?)\s+(\d{4})\s+World Cup archive$/iu)
-      : null;
     const club = clubValue
-      ? historicalArchiveMatch
-        ? formatActiveLocaleMessage(
-            "historical-archive-club",
-            {
-              teamName: historicalArchiveMatch[1],
-              year: historicalArchiveMatch[2]
-            },
-            localizeDisplayText(clubValue)
-          )
-        : localizeDisplayText(clubValue)
+      ? localizeDisplayText(clubValue)
       : isHistoricalPlayerCard(player)
         ? localizeText("Historic World Cup record")
         : isGoalScorerCardPlayer(player)
@@ -23392,15 +23259,24 @@ function exposeLocalPlayerCardLocalizationTestHooks() {
 
 exposeLocalPlayerCardLocalizationTestHooks();
 
-function getPlayerReferenceDate(player) {
+function getPlayerCardWorldCupYear(player, profile) {
+  const tournamentYear = Number(
+    profile?.tournamentYear || player?.tournamentYear || player?.year || CURRENT_STANDINGS_YEAR
+  );
+  return Number.isInteger(tournamentYear) && tournamentYear > 0
+    ? tournamentYear
+    : CURRENT_STANDINGS_YEAR;
+}
+
+function getPlayerReferenceDate(player, profile) {
   const matchDate = String(player?.matchDate || player?.date || "").trim();
   if (/^\d{4}-\d{2}-\d{2}$/.test(matchDate)) {
     return new Date(`${matchDate}T12:00:00Z`);
   }
 
-  const tournamentYear = Number(player?.tournamentYear || player?.year);
-  if (Number.isInteger(tournamentYear) && tournamentYear > 0) {
-    return new Date(`${tournamentYear}-07-01T12:00:00Z`);
+  const referenceDate = getPlayerCardWorldCupReferenceDate(getPlayerCardWorldCupYear(player, profile));
+  if (referenceDate) {
+    return new Date(`${referenceDate}T12:00:00Z`);
   }
 
   return new Date();
@@ -23432,21 +23308,9 @@ function getPlayerAge(profile, referenceDate = new Date()) {
 }
 
 function getLocalizedPlayerAgeLine(player, profile) {
-  const referenceDate = isHistoricalPlayerCard(player) ? getPlayerReferenceDate(player) : new Date();
-  const age = getPlayerAge(profile, referenceDate);
+  const age = getPlayerAge(profile, getPlayerReferenceDate(player, profile));
   if (age === null) {
     return "";
-  }
-
-  if (isHistoricalPlayerCard(player)) {
-    const tournamentYear = Number(player?.tournamentYear || player?.year);
-    if (Number.isInteger(tournamentYear) && tournamentYear > 0) {
-      if (currentLanguage === "zh") {
-        return `${tournamentYear}年时${age}岁`;
-      }
-      return localizeText(`${tournamentYear} age ${age}`);
-    }
-    return currentLanguage === "zh" ? `当时${age}岁` : localizeText(`Age then ${age}`);
   }
 
   return currentLanguage === "zh" ? `${age}岁` : localizeText(`Age ${age}`);
@@ -23874,7 +23738,7 @@ function formatHistoricalCountZh(count, label) {
 function getHistoricalPlayerNoteZh(player, profile) {
   const teamName =
     (Array.isArray(profile?.teams) && profile.teams[0]) ||
-    String(getPlayerClubValue(player, profile) || "").replace(/\s+World Cup archive$/i, "").trim() ||
+    String(profile?.teamName || player?.teamName || player?.team || "").trim() ||
     "历史世界杯";
   const archiveLabel = `${translateEntityNameToZh(teamName)}${getHistoricalArchiveYearLabel(profile)}存档`;
   const role = getHistoricalRoleNoteZh(profile);
@@ -24263,6 +24127,12 @@ function renderPlayerMention(label, player, options = {}) {
   const ageLine = isProfileLoading ? "" : getLocalizedPlayerAgeLine(player, profile);
   const valueLine = isProfileLoading ? "" : renderPlayerValueLine(player, profile);
   const tournamentStatsLine = isProfileLoading ? "" : renderPlayerTournamentStatsLine(player, profile);
+  const worldCupContext = isProfileLoading
+    ? ""
+    : formatPlayerCardWorldCupContext({
+        year: getPlayerCardWorldCupYear(player, profile),
+        language: currentLanguage
+      });
   const skills = isProfileLoading ? [] : getPlayerSkills(player, profile).map(localizePlayerSkill);
   const cardFlag = renderPlayerCardFlag(player, profile);
   const explicitVisibleLabel = typeof options.visibleLabel === "string" ? options.visibleLabel.trim() : "";
@@ -24292,7 +24162,10 @@ function renderPlayerMention(label, player, options = {}) {
     ? `<span class="player-card-note player-card-tournament-stats">${escapeHtml(tournamentStatsLine)}</span>`
     : "";
   const metaLine = [ageLine ? escapeHtml(ageLine) : "", valueLine].filter(Boolean).join(" • ");
-  const metaMarkup = metaLine ? `<span class="player-card-note">${metaLine}</span>` : "";
+  const metaMarkup = metaLine ? `<span class="player-card-note player-card-meta">${metaLine}</span>` : "";
+  const contextMarkup = worldCupContext
+    ? `<span class="player-card-note player-card-world-cup-context">${escapeHtml(worldCupContext)}</span>`
+    : "";
   const copyMarkup = isProfileLoading
     ? `
       <span class="player-card-copy player-card-loading-copy" aria-hidden="true">
@@ -24300,8 +24173,8 @@ function renderPlayerMention(label, player, options = {}) {
         <span class="player-card-loading-line is-medium"></span>
       </span>
     `
-    : noteMarkup || tournamentStatsMarkup || metaMarkup
-      ? `<span class="player-card-copy">${noteMarkup}${tournamentStatsMarkup}${metaMarkup}</span>`
+    : noteMarkup || tournamentStatsMarkup || metaMarkup || contextMarkup
+      ? `<span class="player-card-copy">${noteMarkup}${tournamentStatsMarkup}${metaMarkup}${contextMarkup}</span>`
       : "";
   const positionMarkup = isProfileLoading
     ? `<span class="player-card-loading-line player-card-loading-position" aria-hidden="true"></span>`
@@ -27861,9 +27734,13 @@ function renderHistoricalPastMatches(match) {
 }
 
 function renderHistoricalMatchInfo(match) {
+  const contextLabel = getHistoricalContextLabel(match);
   return `
     <section class="info-block match-summary">
-      <p class="info-kicker">${escapeHtml(getHistoricalContextLabel(match))}</p>
+      ${renderMatchContextKicker(match, contextLabel, {
+        isTournamentMatch: isHistoricalTournamentViewFixture(match),
+        tournamentYear: match.tournamentYear
+      })}
       <h2 class="summary-title">
         ${renderTeamInline(match.homeTeam, "summary-team", { showRank: false })}
         <span class="versus">${escapeHtml(localizeText("vs"))}</span>
@@ -27904,10 +27781,12 @@ function setMatchInfoEntrance(shouldAnimate) {
   matchInfo.classList.add("is-entering");
 }
 
-function renderCurrentMatchContextKicker(match, label) {
+function renderMatchContextKicker(match, label, options = {}) {
   const labelHtml = escapeHtml(label);
+  const isTournamentMatch =
+    options.isTournamentMatch ?? Boolean(match.stage && match.stage !== "group");
 
-  if (match.stage && match.stage !== "group") {
+  if (isTournamentMatch) {
     const ariaLabel =
       currentLanguage === "zh"
         ? "在淘汰赛对阵中查看这轮"
@@ -27920,7 +27799,11 @@ function renderCurrentMatchContextKicker(match, label) {
     const targetAttribute = Number.isFinite(matchNumber)
       ? ` data-tournament-match-number="${escapeHtml(matchNumber)}"`
       : "";
-    return `<button class="info-kicker match-stage-link" type="button" data-open-tournament-tab="true"${targetAttribute} aria-label="${escapeHtml(ariaLabel)}">${labelHtml}</button>`;
+    const tournamentYear = Number(options.tournamentYear ?? CURRENT_STANDINGS_YEAR);
+    const yearAttribute = Number.isInteger(tournamentYear)
+      ? ` data-tournament-year="${escapeHtml(tournamentYear)}"`
+      : "";
+    return `<button class="info-kicker match-stage-link" type="button" data-open-tournament-tab="true"${targetAttribute}${yearAttribute} aria-label="${escapeHtml(ariaLabel)}">${labelHtml}</button>`;
   }
 
   return `<p class="info-kicker">${labelHtml}</p>`;
@@ -27981,8 +27864,8 @@ function spotlightTournamentMatchCard(targetMatchNumber, root = standingsGrid) {
   return true;
 }
 
-function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
-  selectedStandingsYear = CURRENT_STANDINGS_YEAR;
+function openTournamentTabFromMatchInfo(targetMatchNumber = "", targetTournamentYear = CURRENT_STANDINGS_YEAR) {
+  selectedStandingsYear = getValidStandingsYear(targetTournamentYear);
   selectedStandingsMode = "tournament";
   setActiveView("standings", { historyMode: "push" });
   renderStandingsView();
@@ -28162,7 +28045,7 @@ function renderMatchInfo(match, options = {}) {
   matchInfo.innerHTML = `
     ${renderMatchInfoCloseControl()}
     <section class="info-block match-summary">
-      ${renderCurrentMatchContextKicker(match, localizedContextLabel)}
+      ${renderMatchContextKicker(match, localizedContextLabel)}
       <h2 class="summary-title">
         ${renderTeamInline(displayTeams.home, "summary-team")}
         <span class="versus">${escapeHtml(localizeText("vs"))}</span>
@@ -29632,7 +29515,10 @@ const FINAL_CELEBRATION_STYLE_PLAYER_OVERRIDES = Object.freeze({
       historical: true,
       historicalTeamName: "Brazil",
       historicalProfile: {
-        club: "Brazil 1958 World Cup archive",
+        club: "Botafogo",
+        clubAtTournament: "Botafogo",
+        clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+        clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-1958-squads.html",
         displayName: "Garrincha",
         historical: true,
         name: "Garrincha",
@@ -29652,7 +29538,10 @@ const FINAL_CELEBRATION_STYLE_PLAYER_OVERRIDES = Object.freeze({
       historical: true,
       historicalTeamName: "West Germany",
       historicalProfile: {
-        club: "West Germany 1974 World Cup archive",
+        club: "Bayern Munich",
+        clubAtTournament: "Bayern Munich",
+        clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
+        clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-1974-squads.html",
         displayName: "Franz Beckenbauer",
         historical: true,
         name: "Franz Beckenbauer",
@@ -32439,7 +32328,10 @@ matchInfo.addEventListener("click", (event) => {
   const target = targetElement?.closest("[data-open-tournament-tab]") || null;
 
   if (target) {
-    openTournamentTabFromMatchInfo(target.dataset.tournamentMatchNumber || "");
+    openTournamentTabFromMatchInfo(
+      target.dataset.tournamentMatchNumber || "",
+      target.dataset.tournamentYear || CURRENT_STANDINGS_YEAR
+    );
   }
 });
 

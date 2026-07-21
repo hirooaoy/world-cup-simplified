@@ -5,6 +5,7 @@ import {
   HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
   HISTORICAL_STORY_PROFILE_OVERRIDES
 } from "../data/highlights-history.js";
+import { getHistoricalTeamFlagMetadata } from "../team-flag-data.js";
 
 const readJson = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url), "utf8"));
 const history = readJson("../data/history.json");
@@ -30,6 +31,19 @@ const previewYears = Object.keys(HISTORICAL_NEXT_WORLD_CUP_PREVIEWS).map(Number)
 const sourceIds = new Set(awards.sources.map(({ id }) => id));
 const validPositions = new Set(["GK", "RB", "CB", "LB", "DM", "CM", "RCM", "LCM", "RW", "AM", "LM", "LW", "SS", "F9", "ST"]);
 const validQualificationModes = new Set(["host_must_qualify", "replacement_host", "hosts_and_holders", "hosts_only"]);
+
+for (const [year, rankingSnapshot] of Object.entries(historicalRankings.editions || {})) {
+  for (const teamName of Object.keys(rankingSnapshot.teams || {})) {
+    const metadata = getHistoricalTeamFlagMetadata(teamName);
+    assert.ok(
+      metadata.flag || metadata.flagClass,
+      `${year}: historical team ${teamName} is missing shared flag metadata.`
+    );
+  }
+}
+assert.equal(getHistoricalTeamFlagMetadata("England").flagClass, "flag-england");
+assert.equal(getHistoricalTeamFlagMetadata("Soviet Union").flagClass, "flag-soviet-union");
+assert.equal(getHistoricalTeamFlagMetadata("Yugoslavia").flagClass, "flag-yugoslavia");
 const normalizeName = (value) => String(value || "")
   .normalize("NFD")
   .replace(/\p{Diacritic}/gu, "")
@@ -46,6 +60,8 @@ const getStoryEntityTokens = (story) => [story?.title, story?.body]
 const stripStoryEntityTokens = (value) => String(value || "")
   .replace(STORY_ENTITY_PATTERN, (_, type, canonicalName, visibleText) => visibleText)
   .trim();
+const getYearReferences = (value) => [...JSON.stringify(value).matchAll(/\b(?:19|20)\d{2}\b/gu)]
+  .map(([year]) => Number(year));
 const findHistoricalProfile = (year, playerName) => Object.values(historicalProfiles.profiles || {})
   .find((profile) =>
     Number(profile?.tournamentYear) === Number(year)
@@ -154,9 +170,11 @@ for (const [year, edition] of Object.entries(HISTORICAL_HIGHLIGHTS.editions)) {
   }
 }
 const reasonLocaleMinimumLengths = Object.freeze({ es: 90, zh: 25, ko: 35 });
+const historicalReasonLocales = new Map();
 assert.equal(historicalBestXiReasonByKey.size, 506, "Historical Best XI rationale keys must stay unique by edition and subject.");
 for (const [language, minimumLength] of Object.entries(reasonLocaleMinimumLengths)) {
   const localeData = readJson(`../data/locales/${language}/historical-best-xi-reasons.json`);
+  historicalReasonLocales.set(language, localeData);
   assert.equal(localeData.schemaVersion, 1, `${language}: invalid historical Best XI rationale schema.`);
   assert.equal(localeData.language, language, `${language}: historical Best XI rationale language mismatch.`);
   const localizedReasons = localeData.reasons || {};
@@ -171,6 +189,99 @@ for (const [language, minimumLength] of Object.entries(reasonLocaleMinimumLength
     assert.notEqual(localizedReason, englishReason, `${language}: ${reasonKey} still falls back to English.`);
   }
 }
+
+const highlightsSource = fs.readFileSync(new URL("../highlights.js", import.meta.url), "utf8");
+assert.doesNotMatch(
+  highlightsSource,
+  /were \$\{activeEdition\} world champions/u,
+  "Historical champion headings must use the edition-time 'are world champions' voice."
+);
+
+const assertNoHindsightFragments = (label, value, fragments) => {
+  const normalizedValue = JSON.stringify(value).toLocaleLowerCase();
+  for (const fragment of fragments) {
+    assert.ok(
+      !normalizedValue.includes(fragment.toLocaleLowerCase()),
+      `${label}: hindsight wording returned (${fragment}).`
+    );
+  }
+};
+
+assertNoHindsightFragments("English historical highlights", {
+  editions: HISTORICAL_HIGHLIGHTS.editions,
+  stories: historicalStoryLocales.get("en").editions,
+  awards: historicalAwardLocales.get("en").editions
+}, [
+  "still stands as the benchmark for anyone not named",
+  "still looks untouchable",
+  "would become in 1982",
+  "only two international goals of his career",
+  "only goals in 142",
+  "only senior meeting between the states",
+  "changed simultaneous-kickoff rules forever",
+  "first of 4 world cup fair play awards",
+  "second of four overall",
+  "first of 3 world cup fair play awards",
+  "third of 4 world cup fair play awards",
+  "remains the only goalkeeper",
+  "first and only world cup fair play award"
+]);
+assertNoHindsightFragments("Spanish historical highlights", {
+  reasons: historicalReasonLocales.get("es").reasons,
+  stories: historicalStoryLocales.get("es").editions,
+  awards: historicalAwardLocales.get("es").editions
+}, [
+  "sigue siendo la referencia para cualquiera que no se llame",
+  "todavía parece inalcanzable",
+  "sería en 1982",
+  "únicos dos goles de su carrera internacional",
+  "únicos tantos de sus 142 partidos",
+  "único enfrentamiento entre las selecciones",
+  "cambió para siempre la norma",
+  "primero de los 4 premios fair play",
+  "segundo de sus cuatro galardones",
+  "primero de los 3 premios fair play",
+  "tercero de los 4 premios fair play",
+  "sigue siendo el único portero",
+  "primer y único premio fair play"
+]);
+assertNoHindsightFragments("Korean historical highlights", {
+  reasons: historicalReasonLocales.get("ko").reasons,
+  stories: historicalStoryLocales.get("ko").editions,
+  awards: historicalAwardLocales.get("ko").editions
+}, [
+  "아직도 쥐스트 퐁텐",
+  "여전히 깨지지 않을 듯한",
+  "1982년의 스트라이커",
+  "국가대표팀 유일한 두 골",
+  "대표팀 142경기에서 기록한 유일한 두 골",
+  "유일한 성인 맞대결",
+  "통산 4회 중 첫 수상",
+  "통산 4차례 중 2번째",
+  "통산 3회 중 첫 수상",
+  "통산 4회 중 3번째",
+  "유일한 골키퍼로 남아 있다",
+  "처음이자 유일한 월드컵 페어플레이상"
+]);
+assertNoHindsightFragments("Chinese historical highlights", {
+  reasons: historicalReasonLocales.get("zh").reasons,
+  stories: historicalStoryLocales.get("zh").editions,
+  awards: historicalAwardLocales.get("zh").editions
+}, [
+  "至今仍是除",
+  "至今仍近乎不可触及",
+  "预告了1982年",
+  "国家队生涯仅有的两球",
+  "142次代表法国出场仅有的两粒进球",
+  "成年国家队唯一一次交锋",
+  "永久改变了末轮同时开球",
+  "4次世界杯公平竞赛奖中的第1次",
+  "4次世界杯公平竞赛奖中的第2次",
+  "3次世界杯公平竞赛奖中的第1次",
+  "4次世界杯公平竞赛奖中的第3次",
+  "至今仍是唯一赢得金球奖的门将",
+  "首次也是唯一一次获得世界杯公平竞赛奖"
+]);
 
 assert.deepEqual(editorialYears, expectedYears, "Editorial coverage must match every history.json edition in order.");
 assert.deepEqual(previewYears, expectedYears, "Next-World-Cup previews must match every historical edition in order.");
@@ -223,6 +334,28 @@ for (const [yearIndex, year] of expectedYears.entries()) {
   const displayedNames = [...starters, ...honourables].map(({ playerName }) => normalizeName(playerName));
   const rankingSnapshot = historicalRankings.editions[String(year)];
   const englishStories = historicalStoryLocales.get("en").editions[String(year)];
+  const editionTimeCopy = {
+    editorial: edition,
+    stories: Object.fromEntries(
+      [...historicalStoryLocales].map(([language, localeData]) => [language, localeData.editions[String(year)]])
+    ),
+    awards: Object.fromEntries(
+      [...historicalAwardLocales].map(([language, localeData]) => [language, localeData.editions[String(year)]])
+    ),
+    reasons: Object.fromEntries(
+      [...historicalReasonLocales].map(([language, localeData]) => [
+        language,
+        Object.fromEntries(Object.entries(localeData.reasons).filter(([key]) => key.startsWith(`${year}|`)))
+      ])
+    )
+  };
+
+  for (const referencedYear of getYearReferences(editionTimeCopy)) {
+    assert.ok(
+      referencedYear <= year,
+      `${year}: edition-time copy looks ahead to ${referencedYear}.`
+    );
+  }
 
   assert.equal(starters.length, 11, `${year}: expected 11 starters.`);
   assert.equal(new Set(starterNames).size, 11, `${year}: starter names must be unique.`);

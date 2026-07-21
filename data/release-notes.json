@@ -1,20 +1,31 @@
 {
-  "updatedAt": "2026-07-21T12:59:34-07:00",
+  "updatedAt": "2026-07-21T13:31:14-07:00",
   "releases": [
     {
       "date": "2026-07-21",
-      "title": "Deeper World Cup archives, rebuilt Best XIs, and every champion together",
-      "titleZh": "更深入的世界杯存档、重建的最佳阵容与历届冠军合影",
+      "title": "Simpler mobile Tournament canvas",
+      "titleZh": "更简洁的移动端淘汰赛画布",
       "highlights": [
-        "Every World Cup from 1930 through 2022 now has a researched awards recap and a rebuilt editorial Best XI, with stronger selections, distinct Honorable Mentions, tournament-specific roles, and clear two-part reasons for every choice.",
-        "Historical player cards now have broader portrait, profile, name, club, shirt-number, and provenance coverage across English, Chinese, Spanish, and Korean, while Ball Boy can find the expanded archive player set.",
-        "Every completed edition from 1930 through 2026 now opens with an authentic, team-first champion photo and a visible source link, using the strongest surviving squad celebration or winning-team portrait for each tournament.",
+        "Mobile bracket drags now stay inside the Tournament canvas without scrolling the page."
+      ],
+      "highlightsZh": [
+        "移动端对阵图拖动现会保持在淘汰赛画布内，不再带动页面滚动。"
+      ]
+    },
+    {
+      "date": "2026-07-21",
+      "title": "Deeper archives, rebuilt Best XIs, and every champion together",
+      "titleZh": "更深入的存档、重建的最佳阵容与历届冠军",
+      "highlights": [
+        "Every World Cup from 1930 through 2022 now has a researched awards recap and rebuilt Best XI.",
+        "Historical player cards now have richer details across all four languages, with expanded Ball Boy search.",
+        "Every completed edition from 1930 through 2026 now features an authentic champion photo with its source.",
         "The Highlights page now has a dedicated calendar picker for moving between editions, richer localized Stories worth remembering, and champion-colored browser chrome that reaches the top of iOS screens."
       ],
       "highlightsZh": [
-        "1930年至2022年的每届世界杯现在都有经过研究的奖项回顾和重新评选的编辑最佳阵容，选择更扎实，荣誉提名不与首发重复，位置符合当届比赛，并为每项选择提供清晰的两段理由。",
-        "历史球员卡现在在英语、中文、西班牙语和韩语中提供更完整的照片、资料、姓名、俱乐部、球衣号码与来源记录，Ball Boy也能检索扩充后的历史球员库。",
-        "1930年至2026年的每届已结束赛事现在都会以真实且以球队为主的冠军照片开场，并显示来源链接；每届采用现存最有代表性的全队庆祝照或冠军合影。",
+        "1930年至2022年的每届世界杯现均有经过研究的奖项回顾和重建的编辑最佳阵容。",
+        "历史球员卡现已在四种语言中补充更多资料，Ball Boy也能检索更多历史球员。",
+        "1930年至2026年的每届已结束赛事现均展示真实的冠军照片及其来源。",
         "亮点页面现在提供独立的日历年份选择器，方便切换不同届赛事，并加入更丰富的本地化“值得记住的故事”；冠军配色的浏览器顶部也会延伸至iOS屏幕最上方。"
       ]
     },

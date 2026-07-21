@@ -54,7 +54,7 @@
       "goldenBoot": {
         "recipientNames": ["Just Fontaine"],
         "stat": "13 goles en seis partidos.",
-        "context": "Fontaine marcó cuatro en la victoria sobre Alemania Occidental por el tercer puesto y fijó el récord de un solo torneo que aún sigue vigente."
+        "context": "Fontaine marcó cuatro en la victoria sobre Alemania Occidental por el tercer puesto y fijó un nuevo récord de 13 goles en un solo torneo."
       }
     },
     "1962": {
@@ -125,7 +125,7 @@
       },
       "fairPlay": {
         "captainMeta": "Con Sócrates como capitán",
-        "stat": "El primero de los 4 Premios Fair Play de Brasil en Mundiales.",
+        "stat": "Primer Premio Fair Play de Brasil en un Mundial.",
         "context": "La FIFA distinguió su conducta deportiva durante una campaña de cinco partidos hasta la segunda fase de grupos."
       }
     },
@@ -143,7 +143,7 @@
       "fairPlay": {
         "captainMeta": "Con Edinho como capitán",
         "stat": "Segundo Premio Fair Play consecutivo.",
-        "context": "Brasil obtuvo el segundo de sus cuatro galardones durante su camino hasta los cuartos de final."
+        "context": "Brasil obtuvo el galardón durante su camino hasta los cuartos de final."
       }
     },
     "1990": {
@@ -159,7 +159,7 @@
       },
       "fairPlay": {
         "captainMeta": "Con Bryan Robson, Peter Shilton y Terry Butcher como capitanes",
-        "stat": "El primero de los 3 Premios Fair Play de Inglaterra en Mundiales.",
+        "stat": "Primer Premio Fair Play de Inglaterra en un Mundial.",
         "context": "Su campaña llegó a semifinales y produjo su mejor resultado desde el título de 1966."
       }
     },
@@ -181,7 +181,7 @@
       },
       "fairPlay": {
         "captainMeta": "Con Raí y Dunga como capitanes",
-        "stat": "El tercero de los 4 Premios Fair Play de Brasil en Mundiales.",
+        "stat": "Tercer Premio Fair Play de Brasil en un Mundial.",
         "context": "Sumó el galardón a su cuarto título mundial."
       }
     },
@@ -211,7 +211,7 @@
       "goldenBall": {
         "recipientNames": ["Oliver Kahn"],
         "stat": "7 partidos · 5 porterías a cero · 3 goles recibidos.",
-        "context": "Kahn solo recibió un gol antes de la final y sigue siendo el único portero ganador del Balón de Oro."
+        "context": "Kahn solo recibió un gol antes de la final y se convirtió en el primer portero ganador del Balón de Oro."
       },
       "goldenBoot": {
         "recipientNames": ["Ronaldo"],
@@ -225,7 +225,7 @@
       },
       "fairPlay": {
         "captainMeta": "Con Marc Wilmots como capitán",
-        "stat": "Primer y único Premio Fair Play de Bélgica en un Mundial.",
+        "stat": "Primer Premio Fair Play de Bélgica en un Mundial.",
         "context": "Llegó a octavos de final y solo perdió ante Brasil, el futuro campeón."
       }
     },

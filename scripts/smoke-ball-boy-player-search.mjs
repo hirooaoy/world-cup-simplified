@@ -170,12 +170,15 @@ try {
       })),
     header: card.querySelector(".scout-entity-header")?.textContent.replace(/\s+/g, " ").trim() || "",
     hasPlayerDetails: Boolean(card.querySelector('[aria-label="Player details"]')),
-    lead: card.closest(".scout-answer")?.querySelector(".scout-answer-lead")?.textContent.trim() || ""
+    lead: card.closest(".scout-answer")?.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+    worldCupContext: card.querySelector(".scout-player-world-cup-context")?.textContent.trim() || ""
   }));
   assert(
     historicalMetrics.lead === "Here’s more about Raúl." &&
       historicalMetrics.header.includes("Raúl") &&
       historicalMetrics.header.includes("Spain · Forward • 1998, 2002, 2006") &&
+      historicalMetrics.header.includes("Real Madrid") &&
+      historicalMetrics.worldCupContext === "At the 1998, 2002, and 2006 World Cups" &&
       historicalMetrics.factValues.some((fact) => fact.label === "Goals" && fact.value === "5") &&
       historicalMetrics.factValues.some((fact) => fact.label === "World Cups" && fact.value === "3") &&
       !historicalMetrics.hasPlayerDetails,
@@ -199,14 +202,23 @@ try {
       label: fact.querySelector("span")?.textContent.trim() || "",
       value: fact.querySelector("strong")?.textContent.trim() || ""
     })),
-    header: card.querySelector(".scout-entity-header")?.textContent.replace(/\s+/g, " ").trim() || ""
+    header: card.querySelector(".scout-entity-header")?.textContent.replace(/\s+/g, " ").trim() || "",
+    worldCupContext: card.querySelector(".scout-player-world-cup-context")?.textContent.trim() || ""
   }));
   assert(
     singleEditionMetrics.header.includes("Spain · Forward • 2002") &&
+      singleEditionMetrics.header.includes("Real Madrid") &&
+      singleEditionMetrics.worldCupContext === "At the 2002 World Cup" &&
       singleEditionMetrics.facts.some((fact) => fact.label === "Goals" && fact.value === "3") &&
       singleEditionMetrics.facts.some((fact) => fact.label === "World Cups" && fact.value === "1"),
     `A year-qualified historical search should narrow to that tournament edition. Measured ${JSON.stringify(singleEditionMetrics)}.`
   );
+
+  await input.fill("Which club did he play for?");
+  await send.click();
+  await page
+    .getByText("At the 2002 World Cup, Raúl played for Real Madrid.", { exact: true })
+    .waitFor({ state: "visible" });
 
   await page.locator("#scout-reset").click();
   await input.fill("who is raul jimene");
@@ -214,8 +226,28 @@ try {
   const partialCurrentCard = page.locator(".scout-player-card:not(.is-historical)").last();
   await partialCurrentCard.waitFor({ state: "visible" });
   assert(
-    (await partialCurrentCard.innerText()).includes("Raúl Jiménez"),
-    "A bounded partial full-name search should resolve the current player."
+    (await partialCurrentCard.innerText()).includes("Raúl Jiménez") &&
+      (await partialCurrentCard.locator(".scout-player-world-cup-context").textContent())?.trim() ===
+        "At the 2026 World Cup",
+    "A bounded partial full-name search should resolve the current player with 2026 context."
+  );
+
+  await page.locator("#scout-reset").click();
+  await input.fill("Who is Fernando Torres?");
+  await send.click();
+  const multiClubCard = page.locator(".scout-player-card.is-historical").last();
+  await multiClubCard.waitFor({ state: "visible" });
+  const multiClubMetrics = await multiClubCard.evaluate((card) => ({
+    clubLine: card.querySelector(".scout-entity-copy small:not(.scout-player-world-cup-context)")
+      ?.textContent.trim() || "",
+    overflow: card.scrollWidth - card.clientWidth,
+    worldCupContext: card.querySelector(".scout-player-world-cup-context")?.textContent.trim() || ""
+  }));
+  assert(
+    multiClubMetrics.clubLine === "Atlético Madrid (2006) · Liverpool (2010) · Chelsea (2014)" &&
+      multiClubMetrics.worldCupContext === "At the 2006, 2010, and 2014 World Cups" &&
+      multiClubMetrics.overflow <= 1,
+    `A grouped historical card should preserve its edition-to-club mapping. Measured ${JSON.stringify(multiClubMetrics)}.`
   );
 
   console.log("Ball Boy player search smoke passed.");

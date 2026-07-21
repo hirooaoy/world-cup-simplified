@@ -3,10 +3,10 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-final-cutover-1";
+} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
 import { requestLiveDataForActiveEdition } from "./edition-runtime.js?v=2026-07-20-final-cutover-1";
 
-const BALL_BOY_DATA_VERSION = "2026-07-20-final-archive-1";
+const BALL_BOY_DATA_VERSION = "2026-07-21-player-club-context-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -2102,10 +2102,29 @@ async function hydrateHistoricalPlayer(profile, requestedYears = []) {
       .filter((number) => Number.isInteger(number) && number > 0),
     String
   );
+  const clubEditions = selectedEditions
+    .map((edition) => {
+      const year = Number(edition.tournamentYear);
+      const club = String(edition.clubAtTournament || edition.club || "").trim();
+      if (
+        !Number.isInteger(year) ||
+        !club ||
+        /\b(?:19|20)\d{2}\s+World Cup archive$/i.test(club)
+      ) {
+        return null;
+      }
+      return {
+        club,
+        league: String(edition.leagueAtTournament || edition.league || "").trim(),
+        year
+      };
+    })
+    .filter(Boolean);
 
   return {
     ...profile,
     birthDate: firstWith("birthDate") || "",
+    clubEditions,
     displayName: latest.displayName || latest.name || profile.displayName,
     editions: selectedEditions.map((edition) => ({
       goals: Number(edition.goals) || 0,
@@ -2656,7 +2675,8 @@ function buildPlayerReply(profile, team, fixtures, question, locale = "en") {
       peakMarketValue: getPlayerPrimeMarketValue(profile, marketValue?.value),
       position: localizedPosition,
       shirtNumber: profile.uniformNumber ?? "",
-      skills: localizedSkills
+      skills: localizedSkills,
+      tournamentYears: [CURRENT_WORLD_CUP_YEAR]
     },
     role,
     stats,
@@ -2743,6 +2763,23 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
   const shirtEditions = (profile.editions || [])
     .filter((edition) => edition.uniformNumber)
     .map((edition) => `${edition.year}: #${edition.uniformNumber}`);
+  const clubEditions = (profile.clubEditions || []).map((edition) => ({
+    ...edition,
+    club: getLocalizedClubName(edition.club, locale),
+    league: getLocalizedLeagueName(edition.league, locale)
+  }));
+  const groupedClubs = new Map();
+  for (const edition of clubEditions) {
+    const yearsForClub = groupedClubs.get(edition.club) || [];
+    yearsForClub.push(edition.year);
+    groupedClubs.set(edition.club, yearsForClub);
+  }
+  const clubSummary = [...groupedClubs.entries()]
+    .map(([club, clubYears]) => groupedClubs.size === 1
+      ? club
+      : `${club} (${formatTournamentYearSeries(clubYears, locale)})`)
+    .join(localeCode === "zh" ? "；" : "; ");
+  const singleClubEdition = clubEditions.length === 1 ? clubEditions[0] : null;
   let lead;
 
   if (isZh) {
@@ -2767,7 +2804,11 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
         ? `${localizedName}的公开巅峰市场身价约为${formatMarketValueEur(marketValue)}。`
         : `我没有查到${localizedName}经过核验的历史市场身价。`;
     } else if (asksForClub) {
-      lead = `这份历史资料以世界杯表现为主，没有为${localizedName}提供稳定、逐届核验的俱乐部记录。`;
+      lead = singleClubEdition
+        ? `${localizedName}参加${singleClubEdition.year}年世界杯时效力于${singleClubEdition.club}。`
+        : clubSummary
+          ? `${localizedName}在这些世界杯期间的俱乐部是：${clubSummary}。`
+          : `我没有查到${localizedName}经过逐届核验的俱乐部记录。`;
     } else {
       lead = hasSpecificPosition
         ? `${localizedName}曾代表${localizedTeam.name}参加${years}年世界杯，主要司职${localizedPosition}。`
@@ -2781,7 +2822,11 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
         ? `${localizedName} figura principalmente como ${localizedPosition} con ${localizedTeam.name}.`
         : `El archivo del Mundial no especifica la posición exacta de ${localizedName}.`;
     } else if (asksForClub) {
-      lead = `Este archivo se centra en el Mundial y no mantiene un historial de clubes verificado para cada edición.`;
+      lead = singleClubEdition
+        ? `${localizedName} jugaba en ${singleClubEdition.club} durante el Mundial de ${singleClubEdition.year}.`
+        : clubSummary
+          ? `Los clubes de ${localizedName} durante esos Mundiales fueron: ${clubSummary}.`
+          : `No tengo un registro de clubes verificado por edición para ${localizedName}.`;
     } else {
       lead = hasSpecificPosition
         ? `${localizedName} representó a ${localizedTeam.name} en ${yearCount === 1 ? "el Mundial" : "los Mundiales"} de ${years}, principalmente como ${localizedPosition}.`
@@ -2795,7 +2840,11 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
         ? `${localizedName}은(는) ${localizedTeam.name}에서 주로 ${localizedPosition}(으)로 기록되어 있습니다.`
         : `월드컵 기록에는 ${localizedName}의 세부 포지션이 나와 있지 않습니다.`;
     } else if (asksForClub) {
-      lead = `이 기록은 월드컵 활약에 초점을 맞추며 대회별 소속 클럽을 일관되게 검증하지는 않습니다.`;
+      lead = singleClubEdition
+        ? `${localizedName}은(는) ${singleClubEdition.year}년 월드컵 당시 ${singleClubEdition.club} 소속이었습니다.`
+        : clubSummary
+          ? `${localizedName}의 해당 월드컵 당시 소속 클럽은 ${clubSummary}입니다.`
+          : `${localizedName}의 대회별 소속 클럽 기록은 확인되지 않았습니다.`;
     } else {
       lead = hasSpecificPosition
         ? `${localizedName}은(는) ${years} 월드컵에서 ${localizedTeam.name} 대표로 주로 ${localizedPosition}(으)로 뛰었습니다.`
@@ -2824,7 +2873,11 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
       ? `${localizedName}'s sourced peak market value was about ${formatMarketValueEur(marketValue)}.`
       : `I do not have a verified historical market value for ${localizedName}.`;
   } else if (asksForClub) {
-    lead = `This archive focuses on World Cup performances and does not keep a consistently verified club record for every edition.`;
+    lead = singleClubEdition
+      ? `At the ${singleClubEdition.year} World Cup, ${localizedName} played for ${singleClubEdition.club}.`
+      : clubSummary
+        ? `${localizedName}'s clubs at those World Cups were: ${clubSummary}.`
+        : `I do not have a club record verified by edition for ${localizedName}.`;
   } else {
     lead = hasSpecificPosition
       ? `${localizedName} represented ${localizedTeam.name} at the ${years} World Cup${yearCount === 1 ? "" : "s"}, mainly as ${positionArticle} ${formattedPosition.toLocaleLowerCase("en-US")}.`
@@ -2855,7 +2908,8 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
     lead,
     profile: {
       canonicalName: profile.displayName,
-      club: "",
+      club: singleClubEdition?.club || "",
+      clubEditions,
       displayName: localizedName,
       featuredMatchCount: profile.featuredMatchCount,
       historical: true,
@@ -4451,14 +4505,20 @@ function getPreviousWorldCupYear(currentYear, history) {
     .at(-1) || currentYear - 4;
 }
 
-function getRequestedWorldCupYear(question, currentYear, previousYear, currentEditionComplete = false) {
+export function getRequestedWorldCupYear(
+  question,
+  currentYear,
+  previousYear,
+  currentEditionComplete = false,
+  calendarYear = new Date().getFullYear()
+) {
   const explicitYear = Number((question.match(/\b(?:19|20)\d{2}\b/) || [])[0]);
   if (Number.isInteger(explicitYear)) return explicitYear;
   if (/\b(previous world cup|previous edition)\b/.test(question)) {
     return previousYear;
   }
   if (/\b(last year|last time|last world cup)\b/.test(question)) {
-    return currentEditionComplete ? currentYear : previousYear;
+    return currentEditionComplete && Number(calendarYear) > currentYear ? currentYear : previousYear;
   }
   return currentYear;
 }
@@ -4781,7 +4841,7 @@ function getWorldCupHistoryIntent(question, requestedTeam = null) {
     return { kind: "previous" };
   }
   if (/\b(last year|last time|last world cup)\b/.test(question) && hasWon) {
-    return { kind: "latest" };
+    return { kind: "last" };
   }
   if (year && hasWon) {
     return { kind: "year", year: Number(year) };
@@ -4834,12 +4894,19 @@ async function buildWorldCupHistoryReply(question, core, requestedTeam = null, l
   const currentChampion = records.find((record) => record.year === currentYear) || null;
   const latest = records.at(-1);
   const previous = records.filter((record) => record.year < currentYear).at(-1);
+  const lastYear = getRequestedWorldCupYear(
+    "last world cup",
+    currentYear,
+    previous?.year || currentYear - 4,
+    Boolean(currentChampion)
+  );
+  const last = records.find((record) => record.year === lastYear) || previous;
   const localizedName = (recordOrTeam) => getLocalizedWorldCupChampionName(recordOrTeam, locale, core);
   const localeCode = normalizeBallBoyLocale(locale);
   let text = "";
 
-  if (["current", "latest"].includes(intent.kind)) {
-    const record = intent.kind === "current" ? currentChampion : latest;
+  if (["current", "last", "latest"].includes(intent.kind)) {
+    const record = intent.kind === "current" ? currentChampion : intent.kind === "last" ? last : latest;
     if (!record || (intent.kind === "current" && record.year !== currentYear)) {
       text = isZhLocale(locale)
         ? `${currentYear}年世界杯冠军尚未产生。`
