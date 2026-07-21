@@ -648,6 +648,11 @@ const [
   standingsData,
   tournamentData
 ] = sourceNoteData;
+const haalandProfileBirthDate = playerProfilesData.profiles?.["Erling Haaland"]?.birthDate;
+assert(
+  haalandProfileBirthDate === "2000-07-21",
+  `Erling Haaland's sourced birth date should remain 2000-07-21. Measured ${haalandProfileBirthDate}.`
+);
 
 function normalizeResultMentionName(value) {
   return String(value || "")
@@ -16553,7 +16558,7 @@ try {
   await ballBoyInput.fill("Tell me about Haaland");
   await ballBoySend.click();
   await touchPage.getByRole("heading", { name: "Erling Haaland" }).waitFor({ state: "visible" });
-  const haalandBallBoyMetrics = await touchPage.evaluate(() => {
+  const haalandBallBoyMetrics = await touchPage.evaluate((birthDate) => {
     const conversation = document.querySelector("#scout-conversation");
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const card = answer?.querySelector(".scout-player-card");
@@ -16567,12 +16572,22 @@ try {
     const note = noteBullets.join(" ");
     const prompts = [...(answer?.querySelectorAll("[data-scout-prompt]") || [])]
       .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const [birthYear, birthMonth, birthDay] = birthDate.split("-").map(Number);
+    const now = new Date();
+    const expectedAge =
+      now.getFullYear() -
+      birthYear -
+      (now.getMonth() + 1 < birthMonth ||
+      (now.getMonth() + 1 === birthMonth && now.getDate() < birthDay)
+        ? 1
+        : 0);
 
     return {
       avatarFlagCount: card?.querySelectorAll(".scout-avatar-flag").length,
       cardOverflow: card ? card.scrollWidth - card.clientWidth : null,
       club: card?.querySelector(".scout-entity-copy small")?.textContent.trim() || "",
       conversationOverflow: conversation ? conversation.scrollWidth - conversation.clientWidth : null,
+      expectedAge,
       followUpCount: answer?.querySelectorAll(".scout-followup").length,
       inlineFlagCount: card?.querySelectorAll(".scout-inline-flag").length,
       inlineFlagColor: inlineFlagStyle?.color || "",
@@ -16600,14 +16615,14 @@ try {
         .map((item) => item.innerText.replace(/\s+/g, " ").trim()),
       valueTitle: valueCell?.getAttribute("title") || ""
     };
-  });
+  }, haalandProfileBirthDate);
   assert(
     haalandBallBoyMetrics.lead === "Here’s more about Erling Haaland." &&
       haalandBallBoyMetrics.club === "Manchester City (Premier League)" &&
       JSON.stringify(haalandBallBoyMetrics.scopes) === JSON.stringify(["This World Cup", "Player details"]) &&
       haalandBallBoyMetrics.statCells[0] === "7 Goals" &&
       haalandBallBoyMetrics.statCells[1] === "0 Assists" &&
-      haalandBallBoyMetrics.statCells[2] === "25 Age" &&
+      haalandBallBoyMetrics.statCells[2] === `${haalandBallBoyMetrics.expectedAge} Age` &&
       haalandBallBoyMetrics.statCells[3] === "€200m Value" &&
       haalandBallBoyMetrics.valueTitle.includes("sourced public player data") &&
       haalandBallBoyMetrics.beginnerSectionCount === 0 &&
@@ -16706,7 +16721,9 @@ try {
 
   await ballBoyInput.fill("How old is he?");
   await ballBoySend.click();
-  await touchPage.getByText("Erling Haaland is 25.", { exact: true }).waitFor({ state: "visible" });
+  await touchPage
+    .getByText(`Erling Haaland is ${haalandBallBoyMetrics.expectedAge}.`, { exact: true })
+    .waitFor({ state: "visible" });
   const ageFocusMetrics = await touchPage.evaluate(() => {
     const answer = [...document.querySelectorAll(".scout-answer.is-player")].at(-1);
     const card = answer?.querySelector(".scout-player-card");
