@@ -2998,9 +2998,18 @@ try {
     hoverTriggerBox.y + hoverTriggerBox.height / 2
   );
   await page.mouse.move(hoverBridgeX, hoverBridgeY, { steps: 6 });
-  await floatingHoverCard.dispatchEvent("pointerenter", {
-    bubbles: false,
-    pointerType: "mouse"
+  await page.waitForTimeout(150);
+  await page.mouse.move(
+    floatingHoverCardBox.x + floatingHoverCardBox.width / 2,
+    floatingHoverCardBox.y + floatingHoverCardBox.height / 2
+  );
+  await page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating");
+    return (
+      card?.matches(":hover") &&
+      card.classList.contains("is-visible") &&
+      card.getAttribute("aria-hidden") === "false"
+    );
   });
   const floatingCardVisibleDuringHandoff = await floatingHoverCard.isVisible();
   const floatingValueHelp = floatingHoverCard.locator(".player-card-value-help").first();
