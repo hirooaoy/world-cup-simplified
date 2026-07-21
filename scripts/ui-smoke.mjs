@@ -2997,21 +2997,40 @@ try {
     hoverTriggerBox.x + hoverTriggerBox.width / 2,
     hoverTriggerBox.y + hoverTriggerBox.height / 2
   );
+  await keyboardPlayerTrigger.evaluate((trigger) => {
+    const source = trigger.closest(".player-hover") || trigger;
+    window.__worldCupFloatingCardGraceProbe = new Promise((resolve) => {
+      const fallbackTimer = window.setTimeout(
+        () => resolve({ fired: false, survived: false }),
+        2000
+      );
+      source.addEventListener(
+        "pointerleave",
+        () => {
+          window.setTimeout(() => {
+            const card = document.querySelector(".player-card-floating");
+            const survived =
+              card?.classList.contains("is-visible") &&
+              card.getAttribute("aria-hidden") === "false";
+            card?.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
+            window.clearTimeout(fallbackTimer);
+            resolve({ fired: true, survived: Boolean(survived) });
+          }, 150);
+        },
+        { once: true }
+      );
+    });
+  });
   await page.mouse.move(hoverBridgeX, hoverBridgeY);
-  await page.waitForTimeout(150);
-  const floatingCardSurvivedGap = await floatingHoverCard.evaluate(
-    (card) => {
-      const survived =
-        card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false";
-      if (survived) {
-        card.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
-      }
-      return survived;
-    }
+  const floatingCardGraceProbe = await page.evaluate(
+    () => window.__worldCupFloatingCardGraceProbe
   );
+  await page.evaluate(() => {
+    delete window.__worldCupFloatingCardGraceProbe;
+  });
   assert(
-    floatingCardSurvivedGap,
-    "Floating player cards should remain open through the intentional 150ms handoff gap."
+    floatingCardGraceProbe?.fired && floatingCardGraceProbe.survived,
+    `Floating player cards should remain open through a native 150ms handoff gap. Measured ${JSON.stringify(floatingCardGraceProbe)}.`
   );
   await floatingHoverCard.hover({ force: true });
   await page.waitForFunction(() => {
