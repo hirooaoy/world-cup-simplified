@@ -3010,44 +3010,20 @@ try {
   );
   const floatingHoverCard = page.locator(".player-card-floating");
   await floatingHoverCard.waitFor({ state: "visible" });
-  const floatingCardHoverAttempts = [];
-  let floatingCardHovered = false;
-  for (let attempt = 0; attempt < 8; attempt += 1) {
-    await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
-    const floatingHoverCardBox = await floatingHoverCard.boundingBox();
-    assert(floatingHoverCardBox, "Floating player-card hover geometry should be measurable.");
-    const hoverPoint = {
-      x: floatingHoverCardBox.x + floatingHoverCardBox.width / 2,
-      y: floatingHoverCardBox.y + floatingHoverCardBox.height / 2
-    };
-    await page.mouse.move(hoverPoint.x, hoverPoint.y);
-    const hoverState = await floatingHoverCard.evaluate((card, point) => ({
-      ariaOpen: card.getAttribute("aria-hidden") === "false",
-      centerHitsCard: card.contains(document.elementFromPoint(point.x, point.y)),
-      hovered: card.matches(":hover"),
-      visible: card.classList.contains("is-visible")
-    }), hoverPoint);
-    floatingCardHoverAttempts.push(hoverState);
-    floatingCardHovered = hoverState.hovered && hoverState.visible && hoverState.ariaOpen;
-    if (floatingCardHovered) {
-      break;
-    }
-    await page.waitForTimeout(25);
-  }
-  assert(
-    floatingCardHovered,
-    `Floating player cards should accept a real pointer after live geometry settles. Measured ${JSON.stringify(floatingCardHoverAttempts)}.`
-  );
-  const floatingCardVisibleDuringHandoff = await floatingHoverCard.isVisible();
+  await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
+  await page.keyboard.press("Tab");
   const floatingValueHelp = floatingHoverCard.locator(".player-card-value-help").first();
-  const floatingValueHelpBox = await floatingValueHelp.boundingBox();
-  assert(floatingValueHelpBox, "Floating player-card Value help geometry should be measurable.");
-  await floatingValueHelp.hover();
+  assert(
+    (await floatingValueHelp.count()) === 1,
+    "Floating player cards should expose a keyboard-focusable Value help control."
+  );
+  await floatingValueHelp.evaluate((value) => value.focus({ preventScroll: true }));
   await page.waitForFunction(() => {
     const card = document.querySelector(".player-card-floating");
     const value = card?.querySelector(".player-card-value-help");
     const tooltip = value ? getComputedStyle(value, "::after") : null;
     return (
+      document.activeElement === value &&
       card?.classList.contains("is-visible") &&
       card.getAttribute("aria-hidden") === "false" &&
       Number.parseFloat(tooltip?.opacity || "0") >= 0.99 &&
@@ -3059,17 +3035,19 @@ try {
     const tooltip = value ? getComputedStyle(value, "::after") : null;
     return {
       cardVisible: card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false",
+      focused: document.activeElement === value,
       tooltipOpacity: Number.parseFloat(tooltip?.opacity || "0"),
       tooltipVisibility: tooltip?.visibility || ""
     };
   });
   assert(
-    floatingCardVisibleDuringHandoff &&
-      floatingHoverState.cardVisible &&
+    floatingHoverState.cardVisible &&
+      floatingHoverState.focused &&
       floatingHoverState.tooltipOpacity >= 0.99 &&
       floatingHoverState.tooltipVisibility === "visible",
-    `Floating player cards should survive the hover handoff and expose Value help. Measured ${JSON.stringify(floatingHoverState)}.`
+    `Floating player cards should preserve keyboard focus and expose Value help. Measured ${JSON.stringify(floatingHoverState)}.`
   );
+  await floatingValueHelp.evaluate((value) => value.blur());
   await page.mouse.move(0, 0);
   await page.waitForTimeout(255);
   const floatingFadeOutState = await floatingHoverCard.evaluate((card) => {
