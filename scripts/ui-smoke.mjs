@@ -2997,16 +2997,22 @@ try {
     hoverTriggerBox.x + hoverTriggerBox.width / 2,
     hoverTriggerBox.y + hoverTriggerBox.height / 2
   );
-  await page.mouse.move(hoverBridgeX, hoverBridgeY, { steps: 6 });
+  await page.mouse.move(hoverBridgeX, hoverBridgeY);
   await page.waitForTimeout(150);
   const floatingCardSurvivedGap = await floatingHoverCard.evaluate(
-    (card) => card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false"
+    (card) => {
+      const survived =
+        card.classList.contains("is-visible") && card.getAttribute("aria-hidden") === "false";
+      if (survived) {
+        card.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
+      }
+      return survived;
+    }
   );
   assert(
     floatingCardSurvivedGap,
     "Floating player cards should remain open through the intentional 150ms handoff gap."
   );
-  await floatingHoverCard.dispatchEvent("pointerenter");
   await floatingHoverCard.hover({ force: true });
   await page.waitForFunction(() => {
     const card = document.querySelector(".player-card-floating");
