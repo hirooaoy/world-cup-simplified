@@ -47,7 +47,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Un archivo definitivo de 2026, un resumen de premios y una temporada baja más tranquila",
+    latestReleaseTitle: "Archivos mundialistas más completos, Mejores XI renovados y todos los campeones juntos",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -116,7 +116,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "완료된 2026 아카이브, 수상 요약과 더 조용한 비시즌",
+    latestReleaseTitle: "더 깊어진 월드컵 아카이브, 새로 구성한 베스트 XI, 한자리에 모인 역대 챔피언",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -188,7 +188,9 @@ const highlightsLocaleCases = [
     goldenBootName: "Kylian Mbappé",
     bestXiInfo: "Selected by admin",
     bestCoachLabel: "Best coach",
+    bestCoachReason: "Spain conceded only once in eight matches without becoming passive. De la Fuente kept the same clear 4-3-3 identity while shifting between patient possession, aggressive pressing and a more secure knockout shape; two of his substitutes then combined for the winning goal in the final.",
     bestXiTitle: "Best XI of 2026",
+    storiesTitle: "Stories worth remembering",
     starterGoalkeeper: "G. Kobel",
     honourableGoalkeeper: "U. Simón",
     benchLabel: "Bench",
@@ -212,7 +214,9 @@ const highlightsLocaleCases = [
     goldenBootName: "基利安·姆巴佩",
     bestXiInfo: "管理员精选",
     bestCoachLabel: "最佳教练",
+    bestCoachReason: "西班牙8场比赛只丢1球，却没有因此变得保守。德拉富恩特始终保持清晰的4-3-3体系，同时在耐心控球、主动逼抢与更稳固的淘汰赛结构之间灵活调整；决赛中，两名替补球员又联手制造了制胜球。",
     bestXiTitle: "2026年最佳阵容",
+    storiesTitle: "值得记住的故事",
     starterGoalkeeper: "格雷戈·科贝尔",
     honourableGoalkeeper: "乌奈·西蒙",
     benchLabel: "替补席",
@@ -236,7 +240,9 @@ const highlightsLocaleCases = [
     goldenBootName: "Kylian Mbappé",
     bestXiInfo: "Selección del administrador",
     bestCoachLabel: "Mejor entrenador",
+    bestCoachReason: "España solo encajó una vez en ocho partidos sin volverse pasiva. De la Fuente mantuvo una identidad clara de 4-3-3 mientras alternaba posesión paciente, presión agresiva y una estructura más segura en las eliminatorias; dos de sus suplentes combinaron después para el gol del título en la final.",
     bestXiTitle: "Mejor once de 2026",
+    storiesTitle: "Historias para recordar",
     starterGoalkeeper: "G. Kobel",
     honourableGoalkeeper: "U. Simón",
     benchLabel: "Suplentes",
@@ -260,7 +266,9 @@ const highlightsLocaleCases = [
     goldenBootName: "킬리안 음바페",
     bestXiInfo: "운영자 선정",
     bestCoachLabel: "최우수 감독",
+    bestCoachReason: "스페인은 8경기에서 단 1골만 내주면서도 수동적으로 변하지 않았다. 데 라 푸엔테는 명확한 4-3-3 정체성을 유지한 채 차분한 점유, 적극적인 압박과 더 안정적인 토너먼트 구조를 오갔고, 결승에서는 교체 선수 두 명이 결승골을 합작했다.",
     bestXiTitle: "2026년 베스트 11",
+    storiesTitle: "기억할 이야기",
     starterGoalkeeper: "그. 코벨",
     honourableGoalkeeper: "우. 시몬",
     benchLabel: "교체 명단",
@@ -308,25 +316,25 @@ const historical2022TimelineContracts = Object.freeze({
   en: {
     heading: "See you next time",
     lead: "Canada, Mexico, and the United States will stage the first 48-team World Cup and the first hosted by three countries.",
-    dates: ["", "5 Dec 2025", "11 Jun 2026"],
+    dates: ["13 Jun 2018", "5 Dec 2025", "11 Jun 2026"],
     titles: ["Three hosts have their places", "The groups are drawn", "The 2026 World Cup begins"]
   },
   zh: {
     heading: "下次见",
     lead: "加拿大、墨西哥和美国将共同举办首届48队世界杯，也是首次由三个国家共同主办。",
-    dates: ["", "2025年12月5日", "2026年6月11日"],
+    dates: ["2018年6月13日", "2025年12月5日", "2026年6月11日"],
     titles: ["三个东道主已锁定席位", "小组抽签", "2026年世界杯开幕"]
   },
   es: {
     heading: "Nos vemos la próxima vez",
     lead: "Canadá, México y Estados Unidos albergarán el primer Mundial de 48 selecciones y el primero organizado por tres países.",
-    dates: ["", "5 dic 2025", "11 jun 2026"],
+    dates: ["13 jun 2018", "5 dic 2025", "11 jun 2026"],
     titles: ["Tres anfitriones tienen su lugar", "Se sortean los grupos", "Comienza el Mundial de 2026"]
   },
   ko: {
     heading: "다음에 또 만나요",
     lead: "캐나다·멕시코·미국이 사상 첫 48개 팀 월드컵이자 세 나라가 공동 개최하는 첫 대회를 연다.",
-    dates: ["", "2025년 12월 5일", "2026년 6월 11일"],
+    dates: ["2018년 6월 13일", "2025년 12월 5일", "2026년 6월 11일"],
     titles: ["세 개최국은 이미 본선에 진출했다", "조 추첨이 열린다", "2026 월드컵 개막"]
   }
 });
@@ -529,6 +537,7 @@ async function assertHighlightsLocales(browser) {
         );
       }),
       bestXiTitle: document.querySelector("#best-xi-title")?.textContent.trim() || "",
+      storiesTitle: document.querySelector("#highlights-title")?.textContent.trim() || "",
       bestXiInfo: document.querySelector(".best-xi-tabs .lineup-tab")?.getAttribute("aria-label") || "",
       bestXiHeaderInfoAbsent: !document.querySelector(".best-xi-info-button"),
       bestXiTabHasWorldMapEmoji: Boolean(
@@ -626,6 +635,10 @@ async function assertHighlightsLocales(browser) {
       languageOptions: document.querySelectorAll("#language-select option").length,
       selectedLanguage: document.querySelector("#language-select")?.value || "",
       backLabel: document.querySelector("#back-link-label")?.textContent.trim() || "",
+      editionPickerLabel: document.querySelector("#edition-picker-button")?.getAttribute("aria-label") || "",
+      editionOptionCount: document.querySelectorAll("#edition-picker-grid .standings-year-option").length,
+      selectedEdition: document.querySelector("#edition-picker-grid [aria-current=\"page\"]")?.textContent.trim() || "",
+      hasSettingsEditionSelect: Boolean(document.querySelector("#settings-popover #edition-select")),
       settingsLabel: document.querySelector("#settings-button")?.getAttribute("aria-label") || "",
       languageLabel: document.querySelector("#settings-language-label")?.textContent.trim() || "",
       darkModeLabel: document.querySelector("#settings-dark-mode-label")?.textContent.trim() || "",
@@ -645,6 +658,9 @@ async function assertHighlightsLocales(browser) {
           node.textContent.trim()
         ),
         hostsBody: document.querySelector('[data-i18n="timelineHostsBody"]')?.textContent.trim() || "",
+        markerLabels: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-marker i"), (node) =>
+          node.textContent.trim()
+        ),
         stateOrder: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-item"), (item) =>
           item.classList.contains("is-complete") ? "complete" : item.classList.contains("is-scheduled") ? "scheduled" : "pending"
         ),
@@ -762,13 +778,16 @@ async function assertHighlightsLocales(browser) {
         measured.highlightPlayerCardsHaveAgeAndValue &&
         measured.vanDijkClubLine === locale.vanDijkClubLine &&
         measured.bestXiTitle === locale.bestXiTitle &&
+        measured.storiesTitle === locale.storiesTitle &&
         measured.bestXiInfo === locale.bestXiInfo &&
         measured.bestXiHeaderInfoAbsent &&
         measured.bestXiTabHasWorldMapEmoji &&
         measured.bestXiTabText === `🗺️ ${locale.bestXiInfo}` &&
         measured.bestCoachTriggerText === "" &&
         measured.bestCoachAria.includes("Luis de la Fuente") &&
-        measured.bestCoachCardCopy.includes("Luis De La Fuente") &&
+        measured.bestCoachAria.includes(locale.bestCoachReason) &&
+        measured.bestCoachCardCopy.includes("Luis de la Fuente") &&
+        measured.bestCoachCardCopy.includes(locale.bestCoachReason) &&
         measured.bestCoachHasPortrait &&
         measured.bestCoachBeforeHonourables &&
         measured.bestXiFormationAbsent &&
@@ -813,6 +832,10 @@ async function assertHighlightsLocales(browser) {
         measured.goldenBootName === locale.goldenBootName &&
         JSON.stringify(measured.awardPlayerNumbers) === JSON.stringify(["#16", "#10", "#23", "#22"]) &&
         measured.backLabel === locale.backLabel &&
+        measured.editionPickerLabel.length > 4 &&
+        measured.editionOptionCount === 23 &&
+        measured.selectedEdition === "2026" &&
+        !measured.hasSettingsEditionSelect &&
         measured.settingsLabel === locale.settingsLabel &&
         measured.languageLabel === locale.languageLabel &&
         measured.darkModeLabel === locale.darkModeLabel &&
@@ -825,6 +848,7 @@ async function assertHighlightsLocales(browser) {
         JSON.stringify(measured.timeline.titles) === JSON.stringify(timelineContract.titles) &&
         measured.timeline.hostsBody === timelineContract.hostsBody &&
         JSON.stringify(measured.timeline.stateOrder) === JSON.stringify(["complete", "pending", "scheduled"]) &&
+        JSON.stringify(measured.timeline.markerLabels) === JSON.stringify(["✓", "", ""]) &&
         measured.timeline.sourceCount === 0 &&
         measured.hasSettingsPopover &&
         measured.hasDarkModeToggle &&
@@ -965,8 +989,13 @@ async function assertHighlightsLocales(browser) {
         hasPortrait: Boolean(card?.querySelector(".lineup-coach-card-photo img[src]")),
         hasProfileStructure: Boolean(
           card?.querySelector(".player-card-header") &&
-          card?.querySelectorAll(".player-skill-list span").length === 3 &&
-          card?.querySelectorAll(".lineup-coach-copy .player-card-note").length >= 3
+          card?.querySelectorAll(".player-skill-list span").length === 0 &&
+          card?.querySelectorAll(".lineup-coach-copy .player-card-note").length === 1 &&
+          !card?.querySelector(".player-card-club")
+        ),
+        copy: Array.from(
+          card?.querySelectorAll(".lineup-coach-copy .player-card-note") || [],
+          (node) => node.textContent.trim()
         ),
         withinViewport: Boolean(
           rect && rect.left >= 0 && rect.top >= 0 && rect.right <= window.innerWidth && rect.bottom <= window.innerHeight
@@ -975,8 +1004,10 @@ async function assertHighlightsLocales(browser) {
     });
     assert(
       coachCardState.expanded === "true" && coachCardState.display === "grid" &&
-        coachCardState.hasPortrait && coachCardState.hasProfileStructure && coachCardState.withinViewport,
-      `${locale.code}: Best coach should reuse the complete lineup coach profile card inside the viewport. Measured ${JSON.stringify(coachCardState)}.`
+        coachCardState.hasPortrait && coachCardState.hasProfileStructure &&
+        JSON.stringify(coachCardState.copy) === JSON.stringify([locale.bestCoachReason]) &&
+        coachCardState.withinViewport,
+      `${locale.code}: Best coach should show only its localized tournament-selection rationale, without generic tenure, style, age, or biography copy. Measured ${JSON.stringify(coachCardState)}.`
     );
     await page.keyboard.press("Escape");
 
@@ -995,6 +1026,12 @@ async function assertHighlightsLocales(browser) {
       vozinhaCount: document.querySelectorAll(
         '.best-xi-honourables-panel [data-best-xi-player-name="Vozinha"]'
       ).length,
+      enzoStarterCount: document.querySelectorAll(
+        '.best-xi-marker[data-best-xi-slot="lcm"] [data-best-xi-player-name="Enzo Fernandez"]'
+      ).length,
+      fabianHonourableCount: document.querySelectorAll(
+        '.best-xi-honourables-panel [data-best-xi-slot="lcm"][data-best-xi-player-name="Fabian Ruiz"]'
+      ).length,
       positionCodes: Array.from(
         document.querySelectorAll(".best-xi-honourables-panel .lineup-bench-position")
       ).map((position) => position.textContent.trim()),
@@ -1009,6 +1046,8 @@ async function assertHighlightsLocales(browser) {
         honourableState.playerCount === 15 &&
         honourableState.extraPlayerCount === 4 &&
         honourableState.vozinhaCount === 1 &&
+        honourableState.enzoStarterCount === 1 &&
+        honourableState.fabianHonourableCount === 1 &&
         JSON.stringify(honourableState.positionCodes) === JSON.stringify([
           "GK", "GK", "RB", "CB", "CB", "CB", "LB", "DM", "DM", "CM", "CM", "RW", "RW", "ST", "RW"
         ]) &&
@@ -1016,7 +1055,7 @@ async function assertHighlightsLocales(browser) {
         honourableState.starterGoalkeeper === locale.starterGoalkeeper &&
         honourableState.subToggleCount === 0 &&
         honourableState.cardHidden === "true",
-      `${locale.code}: Honorable Mentions should open as a 15-player bench with four researched additions, including Vozinha, without replacing the Best XI. Measured ${JSON.stringify(honourableState)}.`
+      `${locale.code}: Honorable Mentions should open as a 15-player bench with four researched additions, keep Enzo in the XI and move Fabián to the bench. Measured ${JSON.stringify(honourableState)}.`
     );
 
     const honourableGoalkeeperTrigger = page.locator(
@@ -1238,6 +1277,41 @@ async function assertHighlightsLocales(browser) {
       );
     }
 
+    const jointFairPlayQuery = locale.code === "en" ? "?year=1998" : `?year=1998&lang=${locale.code}`;
+    await page.goto(getUrl(`/highlights.html${jointFairPlayQuery}`), { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(
+      () =>
+        !document.body.classList.contains("is-locale-loading") &&
+        !document.body.classList.contains("is-initial-page-load") &&
+        document.querySelector("#edition-picker-button")?.dataset.edition === "1998",
+      undefined,
+      { timeout: 30000 }
+    );
+    const jointFairPlayCard = await page.evaluate(async (language) => {
+      const sourcePath = language === "en"
+        ? "data/historical-awards.json"
+        : `data/locales/${language}/historical-awards.json`;
+      const expected = (await (await fetch(sourcePath, { cache: "no-store" })).json()).editions["1998"].fairPlay;
+      const normalize = (value) => String(value || "").replace(/\s+/gu, " ").trim();
+      const meta = document.querySelector("#fair-play-meta");
+      return {
+        actualFlags: normalize(document.querySelector("#fair-play-flag")?.textContent),
+        actualMeta: normalize(meta?.textContent),
+        actualName: normalize(document.querySelector("#fair-play-name")?.textContent),
+        expectedMeta: normalize(expected.captainMeta),
+        staleMention: meta?.getAttribute("data-highlight-player-mentions") || ""
+      };
+    }, locale.code);
+    assert(
+      jointFairPlayCard.actualFlags.includes("🏴") &&
+        jointFairPlayCard.actualFlags.includes("🇫🇷") &&
+        !jointFairPlayCard.actualFlags.includes("🤝") &&
+        jointFairPlayCard.actualName.length > 0 &&
+        jointFairPlayCard.actualMeta === jointFairPlayCard.expectedMeta &&
+        jointFairPlayCard.staleMention === "",
+      `${locale.code}: the 1998 joint Fair Play card should show both flags and its localized captains without stale 2026 metadata. Measured ${JSON.stringify(jointFairPlayCard)}.`
+    );
+
     const historicalQuery = locale.code === "en" ? "?year=2022" : `?year=2022&lang=${locale.code}`;
     const historicalTimelineContract = historical2022TimelineContracts[locale.code];
     await page.goto(getUrl(`/highlights.html${historicalQuery}`), { waitUntil: "domcontentloaded" });
@@ -1246,7 +1320,7 @@ async function assertHighlightsLocales(browser) {
         !document.body.classList.contains("is-locale-loading") &&
         !document.body.classList.contains("is-initial-page-load") &&
         document.documentElement.lang === expectedLanguage &&
-        document.querySelector("#edition-select")?.value === "2022" &&
+        document.querySelector("#edition-picker-button")?.dataset.edition === "2022" &&
         document.querySelector("#next-world-cup-title")?.textContent.trim() === expectedHeading,
       { expectedHeading: historicalTimelineContract.heading, expectedLanguage: locale.htmlLang },
       { timeout: 30000 }
@@ -1258,6 +1332,12 @@ async function assertHighlightsLocales(browser) {
       hasArchivedNextLink: Boolean(document.querySelector(".historical-next-edition-link")),
       heading: document.querySelector("#next-world-cup-title")?.textContent.trim() || "",
       lead: document.querySelector("#next-world-cup-lead")?.textContent.trim() || "",
+      markerLabels: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-marker i"), (node) =>
+        node.textContent.trim()
+      ),
+      stateClasses: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-item"), (item) =>
+        ["is-complete", "is-pending", "is-scheduled", "is-final"].filter((className) => item.classList.contains(className))
+      ),
       titles: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-copy h3"), (node) =>
         node.textContent.trim()
       )
@@ -1267,17 +1347,294 @@ async function assertHighlightsLocales(browser) {
         historicalTimeline.lead === historicalTimelineContract.lead &&
         JSON.stringify(historicalTimeline.dates) === JSON.stringify(historicalTimelineContract.dates) &&
         JSON.stringify(historicalTimeline.titles) === JSON.stringify(historicalTimelineContract.titles) &&
+        JSON.stringify(historicalTimeline.stateClasses) === JSON.stringify([["is-complete"], ["is-complete"], ["is-complete"]]) &&
+        JSON.stringify(historicalTimeline.markerLabels) === JSON.stringify(["✓", "✓", "✓"]) &&
         !historicalTimeline.hasArchivedNextLink,
-      `${locale.code}: the 2022 highlights page should show the researched, localized 2026 preview. Measured ${JSON.stringify(historicalTimeline)}.`
+      `${locale.code}: the 2022 highlights page should show the researched, localized 2026 preview with three completed milestones. Measured ${JSON.stringify(historicalTimeline)}.`
     );
+    const historicalStorySurface = await page.evaluate(async ({ language, expectedTitle }) => {
+      const sourcePath = language === "en"
+        ? "data/historical-stories.json"
+        : `data/locales/${language}/historical-stories.json`;
+      const source = await (await fetch(sourcePath, { cache: "no-store" })).json();
+      const tokenPattern = /\{(team|player):([^|{}]+)\|([^{}]+)\}/gu;
+      const normalize = (value) => String(value || "")
+        .replace(/\s+/gu, " ")
+        .replace(/\s+(['’][\p{Letter}])/gu, "$1")
+        .replace(/\s+([,.;:!?])/gu, "$1")
+        .trim();
+      const visibleCopy = (value) => normalize(String(value || "").replace(
+        tokenPattern,
+        (_, type, canonicalName, visibleText) => visibleText
+      ));
+      const renderedVisibleCopy = (element) => {
+        const clone = element?.cloneNode(true);
+        clone?.querySelectorAll(".football-team-rank-token").forEach((token) => {
+          token.querySelectorAll(".rank-pill").forEach((pill) => pill.remove());
+          token.textContent = token.textContent.trimEnd();
+        });
+        clone?.querySelectorAll(".player-card").forEach((node) => node.remove());
+        return normalize(clone?.textContent);
+      };
+      const expectedStories = source.editions["2022"];
+      const expectedTokenTypes = expectedStories.flatMap((story) =>
+        [story.title, story.body].flatMap((value) =>
+          [...String(value || "").matchAll(tokenPattern)].map((match) => match[1])
+        )
+      );
+      const renderedStories = Array.from(document.querySelectorAll("#highlight-list .highlight-row"), (row) => ({
+        title: renderedVisibleCopy(row.querySelector("h3")),
+        body: renderedVisibleCopy(row.querySelector("p"))
+      }));
+      return {
+        expectedStories: expectedStories.map((story) => ({
+          title: visibleCopy(story.title),
+          body: visibleCopy(story.body)
+        })),
+        renderedStories,
+        heading: normalize(document.querySelector("#highlights-title")?.textContent),
+        expectedTitle,
+        linkCount: document.querySelectorAll("#highlight-list a").length,
+        rawTokenCount: Array.from(document.querySelectorAll("#highlight-list .highlight-row"))
+          .filter((row) => /\{(?:team|player):/u.test(row.textContent || "")).length,
+        rankPillCount: document.querySelectorAll("#highlight-list .rank-pill").length,
+        expectedRankPillCount: expectedTokenTypes.filter((type) => type === "team").length,
+        playerTriggerCount: document.querySelectorAll("#highlight-list [data-highlight-player-trigger]").length,
+        expectedPlayerTriggerCount: expectedTokenTypes.filter((type) => type === "player").length,
+        allRankTooltipsUseFifa: Array.from(document.querySelectorAll("#highlight-list .rank-pill"))
+          .every((pill) => String(pill.getAttribute("data-tooltip") || "").includes("FIFA")),
+        allPlayerTriggersHaveCards: Array.from(
+          document.querySelectorAll("#highlight-list [data-highlight-player-trigger]")
+        ).every((trigger) => Boolean(trigger.parentElement?.querySelector(".highlight-player-card")))
+      };
+    }, { language: locale.code, expectedTitle: locale.storiesTitle });
+    assert(
+      historicalStorySurface.heading === historicalStorySurface.expectedTitle &&
+        JSON.stringify(historicalStorySurface.renderedStories) ===
+          JSON.stringify(historicalStorySurface.expectedStories) &&
+        historicalStorySurface.linkCount === 0 &&
+        historicalStorySurface.rawTokenCount === 0 &&
+        historicalStorySurface.rankPillCount === historicalStorySurface.expectedRankPillCount &&
+        historicalStorySurface.playerTriggerCount === historicalStorySurface.expectedPlayerTriggerCount &&
+        historicalStorySurface.allRankTooltipsUseFifa &&
+        historicalStorySurface.allPlayerTriggersHaveCards,
+      `${locale.code}: the 2022 story section should use localized copy, ranking pills and player cards without video links. Measured ${JSON.stringify(historicalStorySurface)}.`
+    );
+    const localizedHistoricalAwards = await page.evaluate(async (language) => {
+      const sourcePath = language === "en"
+        ? "data/historical-awards.json"
+        : `data/locales/${language}/historical-awards.json`;
+      const response = await fetch(sourcePath, { cache: "no-store" });
+      const source = await response.json();
+      const expected = source.editions["2022"];
+      const normalize = (value) => String(value || "").replace(/\s+/gu, " ").trim();
+      return {
+        actualBootLabel: normalize(document.querySelector('[data-award-key="goldenBoot"] .award-label')?.textContent),
+        actualBootName: normalize(document.querySelector("#golden-boot-name")?.textContent),
+        actualBootCopy: normalize(document.querySelector("#golden-boot-explanation")?.textContent),
+        actualFairPlayCopy: normalize(document.querySelector("#fair-play-explanation")?.textContent),
+        actualFairPlayMeta: normalize(document.querySelector("#fair-play-meta")?.textContent),
+        expectedBootLabel: source.labels.goldenBoot.label,
+        expectedBootName: expected.goldenBoot.recipientNames[0],
+        expectedBootCopy: normalize(`${expected.goldenBoot.stat} ${expected.goldenBoot.context}`),
+        expectedFairPlayCopy: normalize(`${expected.fairPlay.context} ${expected.fairPlay.stat}`),
+        expectedFairPlayMeta: normalize(expected.fairPlay.captainMeta)
+      };
+    }, locale.code);
+    assert(
+      localizedHistoricalAwards.actualBootLabel === localizedHistoricalAwards.expectedBootLabel &&
+        localizedHistoricalAwards.actualBootName === localizedHistoricalAwards.expectedBootName &&
+        localizedHistoricalAwards.actualBootCopy === localizedHistoricalAwards.expectedBootCopy &&
+        localizedHistoricalAwards.actualFairPlayCopy === localizedHistoricalAwards.expectedFairPlayCopy &&
+        localizedHistoricalAwards.actualFairPlayMeta === localizedHistoricalAwards.expectedFairPlayMeta,
+      `${locale.code}: the historical award cards should use the researched locale pack. Measured ${JSON.stringify(localizedHistoricalAwards)}.`
+    );
+    if (locale.code !== "en") {
+      await page.locator(".best-xi-honourables-button").click();
+      await page.locator(
+        '.best-xi-honourables-panel [data-best-xi-player-name="Yassine Bounou"] [data-best-xi-player-trigger]'
+      ).click();
+      const localizedHistoricalReason = await page.evaluate(async (language) => {
+        const response = await fetch(`data/locales/${language}/historical-best-xi-reasons.json`, { cache: "no-store" });
+        const expected = (await response.json()).reasons["2022|player|Yassine Bounou"];
+        const actual = document.querySelector("#best-xi-player-card .best-xi-player-reason")?.textContent.trim() || "";
+        return {
+          actual,
+          actualClub: document.querySelector("#best-xi-player-card .player-card-club")?.textContent.trim() || "",
+          actualName: document.querySelector("#best-xi-player-card .player-card-name")?.textContent.trim() || "",
+          ageText: document.querySelector("#best-xi-player-card .player-card-meta")?.textContent.trim() || "",
+          expected,
+          skills: Array.from(
+            document.querySelectorAll("#best-xi-player-card .player-skill-list > span"),
+            (node) => node.textContent.trim()
+          )
+        };
+      }, locale.code);
+      const expectedHistoricalNames = {
+        es: "Yassine Bounou",
+        ko: "야신 보누",
+        zh: "亚辛·布努"
+      };
+      const expectedHistoricalClubs = {
+        es: "Archivo del Mundial 2022 de Marruecos",
+        ko: "모로코 2022 월드컵 아카이브",
+        zh: "摩洛哥2022年世界杯档案"
+      };
+      assert(
+        localizedHistoricalReason.actual === localizedHistoricalReason.expected &&
+          localizedHistoricalReason.actualName === expectedHistoricalNames[locale.code] &&
+          localizedHistoricalReason.actualClub === expectedHistoricalClubs[locale.code] &&
+          !localizedHistoricalReason.actualClub.includes("World Cup archive") &&
+          localizedHistoricalReason.ageText.includes("31") &&
+          (
+            locale.code !== "zh" ||
+            JSON.stringify(localizedHistoricalReason.skills) ===
+              JSON.stringify(["扑救", "首发", "防守控制", "历史评估"])
+          ),
+        `${locale.code}: the historical Best XI card should localize its name, archive club, skills, tournament-age metadata, and researched rationale. Measured ${JSON.stringify(localizedHistoricalReason)}.`
+      );
+      if (locale.code === "ko") {
+        await page.keyboard.press("Escape");
+        await page.locator(
+          '[data-best-xi-player-name="Theo Hernández"] [data-best-xi-player-trigger]'
+        ).click();
+        const localizedAliasName = await page.locator(
+          "#best-xi-player-card .player-card-name"
+        ).textContent();
+        assert(
+          localizedAliasName?.trim() === "테오 에르난데스",
+          `ko: the normalized historical-name lookup should resolve Theo Hernández through the Théo Hernandez profile key. Measured ${JSON.stringify(localizedAliasName)}.`
+        );
+      }
+      const localizedHistoricalCoach = await page.evaluate(async (language) => {
+        const response = await fetch(`data/locales/${language}/historical-best-xi-reasons.json`, { cache: "no-store" });
+        const expected = (await response.json()).reasons["2022|coach|Lionel Scaloni"];
+        return {
+          copy: Array.from(
+            document.querySelectorAll(".best-xi-coach-card .lineup-coach-copy .player-card-note"),
+            (node) => node.textContent.trim()
+          ),
+          expected,
+          sinceText: document.querySelector(".best-xi-coach-card .player-card-club")?.textContent.trim() || "",
+          skillCount: document.querySelectorAll(".best-xi-coach-card .player-skill-list > span").length
+        };
+      }, locale.code);
+      assert(
+        JSON.stringify(localizedHistoricalCoach.copy) ===
+          JSON.stringify([localizedHistoricalCoach.expected]) &&
+          localizedHistoricalCoach.skillCount === 0 &&
+          localizedHistoricalCoach.sinceText === "",
+        `${locale.code}: the historical coach card should show only its localized tournament rationale, without present-day age, tenure, or English profile extras. Measured ${JSON.stringify(localizedHistoricalCoach)}.`
+      );
+      await page.keyboard.press("Escape");
+      if (locale.code === "ko") {
+        await page.goto(getUrl("/highlights.html?year=1950&lang=ko"), { waitUntil: "domcontentloaded" });
+        await page.waitForFunction(
+          () =>
+            !document.body.classList.contains("is-locale-loading") &&
+            !document.body.classList.contains("is-initial-page-load") &&
+            document.querySelector("#edition-picker-button")?.dataset.edition === "1950",
+          null,
+          { timeout: 30000 }
+        );
+        await page.locator(".best-xi-honourables-button").click();
+        await page.locator(
+          '.best-xi-honourables-panel [data-best-xi-player-name="Óscar Míguez"] [data-best-xi-player-trigger]'
+        ).click();
+        const localizedAliasName = await page.locator(
+          "#best-xi-player-card .player-card-name"
+        ).textContent();
+        assert(
+          localizedAliasName?.trim() === "오스카르 미게스",
+          `ko: the normalized historical-name lookup should resolve Óscar Míguez through the Oscar Míguez profile key. Measured ${JSON.stringify(localizedAliasName)}.`
+        );
+        await page.keyboard.press("Escape");
+      }
+    }
     if (locale.code === "en") {
+      const historicalRankingStoryContracts = [
+        {
+          year: 1950,
+          storyIndex: 2,
+          expectedRank: "#47",
+          expectedTooltip: "Retrospective Elo ranking during the 1950 World Cup",
+          playerName: "Joe Gaetjens"
+        },
+        {
+          year: 1978,
+          storyIndex: 2,
+          expectedRank: "#38",
+          expectedTooltip: "Retrospective Elo ranking during the 1978 World Cup"
+        },
+        {
+          year: 1994,
+          storyIndex: 1,
+          expectedRank: "#34",
+          expectedTooltip: "FIFA world ranking during the 1994 World Cup"
+        },
+        {
+          year: 2010,
+          storyIndex: 1,
+          expectedRank: "#78",
+          expectedTooltip: "FIFA world ranking during the 2010 World Cup"
+        }
+      ];
+      for (const contract of historicalRankingStoryContracts) {
+        await page.goto(getUrl(`/highlights.html?year=${contract.year}&lang=en`), { waitUntil: "domcontentloaded" });
+        await page.waitForFunction(
+          (expectedEdition) =>
+            !document.body.classList.contains("is-locale-loading") &&
+            !document.body.classList.contains("is-initial-page-load") &&
+            document.querySelector("#edition-picker-button")?.dataset.edition === String(expectedEdition) &&
+            document.querySelectorAll("#highlight-list .highlight-row").length === 3,
+          contract.year,
+          { timeout: 30000 }
+        );
+        const rankingPill = await page.evaluate((storyIndex) => {
+          const pill = document.querySelector(
+            `[data-historical-story-index="${storyIndex}"] h3 .rank-pill`
+          );
+          return {
+            rank: pill?.textContent.trim() || "",
+            tooltip: pill?.getAttribute("data-tooltip") || "",
+            linkCount: document.querySelectorAll("#highlight-list a").length
+          };
+        }, contract.storyIndex);
+        assert(
+          rankingPill.rank === contract.expectedRank &&
+            rankingPill.tooltip === contract.expectedTooltip &&
+            rankingPill.linkCount === 0,
+          `${contract.year}: historical story ranking pill should use the edition's ${contract.year <= 1990 ? "retrospective Elo" : "FIFA"} snapshot. Measured ${JSON.stringify(rankingPill)}.`
+        );
+        if (contract.playerName) {
+          const trigger = page.locator(
+            `[data-historical-story-index="${contract.storyIndex}"] [data-highlight-player-name="${contract.playerName}"] [data-highlight-player-trigger]`
+          ).first();
+          await trigger.click();
+          const playerCard = await page.evaluate((playerName) => {
+            const wrapper = document.querySelector(`[data-highlight-player-name="${playerName}"]`);
+            return {
+              expanded: wrapper?.querySelector("[data-highlight-player-trigger]")?.getAttribute("aria-expanded") || "",
+              name: wrapper?.querySelector(".player-card-name")?.textContent.trim() || "",
+              note: wrapper?.querySelector(".player-card-note")?.textContent.trim() || ""
+            };
+          }, contract.playerName);
+          assert(
+            playerCard.expanded === "true" &&
+              playerCard.name === contract.playerName &&
+              playerCard.note.length >= 20,
+            `${contract.year}: ${contract.playerName}'s story mention should open a researched player card. Measured ${JSON.stringify(playerCard)}.`
+          );
+          await page.keyboard.press("Escape");
+        }
+      }
       for (const [editionYear, nextYear] of historicalPreviewChain) {
         await page.goto(getUrl(`/highlights.html?year=${editionYear}&lang=en`), { waitUntil: "domcontentloaded" });
         await page.waitForFunction(
           ({ expectedEdition, expectedOpeningTitle }) =>
             !document.body.classList.contains("is-locale-loading") &&
             !document.body.classList.contains("is-initial-page-load") &&
-            document.querySelector("#edition-select")?.value === String(expectedEdition) &&
+            document.querySelector("#edition-picker-button")?.dataset.edition === String(expectedEdition) &&
             document.querySelector("#timeline-third-title")?.textContent.trim() === expectedOpeningTitle,
           { expectedEdition: editionYear, expectedOpeningTitle: `The ${nextYear} World Cup begins` },
           { timeout: 30000 }
@@ -1287,18 +1644,28 @@ async function assertHighlightsLocales(browser) {
             node.textContent.replace(/\s+/gu, " ").trim()
           ),
           firstUndated: document.querySelector(".next-world-cup-timeline .timeline-item")?.classList.contains("is-undated") || false,
+          coachHasPortrait: Boolean(document.querySelector("#best-xi-coach-avatar img[src]")),
+          heading: document.querySelector("#next-world-cup-title")?.textContent.trim() || "",
           itemCount: document.querySelectorAll(".next-world-cup-timeline .timeline-item").length,
-          lead: document.querySelector("#next-world-cup-lead")?.textContent.trim() || ""
+          lead: document.querySelector("#next-world-cup-lead")?.textContent.trim() || "",
+          markerLabels: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-marker i"), (node) =>
+            node.textContent.trim()
+          ),
+          stateClasses: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-item"), (item) =>
+            ["is-complete", "is-pending", "is-scheduled", "is-final"].filter((className) => item.classList.contains(className))
+          )
         }));
-        const firstMilestoneShouldBeDated = editionYear === 1930 || editionYear === 1982;
         assert(
           previewChainItem.itemCount === 3 &&
-            previewChainItem.dates[1].length > 0 &&
-            previewChainItem.dates[2].length > 0 &&
-            previewChainItem.firstUndated === !firstMilestoneShouldBeDated &&
+            previewChainItem.coachHasPortrait &&
+            previewChainItem.dates.every((date) => date.length > 0) &&
+            !previewChainItem.firstUndated &&
+            previewChainItem.heading === "See you next time" &&
+            JSON.stringify(previewChainItem.stateClasses) === JSON.stringify([["is-complete"], ["is-complete"], ["is-complete"]]) &&
+            JSON.stringify(previewChainItem.markerLabels) === JSON.stringify(["✓", "✓", "✓"]) &&
             !previewChainItem.lead.includes("2030") &&
             !previewChainItem.lead.includes("Morocco, Portugal, and Spain"),
-          `${editionYear}: the historical highlights page should render its own ${nextYear} preview. Measured ${JSON.stringify(previewChainItem)}.`
+          `${editionYear}: the historical highlights page should render its own completed ${nextYear} preview. Measured ${JSON.stringify(previewChainItem)}.`
         );
       }
     }

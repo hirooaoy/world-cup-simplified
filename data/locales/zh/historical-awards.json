@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "language": "zh",
+  "domain": "historical-awards",
+  "methodology": "每张卡片沿用2026年奖项的写法，以简短、可核实的数据和赛事背景组成两部分。历史公平竞赛卡也注明带领每支获奖球队的队长。得主和进球数依据FIFA现行历史名单。奖项名称按当时实际使用的称谓呈现；后世追溯的最佳射手记录，不写作当届已颁发的金靴奖。",
+  "labels": {
+    "goldenBall": { "label": "金球奖", "meaning": "赛事最佳球员 · 1978年首次颁发" },
+    "leadingScorer": { "label": "最佳射手", "meaning": "进球最多 · 射手奖设立前" },
+    "jointLeadingScorers": { "label": "并列最佳射手", "meaning": "进球最多 · 现代排名规则实施前并列" },
+    "goldenShoe": { "label": "金鞋奖", "meaning": "最佳射手 · 1982至2006年使用的奖名" },
+    "goldenBoot": { "label": "金靴奖", "meaning": "最佳射手 · 2010年起使用的奖名" },
+    "yashinAward": { "label": "雅辛奖", "meaning": "最佳门将 · 1994至2006年使用的奖名" },
+    "goldenGlove": { "label": "金手套奖", "meaning": "最佳门将 · 2010年起使用的奖名" },
+    "youngPlayer": { "label": "最佳年轻球员", "meaning": "最佳年轻球员 · 2006年首次颁发" },
+    "fairPlay": { "label": "FIFA公平竞赛奖", "meaning": "体育精神 · 1970年首次颁发" }
+  },
+  "editions": {
+    "1930": {
+      "goldenBoot": {
+        "recipientNames": ["Guillermo Stábile"],
+        "stat": "4场比赛打进8球。",
+        "context": "斯塔比莱每次出场都有进球，包括对墨西哥的帽子戏法和半决赛的两粒进球。"
+      }
+    },
+    "1934": {
+      "goldenBoot": {
+        "recipientNames": ["Oldřich Nejedlý"],
+        "stat": "4场比赛打进5球。",
+        "context": "内耶德利包办捷克斯洛伐克在3比1击败德国的半决赛中的全部进球。"
+      }
+    },
+    "1938": {
+      "goldenBoot": {
+        "recipientNames": ["Leônidas"],
+        "stat": "4场比赛打进7球。",
+        "context": "莱昂尼达斯对波兰独进三球，其中两球来自加时赛，随后又在季军战击败瑞典时梅开二度。"
+      }
+    },
+    "1950": {
+      "goldenBoot": {
+        "recipientNames": ["Ademir de Menezes"],
+        "stat": "6场比赛打进9球。",
+        "context": "阿德米尔在巴西7比1大胜瑞典时独进四球，帮助东道主闯入末轮决胜战。"
+      }
+    },
+    "1954": {
+      "goldenBoot": {
+        "recipientNames": ["Sándor Kocsis"],
+        "stat": "5场比赛打进11球。",
+        "context": "科奇士在半决赛加时两次头球破门，击败卫冕冠军乌拉圭，将匈牙利送入决赛。"
+      }
+    },
+    "1958": {
+      "goldenBoot": {
+        "recipientNames": ["Just Fontaine"],
+        "stat": "6场比赛打进13球。",
+        "context": "方丹在击败西德的季军战独进四球，创下至今仍未被打破的单届世界杯进球纪录。"
+      }
+    },
+    "1962": {
+      "goldenBoot": {
+        "recipientNames": ["Flórián Albert", "Garrincha", "Valentin Ivanov", "Dražan Jerković", "Leonel Sánchez", "Vavá"],
+        "stat": "来自5个国家的6名球员各进4球。",
+        "context": "阿尔贝特和伊万诺夫的4球都出现在小组赛；加林查和瓦瓦随队夺冠，桑切斯所在的智利则在季军战击败耶尔科维奇所在的南斯拉夫。"
+      }
+    },
+    "1966": {
+      "goldenBoot": {
+        "recipientNames": ["Eusébio"],
+        "stat": "6场比赛打进9球。",
+        "context": "尤西比奥独进四球，帮助葡萄牙从0比3落后中以5比3逆转朝鲜，随后又随队获得季军。"
+      }
+    },
+    "1970": {
+      "goldenBoot": {
+        "recipientNames": ["Gerd Müller"],
+        "stat": "6场比赛打进10球，包括连续两场小组赛上演帽子戏法。",
+        "context": "穆勒在加时赛打进制胜球，完成对英格兰的逆转，随后又在3比4负于意大利的半决赛中梅开二度。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长赫克托·丘姆皮塔斯领衔",
+        "stat": "4场比赛0张牌。",
+        "context": "秘鲁阔别世界杯40年后回归，闯入八强，并成为世界杯公平竞赛奖首个得主。"
+      }
+    },
+    "1974": {
+      "goldenBoot": {
+        "recipientNames": ["Grzegorz Lato"],
+        "stat": "7场比赛打进7球。",
+        "context": "拉托的进球帮助波兰1比0击败卫冕冠军巴西，锁定季军，也让他独占射手榜首。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长弗朗茨·贝肯鲍尔领衔",
+        "stat": "7场比赛3张黄牌。",
+        "context": "西德在本土第二次夺得世界杯，同时拿下公平竞赛奖。"
+      }
+    },
+    "1978": {
+      "goldenBall": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "7场比赛打进6球，其中决赛2球。",
+        "context": "23岁的肯佩斯从中场不断向前推进，带领阿根廷首夺世界杯。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "6粒进球全部出现在首轮小组赛之后。",
+        "context": "肯佩斯对波兰、秘鲁和决赛中的荷兰均梅开二度，其中加时赛进球让阿根廷取得领先。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长丹尼尔·帕萨雷拉领衔",
+        "stat": "7场比赛4张黄牌。",
+        "context": "阿根廷赢得公平竞赛奖，也在加时赛后3比1击败荷兰，首次夺得世界杯。"
+      }
+    },
+    "1982": {
+      "goldenBall": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "7次出场 · 6球 · 1次助攻。",
+        "context": "罗西的6球全部来自意大利最后三场比赛，包括决赛首开纪录的一球，推动冠军队在后程强势冲刺。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "6球。",
+        "context": "前四场颗粒无收后，罗西对巴西独进三球、对波兰梅开二度，并在对西德的决赛再进一球。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长苏格拉底领衔",
+        "stat": "这是巴西4次世界杯公平竞赛奖中的第1次。",
+        "context": "FIFA肯定了他们在五场比赛并闯入第二阶段小组赛期间展现的体育精神。"
+      }
+    },
+    "1986": {
+      "goldenBall": {
+        "recipientNames": ["Diego Maradona"],
+        "stat": "7次出场 · 5球 · 5次助攻。",
+        "context": "队长马拉多纳直接参与阿根廷14粒进球中的10球，并在决赛送出制胜助攻。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Gary Lineker"],
+        "stat": "5场比赛打进6球。",
+        "context": "对波兰的帽子戏法挽救了英格兰的征程，随后他又对巴拉圭打进两球、对阿根廷攻入一球。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长埃迪尼奥领衔",
+        "stat": "连续第2届获得公平竞赛奖。",
+        "context": "巴西闯入八强，拿到队史4次世界杯公平竞赛奖中的第2次。"
+      }
+    },
+    "1990": {
+      "goldenBall": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "7次出场 · 6球 · 1次助攻。",
+        "context": "斯基拉奇以替补身份起步，随后每次首发都有进球，帮助意大利获得季军。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "6球。",
+        "context": "季军战后段的点球让斯基拉奇超越托马什·斯库赫拉维，锁定最佳射手。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长布莱恩·罗布森、彼得·希尔顿和特里·布彻先后领衔",
+        "stat": "这是英格兰3次世界杯公平竞赛奖中的第1次。",
+        "context": "他们闯入半决赛，取得自1966年夺冠以来的世界杯最佳战绩。"
+      }
+    },
+    "1994": {
+      "goldenBall": {
+        "recipientNames": ["Romário"],
+        "stat": "7次出场 · 5球 · 2次助攻。",
+        "context": "罗马里奥在三场小组赛、四分之一决赛和半决赛均有进球，帮助巴西夺冠。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Oleg Salenko", "Hristo Stoichkov"],
+        "stat": "两人各进6球。",
+        "context": "萨连科对喀麦隆单场独进五球并创下纪录；斯托伊奇科夫连续五场破门，帮助保加利亚获得第四名。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Michel Preud’homme"],
+        "stat": "4次出场 · 2场零封 · 失4球。",
+        "context": "普雷德霍姆先后零封摩洛哥和荷兰，帮助比利时闯入16强。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长拉伊和邓加先后领衔",
+        "stat": "这是巴西4次世界杯公平竞赛奖中的第3次。",
+        "context": "他们在赢得该奖的同时，也第四次夺得世界杯。"
+      }
+    },
+    "1998": {
+      "goldenBall": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "7次出场 · 4球 · 3次助攻。",
+        "context": "罗纳尔多凭借速度、终结和创造力直接参与七球，帮助巴西再次闯入决赛。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Davor Šuker"],
+        "stat": "7次出场 · 6球。",
+        "context": "除小组赛对阿根廷外，苏克在克罗地亚每场比赛都有进球，其中包括锁定季军的制胜球。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Fabien Barthez"],
+        "stat": "7次出场 · 5场零封 · 失2球。",
+        "context": "巴特兹在决赛零封巴西，帮助法国首次夺得世界杯。"
+      },
+      "fairPlay": {
+        "captainMeta": "英格兰由队长阿兰·希勒领衔，法国由队长迪迪埃·德尚领衔",
+        "stat": "两支球队并列获奖：英格兰与法国。",
+        "context": "英格兰第二次获得公平竞赛奖；法国首次获奖，并同时捧起世界杯。"
+      }
+    },
+    "2002": {
+      "goldenBall": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7次出场 · 5场零封 · 失3球。",
+        "context": "卡恩在决赛前只失一球，至今仍是唯一赢得金球奖的门将。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "7场比赛打进8球。",
+        "context": "除四分之一决赛外，罗纳尔多每次出场都有进球，并在决赛梅开二度，帮助巴西第五次夺冠。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7次出场 · 5场零封 · 失3球。",
+        "context": "卡恩在淘汰赛连续三场零封，将德国带入决赛。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长马克·维尔莫茨领衔",
+        "stat": "比利时首次也是唯一一次获得世界杯公平竞赛奖。",
+        "context": "他们闯入16强，只输给了最终夺冠的巴西。"
+      }
+    },
+    "2006": {
+      "goldenBall": {
+        "recipientNames": ["Zinédine Zidane"],
+        "stat": "6场比赛 · 3球 · 1次助攻。",
+        "context": "齐达内对巴西和葡萄牙均有大师级表现，带领法国闯入决赛。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Miroslav Klose"],
+        "stat": "7场比赛打进5球。",
+        "context": "克洛泽对阿根廷的扳平球帮助东道主德国闯入半决赛，他也独占射手榜首。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Gianluigi Buffon"],
+        "stat": "7场比赛5次零封 · 失2球。",
+        "context": "两个失球分别是乌龙球和点球；布冯在加时赛扑出齐达内的头球，帮助意大利赢下决赛。"
+      },
+      "youngPlayer": {
+        "recipientNames": ["Lukas Podolski"],
+        "stat": "21岁出战7场，打进3球。",
+        "context": "波多尔斯基在对瑞典时早早梅开二度，将东道主德国送入八强，并最终获得季军。"
+      },
+      "fairPlay": {
+        "captainMeta": "巴西由队长卡福领衔；西班牙由伊克尔·卡西利亚斯和劳尔·冈萨雷斯先后担任队长",
+        "stat": "并列获奖 · 均无红牌。",
+        "context": "巴西和西班牙分别闯入八强和16强，最终共享FIFA公平竞赛奖。"
+      }
+    },
+    "2010": {
+      "goldenBall": {
+        "recipientNames": ["Diego Forlán"],
+        "stat": "7场比赛 · 5球 · 1次助攻。",
+        "context": "弗兰带领乌拉圭时隔40年重返四强，他对德国的凌空抽射还当选赛事最佳进球。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "5球 · 3次助攻。",
+        "context": "穆勒与弗兰、比利亚和斯内德同进5球，最终凭助攻数赢得金靴奖。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Iker Casillas"],
+        "stat": "7场比赛5次零封 · 失2球。",
+        "context": "卡西利亚斯在四分之一决赛扑出卡多索的点球，决赛又两次封堵罗本的单刀。"
+      },
+      "youngPlayer": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "20岁出战6场 · 5球 · 3次助攻。",
+        "context": "穆勒先后攻破英格兰和阿根廷球门，停赛后回归又在季军战取得进球。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长伊克尔·卡西利亚斯领衔",
+        "stat": "7场比赛 · 无红牌。",
+        "context": "西班牙首次夺得世界杯，同时捧起FIFA公平竞赛奖。"
+      }
+    },
+    "2014": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "7场比赛 · 4球 · 1次助攻。",
+        "context": "梅西在每场小组赛都有进球，又在对瑞士时送出加时制胜助攻，帮助阿根廷闯入决赛。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["James Rodríguez"],
+        "stat": "5场比赛打进6球。",
+        "context": "J罗在哥伦比亚每场比赛都有进球，对乌拉圭更是梅开二度；第一球还当选赛事最佳进球。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Manuel Neuer"],
+        "stat": "7场比赛4次零封 · 失4球。",
+        "context": "诺伊尔对阿尔及利亚时多次出击化解反击，让最终夺冠的德国得以保持高位防线。"
+      },
+      "youngPlayer": {
+        "recipientNames": ["Paul Pogba"],
+        "stat": "21岁出战5场 · 1球 · 1次助攻。",
+        "context": "博格巴对尼日利亚打破僵局，帮助法国闯入八强。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长马里奥·耶佩斯领衔",
+        "stat": "5场比赛 · 5张黄牌 · 无红牌。",
+        "context": "哥伦比亚首次闯入世界杯八强，同时捧起FIFA公平竞赛奖。"
+      }
+    },
+    "2018": {
+      "goldenBall": {
+        "recipientNames": ["Luka Modrić"],
+        "stat": "7场比赛 · 2球 · 1次助攻。",
+        "context": "莫德里奇带领克罗地亚连续闯过三场打进加时赛的淘汰赛，队史首次进入世界杯决赛。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Harry Kane"],
+        "stat": "6场比赛打进6球 · 其中3粒点球。",
+        "context": "凯恩开局先后梅开二度和上演帽子戏法，随后对哥伦比亚再以点球完成个人进球总数。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Thibaut Courtois"],
+        "stat": "7场比赛3次零封 · 失6球。",
+        "context": "库尔图瓦对巴西完成九次扑救，又在季军战以零封收官，帮助比利时取得队史世界杯最佳战绩。"
+      },
+      "youngPlayer": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "19岁出战7场，打进4球。",
+        "context": "姆巴佩对阿根廷梅开二度，并成为贝利之后首位在世界杯决赛进球的年轻球员。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长塞尔吉奥·拉莫斯领衔",
+        "stat": "4场比赛 · 2张黄牌 · 34次犯规。",
+        "context": "西班牙整届赛事没有红牌，最终获得FIFA公平竞赛奖。"
+      }
+    },
+    "2022": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "7场比赛 · 7球 · 3次助攻。",
+        "context": "梅西在每轮淘汰赛都有进球，决赛更是梅开二度，成为首位两获世界杯金球奖的男足球员。"
+      },
+      "goldenBoot": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "7场比赛 · 8球 · 2次助攻。",
+        "context": "姆巴佩在决赛上演帽子戏法，最终比梅西多进一球，无需比较排名规则。"
+      },
+      "goldenGlove": {
+        "recipientNames": ["Emiliano Martínez"],
+        "stat": "3场零封 · 点球大战扑出3球。",
+        "context": "马丁内斯第123分钟挡出科洛·穆阿尼的射门，又扑出科曼的点球，为阿根廷守住冠军。"
+      },
+      "youngPlayer": {
+        "recipientNames": ["Enzo Fernández"],
+        "stat": "21岁出战7场 · 打进1球。",
+        "context": "恩佐·费尔南德斯对墨西哥进球，随后每场比赛都进入首发，帮助阿根廷夺冠。"
+      },
+      "fairPlay": {
+        "captainMeta": "由队长哈里·凯恩领衔",
+        "stat": "5场比赛 · 1张黄牌 · 无红牌。",
+        "context": "马奎尔在四分之一决赛第90分钟领到的黄牌，是英格兰整届赛事唯一一次警告。"
+      }
+    }
+  }
+}

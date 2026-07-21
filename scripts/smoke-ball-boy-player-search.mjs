@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -23,6 +23,38 @@ function assert(condition, message) {
     throw new Error(message);
   }
 }
+
+const historicalPlayerIndex = JSON.parse(
+  await readFile(path.join(root, "data", "ball-boy-historical-players.json"), "utf8")
+);
+
+function getHistoricalPersonYearGroups(displayName, teamName) {
+  return (historicalPlayerIndex.players || [])
+    .filter((player) => player.displayName === displayName && player.teamName === teamName)
+    .map((player) => [...(player.tournamentYears || [])].sort((left, right) => left - right))
+    .sort((left, right) => left[0] - right[0]);
+}
+
+function assertHistoricalPersonYearGroups(displayName, teamName, expected) {
+  const actual = getHistoricalPersonYearGroups(displayName, teamName);
+  assert(
+    JSON.stringify(actual) === JSON.stringify(expected),
+    `${displayName} (${teamName}) historical person grouping should be ${JSON.stringify(expected)}; measured ${JSON.stringify(actual)}.`
+  );
+}
+
+// Portrait provenance changes between these editions; both must remain one person.
+assertHistoricalPersonYearGroups("Luis Suárez", "Uruguay", [[2010, 2014, 2018]]);
+assertHistoricalPersonYearGroups("Neymar", "Brazil", [[2014, 2018, 2022]]);
+
+// Exact-name/team collisions are separate people and must not be merged by the fallback.
+assertHistoricalPersonYearGroups("Ali Karimi", "Iran", [[2006], [2022]]);
+assertHistoricalPersonYearGroups("Andoni Goikoetxea", "Spain", [[1986], [1994]]);
+assertHistoricalPersonYearGroups("Juanito", "Spain", [[1982], [2006]]);
+assertHistoricalPersonYearGroups("József Tóth", "Hungary", [[1954], [1982]]);
+assertHistoricalPersonYearGroups("Júlio César", "Brazil", [[1986], [2010, 2014]]);
+assertHistoricalPersonYearGroups("Júnior", "Brazil", [[1982], [2002]]);
+assertHistoricalPersonYearGroups("Oscar", "Brazil", [[1982], [2014]]);
 
 function safePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split("?")[0]);

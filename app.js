@@ -3177,7 +3177,6 @@ const catchUpButton = document.querySelector("#catch-up-button");
 const catchUpPopover = document.querySelector("#catch-up-popover");
 const catchUpList = document.querySelector("#catch-up-list");
 const standingsYearButton = document.querySelector("#standings-year-button");
-const standingsAwardsLink = document.querySelector("#standings-awards-link");
 const standingsYearPopover = document.querySelector("#standings-year-popover");
 const standingsYearGrid = document.querySelector("#standings-year-grid");
 const standingsModeTabs = document.querySelectorAll(".standings-mode-tab");
@@ -17417,23 +17416,6 @@ function updateStandingsControls() {
           ? getHistoricalTournamentStandingsSummary(selectedStandingsYear)
           : getHistoricalGroupStandingsSummary(selectedStandingsYear);
     standingsSummary.textContent = localizeText(summaryText);
-  }
-
-  if (standingsAwardsLink) {
-    const recapUrl = new URL("highlights.html", window.location.href);
-    if (selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
-      recapUrl.searchParams.set("year", String(selectedStandingsYear));
-    }
-    if (currentLanguage !== DEFAULT_LANGUAGE) {
-      recapUrl.searchParams.set("lang", currentLanguage);
-    }
-    standingsAwardsLink.href = `${recapUrl.pathname.split("/").pop()}${recapUrl.search}`;
-    standingsAwardsLink.textContent = ({
-      en: "Awards & highlights",
-      es: "Premios y momentos destacados",
-      ko: "수상 및 하이라이트",
-      zh: "奖项与亮点"
-    })[currentLanguage] || "Awards & highlights";
   }
 
   renderStandingsYearPicker();

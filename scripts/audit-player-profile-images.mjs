@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = new Set(process.argv.slice(2));
 const historical = args.has("--historical");
-const allowMissing = historical || args.has("--allow-missing");
+const bestXiOnly = historical && args.has("--best-xi-only");
+const allowMissing = (historical && !bestXiOnly) || args.has("--allow-missing");
 const dataPath = path.join(
   root,
   "data",
@@ -267,14 +268,20 @@ async function auditCommonsImages(
 }
 
 const data = JSON.parse(await readFile(dataPath, "utf8"));
-const profiles = Object.entries(data.profiles || {}).map(([name, profile]) => ({
-  name,
-  teamId: profile.teamId || profile.teamName || "",
-  imageUrl: profile.imageUrl || ""
-}));
+const profiles = Object.entries(data.profiles || {})
+  .filter(([, profile]) => !bestXiOnly || profile.bestXiSelection === true)
+  .map(([name, profile]) => ({
+    name,
+    teamId: profile.teamId || profile.teamName || "",
+    imageUrl: profile.imageUrl || ""
+  }));
 const missing = profiles.filter((entry) => !entry.imageUrl);
 const minimumHistoricalImageCount = historical
-  ? Number(data.coverage?.minimumImageCount || 0)
+  ? Number(
+      bestXiOnly
+        ? data.coverage?.minimumBestXiImageCount || 0
+        : data.coverage?.minimumImageCount || 0
+    )
   : 0;
 const imageEntryByUrl = new Map();
 for (const entry of profiles.filter((profile) => profile.imageUrl)) {
@@ -335,7 +342,9 @@ console.log(
   [
     `Audited ${profiles.length} player profiles.`,
     `Profiles without image URLs: ${missing.length}${allowMissing ? " (allowed)" : ""}.`,
-    historical ? `Historical coverage floor: ${minimumHistoricalImageCount}.` : "",
+    historical
+      ? `${bestXiOnly ? "Historical Best XI" : "Historical"} coverage floor: ${minimumHistoricalImageCount}.`
+      : "",
     `Unique image URLs: ${imageEntries.length}.`,
     `Direct image checks: ${directEntries.length}.`,
     `Commons metadata checks: ${commonsEntries.length}${skipCommons ? " (skipped)" : ""}.`,

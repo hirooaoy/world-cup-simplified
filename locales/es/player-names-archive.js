@@ -4,6 +4,7 @@
 export const ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Cafu": "Cafú",
   "Davinson Sánchez": "Dávinson Sánchez",
+  "Didi": "Didí",
   "Dmitri Radchenko": "Dmitri Rádchenko",
   "Felix Cruz": "Félix Cruz",
   "Giorgian De Arrascaeta": "Giorgian de Arrascaeta",
@@ -12,6 +13,7 @@ export const ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Ihor Belanov": "Íhor Belánov",
   "Ilian Iliev": "Ilián Iliev",
   "Iuliu Baratky": "Iuliu Barátky",
+  "Jan Popluhár": "Ján Popluhár",
   "Jason Culina": "Jason Čulina",
   "José Luis Brown": "Tata Brown",
   "José Luis Lamadrid": "José Lamadrid",
@@ -20,9 +22,12 @@ export const ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Kostas Manolas": "Kostas Manolás",
   "Lucas Hernandez": "Lucas Hernández",
   "Marcus Tulio Tanaka": "Marcus Túlio Tanaka",
+  "Martim Silveira": "Martim",
   "Miguel Ángel Brindisi": "Miguel Brindisi",
   "Oleh Protasov": "Oleh Protásov",
+  "Oscar": "Óscar",
   "Oscar Míguez": "Óscar Míguez",
+  "Oscar Ruggeri": "Óscar Ruggeri",
   "Oscar Zubia": "Oscar Zubía",
   "Rinat Dasayev": "Rinat Dasáyev",
   "Ruben Vargas": "Rubén Vargas",
@@ -30,5 +35,6 @@ export const ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Seiichiro Maki": "Seiichirō Maki",
   "Shoji Jo": "Shōji Jō",
   "Théo Hernandez": "Théo Hernández",
-  "Viktor Ponedelnik": "Víktor Ponedélnik"
+  "Viktor Ponedelnik": "Víktor Ponedélnik",
+  "Wilson Piazza": "Piazza"
 });

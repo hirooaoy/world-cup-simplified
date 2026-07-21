@@ -27,8 +27,8 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
     <link rel="stylesheet" href="styles/tokens.css?v=2026-07-17-modules-1" />
-    <link rel="stylesheet" href="styles.css?v=2026-07-20-final-cutover-1" />
-    <link rel="stylesheet" href="highlights.css?v=2026-07-20-all-free-champion-photos-1" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-21-highlights-edition-picker-1" />
+    <link rel="stylesheet" href="highlights.css?v=2026-07-21-all-team-photos-historical-awards-2-historical-stories-1" />
     <link rel="stylesheet" href="chatbot.css?v=2026-07-20-tournament-memory-2" />
   </head>
   <body class="highlights-page has-final-celebration is-locale-loading is-initial-page-load" id="top" data-final-celebration-palette="spain">
@@ -78,37 +78,45 @@
         <span class="brand-label" id="back-link-label">Back</span>
       </a>
 
-      <div class="settings-shell report-settings">
-        <button class="settings-button" id="settings-button" type="button" aria-label="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-popover">
-          <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
-            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 0 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.3 7A2 2 0 0 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10 3V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 0 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 0 1 0 4H21a1.7 1.7 0 0 0-1.6.9Z" />
-          </svg>
-        </button>
-        <div class="settings-popover is-hidden" id="settings-popover" role="dialog" aria-label="Settings">
-          <label class="settings-section language-control">
-            <span class="settings-label" id="settings-language-label">Language</span>
-            <select class="timezone-select language-select" id="language-select" aria-labelledby="settings-language-label">
-              <option value="en" lang="en">English</option>
-              <option value="zh" lang="zh-Hans">中文</option>
-              <option value="es" lang="es-419">Español</option>
-              <option value="ko" lang="ko">한국어</option>
-            </select>
-          </label>
-          <label class="settings-section language-control">
-            <span class="settings-label" id="settings-edition-label">World Cup</span>
-            <select class="timezone-select language-select" id="edition-select" aria-labelledby="settings-edition-label">
-              <option value="2026">2026</option>
-            </select>
-          </label>
-          <label class="settings-section settings-toggle-control">
-            <span class="settings-label" id="settings-dark-mode-label">Dark mode</span>
-            <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox" />
-            <span class="settings-toggle-track" aria-hidden="true"></span>
-          </label>
-          <a class="settings-section settings-link-control" id="settings-home-link" href="./" data-preserve-language aria-labelledby="settings-home-label">
-            <span class="settings-label" id="settings-home-label">Back to Home</span>
-          </a>
+      <div class="report-header-actions">
+        <div class="report-edition-shell">
+          <button class="settings-button edition-picker-button" id="edition-picker-button" type="button" aria-label="Choose World Cup year" aria-haspopup="dialog" aria-expanded="false" aria-controls="edition-picker-popover">
+            <svg class="settings-icon edition-picker-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="5.5" width="17" height="15" rx="2.5" />
+              <path d="M8 3.5v4M16 3.5v4M3.5 10h17" />
+            </svg>
+          </button>
+          <div class="standings-year-popover report-edition-popover is-hidden" id="edition-picker-popover" role="dialog" aria-label="Choose World Cup year">
+            <div class="standings-year-grid" id="edition-picker-grid"></div>
+          </div>
+        </div>
+
+        <div class="settings-shell report-settings">
+          <button class="settings-button" id="settings-button" type="button" aria-label="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-popover">
+            <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 0 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.3 7A2 2 0 0 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10 3V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 0 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 0 1 0 4H21a1.7 1.7 0 0 0-1.6.9Z" />
+            </svg>
+          </button>
+          <div class="settings-popover is-hidden" id="settings-popover" role="dialog" aria-label="Settings">
+            <label class="settings-section language-control">
+              <span class="settings-label" id="settings-language-label">Language</span>
+              <select class="timezone-select language-select" id="language-select" aria-labelledby="settings-language-label">
+                <option value="en" lang="en">English</option>
+                <option value="zh" lang="zh-Hans">中文</option>
+                <option value="es" lang="es-419">Español</option>
+                <option value="ko" lang="ko">한국어</option>
+              </select>
+            </label>
+            <label class="settings-section settings-toggle-control">
+              <span class="settings-label" id="settings-dark-mode-label">Dark mode</span>
+              <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox" />
+              <span class="settings-toggle-track" aria-hidden="true"></span>
+            </label>
+            <a class="settings-section settings-link-control" id="settings-home-link" href="./" data-preserve-language aria-labelledby="settings-home-label">
+              <span class="settings-label" id="settings-home-label">Back to Home</span>
+            </a>
+          </div>
         </div>
       </div>
     </header>
@@ -266,7 +274,7 @@
       <section class="content-section" aria-labelledby="highlights-title">
         <div class="section-heading">
           <div>
-            <h2 id="highlights-title" data-i18n="moreHighlights">Underdog highlights</h2>
+            <h2 id="highlights-title" data-i18n="moreHighlights">Stories worth remembering</h2>
           </div>
         </div>
 
@@ -354,7 +362,7 @@
     <span class="player-card player-card-floating highlight-player-card-floating" id="highlight-player-card" role="tooltip" aria-hidden="true" aria-live="polite"></span>
 
     <script type="module" src="football-typography.js?v=2026-07-20-final-cutover-1"></script>
-    <script type="module" src="highlights.js?v=2026-07-20-historical-next-previews-1"></script>
+    <script type="module" src="highlights.js?v=2026-07-21-ios-celebration-theme-1-coach-rationale-1-historical-stories-1"></script>
     <script type="module" src="chatbot.js?v=2026-07-20-final-cutover-1"></script>
   </body>
 </html>

@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "35a6d302a55dbbd77426e01b5ebdc2264271071e6328767e7729068eb484800f"
+  "sourceFingerprint": "17a4fae84a44c3a393575ed83dc9141bd86c02e61c27e90c78b49c21d90012b9"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "A finished 2026 archive, awards recap, and quieter off-season": "완료된 2026 아카이브, 수상 요약과 더 조용한 비시즌",
-  "A new Awards & Highlights recap preserves Spain's title story, the official awards, an editorial Best XI with 15 Honorable Mentions and Best Coach, and two-part evidence and footballing notes for all 26 displayed players; archived champions now use licensed team celebration photos where suitable sources exist, with trophy illustrations otherwise.": "새로운 수상 및 하이라이트 요약에는 스페인의 우승 이야기, 공식 수상 내역, 15명의 명예 후보와 최우수 감독을 포함한 편집 베스트 11, 화면에 표시되는 26명 전원의 근거와 축구적 평가를 나눈 두 단락 설명이 담깁니다. 역대 우승팀은 적절한 출처가 있을 경우 라이선스를 확보한 팀 우승 세리머니 사진을 사용하고, 그렇지 않은 경우에는 트로피 일러스트를 유지합니다.",
-  "Every archived edition now closes with three milestones toward the World Cup that followed it, while 2026 keeps its separate timeline toward 2030; both the homepage and recap open with a calm, reduced-motion-aware fade.": "이제 모든 역대 대회는 그다음 월드컵까지의 세 가지 이정표로 마무리되며, 2026년 대회는 2030년까지의 별도 타임라인을 유지합니다. 홈페이지와 요약 페이지는 동작 줄이기를 지원하는 차분한 페이드인으로 열립니다.",
-  "The completed 2026 World Cup is now preserved as an immutable, checksum-verified snapshot with all 104 results, official line-ups, standings, profiles, availability, awards, multilingual recaps, Ball Boy knowledge, and source provenance.": "완료된 2026 월드컵은 이제 104경기 결과, 공식 선발 명단, 순위표, 프로필, 출전 가능 정보, 수상 내역, 다국어 요약, Ball Boy 지식과 출처 근거를 모두 담은 변경 불가 체크섬 검증 스냅샷으로 보존됩니다."
+  "Deeper World Cup archives, rebuilt Best XIs, and every champion together": "더 깊어진 월드컵 아카이브, 새로 구성한 베스트 XI, 한자리에 모인 역대 챔피언",
+  "Every completed edition from 1930 through 2026 now opens with an authentic, team-first champion photo and a visible source link, using the strongest surviving squad celebration or winning-team portrait for each tournament.": "1930년부터 2026년까지 모든 완료된 대회는 이제 팀을 중심으로 한 실제 우승 사진과 보이는 출처 링크로 시작하며, 각 대회에서 남아 있는 가장 좋은 선수단 세리머니 또는 우승팀 단체 사진을 사용합니다.",
+  "Every World Cup from 1930 through 2022 now has a researched awards recap and a rebuilt editorial Best XI, with stronger selections, distinct Honorable Mentions, tournament-specific roles, and clear two-part reasons for every choice.": "1930년부터 2022년까지 모든 월드컵에 조사 기반 수상 요약과 새로 구성한 편집 베스트 XI가 추가되었습니다. 더 설득력 있는 선발, 중복 없는 명예 후보, 대회별 역할, 모든 선택에 대한 명확한 두 부분 근거를 제공합니다.",
+  "Historical player cards now have broader portrait, profile, name, club, shirt-number, and provenance coverage across English, Chinese, Spanish, and Korean, while Ball Boy can find the expanded archive player set.": "역대 선수 카드의 사진, 프로필, 이름, 소속팀, 등번호, 출처 정보가 영어, 중국어, 스페인어, 한국어 전반에서 더 넓게 보강되었으며, Ball Boy도 확장된 아카이브 선수 목록을 검색할 수 있습니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

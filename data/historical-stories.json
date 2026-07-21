@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "language": "en",
+  "domain": "historical-stories",
+  "methodology": "The existing English historical stories are preserved while every explicit team and player mention is marked with a canonical token so the interface can attach the correct edition-specific ranking pill or player information card. Coaches remain untagged.",
+  "editions": {
+    "1930": [
+      {
+        "title": "{team:Uruguay|Uruguay} changed the final at half-time",
+        "body": "{team:Argentina|Argentina} led 2–1, then {team:Uruguay|Uruguay} raised the pressure around {player:Luis Monti|Monti}, found {player:Pedro Cea|Cea}'s equalizer and kept attacking until {player:Héctor Castro|Castro} made it 4–2."
+      },
+      {
+        "title": "{player:Guillermo Stábile|Stábile} arrived and could not stop scoring",
+        "body": "Left out of {team:Argentina|Argentina}'s opener, {player:Guillermo Stábile|Guillermo Stábile} came in against {team:Mexico|Mexico}, scored a hat-trick and finished with eight goals in only four appearances."
+      },
+      {
+        "title": "The {team:United States|United States} reached the last four",
+        "body": "A team built largely from domestic and immigrant club football won its group without conceding; {player:Bert Patenaude|Patenaude}'s finishing made the run historically real, not a bracket footnote."
+      }
+    ],
+    "1934": [
+      {
+        "title": "{team:Italy|Italy} needed 210 minutes to beat {team:Spain|Spain}",
+        "body": "The quarter-final and replay became a test of attrition. {player:Ricardo Zamora|Zamora} starred in the first game; {player:Giuseppe Meazza|Meazza} settled the second while both teams carried the damage onward."
+      },
+      {
+        "title": "{player:Matthias Sindelar|Sindelar}'s {team:Austria|Austria} met the host wall",
+        "body": "The {team:Austria|Wunderteam} brought its interchanging attack to the semi-final, but {player:Luis Monti|Monti} and {player:Attilio Ferraris|Ferraris} compressed the middle and {player:Enrique Guaita|Guaita} turned one loose moment into the winner."
+      },
+      {
+        "title": "{player:Raimundo Orsi|Orsi} bent the final back toward {team:Italy|Italy}",
+        "body": "{team:Czechoslovakia|Czechoslovakia} led with 19 minutes left. {player:Raimundo Orsi|Orsi} cut in from the left to equalize before {player:Angelo Schiavio|Schiavio} completed the comeback in extra time."
+      }
+    ],
+    "1938": [
+      {
+        "title": "{team:Brazil|Brazil} and {team:Poland|Poland} made chaos beautiful",
+        "body": "{player:Leônidas|Leônidas} and {player:Ernest Wilimowski|Ernest Wilimowski} traded blows through extra time in a 6–5 classic, combining for seven goals and announcing the tournament's attacking mood."
+      },
+      {
+        "title": "{team:Italy|Italy} wore black, then played in colour",
+        "body": "Politics framed the quarter-final with hosts {team:France|France}; on the pitch, {team:Italy|Italy} escaped pressure through {player:Giuseppe Meazza|Meazza} and used {player:Silvio Piola|Piola}'s second-half double to win 3–1."
+      },
+      {
+        "title": "{player:Silvio Piola|Piola} and {player:Gino Colaussi|Colaussi} split the final",
+        "body": "{team:Hungary|Hungary} could track one line of {team:Italy|Italy}'s attack but not both. {player:Gino Colaussi|Colaussi} struck twice from the side, {player:Silvio Piola|Piola} twice through the centre, and the holders won 4–2."
+      }
+    ],
+    "1950": [
+      {
+        "title": "The Maracanã went quiet",
+        "body": "{team:Brazil|Brazil} needed only a draw and led after {player:Friaça|Friaça}'s goal. {player:Obdulio Varela|Varela} slowed the restart, {player:Alcides Ghiggia|Ghiggia} created {player:Juan Alberto Schiaffino|Schiaffino}'s equalizer, then beat {player:Barbosa|Barbosa} at the near post for 2–1."
+      },
+      {
+        "title": "The {team:United States|United States} shocked {team:England|England}",
+        "body": "{player:Joe Gaetjens|Joe Gaetjens}' first-half goal and {player:Frank Borghi|Frank Borghi}'s resistance produced a 1–0 result that looked impossible beside the two teams' footballing resources."
+      },
+      {
+        "title": "{team:Brazil|Brazil} looked inevitable—until it did not",
+        "body": "The hosts beat {team:Sweden|Sweden} 7–1 and {team:Spain|Spain} 6–1 in the final round. That context is what makes {team:Uruguay|Uruguay}'s control of the last 24 minutes so extraordinary."
+      }
+    ],
+    "1954": [
+      {
+        "title": "The favourites were beaten twice before the final",
+        "body": "{team:Hungary|Hungary} survived {team:Brazil|Brazil}'s fury and {team:Uruguay|Uruguay}'s extra-time comeback. Those wins proved their quality but drained a side already carrying {player:Ferenc Puskás|Puskás}' injury."
+      },
+      {
+        "title": "{player:Helmut Rahn|Rahn} had one more shot in him",
+        "body": "{team:West Germany|West Germany} recovered from 2–0 down inside 18 minutes. With six minutes left, {player:Helmut Rahn|Rahn} shifted the ball onto his left foot and found the bottom corner for 3–2."
+      },
+      {
+        "title": "{player:Sándor Kocsis|Kocsis} set a knockout-stage standard",
+        "body": "Four against {team:West Germany|West Germany}, two against {team:Brazil|Brazil} and two more in extra time against {team:Uruguay|Uruguay}: his 11-goal total still stands as the benchmark for anyone not named {player:Just Fontaine|Fontaine}."
+      }
+    ],
+    "1958": [
+      {
+        "title": "{team:Brazil|Brazil} found the XI that changed football",
+        "body": "After a goalless draw with {team:England|England}, {player:Garrincha|Garrincha}, {player:Pelé|Pelé} and {player:Zito|Zito} entered the side. The new balance produced 13 goals across the last four matches."
+      },
+      {
+        "title": "{player:Just Fontaine|Fontaine} reached thirteen",
+        "body": "{team:France|France}'s third-place match could have been an afterthought. {player:Just Fontaine|Fontaine} scored four against {team:West Germany|West Germany} instead, setting a single-tournament record that still looks untouchable."
+      },
+      {
+        "title": "A 17-year-old owned the final",
+        "body": "{player:Pelé|Pelé} scored twice against {team:Sweden|Sweden}, including the lift over {player:Bengt Gustavsson|Bengt Gustavsson} and volley that made the world's biggest match look like street football."
+      }
+    ],
+    "1962": [
+      {
+        "title": "{team:Brazil|Brazil} lost {player:Pelé|Pelé} and found another route",
+        "body": "{player:Amarildo|Amarildo} replaced the injured star, rescued the group match against {team:Spain|Spain} and scored in the final. The holders became narrower and tougher without losing their threat."
+      },
+      {
+        "title": "{player:Garrincha|Garrincha} took the tournament over",
+        "body": "{team:England|England} and hosts {team:Chile|Chile} both tried extra cover on his wing. He answered with four goals across the quarter- and semi-finals, plus the chances that did not reach the scoresheet."
+      },
+      {
+        "title": "{team:Chile|Chile} turned pressure into a podium",
+        "body": "Backed by a country recovering from the Valdivia earthquake, the hosts beat the {team:Soviet Union|Soviet Union} in the quarter-final and {team:Yugoslavia|Yugoslavia} for third place."
+      }
+    ],
+    "1966": [
+      {
+        "title": "{team:North Korea|North Korea} went 3–0 up—and {player:Eusébio|Eusébio} answered",
+        "body": "{team:North Korea|Korea DPR} led 3–0 after 25 minutes. {player:Eusébio|Eusébio} scored four times to turn {team:Portugal|Portugal}'s quarter-final into a 5–3 win."
+      },
+      {
+        "title": "{player:Bobby Charlton|Charlton} won the semi-final's central duel",
+        "body": "{team:Portugal|Portugal} had {player:Eusébio|Eusébio}, but {team:England|England} denied him clean transitions. {player:Bobby Charlton|Bobby Charlton} twice arrived outside the crowded holding line to make the difference."
+      },
+      {
+        "title": "{player:Geoff Hurst|Hurst} kept running after the argument",
+        "body": "His second goal remains debated; his third does not. With supporters already on the pitch, {player:Geoff Hurst|Hurst} finished {player:Bobby Moore|Moore}'s pass to complete the first World Cup final hat-trick."
+      }
+    ],
+    "1970": [
+      {
+        "title": "{player:Gordon Banks|Banks} saved the header {player:Pelé|Pelé} had already celebrated",
+        "body": "The leap, downward header and recovery save became the tournament's great duel inside one second. {team:Brazil|Brazil} still won, but {team:England|England} proved the champions could be stressed."
+      },
+      {
+        "title": "The Game of the Century had five extra-time goals",
+        "body": "{team:Italy|Italy} and {team:West Germany|West Germany} reached 1–1 after 90 minutes, then traded five more in extra time before {player:Gianni Rivera|Rivera} answered {player:Gerd Müller|Müller} for the 4–3 winner."
+      },
+      {
+        "title": "{player:Carlos Alberto|Carlos Alberto} completed a whole-team idea",
+        "body": "Eight of {team:Brazil|Brazil}'s ten outfield players were involved in the move, which ended with {player:Pelé|Pelé} pausing and releasing the captain. It was not just a great goal; it was the tournament distilled."
+      }
+    ],
+    "1974": [
+      {
+        "title": "{team:East Germany|East Germany} won the match that changed {team:West Germany|West Germany}",
+        "body": "{player:Jürgen Sparwasser|Jürgen Sparwasser}'s goal settled the only senior meeting between the states. The defeat also pushed the hosts into a more favourable second-round group and sharpened their selection."
+      },
+      {
+        "title": "The {team:Netherlands|Netherlands} pressed the holders off the pitch",
+        "body": "Against {team:Brazil|Brazil}, the {team:Netherlands|Dutch} pressure arrived in waves until {player:Johan Neeskens|Neeskens} and {player:Johan Cruyff|Cruyff} scored. It was Total Football's clearest World Cup demonstration."
+      },
+      {
+        "title": "{team:West Germany|West Germany} survived the opening minute",
+        "body": "The {team:Netherlands|Netherlands} scored before a {team:West Germany|West German} player touched the ball. {player:Berti Vogts|Vogts} then crowded {player:Johan Cruyff|Cruyff}, {player:Paul Breitner|Breitner} equalized and {player:Gerd Müller|Müller} needed one half-chance to win the final."
+      }
+    ],
+    "1978": [
+      {
+        "title": "{player:Mario Kempes|Kempes} moved deeper and became untrackable",
+        "body": "He did not score in the first group phase. Once used as a runner from midfield, he struck six times in four games and twice in the final."
+      },
+      {
+        "title": "{team:Tunisia|Tunisia} earned Africa's first World Cup win",
+        "body": "Trailing {team:Mexico|Mexico} at half-time, {team:Tunisia|Tunisia} adjusted its press and scored three after the break—a landmark result built on more than symbolism."
+      },
+      {
+        "title": "{player:Rob Rensenbrink|Rensenbrink} hit the post, then {team:Argentina|Argentina} took over",
+        "body": "The {team:Netherlands|Dutch} winger nearly won the final in the 90th minute. Extra time instead belonged to {player:Mario Kempes|Kempes}, whose second goal broke the emotional balance."
+      }
+    ],
+    "1982": [
+      {
+        "title": "{team:Algeria|Algeria} beat {team:West Germany|West Germany} and still went home",
+        "body": "{player:Rabah Madjer|Rabah Madjer} and {player:Lakhdar Belloumi|Lakhdar Belloumi} produced a historic 2–1 win. The later {team:West Germany|West Germany}–{team:Austria|Austria} result eliminated {team:Algeria|Algeria} and changed simultaneous-kickoff rules forever."
+      },
+      {
+        "title": "{player:Paolo Rossi|Rossi} ended {team:Brazil|Brazil}'s masterpiece",
+        "body": "{team:Brazil|Brazil} needed a draw and twice equalized. {player:Paolo Rossi|Rossi} kept attacking the blind side, scored a hat-trick and turned {team:Italy|Italy} from cautious survivor into favourite."
+      },
+      {
+        "title": "Seville swung from 1–3 to penalties",
+        "body": "{team:France|France} led {team:West Germany|West Germany} by two in extra time. {player:Karl-Heinz Rummenigge|Rummenigge} and {player:Klaus Fischer|Klaus Fischer} brought it back before the first shootout in World Cup history decided the semi-final."
+      }
+    ],
+    "1986": [
+      {
+        "title": "{team:Denmark|Denmark}'s perfect group became a warning",
+        "body": "They beat {team:West Germany|West Germany} and dismantled {team:Uruguay|Uruguay} 6–1, then {team:Spain|Spain} punished the same brave spacing in a 5–1 round-of-16 reversal."
+      },
+      {
+        "title": "{player:Diego Maradona|Maradona} scored two different kinds of impossible",
+        "body": "Against {team:England|England}, one goal exploited the officials and the next beat half the team. Together they captured his edge: opportunism followed by pure control."
+      },
+      {
+        "title": "{player:Jorge Burruchaga|Burruchaga} found the last open lane",
+        "body": "{team:West Germany|West Germany} came from 2–0 down and had the final tilting. {player:Diego Maradona|Maradona} received under pressure and released {player:Jorge Burruchaga|Burruchaga} before the recovering line could close."
+      }
+    ],
+    "1990": [
+      {
+        "title": "{team:Cameroon|Cameroon} made the quarter-final feel possible",
+        "body": "They beat holders {team:Argentina|Argentina}, then {player:Roger Milla|Milla} twice punished {team:Colombia|Colombia} in extra time. Only two {player:Gary Lineker|Lineker} penalties stopped them against {team:England|England}."
+      },
+      {
+        "title": "{player:Sergio Goycochea|Goycochea} kept moving the line",
+        "body": "{team:Argentina|Argentina} survived {team:Yugoslavia|Yugoslavia} and hosts {team:Italy|Italy} through shootouts. {player:Sergio Goycochea|Goycochea}'s patience—waiting for the taker's plant foot—became their tournament plan."
+      },
+      {
+        "title": "{player:Andreas Brehme|Brehme} settled a final built on inches",
+        "body": "{team:Argentina|Argentina} finished with nine men and {team:West Germany|West Germany} still needed an 85th-minute penalty. {player:Andreas Brehme|Brehme} opened his body and passed it low beyond {player:Sergio Goycochea|Goycochea}."
+      }
+    ],
+    "1994": [
+      {
+        "title": "{team:Saudi Arabia|Saudi Arabia} dribbled into the knockouts",
+        "body": "{player:Saeed Al-Owairan|Saeed Al-Owairan} ran from inside his own half through {team:Belgium|Belgium}'s defence. The goal secured a round-of-16 place in the country's first appearance."
+      },
+      {
+        "title": "{team:Bulgaria|Bulgaria} knocked out the holders",
+        "body": "{team:Germany|Germany} led until the 75th minute. {player:Hristo Stoichkov|Stoichkov} bent in a free-kick, {player:Yordan Letchkov|Letchkov} attacked the next cross, and a team that had never won a World Cup match reached the semi-finals."
+      },
+      {
+        "title": "The first final shootout came down to {player:Roberto Baggio|Baggio}",
+        "body": "After 120 scoreless minutes, {player:Cláudio Taffarel|Taffarel} saved from {player:Daniele Massaro|Massaro}. {player:Roberto Baggio|Baggio}'s miss ended it, but {team:Brazil|Brazil}'s control across seven matches had earned the fourth star."
+      }
+    ],
+    "1998": [
+      {
+        "title": "{player:Dennis Bergkamp|Bergkamp} needed three touches",
+        "body": "{player:Frank de Boer|Frank de Boer}'s 60-yard pass, one velvet control, a cut inside {player:Roberto Ayala|Ayala} and an outside-foot finish eliminated {team:Argentina|Argentina} in the 90th minute."
+      },
+      {
+        "title": "{player:Lilian Thuram|Thuram} scored the only two he ever needed",
+        "body": "{team:Croatia|Croatia} led the semi-final through {player:Davor Šuker|Šuker}. {player:Lilian Thuram|Thuram} immediately equalized, then curled in the winner—his only goals in 142 {team:France|France} appearances."
+      },
+      {
+        "title": "{player:Zinedine Zidane|Zidane} attacked {team:Brazil|Brazil}'s zonal seam",
+        "body": "{team:France|France} targeted corners between the near zonal defender and man-markers. {player:Zinedine Zidane|Zidane} reached that space twice, and the final was effectively over by half-time."
+      }
+    ],
+    "2002": [
+      {
+        "title": "{team:Senegal|Senegal} beat the holders, then kept going",
+        "body": "{player:Papa Bouba Diop|Papa Bouba Diop}'s goal shocked {team:France|France} on opening day. {player:Henri Camara|Henri Camara}'s golden goal against {team:Sweden|Sweden} later made {team:Senegal|Senegal} only Africa's second quarter-finalist."
+      },
+      {
+        "title": "{team:South Korea|South Korea} pressed into the semi-finals",
+        "body": "The hosts eliminated {team:Italy|Italy} and {team:Spain|Spain} in tense knockout matches. {player:Hong Myung-bo|Hong Myung-bo}'s line and a relentless midfield press made the run tactically credible, whatever the refereeing controversy."
+      },
+      {
+        "title": "{player:Ronaldo|Ronaldo} finished the recovery",
+        "body": "{player:Oliver Kahn|Kahn}'s first error of the tournament gave him the opening; {player:Kleberson|Kleberson} and {player:Rivaldo|Rivaldo} created the second. {player:Ronaldo|Ronaldo} scored both and left Yokohama with eight."
+      }
+    ],
+    "2006": [
+      {
+        "title": "{team:Argentina|Argentina} assembled the goal of the tournament",
+        "body": "Twenty-four passes moved {team:Serbia and Montenegro|Serbia and Montenegro} until {player:Esteban Cambiasso|Cambiasso} finished. It was Pekerman's patient positional football at full speed."
+      },
+      {
+        "title": "{team:Italy|Italy} attacked before penalties could arrive",
+        "body": "Lippi ended the semi-final with four forwards on the pitch. {player:Fabio Grosso|Grosso} and {player:Alessandro Del Piero|Del Piero} scored in the final two minutes of extra time to silence Dortmund."
+      },
+      {
+        "title": "The final turned on one last duel",
+        "body": "{player:Zinedine Zidane|Zidane}'s Panenka and {player:Marco Materazzi|Materazzi}'s header made it 1–1. Their extra-time confrontation removed {team:France|France}'s creator; {team:Italy|Italy} converted all five penalties."
+      }
+    ],
+    "2010": [
+      {
+        "title": "{team:New Zealand|New Zealand} left unbeaten",
+        "body": "The 78th-ranked team drew all three matches, including one with defending champions {team:Italy|Italy}. Their compact 3-4-3 gave up territory without giving up the tournament."
+      },
+      {
+        "title": "{team:Ghana|Ghana} came one kick from history",
+        "body": "{player:Luis Suárez|Suárez} handled on the line in the 120th minute, {player:Asamoah Gyan|Gyan} hit the bar from the penalty and {team:Uruguay|Uruguay} survived the shootout. Africa's first semi-final disappeared in seconds."
+      },
+      {
+        "title": "{player:Andrés Iniesta|Iniesta} found the right half-space at last",
+        "body": "The final was bruising and narrow. {player:Cesc Fàbregas|Fàbregas} released {player:Andrés Iniesta|Iniesta} in the 116th minute, and {team:Spain|Spain}'s most persistent interior runner finally reached open grass."
+      }
+    ],
+    "2014": [
+      {
+        "title": "{team:Costa Rica|Costa Rica} won the champions' group",
+        "body": "Drawn with {team:Uruguay|Uruguay}, {team:Italy|Italy} and {team:England|England}, {team:Costa Rica|Costa Rica} pressed intelligently, conceded twice in five matches and reached a quarter-final shootout."
+      },
+      {
+        "title": "{team:Germany|Germany} scored five before {team:Brazil|Brazil} could reset",
+        "body": "Between the 11th and 29th minutes, {team:Brazil|Brazil}'s spacing and emotional control collapsed. {team:Germany|Germany} kept making the extra pass and finished the semi-final 7–1."
+      },
+      {
+        "title": "{player:Mario Götze|Götze} made a substitute's final touch",
+        "body": "{player:André Schürrle|Schürrle}'s cross arrived behind him. {player:Mario Götze|Götze} cushioned it on his chest and volleyed across {player:Sergio Romero|Romero} in the 113th minute—the bench winning the final for Löw."
+      }
+    ],
+    "2018": [
+      {
+        "title": "{team:Japan|Japan} nearly completed the perfect underdog plan",
+        "body": "{team:Japan|Japan} led {team:Belgium|Belgium} 2–0 through brave positional play. {team:Belgium|Belgium}'s height changed the tie, then a 14-second counter from {player:Thibaut Courtois|Courtois} to {player:Nacer Chadli|Chadli} won it at 94:19."
+      },
+      {
+        "title": "{team:Belgium|Belgium} used a false nine to eliminate {team:Brazil|Brazil}",
+        "body": "{player:Romelu Lukaku|Lukaku} moved right, {player:Kevin De Bruyne|De Bruyne} started centrally and {player:Eden Hazard|Hazard} held the left. The shape pulled {team:Brazil|Brazil} apart before {player:Thibaut Courtois|Courtois} protected the 2–1 lead."
+      },
+      {
+        "title": "{team:France|France} kept winning the game that appeared",
+        "body": "The final brought an own goal, set-piece pressure, {team:Croatia|Croatian} possession and open transitions. {team:France|France} had an answer for each phase and four different routes to goal."
+      }
+    ],
+    "2022": [
+      {
+        "title": "{team:Saudi Arabia|Saudi Arabia} broke {team:Argentina|Argentina}'s line",
+        "body": "Hervé Renard's high block kept catching {team:Argentina|Argentina} offside, then {player:Saleh Al-Shehri|Al-Shehri} and {player:Salem Al-Dawsari|Al-Dawsari} turned two second-half openings into the tournament's greatest upset."
+      },
+      {
+        "title": "{team:Morocco|Morocco} made defending feel expansive",
+        "body": "They eliminated {team:Spain|Spain} and {team:Portugal|Portugal} while still progressing through {player:Achraf Hakimi|Hakimi}, {player:Azzedine Ounahi|Ounahi} and {player:Sofiane Boufal|Boufal}. The first African semi-finalist was organized, not merely resistant."
+      },
+      {
+        "title": "The final contained three different matches",
+        "body": "{team:Argentina|Argentina} dominated, {player:Kylian Mbappé|Mbappé} forced extra time, then both scored again. {player:Emiliano Martínez|Martínez}'s 123rd-minute save and {player:Gonzalo Montiel|Montiel}'s penalty finally separated them."
+      }
+    ]
+  }
+}

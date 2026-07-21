@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-07-20T23:01:03-07:00",
+  "updatedAt": "2026-07-21T12:59:34-07:00",
   "releases": [
+    {
+      "date": "2026-07-21",
+      "title": "Deeper World Cup archives, rebuilt Best XIs, and every champion together",
+      "titleZh": "更深入的世界杯存档、重建的最佳阵容与历届冠军合影",
+      "highlights": [
+        "Every World Cup from 1930 through 2022 now has a researched awards recap and a rebuilt editorial Best XI, with stronger selections, distinct Honorable Mentions, tournament-specific roles, and clear two-part reasons for every choice.",
+        "Historical player cards now have broader portrait, profile, name, club, shirt-number, and provenance coverage across English, Chinese, Spanish, and Korean, while Ball Boy can find the expanded archive player set.",
+        "Every completed edition from 1930 through 2026 now opens with an authentic, team-first champion photo and a visible source link, using the strongest surviving squad celebration or winning-team portrait for each tournament.",
+        "The Highlights page now has a dedicated calendar picker for moving between editions, richer localized Stories worth remembering, and champion-colored browser chrome that reaches the top of iOS screens."
+      ],
+      "highlightsZh": [
+        "1930年至2022年的每届世界杯现在都有经过研究的奖项回顾和重新评选的编辑最佳阵容，选择更扎实，荣誉提名不与首发重复，位置符合当届比赛，并为每项选择提供清晰的两段理由。",
+        "历史球员卡现在在英语、中文、西班牙语和韩语中提供更完整的照片、资料、姓名、俱乐部、球衣号码与来源记录，Ball Boy也能检索扩充后的历史球员库。",
+        "1930年至2026年的每届已结束赛事现在都会以真实且以球队为主的冠军照片开场，并显示来源链接；每届采用现存最有代表性的全队庆祝照或冠军合影。",
+        "亮点页面现在提供独立的日历年份选择器，方便切换不同届赛事，并加入更丰富的本地化“值得记住的故事”；冠军配色的浏览器顶部也会延伸至iOS屏幕最上方。"
+      ]
+    },
     {
       "date": "2026-07-20",
       "title": "A finished 2026 archive, awards recap, and quieter off-season",
@@ -8,7 +25,7 @@
       "highlights": [
         "The completed 2026 World Cup is now preserved as an immutable, checksum-verified snapshot with all 104 results, official line-ups, standings, profiles, availability, awards, multilingual recaps, Ball Boy knowledge, and source provenance.",
         "A new Awards & Highlights recap preserves Spain's title story, the official awards, an editorial Best XI with 15 Honorable Mentions and Best Coach, and two-part evidence and footballing notes for all 26 displayed players; archived champions now use licensed team celebration photos where suitable sources exist, with trophy illustrations otherwise.",
-        "Every archived edition now closes with three milestones toward the World Cup that followed it, while 2026 keeps its separate timeline toward 2030; both the homepage and recap open with a calm, reduced-motion-aware fade.",
+        "Every archived edition now closes with a consistent See you next time timeline whose three completed milestones all carry dates and green ticks, while 2026 keeps its separate in-progress timeline toward 2030; both the homepage and recap open with a calm, reduced-motion-aware fade.",
         "Outside an active tournament window, the homepage, Ball Boy, Report issue, and live-data API now use static edition data without polling providers; matchday schedules are retired, with monthly archive health checks and reviewed late-correction paths retained.",
         "On phones, the Tournament view can now zoom out to 70%, while round labels and all 29 connector rails scale and stay aligned without adding controls.",
         "The post-tournament empty state now labels its recap link View highlights so the action matches the page it opens."
@@ -16,7 +33,7 @@
       "highlightsZh": [
         "2026年世界杯现已保存为不可变且经过校验和验证的快照，涵盖全部104场比赛结果、官方阵容、积分榜、球员资料、出场状态、奖项、多语言回顾、Ball Boy知识和来源依据。",
         "全新的“奖项与亮点”回顾保存了西班牙夺冠故事、官方奖项、包含15名荣誉提名球员和最佳教练的编辑评选最佳阵容，并为全部26名展示球员提供分为数据依据与足球表现的两段说明；历史冠军在有合适授权来源时会展示球队庆祝照片，否则继续使用奖杯插画。",
-        "每届历史赛事现在都会以三个时间线节点展望紧随其后的世界杯，2026年则保留独立的2030年时间线；首页与回顾页都会以平静且支持减少动态效果的淡入方式打开。",
+        "每届历史赛事现在都会以统一的“下次见”时间线收尾，三个已完成节点均显示日期和绿色对勾；2026年则保留独立且仍在进行中的2030年时间线；首页与回顾页都会以平静且支持减少动态效果的淡入方式打开。",
         "在赛事非活跃时段，首页、Ball Boy、“报告问题”页面和实时数据API现在会使用静态赛事数据，不再轮询数据提供方；比赛日定时任务已停用，同时保留每月存档健康检查和经审核的赛后更正流程。",
         "在手机端，“赛事”视图现在可缩小至70%，轮次标签与全部29条连接线会同步缩放并保持对齐，无需新增控件。",
         "赛事结束后的空状态现在将回顾链接标为“查看亮点”，使操作名称与打开的页面一致。"

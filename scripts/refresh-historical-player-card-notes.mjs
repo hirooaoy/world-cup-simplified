@@ -1042,6 +1042,7 @@ function addFixtureFacts(facts, fixture) {
 }
 
 const dryRun = hasArg("dry-run");
+const missingOnly = hasArg("missing-only");
 const zhOnly = hasArg("zh-only");
 const [profilesData, historyData] = await Promise.all([readJson(profilesPath), readJson(historyPath)]);
 const profiles = profilesData.profiles || {};
@@ -1058,11 +1059,29 @@ for (const fixture of historyData.fixtures || []) {
 let updated = 0;
 for (const fact of facts.values()) {
   const profile = fact.profile;
-  const styleNote = zhOnly ? profile.styleNote : cleanNote(buildStyleNote(profile, fact));
-  const styleNoteZh = cleanNoteZh(buildStyleNoteZh(profile, fact));
-  const note = zhOnly ? profile.note : cleanNote(buildNote(profile, fact));
-  const noteZh = cleanNoteZh(buildNoteZh(profile, fact));
-  const skills = refinedSkills(profile);
+  if (
+    missingOnly &&
+    [profile.styleNote, profile.styleNoteZh, profile.note, profile.noteZh]
+      .every((value) => String(value || "").trim())
+  ) {
+    continue;
+  }
+  const hasText = (value) => Boolean(String(value || "").trim());
+  const styleNote = zhOnly || (missingOnly && hasText(profile.styleNote))
+    ? profile.styleNote
+    : cleanNote(buildStyleNote(profile, fact));
+  const styleNoteZh = missingOnly && hasText(profile.styleNoteZh)
+    ? profile.styleNoteZh
+    : cleanNoteZh(buildStyleNoteZh(profile, fact));
+  const note = zhOnly || (missingOnly && hasText(profile.note))
+    ? profile.note
+    : cleanNote(buildNote(profile, fact));
+  const noteZh = missingOnly && hasText(profile.noteZh)
+    ? profile.noteZh
+    : cleanNoteZh(buildNoteZh(profile, fact));
+  const skills = missingOnly && Array.isArray(profile.skills) && profile.skills.length
+    ? profile.skills
+    : refinedSkills(profile);
   if (
     profile.styleNote !== styleNote ||
     profile.styleNoteZh !== styleNoteZh ||

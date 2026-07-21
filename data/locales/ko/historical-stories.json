@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "language": "ko",
+  "domain": "historical-stories",
+  "methodology": "영어 원문의 사실과 점수, 이야기 순서를 그대로 유지하면서 2026년 이야기와 같은 짧고 자연스러운 문장으로 옮겼다. 모든 명시적 대표팀과 선수 이름에는 해당 대회의 역사적 순위와 선수 정보 카드를 연결할 수 있도록 검증된 정규 이름 토큰을 붙였다.",
+  "editions": {
+    "1930": [
+      {
+        "title": "{team:Uruguay|우루과이}는 하프타임에 결승의 흐름을 바꿨다",
+        "body": "{team:Argentina|아르헨티나}가 2-1로 앞섰지만, {team:Uruguay|우루과이}는 {player:Luis Monti|루이스 몬티} 주변의 압박을 높였다. {player:Pedro Cea|페드로 세아}가 동점골을 넣었고 계속 몰아붙인 끝에 {player:Héctor Castro|엑토르 카스트로}가 4-2를 만들었다."
+      },
+      {
+        "title": "{player:Guillermo Stábile|기예르모 스타빌레}는 투입되자마자 멈추지 않고 득점했다",
+        "body": "{team:Argentina|아르헨티나}의 첫 경기에서 빠졌던 {player:Guillermo Stábile|기예르모 스타빌레}는 {team:Mexico|멕시코}전에 들어와 해트트릭을 기록했다. 그는 단 네 경기에서 8골을 넣으며 대회를 마쳤다."
+      },
+      {
+        "title": "{team:United States|미국}은 4강에 올랐다",
+        "body": "국내와 이민자 클럽 축구 출신 선수들이 중심이 된 팀은 무실점으로 조를 통과했다. {player:Bert Patenaude|버트 패트노드}의 결정력이 이 돌풍을 단순한 대진표의 우연이 아닌 역사로 만들었다."
+      }
+    ],
+    "1934": [
+      {
+        "title": "{team:Italy|이탈리아}는 {team:Spain|스페인}을 꺾는 데 210분이 필요했다",
+        "body": "8강전과 재경기는 소모전이 됐다. 첫 경기에서는 {player:Ricardo Zamora|리카르도 사모라}가 빛났고, 두 번째 경기에서는 {player:Giuseppe Meazza|주세페 메아차}가 승부를 갈랐다. 두 팀 모두 그 후유증을 안고 다음 경기를 치렀다."
+      },
+      {
+        "title": "{player:Matthias Sindelar|마티아스 진델라}의 {team:Austria|오스트리아}는 개최국의 벽을 만났다",
+        "body": "{team:Austria|분더팀}은 유기적인 공격을 준결승까지 가져왔지만, {player:Luis Monti|루이스 몬티}와 {player:Attilio Ferraris|아틸리오 페라리스}가 중앙을 좁혔다. {player:Enrique Guaita|엔리케 과이타}는 한 번의 흐트러진 순간을 결승골로 바꿨다."
+      },
+      {
+        "title": "{player:Raimundo Orsi|라이문도 오르시}는 결승을 다시 {team:Italy|이탈리아} 쪽으로 돌렸다",
+        "body": "{team:Czechoslovakia|체코슬로바키아}가 종료 19분 전까지 앞섰다. {player:Raimundo Orsi|라이문도 오르시}가 왼쪽에서 안으로 들어와 동점골을 넣었고, 연장전에서 {player:Angelo Schiavio|안젤로 스키아비오}가 역전을 완성했다."
+      }
+    ],
+    "1938": [
+      {
+        "title": "{team:Brazil|브라질}과 {team:Poland|폴란드}는 혼돈을 명승부로 만들었다",
+        "body": "{player:Leônidas|레오니다스}와 {player:Ernest Wilimowski|에른스트 빌리모프스키}는 연장전까지 골을 주고받았다. 두 선수가 7골을 합작한 6-5 경기는 대회의 공격적인 분위기를 한 번에 보여 줬다."
+      },
+      {
+        "title": "{team:Italy|이탈리아}는 검은 유니폼을 입었지만 축구는 화려했다",
+        "body": "정치가 개최국 {team:France|프랑스}와의 8강전을 둘러쌌다. 경기에서는 {team:Italy|이탈리아}가 {player:Giuseppe Meazza|주세페 메아차}를 통해 압박을 벗어났고, {player:Silvio Piola|실비오 피올라}가 후반 두 골을 넣어 3-1로 이겼다."
+      },
+      {
+        "title": "{player:Silvio Piola|실비오 피올라}와 {player:Gino Colaussi|지노 콜라우시}가 결승의 골을 나눴다",
+        "body": "{team:Hungary|헝가리}는 {team:Italy|이탈리아} 공격의 한 줄은 막을 수 있었지만 두 줄 모두는 막지 못했다. {player:Gino Colaussi|지노 콜라우시}가 측면에서 두 골, {player:Silvio Piola|실비오 피올라}가 중앙에서 두 골을 넣어 디펜딩 챔피언이 4-2로 이겼다."
+      }
+    ],
+    "1950": [
+      {
+        "title": "마라카낭이 조용해졌다",
+        "body": "무승부만 해도 됐던 {team:Brazil|브라질}은 {player:Friaça|프리아사}의 골로 앞섰다. {player:Obdulio Varela|오브둘리오 바렐라}가 재개를 늦춘 뒤 {player:Alcides Ghiggia|알시데스 기지아}가 {player:Juan Alberto Schiaffino|후안 알베르토 스키아피노}의 동점골을 만들었고, 이어 {player:Barbosa|바르보사}의 가까운 쪽을 뚫어 2-1을 완성했다."
+      },
+      {
+        "title": "{team:United States|미국}이 {team:England|잉글랜드}를 무너뜨렸다",
+        "body": "{player:Joe Gaetjens|조 가첸스}의 전반 골과 {player:Frank Borghi|프랭크 보르기}의 버티기가 1-0 승리를 만들었다. 두 팀의 축구 자원을 비교하면 믿기 어려운 결과였다."
+      },
+      {
+        "title": "{team:Brazil|브라질}은 필연처럼 보였다. 마지막 경기 전까지는",
+        "body": "개최국은 최종 리그에서 {team:Sweden|스웨덴}을 7-1, {team:Spain|스페인}을 6-1로 이겼다. 그래서 {team:Uruguay|우루과이}가 마지막 24분을 지배한 장면은 더욱 놀라웠다."
+      }
+    ],
+    "1954": [
+      {
+        "title": "우승 후보는 결승 전에 두 번이나 거센 시험을 넘었다",
+        "body": "{team:Hungary|헝가리}는 {team:Brazil|브라질}의 격렬한 도전과 {team:Uruguay|우루과이}의 연장전 추격을 견뎠다. 두 승리는 실력을 증명했지만, 이미 {player:Ferenc Puskás|푸슈카시 페렌츠}의 부상까지 안고 있던 팀의 힘도 빼놓았다."
+      },
+      {
+        "title": "{player:Helmut Rahn|헬무트 란}에게는 한 번의 슛이 더 남아 있었다",
+        "body": "{team:West Germany|서독}은 18분 만에 0-2에서 따라잡았다. 종료 6분 전 {player:Helmut Rahn|헬무트 란}이 공을 왼발 쪽으로 옮긴 뒤 낮은 구석을 찔러 3-2를 만들었다."
+      },
+      {
+        "title": "{player:Sándor Kocsis|코치시 샨도르}는 토너먼트 득점의 기준을 세웠다",
+        "body": "{team:West Germany|서독}전 4골, {team:Brazil|브라질}전 2골, {team:Uruguay|우루과이}와의 연장전에서 다시 2골을 넣었다. 대회 11골은 아직도 {player:Just Fontaine|쥐스트 퐁텐}이 아닌 선수 가운데 최고 기록이다."
+      }
+    ],
+    "1958": [
+      {
+        "title": "{team:Brazil|브라질}은 축구를 바꾼 선발진을 찾았다",
+        "body": "{team:England|잉글랜드}와 0-0으로 비긴 뒤 {player:Garrincha|가린샤}, {player:Pelé|펠레}, {player:Zito|지토}가 선발에 들어왔다. 새 균형을 찾은 팀은 마지막 네 경기에서 13골을 넣었다."
+      },
+      {
+        "title": "{player:Just Fontaine|쥐스트 퐁텐}은 13골에 도달했다",
+        "body": "{team:France|프랑스}의 3위 결정전은 힘이 빠진 경기가 될 수도 있었다. 하지만 {player:Just Fontaine|쥐스트 퐁텐}은 {team:West Germany|서독}을 상대로 네 골을 넣어 여전히 깨지지 않을 듯한 단일 대회 기록을 세웠다."
+      },
+      {
+        "title": "17세 선수가 결승을 지배했다",
+        "body": "{player:Pelé|펠레}는 {team:Sweden|스웨덴}을 상대로 두 골을 넣었다. 특히 {player:Bengt Gustavsson|벵트 구스타브손}을 넘긴 뒤 발리로 마무리한 골은 세계 최대의 경기를 길거리 축구처럼 보이게 했다."
+      }
+    ],
+    "1962": [
+      {
+        "title": "{team:Brazil|브라질}은 {player:Pelé|펠레}를 잃고도 다른 길을 찾았다",
+        "body": "부상당한 스타를 대신한 {player:Amarildo|아마릴도}는 {team:Spain|스페인}과의 조별리그를 구했고 결승에서도 득점했다. 디펜딩 챔피언은 더 좁고 단단해졌지만 공격의 위협은 잃지 않았다."
+      },
+      {
+        "title": "{player:Garrincha|가린샤}가 대회를 장악했다",
+        "body": "{team:England|잉글랜드}와 개최국 {team:Chile|칠레}는 모두 그의 측면에 수비를 더 붙였다. 그는 8강과 준결승에서 네 골을 넣었고, 기록에 남지 않은 기회까지 계속 만들었다."
+      },
+      {
+        "title": "{team:Chile|칠레}는 압박을 시상대로 바꿨다",
+        "body": "발디비아 지진에서 회복 중이던 나라의 응원을 받은 개최국은 8강에서 {team:Soviet Union|소련}을 꺾었다. 이어 {team:Yugoslavia|유고슬라비아}를 이기고 3위를 차지했다."
+      }
+    ],
+    "1966": [
+      {
+        "title": "{team:North Korea|북한}이 3-0으로 앞서자 {player:Eusébio|에우제비우}가 응답했다",
+        "body": "{team:North Korea|북한}은 25분 만에 3-0으로 앞섰다. {player:Eusébio|에우제비우}가 네 골을 넣으며 {team:Portugal|포르투갈}의 8강전을 5-3 승리로 뒤집었다."
+      },
+      {
+        "title": "{player:Bobby Charlton|보비 찰턴}이 준결승의 중앙 싸움을 이겼다",
+        "body": "{team:Portugal|포르투갈}에는 {player:Eusébio|에우제비우}가 있었지만 {team:England|잉글랜드}는 깔끔한 전환을 허용하지 않았다. {player:Bobby Charlton|보비 찰턴}은 혼잡한 수비형 미드필더 라인 바깥으로 두 번 침투해 차이를 만들었다."
+      },
+      {
+        "title": "논란 뒤에도 {player:Geoff Hurst|제프 허스트}는 계속 달렸다",
+        "body": "두 번째 골은 여전히 논쟁거리지만 세 번째 골은 그렇지 않다. 관중이 이미 경기장에 들어온 순간, {player:Geoff Hurst|제프 허스트}는 {player:Bobby Moore|보비 무어}의 패스를 마무리해 월드컵 결승 최초의 해트트릭을 완성했다."
+      }
+    ],
+    "1970": [
+      {
+        "title": "{player:Gordon Banks|고든 뱅크스}는 {player:Pelé|펠레}가 이미 골이라 생각한 헤더를 막았다",
+        "body": "도약과 내리꽂는 헤더, 되돌아와 쳐낸 선방이 한순간에 이어졌다. {team:Brazil|브라질}이 결국 이겼지만 {team:England|잉글랜드}는 챔피언도 흔들 수 있음을 보여 줬다."
+      },
+      {
+        "title": "세기의 경기는 연장전에서만 다섯 골이 나왔다",
+        "body": "{team:Italy|이탈리아}와 {team:West Germany|서독}은 90분을 1-1로 마친 뒤 연장전에서 다섯 골을 더 주고받았다. {player:Gianni Rivera|잔니 리베라}가 {player:Gerd Müller|게르트 뮐러}의 골에 곧바로 답하며 4-3 승리를 만들었다."
+      },
+      {
+        "title": "{player:Carlos Alberto|카를루스 아우베르투}가 팀 전체의 생각을 완성했다",
+        "body": "{team:Brazil|브라질}의 필드 플레이어 10명 중 8명이 이 공격에 관여했다. 마지막에는 {player:Pelé|펠레}가 잠시 멈춘 뒤 주장에게 내줬다. 위대한 골을 넘어 대회 전체를 압축한 장면이었다."
+      }
+    ],
+    "1974": [
+      {
+        "title": "{team:East Germany|동독}은 {team:West Germany|서독}을 바꾼 경기에서 이겼다",
+        "body": "{player:Jürgen Sparwasser|위르겐 스파바서}의 골이 두 국가대표팀의 유일한 성인 맞대결을 결정했다. 패배는 개최국을 더 유리한 2차 조별리그로 보냈고 선발 구성을 다듬는 계기도 됐다."
+      },
+      {
+        "title": "{team:Netherlands|네덜란드}는 압박으로 디펜딩 챔피언을 밀어냈다",
+        "body": "{team:Brazil|브라질}을 상대로 {team:Netherlands|네덜란드}의 압박이 파도처럼 이어졌고 {player:Johan Neeskens|요한 네이스컨스}와 {player:Johan Cruyff|요한 크라위프}가 득점했다. 토털 풋볼이 월드컵에서 가장 선명하게 드러난 경기였다."
+      },
+      {
+        "title": "{team:West Germany|서독}은 시작 1분을 견뎌 냈다",
+        "body": "{team:Netherlands|네덜란드}는 {team:West Germany|서독} 선수가 공을 만지기 전에 득점했다. 이후 {player:Berti Vogts|베르티 포크츠}가 {player:Johan Cruyff|요한 크라위프}를 밀착 수비했고, {player:Paul Breitner|파울 브라이트너}가 동점골을 넣은 뒤 {player:Gerd Müller|게르트 뮐러}가 단 한 번의 기회를 결승골로 바꿨다."
+      }
+    ],
+    "1978": [
+      {
+        "title": "{player:Mario Kempes|마리오 켐페스}는 더 깊이 내려오며 막을 수 없는 선수가 됐다",
+        "body": "첫 조별리그에서는 득점하지 못했다. 미드필드에서 뛰어드는 역할을 맡자 네 경기에서 6골을 넣었고 결승에서도 두 번 득점했다."
+      },
+      {
+        "title": "{team:Tunisia|튀니지}가 아프리카의 월드컵 첫 승리를 거뒀다",
+        "body": "{team:Mexico|멕시코}에 뒤진 채 전반을 마친 {team:Tunisia|튀니지}는 압박 방식을 조정했다. 후반에 세 골을 넣으며 상징성만으로 설명할 수 없는 역사적 승리를 만들었다."
+      },
+      {
+        "title": "{player:Rob Rensenbrink|로프 렌센브링크}의 슛이 골대를 때린 뒤 {team:Argentina|아르헨티나}가 지배했다",
+        "body": "{team:Netherlands|네덜란드} 윙어는 90분에 결승골을 넣을 뻔했다. 그러나 연장전은 {player:Mario Kempes|마리오 켐페스}의 시간이었고, 그의 두 번째 골이 경기의 감정적 균형을 무너뜨렸다."
+      }
+    ],
+    "1982": [
+      {
+        "title": "{team:Algeria|알제리}는 {team:West Germany|서독}을 꺾고도 탈락했다",
+        "body": "{player:Rabah Madjer|라바 마제르}와 {player:Lakhdar Belloumi|라크다르 벨루미}가 역사적인 2-1 승리를 만들었다. 이후 {team:West Germany|서독}과 {team:Austria|오스트리아}의 경기 결과로 {team:Algeria|알제리}가 탈락했고, 월드컵은 마지막 조별리그 경기를 동시에 열게 됐다."
+      },
+      {
+        "title": "{player:Paolo Rossi|파올로 로시}가 {team:Brazil|브라질}의 걸작을 끝냈다",
+        "body": "{team:Brazil|브라질}은 무승부만 필요했고 두 번이나 동점을 만들었다. 하지만 {player:Paolo Rossi|파올로 로시}가 수비의 시야 밖을 계속 파고들어 해트트릭을 완성했고, {team:Italy|이탈리아}는 조심스러운 생존자에서 우승 후보로 바뀌었다."
+      },
+      {
+        "title": "세비야의 경기는 1-3에서 승부차기로 흘렀다",
+        "body": "{team:France|프랑스}는 연장전에서 {team:West Germany|서독}에 두 골 앞섰다. {player:Karl-Heinz Rummenigge|카를하인츠 루메니게}와 {player:Klaus Fischer|클라우스 피셔}가 동점을 만들었고, 월드컵 역사상 첫 승부차기가 준결승의 승자를 가렸다."
+      }
+    ],
+    "1986": [
+      {
+        "title": "{team:Denmark|덴마크}의 완벽한 조별리그는 경고가 됐다",
+        "body": "조별리그에서 {team:West Germany|서독}을 꺾고 {team:Uruguay|우루과이}를 6-1로 무너뜨렸다. 하지만 16강에서는 같은 과감한 간격을 {team:Spain|스페인}이 공략해 5-1로 뒤집었다."
+      },
+      {
+        "title": "{player:Diego Maradona|디에고 마라도나}는 서로 다른 두 종류의 불가능한 골을 넣었다",
+        "body": "{team:England|잉글랜드}전 첫 골은 심판의 시선을 피했고, 다음 골은 상대 절반을 제쳤다. 기회를 놓치지 않는 영리함과 순수한 지배력이 연달아 드러난 장면이었다."
+      },
+      {
+        "title": "{player:Jorge Burruchaga|호르헤 부루차가}가 마지막 열린 길을 찾았다",
+        "body": "{team:West Germany|서독}이 0-2에서 따라붙으며 결승의 흐름을 가져오고 있었다. 압박 속에서 공을 받은 {player:Diego Maradona|디에고 마라도나}가 수비선이 닫히기 전에 {player:Jorge Burruchaga|호르헤 부루차가}를 전진시켰다."
+      }
+    ],
+    "1990": [
+      {
+        "title": "{team:Cameroon|카메룬}은 8강이 가능하다고 느끼게 했다",
+        "body": "디펜딩 챔피언 {team:Argentina|아르헨티나}를 꺾은 뒤 연장전에서 {player:Roger Milla|로제 밀라}의 두 골로 {team:Colombia|콜롬비아}도 넘었다. {player:Gary Lineker|게리 리네커}의 페널티 두 골만이 {team:England|잉글랜드}전에서 돌풍을 멈췄다."
+      },
+      {
+        "title": "{player:Sergio Goycochea|세르히오 고이코체아}는 끝까지 골라인 위에서 움직였다",
+        "body": "{team:Argentina|아르헨티나}는 {team:Yugoslavia|유고슬라비아}와 개최국 {team:Italy|이탈리아}를 승부차기로 넘었다. 키커의 디딤발을 기다리는 {player:Sergio Goycochea|세르히오 고이코체아}의 인내심은 팀의 대회 전략이 됐다."
+      },
+      {
+        "title": "{player:Andreas Brehme|안드레아스 브레메}가 작은 차이로 갈린 결승을 끝냈다",
+        "body": "{team:Argentina|아르헨티나}는 9명으로 경기를 마쳤고, {team:West Germany|서독}은 85분 페널티가 필요했다. {player:Andreas Brehme|안드레아스 브레메}는 몸을 열어 {player:Sergio Goycochea|세르히오 고이코체아}의 낮은 쪽으로 공을 밀어 넣었다."
+      }
+    ],
+    "1994": [
+      {
+        "title": "{team:Saudi Arabia|사우디아라비아}는 드리블 한 번으로 16강에 올랐다",
+        "body": "{player:Saeed Al-Owairan|사이드 알 오와이란}은 자기 진영에서 출발해 {team:Belgium|벨기에} 수비를 가로질렀다. 그 골은 첫 출전국의 16강 진출을 확정했다."
+      },
+      {
+        "title": "{team:Bulgaria|불가리아}가 디펜딩 챔피언을 탈락시켰다",
+        "body": "{team:Germany|독일}은 75분까지 앞섰다. {player:Hristo Stoichkov|흐리스토 스토이치코프}가 프리킥을 감아 넣고 {player:Yordan Letchkov|요르단 레치코프}가 다음 크로스로 쇄도하면서, 월드컵에서 한 번도 이기지 못했던 팀이 준결승에 올랐다."
+      },
+      {
+        "title": "첫 결승 승부차기는 {player:Roberto Baggio|로베르토 바조}에게 돌아왔다",
+        "body": "120분을 득점 없이 마친 뒤 {player:Cláudio Taffarel|클라우지우 타파레우}가 {player:Daniele Massaro|다니엘레 마사로}의 슛을 막았다. {player:Roberto Baggio|로베르토 바조}의 실축이 승부를 끝냈지만, 일곱 경기 내내 주도권을 잡은 {team:Brazil|브라질}은 네 번째 별을 얻을 자격이 있었다."
+      }
+    ],
+    "1998": [
+      {
+        "title": "{player:Dennis Bergkamp|데니스 베르흐캄프}에게는 세 번의 터치면 충분했다",
+        "body": "{player:Frank de Boer|프랑크 더 부르}의 60야드 패스를 부드럽게 받은 뒤 {player:Roberto Ayala|로베르토 아얄라} 안쪽으로 접고 바깥발로 마무리했다. 90분에 터진 골로 {team:Argentina|아르헨티나}가 탈락했다."
+      },
+      {
+        "title": "{player:Lilian Thuram|릴리앙 튀람}은 꼭 필요했던 두 골만 넣었다",
+        "body": "{team:Croatia|크로아티아}가 준결승에서 {player:Davor Šuker|다보르 슈케르}의 골로 앞섰다. {player:Lilian Thuram|릴리앙 튀람}은 곧바로 동점골을 넣고 결승골까지 감아 찼다. {team:France|프랑스} 대표팀 142경기에서 기록한 유일한 두 골이었다."
+      },
+      {
+        "title": "{player:Zinedine Zidane|지네딘 지단}은 {team:Brazil|브라질}의 지역방어 틈을 노렸다",
+        "body": "{team:France|프랑스}는 가까운 쪽 지역방어 수비수와 대인 수비 사이를 겨냥해 코너킥을 올렸다. {player:Zinedine Zidane|지네딘 지단}이 그 공간에 두 번 도달하면서 결승은 전반에 사실상 끝났다."
+      }
+    ],
+    "2002": [
+      {
+        "title": "{team:Senegal|세네갈}은 디펜딩 챔피언을 꺾고도 멈추지 않았다",
+        "body": "{player:Papa Bouba Diop|파파 부바 디오프}의 골로 개막전에서 {team:France|프랑스}를 놀라게 했다. 이후 {player:Henri Camara|앙리 카마라}가 {team:Sweden|스웨덴}을 상대로 골든골을 넣어 {team:Senegal|세네갈}은 아프리카의 두 번째 8강 진출 팀이 됐다."
+      },
+      {
+        "title": "{team:South Korea|대한민국}은 압박으로 준결승까지 올랐다",
+        "body": "개최국은 팽팽한 토너먼트 경기에서 {team:Italy|이탈리아}와 {team:Spain|스페인}을 탈락시켰다. 판정 논란과 별개로 {player:Hong Myung-bo|홍명보}가 이끈 수비선과 끈질긴 중원 압박은 돌풍에 전술적 설득력을 더했다."
+      },
+      {
+        "title": "{player:Ronaldo|호나우두}가 긴 회복의 끝을 완성했다",
+        "body": "{player:Oliver Kahn|올리버 칸}의 대회 첫 실수가 선제골로 이어졌고, {player:Kleberson|클레베르송}과 {player:Rivaldo|히바우두}가 두 번째 골을 만들었다. 두 골을 넣은 {player:Ronaldo|호나우두}는 요코하마를 8골과 함께 떠났다."
+      }
+    ],
+    "2006": [
+      {
+        "title": "{team:Argentina|아르헨티나}가 대회 최고의 골을 조립했다",
+        "body": "24번의 패스로 {team:Serbia and Montenegro|세르비아 몬테네그로}를 움직인 끝에 {player:Esteban Cambiasso|에스테반 캄비아소}가 마무리했다. 호세 페케르만의 인내심 있는 위치 축구가 최고 속도로 펼쳐진 장면이었다."
+      },
+      {
+        "title": "{team:Italy|이탈리아}는 승부차기 전에 공격했다",
+        "body": "마르첼로 리피는 준결승 막판 네 명의 공격수를 동시에 세웠다. 연장 종료 2분을 남기고 {player:Fabio Grosso|파비오 그로소}와 {player:Alessandro Del Piero|알레산드로 델 피에로}가 득점해 도르트문트를 침묵시켰다."
+      },
+      {
+        "title": "결승은 마지막 한 번의 충돌로 방향이 바뀌었다",
+        "body": "{player:Zinedine Zidane|지네딘 지단}의 파넨카와 {player:Marco Materazzi|마르코 마테라치}의 헤더로 1-1이 됐다. 연장전의 충돌로 {team:France|프랑스}의 창조자가 퇴장당했고, {team:Italy|이탈리아}는 다섯 번의 승부차기를 모두 성공했다."
+      }
+    ],
+    "2010": [
+      {
+        "title": "{team:New Zealand|뉴질랜드}는 무패로 대회를 떠났다",
+        "body": "세계 78위 팀은 디펜딩 챔피언 {team:Italy|이탈리아}와의 경기를 포함해 세 경기 모두 비겼다. 촘촘한 3-4-3은 공간을 내줘도 대회만큼은 포기하지 않았다."
+      },
+      {
+        "title": "{team:Ghana|가나}는 역사까지 단 한 번의 킥을 남겨 뒀다",
+        "body": "120분에 {player:Luis Suárez|루이스 수아레스}가 골라인에서 손으로 막았고 {player:Asamoah Gyan|아사모아 기안}의 페널티는 골대를 때렸다. {team:Uruguay|우루과이}가 승부차기에서 살아남으면서 아프리카의 첫 준결승 진출은 몇 초 만에 사라졌다."
+      },
+      {
+        "title": "{player:Andrés Iniesta|안드레스 이니에스타}가 마침내 오른쪽 하프스페이스를 찾았다",
+        "body": "결승은 거칠고 좁았다. 116분에 {player:Cesc Fàbregas|세스크 파브레가스}가 {player:Andrés Iniesta|안드레스 이니에스타}를 전진시켰고, {team:Spain|스페인}의 끈질긴 중앙 침투자가 마침내 열린 공간에 닿았다."
+      }
+    ],
+    "2014": [
+      {
+        "title": "{team:Costa Rica|코스타리카}가 챔피언들의 조를 이겼다",
+        "body": "{team:Uruguay|우루과이}, {team:Italy|이탈리아}, {team:England|잉글랜드}와 한 조에 묶인 {team:Costa Rica|코스타리카}는 영리하게 압박했다. 다섯 경기에서 두 골만 내주고 8강 승부차기까지 갔다."
+      },
+      {
+        "title": "{team:Germany|독일}은 {team:Brazil|브라질}이 정비하기 전에 다섯 골을 넣었다",
+        "body": "11분부터 29분 사이 {team:Brazil|브라질}의 간격과 감정 조절이 무너졌다. {team:Germany|독일}은 계속 한 번 더 패스했고 준결승을 7-1로 끝냈다."
+      },
+      {
+        "title": "{player:Mario Götze|마리오 괴체}가 교체 선수의 마지막 터치를 만들었다",
+        "body": "{player:André Schürrle|앙드레 슈를레}의 크로스가 몸 뒤로 왔다. {player:Mario Götze|마리오 괴체}는 가슴으로 받아 113분에 {player:Sergio Romero|세르히오 로메로} 반대편으로 발리슛을 넣었다. 요아힘 뢰프의 교체 카드가 결승을 이겼다."
+      }
+    ],
+    "2018": [
+      {
+        "title": "{team:Japan|일본}은 완벽한 이변의 계획을 거의 완성했다",
+        "body": "{team:Japan|일본}은 과감한 위치 축구로 {team:Belgium|벨기에}에 2-0으로 앞섰다. {team:Belgium|벨기에}은 높이로 흐름을 바꿨고, 94분 19초에 {player:Thibaut Courtois|티보 쿠르투아}에서 {player:Nacer Chadli|나세르 샤들리}로 이어진 14초 역습이 승부를 끝냈다."
+      },
+      {
+        "title": "{team:Belgium|벨기에}은 가짜 9번으로 {team:Brazil|브라질}을 탈락시켰다",
+        "body": "{player:Romelu Lukaku|로멜루 루카쿠}가 오른쪽으로 이동하고 {player:Kevin De Bruyne|케빈 더 브라위너}가 중앙에서 시작했으며 {player:Eden Hazard|에덴 해저드}가 왼쪽을 지켰다. 이 형태가 {team:Brazil|브라질}을 벌려 놓은 뒤 {player:Thibaut Courtois|티보 쿠르투아}가 2-1 리드를 지켰다."
+      },
+      {
+        "title": "{team:France|프랑스}는 어떤 경기가 펼쳐져도 이겼다",
+        "body": "결승에는 자책골, 세트피스 압박, {team:Croatia|크로아티아}의 점유와 열린 역습이 모두 나왔다. {team:France|프랑스}는 모든 국면에 답했고 서로 다른 네 가지 길로 골을 만들었다."
+      }
+    ],
+    "2022": [
+      {
+        "title": "{team:Saudi Arabia|사우디아라비아}가 {team:Argentina|아르헨티나}의 수비선을 무너뜨렸다",
+        "body": "에르베 르나르의 높은 수비 블록은 {team:Argentina|아르헨티나}를 계속 오프사이드에 빠뜨렸다. 후반에는 {player:Saleh Al-Shehri|살레 알셰흐리}와 {player:Salem Al-Dawsari|살렘 알다우사리}가 두 번의 기회를 대회 최고의 이변으로 바꿨다."
+      },
+      {
+        "title": "{team:Morocco|모로코}는 수비 축구도 넓게 느껴지게 했다",
+        "body": "{team:Spain|스페인}과 {team:Portugal|포르투갈}을 탈락시키면서도 {player:Achraf Hakimi|아쉬라프 하키미}, {player:Azzedine Ounahi|아제딘 오우나히}, {player:Sofiane Boufal|소피안 부팔}을 통해 전진했다. 아프리카 최초의 준결승 진출 팀은 단단했지만 수비만 한 팀은 아니었다."
+      },
+      {
+        "title": "결승에는 서로 다른 세 경기가 담겨 있었다",
+        "body": "{team:Argentina|아르헨티나}가 지배했고 {player:Kylian Mbappé|킬리안 음바페}가 연장전을 만들었으며, 이후 양쪽이 다시 득점했다. {player:Emiliano Martínez|에밀리아노 마르티네스}의 123분 선방과 {player:Gonzalo Montiel|곤살로 몬티엘}의 승부차기 골이 마침내 둘을 갈랐다."
+      }
+    ]
+  }
+}

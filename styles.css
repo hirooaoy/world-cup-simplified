@@ -4432,32 +4432,6 @@ h1 {
   margin-bottom: 8px;
 }
 
-.standings-awards-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  margin: 0 0 8px 12px;
-  padding: 0 11px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text-secondary);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-  text-decoration: none;
-  vertical-align: 4px;
-}
-
-.standings-awards-link:hover {
-  border-color: var(--border-strong);
-  color: var(--text);
-}
-
-.standings-awards-link:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
 .standings-year-button {
   display: inline-flex;
   align-items: center;
@@ -9320,8 +9294,36 @@ button.lineup-event-sub,
   display: inline;
 }
 
-.report-settings {
+.report-header-actions {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-left: auto;
+}
+
+.report-edition-shell {
+  display: inline-flex;
+}
+
+.edition-picker-icon rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.report-edition-popover {
+  top: calc(100% + 10px);
+  right: 0;
+  left: auto;
+  z-index: 200;
+  width: min(292px, calc(100vw - 28px));
+}
+
+.report-settings {
+  margin-left: 0;
 }
 
 .report-page .report-header,

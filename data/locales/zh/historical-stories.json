@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "language": "zh",
+  "domain": "historical-stories",
+  "methodology": "本文件沿用英文历史故事的事实与顺序，并为每个明确出现的球队和球员保留统一身份标记，以便界面显示对应年份的排名标签和球员资料卡。教练姓名不加标记。",
+  "editions": {
+    "1930": [
+      {
+        "title": "{team:Uruguay|乌拉圭}在中场休息后扭转了决赛",
+        "body": "{team:Argentina|阿根廷}2比1领先，随后{team:Uruguay|乌拉圭}加强了对{player:Luis Monti|蒙蒂}周围的压迫，由{player:Pedro Cea|塞亚}扳平比分，并持续进攻，直到{player:Héctor Castro|卡斯特罗}把比分锁定为4比2。"
+      },
+      {
+        "title": "{player:Guillermo Stábile|斯塔比莱}一登场便进球不止",
+        "body": "未进入{team:Argentina|阿根廷}首战阵容的{player:Guillermo Stábile|吉列尔莫·斯塔比莱}在对阵{team:Mexico|墨西哥}时获得机会，上演帽子戏法，最终仅用4场比赛打进8球。"
+      },
+      {
+        "title": "{team:United States|美国}闯进四强",
+        "body": "这支主要由本土联赛和移民俱乐部球员组成的球队以零失球赢下小组；{player:Bert Patenaude|帕特诺德}的终结让这段征程真正载入历史，而不只是签表上的偶然。"
+      }
+    ],
+    "1934": [
+      {
+        "title": "{team:Italy|意大利}用了210分钟才淘汰{team:Spain|西班牙}",
+        "body": "四分之一决赛和重赛成了消耗战。{player:Ricardo Zamora|萨莫拉}在首战大放异彩；{player:Giuseppe Meazza|梅阿查}决定了重赛，而两队都带着伤耗继续前行。"
+      },
+      {
+        "title": "{player:Matthias Sindelar|辛德拉尔}的{team:Austria|奥地利}撞上东道主防线",
+        "body": "这支被称为{team:Austria|“奇迹之队”}的球队把流动进攻带进半决赛，但{player:Luis Monti|蒙蒂}和{player:Attilio Ferraris|费拉里斯}压缩了中路，{player:Enrique Guaita|瓜伊塔}则把一次松动变成制胜球。"
+      },
+      {
+        "title": "{player:Raimundo Orsi|奥尔西}把决赛扳回{team:Italy|意大利}一边",
+        "body": "{team:Czechoslovakia|捷克斯洛伐克}在还剩19分钟时领先。{player:Raimundo Orsi|奥尔西}从左路内切扳平，随后{player:Angelo Schiavio|斯基亚维奥}在加时赛完成逆转。"
+      }
+    ],
+    "1938": [
+      {
+        "title": "{team:Brazil|巴西}与{team:Poland|波兰}踢出美丽的混战",
+        "body": "{player:Leônidas|莱昂尼达斯}和{player:Ernest Wilimowski|恩斯特·维利莫夫斯基}一路对攻到加时赛，在这场6比5的经典之战中合计攻入7球，也定下了本届赛事的进攻基调。"
+      },
+      {
+        "title": "{team:Italy|意大利}身穿黑衣，却踢出了色彩",
+        "body": "政治阴影笼罩着与东道主{team:France|法国}的四分之一决赛；回到球场，{team:Italy|意大利}靠{player:Giuseppe Meazza|梅阿查}摆脱压迫，再由{player:Silvio Piola|皮奥拉}下半场梅开二度，以3比1取胜。"
+      },
+      {
+        "title": "{player:Silvio Piola|皮奥拉}与{player:Gino Colaussi|科劳西}平分决赛进球",
+        "body": "{team:Hungary|匈牙利}能盯住{team:Italy|意大利}的一条进攻线，却无法兼顾两边。{player:Gino Colaussi|科劳西}从侧翼两度破门，{player:Silvio Piola|皮奥拉}从中路打进两球，卫冕冠军以4比2取胜。"
+      }
+    ],
+    "1950": [
+      {
+        "title": "马拉卡纳陷入沉寂",
+        "body": "{team:Brazil|巴西}只需一场平局，并由{player:Friaça|弗里亚萨}率先破门。{player:Obdulio Varela|巴雷拉}拖慢重新开球的节奏，{player:Alcides Ghiggia|吉贾}助攻{player:Juan Alberto Schiaffino|斯基亚菲诺}扳平，随后又在近门柱击败{player:Barbosa|巴尔博萨}，将比分改写为2比1。"
+      },
+      {
+        "title": "{team:United States|美国}爆冷击败{team:England|英格兰}",
+        "body": "{player:Joe Gaetjens|乔·盖金斯}上半场的进球，加上{player:Frank Borghi|弗兰克·博尔吉}的顽强守门，造就了1比0的赛果；以两队的足球资源衡量，这几乎不可想象。"
+      },
+      {
+        "title": "{team:Brazil|巴西}看似势不可挡，直到最后一战",
+        "body": "东道主在决赛阶段以7比1击败{team:Sweden|瑞典}、6比1击败{team:Spain|西班牙}。正因如此，{team:Uruguay|乌拉圭}在最后24分钟掌控比赛才格外不可思议。"
+      }
+    ],
+    "1954": [
+      {
+        "title": "夺冠热门在决赛前两度经历硬仗",
+        "body": "{team:Hungary|匈牙利}先扛过{team:Brazil|巴西}的猛烈冲击，又顶住{team:Uruguay|乌拉圭}的加时反扑。这两场胜利证明了实力，也耗尽了本就要应对{player:Ferenc Puskás|普斯卡什}伤势的球队。"
+      },
+      {
+        "title": "{player:Helmut Rahn|拉恩}还留着最后一脚射门",
+        "body": "{team:West Germany|西德}在18分钟内从0比2落后追平。比赛还剩6分钟时，{player:Helmut Rahn|拉恩}把球拨到左脚，低射远角得手，将比分定格为3比2。"
+      },
+      {
+        "title": "{player:Sándor Kocsis|柯奇士}树立了淘汰赛标杆",
+        "body": "对{team:West Germany|西德}进4球、对{team:Brazil|巴西}进2球，再在对{team:Uruguay|乌拉圭}的加时赛攻入2球：他的11球至今仍是除{player:Just Fontaine|方丹}之外无人企及的标杆。"
+      }
+    ],
+    "1958": [
+      {
+        "title": "{team:Brazil|巴西}找到了改变足球的首发阵容",
+        "body": "与{team:England|英格兰}0比0战平后，{player:Garrincha|加林查}、{player:Pelé|贝利}和{player:Zito|济托}进入首发。新的平衡让球队在最后4场比赛攻入13球。"
+      },
+      {
+        "title": "{player:Just Fontaine|方丹}打进第13球",
+        "body": "{team:France|法国}的季军赛原本可能无关紧要，{player:Just Fontaine|方丹}却对{team:West Germany|西德}独进4球，创下至今仍近乎不可触及的单届进球纪录。"
+      },
+      {
+        "title": "17岁的少年主宰了决赛",
+        "body": "{player:Pelé|贝利}面对{team:Sweden|瑞典}梅开二度，其中一次挑过{player:Bengt Gustavsson|本特·古斯塔夫松}后凌空破门，把世界最大的比赛踢出了街头足球般的轻盈。"
+      }
+    ],
+    "1962": [
+      {
+        "title": "{team:Brazil|巴西}失去{player:Pelé|贝利}，却找到另一条路",
+        "body": "{player:Amarildo|阿马里尔多}顶替受伤的核心，在对{team:Spain|西班牙}的小组赛救下球队，又在决赛破门。卫冕冠军收窄阵型、踢得更强硬，却没有失去威胁。"
+      },
+      {
+        "title": "{player:Garrincha|加林查}接管了整届赛事",
+        "body": "{team:England|英格兰}和东道主{team:Chile|智利}都在他的边路加派防守，他却在四分之一决赛和半决赛合计打进4球，还创造了更多未被记入数据的机会。"
+      },
+      {
+        "title": "{team:Chile|智利}把压力化为领奖台",
+        "body": "在一个仍从瓦尔迪维亚大地震中恢复的国家支持下，东道主在四分之一决赛击败{team:Soviet Union|苏联}，又战胜{team:Yugoslavia|南斯拉夫}获得季军。"
+      }
+    ],
+    "1966": [
+      {
+        "title": "{team:North Korea|朝鲜}3比0领先，{player:Eusébio|尤西比奥}随后回应",
+        "body": "{team:North Korea|朝鲜}开场25分钟便以3比0领先。{player:Eusébio|尤西比奥}连进4球，帮助{team:Portugal|葡萄牙}在四分之一决赛以5比3逆转。"
+      },
+      {
+        "title": "{player:Bobby Charlton|查尔顿}赢下半决赛的中路较量",
+        "body": "{team:Portugal|葡萄牙}拥有{player:Eusébio|尤西比奥}，但{team:England|英格兰}不给他干净的转换空间。{player:Bobby Charlton|博比·查尔顿}两次从拥挤的防守线外后插上，决定了比赛。"
+      },
+      {
+        "title": "争议之后，{player:Geoff Hurst|赫斯特}仍在向前跑",
+        "body": "他的第二球至今仍有争议，第三球却毫无疑问。球迷已经冲进场内时，{player:Geoff Hurst|赫斯特}接到{player:Bobby Moore|摩尔}的传球，完成世界杯决赛史上首个帽子戏法。"
+      }
+    ],
+    "1970": [
+      {
+        "title": "{player:Gordon Banks|班克斯}扑出了{player:Pelé|贝利}已经开始庆祝的头球",
+        "body": "起跳、向下砸出的头球和门将的回身扑救，在一秒内构成了本届赛事最精彩的对决。{team:Brazil|巴西}最终仍然取胜，但{team:England|英格兰}证明冠军也会承受压力。"
+      },
+      {
+        "title": "世纪之战在加时赛打进5球",
+        "body": "{team:Italy|意大利}与{team:West Germany|西德}在90分钟战成1比1，随后又在加时赛互进5球，最终{player:Gianni Rivera|里维拉}回应{player:Gerd Müller|穆勒}，打进4比3的制胜球。"
+      },
+      {
+        "title": "{player:Carlos Alberto|卡洛斯·阿尔贝托}完成了全队共同的构想",
+        "body": "{team:Brazil|巴西}10名非门将球员中有8人参与了这次进攻，最后由{player:Pelé|贝利}停顿片刻后把球送给队长。那不只是一粒精彩进球，更是整届赛事的缩影。"
+      }
+    ],
+    "1974": [
+      {
+        "title": "{team:East Germany|东德}赢下了改变{team:West Germany|西德}的比赛",
+        "body": "{player:Jürgen Sparwasser|于尔根·施帕瓦瑟}的进球决定了两国成年国家队唯一一次交锋。这场失利也把东道主送进更有利的第二阶段小组，并促使他们调整阵容。"
+      },
+      {
+        "title": "{team:Netherlands|荷兰}用压迫击垮卫冕冠军",
+        "body": "面对{team:Brazil|巴西}，{team:Netherlands|荷兰}一波接一波地施压，直到{player:Johan Neeskens|内斯肯斯}和{player:Johan Cruyff|克鲁伊夫}破门。这是全攻全守足球在世界杯最清晰的一次展示。"
+      },
+      {
+        "title": "{team:West Germany|西德}熬过了开场一分钟",
+        "body": "{team:Netherlands|荷兰}在任何一名{team:West Germany|西德}球员触球前便取得进球。随后{player:Berti Vogts|福格茨}贴身限制{player:Johan Cruyff|克鲁伊夫}，{player:Paul Breitner|布赖特纳}扳平比分，{player:Gerd Müller|穆勒}只用半次机会便赢下决赛。"
+      }
+    ],
+    "1978": [
+      {
+        "title": "{player:Mario Kempes|肯佩斯}后撤之后无人能盯住",
+        "body": "他在第一阶段小组赛没有进球。改踢从中场后插上的角色后，他在4场比赛打进6球，其中决赛梅开二度。"
+      },
+      {
+        "title": "{team:Tunisia|突尼斯}赢得非洲在世界杯的首场胜利",
+        "body": "半场落后{team:Mexico|墨西哥}时，{team:Tunisia|突尼斯}调整了压迫方式，下半场连进3球——这场里程碑式的胜利不只具有象征意义。"
+      },
+      {
+        "title": "{player:Rob Rensenbrink|伦森布林克}击中门柱，随后{team:Argentina|阿根廷}接管比赛",
+        "body": "这名{team:Netherlands|荷兰}边锋在第90分钟险些赢下决赛。加时赛却属于{player:Mario Kempes|肯佩斯}，他的第二球打破了比赛的心理平衡。"
+      }
+    ],
+    "1982": [
+      {
+        "title": "{team:Algeria|阿尔及利亚}击败{team:West Germany|西德}，却仍然出局",
+        "body": "{player:Rabah Madjer|拉巴赫·马杰尔}和{player:Lakhdar Belloumi|拉赫达尔·贝卢米}带来历史性的2比1胜利。此后{team:West Germany|西德}对{team:Austria|奥地利}的赛果淘汰了{team:Algeria|阿尔及利亚}，也永久改变了末轮同时开球的规则。"
+      },
+      {
+        "title": "{player:Paolo Rossi|罗西}终结了{team:Brazil|巴西}的杰作",
+        "body": "{team:Brazil|巴西}只需一场平局，并且两度扳平。{player:Paolo Rossi|罗西}不断冲击防线盲侧，上演帽子戏法，也让{team:Italy|意大利}从谨慎求生者变成夺冠热门。"
+      },
+      {
+        "title": "塞维利亚从1比3追到点球大战",
+        "body": "{team:France|法国}在加时赛领先{team:West Germany|西德}两球。{player:Karl-Heinz Rummenigge|鲁梅尼格}和{player:Klaus Fischer|克劳斯·菲舍尔}追平比分，随后世界杯史上第一次点球大战决定了半决赛。"
+      }
+    ],
+    "1986": [
+      {
+        "title": "{team:Denmark|丹麦}的完美小组赛成了警示",
+        "body": "他们击败{team:West Germany|西德}，又以6比1横扫{team:Uruguay|乌拉圭}，但{team:Spain|西班牙}随后抓住同样大胆的站位，在十六强赛以5比1完成逆转。"
+      },
+      {
+        "title": "{player:Diego Maradona|马拉多纳}打进两种不同的不可思议进球",
+        "body": "面对{team:England|英格兰}，第一球利用了裁判的疏漏，第二球则过掉半支球队。两球合在一起，正好呈现他的锋芒：先是抓住机会，随后完全掌控。"
+      },
+      {
+        "title": "{player:Jorge Burruchaga|布鲁查加}找到了最后一条空当",
+        "body": "{team:West Germany|西德}从0比2追平，决赛势头正在转向。{player:Diego Maradona|马拉多纳}在压力下接球，赶在回追防线封堵前送出直传找到{player:Jorge Burruchaga|布鲁查加}。"
+      }
+    ],
+    "1990": [
+      {
+        "title": "{team:Cameroon|喀麦隆}让闯进八强变得可能",
+        "body": "他们先击败卫冕冠军{team:Argentina|阿根廷}，随后{player:Roger Milla|米拉}在加时赛两度惩罚{team:Colombia|哥伦比亚}。只有{player:Gary Lineker|莱因克尔}在{team:England|英格兰}一战罚进的两粒点球，才终结这段征程。"
+      },
+      {
+        "title": "{player:Sergio Goycochea|戈耶切亚}不断调整门线站位",
+        "body": "{team:Argentina|阿根廷}通过点球大战先后淘汰{team:Yugoslavia|南斯拉夫}和东道主{team:Italy|意大利}。{player:Sergio Goycochea|戈耶切亚}耐心等到主罚者支撑脚落地，这成了球队的赛事计划。"
+      },
+      {
+        "title": "{player:Andreas Brehme|布雷默}决定了寸土必争的决赛",
+        "body": "{team:Argentina|阿根廷}只剩9人，{team:West Germany|西德}却仍要等到第85分钟的点球。{player:Andreas Brehme|布雷默}打开身体，将低平球推过{player:Sergio Goycochea|戈耶切亚}。"
+      }
+    ],
+    "1994": [
+      {
+        "title": "{team:Saudi Arabia|沙特阿拉伯}一路带球闯进淘汰赛",
+        "body": "{player:Saeed Al-Owairan|赛义德·奥维兰}从本方半场启动，连续突破{team:Belgium|比利时}防线。这粒进球让球队在首次参赛便锁定十六强席位。"
+      },
+      {
+        "title": "{team:Bulgaria|保加利亚}淘汰了卫冕冠军",
+        "body": "{team:Germany|德国}一直领先到第75分钟。{player:Hristo Stoichkov|斯托伊奇科夫}任意球扳平，{player:Yordan Letchkov|莱奇科夫}随后冲顶传中，一支此前从未赢过世界杯比赛的球队就此闯进四强。"
+      },
+      {
+        "title": "世界杯首次决赛点球大战落在{player:Roberto Baggio|巴乔}脚下",
+        "body": "120分钟互交白卷后，{player:Cláudio Taffarel|塔法雷尔}扑出{player:Daniele Massaro|马萨罗}的点球。{player:Roberto Baggio|巴乔}随后射失，但{team:Brazil|巴西}在7场比赛中的掌控力已经配得上第四颗星。"
+      }
+    ],
+    "1998": [
+      {
+        "title": "{player:Dennis Bergkamp|博格坎普}只用了三次触球",
+        "body": "{player:Frank de Boer|弗兰克·德波尔}送出60码长传，一次丝滑停球、一次内切晃过{player:Roberto Ayala|阿亚拉}，再用外脚背完成射门，在第90分钟淘汰{team:Argentina|阿根廷}。"
+      },
+      {
+        "title": "{player:Lilian Thuram|图拉姆}打进一生中最需要的两球",
+        "body": "{team:Croatia|克罗地亚}由{player:Davor Šuker|苏克}在半决赛率先破门。{player:Lilian Thuram|图拉姆}立即扳平，随后弧线球反超——那也是他142次代表{team:France|法国}出场仅有的两粒进球。"
+      },
+      {
+        "title": "{player:Zinedine Zidane|齐达内}冲击{team:Brazil|巴西}的区域缝隙",
+        "body": "{team:France|法国}专攻近门柱区域防守者与盯人球员之间的角球空当。{player:Zinedine Zidane|齐达内}两次抢到那里，决赛在半场前几乎已经结束。"
+      }
+    ],
+    "2002": [
+      {
+        "title": "{team:Senegal|塞内加尔}击败卫冕冠军后继续前进",
+        "body": "{player:Papa Bouba Diop|帕帕·布巴·迪奥普}的进球在揭幕日震惊{team:France|法国}。此后{player:Henri Camara|亨利·卡马拉}对{team:Sweden|瑞典}打进金球，让{team:Senegal|塞内加尔}成为非洲第二支世界杯八强球队。"
+      },
+      {
+        "title": "{team:South Korea|韩国}用压迫闯进四强",
+        "body": "东道主在紧张的淘汰赛中先后淘汰{team:Italy|意大利}和{team:Spain|西班牙}。{player:Hong Myung-bo|洪明甫}统领的防线和不知疲倦的中场压迫，让这段征程在战术上站得住脚，无论裁判争议如何。"
+      },
+      {
+        "title": "{player:Ronaldo|罗纳尔多}完成了复苏",
+        "body": "{player:Oliver Kahn|卡恩}本届赛事的第一次失误给了他首个机会；{player:Kleberson|克莱伯森}和{player:Rivaldo|里瓦尔多}创造了第二球。{player:Ronaldo|罗纳尔多}两次破门，带着8球离开横滨。"
+      }
+    ],
+    "2006": [
+      {
+        "title": "{team:Argentina|阿根廷}完成赛事最佳进球",
+        "body": "连续24脚传球调动{team:Serbia and Montenegro|塞尔维亚和黑山}，最后由{player:Esteban Cambiasso|坎比亚索}完成终结。这是佩克尔曼耐心的阵地足球以最高速度运转的样子。"
+      },
+      {
+        "title": "{team:Italy|意大利}在点球大战到来前主动进攻",
+        "body": "里皮让球队以4名前锋结束半决赛。{player:Fabio Grosso|格罗索}和{player:Alessandro Del Piero|德尔·皮耶罗}在加时赛最后两分钟破门，让多特蒙德陷入沉寂。"
+      },
+      {
+        "title": "决赛被最后一次对决改变",
+        "body": "{player:Zinedine Zidane|齐达内}的勺子点球与{player:Marco Materazzi|马特拉齐}的头球把比分变为1比1。两人在加时赛的冲突让{team:France|法国}失去进攻核心；{team:Italy|意大利}随后罚进全部5粒点球。"
+      }
+    ],
+    "2010": [
+      {
+        "title": "{team:New Zealand|新西兰}以不败战绩离开",
+        "body": "世界排名第78的球队三战皆平，其中包括对卫冕冠军{team:Italy|意大利}的一场。他们紧凑的3-4-3阵型让出场地，却没有轻易让出比赛。"
+      },
+      {
+        "title": "{team:Ghana|加纳}距离历史只差一脚",
+        "body": "第120分钟，{player:Luis Suárez|苏亚雷斯}在门线上手球，{player:Asamoah Gyan|吉安}主罚点球击中横梁，{team:Uruguay|乌拉圭}随后赢下点球大战。非洲首次闯进世界杯四强的机会在几秒内消失。"
+      },
+      {
+        "title": "{player:Andrés Iniesta|伊涅斯塔}终于找到右侧肋部空间",
+        "body": "决赛充满碰撞，空间狭窄。{player:Cesc Fàbregas|法布雷加斯}在第116分钟送出直传找到{player:Andrés Iniesta|伊涅斯塔}，{team:Spain|西班牙}最坚持向内线前插的球员终于进入空当。"
+      }
+    ],
+    "2014": [
+      {
+        "title": "{team:Costa Rica|哥斯达黎加}赢下冠军之组",
+        "body": "与{team:Uruguay|乌拉圭}、{team:Italy|意大利}和{team:England|英格兰}同组，{team:Costa Rica|哥斯达黎加}以聪明的压迫应对，5场比赛只丢2球，并一路进入四分之一决赛点球大战。"
+      },
+      {
+        "title": "{team:Germany|德国}在{team:Brazil|巴西}站稳前便打进5球",
+        "body": "第11至29分钟，{team:Brazil|巴西}的站位与情绪控制彻底崩塌。{team:Germany|德国}始终多传一脚，最终以7比1结束半决赛。"
+      },
+      {
+        "title": "{player:Mario Götze|格策}用替补球员的最后一击决定决赛",
+        "body": "{player:André Schürrle|许尔勒}的传中来到身后，{player:Mario Götze|格策}胸部停球后，在第113分钟凌空射向{player:Sergio Romero|罗梅罗}远角——勒夫的替补席赢下了决赛。"
+      }
+    ],
+    "2018": [
+      {
+        "title": "{team:Japan|日本}险些完成完美的黑马计划",
+        "body": "{team:Japan|日本}以大胆的阵地进攻2比0领先{team:Belgium|比利时}。{team:Belgium|比利时}用身高改变比赛，随后从{player:Thibaut Courtois|库尔图瓦}到{player:Nacer Chadli|查德利}的14秒反击在94分19秒完成绝杀。"
+      },
+      {
+        "title": "{team:Belgium|比利时}用伪九号淘汰{team:Brazil|巴西}",
+        "body": "{player:Romelu Lukaku|卢卡库}移到右路，{player:Kevin De Bruyne|德布劳内}从中路出发，{player:Eden Hazard|阿扎尔}留在左侧。这个阵型拉开{team:Brazil|巴西}，随后{player:Thibaut Courtois|库尔图瓦}守住2比1的领先。"
+      },
+      {
+        "title": "{team:France|法国}总能赢下眼前的比赛",
+        "body": "决赛包含乌龙球、定位球压力、{team:Croatia|克罗地亚}控球和开放转换。{team:France|法国}对每个阶段都有答案，并用4种不同方式取得进球。"
+      }
+    ],
+    "2022": [
+      {
+        "title": "{team:Saudi Arabia|沙特阿拉伯}击穿{team:Argentina|阿根廷}防线",
+        "body": "埃尔韦·勒纳尔的高位防线不断让{team:Argentina|阿根廷}越位，随后{player:Saleh Al-Shehri|萨利赫·谢赫里}和{player:Salem Al-Dawsari|萨利姆·多萨里}抓住下半场两次机会，制造本届赛事最大冷门。"
+      },
+      {
+        "title": "{team:Morocco|摩洛哥}让防守也有了开阔感",
+        "body": "他们淘汰{team:Spain|西班牙}和{team:Portugal|葡萄牙}，同时仍通过{player:Achraf Hakimi|哈基米}、{player:Azzedine Ounahi|奥纳希}和{player:Sofiane Boufal|布法尔}向前推进。非洲首支世界杯四强球队依靠的是组织，而不只是抵抗。"
+      },
+      {
+        "title": "决赛里有三场不同的比赛",
+        "body": "{team:Argentina|阿根廷}先掌控比赛，{player:Kylian Mbappé|姆巴佩}把比赛拖入加时，随后双方又各进一球。{player:Emiliano Martínez|马丁内斯}第123分钟的扑救与{player:Gonzalo Montiel|蒙蒂尔}的点球终于分出胜负。"
+      }
+    ]
+  }
+}

@@ -1,6 +1,10 @@
 import { LANGUAGE_STORAGE_KEY } from "./app-config.js?v=2026-07-20-final-cutover-1";
 import { appendFootballInlineText } from "./football-typography.js?v=2026-07-20-final-cutover-1";
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
+import {
+  ZH_CLUB_NAME_TRANSLATIONS,
+  ZH_LEAGUE_NAME_TRANSLATIONS,
+  ZH_PLAYER_NAME_TRANSLATIONS
+} from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
 import {
   formatLineupShortName,
   renderLineupAvatarFrame,
@@ -20,31 +24,67 @@ import {
   getLocaleShellMessages,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-20-host-selection-date-1";
+} from "./locales/locale-runtime.js?v=2026-07-21-historical-stories-1";
+import { getPlayerSkillCategory } from "./locales/player-note-templates.js?v=2026-07-21-best-xi-rebuild-3";
 import {
   HISTORICAL_HIGHLIGHTS,
-  HISTORICAL_NEXT_WORLD_CUP_PREVIEWS
-} from "./data/highlights-history.js?v=2026-07-20-next-previews-1";
-import { CHAMPION_PHOTOS } from "./data/champion-photos.js?v=2026-07-20-all-free-1";
+  HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
+  HISTORICAL_STORY_PROFILE_OVERRIDES
+} from "./data/highlights-history.js?v=2026-07-21-historical-stories-1";
+import { CHAMPION_PHOTOS } from "./data/champion-photos.js?v=2026-07-21-all-team-photos-1";
 
 const WORLD_CUP_EDITIONS = Object.freeze([
   1930, 1934, 1938, 1950, 1954, 1958, 1962, 1966, 1970, 1974, 1978,
   1982, 1986, 1990, 1994, 1998, 2002, 2006, 2010, 2014, 2018, 2022, 2026
 ]);
 
+const HISTORICAL_WORLD_CUP_REFERENCE_DATES = Object.freeze({
+  1930: "1930-07-30",
+  1934: "1934-06-10",
+  1938: "1938-06-19",
+  1950: "1950-07-16",
+  1954: "1954-07-04",
+  1958: "1958-06-29",
+  1962: "1962-06-17",
+  1966: "1966-07-30",
+  1970: "1970-06-21",
+  1974: "1974-07-07",
+  1978: "1978-06-25",
+  1982: "1982-07-11",
+  1986: "1986-06-29",
+  1990: "1990-07-08",
+  1994: "1994-07-17",
+  1998: "1998-07-12",
+  2002: "2002-06-30",
+  2006: "2006-07-09",
+  2010: "2010-07-11",
+  2014: "2014-07-13",
+  2018: "2018-07-15",
+  2022: "2022-12-18"
+});
+
 const CURRENT_CHAMPION_EDITION = Object.freeze({
   champion: "Spain",
   flag: "🇪🇸"
 });
 
+const HISTORICAL_PLAYER_DISPLAY_NAME_OVERRIDES = Object.freeze({
+  "1978|Oscar": Object.freeze({
+    en: "Oscar Bernardi",
+    es: "Óscar Bernardi",
+    ko: "오스카르 베르나르지",
+    zh: "奥斯卡·贝尔纳迪"
+  })
+});
+
 const TEAM_FLAGS = Object.freeze({
-  Argentina: "🇦🇷", Austria: "🇦🇹", Belgium: "🇧🇪", Brazil: "🇧🇷", Bulgaria: "🇧🇬",
+  Algeria: "🇩🇿", Argentina: "🇦🇷", Austria: "🇦🇹", Belgium: "🇧🇪", Brazil: "🇧🇷", Bulgaria: "🇧🇬",
   Cameroon: "🇨🇲", Chile: "🇨🇱", Colombia: "🇨🇴", "Costa Rica": "🇨🇷", Croatia: "🇭🇷",
-  Czechoslovakia: "🇨🇿", Denmark: "🇩🇰", England: "🏴", France: "🇫🇷", Germany: "🇩🇪",
-  Ghana: "🇬🇭", Hungary: "🇭🇺", Italy: "🇮🇹", Mexico: "🇲🇽", Morocco: "🇲🇦",
-  Netherlands: "🇳🇱", "New Zealand": "🇳🇿", "Northern Ireland": "🇬🇧", Paraguay: "🇵🇾",
+  Czechoslovakia: "🇨🇿", Denmark: "🇩🇰", "East Germany": "🇩🇪", England: "🏴", France: "🇫🇷", Germany: "🇩🇪",
+  Ghana: "🇬🇭", Hungary: "🇭🇺", Italy: "🇮🇹", Japan: "🇯🇵", Mexico: "🇲🇽", Morocco: "🇲🇦",
+  Netherlands: "🇳🇱", "New Zealand": "🇳🇿", "North Korea": "🇰🇵", "Northern Ireland": "🇬🇧", Paraguay: "🇵🇾",
   Peru: "🇵🇪", Poland: "🇵🇱", Portugal: "🇵🇹", Romania: "🇷🇴", Russia: "🇷🇺",
-  "Saudi Arabia": "🇸🇦", Senegal: "🇸🇳", Spain: "🇪🇸", Sweden: "🇸🇪",
+  "Saudi Arabia": "🇸🇦", Senegal: "🇸🇳", "Serbia and Montenegro": "🇷🇸", Spain: "🇪🇸", Sweden: "🇸🇪",
   Switzerland: "🇨🇭", "South Korea": "🇰🇷", "Soviet Union": "🇷🇺", Tunisia: "🇹🇳",
   Turkey: "🇹🇷", Uruguay: "🇺🇾", USA: "🇺🇸", "United States": "🇺🇸", Yugoslavia: "🇷🇸",
   "West Germany": "🇩🇪"
@@ -100,7 +140,10 @@ const POSITION_TEXT_KEYS = Object.freeze({
   LCM: "positionLeftCentralMidfielder",
   RW: "positionRightWinger",
   AM: "positionAttackingMidfielder",
+  LM: "positionLeftMidfielder",
   LW: "positionLeftWinger",
+  SS: "positionSecondStriker",
+  F9: "positionFalseNine",
   ST: "positionStriker"
 });
 
@@ -154,6 +197,27 @@ const ZH_PLAYER_SKILLS = Object.freeze({
   "Wide-to-inside runs": "边路内切跑动"
 });
 
+const ZH_PLAYER_SKILL_CATEGORIES = Object.freeze({
+  "archive-standout": "经典赛事亮点",
+  "attacking-play": "进攻能力",
+  "attacking-runs": "进攻跑位",
+  "defensive-control": "防守控制",
+  "defensive-play": "防守能力",
+  "defensive-positioning": "防守站位",
+  "goal-threat": "进球威胁",
+  "historical-lens": "历史评估",
+  "impact-sub": "替补影响力",
+  "midfield-play": "中场组织",
+  "penalty-pressure": "点球大战抗压",
+  "physical-duels": "身体对抗",
+  "player-role": "球员角色",
+  "player-strength": "核心特点",
+  "shot-stopping": "扑救",
+  starter: "首发",
+  "tempo-control": "节奏控制",
+  "wide-play": "边路能力"
+});
+
 const DEFAULT_AWARD_NAMES = Object.freeze({
   goldenBall: "Rodri",
   goldenBoot: "Kylian Mbappe",
@@ -189,18 +253,11 @@ const FOOTER_PREVIOUS_LABELS = Object.freeze({
   zh: "查看上一届世界杯"
 });
 
-const EDITION_LABELS = Object.freeze({
-  en: "World Cup",
-  es: "Mundial",
-  ko: "월드컵",
-  zh: "世界杯"
-});
-
-const HISTORICAL_UI = Object.freeze({
-  en: Object.freeze({ awards: "Official awards", stories: "Stories worth remembering", watch: "Watch the official FIFA highlight ↗" }),
-  es: Object.freeze({ awards: "Premios oficiales", stories: "Historias para recordar", watch: "Ver el resumen oficial de la FIFA ↗" }),
-  ko: Object.freeze({ awards: "공식 수상", stories: "기억할 이야기", watch: "FIFA 공식 하이라이트 보기 ↗" }),
-  zh: Object.freeze({ awards: "官方奖项", stories: "值得记住的故事", watch: "观看FIFA官方集锦 ↗" })
+const EDITION_PICKER_LABELS = Object.freeze({
+  en: "Choose World Cup year",
+  es: "Elegir año del Mundial",
+  ko: "월드컵 연도 선택",
+  zh: "选择世界杯年份"
 });
 
 const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
@@ -274,7 +331,7 @@ const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
     metaDescription: "回顾西班牙的2026年世界杯冠军、编辑部评选的最佳阵容、官方奖项得主和几段值得记住的赛事故事。",
     metaTitle: "2026年世界杯奖项与亮点 | 世界杯简明指南",
     methodology: "球迷讨论帮助我们挑选了这些时刻。奖项、比分和球员数据则另行通过比赛报告及本站使用的赛事数据核对。",
-    moreHighlights: "黑马亮点",
+    moreHighlights: "值得记住的故事",
     nextWorldCupLead: "摩洛哥、葡萄牙和西班牙将主办2030年世界杯，阿根廷、巴拉圭和乌拉圭将承办百年纪念赛。",
     officialAwards: "官方奖项",
     ogDescription: "冠军、编辑部评选的最佳阵容、官方奖项，以及值得记住的赛事故事。",
@@ -290,10 +347,13 @@ const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
     positionGoalkeeper: "门将",
     positionLeftBack: "左后卫",
     positionLeftCentralMidfielder: "左中前卫",
+    positionLeftMidfielder: "左前卫",
     positionLeftWinger: "左边锋",
     positionRightBack: "右后卫",
     positionRightCentralMidfielder: "右中前卫",
     positionRightWinger: "右边锋",
+    positionSecondStriker: "影锋",
+    positionFalseNine: "伪九号",
     positionStriker: "中锋",
     playerAge: "{age}岁",
     playerEstimatedValue: "估值",
@@ -303,6 +363,8 @@ const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
     playerValue: "身价",
     playerValueTooltip: "来自公开球员估值数据的市场价值。",
     rankAria: "{label}。{tooltip}",
+    eloRankLabel: "{teamName} 回溯Elo排名 {rank}（{year}）",
+    eloRankTooltip: "{year}年世界杯期间的回溯Elo排名",
     rankLabel: "{teamName} FIFA世界排名 {rank}（{year}）",
     rankTooltip: "{year}年世界杯期间的FIFA世界排名",
     selectionSources: "评选来源：",
@@ -534,10 +596,13 @@ function captureEnglishLocale() {
     positionGoalkeeper: "Goalkeeper",
     positionLeftBack: "Left-back",
     positionLeftCentralMidfielder: "Left central midfielder",
+    positionLeftMidfielder: "Left midfielder",
     positionLeftWinger: "Left winger",
     positionRightBack: "Right-back",
     positionRightCentralMidfielder: "Right central midfielder",
     positionRightWinger: "Right winger",
+    positionSecondStriker: "Second striker",
+    positionFalseNine: "False nine",
     positionStriker: "Striker",
     playerAge: "Age {age}",
     playerEstimatedValue: "Est. value",
@@ -547,6 +612,8 @@ function captureEnglishLocale() {
     playerValue: "Value",
     playerValueTooltip: "Market value from sourced player valuation data.",
     rankAria: "{label}. {tooltip}",
+    eloRankLabel: "{teamName} retrospective Elo ranking {rank} ({year})",
+    eloRankTooltip: "Retrospective Elo ranking during the {year} World Cup",
     rankLabel: "{teamName} FIFA world ranking {rank} ({year})",
     rankTooltip: "FIFA world ranking during the {year} World Cup",
     sourceFifaAwards: "FIFA awards",
@@ -582,12 +649,78 @@ let loadedBestXi = null;
 let loadedRankingYear = null;
 let loadedHistory = null;
 let loadedHistoricalAwards = null;
+let loadedHistoricalAwardCopy = null;
+let loadedHistoricalStoryCopy = null;
+let loadedHistoricalBestXiReasons = Object.freeze({});
+let loadedHistoricalPlayerNames = Object.freeze({});
+let loadedHistoricalPlayerNamesByNormalizedName = new Map();
 let activeEdition = 2026;
 let activeHighlightRankPill = null;
 let activeHighlightPlayerHover = null;
 let activeBestXiPlayer = null;
 let highlightPlayerCardHideTimer = 0;
 let bestXiCardHideTimer = 0;
+
+const CELEBRATION_THEME_COLOR_MIX = Object.freeze({
+  light: Object.freeze({ colorProperty: "--celebration-primary", amount: 0.07 }),
+  dark: Object.freeze({ colorProperty: "--celebration-dark-base", amount: 0.46 })
+});
+
+function parseCssColor(value) {
+  const normalized = String(value || "").trim();
+  const hexMatch = normalized.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (hexMatch) {
+    const hex = hexMatch[1].length === 3
+      ? hexMatch[1].split("").map((character) => `${character}${character}`).join("")
+      : hexMatch[1];
+    return [0, 2, 4].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16));
+  }
+
+  const rgbMatch = normalized.match(
+    /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i
+  );
+  return rgbMatch ? rgbMatch.slice(1, 4).map(Number) : null;
+}
+
+function mixCssColors(foreground, background, amount) {
+  return foreground.map((channel, index) =>
+    Math.round(background[index] + (channel - background[index]) * amount)
+  );
+}
+
+function formatHexColor(channels) {
+  return `#${channels
+    .map((channel) => Math.max(0, Math.min(255, channel)).toString(16).padStart(2, "0"))
+    .join("")}`;
+}
+
+function updateCelebrationThemeColor(theme = window.worldCupTheme?.getTheme() || "light") {
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  const mix = CELEBRATION_THEME_COLOR_MIX[theme] || CELEBRATION_THEME_COLOR_MIX.light;
+  if (!themeColor || !document.body) return;
+
+  const bodyStyle = window.getComputedStyle(document.body);
+  const celebrationColor = parseCssColor(bodyStyle.getPropertyValue(mix.colorProperty));
+  const pageColor = parseCssColor(bodyStyle.getPropertyValue("--background"));
+  if (!celebrationColor || !pageColor) return;
+
+  themeColor.setAttribute(
+    "content",
+    formatHexColor(mixCssColors(celebrationColor, pageColor, mix.amount))
+  );
+}
+
+function updateCelebrationPalette() {
+  const champion = activeEdition === 2026
+    ? CURRENT_CHAMPION_EDITION.champion
+    : HISTORICAL_HIGHLIGHTS.editions[activeEdition]?.champion;
+  if (!champion) return;
+
+  document.body.dataset.finalCelebrationPalette = champion === "West Germany"
+    ? "germany"
+    : champion.toLowerCase();
+  updateCelebrationThemeColor();
+}
 
 function resolveInitialLanguage() {
   const params = new URLSearchParams(window.location.search);
@@ -629,6 +762,89 @@ async function loadHighlightsLocale(language) {
     await loadLocaleDomain(language, "highlights"),
     language
   );
+}
+
+async function loadHistoricalBestXiReasonLocale(language) {
+  if (activeEdition === 2026 || language === "en") {
+    return Object.freeze({});
+  }
+  const localeData = await loadJson(
+    `data/locales/${language}/historical-best-xi-reasons.json?v=2026-07-21-best-xi-rebuild-3`
+  );
+  if (
+    localeData?.schemaVersion !== 1
+    || localeData?.language !== language
+    || !localeData?.reasons
+    || typeof localeData.reasons !== "object"
+  ) {
+    throw new TypeError(`Invalid historical Best XI reason locale ${language}.`);
+  }
+  return localeData.reasons;
+}
+
+const HISTORICAL_PLAYER_NAME_LOADERS = Object.freeze({
+  es: () => Promise.all([
+    import("./locales/es/player-names.js?v=2026-07-21-best-xi-rebuild-3"),
+    import("./locales/es/player-names-archive.js?v=2026-07-21-best-xi-rebuild-3")
+  ]).then(([currentNames, archiveNames]) => Object.freeze({
+    ...(currentNames.ES_PLAYER_NAME_TRANSLATIONS || {}),
+    ...(archiveNames.ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS || {})
+  })),
+  ko: () => Promise.all([
+    import("./locales/ko/player-names.js?v=2026-07-21-best-xi-rebuild-3"),
+    import("./locales/ko/player-names-archive.js?v=2026-07-21-best-xi-rebuild-3")
+  ]).then(([currentNames, archiveNames]) => Object.freeze({
+    ...(currentNames.KO_PLAYER_NAME_TRANSLATIONS || {}),
+    ...(archiveNames.KO_ARCHIVE_PLAYER_NAME_TRANSLATIONS || {})
+  }))
+});
+
+async function loadHistoricalPlayerNameLocale(language) {
+  if (activeEdition === 2026 || !HISTORICAL_PLAYER_NAME_LOADERS[language]) {
+    return Object.freeze({});
+  }
+  return HISTORICAL_PLAYER_NAME_LOADERS[language]();
+}
+
+async function loadHistoricalAwardCopyLocale(language) {
+  if (activeEdition === 2026) {
+    return null;
+  }
+  const localeData = await loadJson(
+    language === "en"
+      ? "data/historical-awards.json"
+      : `data/locales/${language}/historical-awards.json`
+  );
+  if (
+    localeData?.schemaVersion !== 1
+    || localeData?.language !== language
+    || localeData?.domain !== "historical-awards"
+    || !localeData?.labels
+    || !localeData?.editions
+  ) {
+    throw new TypeError(`Invalid historical awards locale ${language}.`);
+  }
+  return localeData;
+}
+
+async function loadHistoricalStoryCopyLocale(language) {
+  if (activeEdition === 2026) {
+    return null;
+  }
+  const localeData = await loadJson(
+    language === "en"
+      ? "data/historical-stories.json"
+      : `data/locales/${language}/historical-stories.json`
+  );
+  if (
+    localeData?.schemaVersion !== 1
+    || localeData?.language !== language
+    || localeData?.domain !== "historical-stories"
+    || !localeData?.editions
+  ) {
+    throw new TypeError(`Invalid historical stories locale ${language}.`);
+  }
+  return localeData;
 }
 
 function formatMessage(template, values = {}) {
@@ -688,7 +904,8 @@ function updateShell() {
   const settingsButton = getElement("settings-button");
   const settingsPopover = getElement("settings-popover");
   const languageSelect = getElement("language-select");
-  const editionSelect = getElement("edition-select");
+  const editionPickerButton = getElement("edition-picker-button");
+  const editionPickerPopover = getElement("edition-picker-popover");
   const darkModeToggle = getElement("dark-mode-toggle");
   const footerPreviousLink = getElement("footer-previous-link");
   const footerLinkSeparator = getElement("footer-link-separator");
@@ -699,7 +916,6 @@ function updateShell() {
 
   setText("back-link-label", BACK_LABELS[currentLanguage] || BACK_LABELS.en);
   setText("settings-language-label", shellText.language);
-  setText("settings-edition-label", EDITION_LABELS[currentLanguage] || EDITION_LABELS.en);
   setText("settings-dark-mode-label", shellText.darkMode);
   setText("settings-home-label", HOME_LABELS[currentLanguage] || HOME_LABELS.en);
   setText("footer-top-label", FOOTER_TOP_LABELS[currentLanguage] || FOOTER_TOP_LABELS.en);
@@ -727,12 +943,16 @@ function updateShell() {
   settingsPopover?.setAttribute("aria-label", shellText.settings);
   darkModeToggle?.setAttribute("aria-label", shellText.darkMode);
 
+  const editionPickerLabel = EDITION_PICKER_LABELS[currentLanguage] || EDITION_PICKER_LABELS.en;
+  editionPickerButton?.setAttribute("aria-label", `${editionPickerLabel}, ${activeEdition}`);
+  editionPickerButton?.setAttribute("title", editionPickerLabel);
+  editionPickerButton?.setAttribute("data-edition", String(activeEdition));
+  editionPickerPopover?.setAttribute("aria-label", editionPickerLabel);
+
   if (languageSelect) {
     languageSelect.value = currentLanguage;
   }
-  if (editionSelect) {
-    editionSelect.value = String(activeEdition);
-  }
+  renderEditionPicker();
   if (darkModeToggle) {
     darkModeToggle.checked = window.worldCupTheme?.getTheme() === "dark";
   }
@@ -788,15 +1008,36 @@ function updateLanguageUrl() {
 
 async function setLanguage(language, options = {}) {
   const nextLanguage = normalizeLanguage(language);
-  const [locale, appLocalePack] = await Promise.all([
+  const [
+    locale,
+    appLocalePack,
+    historicalBestXiReasons,
+    historicalAwardCopy,
+    historicalStoryCopy,
+    historicalPlayerNames
+  ] = await Promise.all([
     loadHighlightsLocale(nextLanguage),
     ["es", "ko"].includes(nextLanguage)
       ? loadLocaleDomain(nextLanguage, "app")
-      : Promise.resolve(null)
+      : Promise.resolve(null),
+    loadHistoricalBestXiReasonLocale(nextLanguage),
+    loadHistoricalAwardCopyLocale(nextLanguage),
+    loadHistoricalStoryCopyLocale(nextLanguage),
+    loadHistoricalPlayerNameLocale(nextLanguage)
   ]);
   currentLanguage = nextLanguage;
   activeLocale = validateHighlightsLocale(locale, nextLanguage);
   activeAppLocalePack = appLocalePack;
+  loadedHistoricalBestXiReasons = historicalBestXiReasons;
+  loadedHistoricalAwardCopy = historicalAwardCopy;
+  loadedHistoricalStoryCopy = historicalStoryCopy;
+  loadedHistoricalPlayerNames = historicalPlayerNames;
+  loadedHistoricalPlayerNamesByNormalizedName = new Map(
+    Object.entries(historicalPlayerNames).map(([name, localizedName]) => [
+      normalizeHistoricalName(name),
+      localizedName
+    ])
+  );
   localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
   if (options.updateUrl !== false) {
     updateLanguageUrl();
@@ -827,33 +1068,94 @@ function setupLanguageSelect() {
   });
 }
 
-function setupEditionSelect() {
-  const select = getElement("edition-select");
-  if (!(select instanceof HTMLSelectElement)) {
+function getEditionHref(year) {
+  const url = new URL(window.location.href);
+  if (year === 2026) {
+    url.searchParams.delete("year");
+  } else {
+    url.searchParams.set("year", String(year));
+  }
+  if (currentLanguage === "en") {
+    url.searchParams.delete("lang");
+  } else {
+    url.searchParams.set("lang", currentLanguage);
+  }
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function renderEditionPicker() {
+  const grid = getElement("edition-picker-grid");
+  if (!grid) {
     return;
   }
-  select.replaceChildren(...WORLD_CUP_EDITIONS
+
+  grid.replaceChildren(...WORLD_CUP_EDITIONS
     .slice()
     .reverse()
     .map((year) => {
-      const option = document.createElement("option");
-      option.value = String(year);
-      option.textContent = String(year);
-      return option;
+      const link = document.createElement("a");
+      const isSelected = year === activeEdition;
+      const isCurrent = year === 2026;
+      link.className = [
+        "standings-year-option",
+        isSelected ? "is-selected" : "",
+        isCurrent ? "is-current" : ""
+      ]
+        .filter(Boolean)
+        .join(" ");
+      link.dataset.edition = String(year);
+      link.href = getEditionHref(year);
+      link.textContent = String(year);
+      if (isSelected) {
+        link.setAttribute("aria-current", "page");
+      }
+      return link;
     }));
-  select.value = String(activeEdition);
-  select.addEventListener("change", () => {
-    const year = Number(select.value);
-    if (!WORLD_CUP_EDITIONS.includes(year)) {
-      return;
+}
+
+function setEditionPickerOpen(isOpen) {
+  const button = getElement("edition-picker-button");
+  const popover = getElement("edition-picker-popover");
+  if (!button || !popover) {
+    return;
+  }
+  if (isOpen) {
+    setSettingsOpen(false);
+  }
+  popover.classList.toggle("is-hidden", !isOpen);
+  button.setAttribute("aria-expanded", String(isOpen));
+  if (isOpen) {
+    renderEditionPicker();
+  }
+}
+
+function setupEditionPicker() {
+  const button = getElement("edition-picker-button");
+  const popover = getElement("edition-picker-popover");
+  if (!button || !popover) {
+    return;
+  }
+
+  renderEditionPicker();
+  button.addEventListener("click", () => {
+    setEditionPickerOpen(button.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (
+      button.getAttribute("aria-expanded") === "true"
+      && !popover.contains(event.target)
+      && !button.contains(event.target)
+    ) {
+      setEditionPickerOpen(false);
     }
-    const url = new URL(window.location.href);
-    if (year === 2026) {
-      url.searchParams.delete("year");
-    } else {
-      url.searchParams.set("year", String(year));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+      setEditionPickerOpen(false);
+      button.focus();
     }
-    window.location.assign(`${url.pathname}${url.search}${url.hash}`);
   });
 }
 
@@ -862,6 +1164,9 @@ function setSettingsOpen(isOpen) {
   const popover = getElement("settings-popover");
   if (!button || !popover) {
     return;
+  }
+  if (isOpen) {
+    setEditionPickerOpen(false);
   }
   popover.classList.toggle("is-hidden", !isOpen);
   button.setAttribute("aria-expanded", String(isOpen));
@@ -885,6 +1190,7 @@ function setupSettings() {
 
   window.worldCupTheme?.subscribe(({ theme }) => {
     darkModeToggle.checked = theme === "dark";
+    updateCelebrationThemeColor(theme);
   });
 
   document.addEventListener("click", (event) => {
@@ -927,6 +1233,12 @@ function getHistoricalProfile(profileData, playerName, year) {
     Number(profile?.tournamentYear) === Number(year)
       && normalizeHistoricalName(profile?.name) === target
   ) || null;
+}
+
+function getHistoricalLocalizedPlayerName(playerName) {
+  return loadedHistoricalPlayerNames[playerName]
+    || loadedHistoricalPlayerNamesByNormalizedName.get(normalizeHistoricalName(playerName))
+    || "";
 }
 
 function getHistoricalSlotCoordinates(rows) {
@@ -999,8 +1311,9 @@ function buildHistoricalBestXi(editorialEdition, profileData) {
   };
 }
 
-function buildHistoricalTeams(editorialEdition, awardsEdition) {
+function buildHistoricalTeams(editorialEdition, awardsEdition, rankingSnapshot = null) {
   const names = new Set([
+    ...Object.keys(rankingSnapshot?.teams || {}),
     editorialEdition.champion,
     editorialEdition.coach.teamName,
     ...editorialEdition.rows.flatMap((row) => row.flatMap((entry) => [
@@ -1011,14 +1324,66 @@ function buildHistoricalTeams(editorialEdition, awardsEdition) {
       (award?.recipients || []).map((recipient) => recipient.teamName)
     )
   ]);
-  return Object.fromEntries([...names].filter(Boolean).map((name) => [name, {
-    id: name,
-    name,
-    flag: TEAM_FLAGS[name] || "🌍"
-  }]));
+  return Object.fromEntries([...names].filter(Boolean).map((name) => {
+    const rank = Number(rankingSnapshot?.teams?.[name]);
+    const hasRank = Number.isInteger(rank) && rank > 0;
+    return [name, {
+      id: name,
+      name,
+      flag: TEAM_FLAGS[name] || "🌍",
+      fifaRank: hasRank ? rank : null,
+      fifaRankingDate: hasRank ? rankingSnapshot.rankingDate || null : null,
+      fifaRankingYear: hasRank ? activeEdition : null,
+      rankingSystem: hasRank ? rankingSnapshot.rankingSystem || "fifa" : null
+    }];
+  }));
+}
+
+function getHistoricalStoryPlayerNames() {
+  const stories = loadedHistoricalStoryCopy?.editions?.[String(activeEdition)] || [];
+  const names = new Set();
+  for (const story of stories) {
+    for (const value of [story?.title, story?.body]) {
+      for (const match of String(value || "").matchAll(/\{player:([^|{}]+)\|[^{}]+\}/gu)) {
+        names.add(match[1].trim());
+      }
+    }
+  }
+  return [...names];
+}
+
+function getHistoricalStoryProfile(profileData, playerName) {
+  const directProfile = getHistoricalProfile(profileData, playerName, activeEdition);
+  if (directProfile) {
+    return { ...directProfile };
+  }
+
+  const override = HISTORICAL_STORY_PROFILE_OVERRIDES[`${activeEdition}|${playerName}`];
+  if (!override) {
+    return null;
+  }
+  const { profileYear, ...overrideFields } = override;
+  const sourceProfile = profileYear
+    ? getHistoricalProfile(profileData, playerName, profileYear)
+    : null;
+  return {
+    ...(sourceProfile || {}),
+    ...overrideFields,
+    name: overrideFields.name || sourceProfile?.name || playerName,
+    displayName: overrideFields.displayName || sourceProfile?.displayName || playerName
+  };
 }
 
 function buildHistoricalProfiles(editorialEdition, profileData, awardsEdition) {
+  const profiles = Object.fromEntries(
+    Object.values(profileData?.profiles || {})
+      .filter((profile) => Number(profile?.tournamentYear) === Number(activeEdition))
+      .map((profile) => [profile.name, {
+        ...profile,
+        teamId: profile.teamName,
+        teamName: profile.teamName
+      }])
+  );
   const selectedPlayers = editorialEdition.rows.flatMap((row) => row.flatMap((entry) => [
     entry,
     ...(entry.honourables || [])
@@ -1032,7 +1397,7 @@ function buildHistoricalProfiles(editorialEdition, profileData, awardsEdition) {
         position: ""
       }))
   );
-  return Object.fromEntries([...selectedPlayers, ...awardPlayers].map((entry) => {
+  for (const entry of [...selectedPlayers, ...awardPlayers]) {
     const sourced = getHistoricalProfile(profileData, entry.playerName, activeEdition);
     const profile = sourced
       ? { ...sourced }
@@ -1046,17 +1411,72 @@ function buildHistoricalProfiles(editorialEdition, profileData, awardsEdition) {
         };
     profile.teamId = entry.teamName;
     profile.teamName = entry.teamName;
-    return [entry.playerName, profile];
-  }));
+    profiles[entry.playerName] = profile;
+  }
+  for (const playerName of getHistoricalStoryPlayerNames()) {
+    const profile = getHistoricalStoryProfile(profileData, playerName);
+    if (!profile) {
+      continue;
+    }
+    profile.teamId = profile.teamName;
+    profiles[playerName] = profile;
+  }
+  return profiles;
 }
 
 function getHistoricalEditionAwardData() {
   return loadedHistoricalAwards?.editions?.[String(activeEdition)] || {};
 }
 
-function getAwardEditorialReason(playerName) {
-  const selected = getBestXiPlayerByName(playerName);
-  return selected?.reason?.en || loadedProfiles?.[playerName]?.styleNote || loadedProfiles?.[playerName]?.note || "";
+function getHistoricalEditionAwardCopy() {
+  return loadedHistoricalAwardCopy?.editions?.[String(activeEdition)] || {};
+}
+
+function getHistoricalAwardLabelKey(awardKey, award) {
+  if (awardKey === "goldenBoot") {
+    if (activeEdition < 1982) {
+      return (award?.recipients || []).length > 1 ? "jointLeadingScorers" : "leadingScorer";
+    }
+    return activeEdition < 2010 ? "goldenShoe" : "goldenBoot";
+  }
+  if (awardKey === "goldenGlove") {
+    return activeEdition < 2010 ? "yashinAward" : "goldenGlove";
+  }
+  return awardKey;
+}
+
+function localizeHistoricalAwardTeam(teamName) {
+  if (currentLanguage === "zh") {
+    return ZH_PREVIEW_TEAM_NAMES[teamName] || localizeEntity("teams", teamName) || teamName;
+  }
+  return localizeEntity("teams", teamName) || teamName;
+}
+
+function formatHistoricalAwardList(values) {
+  return new Intl.ListFormat(PREVIEW_DATE_LOCALES[currentLanguage] || PREVIEW_DATE_LOCALES.en, {
+    style: "long",
+    type: "conjunction"
+  }).format(values);
+}
+
+function renderHistoricalAwardExplanation(elementId, copy) {
+  const explanation = getElement(elementId);
+  if (!explanation || !copy) {
+    return;
+  }
+  const strong = document.createElement("strong");
+  strong.textContent = copy.stat;
+  explanation.replaceChildren(strong, document.createTextNode(` ${copy.context}`));
+}
+
+function renderHistoricalFairPlayExplanation(copy) {
+  const explanation = getElement("fair-play-explanation");
+  if (!explanation || !copy) {
+    return;
+  }
+  const strong = document.createElement("strong");
+  strong.textContent = copy.stat;
+  explanation.replaceChildren(document.createTextNode(`${copy.context} `), strong);
 }
 
 function setHistoricalAwardLabel(awardKey, label, meaning) {
@@ -1071,12 +1491,21 @@ function setHistoricalAwardLabel(awardKey, label, meaning) {
 }
 
 function renderHistoricalAwards() {
-  if (activeEdition === 2026 || !loadedHistoricalAwards) {
+  if (activeEdition === 2026 || !loadedHistoricalAwards || !loadedHistoricalAwardCopy) {
     return;
   }
   const awards = getHistoricalEditionAwardData();
+  const awardCopy = getHistoricalEditionAwardCopy();
   document.querySelectorAll("[data-award-key]").forEach((row) => {
     row.toggleAttribute("hidden", !awards[row.dataset.awardKey]);
+  });
+
+  Object.entries(awards).forEach(([awardKey, award]) => {
+    const labelKey = getHistoricalAwardLabelKey(awardKey, award);
+    const presentation = loadedHistoricalAwardCopy.labels?.[labelKey];
+    if (presentation) {
+      setHistoricalAwardLabel(awardKey, presentation.label, presentation.meaning);
+    }
   });
 
   const playerAwards = {
@@ -1090,64 +1519,87 @@ function renderHistoricalAwards() {
     if (!award) return;
     const recipients = award.recipients || [];
     const first = recipients[0] || {};
-    const displayNames = recipients.map((recipient) => loadedProfiles?.[recipient.playerName]?.displayName || recipient.playerName);
-    setText(ids.nameId, displayNames.join(" & "));
-    setText(ids.metaId, recipients.map((recipient) => `${TEAM_FLAGS[recipient.teamName] || "🌍"} ${recipient.teamName}`).join(" · "));
-    renderAwardPhoto(ids.photoId, displayNames[0], loadedProfiles?.[first.playerName]);
-    const reason = getAwardEditorialReason(first.playerName);
-    const goals = recipients.map((recipient) => Number(recipient.goals)).filter(Number.isFinite);
-    const lead = awardKey === "goldenBoot"
-      ? `${goals.length ? `${goals[0]} goals. ` : ""}${activeEdition < 1982 ? "The tournament's leading scorer." : "Winner of the FIFA scoring award."}`
-      : awardKey === "goldenBall"
-        ? "Officially named the tournament's best player."
-        : awardKey === "goldenGlove"
-          ? "Winner of FIFA's goalkeeper award."
-          : "Winner of FIFA's young-player award.";
-    const explanation = getElement(ids.explanationId);
-    if (explanation) {
-      explanation.textContent = "";
-      const strong = document.createElement("strong");
-      strong.textContent = lead;
-      explanation.append(strong);
-      if (reason) explanation.append(document.createTextNode(` ${reason}`));
+    const copy = awardCopy[awardKey];
+    const displayNames = copy?.recipientNames?.length === recipients.length
+      ? copy.recipientNames
+      : recipients.map((recipient) => loadedProfiles?.[recipient.playerName]?.displayName || recipient.playerName);
+    setText(ids.nameId, formatHistoricalAwardList(displayNames));
+    setText(ids.metaId, formatHistoricalAwardList(recipients.map((recipient) => {
+      const teamName = localizeHistoricalAwardTeam(recipient.teamName);
+      return `${TEAM_FLAGS[recipient.teamName] || "🌍"} ${teamName}`;
+    })));
+    if (recipients.length > 1) {
+      renderAwardPhoto(ids.photoId, displayNames.join(" "), null);
+      const photo = getElement(ids.photoId);
+      photo?.classList.add("is-multiple-recipients");
+      const fallback = photo?.querySelector(".player-photo-fallback");
+      if (fallback) fallback.textContent = `×${recipients.length}`;
+    } else {
+      getElement(ids.photoId)?.classList.remove("is-multiple-recipients");
+      renderAwardPhoto(ids.photoId, displayNames[0], loadedProfiles?.[first.playerName]);
     }
+    renderHistoricalAwardExplanation(ids.explanationId, copy);
   });
 
   const fairPlay = awards.fairPlay;
   if (fairPlay) {
     const teams = (fairPlay.recipients || []).map((recipient) => recipient.teamName);
-    setText("fair-play-flag", TEAM_FLAGS[teams[0]] || "🌍");
-    setText("fair-play-name", teams.join(" & "));
-    setText("fair-play-meta", teams.map((team) => `${TEAM_FLAGS[team] || "🌍"} ${team}`).join(" · "));
-    setText("fair-play-explanation", `${teams.join(" and ")} received FIFA's Fair Play Award for the tournament.`);
+    const localizedTeams = teams.map(localizeHistoricalAwardTeam);
+    setText("fair-play-flag", teams.map((team) => TEAM_FLAGS[team] || "🌍").join(" "));
+    setText("fair-play-name", formatHistoricalAwardList(localizedTeams));
+    const fairPlayMeta = getElement("fair-play-meta");
+    fairPlayMeta?.removeAttribute("data-i18n");
+    fairPlayMeta?.removeAttribute("data-highlight-player-mentions");
+    fairPlayMeta?.classList.add("is-historical-captain-meta");
+    setText("fair-play-meta", awardCopy.fairPlay?.captainMeta);
+    renderHistoricalFairPlayExplanation(awardCopy.fairPlay);
   }
+}
 
-  setHistoricalAwardLabel("goldenBall", "Golden Ball", "Best overall player · awarded from 1978");
-  setHistoricalAwardLabel("goldenBoot", activeEdition < 1982 ? "Leading scorer" : "Golden Boot", "Top scorer");
-  setHistoricalAwardLabel("goldenGlove", "Golden Glove", "Best goalkeeper · awarded from 1994");
-  setHistoricalAwardLabel("youngPlayer", "Best Young Player", "Official award · awarded from 2006");
-  setHistoricalAwardLabel("fairPlay", "FIFA Fair Play", "Sporting conduct · awarded from 1970");
+function appendHistoricalStoryCopy(element, template) {
+  const copy = String(template || "");
+  const tokenPattern = /\{(team|player):([^|{}]+)\|([^{}]+)\}/gu;
+  let cursor = 0;
+  for (const match of copy.matchAll(tokenPattern)) {
+    appendFootballInlineText(element, copy.slice(cursor, match.index));
+    const [, type, canonicalName, visibleText] = match;
+    if (type === "team") {
+      const pill = createHighlightRankPill(loadedTeams?.[canonicalName]);
+      if (pill) {
+        appendHighlightRankedTeamName(element, visibleText, pill);
+      } else {
+        element.append(document.createTextNode(visibleText));
+      }
+    } else {
+      const mention = createHighlightPlayerMention(canonicalName, visibleText);
+      element.append(mention || document.createTextNode(visibleText));
+    }
+    cursor = match.index + match[0].length;
+  }
+  appendFootballInlineText(element, copy.slice(cursor));
 }
 
 function renderHistoricalHighlights(editorialEdition) {
   const root = getElement("highlight-list");
-  if (!root || !loadedHistory) return;
-  const ui = HISTORICAL_UI[currentLanguage] || HISTORICAL_UI.en;
-  root.innerHTML = editorialEdition.highlights.map((story) => {
-    const match = story.matchId
-      ? loadedHistory.fixtures?.find((fixture) => fixture.id === story.matchId)
-      : null;
-    const video = match?.highlightVideo;
-    return `
-      <article class="highlight-row">
-        <div>
-          <h3>${escapeHtml(story.title)}</h3>
-          <p>${escapeHtml(story.body)}</p>
-          ${video?.url ? `<a class="historical-highlight-link" href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ui.watch)}</a>` : ""}
-        </div>
-      </article>
-    `;
-  }).join("");
+  if (!root) return;
+  const localizedStories = loadedHistoricalStoryCopy?.editions?.[String(activeEdition)];
+  const stories = Array.isArray(localizedStories) && localizedStories.length
+    ? localizedStories
+    : editorialEdition.highlights;
+  const rows = stories.map((story, index) => {
+    const article = document.createElement("article");
+    article.className = "highlight-row";
+    article.dataset.historicalStoryIndex = String(index + 1);
+    const copy = document.createElement("div");
+    const title = document.createElement("h3");
+    const body = document.createElement("p");
+    appendHistoricalStoryCopy(title, story.title);
+    appendHistoricalStoryCopy(body, story.body);
+    copy.append(title, body);
+    article.append(copy);
+    return article;
+  });
+  root.replaceChildren(...rows);
 }
 
 const PREVIEW_DATE_LOCALES = Object.freeze({
@@ -1166,17 +1618,23 @@ const ZH_PREVIEW_TEAM_NAMES = Object.freeze({
   Cameroon: "喀麦隆",
   Canada: "加拿大",
   Chile: "智利",
+  Colombia: "哥伦比亚",
   "Costa Rica": "哥斯达黎加",
   Croatia: "克罗地亚",
+  Czechoslovakia: "捷克斯洛伐克",
   Ecuador: "厄瓜多尔",
   England: "英格兰",
   France: "法国",
   Germany: "德国",
   Greece: "希腊",
+  Hungary: "匈牙利",
   Italy: "意大利",
   Japan: "日本",
   Mexico: "墨西哥",
+  Netherlands: "荷兰",
+  Peru: "秘鲁",
   Poland: "波兰",
+  Portugal: "葡萄牙",
   Qatar: "卡塔尔",
   Russia: "俄罗斯",
   "Saudi Arabia": "沙特阿拉伯",
@@ -1428,6 +1886,12 @@ function renderNextWorldCupPreview() {
   setText("timeline-third-title", copy.openingTitle);
   setText("timeline-third-body", copy.openingBody);
   firstDate?.closest(".timeline-item")?.classList.toggle("is-undated", !formattedFirstDate);
+  document.querySelectorAll(".next-world-cup-timeline .timeline-item").forEach((item) => {
+    item.classList.remove("is-pending", "is-scheduled", "is-final");
+    item.classList.add("is-complete");
+    const marker = item.querySelector(".timeline-marker i");
+    if (marker) marker.textContent = "✓";
+  });
 }
 
 function renderHistoricalEdition() {
@@ -1436,10 +1900,8 @@ function renderHistoricalEdition() {
   }
   const editorialEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
   if (!editorialEdition) return;
-  const palette = editorialEdition.champion === "West Germany" ? "germany" : editorialEdition.champion.toLowerCase();
-  const ui = HISTORICAL_UI[currentLanguage] || HISTORICAL_UI.en;
   const championName = localizeEntity("teams", editorialEdition.champion) || editorialEdition.champion;
-  document.body.dataset.finalCelebrationPalette = palette;
+  updateCelebrationPalette();
   setText("page-title", ({
     en: `${editorialEdition.champion} were ${activeEdition} world champions.`,
     es: `${championName}, campeón del mundo en ${activeEdition}.`,
@@ -1454,8 +1916,8 @@ function renderHistoricalEdition() {
     intro.removeAttribute("data-highlight-player-mentions");
   }
   setText("best-xi-title", getBestXiEditionTitle());
-  setText("awards-title", ui.awards);
-  setText("highlights-title", ui.stories);
+  setText("awards-title", activeLocale.text.officialAwards);
+  setText("highlights-title", activeLocale.text.moreHighlights);
   renderHistoricalAwards();
   renderHistoricalHighlights(editorialEdition);
   renderNextWorldCupPreview();
@@ -1503,8 +1965,15 @@ function createHighlightRankPill(team) {
 
   const year = getHighlightRankingYear(team);
   const teamName = getHighlightTeamName(team);
-  const label = formatMessage(activeLocale.text.rankLabel, { rank, teamName, year });
-  const tooltip = formatMessage(activeLocale.text.rankTooltip, { year });
+  const isRetrospectiveElo = team?.rankingSystem === "elo";
+  const label = formatMessage(
+    isRetrospectiveElo ? activeLocale.text.eloRankLabel : activeLocale.text.rankLabel,
+    { rank, teamName, year }
+  );
+  const tooltip = formatMessage(
+    isRetrospectiveElo ? activeLocale.text.eloRankTooltip : activeLocale.text.rankTooltip,
+    { year }
+  );
   const ariaLabel = formatMessage(activeLocale.text.rankAria, { label, tooltip });
   const pill = document.createElement("span");
   pill.className = "rank-pill";
@@ -1609,7 +2078,13 @@ function renderHighlightStoryTitles() {
 }
 
 function getHighlightPlayerName(playerName, profile = loadedProfiles?.[playerName]) {
-  return localizeEntity("players", playerName) || profile?.displayName || playerName || "";
+  return HISTORICAL_PLAYER_DISPLAY_NAME_OVERRIDES[`${activeEdition}|${playerName}`]?.[currentLanguage]
+    || localizeEntity("players", playerName)
+    || (currentLanguage === "zh" ? ZH_PLAYER_NAME_TRANSLATIONS[playerName] : "")
+    || getHistoricalLocalizedPlayerName(playerName)
+    || profile?.displayName
+    || playerName
+    || "";
 }
 
 function getHighlightPlayerPosition(profile) {
@@ -1638,7 +2113,9 @@ function getHighlightPlayerPosition(profile) {
 function getHighlightPlayerSkills(profile) {
   return (profile?.skills || []).map((skill) => {
     if (currentLanguage === "zh") {
-      return ZH_PLAYER_SKILLS[skill] || skill;
+      return ZH_PLAYER_SKILLS[skill]
+        || ZH_PLAYER_SKILL_CATEGORIES[getPlayerSkillCategory(skill)]
+        || "球员特点";
     }
     if (["es", "ko"].includes(currentLanguage)) {
       return activeAppLocalePack?.helpers?.formatPlayerSkill?.(skill) || skill;
@@ -1684,6 +2161,14 @@ function getHighlightPlayerAge(profile, referenceDate = new Date()) {
     age -= 1;
   }
   return Number.isInteger(age) && age >= 0 && age < 100 ? age : null;
+}
+
+function getHighlightPlayerReferenceDate(profile) {
+  const tournamentYear = Number(profile?.tournamentYear || activeEdition);
+  const historicalDate = activeEdition === 2026
+    ? ""
+    : HISTORICAL_WORLD_CUP_REFERENCE_DATES[tournamentYear];
+  return historicalDate ? new Date(`${historicalDate}T12:00:00Z`) : new Date();
 }
 
 function formatHighlightMarketValueEur(value) {
@@ -1738,7 +2223,7 @@ function renderHighlightPlayerValueLine(profile) {
 }
 
 function renderHighlightPlayerCopy(note, profile, noteClass = "") {
-  const age = getHighlightPlayerAge(profile);
+  const age = getHighlightPlayerAge(profile, getHighlightPlayerReferenceDate(profile));
   const ageLine = age === null
     ? ""
     : escapeHtml(formatMessage(activeLocale.text.playerAge, { age }));
@@ -1761,7 +2246,7 @@ function renderHighlightPlayerCopy(note, profile, noteClass = "") {
     : "";
 }
 
-function createHighlightPlayerMention(playerName) {
+function createHighlightPlayerMention(playerName, triggerText = "") {
   const profile = loadedProfiles?.[playerName];
   if (!profile) {
     return null;
@@ -1799,7 +2284,7 @@ function createHighlightPlayerMention(playerName) {
   trigger.setAttribute("role", "button");
   trigger.tabIndex = 0;
   trigger.dataset.highlightPlayerTrigger = "true";
-  trigger.textContent = displayName;
+  trigger.textContent = triggerText || displayName;
   trigger.setAttribute("aria-label", [displayName, position, club].filter(Boolean).join(", "));
   trigger.setAttribute("aria-expanded", "false");
   trigger.setAttribute("aria-controls", HIGHLIGHT_PLAYER_CARD_ID);
@@ -2292,6 +2777,19 @@ function getHighlightPlayerTeam(profile, fallbackTeamId = "") {
 }
 
 function getHighlightPlayerClubLine(profile) {
+  const archiveMatch = String(profile?.club || "").match(
+    /^(.+?)(?:\s+·)?\s+(\d{4})\s+World Cup archive$/u
+  );
+  if (archiveMatch && currentLanguage !== "en") {
+    const [, teamName, year] = archiveMatch;
+    if (currentLanguage === "zh") {
+      return `${getBestXiTeamName(teamName)}${year}年世界杯档案`;
+    }
+    return activeAppLocalePack?.helpers?.formatAppMessage?.(
+      "historical-archive-club",
+      { teamName, year }
+    ) || String(profile?.club || "");
+  }
   const localizeValue = (translations, glossaryField) => (value) => {
     if (currentLanguage === "zh") {
       return translations[value] || value;
@@ -2359,7 +2857,11 @@ function getBestXiPlayerByName(playerName) {
 function getBestXiDisplayName(player) {
   const profile = loadedProfiles?.[player?.playerName];
   const fallbackName = profile?.displayName || player?.playerName || "";
-  return localizeEntity("players", player?.playerName) || fallbackName;
+  return HISTORICAL_PLAYER_DISPLAY_NAME_OVERRIDES[`${activeEdition}|${player?.playerName}`]?.[currentLanguage]
+    || localizeEntity("players", player?.playerName)
+    || (currentLanguage === "zh" ? ZH_PLAYER_NAME_TRANSLATIONS[player?.playerName] : "")
+    || getHistoricalLocalizedPlayerName(player?.playerName)
+    || fallbackName;
 }
 
 function getBestXiTeamName(teamId) {
@@ -2372,7 +2874,17 @@ function getBestXiPositionLabel(position) {
 }
 
 function getBestXiReason(player) {
-  return player?.reason?.[currentLanguage] || player?.reason?.en || "";
+  const historicalReason = activeEdition === 2026
+    ? ""
+    : loadedHistoricalBestXiReasons[`${activeEdition}|player|${player?.playerName || ""}`];
+  return historicalReason || player?.reason?.[currentLanguage] || player?.reason?.en || "";
+}
+
+function getBestXiCoachReason(coach) {
+  const historicalReason = activeEdition === 2026
+    ? ""
+    : loadedHistoricalBestXiReasons[`${activeEdition}|coach|${coach?.name || ""}`];
+  return historicalReason || getBestXiCoachCopy(coach?.reason);
 }
 
 function formatBestXiFact(fact) {
@@ -2442,7 +2954,9 @@ function renderBestXiPlayerOption(slot, player, { kind, index = 0 } = {}) {
   const profile = loadedProfiles?.[player.playerName];
   const displayName = getBestXiDisplayName(player);
   const clubLine = getHighlightPlayerClubLine(profile);
-  const positionLabel = getHighlightPlayerPosition(profile) || getBestXiPositionLabel(player.position);
+  const positionLabel = activeEdition === 2026
+    ? getHighlightPlayerPosition(profile) || getBestXiPositionLabel(player.position)
+    : getBestXiPositionLabel(player.position) || getHighlightPlayerPosition(profile);
   const uniformNumber = getPlayerCardUniformNumber(player, profile);
   const scoringSummary = getBestXiScoringFacts(player).map(formatBestXiFact).filter(Boolean);
   const lineupLabel = currentLanguage === "zh" ? displayName : formatLineupShortName(displayName);
@@ -2518,7 +3032,9 @@ function renderBestXiHonourablePlayer(slot, player, index = 0) {
   const displayName = getBestXiDisplayName(player);
   const lineupLabel = currentLanguage === "zh" ? displayName : formatLineupShortName(displayName);
   const positionCode = getBestXiCompactPositionCode(player, profile, slot);
-  const positionLabel = getHighlightPlayerPosition(profile) || getBestXiPositionLabel(positionCode);
+  const positionLabel = activeEdition === 2026
+    ? getHighlightPlayerPosition(profile) || getBestXiPositionLabel(positionCode)
+    : getBestXiPositionLabel(positionCode) || getHighlightPlayerPosition(profile);
   const clubLine = getHighlightPlayerClubLine(profile);
   const scoringSummary = getBestXiScoringFacts(player).map(formatBestXiFact).filter(Boolean);
   return `
@@ -2606,7 +3122,7 @@ function renderBestXiCoach(selection) {
   }
 
   trigger.closest(".best-xi-coach-hover")?.removeAttribute("hidden");
-  const reason = coach.reason?.[currentLanguage] || coach.reason?.en || "";
+  const reason = getBestXiCoachReason(coach);
   trigger.setAttribute(
     "aria-label",
     formatMessage(activeLocale.text.bestCoachAria, { name: coach.name, reason })
@@ -2617,8 +3133,9 @@ function renderBestXiCoach(selection) {
   activateBestXiImages(card);
 
   const initials = getPlayerInitials(coach.name);
+  const imageUrl = coach.imageUrl || profile?.imageUrl || "";
   avatar.replaceChildren();
-  if (!coach.imageUrl) {
+  if (!imageUrl) {
     avatar.textContent = initials;
     return;
   }
@@ -2632,7 +3149,7 @@ function renderBestXiCoach(selection) {
     avatar.textContent = initials;
   });
   avatar.append(image);
-  image.src = coach.imageUrl;
+  image.src = imageUrl;
   if (image.complete && image.naturalWidth > 0) {
     image.classList.add("is-image-ready");
   }
@@ -2652,43 +3169,14 @@ function getBestXiCoachCopy(value) {
   return String(value || "").trim();
 }
 
-function getBestXiCoachAge(profile) {
-  const match = String(profile?.birthDate || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) {
-    return null;
-  }
-  const now = new Date();
-  const birthYear = Number(match[1]);
-  const birthMonth = Number(match[2]);
-  const birthDay = Number(match[3]);
-  let age = now.getFullYear() - birthYear;
-  if (now.getMonth() + 1 < birthMonth || (now.getMonth() + 1 === birthMonth && now.getDate() < birthDay)) {
-    age -= 1;
-  }
-  return Number.isFinite(age) && age >= 0 ? age : null;
-}
-
 function renderBestXiCoachCard(coach, profile) {
-  const displayName = profile?.name || coach?.name || "";
+  const displayName = coach?.name || profile?.name || "";
   const team = loadedTeams?.[coach?.teamId || profile?.teamId];
   const teamName = getHighlightTeamName(team) || profile?.teamName || "";
   const role = currentLanguage === "zh"
     ? `${teamName}主教练`
     : activeAppLocalePack?.helpers?.formatAppMessage?.("coach-role", { teamText: teamName }) || `${teamName} Head Coach`;
-  const since = profile?.sinceYear
-    ? currentLanguage === "zh"
-      ? `${profile.sinceYear} 年起`
-      : activeAppLocalePack?.helpers?.formatAppMessage?.("coach-since", { year: profile.sinceYear }) || `Since ${profile.sinceYear}`
-    : "";
-  const age = getBestXiCoachAge(profile);
-  const ageText = age === null
-    ? ""
-    : currentLanguage === "zh"
-      ? `${age}岁`
-      : activeAppLocalePack?.helpers?.translateText?.(`Age ${age}`) || `Age ${age}`;
-  const styles = (profile?.styles || []).slice(0, 3).map(getBestXiCoachCopy).filter(Boolean);
-  const note = getBestXiCoachCopy(profile?.note) || getBestXiCoachCopy(coach?.reason);
-  const history = getBestXiCoachCopy(profile?.history);
+  const note = getBestXiCoachReason(coach);
   const initials = getPlayerInitials(displayName);
   const imageUrl = profile?.imageUrl || coach?.imageUrl || "";
   const photoMarkup = imageUrl
@@ -2706,7 +3194,7 @@ function renderBestXiCoachCard(coach, profile) {
       </span>
     `
     : `<span class="player-photo-fallback">${escapeHtml(initials)}</span>`;
-  const copyItems = [note, history, ageText]
+  const copyItems = [note]
     .filter(Boolean)
     .map((item) => `<span class="player-card-note">${escapeHtml(item)}</span>`)
     .join("");
@@ -2719,12 +3207,8 @@ function renderBestXiCoachCard(coach, profile) {
           <strong class="player-card-name">${escapeHtml(displayName)}</strong>
         </span>
         <span class="player-card-position">${escapeHtml(role)}</span>
-        ${since ? `<span class="player-card-club">${escapeHtml(since)}</span>` : ""}
       </span>
     </span>
-    ${styles.length
-      ? `<span class="player-skill-list">${styles.map((style) => `<span>${escapeHtml(style)}</span>`).join("")}</span>`
-      : ""}
     ${copyItems ? `<span class="player-card-copy lineup-coach-copy">${copyItems}</span>` : ""}
   `;
 }
@@ -2843,7 +3327,9 @@ function renderBestXiPlayerCard(playerElement) {
   const profile = loadedProfiles?.[player.playerName];
   const displayName = getBestXiDisplayName(player);
   const clubLine = getHighlightPlayerClubLine(profile);
-  const positionLabel = getHighlightPlayerPosition(profile) || getBestXiPositionLabel(player.position);
+  const positionLabel = activeEdition === 2026
+    ? getHighlightPlayerPosition(profile) || getBestXiPositionLabel(player.position)
+    : getBestXiPositionLabel(player.position) || getHighlightPlayerPosition(profile);
   const uniformNumber = getPlayerCardUniformNumber(player, profile);
   const initials = getPlayerInitials(displayName);
   const photoMarkup = profile?.imageUrl
@@ -3145,6 +3631,8 @@ function renderAwardPhoto(elementId, displayName, profile) {
 }
 
 function renderAwards(awards, profiles) {
+  getElement("fair-play-meta")?.classList.remove("is-historical-captain-meta");
+
   Object.entries(AWARD_NAME_IDS).forEach(([awardKey, elementId]) => {
     const playerName = awards[awardKey]?.playerName || DEFAULT_AWARD_NAMES[awardKey];
     const profile = profiles[playerName];
@@ -3168,8 +3656,9 @@ function renderAwards(awards, profiles) {
 
 async function initialize() {
   activeEdition = resolveInitialEdition();
+  updateCelebrationPalette();
   setupLanguageSelect();
-  setupEditionSelect();
+  setupEditionPicker();
   setupSettings();
   setupChampionPhotoScoutReaction();
   setupBestXiInteractions();
@@ -3183,6 +3672,11 @@ async function initialize() {
     currentLanguage = "en";
     activeLocale = ENGLISH_HIGHLIGHTS_LOCALE;
     activeAppLocalePack = null;
+    loadedHistoricalBestXiReasons = Object.freeze({});
+    loadedHistoricalAwardCopy = null;
+    loadedHistoricalStoryCopy = null;
+    loadedHistoricalPlayerNames = Object.freeze({});
+    loadedHistoricalPlayerNamesByNormalizedName = new Map();
     applyLocale();
   }
 
@@ -3219,19 +3713,29 @@ async function initialize() {
     }
   } else {
     try {
-      const [historyData, historicalProfileData, historicalAwardData, structuredGlossary] = await Promise.all([
+      const [
+        historyData,
+        historicalProfileData,
+        historicalAwardData,
+        historicalRankingData,
+        coachData,
+        structuredGlossary
+      ] = await Promise.all([
         loadJson("data/history.json"),
         loadJson("data/historical-player-profiles.json"),
         loadJson("data/world-cup-awards.json"),
+        loadJson("data/historical-rankings.json"),
+        loadJson("data/coach-profiles.json"),
         loadJson("data/locales/structured-content-glossary.json")
       ]);
       const editorialEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
       const awardsEdition = historicalAwardData.editions?.[String(activeEdition)] || {};
+      const rankingSnapshot = historicalRankingData.editions?.[String(activeEdition)] || {};
       loadedHistory = historyData;
       loadedHistoricalAwards = historicalAwardData;
       loadedProfiles = buildHistoricalProfiles(editorialEdition, historicalProfileData, awardsEdition);
-      loadedCoachProfiles = {};
-      loadedTeams = buildHistoricalTeams(editorialEdition, awardsEdition);
+      loadedCoachProfiles = coachData.profiles || {};
+      loadedTeams = buildHistoricalTeams(editorialEdition, awardsEdition, rankingSnapshot);
       loadedStructuredGlossary = structuredGlossary || {};
       loadedRankingYear = activeEdition;
       loadedBestXi = buildHistoricalBestXi(editorialEdition, historicalProfileData);

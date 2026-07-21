@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "language": "es",
+  "domain": "historical-awards",
+  "methodology": "Cada tarjeta sigue el modelo de los premios de 2026 con dos partes breves y verificables: un dato concreto y contexto específico del torneo. Las tarjetas históricas de Fair Play también identifican al capitán o los capitanes que lideraron a cada equipo ganador. Los ganadores y los totales de goles siguen las listas históricas actuales de la FIFA. Los nombres de los premios corresponden a la época en que se usaron, y los registros retrospectivos de máximos goleadores no se presentan como premios de Bota de Oro otorgados en su momento.",
+  "labels": {
+    "goldenBall": { "label": "Balón de Oro", "meaning": "Mejor jugador del torneo · se otorgó por primera vez en 1978" },
+    "leadingScorer": { "label": "Máximo goleador", "meaning": "Más goles · antes de que existiera el premio al goleador" },
+    "jointLeadingScorers": { "label": "Máximos goleadores", "meaning": "Más goles · liderato compartido antes de los criterios modernos de desempate" },
+    "goldenShoe": { "label": "Bota de Oro", "meaning": "Máximo goleador · nombre del premio usado de 1982 a 2006" },
+    "goldenBoot": { "label": "Bota de Oro", "meaning": "Máximo goleador · nombre del premio usado desde 2010" },
+    "yashinAward": { "label": "Premio Yashin", "meaning": "Mejor portero · nombre del premio usado de 1994 a 2006" },
+    "goldenGlove": { "label": "Guante de Oro", "meaning": "Mejor portero · nombre del premio usado desde 2010" },
+    "youngPlayer": { "label": "Mejor Jugador Joven", "meaning": "Mejor jugador joven · se otorgó por primera vez en 2006" },
+    "fairPlay": { "label": "Premio FIFA Fair Play", "meaning": "Conducta deportiva · se otorgó por primera vez en 1970" }
+  },
+  "editions": {
+    "1930": {
+      "goldenBoot": {
+        "recipientNames": ["Guillermo Stábile"],
+        "stat": "8 goles en cuatro partidos.",
+        "context": "Stábile marcó en cada partido que disputó, incluido un triplete ante México y dos goles en la semifinal."
+      }
+    },
+    "1934": {
+      "goldenBoot": {
+        "recipientNames": ["Oldřich Nejedlý"],
+        "stat": "5 goles en cuatro partidos.",
+        "context": "Nejedlý marcó todos los goles de Checoslovaquia en la victoria 3-1 sobre Alemania en semifinales."
+      }
+    },
+    "1938": {
+      "goldenBoot": {
+        "recipientNames": ["Leônidas"],
+        "stat": "7 goles en cuatro partidos.",
+        "context": "Leônidas marcó tres ante Polonia, incluidos dos en la prórroga, y luego añadió dos en la victoria sobre Suecia por el tercer puesto."
+      }
+    },
+    "1950": {
+      "goldenBoot": {
+        "recipientNames": ["Ademir de Menezes"],
+        "stat": "9 goles en seis partidos.",
+        "context": "Ademir marcó cuatro en el 7-1 de Brasil sobre Suecia, con el que el anfitrión llegó al duelo decisivo de la liguilla final."
+      }
+    },
+    "1954": {
+      "goldenBoot": {
+        "recipientNames": ["Sándor Kocsis"],
+        "stat": "11 goles en cinco partidos.",
+        "context": "Los dos cabezazos de Kocsis en la prórroga eliminaron al vigente campeón Uruguay en semifinales y llevaron a Hungría a la final."
+      }
+    },
+    "1958": {
+      "goldenBoot": {
+        "recipientNames": ["Just Fontaine"],
+        "stat": "13 goles en seis partidos.",
+        "context": "Fontaine marcó cuatro en la victoria sobre Alemania Occidental por el tercer puesto y fijó el récord de un solo torneo que aún sigue vigente."
+      }
+    },
+    "1962": {
+      "goldenBoot": {
+        "recipientNames": ["Flórián Albert", "Garrincha", "Valentin Ivanov", "Dražan Jerković", "Leonel Sánchez", "Vavá"],
+        "stat": "4 goles cada uno, compartidos por 6 jugadores de 5 selecciones.",
+        "context": "Albert e Ivanov marcaron sus cuatro goles en la fase de grupos; Garrincha y Vavá fueron campeones, mientras el Chile de Sánchez venció a la Yugoslavia de Jerković por el tercer puesto."
+      }
+    },
+    "1966": {
+      "goldenBoot": {
+        "recipientNames": ["Eusébio"],
+        "stat": "9 goles en seis partidos.",
+        "context": "Eusébio marcó cuatro cuando Portugal remontó un 0-3 para vencer 5-3 a Corea del Norte, y luego ayudó al equipo a terminar tercero."
+      }
+    },
+    "1970": {
+      "goldenBoot": {
+        "recipientNames": ["Gerd Müller"],
+        "stat": "10 goles en 6 partidos, incluidos dos tripletes consecutivos en la fase de grupos.",
+        "context": "Müller completó la remontada ante Inglaterra en la prórroga antes de marcar dos veces en la derrota 4-3 frente a Italia en semifinales."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Héctor Chumpitaz como capitán",
+        "stat": "0 tarjetas en 4 partidos.",
+        "context": "Perú regresó tras 40 años de ausencia, alcanzó los cuartos de final y se convirtió en el primer ganador del Premio Fair Play en un Mundial."
+      }
+    },
+    "1974": {
+      "goldenBoot": {
+        "recipientNames": ["Grzegorz Lato"],
+        "stat": "7 goles en siete partidos.",
+        "context": "El gol de Lato venció 1-0 al campeón vigente Brasil, aseguró el tercer puesto de Polonia y lo dejó como máximo goleador."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Franz Beckenbauer como capitán",
+        "stat": "3 tarjetas amarillas en 7 partidos.",
+        "context": "Alemania Occidental sumó el Premio Fair Play a su segundo título mundial, conquistado como anfitriona."
+      }
+    },
+    "1978": {
+      "goldenBall": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "6 goles en 7 partidos, incluidos 2 en la final.",
+        "context": "A los 23 años, Kempes irrumpió desde el mediocampo y guio a Argentina a su primer título mundial."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "6 goles, todos después de la primera fase de grupos.",
+        "context": "Kempes marcó dos ante Polonia, dos ante Perú y dos en la final, incluido el gol de la prórroga que adelantó a Argentina."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Daniel Passarella como capitán",
+        "stat": "4 tarjetas amarillas en 7 partidos.",
+        "context": "Argentina sumó el Premio Fair Play a su primer título mundial tras vencer 3-1 a Países Bajos en la prórroga."
+      }
+    },
+    "1982": {
+      "goldenBall": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "7 partidos · 6 goles · 1 asistencia.",
+        "context": "Rossi marcó los seis en los últimos tres partidos de Italia, incluido el primero de la final, e impulsó el cierre del campeón."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "6 goles.",
+        "context": "Tras cuatro partidos sin marcar, Rossi hizo tres ante Brasil, dos ante Polonia y uno frente a Alemania Occidental en la final."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Sócrates como capitán",
+        "stat": "El primero de los 4 Premios Fair Play de Brasil en Mundiales.",
+        "context": "La FIFA distinguió su conducta deportiva durante una campaña de cinco partidos hasta la segunda fase de grupos."
+      }
+    },
+    "1986": {
+      "goldenBall": {
+        "recipientNames": ["Diego Maradona"],
+        "stat": "7 partidos · 5 goles · 5 asistencias.",
+        "context": "El capitán Maradona participó en 10 de los 14 goles de Argentina y creó el tanto ganador de la final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Gary Lineker"],
+        "stat": "6 goles en cinco partidos.",
+        "context": "Un triplete ante Polonia reanimó a Inglaterra antes de sus dos goles contra Paraguay y uno frente a Argentina."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Edinho como capitán",
+        "stat": "Segundo Premio Fair Play consecutivo.",
+        "context": "Brasil obtuvo el segundo de sus cuatro galardones durante su camino hasta los cuartos de final."
+      }
+    },
+    "1990": {
+      "goldenBall": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "7 partidos · 6 goles · 1 asistencia.",
+        "context": "Schillaci comenzó como suplente y luego marcó en cada partido que inició mientras Italia terminaba tercera."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "6 goles.",
+        "context": "Un penal tardío en el partido por el tercer puesto puso a Schillaci por delante de Tomáš Skuhravý y aseguró el título de goleo."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Bryan Robson, Peter Shilton y Terry Butcher como capitanes",
+        "stat": "El primero de los 3 Premios Fair Play de Inglaterra en Mundiales.",
+        "context": "Su campaña llegó a semifinales y produjo su mejor resultado desde el título de 1966."
+      }
+    },
+    "1994": {
+      "goldenBall": {
+        "recipientNames": ["Romário"],
+        "stat": "7 partidos · 5 goles · 2 asistencias.",
+        "context": "Romário marcó en tres partidos de grupo, los cuartos de final y la semifinal durante el camino de Brasil al título."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Oleg Salenko", "Hristo Stoichkov"],
+        "stat": "6 goles cada uno.",
+        "context": "Los cinco goles de Salenko ante Camerún fijaron un récord para un partido; Stoichkov marcó en cinco encuentros seguidos y ayudó a Bulgaria a terminar cuarta."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Michel Preud’homme"],
+        "stat": "4 partidos · 2 porterías a cero · 4 goles recibidos.",
+        "context": "Preud’homme no recibió goles ante Marruecos ni Países Bajos mientras Bélgica alcanzaba los octavos de final."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Raí y Dunga como capitanes",
+        "stat": "El tercero de los 4 Premios Fair Play de Brasil en Mundiales.",
+        "context": "Sumó el galardón a su cuarto título mundial."
+      }
+    },
+    "1998": {
+      "goldenBall": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "7 partidos · 4 goles · 3 asistencias.",
+        "context": "La velocidad, la definición y la creatividad de Ronaldo produjeron siete participaciones de gol en el regreso de Brasil a la final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Davor Šuker"],
+        "stat": "7 partidos · 6 goles.",
+        "context": "Šuker marcó en todos los partidos salvo el de la fase de grupos ante Argentina, incluido el gol que aseguró el tercer puesto."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Fabien Barthez"],
+        "stat": "7 partidos · 5 porterías a cero · 2 goles recibidos.",
+        "context": "Barthez dejó su portería a cero ante Brasil en la final y Francia ganó su primer título mundial."
+      },
+      "fairPlay": {
+        "captainMeta": "Inglaterra, con Alan Shearer como capitán; Francia, con Didier Deschamps como capitán",
+        "stat": "Dos ganadores compartidos: Inglaterra y Francia.",
+        "context": "Inglaterra obtuvo su segundo Premio Fair Play; Francia ganó el primero y también levantó la Copa del Mundo."
+      }
+    },
+    "2002": {
+      "goldenBall": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7 partidos · 5 porterías a cero · 3 goles recibidos.",
+        "context": "Kahn solo recibió un gol antes de la final y sigue siendo el único portero ganador del Balón de Oro."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "8 goles en 7 partidos.",
+        "context": "Ronaldo marcó en todos sus partidos salvo los cuartos de final y luego hizo dos en la final para dar a Brasil su quinto título."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7 partidos · 5 porterías a cero · 3 goles recibidos.",
+        "context": "Kahn mantuvo tres porterías a cero consecutivas en las eliminatorias y llevó a Alemania a la final."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Marc Wilmots como capitán",
+        "stat": "Primer y único Premio Fair Play de Bélgica en un Mundial.",
+        "context": "Llegó a octavos de final y solo perdió ante Brasil, el futuro campeón."
+      }
+    },
+    "2006": {
+      "goldenBall": {
+        "recipientNames": ["Zinédine Zidane"],
+        "stat": "6 partidos · 3 goles · 1 asistencia.",
+        "context": "Zidane brilló ante Brasil y Portugal durante el camino de Francia a la final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Miroslav Klose"],
+        "stat": "5 goles en 7 partidos.",
+        "context": "El empate de Klose ante Argentina ayudó a la anfitriona Alemania a llegar a semifinales, y terminó como único máximo goleador."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Gianluigi Buffon"],
+        "stat": "5 porterías a cero · 2 goles recibidos en 7 partidos.",
+        "context": "Uno fue un autogol y el otro, un penal; la parada de Buffon ante Zidane en la prórroga ayudó a Italia a ganar la final."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Lukas Podolski"],
+        "stat": "3 goles en 7 partidos a los 21 años.",
+        "context": "El doblete temprano de Podolski ante Suecia llevó a la anfitriona Alemania a cuartos de final camino del tercer puesto."
+      },
+      "fairPlay": {
+        "captainMeta": "Brasil, con Cafú como capitán; España, con Iker Casillas y Raúl González como capitanes",
+        "stat": "Ganadores compartidos · sin tarjetas rojas.",
+        "context": "Brasil y España compartieron el Trofeo Fair Play de la FIFA tras llegar a cuartos y octavos de final, respectivamente."
+      }
+    },
+    "2010": {
+      "goldenBall": {
+        "recipientNames": ["Diego Forlán"],
+        "stat": "5 goles · 1 asistencia en 7 partidos.",
+        "context": "Forlán llevó a Uruguay a su primera semifinal en 40 años, y su volea ante Alemania fue elegida Gol del Torneo."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "5 goles · 3 asistencias.",
+        "context": "Müller igualó en goles con Forlán, Villa y Sneijder y ganó el premio por el desempate de asistencias."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Iker Casillas"],
+        "stat": "5 porterías a cero · 2 goles recibidos en 7 partidos.",
+        "context": "Casillas detuvo el penal de Cardozo en cuartos y ganó dos mano a mano ante Robben en la final."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "5 goles · 3 asistencias en 6 partidos a los 20 años.",
+        "context": "Müller marcó ante Inglaterra y Argentina, y volvió tras una suspensión para anotar en el partido por el tercer puesto."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Iker Casillas como capitán",
+        "stat": "7 partidos · sin tarjetas rojas.",
+        "context": "España sumó el Trofeo Fair Play de la FIFA a su primer título mundial."
+      }
+    },
+    "2014": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "4 goles · 1 asistencia en 7 partidos.",
+        "context": "Messi marcó en cada partido de grupo y creó el gol ganador en la prórroga ante Suiza mientras Argentina llegaba a la final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["James Rodríguez"],
+        "stat": "6 goles en 5 partidos.",
+        "context": "James marcó en todos los partidos de Colombia, incluidos dos ante Uruguay; el primero fue elegido Gol del Torneo."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Manuel Neuer"],
+        "stat": "4 porterías a cero · 4 goles recibidos en 7 partidos.",
+        "context": "Las salidas de Neuer ante Argelia frenaron contragolpes y permitieron al campeón Alemania defender lejos de su arco."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Paul Pogba"],
+        "stat": "1 gol · 1 asistencia en 5 partidos a los 21 años.",
+        "context": "Pogba abrió el marcador ante Nigeria y ayudó a Francia a llegar a cuartos de final."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Mario Yepes como capitán",
+        "stat": "5 partidos · 5 tarjetas amarillas · sin rojas.",
+        "context": "Colombia sumó el Trofeo Fair Play de la FIFA a sus primeros cuartos de final en un Mundial."
+      }
+    },
+    "2018": {
+      "goldenBall": {
+        "recipientNames": ["Luka Modrić"],
+        "stat": "2 goles · 1 asistencia en 7 partidos.",
+        "context": "Modrić dirigió a Croacia a través de tres eliminatorias con prórroga y hasta su primera final mundialista."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Harry Kane"],
+        "stat": "6 goles en 6 partidos · 3 de penal.",
+        "context": "Kane comenzó con un doblete y un triplete, y completó su total desde el punto penal ante Colombia."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Thibaut Courtois"],
+        "stat": "3 porterías a cero · 6 goles recibidos en 7 partidos.",
+        "context": "Courtois hizo nueve paradas ante Brasil y cerró con una portería a cero cuando Bélgica aseguró su mejor resultado histórico."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "4 goles en 7 partidos a los 19 años.",
+        "context": "Mbappé marcó dos veces ante Argentina y fue el primer adolescente desde Pelé en anotar en una final mundialista."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Sergio Ramos como capitán",
+        "stat": "4 partidos · 2 tarjetas amarillas · 34 faltas.",
+        "context": "España terminó el torneo sin tarjetas rojas y recibió el Trofeo Fair Play de la FIFA."
+      }
+    },
+    "2022": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "7 goles · 3 asistencias en 7 partidos.",
+        "context": "Messi marcó en cada ronda eliminatoria, dos veces en la final, y fue el primer hombre en ganar dos Balones de Oro."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "8 goles · 2 asistencias en 7 partidos.",
+        "context": "El triplete de Mbappé en la final lo dejó un gol por encima de Messi, por lo que no hizo falta un desempate."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Emiliano Martínez"],
+        "stat": "3 porterías a cero · 3 penales detenidos en tandas.",
+        "context": "La parada de Martínez ante Kolo Muani en el minuto 123 y la atajada a Coman preservaron el título de Argentina."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Enzo Fernández"],
+        "stat": "7 partidos · 1 gol a los 21 años.",
+        "context": "Fernández marcó ante México y luego fue titular en todos los partidos restantes durante el camino de Argentina al título."
+      },
+      "fairPlay": {
+        "captainMeta": "Con Harry Kane como capitán",
+        "stat": "5 partidos · 1 tarjeta amarilla · sin rojas.",
+        "context": "La tarjeta de Maguire en el minuto 90 de los cuartos de final fue la única amonestación de Inglaterra en el torneo."
+      }
+    }
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "language": "ko",
+  "domain": "historical-awards",
+  "methodology": "각 카드는 2026년 수상 소개 형식에 맞춰 검증 가능한 수치와 대회별 맥락을 짧은 두 부분으로 나눴다. 역대 페어플레이 카드에는 각 수상팀을 이끈 주장도 함께 명시한다. 수상자와 득점 수는 FIFA의 최신 역대 목록을 따른다. 상 명칭은 당시 사용된 이름을 따르며, 득점상 제정 이전의 최다 득점 기록을 당시의 골든부트 수상으로 표기하지 않는다.",
+  "labels": {
+    "goldenBall": { "label": "골든볼", "meaning": "대회 최우수 선수 · 1978년 첫 시상" },
+    "leadingScorer": { "label": "최다 득점자", "meaning": "최다 득점 · 득점상 제정 이전" },
+    "jointLeadingScorers": { "label": "공동 최다 득점자", "meaning": "최다 득점 · 현대식 동률 결정 규정 이전 공동 기록" },
+    "goldenShoe": { "label": "골든슈", "meaning": "최다 득점자 · 1982년부터 2006년까지 사용한 상 명칭" },
+    "goldenBoot": { "label": "골든부트", "meaning": "최다 득점자 · 2010년부터 사용한 상 명칭" },
+    "yashinAward": { "label": "야신상", "meaning": "최우수 골키퍼 · 1994년부터 2006년까지 사용한 상 명칭" },
+    "goldenGlove": { "label": "골든글러브", "meaning": "최우수 골키퍼 · 2010년부터 사용한 상 명칭" },
+    "youngPlayer": { "label": "최우수 영플레이어", "meaning": "최고의 젊은 선수 · 2006년 첫 시상" },
+    "fairPlay": { "label": "FIFA 페어플레이상", "meaning": "스포츠맨십 · 1970년 첫 시상" }
+  },
+  "editions": {
+    "1930": {
+      "goldenBoot": {
+        "recipientNames": ["Guillermo Stábile"],
+        "stat": "4경기 8골.",
+        "context": "스타빌레는 멕시코전 해트트릭과 준결승 2골을 포함해 출전한 모든 경기에서 득점했다."
+      }
+    },
+    "1934": {
+      "goldenBoot": {
+        "recipientNames": ["Oldřich Nejedlý"],
+        "stat": "4경기 5골.",
+        "context": "네예들리는 독일을 3–1로 꺾은 준결승에서 체코슬로바키아의 3골을 모두 넣었다."
+      }
+    },
+    "1938": {
+      "goldenBoot": {
+        "recipientNames": ["Leônidas"],
+        "stat": "4경기 7골.",
+        "context": "레오니다스는 폴란드전에서 3골을 넣었고, 그중 2골은 연장전 득점이었다. 이어 스웨덴과의 3위 결정전에서도 2골을 보탰다."
+      }
+    },
+    "1950": {
+      "goldenBoot": {
+        "recipientNames": ["Ademir de Menezes"],
+        "stat": "6경기 9골.",
+        "context": "아데미르는 브라질이 스웨덴을 7–1로 꺾은 경기에서 4골을 넣으며 개최국을 결선리그 최종 우승 결정전까지 이끌었다."
+      }
+    },
+    "1954": {
+      "goldenBoot": {
+        "recipientNames": ["Sándor Kocsis"],
+        "stat": "5경기 11골.",
+        "context": "코치시는 준결승 연장전에서 디펜딩 챔피언 우루과이에 헤더 2골을 넣어 헝가리를 결승으로 이끌었다."
+      }
+    },
+    "1958": {
+      "goldenBoot": {
+        "recipientNames": ["Just Fontaine"],
+        "stat": "6경기 13골.",
+        "context": "퐁텐은 서독과의 3위 결정전에서 4골을 넣으며 지금도 깨지지 않은 월드컵 단일 대회 최다 득점 기록을 세웠다."
+      }
+    },
+    "1962": {
+      "goldenBoot": {
+        "recipientNames": ["Flórián Albert", "Garrincha", "Valentin Ivanov", "Dražan Jerković", "Leonel Sánchez", "Vavá"],
+        "stat": "5개국 6명이 4골씩 기록해 공동 최다 득점.",
+        "context": "알베르트와 이바노프는 조별리그에서만 4골을 넣었다. 가린샤와 바바는 우승했고, 산체스의 칠레는 예르코비치의 유고슬라비아를 꺾고 3위에 올랐다."
+      }
+    },
+    "1966": {
+      "goldenBoot": {
+        "recipientNames": ["Eusébio"],
+        "stat": "6경기 9골.",
+        "context": "에우제비우는 포르투갈이 북한에 0–3으로 뒤지다 5–3으로 역전한 경기에서 4골을 넣었고, 팀의 3위에 힘을 보탰다."
+      }
+    },
+    "1970": {
+      "goldenBoot": {
+        "recipientNames": ["Gerd Müller"],
+        "stat": "6경기 10골 · 조별리그 2경기 연속 해트트릭.",
+        "context": "뮐러는 잉글랜드전 연장전에서 역전승을 완성한 뒤, 이탈리아에 3–4로 패한 준결승에서도 2골을 넣었다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 헥토르 춤피타즈가 이끈 팀",
+        "stat": "4경기 · 카드 0장.",
+        "context": "페루는 40년 만에 월드컵으로 돌아와 8강에 진출했고, 초대 월드컵 페어플레이상 수상팀이 됐다."
+      }
+    },
+    "1974": {
+      "goldenBoot": {
+        "recipientNames": ["Grzegorz Lato"],
+        "stat": "7경기 7골.",
+        "context": "라토는 디펜딩 챔피언 브라질을 1–0으로 꺾는 결승골을 넣어 폴란드의 3위를 확정했고 득점 선두도 지켰다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 프란츠 베켄바워가 이끈 팀",
+        "stat": "7경기 · 옐로카드 3장.",
+        "context": "서독은 홈에서 통산 2번째 월드컵 우승과 페어플레이상을 함께 차지했다."
+      }
+    },
+    "1978": {
+      "goldenBall": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "7경기 · 6골 · 결승 2골.",
+        "context": "23세의 켐페스는 중원에서 전진하며 경기를 장악해 아르헨티나에 첫 월드컵 우승을 안겼다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "6골 · 모두 첫 조별리그 이후 기록.",
+        "context": "켐페스는 폴란드전 2골, 페루전 2골, 결승 2골을 넣었고, 결승에서는 연장전에 아르헨티나를 앞세우는 골을 터뜨렸다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 다니엘 파사레야가 이끈 팀",
+        "stat": "7경기 · 옐로카드 4장.",
+        "context": "아르헨티나는 연장전 끝에 네덜란드를 3–1로 꺾고 첫 월드컵 우승과 페어플레이상을 함께 차지했다."
+      }
+    },
+    "1982": {
+      "goldenBall": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "7경기 출전 · 6골 · 1도움.",
+        "context": "로시는 결승 선제골을 포함해 이탈리아의 마지막 3경기에서 6골을 모두 넣으며 우승팀의 막판 질주를 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "6골.",
+        "context": "4경기 연속 무득점 뒤 브라질전 3골, 폴란드전 2골, 서독과의 결승에서 1골을 넣었다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 소크라치스가 이끈 팀",
+        "stat": "브라질의 월드컵 페어플레이상 통산 4회 중 첫 수상.",
+        "context": "FIFA는 브라질이 5경기를 치러 2차 조별리그까지 오르는 동안 보여준 스포츠맨십을 높이 평가했다."
+      }
+    },
+    "1986": {
+      "goldenBall": {
+        "recipientNames": ["Diego Maradona"],
+        "stat": "7경기 출전 · 5골 · 5도움.",
+        "context": "주장 마라도나는 아르헨티나의 14골 중 10골에 관여했고 결승에서 승부를 가른 골을 만들었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Gary Lineker"],
+        "stat": "5경기 6골.",
+        "context": "리네커는 폴란드전 해트트릭으로 잉글랜드의 흐름을 되살린 뒤 파라과이전 2골과 아르헨티나전 1골을 보탰다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 에디뉴가 이끈 팀",
+        "stat": "2회 연속 페어플레이상.",
+        "context": "브라질은 8강에 오르는 동안 통산 4차례 중 2번째 페어플레이상을 받았다."
+      }
+    },
+    "1990": {
+      "goldenBall": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "7경기 출전 · 6골 · 1도움.",
+        "context": "교체 선수로 대회를 시작한 스킬라치는 선발 출전한 모든 경기에서 득점하며 이탈리아의 3위를 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "6골.",
+        "context": "3위 결정전 막판 페널티킥으로 토마시 스쿠흐라비를 제치고 대회 최다 득점을 확정했다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 브라이언 롭슨, 피터 실턴, 테리 부처가 차례로 이끈 팀",
+        "stat": "잉글랜드의 월드컵 페어플레이상 통산 3회 중 첫 수상.",
+        "context": "잉글랜드는 준결승에 올라 1966년 우승 이후 최고 성적을 거뒀다."
+      }
+    },
+    "1994": {
+      "goldenBall": {
+        "recipientNames": ["Romário"],
+        "stat": "7경기 출전 · 5골 · 2도움.",
+        "context": "호마리우는 조별리그 3경기와 8강, 준결승에서 득점하며 브라질의 우승을 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Oleg Salenko", "Hristo Stoichkov"],
+        "stat": "각 6골.",
+        "context": "살렌코는 카메룬전 5골로 월드컵 단일 경기 기록을 세웠고, 스토이치코프는 5경기 연속 득점하며 불가리아의 4위를 이끌었다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Michel Preud’homme"],
+        "stat": "4경기 출전 · 2경기 무실점 · 4실점.",
+        "context": "프뢰돔은 모로코와 네덜란드를 무득점으로 막으며 벨기에의 16강 진출을 이끌었다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 하이와 둥가가 차례로 이끈 팀",
+        "stat": "브라질의 월드컵 페어플레이상 통산 4회 중 3번째 수상.",
+        "context": "브라질은 페어플레이상과 통산 4번째 월드컵 우승을 함께 차지했다."
+      }
+    },
+    "1998": {
+      "goldenBall": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "7경기 출전 · 4골 · 3도움.",
+        "context": "호나우두는 속도와 결정력, 창의성으로 7골에 관여하며 브라질을 다시 결승으로 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Davor Šuker"],
+        "stat": "7경기 출전 · 6골.",
+        "context": "슈케르는 아르헨티나와의 조별리그를 제외한 모든 경기에서 득점했고, 3위를 확정한 결승골도 넣었다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Fabien Barthez"],
+        "stat": "7경기 출전 · 5경기 무실점 · 2실점.",
+        "context": "바르테즈는 결승에서 브라질을 무득점으로 막아 프랑스의 첫 월드컵 우승을 뒷받침했다."
+      },
+      "fairPlay": {
+        "captainMeta": "잉글랜드는 주장 앨런 시어러가, 프랑스는 주장 디디에 데샹이 이끈 두 팀",
+        "stat": "공동 수상 2팀: 잉글랜드와 프랑스.",
+        "context": "잉글랜드는 2번째 페어플레이상을 받았고, 프랑스는 첫 수상과 함께 월드컵 우승도 차지했다."
+      }
+    },
+    "2002": {
+      "goldenBall": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7경기 출전 · 5경기 무실점 · 3실점.",
+        "context": "칸은 결승 전까지 단 1골만 내줬고, 골든볼을 받은 유일한 골키퍼로 남아 있다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "7경기 8골.",
+        "context": "호나우두는 8강을 제외하고 출전한 모든 경기에서 득점했고, 결승에서 2골을 넣어 브라질의 통산 5번째 우승을 완성했다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7경기 출전 · 5경기 무실점 · 3실점.",
+        "context": "칸은 토너먼트 3경기 연속 무실점으로 독일을 결승에 올려놓았다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 마르크 빌모츠가 이끈 팀",
+        "stat": "벨기에의 처음이자 유일한 월드컵 페어플레이상.",
+        "context": "벨기에는 16강에 올랐고, 대회에서 유일한 패배를 우승팀 브라질에 당했다."
+      }
+    },
+    "2006": {
+      "goldenBall": {
+        "recipientNames": ["Zinédine Zidane"],
+        "stat": "6경기 · 3골 · 1도움.",
+        "context": "지단은 브라질전과 포르투갈전에서 경기를 지배하며 프랑스를 결승으로 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Miroslav Klose"],
+        "stat": "7경기 5골.",
+        "context": "클로제의 아르헨티나전 동점골은 개최국 독일의 준결승 진출에 힘을 보탰고, 그는 단독 최다 득점자로 대회를 마쳤다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Gianluigi Buffon"],
+        "stat": "7경기 · 5경기 무실점 · 2실점.",
+        "context": "실점은 자책골 1골과 페널티킥 1골뿐이었다. 부폰은 결승 연장전에서 지단의 헤더를 막아 이탈리아의 우승을 도왔다."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Lukas Podolski"],
+        "stat": "21세 · 7경기 3골.",
+        "context": "포돌스키는 스웨덴과의 16강에서 일찍 2골을 넣어 개최국 독일의 8강 진출과 최종 3위에 힘을 보탰다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 카푸가 이끈 브라질과 이케르 카시야스·라울 곤살레스가 주장직을 나눈 스페인",
+        "stat": "공동 수상 · 레드카드 0장.",
+        "context": "브라질과 스페인은 각각 8강과 16강까지 오르는 동안 보여준 스포츠맨십으로 FIFA 페어플레이상을 함께 받았다."
+      }
+    },
+    "2010": {
+      "goldenBall": {
+        "recipientNames": ["Diego Forlán"],
+        "stat": "7경기 · 5골 · 1도움.",
+        "context": "포를란은 우루과이를 40년 만의 준결승으로 이끌었고, 독일전 발리슛은 대회 최고의 골로 뽑혔다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "5골 · 3도움.",
+        "context": "뮐러는 포를란, 비야, 스네이더르와 득점이 같았지만 도움 수에서 앞서 상을 받았다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Iker Casillas"],
+        "stat": "7경기 · 5경기 무실점 · 2실점.",
+        "context": "카시야스는 8강에서 카르도소의 페널티킥을 막았고, 결승에서는 로번과의 일대일 상황을 2차례 저지했다."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "20세 · 6경기 5골 · 3도움.",
+        "context": "뮐러는 잉글랜드전과 아르헨티나전에서 득점했고, 징계에서 돌아온 3위 결정전에서도 골을 넣었다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 이케르 카시야스가 이끈 팀",
+        "stat": "7경기 · 레드카드 0장.",
+        "context": "스페인은 첫 월드컵 우승과 FIFA 페어플레이상을 함께 차지했다."
+      }
+    },
+    "2014": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "7경기 · 4골 · 1도움.",
+        "context": "메시는 조별리그 모든 경기에서 득점했고, 스위스전 연장 결승골을 만들어 아르헨티나의 결승 진출을 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["James Rodríguez"],
+        "stat": "5경기 6골.",
+        "context": "하메스는 우루과이전 2골을 포함해 콜롬비아의 모든 경기에서 득점했고, 그 경기의 첫 골은 대회 최고의 골로 뽑혔다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Manuel Neuer"],
+        "stat": "7경기 · 4경기 무실점 · 4실점.",
+        "context": "노이어는 알제리전에서 골문 밖까지 넓게 커버해 역습을 끊었고, 우승팀 독일이 수비 라인을 높게 유지하게 했다."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Paul Pogba"],
+        "stat": "21세 · 5경기 1골 · 1도움.",
+        "context": "포그바는 나이지리아전 선제골로 균형을 깨고 프랑스의 8강 진출을 도왔다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 마리오 예페스가 이끈 팀",
+        "stat": "5경기 · 옐로카드 5장 · 레드카드 0장.",
+        "context": "콜롬비아는 사상 첫 월드컵 8강 진출과 FIFA 페어플레이상을 함께 이뤘다."
+      }
+    },
+    "2018": {
+      "goldenBall": {
+        "recipientNames": ["Luka Modrić"],
+        "stat": "7경기 · 2골 · 1도움.",
+        "context": "모드리치는 연장전까지 간 토너먼트 3경기에서 크로아티아를 지휘하며 사상 첫 월드컵 결승으로 이끌었다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Harry Kane"],
+        "stat": "6경기 6골 · 페널티킥 3골.",
+        "context": "케인은 첫 경기에서 2골, 다음 경기에서 해트트릭을 기록한 뒤 콜롬비아전 페널티킥으로 6골을 완성했다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Thibaut Courtois"],
+        "stat": "7경기 · 3경기 무실점 · 6실점.",
+        "context": "쿠르투아는 브라질전에서 9차례 선방했고, 마지막 경기를 무실점으로 마쳐 벨기에의 역대 최고 성적을 완성했다."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "19세 · 7경기 4골.",
+        "context": "음바페는 아르헨티나전에서 2골을 넣었고, 펠레 이후 월드컵 결승에서 득점한 첫 10대 선수가 됐다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 세르히오 라모스가 이끈 팀",
+        "stat": "4경기 · 옐로카드 2장 · 파울 34회.",
+        "context": "스페인은 레드카드 없이 대회를 마치고 FIFA 페어플레이상을 받았다."
+      }
+    },
+    "2022": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "7경기 · 7골 · 3도움.",
+        "context": "메시는 토너먼트의 모든 단계에서 득점하고 결승에서 2골을 넣으며 남자 월드컵 최초로 골든볼을 2차례 받은 선수가 됐다."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "7경기 · 8골 · 2도움.",
+        "context": "음바페는 결승 해트트릭으로 메시보다 1골 앞서 동률 결정 규정 없이 수상을 확정했다."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Emiliano Martínez"],
+        "stat": "3경기 무실점 · 승부차기 페널티킥 3개 선방.",
+        "context": "마르티네스는 123분 콜로 무아니의 슛을 막고 승부차기에서 코망의 슛을 선방해 아르헨티나의 우승을 지켰다."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Enzo Fernández"],
+        "stat": "21세 · 7경기 1골.",
+        "context": "페르난데스는 멕시코전에서 득점한 뒤 남은 모든 경기에 선발로 나서 아르헨티나의 우승을 도왔다."
+      },
+      "fairPlay": {
+        "captainMeta": "주장 해리 케인이 이끈 팀",
+        "stat": "5경기 · 옐로카드 1장 · 레드카드 0장.",
+        "context": "잉글랜드가 받은 유일한 경고는 매과이어의 8강전 90분 경고였다."
+      }
+    }
+  }
+}

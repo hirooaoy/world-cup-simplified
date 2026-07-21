@@ -25,27 +25,28 @@ function mode(values) {
   )[0]?.[0] || "";
 }
 
-function stableIdentity(profile, profileKey) {
-  const sourceIdentity = [
-    profile.imagePageUrl,
-    profile.imageSourceUrl,
-    profile.peakMarketValueSourceUrl,
-    profile.sourceUrl && !/github\.com\/jfjelstul\/worldcup/i.test(profile.sourceUrl)
-      ? profile.sourceUrl
-      : ""
-  ].map(clean).find(Boolean);
-  const personIdentity = sourceIdentity || (profile.birthDate
-    ? `${normalizePlayerName(profile.displayName || profile.name)}:${profile.birthDate}`
-    : "");
-  return personIdentity || profileKey;
-}
+// Exact name + national team is the durable default identity in this archive.
+// Portrait and source URLs are mutable provenance, so they must never split one
+// person when an image is replaced. These reviewed exceptions preserve the few
+// exact-name/team collisions that are genuinely different players.
+const PERSON_DISAMBIGUATOR_BY_PROFILE_KEY = new Map([
+  ["Ali Karimi / Iran / 2022", "born-1994"],
+  ["Andoni Goikoetxea / Spain / 1994", "jon-andoni"],
+  ["Juanito / Spain / 2006", "born-1980"],
+  ["József Tóth / Hungary / 1982", "1982-player"],
+  ["Júlio César / Brazil / 2010", "goalkeeper-born-1979"],
+  ["Júlio César / Brazil / 2014", "goalkeeper-born-1979"],
+  ["Júnior / Brazil / 2002", "born-1973"],
+  ["Oscar / Brazil / 2014", "born-1991"]
+]);
 
 function groupKey(profile, profileKey) {
-  return [
+  const identity = [
     normalizePlayerName(profile.displayName || profile.name),
-    normalizePlayerName(profile.teamName || profile.teams?.[0]),
-    stableIdentity(profile, profileKey)
+    normalizePlayerName(profile.teamName || profile.teams?.[0])
   ].join("|");
+  const disambiguator = PERSON_DISAMBIGUATOR_BY_PROFILE_KEY.get(profileKey);
+  return disambiguator ? `${identity}|${disambiguator}` : identity;
 }
 
 function buildEntry(group) {

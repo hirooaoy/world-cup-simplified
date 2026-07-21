@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "language": "es",
+  "domain": "historical-stories",
+  "methodology": "Estas traducciones conservan el orden, los resultados y los hechos de las tres historias editoriales de cada Mundial. Los marcadores de selección y jugador mantienen una referencia canónica separada del texto visible para que las clasificaciones históricas y las fichas se enlacen sin alterar un español natural.",
+  "editions": {
+    "1930": [
+      {
+        "title": "{team:Uruguay|Uruguay} cambió la final en el descanso",
+        "body": "{team:Argentina|Argentina} ganaba 2-1, pero {team:Uruguay|Uruguay} aumentó la presión sobre {player:Luis Monti|Monti}, encontró el empate de {player:Pedro Cea|Cea} y siguió atacando hasta que {player:Héctor Castro|Castro} puso el 4-2."
+      },
+      {
+        "title": "{player:Guillermo Stábile|Stábile} llegó y no dejó de marcar",
+        "body": "Fuera del once en el estreno de {team:Argentina|Argentina}, {player:Guillermo Stábile|Guillermo Stábile} entró contra {team:Mexico|México}, firmó un triplete y acabó con ocho goles en solo cuatro partidos."
+      },
+      {
+        "title": "{team:United States|Estados Unidos} alcanzó las semifinales",
+        "body": "Un equipo formado en gran parte por futbolistas de clubes nacionales e inmigrantes ganó su grupo sin encajar; los goles de {player:Bert Patenaude|Patenaude} hicieron de aquella campaña una hazaña real, no una nota al pie del cuadro."
+      }
+    ],
+    "1934": [
+      {
+        "title": "{team:Italy|Italia} necesitó 210 minutos para superar a {team:Spain|España}",
+        "body": "El cuarto de final y su desempate se convirtieron en una prueba de desgaste. {player:Ricardo Zamora|Zamora} brilló en el primer partido; {player:Giuseppe Meazza|Meazza} resolvió el segundo mientras ambas selecciones arrastraban las secuelas."
+      },
+      {
+        "title": "{player:Matthias Sindelar|Sindelar} y su {team:Austria|Austria} chocaron con el muro local",
+        "body": "El {team:Austria|Wunderteam} llevó su ataque de constantes intercambios a la semifinal, pero {player:Luis Monti|Monti} y {player:Attilio Ferraris|Ferraris} cerraron el centro y {player:Enrique Guaita|Guaita} convirtió un balón suelto en el gol de la victoria."
+      },
+      {
+        "title": "{player:Raimundo Orsi|Orsi} volvió a inclinar la final hacia {team:Italy|Italia}",
+        "body": "{team:Czechoslovakia|Checoslovaquia} ganaba a falta de 19 minutos. {player:Raimundo Orsi|Orsi} recortó desde la izquierda para empatar antes de que {player:Angelo Schiavio|Schiavio} completara la remontada en la prórroga."
+      }
+    ],
+    "1938": [
+      {
+        "title": "{team:Brazil|Brasil} y {team:Poland|Polonia} hicieron bello el caos",
+        "body": "{player:Leônidas|Leônidas} y {player:Ernest Wilimowski|Ernest Wilimowski} intercambiaron golpes hasta la prórroga en un clásico de 6-5; sumaron siete goles entre los dos y anunciaron el tono ofensivo del torneo."
+      },
+      {
+        "title": "{team:Italy|Italia} vistió de negro y luego jugó con color",
+        "body": "La política rodeó el cuarto de final contra la anfitriona {team:France|Francia}; en el campo, {team:Italy|Italia} salió de la presión gracias a {player:Giuseppe Meazza|Meazza} y aprovechó el doblete de {player:Silvio Piola|Piola} en la segunda parte para ganar 3-1."
+      },
+      {
+        "title": "{player:Silvio Piola|Piola} y {player:Gino Colaussi|Colaussi} se repartieron la final",
+        "body": "{team:Hungary|Hungría} podía controlar una línea del ataque de {team:Italy|Italia}, pero no las dos. {player:Gino Colaussi|Colaussi} marcó dos desde un costado, {player:Silvio Piola|Piola} otros dos por el centro y el campeón vigente ganó 4-2."
+      }
+    ],
+    "1950": [
+      {
+        "title": "El Maracaná enmudeció",
+        "body": "{team:Brazil|Brasil} solo necesitaba un empate y se adelantó con el gol de {player:Friaça|Friaça}. {player:Obdulio Varela|Varela} frenó la reanudación, {player:Alcides Ghiggia|Ghiggia} creó el empate de {player:Juan Alberto Schiaffino|Schiaffino} y después batió a {player:Barbosa|Barbosa} por el primer palo para el 2-1."
+      },
+      {
+        "title": "{team:United States|Estados Unidos} sorprendió a {team:England|Inglaterra}",
+        "body": "El gol de {player:Joe Gaetjens|Joe Gaetjens} en la primera parte y la resistencia de {player:Frank Borghi|Frank Borghi} produjeron un 1-0 que parecía imposible al comparar los recursos futbolísticos de ambas selecciones."
+      },
+      {
+        "title": "{team:Brazil|Brasil} parecía inevitable, hasta que dejó de serlo",
+        "body": "La anfitriona goleó 7-1 a {team:Sweden|Suecia} y 6-1 a {team:Spain|España} en la fase final. Ese contexto hace todavía más extraordinario el control de {team:Uruguay|Uruguay} durante los últimos 24 minutos."
+      }
+    ],
+    "1954": [
+      {
+        "title": "Los favoritos fueron exigidos dos veces antes de la final",
+        "body": "{team:Hungary|Hungría} sobrevivió a la furia de {team:Brazil|Brasil} y a la remontada de {team:Uruguay|Uruguay} en la prórroga. Aquellas victorias demostraron su calidad, pero agotaron a un equipo que ya cargaba con la lesión de {player:Ferenc Puskás|Puskás}."
+      },
+      {
+        "title": "{player:Helmut Rahn|Rahn} todavía guardaba un disparo",
+        "body": "{team:West Germany|Alemania Federal} remontó un 2-0 en los primeros 18 minutos. A falta de seis, {player:Helmut Rahn|Rahn} llevó el balón a la izquierda y encontró la esquina inferior para el 3-2."
+      },
+      {
+        "title": "{player:Sándor Kocsis|Kocsis} fijó una referencia para las eliminatorias",
+        "body": "Cuatro goles contra {team:West Germany|Alemania Federal}, dos ante {team:Brazil|Brasil} y otros dos en la prórroga frente a {team:Uruguay|Uruguay}: su total de 11 sigue siendo la referencia para cualquiera que no se llame {player:Just Fontaine|Fontaine}."
+      }
+    ],
+    "1958": [
+      {
+        "title": "{team:Brazil|Brasil} encontró el once que cambió el fútbol",
+        "body": "Tras empatar sin goles con {team:England|Inglaterra}, {player:Garrincha|Garrincha}, {player:Pelé|Pelé} y {player:Zito|Zito} entraron en el equipo. El nuevo equilibrio produjo 13 goles en los últimos cuatro partidos."
+      },
+      {
+        "title": "{player:Just Fontaine|Fontaine} llegó a trece",
+        "body": "El partido por el tercer puesto de {team:France|Francia} podía haber sido un trámite. {player:Just Fontaine|Fontaine} marcó cuatro contra {team:West Germany|Alemania Federal} y fijó un récord para un solo torneo que todavía parece inalcanzable."
+      },
+      {
+        "title": "Un joven de 17 años dominó la final",
+        "body": "{player:Pelé|Pelé} marcó dos veces contra {team:Sweden|Suecia}, incluido el sombrero sobre {player:Bengt Gustavsson|Bengt Gustavsson} y la volea que hizo parecer fútbol callejero el partido más importante del mundo."
+      }
+    ],
+    "1962": [
+      {
+        "title": "{team:Brazil|Brasil} perdió a {player:Pelé|Pelé} y encontró otro camino",
+        "body": "{player:Amarildo|Amarildo} sustituyó a la estrella lesionada, rescató el partido de grupos contra {team:Spain|España} y marcó en la final. El campeón vigente cerró sus líneas y ganó resistencia sin perder amenaza."
+      },
+      {
+        "title": "{player:Garrincha|Garrincha} se adueñó del torneo",
+        "body": "{team:England|Inglaterra} y la anfitriona {team:Chile|Chile} reforzaron la cobertura en su banda. Él respondió con cuatro goles entre cuartos y semifinales, además de las ocasiones que no llegaron al marcador."
+      },
+      {
+        "title": "{team:Chile|Chile} convirtió la presión en un podio",
+        "body": "Respaldada por un país que se recuperaba del terremoto de Valdivia, la anfitriona venció a {team:Soviet Union|la Unión Soviética} en cuartos y a {team:Yugoslavia|Yugoslavia} en el partido por el tercer puesto."
+      }
+    ],
+    "1966": [
+      {
+        "title": "{team:North Korea|Corea del Norte} se puso 3-0 y {player:Eusébio|Eusébio} respondió",
+        "body": "{team:North Korea|Corea del Norte} ganaba 3-0 a los 25 minutos. {player:Eusébio|Eusébio} marcó cuatro veces y convirtió el cuarto de final de {team:Portugal|Portugal} en una victoria por 5-3."
+      },
+      {
+        "title": "{player:Bobby Charlton|Charlton} ganó el duelo central de la semifinal",
+        "body": "{team:Portugal|Portugal} tenía a {player:Eusébio|Eusébio}, pero {team:England|Inglaterra} le negó transiciones limpias. {player:Bobby Charlton|Bobby Charlton} apareció dos veces por fuera de la poblada línea de contención para marcar la diferencia."
+      },
+      {
+        "title": "{player:Geoff Hurst|Hurst} siguió corriendo después de la discusión",
+        "body": "Su segundo gol sigue siendo debatido; el tercero, no. Con aficionados ya sobre el césped, {player:Geoff Hurst|Hurst} remató el pase de {player:Bobby Moore|Moore} y completó el primer triplete en una final mundialista."
+      }
+    ],
+    "1970": [
+      {
+        "title": "{player:Gordon Banks|Banks} detuvo el cabezazo que {player:Pelé|Pelé} ya celebraba",
+        "body": "El salto, el cabezazo hacia abajo y la reacción del portero condensaron el gran duelo del torneo en un segundo. {team:Brazil|Brasil} ganó igualmente, pero {team:England|Inglaterra} demostró que podía incomodar al campeón."
+      },
+      {
+        "title": "El Partido del Siglo tuvo cinco goles en la prórroga",
+        "body": "{team:Italy|Italia} y {team:West Germany|Alemania Federal} llegaron 1-1 al minuto 90 y después intercambiaron cinco goles más, antes de que {player:Gianni Rivera|Rivera} respondiera a {player:Gerd Müller|Müller} con el tanto del 4-3."
+      },
+      {
+        "title": "{player:Carlos Alberto|Carlos Alberto} completó una idea de todo el equipo",
+        "body": "Ocho de los diez jugadores de campo de {team:Brazil|Brasil} participaron en la jugada, que terminó con la pausa de {player:Pelé|Pelé} y el pase al capitán. No fue solo un gran gol; condensó todo el torneo."
+      }
+    ],
+    "1974": [
+      {
+        "title": "{team:East Germany|Alemania Oriental} ganó el partido que cambió a {team:West Germany|Alemania Federal}",
+        "body": "El gol de {player:Jürgen Sparwasser|Jürgen Sparwasser} decidió el único enfrentamiento entre las selecciones absolutas de ambos estados. La derrota también llevó a la anfitriona a un grupo de segunda fase más favorable y la obligó a ajustar el once."
+      },
+      {
+        "title": "{team:Netherlands|Países Bajos} borró al campeón con su presión",
+        "body": "Contra {team:Brazil|Brasil}, la presión de {team:Netherlands|Países Bajos} llegó en oleadas hasta que marcaron {player:Johan Neeskens|Neeskens} y {player:Johan Cruyff|Cruyff}. Fue la demostración mundialista más clara del Fútbol Total."
+      },
+      {
+        "title": "{team:West Germany|Alemania Federal} sobrevivió al primer minuto",
+        "body": "{team:Netherlands|Países Bajos} marcó antes de que un jugador de {team:West Germany|Alemania Federal} tocara el balón. {player:Berti Vogts|Vogts} ahogó a {player:Johan Cruyff|Cruyff}, {player:Paul Breitner|Breitner} empató y {player:Gerd Müller|Müller} necesitó media ocasión para ganar la final."
+      }
+    ],
+    "1978": [
+      {
+        "title": "{player:Mario Kempes|Kempes} bajó unos metros y se volvió imposible de seguir",
+        "body": "No marcó en la primera fase de grupos. Cuando empezó a llegar desde el medio, anotó seis veces en cuatro partidos y dos de ellas en la final."
+      },
+      {
+        "title": "{team:Tunisia|Túnez} logró la primera victoria africana en un Mundial",
+        "body": "Perdía contra {team:Mexico|México} al descanso, pero {team:Tunisia|Túnez} ajustó la presión y marcó tres veces en la segunda parte: un resultado histórico construido con mucho más que simbolismo."
+      },
+      {
+        "title": "{player:Rob Rensenbrink|Rensenbrink} golpeó el poste y {team:Argentina|Argentina} tomó el mando",
+        "body": "El extremo de {team:Netherlands|Países Bajos} estuvo a punto de ganar la final en el minuto 90. La prórroga perteneció en cambio a {player:Mario Kempes|Kempes}, cuyo segundo gol rompió el equilibrio emocional."
+      }
+    ],
+    "1982": [
+      {
+        "title": "{team:Algeria|Argelia} venció a {team:West Germany|Alemania Federal} y aun así se marchó",
+        "body": "{player:Rabah Madjer|Rabah Madjer} y {player:Lakhdar Belloumi|Lakhdar Belloumi} firmaron un histórico 2-1. El posterior resultado entre {team:West Germany|Alemania Federal} y {team:Austria|Austria} eliminó a {team:Algeria|Argelia} y cambió para siempre la norma de los horarios simultáneos."
+      },
+      {
+        "title": "{player:Paolo Rossi|Rossi} acabó con la obra maestra de {team:Brazil|Brasil}",
+        "body": "{team:Brazil|Brasil} necesitaba un empate y remontó dos veces. {player:Paolo Rossi|Rossi} siguió atacando el lado ciego, firmó un triplete y convirtió a {team:Italy|Italia} de superviviente cautelosa en favorita."
+      },
+      {
+        "title": "Sevilla pasó del 1-3 a los penaltis",
+        "body": "{team:France|Francia} aventajaba por dos a {team:West Germany|Alemania Federal} en la prórroga. {player:Karl-Heinz Rummenigge|Rummenigge} y {player:Klaus Fischer|Klaus Fischer} igualaron antes de que la primera tanda de penaltis de la historia del Mundial decidiera la semifinal."
+      }
+    ],
+    "1986": [
+      {
+        "title": "El grupo perfecto de {team:Denmark|Dinamarca} acabó siendo una advertencia",
+        "body": "Venció a {team:West Germany|Alemania Federal} y arrolló 6-1 a {team:Uruguay|Uruguay}, pero {team:Spain|España} castigó esa misma disposición valiente en una derrota por 5-1 en octavos."
+      },
+      {
+        "title": "{player:Diego Maradona|Maradona} marcó dos imposibles diferentes",
+        "body": "Contra {team:England|Inglaterra}, un gol aprovechó el error arbitral y el siguiente superó a media selección. Juntos resumieron su filo: oportunismo seguido de control puro."
+      },
+      {
+        "title": "{player:Jorge Burruchaga|Burruchaga} encontró el último carril libre",
+        "body": "{team:West Germany|Alemania Federal} remontó un 2-0 y la final se inclinaba a su favor. {player:Diego Maradona|Maradona} recibió bajo presión y liberó a {player:Jorge Burruchaga|Burruchaga} antes de que la defensa pudiera cerrarse."
+      }
+    ],
+    "1990": [
+      {
+        "title": "{team:Cameroon|Camerún} hizo que los cuartos de final parecieran posibles",
+        "body": "Venció a la campeona {team:Argentina|Argentina} y después {player:Roger Milla|Milla} castigó dos veces a {team:Colombia|Colombia} en la prórroga. Solo dos penaltis de {player:Gary Lineker|Lineker} frenaron al equipo ante {team:England|Inglaterra}."
+      },
+      {
+        "title": "{player:Sergio Goycochea|Goycochea} no dejó de mover la línea",
+        "body": "{team:Argentina|Argentina} sobrevivió a {team:Yugoslavia|Yugoslavia} y a la anfitriona {team:Italy|Italia} en tandas de penaltis. La paciencia de {player:Sergio Goycochea|Goycochea}, esperando el pie de apoyo del lanzador, se convirtió en el plan del torneo."
+      },
+      {
+        "title": "{player:Andreas Brehme|Brehme} decidió una final construida sobre centímetros",
+        "body": "{team:Argentina|Argentina} acabó con nueve jugadores y {team:West Germany|Alemania Federal} todavía necesitó un penalti en el minuto 85. {player:Andreas Brehme|Brehme} abrió el cuerpo y colocó el balón raso más allá de {player:Sergio Goycochea|Goycochea}."
+      }
+    ],
+    "1994": [
+      {
+        "title": "{team:Saudi Arabia|Arabia Saudita} regateó hasta los octavos",
+        "body": "{player:Saeed Al-Owairan|Saeed Al-Owairan} arrancó desde su propio campo y atravesó la defensa de {team:Belgium|Bélgica}. El gol aseguró un lugar en octavos en la primera participación mundialista del país."
+      },
+      {
+        "title": "{team:Bulgaria|Bulgaria} eliminó a la campeona",
+        "body": "{team:Germany|Alemania} ganaba hasta el minuto 75. {player:Hristo Stoichkov|Stoichkov} curvó una falta, {player:Yordan Letchkov|Letchkov} atacó el siguiente centro y una selección que nunca había ganado un partido mundialista llegó a semifinales."
+      },
+      {
+        "title": "La primera final por penaltis quedó en manos de {player:Roberto Baggio|Baggio}",
+        "body": "Después de 120 minutos sin goles, {player:Cláudio Taffarel|Taffarel} detuvo el lanzamiento de {player:Daniele Massaro|Massaro}. El fallo de {player:Roberto Baggio|Baggio} puso el punto final, pero el control de {team:Brazil|Brasil} durante siete partidos había merecido la cuarta estrella."
+      }
+    ],
+    "1998": [
+      {
+        "title": "{player:Dennis Bergkamp|Bergkamp} necesitó tres toques",
+        "body": "Un pase de 60 metros de {player:Frank de Boer|Frank de Boer}, un control de terciopelo, un recorte ante {player:Roberto Ayala|Roberto Ayala} y un remate con el exterior eliminaron a {team:Argentina|Argentina} en el minuto 90."
+      },
+      {
+        "title": "{player:Lilian Thuram|Thuram} marcó los únicos dos que necesitó",
+        "body": "{team:Croatia|Croacia} se adelantó en la semifinal por medio de {player:Davor Šuker|Šuker}. {player:Lilian Thuram|Thuram} empató de inmediato y después curvó el gol de la victoria, los únicos tantos de sus 142 partidos con {team:France|Francia}."
+      },
+      {
+        "title": "{player:Zinedine Zidane|Zidane} atacó la grieta zonal de {team:Brazil|Brasil}",
+        "body": "{team:France|Francia} buscó en los córneres el espacio entre el defensor zonal del primer palo y los marcadores al hombre. {player:Zinedine Zidane|Zidane} llegó allí dos veces y la final quedó prácticamente decidida al descanso."
+      }
+    ],
+    "2002": [
+      {
+        "title": "{team:Senegal|Senegal} venció a la campeona y siguió avanzando",
+        "body": "El gol de {player:Papa Bouba Diop|Papa Bouba Diop} sorprendió a {team:France|Francia} en el partido inaugural. Más tarde, el gol de oro de {player:Henri Camara|Henri Camara} contra {team:Sweden|Suecia} convirtió a {team:Senegal|Senegal} en el segundo cuartofinalista africano."
+      },
+      {
+        "title": "{team:South Korea|Corea del Sur} presionó hasta las semifinales",
+        "body": "La anfitriona eliminó a {team:Italy|Italia} y {team:Spain|España} en cruces tensos. La línea de {player:Hong Myung-bo|Hong Myung-bo} y una presión incansable en el medio dieron credibilidad táctica a la campaña, al margen de la polémica arbitral."
+      },
+      {
+        "title": "{player:Ronaldo|Ronaldo} culminó la recuperación",
+        "body": "El primer error del torneo de {player:Oliver Kahn|Kahn} le dejó el gol inicial; {player:Kleberson|Kléberson} y {player:Rivaldo|Rivaldo} crearon el segundo. {player:Ronaldo|Ronaldo} marcó ambos y se marchó de Yokohama con ocho."
+      }
+    ],
+    "2006": [
+      {
+        "title": "{team:Argentina|Argentina} construyó el gol del torneo",
+        "body": "Veinticuatro pases movieron a {team:Serbia and Montenegro|Serbia y Montenegro} hasta que {player:Esteban Cambiasso|Cambiasso} culminó la jugada. Fue el fútbol posicional y paciente de José Pékerman ejecutado a toda velocidad."
+      },
+      {
+        "title": "{team:Italy|Italia} atacó antes de que llegaran los penaltis",
+        "body": "Lippi terminó la semifinal con cuatro delanteros sobre el campo. {player:Fabio Grosso|Grosso} y {player:Alessandro Del Piero|Del Piero} marcaron en los dos últimos minutos de la prórroga para silenciar Dortmund."
+      },
+      {
+        "title": "La final giró sobre un último duelo",
+        "body": "El penalti a lo Panenka de {player:Zinedine Zidane|Zidane} y el cabezazo de {player:Marco Materazzi|Materazzi} pusieron el 1-1. Su enfrentamiento en la prórroga dejó a {team:France|Francia} sin su creador; {team:Italy|Italia} convirtió sus cinco penaltis."
+      }
+    ],
+    "2010": [
+      {
+        "title": "{team:New Zealand|Nueva Zelanda} se marchó invicta",
+        "body": "La selección número 78 del ranking empató sus tres partidos, incluido uno contra la campeona {team:Italy|Italia}. Su compacto 3-4-3 cedió terreno sin rendirse."
+      },
+      {
+        "title": "{team:Ghana|Ghana} se quedó a un penalti de la historia",
+        "body": "{player:Luis Suárez|Suárez} despejó con la mano sobre la línea en el minuto 120, {player:Asamoah Gyan|Gyan} estrelló el penalti en el larguero y {team:Uruguay|Uruguay} sobrevivió a la tanda. La primera semifinal africana desapareció en segundos."
+      },
+      {
+        "title": "{player:Andrés Iniesta|Iniesta} encontró por fin el medio espacio derecho",
+        "body": "La final fue áspera y estrecha. {player:Cesc Fàbregas|Fàbregas} liberó a {player:Andrés Iniesta|Iniesta} en el minuto 116 y el interior más persistente de {team:Spain|España} alcanzó por fin terreno abierto."
+      }
+    ],
+    "2014": [
+      {
+        "title": "{team:Costa Rica|Costa Rica} ganó el grupo de los campeones",
+        "body": "Emparejada con {team:Uruguay|Uruguay}, {team:Italy|Italia} y {team:England|Inglaterra}, {team:Costa Rica|Costa Rica} presionó con inteligencia, encajó dos goles en cinco partidos y llegó a una tanda de penaltis en cuartos."
+      },
+      {
+        "title": "{team:Germany|Alemania} marcó cinco antes de que {team:Brazil|Brasil} pudiera reaccionar",
+        "body": "Entre los minutos 11 y 29 se derrumbaron el orden y el control emocional de {team:Brazil|Brasil}. {team:Germany|Alemania} siguió dando el pase extra y cerró la semifinal con un 7-1."
+      },
+      {
+        "title": "{player:Mario Götze|Götze} dio el toque final de un suplente",
+        "body": "El centro de {player:André Schürrle|Schürrle} llegó por detrás. {player:Mario Götze|Götze} lo amortiguó con el pecho y voleó cruzado ante {player:Sergio Romero|Romero} en el minuto 113: el banquillo ganó la final para Löw."
+      }
+    ],
+    "2018": [
+      {
+        "title": "{team:Japan|Japón} rozó el plan perfecto del no favorito",
+        "body": "{team:Japan|Japón} ganaba 2-0 a {team:Belgium|Bélgica} con un juego posicional valiente. La altura de {team:Belgium|Bélgica} cambió la eliminatoria y un contraataque de 14 segundos, de {player:Thibaut Courtois|Courtois} a {player:Nacer Chadli|Chadli}, la decidió en el 94:19."
+      },
+      {
+        "title": "{team:Belgium|Bélgica} utilizó un falso nueve para eliminar a {team:Brazil|Brasil}",
+        "body": "{player:Romelu Lukaku|Lukaku} se abrió a la derecha, {player:Kevin De Bruyne|De Bruyne} partió por el centro y {player:Eden Hazard|Hazard} sostuvo la izquierda. Ese dibujo desarmó a {team:Brazil|Brasil} antes de que {player:Thibaut Courtois|Courtois} protegiera la ventaja de 2-1."
+      },
+      {
+        "title": "{team:France|Francia} siguió ganando el partido que se le presentaba",
+        "body": "La final trajo un autogol, presión a balón parado, posesión de {team:Croatia|Croacia} y transiciones abiertas. {team:France|Francia} tuvo una respuesta para cada fase y cuatro caminos distintos hacia el gol."
+      }
+    ],
+    "2022": [
+      {
+        "title": "{team:Saudi Arabia|Arabia Saudita} rompió la línea de {team:Argentina|Argentina}",
+        "body": "El bloque alto de Hervé Renard dejó una y otra vez en fuera de juego a {team:Argentina|Argentina}; después, {player:Saleh Al-Shehri|Al-Shehri} y {player:Salem Al-Dawsari|Al-Dawsari} aprovecharon dos espacios en la segunda parte para firmar la mayor sorpresa del torneo."
+      },
+      {
+        "title": "{team:Morocco|Marruecos} hizo que defender pareciera expansivo",
+        "body": "Eliminó a {team:Spain|España} y {team:Portugal|Portugal} sin dejar de progresar mediante {player:Achraf Hakimi|Hakimi}, {player:Azzedine Ounahi|Ounahi} y {player:Sofiane Boufal|Boufal}. El primer semifinalista africano fue organizado, no solo resistente."
+      },
+      {
+        "title": "La final contuvo tres partidos diferentes",
+        "body": "{team:Argentina|Argentina} dominó, {player:Kylian Mbappé|Mbappé} forzó la prórroga y después ambos volvieron a marcar. La parada de {player:Emiliano Martínez|Martínez} en el minuto 123 y el penalti de {player:Gonzalo Montiel|Montiel} terminaron por separarlos."
+      }
+    ]
+  }
+}

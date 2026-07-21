@@ -2,17 +2,32 @@
 
 These local derivatives are resized and converted for web display. The hero uses CSS cropping at some viewport sizes; the source files remain linked in the interface.
 
-Every completed men's World Cup edition from 1930 through 2026 was reviewed. A photo replaces the illustration only when a freely reusable source clearly shows the winning squad together with the trophy. Editions without a qualifying image intentionally retain the illustration.
+Every completed men's World Cup edition from 1930 through 2026 uses an authentic, team-first champion photo. The preferred composition is the full winning team gathered with the trophy. When that exact historical frame could not be found, the strongest surviving group celebration or full winning-team portrait is used instead. Freely reusable sources are preferred; credited editorial sources are used when they provide the strongest team image.
 
 | Edition | File | Creator | Source | License |
 | --- | --- | --- | --- | --- |
+| 1930 Uruguay | `1930-uruguay.jpg`, `1930-uruguay.avif` | Fotballnerden archive | [Fotballnerden](https://fotballnerden.webnode.page/l/sigurd-wolksvagen-forst-soloalbum/) | Editorial source |
+| 1934 Italy | `1934-italy.jpg`, `1934-italy.avif` | Sports Illustrated archive | [Sports Illustrated](https://www.si.com/soccer/2018/02/09/world-cup-countdown-19-weeks-go-vittorio-pozzos-1934-italian-tactical-revolution) | Editorial source |
+| 1938 Italy | `1938-italy.jpg`, `1938-italy.avif` | BBC Sport archive | [BBC Sport](https://www.bbc.co.uk/sport/extra/a7f6ujslg5/Best-World-Cup-final-pictures) | Editorial source |
+| 1950 Uruguay | `1950-uruguay.jpg`, `1950-uruguay.avif` | BBC Sport / Getty Images archive | [BBC Sport](https://www.bbc.co.uk/sport/extra/a7f6ujslg5/Best-World-Cup-final-pictures) | Editorial source |
+| 1954 West Germany | `1954-west-germany.jpg`, `1954-west-germany.avif` | BBC Sport archive | [BBC Sport](https://www.bbc.co.uk/sport/extra/a7f6ujslg5/Best-World-Cup-final-pictures) | Editorial source |
+| 1958 Brazil | `1958-brazil.jpg`, `1958-brazil.avif` | BBC Sport archive | [BBC Sport](https://www.bbc.co.uk/sport/extra/a7f6ujslg5/Best-World-Cup-final-pictures) | Editorial source |
+| 1962 Brazil | `1962-brazil.jpg`, `1962-brazil.avif` | Fox News archive | [Fox News](https://www.foxnews.com/sports/the-many-disappearances-of-the-jules-rimet-trophy) | Editorial source |
+| 1966 England | `1966-england.jpg`, `1966-england.avif` | BBC Sport / Getty Images archive | [BBC Sport](https://www.bbc.co.uk/sport/extra/a7f6ujslg5/Best-World-Cup-final-pictures) | Editorial source |
+| 1970 Brazil | `1970-brazil.jpg`, `1970-brazil.avif` | FIFA Films / Noah Media Group | [Noah Media Group](https://www.noahmediagroup.com/news/fifa-films-and-noah-complete-when-the-world-watched-brazil-1970) | Editorial source |
+| 1974 West Germany | `1974-west-germany.jpg`, `1974-west-germany.avif` | Bert Verhoeff / Anefo | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Finale_wereldkampioenschap_voetbal_1974_in_Munchen,_West_Duitsland_tegen_Nederla,_Bestanddeelnr_927-3097_(cropped).jpg) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| 1978 Argentina | `1978-argentina.jpg`, `1978-argentina.avif` | Carlo Fumagalli / AP Photo | [Al Jazeera](https://www.aljazeera.com/sports/2022/11/9/profile-fifa-world-cup-1978) | Editorial source |
+| 1982 Italy | `1982-italy.jpg`, `1982-italy.avif` | Professional Sport / Popperfoto via Getty Images | [Getty Images](https://www.gettyimages.com.br/detail/foto-jornal%C3%ADstica/italy-line-up-for-a-group-photo-as-they-celebrate-foto-jornal%C3%ADstica/1833763216) | Editorial source |
+| 1986 Argentina | `1986-argentina.jpg`, `1986-argentina.avif` | BBC Sport / Getty Images archive | [BBC Sport](https://www.bbc.co.uk/sport/extra/a7f6ujslg5/Best-World-Cup-final-pictures) | Editorial source |
+| 1990 West Germany | `1990-west-germany.jpg`, `1990-west-germany.avif` | Frank Kleefeldt / picture-alliance / dpa / AP Images | [Reddit image supplied for the edition](https://i.redd.it/raz5xn4qno6h1.jpeg) | [Editorial source and credit](https://www.infobae.com/espana/2025/08/06/muere-a-los-67-anos-el-jugador-de-futbol-que-gano-un-mundial-vencio-a-maradona-y-sumo-mas-de-200-goles/) |
+| 1994 Brazil | `1994-brazil.jpg`, `1994-brazil.avif` | Henri Szwarc / Bongarts / Getty Images | [Al Jazeera image supplied for the edition](https://www.aljazeera.com/wp-content/uploads/2022/10/GettyImages-52917111.jpg) | [Getty editorial source](https://www.gettyimages.com.mx/detail/fotograf%C3%ADa-de-noticias/los-angeles-finale-bra-2-n-e-brasilien-fotograf%C3%ADa-de-noticias/52917111) |
+| 1998 France | `1998-france.jpg`, `1998-france.avif` | IMAGO / AFLOSPORT | [Sports Illustrated](https://www.si.com/soccer/france-1998-world-cup-winning-squad-where-are-they-now) | Editorial source |
+| 2002 Brazil | `2002-brazil.jpg`, `2002-brazil.avif` | Sport in Depth archive | [Sport in Depth](https://sportindepth.com/index.php/2020/11/10/the-story-behind-brazils-2002-world-cup-win/) | Editorial source |
+| 2006 Italy | `2006-italy.jpg`, `2006-italy.avif` | Eddy Lemaistre / Corbis via Getty Images | [Getty Images](https://www.gettyimages.ae/detail/news-photo/italian-players-celebrate-with-the-winners-trophy-after-the-news-photo/524822420) | Editorial source |
+| 2010 Spain | `2010-spain.jpg`, `2010-spain.avif` | David Gray / Reuters | [Corriere della Sera](https://www.corriere.it/gallery/sport/06-2010/mondiali-calcio-sudafrica/65/finale-olanda-spagna_73bf26ee-8d21-11df-bfcf-00144f02aabe.shtml) | Editorial source |
 | 2014 Germany | `2014-germany.jpg`, `2014-germany.avif` | Danilo Borges / Portal da Copa | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Germany_champions_2014_FIFA_World_Cup.jpg) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) |
 | 2018 France | `2018-france.jpg`, `2018-france.avif` | Russian Presidential Press and Information Office | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:France_champion_of_the_Football_World_Cup_Russia_2018.jpg) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 2022 Argentina | `2022-argentina.jpg`, `2022-argentina.avif` | Sebas | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Argentina_3-3_Francia_-_Copa_Mundial_2022_-_Argentina_campe%C3%B3n_quality_(Cropped).jpg) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) |
+| 2022 Argentina | `2022-argentina.jpg`, `2022-argentina.avif` | The Independent archive | [The Independent](https://www.independent.co.uk/sport/football/world-cup/argentina-lionel-messi-scaloni-win-b2247792.html) | Editorial source |
 | 2026 Spain | `2026-spain.jpg`, `2026-spain.avif` | Bryan Berlin / WikiPortraits | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Spain_World_Cup_Winners_Argentina_v_Spain_19_July_2026-1.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 
-The 2014 and 2022 derivatives are distributed under CC BY 3.0. The 2018 derivatives are distributed under CC BY 4.0. The 2026 derivatives are distributed under CC BY-SA 4.0.
-
-## Illustration fallbacks
-
-No qualifying free squad-and-trophy photo was found for 1930, 1934, 1938, 1950, 1954, 1958, 1962, 1966, 1970, 1974, 1978, 1982, 1986, 1990, 1994, 1998, 2002, 2006, or 2010. These editions keep the existing champion illustration instead of using a partial-team, individual-player, parade, or non-trophy image.
+The 1974 derivatives are distributed under CC0 1.0. The 2014 derivatives are distributed under CC BY 3.0. The 2018 derivatives are distributed under CC BY 4.0. The 2026 derivatives are distributed under CC BY-SA 4.0. All other files are credited editorial-source derivatives and do not carry an open license in this repository. Visible attribution and a source link do not replace any permission required by the source's terms.

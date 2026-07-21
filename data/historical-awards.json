@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "language": "en",
+  "domain": "historical-awards",
+  "methodology": "Each card follows the 2026 awards pattern with two short, verifiable parts: a factual stat line and tournament-specific context explaining the recipient's case. Historical Fair Play cards also identify the captain or captains who led each winning team. Winners and goal totals follow FIFA's current historical lists. Award names follow the period in which they were used, and retrospective leading-scorer records are not presented as contemporary Golden Boot awards.",
+  "labels": {
+    "goldenBall": { "label": "Golden Ball", "meaning": "Best overall player · first awarded in 1978" },
+    "leadingScorer": { "label": "Leading scorer", "meaning": "Most goals · before the scoring award began" },
+    "jointLeadingScorers": { "label": "Joint leading scorers", "meaning": "Most goals · shared before modern tie-breaks" },
+    "goldenShoe": { "label": "Golden Shoe", "meaning": "Top scorer · award name used from 1982 to 2006" },
+    "goldenBoot": { "label": "Golden Boot", "meaning": "Top scorer · award name used since 2010" },
+    "yashinAward": { "label": "Yashin Award", "meaning": "Best goalkeeper · award name used from 1994 to 2006" },
+    "goldenGlove": { "label": "Golden Glove", "meaning": "Best goalkeeper · award name used since 2010" },
+    "youngPlayer": { "label": "Best Young Player", "meaning": "Best young player · first awarded in 2006" },
+    "fairPlay": { "label": "FIFA Fair Play Award", "meaning": "Sporting conduct · first awarded in 1970" }
+  },
+  "editions": {
+    "1930": {
+      "goldenBoot": {
+        "recipientNames": ["Guillermo Stábile"],
+        "stat": "8 goals in 4 matches.",
+        "context": "Stábile scored in every appearance, including a hat-trick against Mexico and two goals in the semi-final."
+      }
+    },
+    "1934": {
+      "goldenBoot": {
+        "recipientNames": ["Oldřich Nejedlý"],
+        "stat": "5 goals in 4 matches.",
+        "context": "Nejedlý scored every Czechoslovak goal in the 3–1 semi-final win over Germany."
+      }
+    },
+    "1938": {
+      "goldenBoot": {
+        "recipientNames": ["Leônidas"],
+        "stat": "7 goals in 4 matches.",
+        "context": "Leônidas hit three against Poland, including two in extra time, then added two in the third-place win over Sweden."
+      }
+    },
+    "1950": {
+      "goldenBoot": {
+        "recipientNames": ["Ademir de Menezes"],
+        "stat": "9 goals in 6 matches.",
+        "context": "Ademir scored four in Brazil's 7–1 win over Sweden as the hosts reached the final-round decider."
+      }
+    },
+    "1954": {
+      "goldenBoot": {
+        "recipientNames": ["Sándor Kocsis"],
+        "stat": "11 goals in 5 matches.",
+        "context": "Kocsis's two extra-time headers beat holders Uruguay in the semi-final and sent Hungary to the final."
+      }
+    },
+    "1958": {
+      "goldenBoot": {
+        "recipientNames": ["Just Fontaine"],
+        "stat": "13 goals in 6 matches.",
+        "context": "Fontaine scored four in the third-place win over West Germany, setting the single-tournament record that still stands."
+      }
+    },
+    "1962": {
+      "goldenBoot": {
+        "recipientNames": ["Flórián Albert", "Garrincha", "Valentin Ivanov", "Dražan Jerković", "Leonel Sánchez", "Vavá"],
+        "stat": "4 goals each, shared by 6 players from 5 nations.",
+        "context": "Albert and Ivanov scored all four in the group stage; Garrincha and Vavá won the title, while Sánchez's Chile beat Jerković's Yugoslavia for third."
+      }
+    },
+    "1966": {
+      "goldenBoot": {
+        "recipientNames": ["Eusébio"],
+        "stat": "9 goals in 6 matches.",
+        "context": "Eusébio scored four as Portugal recovered from 3–0 down to beat Korea DPR 5–3, then helped them finish third."
+      }
+    },
+    "1970": {
+      "goldenBoot": {
+        "recipientNames": ["Gerd Müller"],
+        "stat": "10 goals in 6 matches, including back-to-back group-stage hat-tricks.",
+        "context": "Müller completed the comeback against England in extra time before scoring twice in the 4–3 semi-final loss to Italy."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Héctor Chumpitaz",
+        "stat": "0 cards in 4 matches.",
+        "context": "Peru returned after 40 years away, reached the quarter-finals and became the first World Cup Fair Play winner."
+      }
+    },
+    "1974": {
+      "goldenBoot": {
+        "recipientNames": ["Grzegorz Lato"],
+        "stat": "7 goals in 7 matches.",
+        "context": "Lato's goal beat defending champions Brazil 1–0, securing Poland's third-place finish and the scoring lead."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Franz Beckenbauer",
+        "stat": "3 yellow cards in 7 matches.",
+        "context": "West Germany paired the Fair Play award with a second World Cup title on home soil."
+      }
+    },
+    "1978": {
+      "goldenBall": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "6 goals in 7 matches, including 2 in the final.",
+        "context": "At 23, Kempes drove from midfield and led Argentina to their first World Cup title."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Mario Kempes"],
+        "stat": "6 goals, all after the opening group stage.",
+        "context": "Kempes scored twice against Poland, twice against Peru and twice in the final, including the extra-time goal that put Argentina ahead."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Daniel Passarella",
+        "stat": "4 yellow cards in 7 matches.",
+        "context": "Argentina paired the Fair Play award with their first World Cup title, beating the Netherlands 3–1 after extra time."
+      }
+    },
+    "1982": {
+      "goldenBall": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "7 appearances · 6 goals · 1 assist.",
+        "context": "Rossi scored all six in Italy's last three matches, including the opener in the final, to power the champions' late surge."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Paolo Rossi"],
+        "stat": "6 goals.",
+        "context": "After four scoreless games, Rossi struck three against Brazil, two against Poland and one against West Germany in the final."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Sócrates",
+        "stat": "Brazil's first of 4 World Cup Fair Play awards.",
+        "context": "FIFA honored their sporting conduct during a five-match run to the second group stage."
+      }
+    },
+    "1986": {
+      "goldenBall": {
+        "recipientNames": ["Diego Maradona"],
+        "stat": "7 appearances · 5 goals · 5 assists.",
+        "context": "Captain Maradona had a hand in 10 of Argentina's 14 goals and created the winner in the final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Gary Lineker"],
+        "stat": "6 goals in 5 matches.",
+        "context": "A hat-trick against Poland revived England's campaign before two goals against Paraguay and one against Argentina."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Edinho",
+        "stat": "A second straight Fair Play award.",
+        "context": "Brazil collected their second of four overall during a run to the quarter-finals."
+      }
+    },
+    "1990": {
+      "goldenBall": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "7 appearances · 6 goals · 1 assist.",
+        "context": "Schillaci began as a substitute, then scored in every match he started as Italy finished third."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Salvatore Schillaci"],
+        "stat": "6 goals.",
+        "context": "A late penalty in the third-place match moved Schillaci ahead of Tomáš Skuhravý and secured the scoring title."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captains Bryan Robson, Peter Shilton and Terry Butcher",
+        "stat": "England's first of 3 World Cup Fair Play awards.",
+        "context": "Their campaign reached the semi-finals and produced their best finish since winning in 1966."
+      }
+    },
+    "1994": {
+      "goldenBall": {
+        "recipientNames": ["Romário"],
+        "stat": "7 appearances · 5 goals · 2 assists.",
+        "context": "Romário scored in three group games, the quarter-final and the semi-final as Brazil became champions."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Oleg Salenko", "Hristo Stoichkov"],
+        "stat": "6 goals each.",
+        "context": "Salenko's five against Cameroon set a single-match record; Stoichkov scored in five straight games and helped Bulgaria finish fourth."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Michel Preud’homme"],
+        "stat": "4 appearances · 2 clean sheets · 4 goals conceded.",
+        "context": "Preud’homme shut out Morocco and the Netherlands as Belgium reached the last 16."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captains Raí and Dunga",
+        "stat": "Brazil's third of 4 World Cup Fair Play awards.",
+        "context": "They paired the honor with their fourth world title."
+      }
+    },
+    "1998": {
+      "goldenBall": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "7 appearances · 4 goals · 3 assists.",
+        "context": "Ronaldo's speed, finishing and creativity produced seven goal contributions as Brazil returned to the final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Davor Šuker"],
+        "stat": "7 appearances · 6 goals.",
+        "context": "Šuker scored in every match except Croatia's group game against Argentina, including the winner that secured third place."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Fabien Barthez"],
+        "stat": "7 appearances · 5 clean sheets · 2 goals conceded.",
+        "context": "Barthez shut out Brazil in the final as France won their first world title."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captains Alan Shearer for England and Didier Deschamps for France",
+        "stat": "2 co-winners: England and France.",
+        "context": "England collected their second Fair Play award; France earned their first and also lifted the World Cup."
+      }
+    },
+    "2002": {
+      "goldenBall": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7 appearances · 5 clean sheets · 3 goals conceded.",
+        "context": "Kahn conceded only once before the final and remains the only goalkeeper to win the Golden Ball."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Ronaldo"],
+        "stat": "8 goals in 7 matches.",
+        "context": "Ronaldo scored in every game he played except the quarter-final, then struck twice in the final to win Brazil's fifth title."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Oliver Kahn"],
+        "stat": "7 appearances · 5 clean sheets · 3 goals conceded.",
+        "context": "Kahn kept three straight knockout clean sheets to take Germany into the final."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Marc Wilmots",
+        "stat": "Belgium's first and only World Cup Fair Play award.",
+        "context": "They reached the last 16 and lost only to eventual champions Brazil."
+      }
+    },
+    "2006": {
+      "goldenBall": {
+        "recipientNames": ["Zinédine Zidane"],
+        "stat": "6 matches · 3 goals · 1 assist.",
+        "context": "Zidane was masterful against Brazil and Portugal as France reached the final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Miroslav Klose"],
+        "stat": "5 goals in 7 matches.",
+        "context": "Klose's equaliser against Argentina helped hosts Germany reach the semi-finals, and he finished as the outright top scorer."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Gianluigi Buffon"],
+        "stat": "5 clean sheets · 2 goals conceded in 7 matches.",
+        "context": "One was an own goal and one was a penalty; Buffon's extra-time save from Zidane helped Italy win the final."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Lukas Podolski"],
+        "stat": "3 goals in 7 matches at age 21.",
+        "context": "Podolski's early brace against Sweden sent hosts Germany into the quarter-finals on their way to third place."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Cafu for Brazil and Captains Iker Casillas and Raúl González for Spain",
+        "stat": "Joint winners · no red cards.",
+        "context": "Brazil and Spain shared FIFA's Fair Play trophy after runs to the quarter-finals and round of 16."
+      }
+    },
+    "2010": {
+      "goldenBall": {
+        "recipientNames": ["Diego Forlán"],
+        "stat": "5 goals · 1 assist in 7 matches.",
+        "context": "Forlán drove Uruguay to their first semi-final in 40 years, and his volley against Germany was voted Goal of the Tournament."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "5 goals · 3 assists.",
+        "context": "Müller tied Forlán, Villa and Sneijder on goals, then won the award on the assists tie-break."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Iker Casillas"],
+        "stat": "5 clean sheets · 2 goals conceded in 7 matches.",
+        "context": "Casillas saved Cardozo's quarter-final penalty and twice denied Robben one-on-one in the final."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Thomas Müller"],
+        "stat": "5 goals · 3 assists in 6 matches at age 20.",
+        "context": "Müller scored against England and Argentina, then returned from suspension to score in the third-place match."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Iker Casillas",
+        "stat": "7 matches · no red cards.",
+        "context": "Spain paired their first world title with FIFA's Fair Play trophy."
+      }
+    },
+    "2014": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "4 goals · 1 assist in 7 matches.",
+        "context": "Messi scored in every group game and created the extra-time winner against Switzerland as Argentina reached the final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["James Rodríguez"],
+        "stat": "6 goals in 5 matches.",
+        "context": "James scored in every Colombia game, including twice against Uruguay; his first was voted Goal of the Tournament."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Manuel Neuer"],
+        "stat": "4 clean sheets · 4 goals conceded in 7 matches.",
+        "context": "Neuer's sweeping against Algeria stopped breakaways and let champions Germany defend high up the pitch."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Paul Pogba"],
+        "stat": "1 goal · 1 assist in 5 matches at age 21.",
+        "context": "Pogba broke the deadlock against Nigeria and helped France reach the quarter-finals."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Mario Yepes",
+        "stat": "5 matches · 5 yellow cards · no reds.",
+        "context": "Colombia paired FIFA's Fair Play trophy with their first World Cup quarter-final."
+      }
+    },
+    "2018": {
+      "goldenBall": {
+        "recipientNames": ["Luka Modrić"],
+        "stat": "2 goals · 1 assist in 7 matches.",
+        "context": "Modrić directed Croatia through three extra-time knockout ties and into their first World Cup final."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Harry Kane"],
+        "stat": "6 goals in 6 matches · 3 penalties.",
+        "context": "Kane opened with a brace and a hat-trick, then completed his total from the spot against Colombia."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Thibaut Courtois"],
+        "stat": "3 clean sheets · 6 goals conceded in 7 matches.",
+        "context": "Courtois made nine saves against Brazil and closed with a clean sheet as Belgium secured their best-ever finish."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "4 goals in 7 matches at age 19.",
+        "context": "Mbappé scored twice against Argentina and became the first teenager since Pelé to score in a World Cup final."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Sergio Ramos",
+        "stat": "4 matches · 2 yellow cards · 34 fouls.",
+        "context": "Spain completed their tournament without a red card and received FIFA's Fair Play trophy."
+      }
+    },
+    "2022": {
+      "goldenBall": {
+        "recipientNames": ["Lionel Messi"],
+        "stat": "7 goals · 3 assists in 7 matches.",
+        "context": "Messi scored in every knockout round, twice in the final, and became the first man to win two Golden Balls."
+      },
+      "goldenBoot": {
+        "recipientNames": ["Kylian Mbappé"],
+        "stat": "8 goals · 2 assists in 7 matches.",
+        "context": "Mbappé's final hat-trick took him one goal beyond Messi, so no tie-break was needed."
+      },
+      "goldenGlove": {
+        "recipientNames": ["Emiliano Martínez"],
+        "stat": "3 clean sheets · 3 shootout penalties saved.",
+        "context": "Martínez's 123rd-minute stop from Kolo Muani and save from Coman preserved Argentina's title."
+      },
+      "youngPlayer": {
+        "recipientNames": ["Enzo Fernández"],
+        "stat": "7 matches · 1 goal at age 21.",
+        "context": "Fernández scored against Mexico, then started every remaining match as Argentina won the title."
+      },
+      "fairPlay": {
+        "captainMeta": "Led by Captain Harry Kane",
+        "stat": "5 matches · 1 yellow card · no reds.",
+        "context": "Maguire's 90th-minute quarter-final booking was England's only caution of the tournament."
+      }
+    }
+  }
+}

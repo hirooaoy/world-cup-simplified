@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "edition": 2026,
-  "updatedAt": "2026-07-20T22:48:09Z",
+  "updatedAt": "2026-07-21T12:00:00Z",
   "selection": {
     "status": "editorial",
     "selectionType": "performance",
@@ -86,6 +86,102 @@
         "label": "Argentina v Cabo Verde match report",
         "url": "https://www.fifa.com/en/articles/argentina-cabo-verde-match-report-highlights",
         "checkedAt": "2026-07-20T21:30:00Z"
+      },
+      {
+        "id": "opta-hakimi-2026-07-21",
+        "label": "Achraf Hakimi tournament profile",
+        "url": "https://theanalyst.com/players/3528/achraf-hakimi/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-laporte-2026-07-21",
+        "label": "Aymeric Laporte tournament profile",
+        "url": "https://theanalyst.com/players/6903/aymeric-laporte/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-fabian-ruiz-2026-07-21",
+        "label": "Fabián Ruiz tournament profile",
+        "url": "https://theanalyst.com/players/3550/fabian-ruiz/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-messi-2026-07-21",
+        "label": "Lionel Messi tournament profile",
+        "url": "https://theanalyst.com/players/10705/lionel-messi/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-vozinha-2026-07-21",
+        "label": "Vozinha tournament profile",
+        "url": "https://theanalyst.com/players/11687/vozinha/national/career",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-saliba-2026-07-21",
+        "label": "William Saliba tournament profile",
+        "url": "https://theanalyst.com/players/3767/william-saliba/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-akanji-2026-07-21",
+        "label": "Manuel Akanji tournament profile",
+        "url": "https://theanalyst.com/players/4136/manuel-akanji/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-nuno-mendes-2026-07-21",
+        "label": "Nuno Mendes tournament profile",
+        "url": "https://theanalyst.com/players/3546/nuno-mendes/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-paredes-2026-07-21",
+        "label": "Leandro Paredes tournament profile",
+        "url": "https://theanalyst.com/players/4474/leandro-paredes/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-xhaka-2026-07-21",
+        "label": "Granit Xhaka tournament profile",
+        "url": "https://theanalyst.com/players/143/granit-xhaka/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-olmo-2026-07-21",
+        "label": "Dani Olmo tournament profile",
+        "url": "https://theanalyst.com/players/1390/dani-olmo/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-enzo-fernandez-2026-07-21",
+        "label": "Enzo Fernández tournament profile",
+        "url": "https://theanalyst.com/players/3897/enzo-fernandez/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-olise-2026-07-21",
+        "label": "Michael Olise tournament profile",
+        "url": "https://theanalyst.com/players/293/michael-olise/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-yamal-2026-07-21",
+        "label": "Lamine Yamal tournament profile",
+        "url": "https://theanalyst.com/players/1403/lamine-yamal/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-oyarzabal-2026-07-21",
+        "label": "Mikel Oyarzabal tournament profile",
+        "url": "https://theanalyst.com/players/1678/mikel-oyarzabal/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
+      },
+      {
+        "id": "opta-dembele-2026-07-21",
+        "label": "Ousmane Dembélé tournament profile",
+        "url": "https://theanalyst.com/players/3545/ousmane-dembele/national",
+        "checkedAt": "2026-07-21T12:00:00Z"
       }
     ],
     "slots": [
@@ -110,20 +206,20 @@
           ],
           "reason": {
             "en": [
-              "Kobel made 20 saves and conceded five goals when the quality of shots he faced suggested roughly eight.",
-              "That tournament-best shot-stopping, plus a shootout save against Colombia, gave Switzerland a chance in matches that repeatedly exposed him."
+              "Kobel made 20 saves, kept two clean sheets and prevented 3.27 goals compared with the quality of shots he faced, the best shot-stopping figure among tournament goalkeepers.",
+              "He was not protected by Spain-level territorial control, and his set positioning, reach and patience in one-on-ones carried Switzerland to the quarterfinals."
             ],
             "es": [
-              "Kobel hizo 20 paradas y encajó cinco goles cuando la calidad de los remates que recibió sugería unos ocho.",
-              "Esa capacidad de atajar, la mejor del torneo, y una parada en la tanda ante Colombia mantuvieron con vida a Suiza en partidos que lo exigieron constantemente."
+              "Kobel hizo 20 paradas, dejó dos porterías a cero y evitó 3,27 goles respecto a la calidad de los remates que recibió, la mejor cifra de paradas entre los porteros del torneo.",
+              "No contó con el control territorial de España, y su colocación, alcance y paciencia en los mano a mano llevaron a Suiza hasta los cuartos de final."
             ],
             "zh": [
-              "科贝尔完成20次扑救，只丢5球，而他面对的射门质量原本大约会带来8个失球。",
-              "赛事最佳的扑救表现，加上对哥伦比亚点球大战中的关键扑救，让屡次暴露在压力下的瑞士始终保有机会。"
+              "科贝尔完成20次扑救、两场零封；按射门质量计算，他比预期少丢3.27球，是本届赛事门将中最佳的扑救表现。",
+              "他没有西班牙那样的控场保护，但稳定的站位、覆盖范围和单刀球中的耐心帮助瑞士闯入八强。"
             ],
             "ko": [
-              "코벨은 실점 기대치가 약 8골에 달하는 슈팅을 상대하고도 20개의 선방으로 5골만 내줬다.",
-              "대회 최고 수준의 선방 능력과 콜롬비아전 승부차기 선방으로 반복해서 위기에 놓인 스위스에 끝까지 기회를 남겼다."
+              "코벨은 20개의 선방과 2경기 무실점을 기록했고, 상대 슈팅의 질을 기준으로 예상보다 3.27골을 덜 내줘 대회 골키퍼 중 최고의 선방 수치를 남겼다.",
+              "스페인 수준의 점유 통제를 보호막으로 누리지 못했지만, 안정적인 위치 선정과 넓은 방어 범위, 일대일 상황의 인내심으로 스위스를 8강까지 이끌었다."
             ]
           }
         },
@@ -144,20 +240,20 @@
             ],
             "reason": {
               "en": [
-                "Simón won the Golden Glove after conceding once and keeping seven clean sheets in Spain’s eight matches.",
-                "He faced only ten shots on target, but his positioning, calm passing and concentration after long quiet spells were exactly what the champions needed."
+                "Simón kept seven clean sheets, conceded only once and won the official Golden Glove, although Spain’s defensive control meant he made only ten saves.",
+                "His value came through concentration, starting position and clean distribution; Kobel edged him on individual shot-stopping rather than overall tournament security."
               ],
               "es": [
-                "Simón ganó el Guante de Oro tras encajar una vez y dejar siete porterías a cero en los ocho partidos de España.",
-                "Solo afrontó diez tiros a puerta, pero su colocación, pase sereno y concentración tras largos periodos sin intervenir fueron justo lo que necesitaba la campeona."
+                "Simón dejó siete porterías a cero, encajó una sola vez y ganó el Guante de Oro oficial, aunque el control defensivo de España hizo que solo tuviera que realizar diez paradas.",
+                "Su valor estuvo en la concentración, posición inicial y distribución limpia; Kobel lo superó por la capacidad individual de parar remates, no por la seguridad global del torneo."
               ],
               "zh": [
-                "西蒙在西班牙的8场比赛中只丢1球、7场零封，赢得金手套。",
-                "虽然他只面对10次射正，但出色的站位、沉稳传球，以及长时间无事可做后仍保持专注，正是冠军队所需要的。"
+                "西蒙完成7场零封、仅丢1球，并获得官方金手套；不过西班牙的防守控制意味着他只需完成10次扑救。",
+                "他的价值来自专注、初始站位和清晰出球；科贝尔凭个人扑救能力压过他，而不是因为整届赛事的稳定性更高。"
               ],
               "ko": [
-                "시몬은 스페인의 8경기에서 단 1골만 내주고 7경기 무실점을 기록해 골든글러브를 받았다.",
-                "유효슈팅은 10개만 상대했지만 정확한 위치 선정, 침착한 패스와 긴 대기 뒤에도 흐트러지지 않는 집중력이 우승팀에 꼭 맞았다."
+                "시몬은 7경기 무실점과 단 1실점으로 공식 골든글러브를 받았지만, 스페인의 수비 통제 덕분에 선방은 10개만 필요했다.",
+                "집중력과 출발 위치, 깔끔한 배급이 그의 가치였다. 대회 전체의 안정감보다 개인 선방 능력에서 코벨이 근소하게 앞섰다."
               ]
             }
           },
@@ -179,20 +275,20 @@
             ],
             "reason": {
               "en": [
-                "At 40, Vozinha stopped all seven shots on target in Cabo Verde’s 0–0 draw with Spain, then denied Lionel Messi from point-blank range as the debutants forced Argentina into extra time.",
-                "Those saves made him the defining figure in one of the tournament’s great underdog runs."
+                "Vozinha played 390 minutes across Cabo Verde’s remarkable four-match debut, kept Spain scoreless and made eight saves against Argentina, four from Messi.",
+                "His reflexes, bravery in holding his position and composure under sustained pressure made him the tournament’s defining underdog goalkeeper."
               ],
               "es": [
-                "Con 40 años, Vozinha detuvo los siete tiros a puerta en el 0–0 de Cabo Verde ante España y después negó a Lionel Messi a quemarropa mientras la debutante llevaba a Argentina a la prórroga.",
-                "Esas paradas lo convirtieron en la figura de una de las grandes historias de resistencia del torneo."
+                "Vozinha jugó 390 minutos en los cuatro notables partidos del debut de Cabo Verde, dejó a España sin marcar y realizó ocho paradas ante Argentina, cuatro de ellas a Messi.",
+                "Sus reflejos, valentía para mantener la posición y serenidad bajo presión constante lo convirtieron en el portero de la gran historia inesperada del torneo."
               ],
               "zh": [
-                "40岁的沃齐尼亚在佛得角0比0战平西班牙时扑出全部7次射正，随后又近距离封堵梅西，帮助这支世界杯新军把阿根廷拖入加时赛。",
-                "这些扑救让他成为本届赛事最动人的黑马故事之一的核心人物。"
+                "沃齐尼亚在佛得角令人惊叹的世界杯首秀中4场出战390分钟，零封西班牙，并在对阿根廷时完成8次扑救，其中4次挡出梅西的射门。",
+                "他的反应、坚守站位的勇气，以及持续受压下的沉着，使他成为本届赛事最具代表性的黑马门将。"
               ],
               "ko": [
-                "40세의 보지냐는 카보베르데가 스페인과 0-0으로 비길 때 유효슈팅 7개를 모두 막았고, 아르헨티나전에서는 리오넬 메시의 근거리 슛까지 선방하며 월드컵 데뷔팀을 연장전으로 이끌었다.",
-                "이 선방들은 그를 이번 대회를 대표하는 언더독 이야기의 중심으로 만들었다."
+                "보지냐는 카보베르데의 놀라운 월드컵 데뷔 4경기에서 390분을 뛰며 스페인을 무득점으로 막고, 아르헨티나전에서는 메시의 슛 4개를 포함해 8개의 선방을 기록했다.",
+                "반사 신경과 자리를 지키는 용기, 지속적인 압박 속 침착함으로 대회를 대표하는 언더독 골키퍼가 됐다."
               ]
             }
           },
@@ -236,20 +332,20 @@
           ],
           "reason": {
             "en": [
-              "Hakimi created 18 chances—the joint-second-highest total at the tournament and the most by a defender—while adding two assists.",
-              "He was Morocco’s main right-sided outlet, and his width and recovery speed make Messi’s freedom inside workable in this XI."
+              "Hakimi logged 570 minutes across Morocco’s six matches and contributed one goal and two assists, including a goal-and-assist performance against Haiti.",
+              "His overlaps, inside carries and recovery speed made him Morocco’s main progression route while still allowing him to defend the position as a genuine right-back."
             ],
             "es": [
-              "Hakimi creó 18 ocasiones —la segunda cifra más alta del torneo y la mejor entre los defensas— y sumó dos asistencias.",
-              "Fue la principal salida de Marruecos por la derecha, y su amplitud y velocidad de recuperación permiten que Messi juegue libre por dentro en este once."
+              "Hakimi disputó 570 minutos en los seis partidos de Marruecos y aportó un gol y dos asistencias, incluida una actuación con gol y asistencia ante Haití.",
+              "Sus desdoblamientos, conducciones interiores y velocidad de recuperación lo convirtieron en la principal vía de progresión marroquí sin dejar de defender como un lateral derecho auténtico."
             ],
             "zh": [
-              "哈基米创造18次机会，并列赛事第二、位居所有后卫之首，另有2次助攻。",
-              "他是摩洛哥右路最重要的出口，而他的宽度和回追速度，也让这套阵容能够给予梅西内收的自由。"
+              "哈基米在摩洛哥的6场比赛中出场570分钟，贡献1球2助攻，其中对海地一战传射建功。",
+              "他的套边、向内带球和回追速度让他成为摩洛哥最主要的推进通道，同时仍能以真正右后卫的方式完成防守。"
             ],
             "ko": [
-              "하키미는 대회 공동 2위이자 수비수 최다인 18개의 기회를 만들고 2도움을 기록했다.",
-              "모로코의 핵심 오른쪽 전진 통로였으며, 폭과 빠른 수비 복귀 덕분에 이 베스트 11에서 메시가 안으로 자유롭게 움직일 수 있다."
+              "하키미는 모로코의 6경기에서 570분을 뛰며 1골 2도움을 기록했고, 아이티전에서는 골과 도움을 모두 올렸다.",
+              "오버래핑, 안쪽으로 파고드는 운반과 빠른 복귀로 모로코의 주된 전진 경로가 되면서도 정통 오른쪽 풀백의 수비 책임을 다했다."
             ]
           }
         },
@@ -271,20 +367,20 @@
             ],
             "reason": {
               "en": [
-                "Porro took over as Spain’s starting right-back in the knockouts and helped preserve five clean sheets.",
-                "He also scored against France, then delivered the deep final cross that Nico Williams redirected for Ferran Torres’s World Cup-winning goal."
+                "Porro scored twice, delivered a defender-leading 24 open-play crosses and created ten chances before scoring against France and playing all 120 minutes of the final.",
+                "Hakimi narrowly took the positional award, but Porro’s width, repeated overlaps and early delivery were central to Spain’s title run."
               ],
               "es": [
-                "Porro se adueñó del lateral derecho de España en las eliminatorias y ayudó a conservar cinco porterías a cero.",
-                "Además marcó ante Francia y puso el centro profundo de la final que Nico Williams desvió para el gol del título de Ferran Torres."
+                "Porro marcó dos goles, envió 24 centros en juego abierto —la mayor cifra entre defensas— y creó diez ocasiones, además de marcar ante Francia y disputar los 120 minutos de la final.",
+                "Hakimi ganó por poco el puesto, pero la amplitud, los desdoblamientos constantes y los centros tempranos de Porro fueron centrales en el camino de España al título."
               ],
               "zh": [
-                "波罗在淘汰赛阶段成为西班牙主力右后卫，并帮助球队完成5场零封。",
-                "他还对法国进球，决赛中又送出后点传中，由尼科·威廉姆斯摆渡，最终让费兰·托雷斯打入夺冠一球。"
+                "波罗攻入2球，送出后卫中最多的24次运动战传中，并创造10次机会；他还在对法国时进球，并打满决赛120分钟。",
+                "哈基米以微弱优势获得该位置，但波罗提供的宽度、连续套边和早早传中，是西班牙夺冠之路的重要组成。"
               ],
               "ko": [
-                "포로는 토너먼트에서 스페인의 주전 오른쪽 수비수가 되어 5경기 무실점에 힘을 보탰다.",
-                "프랑스전에서는 득점했고, 결승에서는 니코 윌리엄스가 연결해 페란 토레스의 우승 결승골로 이어진 깊은 크로스를 올렸다."
+                "포로는 2골을 넣고 수비수 중 가장 많은 오픈 플레이 크로스 24개와 기회 창출 10회를 기록했으며, 프랑스전 득점 뒤 결승 120분을 모두 소화했다.",
+                "하키미가 근소하게 자리를 차지했지만 포로의 폭, 반복되는 오버래핑과 빠른 타이밍의 크로스는 스페인의 우승 여정에서 핵심이었다."
               ]
             }
           },
@@ -327,20 +423,20 @@
           ],
           "reason": {
             "en": [
-              "Cubarsí played every minute for a Spain side that conceded only once, while completing more passes than every player except Rodri.",
-              "His vertical passing moved Spain through pressure, and his perfectly timed steps into midfield made him the tournament’s outstanding centre-back."
+              "Cubarsí played every minute for the champions, completed 671 of 699 passes, created eight chances and helped Spain keep a record seven clean sheets.",
+              "His scanning before receiving, brave line-breaking distribution and composure when defending open space made him the tournament’s most complete centre-back."
             ],
             "es": [
-              "Cubarsí disputó todos los minutos en una España que solo encajó una vez y completó más pases que cualquier jugador salvo Rodri.",
-              "Sus pases verticales superaron la presión y sus saltos al mediocampo, siempre bien medidos, lo convirtieron en el central más destacado del torneo."
+              "Cubarsí disputó todos los minutos con la campeona, completó 671 de 699 pases, creó ocho ocasiones y ayudó a España a lograr un récord de siete porterías a cero.",
+              "Su lectura antes de recibir, sus valientes pases entre líneas y su serenidad al defender espacios abiertos lo convirtieron en el central más completo del torneo."
             ],
             "zh": [
-              "库巴西打满全部比赛，帮助西班牙全程只丢1球；他的完成传球数也仅次于罗德里。",
-              "精准的纵向传球帮助球队穿透逼抢，而恰到好处的前顶时机，使他成为本届赛事最出色的中卫。"
+              "库巴西为冠军队打满全部比赛，699次传球成功671次，创造8次机会，并帮助西班牙创纪录地完成7场零封。",
+              "接球前的观察、勇敢的穿线传球，以及防守开阔空间时的沉着，使他成为本届赛事最全面的中后卫。"
             ],
             "ko": [
-              "쿠바르시는 단 1골만 내준 스페인의 전 경기를 풀타임으로 뛰었고, 로드리를 제외한 누구보다 많은 패스를 완성했다.",
-              "정확한 전진 패스로 압박을 뚫고 중원으로 나가는 타이밍까지 완벽해 대회 최고의 센터백으로 꼽혔다."
+              "쿠바르시는 우승팀의 모든 경기에서 전 시간을 뛰며 699개 중 671개의 패스를 완성하고 8번의 기회를 만들었으며, 스페인의 대회 기록인 7경기 무실점에 기여했다.",
+              "공을 받기 전의 시야, 과감한 라인 브레이킹 패스와 넓은 공간을 수비하는 침착함으로 대회에서 가장 완성도 높은 센터백이 됐다."
             ]
           }
         },
@@ -362,20 +458,20 @@
             ],
             "reason": {
               "en": [
-                "Saliba rarely needed a dramatic tackle because his early positioning, pace and strength closed danger before it developed.",
-                "That control let France’s full-backs attack while he defended large spaces behind them; a back problem after 30 minutes of the semifinal cut short an excellent tournament."
+                "Saliba started six matches and played 480 minutes before his tournament ended 30 minutes into France’s semifinal defeat.",
+                "His recovery pace, body orientation and ability to defend large spaces allowed France to hold a higher line, but the shortened campaign left him behind Cubarsí and Laporte."
               ],
               "es": [
-                "Saliba casi nunca necesitó una entrada espectacular porque su colocación, velocidad y fortaleza cerraban el peligro antes de que creciera.",
-                "Ese control permitió atacar a los laterales franceses mientras él defendía grandes espacios; un problema de espalda a los 30 minutos de la semifinal acortó un torneo excelente."
+                "Saliba fue titular en seis partidos y jugó 480 minutos antes de que su torneo terminara a los 30 minutos de la derrota de Francia en semifinales.",
+                "Su velocidad de recuperación, orientación corporal y capacidad para defender espacios amplios permitieron a Francia sostener una línea alta, pero el torneo abreviado lo dejó detrás de Cubarsí y Laporte."
               ],
               "zh": [
-                "萨利巴很少需要惊险铲球，因为他的提前站位、速度和力量总能在危险形成前将其化解。",
-                "这种控制力让法国边后卫放心压上，由他保护身后大片空间；半决赛第30分钟的背伤则提前结束了他出色的赛事。"
+                "萨利巴首发6场、出场480分钟，他的赛事在法国半决赛失利的第30分钟结束。",
+                "回追速度、身体朝向和防守大片空间的能力让法国可以维持更高防线，但较短的赛事历程使他排在库巴西和拉波尔特之后。"
               ],
               "ko": [
-                "살리바는 빠른 위치 선정, 속도와 힘으로 위험이 커지기 전에 차단해 극적인 태클이 거의 필요 없었다.",
-                "프랑스 풀백들이 전진한 뒤 넓은 공간을 책임졌지만, 준결승 30분에 생긴 허리 문제로 훌륭한 대회가 일찍 끝났다."
+                "살리바는 6경기에 선발로 나서 480분을 뛰었고, 프랑스가 패한 준결승 30분에 그의 대회가 끝났다.",
+                "빠른 복귀와 몸의 방향, 넓은 공간을 지키는 능력으로 프랑스가 높은 수비선을 유지할 수 있었지만 짧아진 출전 기간 때문에 쿠바르시와 라포르트에 뒤졌다."
               ]
             }
           },
@@ -392,20 +488,20 @@
             ],
             "reason": {
               "en": [
-                "Akanji anchored Switzerland’s run to the quarterfinals, completing close to 500 passes while covering for teammates who stepped into midfield.",
-                "His reading of space also let the team switch smoothly between a back four and a temporary back three."
+                "Akanji played every minute of Switzerland’s six-match run, 600 in total, including the full 120 against Argentina in the quarterfinal.",
+                "He defended large spaces behind an adventurous midfield, progressed possession without panic and provided the organization that allowed Kobel’s shot-stopping to matter."
               ],
               "es": [
-                "Akanji sostuvo el camino de Suiza hasta cuartos, completó cerca de 500 pases y cubrió a los compañeros que saltaban al mediocampo.",
-                "Su lectura del espacio también permitió alternar con fluidez entre una defensa de cuatro y una línea temporal de tres."
+                "Akanji disputó todos los minutos de los seis partidos de Suiza, 600 en total, incluidos los 120 completos ante Argentina en cuartos de final.",
+                "Defendió grandes espacios detrás de un mediocampo ambicioso, hizo progresar la posesión sin precipitarse y aportó la organización que dio valor a las paradas de Kobel."
               ],
               "zh": [
-                "阿坎吉是瑞士闯入八强的后防核心，完成近500次传球，并为前顶到中场的队友补位。",
-                "他对空间的判断，也让球队能够顺畅切换四后卫与临时三中卫。"
+                "阿坎吉打满瑞士6场比赛，共600分钟，其中包括四分之一决赛对阿根廷的全部120分钟。",
+                "他保护积极中场身后的大片空间，沉着推进球权，并提供防线组织，让科贝尔的扑救真正产生意义。"
               ],
               "ko": [
-                "아칸지는 약 500개의 패스를 완성하고 중원으로 전진한 동료의 자리를 메우며 스위스의 8강 진출을 수비에서 이끌었다.",
-                "공간을 읽는 능력 덕분에 포백과 임시 스리백 전환도 매끄러웠다."
+                "아칸지는 스위스의 6경기 600분을 모두 뛰었고, 아르헨티나와의 8강 120분도 전부 소화했다.",
+                "공격적인 중원 뒤의 넓은 공간을 지키고 침착하게 공을 전진시키며, 코벨의 선방이 의미를 갖게 한 수비 조직을 제공했다."
               ]
             }
           }
@@ -432,20 +528,20 @@
           ],
           "reason": {
             "en": [
-              "Laporte completed 659 passes, third-most in the tournament, and his left foot gave Spain a natural route into Cucurella and Fabián.",
-              "More quietly, he controlled the space behind Cubarsí’s aggressive steps and anchored a defence that conceded only once."
+              "Laporte appeared in all eight matches, played 729 minutes and made 229 forward passes, more than any other centre-back.",
+              "His left-footed circulation, aerial positioning and calm covering behind Spain’s aggressive press gave the champions an experienced defensive organizer alongside Cubarsí."
             ],
             "es": [
-              "Laporte completó 659 pases, la tercera cifra más alta del torneo, y su zurda dio a España una vía natural hacia Cucurella y Fabián.",
-              "Con menos ruido, controló el espacio detrás de los saltos de Cubarsí y sostuvo una defensa que solo encajó una vez."
+              "Laporte participó en los ocho partidos, jugó 729 minutos y dio 229 pases hacia adelante, más que cualquier otro central.",
+              "Su circulación con la zurda, colocación aérea y coberturas serenas detrás de la presión agresiva de España dieron a la campeona un organizador defensivo experimentado junto a Cubarsí."
             ],
             "zh": [
-              "拉波尔特完成659次传球，位居赛事第三；他的左脚让西班牙能够自然地把球送到库库雷利亚和法比安一侧。",
-              "更不显眼但同样重要的是，他保护库巴西前顶后的空间，稳住了全程只丢1球的防线。"
+              "拉波尔特出战全部8场、累计729分钟，并送出229次向前传球，为所有中后卫之最。",
+              "他的左脚组织、高空球站位，以及在西班牙主动逼抢身后的冷静补位，让冠军队在库巴西身旁拥有一名经验丰富的防线组织者。"
             ],
             "ko": [
-              "라포르트는 대회 3위인 659개의 패스를 완성했고, 왼발로 쿠쿠레야와 파비안 쪽에 자연스러운 전진 경로를 만들었다.",
-              "눈에 덜 띄는 순간에는 쿠바르시가 전진한 뒤의 공간을 지키며 단 1골만 내준 수비를 안정시켰다."
+              "라포르트는 8경기에 모두 출전해 729분을 뛰고 센터백 중 가장 많은 229개의 전진 패스를 기록했다.",
+              "왼발 전개, 공중볼 위치 선정과 스페인의 적극적인 압박 뒤를 침착하게 커버하는 능력으로 쿠바르시 옆에서 우승팀 수비를 조직했다."
             ]
           }
         },
@@ -467,20 +563,20 @@
             ],
             "reason": {
               "en": [
-                "Martínez paired brave progression with 34 clearances and 169 forward passes, giving Argentina both resistance and a way out under pressure.",
-                "His goal and assist against Cabo Verde showed the unusual attacking range he also brought to their run to the final."
+                "Lisandro recorded one goal and one assist, both in Argentina’s dramatic 3–2 victory over Cabo Verde, while also making 34 clearances and 169 forward passes.",
+                "His front-foot aggression, left-footed progression and appetite for box defending made him a serious main-XI candidate before injury shortened his final."
               ],
               "es": [
-                "Martínez combinó una salida valiente con 34 despejes y 169 pases hacia adelante, dando a Argentina resistencia y una vía ante la presión.",
-                "Su gol y asistencia frente a Cabo Verde mostraron también el alcance ofensivo poco habitual que aportó en el camino a la final."
+                "Lisandro sumó un gol y una asistencia, ambos en la dramática victoria argentina por 3–2 ante Cabo Verde, además de realizar 34 despejes y 169 pases hacia adelante.",
+                "Su agresividad para anticipar, progresión con la zurda y gusto por defender el área lo hicieron un candidato serio al once antes de que una lesión acortara su final."
               ],
               "zh": [
-                "马丁内斯兼具勇敢推进与高强度防守，完成34次解围和169次向前传球，既帮助阿根廷抵挡压力，也提供出球路线。",
-                "他对佛得角的一球一助，又展示了中卫少见的进攻贡献。"
+                "利桑德罗贡献1球1助攻，均来自阿根廷3比2险胜佛得角一战；他还完成34次解围和169次向前传球。",
+                "主动上抢的侵略性、左脚推进和对禁区防守的投入，使他一度成为主力阵容的有力候选，直到伤病缩短了他的决赛。"
               ],
               "ko": [
-                "마르티네스는 과감한 전진에 34개의 걷어내기와 169개의 전진 패스를 더해 아르헨티나가 압박을 견디고 빠져나갈 길을 만들었다.",
-                "카보베르데전 1골 1도움은 결승 진출 과정에서 보여준 이례적인 공격 기여까지 드러냈다."
+                "리산드로는 아르헨티나가 카보베르데에 3-2로 극적인 승리를 거둔 경기에서 1골 1도움을 모두 기록했고, 클리어링 34개와 전진 패스 169개도 남겼다.",
+                "앞으로 나서는 공격적인 수비와 왼발 전진, 박스 수비에 대한 적극성으로 베스트 XI의 유력 후보였지만 부상으로 결승 출전이 짧아졌다."
               ]
             }
           },
@@ -528,20 +624,20 @@
           ],
           "reason": {
             "en": [
-              "Cucurella shut down elite wingers—most notably making three tackles on Dembélé as France created no major chance—while still supplying two assists against Austria.",
-              "He could overlap, move inside or form a back three, giving Spain both security and variety on the left."
+              "Cucurella created three big chances and generated 1.19 expected assists, including two assists against Austria.",
+              "He also won three tackles as Spain denied France a single big chance in the semifinal; his pressing, underlapping runs and ability to defend high or deep made him the outstanding left-back."
             ],
             "es": [
-              "Cucurella frenó a extremos de élite —hizo tres entradas sobre Dembélé mientras Francia no creó ninguna ocasión clara— y además dio dos asistencias ante Austria.",
-              "Podía doblar por fuera, aparecer por dentro o formar una línea de tres, dando seguridad y variedad a España por la izquierda."
+              "Cucurella creó tres grandes ocasiones y generó 1,19 asistencias esperadas, incluidas dos asistencias ante Austria.",
+              "También ganó tres entradas mientras España no concedió una sola gran ocasión a Francia en la semifinal; su presión, desmarques interiores y capacidad para defender arriba o atrás lo convirtieron en el lateral izquierdo más destacado."
             ],
             "zh": [
-              "库库雷利亚能够限制顶级边锋；对法国时，他三次抢断登贝莱，让对手没有制造出绝佳机会，同时还在对奥地利一战送出2次助攻。",
-              "他既能套边、内收，也能落成三中卫，为西班牙左路兼顾稳定与变化。"
+              "库库雷利亚创造3次绝佳机会，预期助攻达到1.19，其中对奥地利一战送出2次助攻。",
+              "半决赛西班牙没有让法国获得一次绝佳机会，他也成功完成3次抢断；逼抢、内线前插以及高位低位皆能防守的能力，使他成为最出色的左后卫。"
             ],
             "ko": [
-              "쿠쿠레야는 프랑스가 결정적인 기회를 만들지 못한 경기에서 뎀벨레를 상대로 3개의 태클을 기록하며 정상급 윙어를 막았고, 오스트리아전에서는 2도움을 올렸다.",
-              "오버래핑, 안쪽 이동과 스리백 전환까지 수행해 왼쪽에 안정감과 변화를 함께 줬다."
+              "쿠쿠레야는 오스트리아전 2도움을 포함해 3번의 결정적 기회를 만들고 1.19의 기대 도움을 기록했다.",
+              "스페인이 준결승에서 프랑스에 결정적 기회를 하나도 허용하지 않는 동안 태클 3개를 따냈고, 압박과 안쪽 침투, 높은 위치와 낮은 위치를 모두 지키는 능력으로 대회 최고의 왼쪽 풀백이 됐다."
             ]
           }
         },
@@ -563,20 +659,20 @@
             ],
             "reason": {
               "en": [
-                "Mendes created four big chances, more than any other defender, and repeatedly carried Portugal through pressure with explosive acceleration.",
-                "Cucurella offered greater defensive control, but Mendes was the more dangerous choice when this XI needed to attack the left side directly."
+                "Mendes scored against Uzbekistan and created four big chances, more than any other defender, despite playing only 398 minutes across five appearances.",
+                "His acceleration, recovery speed and ability to advance inside or outside made him Portugal’s strongest two-way outlet, but Cucurella produced the more complete tournament."
               ],
               "es": [
-                "Mendes creó cuatro grandes ocasiones, más que cualquier otro defensa, y rompió la presión una y otra vez con su aceleración.",
-                "Cucurella ofreció más control defensivo, pero Mendes fue la opción más peligrosa cuando este once necesitaba atacar directamente por la izquierda."
+                "Mendes marcó ante Uzbekistán y creó cuatro grandes ocasiones, más que cualquier otro defensa, pese a jugar solo 398 minutos en cinco partidos.",
+                "Su aceleración, velocidad de recuperación y capacidad para avanzar por dentro o por fuera lo hicieron la vía más fuerte de Portugal en ambas direcciones, pero Cucurella completó un torneo más completo."
               ],
               "zh": [
-                "门德斯创造4次绝佳机会，位居所有后卫之首，并多次凭爆发力带球冲破逼抢。",
-                "库库雷利亚带来更强的防守控制，但当这套阵容需要直接冲击左路时，门德斯是更危险的选择。"
+                "门德斯对乌兹别克斯坦进球，并创造4次绝佳机会，为所有后卫之最，尽管他5次出场仅累计398分钟。",
+                "加速、回追速度以及内外线都能推进的能力，使他成为葡萄牙最强的双向通道，但库库雷利亚完成了更全面的赛事表现。"
               ],
               "ko": [
-                "멘데스는 수비수 최다인 4개의 결정적인 기회를 만들고 폭발적인 가속으로 여러 차례 압박을 돌파했다.",
-                "쿠쿠레야가 더 안정적인 수비를 제공한다면, 왼쪽을 직접 공략해야 할 때는 멘데스가 더 위협적인 선택이다."
+                "멘데스는 우즈베키스탄전에서 득점하고 수비수 중 가장 많은 결정적 기회 4개를 만들었지만, 5경기 398분만 뛰었다.",
+                "가속과 복귀 속도, 안팎으로 전진하는 능력으로 포르투갈 최고의 공수 연결점이 됐으나 대회 전체의 완성도에서는 쿠쿠레야가 앞섰다."
               ]
             }
           },
@@ -623,20 +719,20 @@
           ],
           "reason": {
             "en": [
-              "Rodri led the tournament with 811 completed passes and 26 tackles, then received the Golden Ball.",
-              "The numbers capture both sides of his role: he chose Spain’s tempo in possession, stopped counterattacks before they grew and covered the spaces left by advancing teammates."
+              "Rodri completed 811 passes, including 122 line-breaking passes and 76 line-breakers in the final third, while also winning 49 duels on his way to the Golden Ball.",
+              "He controlled where matches were played, accelerating Spain through pressure before slowing possession whenever the game required protection."
             ],
             "es": [
-              "Rodri lideró el torneo con 811 pases completados y 26 entradas, y después recibió el Balón de Oro.",
-              "Las cifras resumen sus dos funciones: elegir el ritmo de España con el balón, cortar contraataques antes de que crecieran y cubrir los espacios dejados por sus compañeros."
+              "Rodri completó 811 pases, incluidos 122 que rompieron líneas y 76 pases de ese tipo en el último tercio, además de ganar 49 duelos camino al Balón de Oro.",
+              "Controló dónde se jugaban los partidos, acelerando a España bajo presión y pausando después la posesión cuando el encuentro necesitaba protección."
             ],
             "zh": [
-              "罗德里以811次成功传球和26次抢断领跑赛事，最终赢得金球奖。",
-              "这两项数据恰好概括了他的双重职责：有球时决定西班牙节奏，无球时在反击形成前将其化解，并填补队友前插后的空间。"
+              "罗德里完成811次传球，其中122次穿透防线、76次发生在进攻三区；他还赢下49次对抗，并最终获得金球奖。",
+              "他决定比赛在哪些区域展开：在压力下为西班牙提速，又会在球队需要保护时放慢控球节奏。"
             ],
             "ko": [
-              "로드리는 대회 최다인 811개의 패스와 26개의 태클을 기록한 뒤 골든볼을 받았다.",
-              "이 수치는 그의 두 역할을 잘 보여준다. 공을 가졌을 때 스페인의 템포를 정하고, 역습이 커지기 전에 끊으며 동료가 전진한 공간까지 메웠다."
+              "로드리는 811개의 패스를 완성했고 그중 122개가 라인을 깼으며, 공격 3분의 1 지역에서만 76개의 라인 브레이킹 패스를 기록했다. 49번의 경합도 이기며 골든볼을 받았다.",
+              "압박 속에서는 스페인의 속도를 높이고 보호가 필요할 때는 점유를 늦추며 경기가 어느 지역에서 펼쳐질지를 통제했다."
             ]
           }
         },
@@ -654,20 +750,20 @@
             ],
             "reason": {
               "en": [
-                "Paredes completed 565 passes, fourth-most at the tournament, and became Argentina’s most dependable deep controller.",
-                "His sharp first-time passes regularly broke the first line of pressure, although he could not cover transitions across the same huge spaces as Rodri."
+                "Paredes played 472 minutes across seven appearances, acting as Argentina’s deepest midfield distributor even without a goal or assist.",
+                "His shoulder checks, vertical passing into Messi and aggressive control of transitions helped Argentina navigate several chaotic knockout matches, although his post-match red card in the final blemished the campaign."
               ],
               "es": [
-                "Paredes completó 565 pases, la cuarta cifra más alta del torneo, y fue el organizador profundo más fiable de Argentina.",
-                "Sus pases rápidos de primera rompieron con frecuencia la primera línea de presión, aunque no podía cubrir transiciones en espacios tan grandes como Rodri."
+                "Paredes jugó 472 minutos en siete partidos y actuó como el distribuidor más retrasado del mediocampo argentino aun sin marcar ni asistir.",
+                "Sus controles del entorno, pases verticales hacia Messi y dominio agresivo de las transiciones ayudaron a Argentina en varias eliminatorias caóticas, aunque la roja posterior al partido de la final manchó su torneo."
               ],
               "zh": [
-                "帕雷德斯完成565次传球，位居赛事第四，是阿根廷最可靠的后场组织者。",
-                "他迅速的一脚出球经常突破第一道逼抢，不过在大范围转换防守中的覆盖能力仍不及罗德里。"
+                "帕雷德斯7次出场共472分钟，即使没有进球或助攻，仍担任阿根廷中场最靠后的出球者。",
+                "接球前观察、向梅西送出纵向传球，以及强硬控制攻防转换，帮助阿根廷走过数场混乱的淘汰赛；不过决赛赛后的红牌为他的赛事留下瑕疵。"
               ],
               "ko": [
-                "파레데스는 대회 4위인 565개의 패스를 완성하며 아르헨티나의 가장 믿을 만한 후방 조율자가 됐다.",
-                "빠른 원터치 패스로 1차 압박을 자주 무너뜨렸지만, 넓은 전환 공간을 커버하는 능력에서는 로드리에 미치지 못했다."
+                "파레데스는 7경기 472분을 뛰며 골이나 도움 없이도 아르헨티나 중원 가장 깊은 곳의 배급을 맡았다.",
+                "주변을 확인하는 움직임과 메시를 향한 수직 패스, 전환을 적극적으로 통제하는 능력으로 혼란스러운 토너먼트 경기를 넘겼지만 결승 종료 뒤 받은 퇴장은 흠으로 남았다."
               ]
             }
           },
@@ -688,20 +784,20 @@
             ],
             "reason": {
               "en": [
-                "Xhaka recorded 24 recoveries in the group stage as Switzerland progressed to the quarterfinals.",
-                "His leadership, left-sided progression and passing let him read danger early and move smoothly between midfield and a deeper build-up role."
+                "Xhaka played all 600 minutes of Switzerland’s run and scored in the 4–1 victory over Bosnia and Herzegovina.",
+                "Operating from the left side of midfield, he switched play early, resisted pressure and protected the space behind advancing teammates, providing the leadership and tactical stability behind a quarterfinal appearance."
               ],
               "es": [
-                "Xhaka registró 24 recuperaciones en la fase de grupos mientras Suiza avanzaba hasta los cuartos.",
-                "Su liderazgo, progresión por la izquierda y pase le permitieron leer pronto el peligro y alternar con fluidez entre el mediocampo y una posición más retrasada en la salida."
+                "Xhaka disputó los 600 minutos de Suiza y marcó en la victoria por 4–1 ante Bosnia y Herzegovina.",
+                "Desde el lado izquierdo del mediocampo, cambió el juego pronto, resistió la presión y protegió el espacio detrás de los compañeros que avanzaban, aportando el liderazgo y la estabilidad táctica de una clasificación a cuartos."
               ],
               "zh": [
-                "扎卡在小组赛完成24次夺回球权，帮助瑞士闯入八强。",
-                "他的领导力、左侧推进与传球能力，让他既能提前判断危险，也能在中场与更深的出球位置之间顺畅切换。"
+                "扎卡打满瑞士征程的600分钟，并在4比1战胜波黑时取得进球。",
+                "他从中场左侧提前转移、抵抗压力，并保护队友前插后的空间，以领导力和战术稳定性支撑球队闯入八强。"
               ],
               "ko": [
-                "자카는 조별리그에서 24회 볼을 회복하며 스위스의 8강 진출에 힘을 보탰다.",
-                "리더십, 왼쪽 전진과 패싱 덕분에 위험을 일찍 읽고 중원과 더 낮은 빌드업 위치를 매끄럽게 오갈 수 있었다."
+                "자카는 스위스의 600분을 모두 뛰었고 보스니아 헤르체고비나를 4-1로 이긴 경기에서 득점했다.",
+                "중원 왼쪽에서 빠르게 방향을 전환하고 압박을 견디며 전진한 동료 뒤를 보호해, 8강 진출의 리더십과 전술적 안정성을 제공했다."
               ]
             }
           }
@@ -728,20 +824,20 @@
           ],
           "reason": {
             "en": [
-              "Bellingham scored seven goals, completed 18 dribbles and contested 50 duels—rare attacking and defensive output from one midfielder.",
-              "His late runs repeatedly reached the box at the right moment, while his range on this XI’s right side covers the space Messi leaves when moving inside."
+              "Bellingham scored seven goals from only 3.06 expected goals, including knockout braces against Mexico and Norway, and won 50 duels.",
+              "His late box arrivals, carries through contact and ability to turn loose balls into immediate attacks gave England exceptional production from a central-midfield position."
             ],
             "es": [
-              "Bellingham marcó siete goles, completó 18 regates y disputó 50 duelos: una producción ofensiva y defensiva poco común en un mediocampista.",
-              "Sus llegadas tardías alcanzaron el área en el momento justo, y su alcance por la derecha cubre el espacio que deja Messi al moverse por dentro."
+              "Bellingham marcó siete goles con solo 3,06 goles esperados, incluidos dobletes en las eliminatorias ante México y Noruega, y ganó 50 duelos.",
+              "Sus llegadas tardías al área, conducciones resistiendo el contacto y capacidad para convertir balones sueltos en ataques inmediatos dieron a Inglaterra una producción excepcional desde el centro del campo."
             ],
             "zh": [
-              "贝林厄姆打进7球、完成18次过人并参与50次对抗，这种攻防兼备的产出在中场球员中十分少见。",
-              "他恰到好处的后插上不断进入禁区，而在这套阵容的右侧，他也能覆盖梅西内收后留下的空间。"
+              "贝林厄姆在仅3.06预期进球的情况下攻入7球，其中包括淘汰赛对墨西哥和挪威的两次梅开二度，并赢下50次对抗。",
+              "他后插上进入禁区、在身体接触中继续带球，并把二点球迅速转化为进攻，为英格兰带来中场位置上罕见的产量。"
             ],
             "ko": [
-              "벨링엄은 7골, 18회 드리블 성공과 50회 경합을 기록해 한 미드필더에게서 보기 드문 공격과 수비 생산성을 보였다.",
-              "정확한 타이밍의 늦은 침투로 박스에 도달했고, 이 베스트 11의 오른쪽에서는 메시가 안으로 이동한 뒤의 공간까지 커버한다."
+              "벨링엄은 기대 득점 3.06에서 7골을 넣었고 멕시코와 노르웨이를 상대한 토너먼트에서 각각 멀티골을 기록했으며, 경합 50번을 이겼다.",
+              "늦은 박스 침투, 접촉을 견디는 운반과 세컨드 볼을 즉시 공격으로 바꾸는 능력으로 중앙 미드필더 자리에서 잉글랜드에 특별한 생산성을 제공했다."
             ]
           }
         },
@@ -763,20 +859,20 @@
             ],
             "reason": {
               "en": [
-                "Olmo supplied the assist against France that turned a short rotation between the lines into a decisive chance.",
-                "His quick combinations, constant movement and knockout pressing made him Spain’s cleanest alternative creator between midfield and attack."
+                "Olmo appeared in all eight matches, played 495 minutes and supplied two assists before producing an influential display in the final.",
+                "His movement between midfield and defence, one-touch combinations and immediate counterpressing made him Spain’s most useful advanced midfielder, even though he did not score."
               ],
               "es": [
-                "Olmo dio ante Francia la asistencia que convirtió una rotación corta entre líneas en una ocasión decisiva.",
-                "Sus combinaciones rápidas, movimiento constante y presión en las eliminatorias lo hicieron la alternativa creativa más limpia de España entre el mediocampo y el ataque."
+                "Olmo participó en los ocho partidos, jugó 495 minutos, dio dos asistencias y después firmó una actuación influyente en la final.",
+                "Su movimiento entre el mediocampo y la defensa rival, combinaciones a un toque y contrapresión inmediata lo hicieron el mediapunta más útil de España, aunque no marcara."
               ],
               "zh": [
-                "奥尔莫在对法国时送出助攻，把线间的短距离换位转化为决定性机会。",
-                "他的快速配合、持续跑动与淘汰赛逼抢，让他成为西班牙衔接中场和锋线时最出色的替补创造者。"
+                "奥尔莫出战全部8场、累计495分钟，送出2次助攻，并在决赛发挥重要作用。",
+                "他在中场与对方防线之间的移动、一脚配合和立即反抢，使他成为西班牙最有用的前腰型中场，尽管没有进球。"
               ],
               "ko": [
-                "올모는 프랑스전에서 라인 사이의 짧은 위치 교환을 결정적인 기회로 바꾼 도움을 기록했다.",
-                "빠른 연계, 끊임없는 움직임과 토너먼트 압박은 그를 중원과 공격을 잇는 스페인 최고의 대체 창조자로 만들었다."
+                "올모는 8경기에 모두 출전해 495분을 뛰고 2도움을 기록한 뒤 결승에서도 영향력 있는 활약을 펼쳤다.",
+                "중원과 상대 수비 사이의 움직임, 원터치 연계와 즉각적인 역압박으로 득점 없이도 스페인에서 가장 유용한 공격형 미드필더가 됐다."
               ]
             }
           },
@@ -804,71 +900,71 @@
         "x": 25,
         "y": 53,
         "starter": {
-          "playerName": "Fabian Ruiz",
-          "teamId": "ESP",
-          "number": 8,
+          "playerName": "Enzo Fernandez",
+          "teamId": "ARG",
+          "number": 24,
           "position": "LCM",
           "facts": [
             {
               "type": "goals",
-              "value": 1
+              "value": 2
             },
             {
               "type": "starts",
-              "value": 4
+              "value": 7
             }
           ],
           "reason": {
             "en": [
-              "Fabián played only 322 minutes but started Spain’s three decisive matches, scoring against Belgium and creating two chances in the final.",
-              "His left foot, disciplined positioning and late runs balance Rodri and Bellingham without asking either player to abandon his best spaces."
+              "Enzo played 660 minutes and scored twice in the knockout stage, including the semifinal equaliser against England.",
+              "His sustained responsibility in Argentina’s buildup, progression and pressing gave him the edge over Fabián’s impactful but much smaller sample."
             ],
             "es": [
-              "Fabián jugó solo 322 minutos, pero fue titular en los tres partidos decisivos de España, marcó ante Bélgica y creó dos ocasiones en la final.",
-              "Su zurda, colocación disciplinada y llegadas tardías equilibran a Rodri y Bellingham sin alejarlos de sus mejores zonas."
+              "Enzo jugó 660 minutos y marcó dos veces en las eliminatorias, incluido el empate de la semifinal ante Inglaterra.",
+              "Su responsabilidad sostenida en la salida, progresión y presión argentinas le dio ventaja sobre el impacto de Fabián en una muestra mucho menor."
             ],
             "zh": [
-              "法比安只出场322分钟，却在西班牙最后三场关键比赛全部首发，对比利时进球，并在决赛创造2次机会。",
-              "他的左脚、纪律性站位与后插上，能够平衡罗德里和贝林厄姆，又无需让两人离开最擅长的区域。"
+              "恩佐出场660分钟，并在淘汰赛打入2球，其中包括半决赛对英格兰的扳平球。",
+              "他持续承担阿根廷后场组织、向前推进和逼抢的责任，因此领先于表现亮眼但样本小得多的法比安。"
             ],
             "ko": [
-              "파비안은 322분만 뛰었지만 스페인의 마지막 세 결정적인 경기에 모두 선발로 나서 벨기에전 득점과 결승전 2개의 기회를 만들었다.",
-              "왼발, 규율 있는 위치 선정과 늦은 침투로 로드리와 벨링엄이 각자의 최적 공간을 지키면서도 균형을 이룬다."
+              "엔소는 660분을 뛰며 잉글랜드와의 준결승 동점골을 포함해 토너먼트에서 2골을 넣었다.",
+              "아르헨티나의 후방 전개와 전진, 압박을 꾸준히 맡은 책임감으로 인상적이지만 표본이 훨씬 적은 파비안보다 앞섰다."
             ]
           }
         },
         "honourables": [
           {
-            "playerName": "Enzo Fernandez",
-            "teamId": "ARG",
-            "number": 24,
+            "playerName": "Fabian Ruiz",
+            "teamId": "ESP",
+            "number": 8,
             "position": "LCM",
             "facts": [
               {
                 "type": "goals",
-                "value": 2
+                "value": 1
               },
               {
                 "type": "starts",
-                "value": 7
+                "value": 4
               }
             ],
             "reason": {
               "en": [
-                "Fernández completed 511 passes, drove Argentina’s progression through midfield and scored the semifinal equaliser against England.",
-                "His greater tournament volume made this selection extremely close, but the spaces left behind his forward movements—and his red card in the final—put Fabián narrowly ahead."
+                "Fabián played 321 minutes, scored the opener against Belgium and then started Spain’s quarterfinal, semifinal and final.",
+                "His left foot, half-space awareness and disciplined support gave Spain a clean possession option in the hardest matches, but Enzo’s much larger workload and sustained responsibility put him narrowly ahead."
               ],
               "es": [
-                "Fernández completó 511 pases, impulsó la progresión de Argentina por el centro y marcó el empate de la semifinal ante Inglaterra.",
-                "Su mayor volumen hizo muy cerrada la elección, pero los espacios tras sus avances y la roja en la final dejaron a Fabián ligeramente por delante."
+                "Fabián jugó 321 minutos, marcó el primer gol ante Bélgica y después fue titular en los cuartos, la semifinal y la final de España.",
+                "Su zurda, lectura de los medios espacios y apoyos disciplinados dieron a España una salida limpia en los partidos más difíciles, pero la carga mucho mayor y la responsabilidad sostenida de Enzo lo situaron ligeramente por delante."
               ],
               "zh": [
-                "恩佐完成511次传球，推动阿根廷从中场向前推进，并在对英格兰的半决赛打入扳平球。",
-                "他更大的累计贡献让选择非常接近，但前插后留下的空间以及决赛红牌，最终让法比安略微领先。"
+                "法比安出场321分钟，对比利时打入首球，随后在西班牙的四分之一决赛、半决赛和决赛中均首发。",
+                "他的左脚、对肋部空间的理解和纪律严明的接应，让西班牙在最困难的比赛中拥有稳定的控球选择；但恩佐更大的比赛负荷和持续承担的责任使其略胜一筹。"
               ],
               "ko": [
-                "엔소 페르난데스는 511개의 패스를 완성하며 아르헨티나의 중원 전진을 이끌었고 잉글랜드와의 준결승에서 동점골을 넣었다.",
-                "더 많은 누적 활약으로 선택이 매우 팽팽했지만, 전진 뒤 남긴 공간과 결승전 퇴장 때문에 파비안이 근소하게 앞섰다."
+                "파비안은 321분을 뛰며 벨기에전 선제골을 넣었고, 이후 스페인의 8강과 준결승, 결승에 선발 출전했다.",
+                "왼발, 하프스페이스 인식과 규율 있는 지원으로 가장 어려운 경기에서 스페인에 안정적인 점유 선택지를 제공했지만, 엔소의 훨씬 큰 출전 부담과 지속적인 책임이 근소한 우위를 만들었다."
               ]
             }
           },
@@ -916,20 +1012,20 @@
           ],
           "reason": {
             "en": [
-              "Messi finished with eight goals and four assists, led the tournament with 26 chances created and completed 28 dribbles.",
-              "He still changed knockout matches in several ways: beating the first defender, finding the reverse pass or, as in the semifinal, creating both Argentina goals."
+              "Messi finished with eight goals and four assists while creating a tournament-high 25 chances, at least seven more than anyone else.",
+              "He produced both late assists in the semifinal comeback against England and remained most dangerous drifting inside from the right before deciding attacks with disguised passes, crosses and short bursts."
             ],
             "es": [
-              "Messi terminó con ocho goles y cuatro asistencias, lideró el torneo con 26 ocasiones creadas y completó 28 regates.",
-              "Todavía cambió eliminatorias de varias formas: superando al primer defensor, encontrando el pase inverso o, como en la semifinal, creando los dos goles de Argentina."
+              "Messi terminó con ocho goles y cuatro asistencias y creó 25 ocasiones, el máximo del torneo y al menos siete más que cualquier otro jugador.",
+              "Dio las dos asistencias tardías en la remontada de la semifinal ante Inglaterra y siguió siendo más peligroso al entrar desde la derecha antes de decidir ataques con pases disimulados, centros y aceleraciones cortas."
             ],
             "zh": [
-              "梅西交出8球4助攻，以26次机会创造领跑赛事，并完成28次过人。",
-              "他仍能用多种方式改变淘汰赛：突破第一名防守者、送出反向传球，或像半决赛那样直接创造阿根廷的两粒进球。"
+              "梅西以8球4助攻结束赛事，并创造赛事最高的25次机会，至少比其他任何球员多7次。",
+              "半决赛逆转英格兰时，他送出两次后段助攻；从右路内收后，他仍能以隐蔽传球、传中和短距离爆发决定进攻。"
             ],
             "ko": [
-              "메시는 8골 4도움, 대회 최다인 26개의 기회 창출과 28회 드리블 성공을 기록했다.",
-              "첫 수비수를 제치고 역방향 패스를 찾거나, 준결승처럼 아르헨티나의 두 골을 모두 만드는 등 여러 방식으로 토너먼트 경기를 바꿨다."
+              "메시는 8골 4도움과 대회 최다인 25번의 기회 창출을 기록해 다른 누구보다 최소 7개가 많았다.",
+              "잉글랜드와의 준결승 역전에서 두 번의 막판 도움을 만들었고, 오른쪽에서 안으로 들어온 뒤 감춘 패스와 크로스, 짧은 가속으로 공격을 결정할 때 가장 위협적이었다."
             ]
           }
         },
@@ -951,20 +1047,20 @@
             ],
             "reason": {
               "en": [
-                "Olise led the tournament with seven assists, while creating 18 chances and completing 16 dribbles.",
-                "Even after reducing the weight of the unusually open third-place match, his delivery, set pieces and movement into the right half-space made him an elite alternative creator."
+                "Olise supplied seven assists in 650 minutes, breaking the recorded single-tournament World Cup record, and added two assists against England in the third-place match.",
+                "His disguised left-footed passing, half-space combinations and set-piece delivery made him the tournament’s leading specialist creator, but Messi offered more combined scoring and creation."
               ],
               "es": [
-                "Olise lideró el torneo con siete asistencias, además de crear 18 ocasiones y completar 16 regates.",
-                "Incluso reduciendo el peso del inusualmente abierto partido por el tercer puesto, sus centros, jugadas a balón parado y movimientos al medio espacio derecho lo mantuvieron como creador de élite."
+                "Olise dio siete asistencias en 650 minutos, superó el récord registrado en una sola Copa del Mundo y añadió dos ante Inglaterra en el partido por el tercer puesto.",
+                "Sus pases disimulados con la zurda, combinaciones en los medios espacios y golpeo a balón parado lo hicieron el principal creador especialista del torneo, pero Messi ofreció más entre goles y creación."
               ],
               "zh": [
-                "奥利塞以7次助攻领跑赛事，同时创造18次机会、完成16次过人。",
-                "即使降低异常开放的季军赛权重，他的传中、定位球与向右侧肋部的移动，仍让他成为顶级的替补创造者。"
+                "奥利塞在650分钟内送出7次助攻，打破有记录以来单届世界杯助攻纪录，并在季军赛对英格兰时贡献2次助攻。",
+                "隐蔽的左脚传球、肋部配合和定位球输送，使他成为本届赛事最出色的专项创造者；但梅西在得分与创造的综合贡献上更高。"
               ],
               "ko": [
-                "올리세는 대회 최다인 7도움과 함께 18개의 기회 창출, 16회 드리블 성공을 기록했다.",
-                "유난히 열린 3위 결정전의 비중을 낮춰도 크로스, 세트피스와 오른쪽 하프스페이스 움직임은 그를 정상급 대체 창조자로 만든다."
+                "올리세는 650분 동안 7도움을 기록해 집계된 단일 월드컵 기록을 경신했고, 잉글랜드와의 3위 결정전에서도 2도움을 추가했다.",
+                "감춘 왼발 패스와 하프스페이스 연계, 세트피스 배급으로 대회 최고의 전문 창조자가 됐지만 득점과 기회 창출의 합에서는 메시가 앞섰다."
               ]
             }
           },
@@ -985,20 +1081,20 @@
             ],
             "reason": {
               "en": [
-                "Yamal completed 27 dribbles and forced opponents to reshape around his one-on-one threat.",
-                "After an injury-disrupted build-up, he grew into the tournament and scored his first World Cup goal against Saudi Arabia."
+                "Yamal played 616 minutes across all eight matches, scored against Saudi Arabia and completed the full 120 minutes of the final at only 19.",
+                "His isolation dribbling, changes of pace and ability to hold width stretched almost every opponent, although one goal and no assists left him below Messi and Olise on tournament production."
               ],
               "es": [
-                "Yamal completó 27 regates y obligó a los rivales a reajustarse ante su amenaza en el uno contra uno.",
-                "Tras una preparación interrumpida por una lesión, fue creciendo y marcó su primer gol mundialista ante Arabia Saudí."
+                "Yamal jugó 616 minutos en los ocho partidos, marcó ante Arabia Saudí y completó los 120 minutos de la final con solo 19 años.",
+                "Su regate en aislamiento, cambios de ritmo y capacidad para mantener la amplitud estiraron a casi todos los rivales, aunque un gol y ninguna asistencia lo dejaron por debajo de Messi y Olise en producción."
               ],
               "zh": [
-                "亚马尔完成27次过人，他的一对一威胁迫使对手调整防守结构。",
-                "经历受伤影响的备战后，他在赛事中渐入佳境，并在对沙特阿拉伯时打入个人世界杯首球。"
+                "亚马尔8场比赛出场616分钟，对沙特阿拉伯进球，并在年仅19岁时打满决赛120分钟。",
+                "单挑盘带、节奏变化和保持宽度的能力几乎拉开了每个对手；但1球0助攻的产量仍低于梅西和奥利塞。"
               ],
               "ko": [
-                "야말은 27번의 드리블을 성공시키며 일대일 위협만으로도 상대 수비 구조를 바꾸게 했다.",
-                "부상으로 준비가 끊겼지만 대회가 갈수록 좋아졌고 사우디아라비아전에서 월드컵 첫 골을 넣었다."
+                "야말은 8경기 616분을 뛰고 사우디아라비아전에서 득점했으며, 19세의 나이로 결승 120분을 모두 소화했다.",
+                "고립 상황의 드리블과 속도 변화, 폭을 유지하는 능력으로 거의 모든 상대를 벌려 놓았지만 1골 무도움의 생산성은 메시와 올리세보다 낮았다."
               ]
             }
           }
@@ -1025,20 +1121,20 @@
           ],
           "reason": {
             "en": [
-              "Haaland scored seven goals in five appearances—about 1.35 per 90 minutes—and produced the brace that eliminated Brazil.",
-              "This XI does not need him to build every attack; it needs him to pin both centre-backs, threaten the space behind and finish the chances its creators supply."
+              "Haaland scored seven times in only five appearances, averaging a tournament-best 1.35 goals per 90 minutes among players with at least 200 minutes.",
+              "His movement along the blind side of centre-backs, explosive attacks across the front defender and ruthless penalty-area finishing culminated in the late brace that eliminated Brazil."
             ],
             "es": [
-              "Haaland marcó siete goles en cinco partidos —unos 1,35 por 90 minutos— y firmó el doblete que eliminó a Brasil.",
-              "Este once no necesita que construya cada ataque, sino que fije a ambos centrales, amenace el espacio a su espalda y termine las ocasiones de sus creadores."
+              "Haaland marcó siete goles en solo cinco partidos y promedió 1,35 goles cada 90 minutos, la mejor cifra del torneo entre quienes jugaron al menos 200 minutos.",
+              "Sus movimientos a la espalda de los centrales, ataques explosivos por delante del defensor y definición implacable en el área culminaron en el doblete tardío que eliminó a Brasil."
             ],
             "zh": [
-              "哈兰德5场打进7球，平均每90分钟约1.35球，并以梅开二度淘汰巴西。",
-              "这套阵容不需要他参与每一次组织，而是要他牵制两名中卫、威胁身后空间，并终结队友创造的机会。"
+              "哈兰德仅出战5场便攻入7球；在至少出场200分钟的球员中，他每90分钟1.35球的效率为赛事最高。",
+              "他沿中后卫盲侧的跑动、从防守者身前爆发抢点，以及禁区内冷酷的终结，最终在淘汰巴西时化为最后阶段的梅开二度。"
             ],
             "ko": [
-              "홀란은 5경기에서 7골, 90분당 약 1.35골을 기록했고 브라질을 탈락시킨 멀티골도 넣었다.",
-              "이 베스트 11은 모든 공격 전개에 그가 참여하기보다 두 센터백을 묶고 뒷공간을 위협하며 창조자들이 만든 기회를 마무리하길 요구한다."
+              "홀란은 5경기에서 7골을 넣었고, 200분 이상 뛴 선수 중 대회 최고인 90분당 1.35골을 기록했다.",
+              "센터백의 시야 밖을 파고드는 움직임, 앞선 수비수를 가로지르는 폭발적인 침투와 페널티 지역의 냉정한 마무리는 브라질을 탈락시킨 막판 멀티골로 정점을 찍었다."
             ]
           }
         },
@@ -1060,20 +1156,20 @@
             ],
             "reason": {
               "en": [
-                "Oyarzabal scored five goals, but his value went beyond finishing.",
-                "He pressed from the front, moved laterally to open central lanes and linked Spain’s midfield with its wingers, making him the better substitute when control and collective movement mattered more than pure penalty-box threat."
+                "Oyarzabal finished with five goals and one assist in 607 minutes, including the semifinal penalty against France.",
+                "Beyond the scoring, his curved pressing runs, near-post movement and willingness to drop into midfield made him a dependable reference point throughout Spain’s championship run."
               ],
               "es": [
-                "Oyarzabal marcó cinco goles, pero su valor fue más allá de la definición.",
-                "Presionó desde arriba, se movió hacia los costados para abrir carriles centrales y conectó el mediocampo con los extremos, por lo que es mejor suplente cuando importan más el control y el movimiento colectivo."
+                "Oyarzabal terminó con cinco goles y una asistencia en 607 minutos, incluido el penalti de la semifinal ante Francia.",
+                "Más allá de los goles, sus carreras curvas de presión, movimientos al primer palo y disposición para bajar al mediocampo lo hicieron una referencia fiable durante el camino de España al título."
               ],
               "zh": [
-                "奥亚萨瓦尔打进5球，但价值不只在终结。",
-                "他从前场发起逼抢，横向移动以打开中路通道，并衔接中场与边锋；当球队更需要控制和整体跑动，而非纯粹禁区威胁时，他是更合适的替补。"
+                "奥亚萨瓦尔在607分钟内攻入5球并送出1次助攻，其中包括半决赛对法国的点球。",
+                "除进球外，弧线逼抢、前点跑位和主动回撤中场，使他在西班牙夺冠征程中始终是可靠的进攻支点。"
               ],
               "ko": [
-                "오야르사발은 5골을 넣었지만 가치는 마무리에만 있지 않았다.",
-                "최전방에서 압박하고 옆으로 움직여 중앙 통로를 열며 중원과 윙어를 연결했다. 순수한 박스 위협보다 경기 통제와 집단 움직임이 필요할 때 더 적합한 교체 카드다."
+                "오야르사발은 607분 동안 5골 1도움을 기록했고, 프랑스와의 준결승 페널티킥 득점도 포함됐다.",
+                "득점뿐 아니라 곡선을 그리는 압박과 니어포스트 움직임, 중원으로 내려오는 성실함으로 스페인의 우승 여정 내내 믿을 수 있는 기준점이 됐다."
               ]
             }
           },
@@ -1121,20 +1217,20 @@
           ],
           "reason": {
             "en": [
-              "Mbappé finished with ten goals, four assists and 18 chances created, leading the tournament with roughly 6.87 expected goals.",
-              "His speed, isolation dribbling and finishing made him the outstanding attacker without relying on that unusually open third-place match."
+              "Mbappé finished with ten goals, four assists and 18 chances created from open play, scoring from approximately 6.87 expected goals.",
+              "His speed, isolation dribbling and finishing made him the outstanding left-sided attacker; the unusually open third-place match increased his totals, but it did not create his case."
             ],
             "es": [
-              "Mbappé terminó con diez goles, cuatro asistencias y 18 ocasiones creadas, además de liderar el torneo con unos 6,87 goles esperados.",
-              "Su velocidad, regate en el uno contra uno y definición lo hicieron el atacante más destacado sin depender de aquel partido por el tercer puesto inusualmente abierto."
+              "Mbappé terminó con diez goles, cuatro asistencias y 18 ocasiones creadas en juego abierto, marcando a partir de aproximadamente 6,87 goles esperados.",
+              "Su velocidad, regate en aislamiento y definición lo convirtieron en el atacante izquierdo más destacado; el inusualmente abierto partido por el tercer puesto elevó sus cifras, pero no creó su candidatura."
             ],
             "zh": [
-              "姆巴佩最终交出10球、4助攻和18次机会创造，并以约6.87个预期进球领跑赛事。",
-              "他的速度、单挑突破与终结能力，无需依赖那场异常开放的季军赛，也足以让他成为最佳攻击手。"
+              "姆巴佩以10球4助攻结束赛事，并在运动战创造18次机会；他的进球来自约6.87的预期进球。",
+              "速度、单挑盘带和终结能力使他成为最出色的左路攻击手；异常开放的季军赛提高了数据，却并非他入选的根本理由。"
             ],
             "ko": [
-              "음바페는 10골, 4도움과 18개의 기회 창출을 기록했고 약 6.87의 기대득점으로 대회 1위에 올랐다.",
-              "속도, 일대일 돌파와 결정력만으로도 유난히 열린 3위 결정전에 기대지 않은 대회 최고의 공격수였다."
+              "음바페는 약 6.87의 기대 득점에서 10골을 넣고 4도움과 오픈 플레이 기회 창출 18회를 기록했다.",
+              "속도와 고립 상황의 드리블, 마무리로 최고의 왼쪽 공격수가 됐다. 이례적으로 열린 3위 결정전이 수치를 높였지만 그의 선정 근거를 만든 경기는 아니었다."
             ]
           }
         },
@@ -1156,20 +1252,20 @@
             ],
             "reason": {
               "en": [
-                "Dembélé scored six goals, including a hat-trick against Norway and the quarterfinal goal that finished Morocco.",
-                "Comfortable with either foot and anywhere across the front line, he offered more positional flexibility than the other left-wing candidates while still delivering in knockout matches."
+                "Dembélé produced six goals and two assists in 596 minutes, giving France another high-output attacker alongside Mbappé and Olise.",
+                "His two-footed dribbling and ability to attack either channel made opponents difficult to set against, but Spain neutralized him in the semifinal and Messi delivered the stronger overall right-sided tournament."
               ],
               "es": [
-                "Dembélé marcó seis goles, incluido un triplete ante Noruega y el tanto de cuartos que sentenció a Marruecos.",
-                "Cómodo con ambas piernas y en cualquier zona del frente de ataque, ofreció más flexibilidad posicional que los otros candidatos por la izquierda y respondió en las eliminatorias."
+                "Dembélé produjo seis goles y dos asistencias en 596 minutos, dando a Francia otro atacante de alta producción junto a Mbappé y Olise.",
+                "Su regate con ambos pies y capacidad para atacar cualquiera de los dos canales dificultaron la defensa rival, pero España lo neutralizó en semifinales y Messi completó un torneo más fuerte desde la derecha."
               ],
               "zh": [
-                "登贝莱打进6球，包括对挪威的帽子戏法，以及四分之一决赛终结摩洛哥的进球。",
-                "他双脚都能处理球，也能胜任锋线多个位置；相比其他左翼候选人，他战术弹性更强，并在淘汰赛交出关键贡献。"
+                "登贝莱在596分钟内贡献6球2助攻，让法国在姆巴佩和奥利塞之外又拥有一名高产攻击手。",
+                "双足盘带和攻击两侧通道的能力让对手很难针对布置，但西班牙在半决赛限制了他，而梅西在右路完成了整体更强的赛事表现。"
               ],
               "ko": [
-                "뎀벨레는 노르웨이전 해트트릭과 모로코를 끝낸 8강전 득점을 포함해 6골을 넣었다.",
-                "양발을 자유롭게 쓰고 공격 전 지역을 소화해 다른 왼쪽 윙 후보보다 전술적 유연성이 높았으며, 토너먼트에서도 결정적인 결과를 냈다."
+                "뎀벨레는 596분 동안 6골 2도움을 기록해 음바페와 올리세에 이어 프랑스에 또 하나의 높은 생산성을 지닌 공격 옵션을 제공했다.",
+                "양발 드리블과 어느 채널이든 공략하는 능력 때문에 상대가 대비하기 어려웠지만 스페인이 준결승에서 그를 봉쇄했고, 오른쪽 전체 활약에서는 메시가 더 강했다."
               ]
             }
           },

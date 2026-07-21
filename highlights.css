@@ -592,29 +592,6 @@ html[data-theme="dark"] .best-xi-player-card .best-xi-player-reason {
   max-width: none;
 }
 
-.historical-highlight-link {
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.historical-highlight-link {
-  display: inline-block;
-  margin-top: 10px;
-}
-
-.historical-highlight-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.historical-highlight-link:focus-visible {
-  border-radius: 3px;
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
 .highlight-row h3 .rank-pill {
   margin: 0 5px;
   vertical-align: middle;
@@ -896,6 +873,17 @@ html[data-theme="dark"] .next-world-cup-section {
     border-radius: 14px;
   }
 
+  .champion-photo-credit {
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    justify-content: flex-end;
+    max-width: none;
+    flex-wrap: wrap;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
   .intro-doodle {
     width: 56px;
     height: 56px;
@@ -946,6 +934,10 @@ html[data-theme="dark"] .next-world-cup-section {
 
   .award-meta {
     white-space: nowrap;
+  }
+
+  .award-meta.is-historical-captain-meta {
+    white-space: normal;
   }
 
   .highlight-row {

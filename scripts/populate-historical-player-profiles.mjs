@@ -2,6 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { HISTORICAL_HIGHLIGHTS } from "../data/highlights-history.js";
 import { normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -9,6 +10,7 @@ const dataDir = path.join(root, "data");
 const historyPath = path.join(dataDir, "history.json");
 const outputPath = path.join(dataDir, "historical-player-profiles.json");
 const playerProfilesPath = path.join(dataDir, "player-profiles.json");
+const bestXiTargetsOnly = process.argv.includes("--best-xi-targets");
 const sourceId = "historical-player-card-baseline-2026-06-23";
 const inheritedImageSource = "current-player-profile";
 const imageFieldNames = [
@@ -31,6 +33,23 @@ const preservedEnrichmentFieldNames = [
   "peakMarketValueSource",
   "peakMarketValueSourceUrl"
 ];
+const bestXiPositionLabels = new Map([
+  ["GK", "Goalkeeper"],
+  ["RB", "Right-back"],
+  ["CB", "Centre-back"],
+  ["LB", "Left-back"],
+  ["DM", "Defensive midfielder"],
+  ["CM", "Central midfielder"],
+  ["RCM", "Central midfielder"],
+  ["LCM", "Central midfielder"],
+  ["RW", "Right winger"],
+  ["AM", "Attacking midfielder"],
+  ["LM", "Left midfielder"],
+  ["LW", "Left winger"],
+  ["SS", "Second striker"],
+  ["F9", "False nine"],
+  ["ST", "Striker"]
+]);
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -245,12 +264,29 @@ function getRecord(records, name, fixture, teamName) {
     years: new Set(),
     notes: [],
     appearanceEvents: [],
+    bestXiSelection: false,
+    bestXiSelectionKinds: new Set(),
+    editorialPosition: "",
     goalEvents: [],
     ownGoalEvents: [],
     contextEvents: []
   };
   records.set(key, record);
   return record;
+}
+
+function addBestXiSelection(records, entry, tournamentYear, kind) {
+  if (!entry?.playerName || !entry?.teamName) {
+    return;
+  }
+
+  const fixture = { tournamentYear: Number(tournamentYear) };
+  const record = getRecord(records, entry.playerName, fixture, entry.teamName);
+  record.bestXiSelection = true;
+  record.bestXiSelectionKinds.add(kind);
+  record.editorialPosition = bestXiPositionLabels.get(entry.position) || entry.position || record.editorialPosition;
+  record.years.add(Number(tournamentYear));
+  increment(record.teams, entry.teamName);
 }
 
 function teamNameForSide(fixture, side) {
@@ -883,7 +919,7 @@ function buildProfile(record, imageFields = {}) {
   const primaryTeam = mode(record.teams) || "Historical";
   const teams = [...record.teams.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([team]) => team);
   const years = [...record.years].sort((a, b) => a - b);
-  const position = mode(record.positions) || "Player";
+  const position = record.editorialPosition || mode(record.positions) || "Player";
   const shirtNumber = Number(mode(record.shirtNumbers));
   const skills = inferSkills(record, position);
 
@@ -892,6 +928,9 @@ function buildProfile(record, imageFields = {}) {
     name: record.name,
     displayName: record.name,
     historical: true,
+    ...(record.bestXiSelection
+      ? { bestXiSelection: true, bestXiSelectionKinds: [...record.bestXiSelectionKinds].sort() }
+      : {}),
     sourceId,
     teamName: primaryTeam,
     teams,
@@ -935,7 +974,16 @@ for (const fixture of historyData.fixtures || []) {
   }
 }
 
-const profiles = Object.fromEntries(
+for (const [year, edition] of Object.entries(HISTORICAL_HIGHLIGHTS.editions || {})) {
+  for (const starter of edition.rows.flat()) {
+    addBestXiSelection(records, starter, year, "starter");
+    for (const honourable of starter.honourables || []) {
+      addBestXiSelection(records, honourable, year, "honourable");
+    }
+  }
+}
+
+const generatedProfiles = Object.fromEntries(
   [...records.values()]
     .sort((a, b) => a.tournamentYear - b.tournamentYear || a.teamName.localeCompare(b.teamName) || a.name.localeCompare(b.name))
     .map((record) => {
@@ -943,6 +991,26 @@ const profiles = Object.fromEntries(
       return [profile.profileKey, profile];
     })
 );
+
+const profiles = bestXiTargetsOnly
+  ? { ...(existingHistoricalProfilesData?.profiles || {}) }
+  : generatedProfiles;
+
+if (bestXiTargetsOnly) {
+  for (const generatedProfile of Object.values(generatedProfiles)) {
+    if (!generatedProfile.bestXiSelection) {
+      continue;
+    }
+    const existingProfile = profiles[generatedProfile.profileKey];
+    profiles[generatedProfile.profileKey] = existingProfile
+      ? {
+          ...existingProfile,
+          bestXiSelection: true,
+          bestXiSelectionKinds: generatedProfile.bestXiSelectionKinds
+        }
+      : generatedProfile;
+  }
+}
 
 const hasImages = Object.values(profiles).some((profile) => profile.imageUrl);
 const sourceIds = new Set(existingHistoricalProfilesData?.sourceIds || []);
@@ -957,8 +1025,9 @@ const output = {
   updatedAt: new Date().toISOString(),
   sourceIds: [...sourceIds],
   coverage: {
-    status: "complete-men-1930-2022-key-players-and-scorers-by-team-year",
-    note: "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs or historical goal records."
+    ...(bestXiTargetsOnly ? existingHistoricalProfilesData?.coverage || {} : {}),
+    status: "complete-men-1930-2022-key-players-scorers-and-best-xi-by-team-year",
+    note: "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs, historical goal records, or an editorial Best XI."
   },
   profiles
 };
