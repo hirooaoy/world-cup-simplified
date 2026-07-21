@@ -5281,8 +5281,16 @@ try {
       document.querySelector("#match-list > .yesterday-section")
     ];
     return {
+      activeAnimationCounts: elements.map((element) =>
+        element
+          ? element.getAnimations().filter((animation) =>
+              animation.playState === "running" || animation.playState === "pending"
+            ).length
+          : -1
+      ),
       reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       opacities: elements.map((element) => element ? getComputedStyle(element).opacity : "missing"),
+      transforms: elements.map((element) => element ? getComputedStyle(element).transform : "missing"),
       transitionDurations: elements.map(
         (element) => element ? getComputedStyle(element).transitionDuration : "missing"
       )
@@ -5291,7 +5299,8 @@ try {
   assert(
     reducedMotionEntranceState.reduced &&
       reducedMotionEntranceState.opacities.every((opacity) => opacity === "1") &&
-      reducedMotionEntranceState.transitionDurations.every((duration) => duration === "0s"),
+      reducedMotionEntranceState.transforms.every((transform) => transform === "none") &&
+      reducedMotionEntranceState.activeAnimationCounts.every((count) => count === 0),
     `Reduced-motion visitors should see the complete first-load page immediately. Measured ${JSON.stringify(reducedMotionEntranceState)}.`
   );
   await reducedMotionEntranceCheck.context.close();
