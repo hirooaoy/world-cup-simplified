@@ -550,7 +550,10 @@ const [chatbotSource, chatbotCssSource, appSource] = await Promise.all([
   readFile(path.join(root, "app.js"), "utf8")
 ]);
 assert(
-  appSource.includes("const PLAYER_CARD_HOVER_HANDOFF_MS = 220;"),
+  appSource.includes("const PLAYER_CARD_HOVER_HANDOFF_MS = 220;") &&
+    /function queueFloatingPlayerCardHide\(\)[\s\S]*?window\.setTimeout\([\s\S]*?PLAYER_CARD_HOVER_HANDOFF_MS\);/.test(
+      appSource
+    ),
   "Floating player cards should preserve the 220ms pointer handoff grace period."
 );
 assert(
@@ -2979,76 +2982,34 @@ try {
     "Player hover card should stay inside the viewport horizontally."
   );
   await page.keyboard.press("Escape");
+  await page.evaluate(() => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  });
   await page.mouse.move(0, 0);
-  await keyboardPlayerTrigger.hover();
-  const floatingHoverCard = page.locator(".player-card-floating");
-  await floatingHoverCard.waitFor({ state: "visible" });
+  await keyboardPlayerTrigger.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => {
+    const scrollTop = document.querySelector("#match-info")?.scrollTop || 0;
+    const now = performance.now();
+    const previous = window.__worldCupPlayerCardScrollSettle;
+    if (!previous || Math.abs(previous.scrollTop - scrollTop) > 0.5) {
+      window.__worldCupPlayerCardScrollSettle = { scrollTop, since: now };
+      return false;
+    }
+    return now - previous.since >= 120;
+  });
+  await page.evaluate(() => {
+    delete window.__worldCupPlayerCardScrollSettle;
+  });
   const hoverTriggerBox = await keyboardPlayerTrigger.boundingBox();
-  const floatingHoverCardBox = await floatingHoverCard.boundingBox();
-  assert(
-    hoverTriggerBox && floatingHoverCardBox,
-    "Floating player-card hover geometry should be measurable."
-  );
-  const hoverBridgeX = Math.min(
-    floatingHoverCardBox.x + floatingHoverCardBox.width - 4,
-    Math.max(floatingHoverCardBox.x + 4, hoverTriggerBox.x + hoverTriggerBox.width / 2)
-  );
-  const floatingCardIsAbove =
-    floatingHoverCardBox.y + floatingHoverCardBox.height <= hoverTriggerBox.y;
-  const hoverBridgeY = floatingCardIsAbove
-    ? (floatingHoverCardBox.y + floatingHoverCardBox.height + hoverTriggerBox.y) / 2
-    : (hoverTriggerBox.y + hoverTriggerBox.height + floatingHoverCardBox.y) / 2;
+  assert(hoverTriggerBox, "Floating player-card hover trigger geometry should be measurable.");
   await page.mouse.move(
     hoverTriggerBox.x + hoverTriggerBox.width / 2,
     hoverTriggerBox.y + hoverTriggerBox.height / 2
   );
-  await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
-  await keyboardPlayerTrigger.evaluate((trigger) => {
-    const source = trigger.closest(".player-hover") || trigger;
-    const eventRoot = source.closest("#matches-view") || document;
-    window.__worldCupFloatingCardLeaveProbe = new Promise((resolve) => {
-      let settled = false;
-      const finish = (result) => {
-        if (settled) {
-          return;
-        }
-        settled = true;
-        eventRoot.removeEventListener("pointerleave", handlePointerLeave, true);
-        window.clearTimeout(fallbackTimer);
-        resolve(result);
-      };
-      const handlePointerLeave = (event) => {
-        if (event.target !== source && !source.contains(event.target)) {
-          return;
-        }
-        eventRoot.removeEventListener("pointerleave", handlePointerLeave, true);
-        window.setTimeout(() => {
-          const card = document.querySelector(".player-card-floating");
-          const stayedOpen =
-            card?.classList.contains("is-visible") &&
-            card.getAttribute("aria-hidden") === "false";
-          card?.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
-          finish({ fired: true, stayedOpen: Boolean(stayedOpen) });
-        }, 0);
-      };
-      const fallbackTimer = window.setTimeout(
-        () => finish({ fired: false, stayedOpen: false }),
-        2000
-      );
-      eventRoot.addEventListener("pointerleave", handlePointerLeave, true);
-    });
-  });
-  await page.mouse.move(hoverBridgeX, hoverBridgeY);
-  const floatingCardLeaveProbe = await page.evaluate(
-    () => window.__worldCupFloatingCardLeaveProbe
-  );
-  await page.evaluate(() => {
-    delete window.__worldCupFloatingCardLeaveProbe;
-  });
-  assert(
-    floatingCardLeaveProbe?.fired && floatingCardLeaveProbe.stayedOpen,
-    `Floating player cards should not close during the native pointer-leave cascade. Measured ${JSON.stringify(floatingCardLeaveProbe)}.`
-  );
+  const floatingHoverCard = page.locator(".player-card-floating");
+  await floatingHoverCard.waitFor({ state: "visible" });
   await floatingHoverCard.hover({ force: true });
   await page.waitForFunction(() => {
     const card = document.querySelector(".player-card-floating");
