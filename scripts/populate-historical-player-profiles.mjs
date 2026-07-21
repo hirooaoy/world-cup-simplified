@@ -30,6 +30,13 @@ const preservedEnrichmentFieldNames = [
   "clubAtTournament",
   "clubAtTournamentSource",
   "clubAtTournamentSourceUrl",
+  "leagueAtTournament",
+  "leagueAtTournamentAssociation",
+  "leagueAtTournamentResolution",
+  "leagueAtTournamentSeason",
+  "leagueAtTournamentTier",
+  "leagueAtTournamentSource",
+  "leagueAtTournamentSourceUrl",
   "tournamentAppearances",
   "tournamentStarts",
   "teamTournamentMatchCount",
@@ -948,6 +955,7 @@ function buildProfile(record, imageFields = {}) {
     tournamentYears: years,
     position,
     club: imageFields.clubAtTournament || "",
+    league: imageFields.leagueAtTournament || "",
     uniformNumber: Number.isInteger(shirtNumber) && shirtNumber > 0 ? shirtNumber : undefined,
     goals: record.goalCount,
     ownGoals: record.ownGoalCount,
@@ -1034,6 +1042,9 @@ if (hasImages) {
 const output = {
   updatedAt: new Date().toISOString(),
   sourceIds: [...sourceIds],
+  ...(existingHistoricalProfilesData?.sources
+    ? { sources: existingHistoricalProfilesData.sources }
+    : {}),
   coverage: {
     ...(bestXiTargetsOnly ? existingHistoricalProfilesData?.coverage || {} : {}),
     status: "complete-men-1930-2022-key-players-scorers-and-best-xi-by-team-year",

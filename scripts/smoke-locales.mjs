@@ -5,6 +5,10 @@ import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  HISTORICAL_AWARD_CONTEXT_PLAYERS,
+  HISTORICAL_HIGHLIGHTS
+} from "../data/highlights-history.js";
 
 const require = createRequire(import.meta.url);
 let chromium;
@@ -86,7 +90,7 @@ const localeCases = [
     lazyMatchQuestion: "¿Quién ganó Francia vs España?",
     archivePlayerName: "Lionel Messi",
     archivePosition: "delantero",
-    archiveClub: "Paris Saint-Germain",
+    archiveClub: "Paris Saint-Germain (Ligue 1)",
     archiveContext: "En el Mundial de 2022",
     currentContext: "En el Mundial de 2026",
     archiveStats: "Mundial 2022: 7 goles",
@@ -157,7 +161,7 @@ const localeCases = [
     lazyMatchQuestion: "프랑스 대 스페인에서 누가 이겼어?",
     archivePlayerName: "리오넬 메시",
     archivePosition: "공격수",
-    archiveClub: "파리 생제르맹",
+    archiveClub: "파리 생제르맹 (리그 1)",
     archiveContext: "2022년 월드컵 당시",
     currentContext: "2026년 월드컵 당시",
     archiveStats: "2022 월드컵: 7골",
@@ -188,8 +192,11 @@ const highlightsLocaleCases = [
     goldenGloveStat: "Seven clean sheets in eight games.",
     fairPlayStat: "They finished their last three matches without a card.",
     vanDijkClubLine: "Liverpool (Premier League)",
+    historicalClubLine: "Barcelona (La Liga)",
+    oldHistoricalClubLine: "Liverpool (Football League Second Division)",
     bestXiClubLine: "Athletic Bilbao (La Liga)",
     worldCupContext: "At the 2026 World Cup",
+    zeroTournamentStats: "This World Cup: 0 goals, 0 assists",
     goldenBootName: "Kylian Mbappé",
     bestXiInfo: "Selected by admin",
     bestCoachLabel: "Best coach",
@@ -215,8 +222,11 @@ const highlightsLocaleCases = [
     goldenGloveStat: "8场比赛7次零封。",
     fairPlayStat: "他们在最后三场比赛中没有领到任何牌。",
     vanDijkClubLine: "利物浦（英超）",
+    historicalClubLine: "巴塞罗那（西甲）",
+    oldHistoricalClubLine: "利物浦（英格兰足球联赛乙级联赛）",
     bestXiClubLine: "毕尔巴鄂竞技（西甲）",
     worldCupContext: "2026年世界杯期间",
+    zeroTournamentStats: "本届世界杯：0球，0助攻",
     goldenBootName: "基利安·姆巴佩",
     bestXiInfo: "管理员精选",
     bestCoachLabel: "最佳教练",
@@ -242,8 +252,11 @@ const highlightsLocaleCases = [
     goldenGloveStat: "Siete porterías a cero en ocho partidos.",
     fairPlayStat: "Terminó sus últimos tres partidos sin recibir tarjetas.",
     vanDijkClubLine: "Liverpool (Premier League)",
+    historicalClubLine: "Barcelona (LaLiga)",
+    oldHistoricalClubLine: "Liverpool (Segunda División de la Football League)",
     bestXiClubLine: "Athletic Bilbao (LaLiga)",
     worldCupContext: "En el Mundial de 2026",
+    zeroTournamentStats: "Este Mundial: 0 goles, 0 asistencias",
     goldenBootName: "Kylian Mbappé",
     bestXiInfo: "Selección del administrador",
     bestCoachLabel: "Mejor entrenador",
@@ -269,8 +282,11 @@ const highlightsLocaleCases = [
     goldenGloveStat: "8경기에서 7번 무실점.",
     fairPlayStat: "마지막 세 경기에서는 카드를 한 장도 받지 않았다.",
     vanDijkClubLine: "리버풀 (프리미어리그)",
+    historicalClubLine: "바르셀로나 (라리가)",
+    oldHistoricalClubLine: "리버풀 (풋볼 리그 2부)",
     bestXiClubLine: "아틀레틱 빌바오 (라리가)",
     worldCupContext: "2026년 월드컵 당시",
+    zeroTournamentStats: "이번 월드컵: 0골, 0도움",
     goldenBootName: "킬리안 음바페",
     bestXiInfo: "운영자 선정",
     bestCoachLabel: "최우수 감독",
@@ -758,17 +774,26 @@ async function assertHighlightsLocales(browser) {
       );
       await page.goto(getUrl(`/${query}`), { waitUntil: "domcontentloaded" });
       await waitForApp(page, locale, { expectRows: false });
-      const mainAppClubLine = await page.evaluate(async () => {
-        const playerData = await fetch("data/player-profiles.json").then((response) => response.json());
+      const mainAppClubLines = await page.evaluate(async () => {
+        const [playerData, historicalPlayerData] = await Promise.all([
+          fetch("data/player-profiles.json").then((response) => response.json()),
+          fetch("data/historical-player-profiles.json").then((response) => response.json())
+        ]);
+        const getLine = window.__worldCupTestHooks?.playerCards?.getLocalizedPlayerClubLine;
         const profile = playerData.profiles?.["Virgil van Dijk"];
-        return window.__worldCupTestHooks?.playerCards?.getLocalizedPlayerClubLine?.(
-          { name: "Virgil van Dijk" },
-          profile
-        ) || "";
+        const historicalProfile = historicalPlayerData.profiles?.["Gerard Piqué / Spain / 2010"];
+        const oldHistoricalProfile = historicalPlayerData.profiles?.["Alan A'Court / England / 1958"];
+        return {
+          current: getLine?.({ name: "Virgil van Dijk" }, profile) || "",
+          historical: getLine?.(historicalProfile, historicalProfile) || "",
+          oldHistorical: getLine?.(oldHistoricalProfile, oldHistoricalProfile) || ""
+        };
       });
       assert(
-        mainAppClubLine === locale.vanDijkClubLine,
-        `${locale.code}: the main app should use the same localized club and league formatter. Measured ${JSON.stringify(mainAppClubLine)}.`
+        mainAppClubLines.current === locale.vanDijkClubLine &&
+          mainAppClubLines.historical === locale.historicalClubLine &&
+          mainAppClubLines.oldHistorical === locale.oldHistoricalClubLine,
+        `${locale.code}: the main app should use the same localized club and league formatter for current and historical cards. Measured ${JSON.stringify(mainAppClubLines)}.`
       );
       await context.close();
       continue;
@@ -1000,9 +1025,14 @@ async function assertHighlightsLocales(browser) {
         hasPortrait: Boolean(card?.querySelector(".lineup-coach-card-photo img[src]")),
         hasProfileStructure: Boolean(
           card?.querySelector(".player-card-header") &&
-          card?.querySelectorAll(".player-skill-list span").length === 0 &&
-          card?.querySelectorAll(".lineup-coach-copy .player-card-note").length === 1 &&
-          !card?.querySelector(".player-card-club")
+          card?.querySelectorAll(".player-skill-list span").length === 3 &&
+          card?.querySelectorAll(".lineup-coach-copy .player-card-note").length === 2 &&
+          card?.querySelector(".player-card-club")
+        ),
+        sinceText: card?.querySelector(".player-card-club")?.textContent.trim() || "",
+        styles: Array.from(
+          card?.querySelectorAll(".player-skill-list span") || [],
+          (node) => node.textContent.trim()
         ),
         copy: Array.from(
           card?.querySelectorAll(".lineup-coach-copy .player-card-note") || [],
@@ -1016,9 +1046,12 @@ async function assertHighlightsLocales(browser) {
     assert(
       coachCardState.expanded === "true" && coachCardState.display === "grid" &&
         coachCardState.hasPortrait && coachCardState.hasProfileStructure &&
-        JSON.stringify(coachCardState.copy) === JSON.stringify([locale.bestCoachReason]) &&
+        coachCardState.sinceText.includes("2022") &&
+        coachCardState.styles.every(Boolean) &&
+        coachCardState.copy[0] === locale.bestCoachReason &&
+        coachCardState.copy[1]?.includes("65") &&
         coachCardState.withinViewport,
-      `${locale.code}: Best coach should show only its localized tournament-selection rationale, without generic tenure, style, age, or biography copy. Measured ${JSON.stringify(coachCardState)}.`
+      `${locale.code}: Best coach should keep its tournament rationale while reusing localized lineup tenure, style, and age details. Measured ${JSON.stringify(coachCardState)}.`
     );
     await page.keyboard.press("Escape");
 
@@ -1098,6 +1131,7 @@ async function assertHighlightsLocales(browser) {
         hasFlag: Boolean(card?.querySelector(".player-card-flag .flag")),
         number: card?.querySelector(".player-card-number")?.textContent.trim() || "",
         clubLine: card?.querySelector(".player-card-club")?.textContent.trim() || "",
+        tournamentStats: card?.querySelector(".player-card-tournament-stats")?.textContent.trim() || "",
         reasonParagraphs: Array.from(
           card?.querySelectorAll(".best-xi-player-reason") || [],
           (paragraph) => paragraph.textContent.trim()
@@ -1117,6 +1151,7 @@ async function assertHighlightsLocales(browser) {
         JSON.stringify(cardState.skillPills) === JSON.stringify(cardState.referenceSkillPills) &&
         cardState.hasFlag &&
         cardState.number === "#23" &&
+        cardState.tournamentStats === locale.zeroTournamentStats &&
         /[（(].+[）)]/u.test(cardState.clubLine) &&
         cardState.reasonParagraphs.length === 2 &&
         cardState.reasonParagraphs.every(Boolean) &&
@@ -1485,21 +1520,30 @@ async function assertHighlightsLocales(browser) {
       const awardPlayerTriggers = Array.from(
         document.querySelectorAll('.award-list [data-award-key]:not([hidden]) .award-player-name [data-highlight-player-trigger]')
       );
+      const awardDescriptionTriggers = Array.from(
+        document.querySelectorAll('.award-list [data-award-key]:not([hidden]) .award-explanation [data-highlight-player-trigger]')
+      );
       const fairPlayCaptainTriggers = Array.from(
         document.querySelectorAll("#fair-play-meta [data-highlight-player-trigger]")
       );
       const captainCardFlag = fairPlayCaptainTriggers[0]
         ?.closest(".highlight-player-hover")
         ?.querySelector(".highlight-player-card .player-card-flag .flag");
+      const textWithoutPlayerCards = (selector) => {
+        const clone = document.querySelector(selector)?.cloneNode(true);
+        clone?.querySelectorAll(".highlight-player-card").forEach((card) => card.remove());
+        return normalize(clone?.textContent);
+      };
       return {
         actualBootLabel: normalize(document.querySelector('[data-award-key="goldenBoot"] .award-label')?.textContent),
         actualBootName: visibleText(document.querySelector("#golden-boot-name")),
-        actualBootCopy: normalize(document.querySelector("#golden-boot-explanation")?.textContent),
-        actualFairPlayCopy: normalize(document.querySelector("#fair-play-explanation")?.textContent),
+        actualBootCopy: textWithoutPlayerCards("#golden-boot-explanation"),
+        actualFairPlayCopy: textWithoutPlayerCards("#fair-play-explanation"),
         actualFairPlayMeta: normalize(document.querySelector("#fair-play-meta")?.innerText),
         awardPlayerTriggerCount: awardPlayerTriggers.length,
+        awardDescriptionTriggerCount: awardDescriptionTriggers.length,
         fairPlayCaptainTriggerCount: fairPlayCaptainTriggers.length,
-        allAwardTriggersHaveCards: [...awardPlayerTriggers, ...fairPlayCaptainTriggers].every((trigger) =>
+        allAwardTriggersHaveCards: [...awardPlayerTriggers, ...awardDescriptionTriggers, ...fairPlayCaptainTriggers].every((trigger) =>
           Boolean(trigger.closest(".highlight-player-hover")?.querySelector(".highlight-player-card"))
         ),
         fairPlayFlagClass: document.querySelector("#fair-play-flag .flag")?.className || "",
@@ -1522,6 +1566,9 @@ async function assertHighlightsLocales(browser) {
         localizedHistoricalAwards.actualFairPlayCopy === localizedHistoricalAwards.expectedFairPlayCopy &&
         localizedHistoricalAwards.actualFairPlayMeta === localizedHistoricalAwards.expectedFairPlayMeta &&
         localizedHistoricalAwards.awardPlayerTriggerCount === 4 &&
+        localizedHistoricalAwards.awardDescriptionTriggerCount === Object.entries(HISTORICAL_AWARD_CONTEXT_PLAYERS)
+          .filter(([key]) => key.startsWith("2022|"))
+          .reduce((count, [, references]) => count + references.length, 0) &&
         localizedHistoricalAwards.fairPlayCaptainTriggerCount === 1 &&
         localizedHistoricalAwards.allAwardTriggersHaveCards &&
         localizedHistoricalAwards.fairPlayFlagClass.split(/\s+/u).includes("flag-england") &&
@@ -1539,6 +1586,7 @@ async function assertHighlightsLocales(browser) {
       const valueHelp = Array.from(card?.querySelectorAll(".player-card-meta .player-card-value-help") || []);
       return {
         context: card?.querySelector(".player-card-world-cup-context")?.textContent.trim() || "",
+        tournamentStats: card?.querySelector(".player-card-tournament-stats")?.textContent.trim() || "",
         meta: card?.querySelector(".player-card-meta")?.textContent.replace(/\s+/gu, " ").trim() || "",
         paragraphs: Array.from(
           card?.querySelectorAll(".best-xi-player-reason[data-player-copy-paragraph]") || [],
@@ -1565,6 +1613,12 @@ async function assertHighlightsLocales(browser) {
       ko: "2022년 월드컵 당시",
       zh: "2022年世界杯期间"
     };
+    const historicalTournamentStats = {
+      en: "2022 World Cup: 8 goals",
+      es: "Mundial 2022: 8 goles",
+      ko: "2022 월드컵: 8골",
+      zh: "2022年世界杯：8球"
+    };
     assert(
       historicalMbappeCard.paragraphs.length === 2 &&
         historicalMbappeCard.paragraphs.every(
@@ -1578,10 +1632,12 @@ async function assertHighlightsLocales(browser) {
         historicalMbappeCard.valueHelpCount === 2 &&
         historicalMbappeCard.valueTooltips.every(Boolean) &&
         historicalMbappeCard.context === historicalWorldCupContexts[locale.code] &&
+        historicalMbappeCard.tournamentStats === historicalTournamentStats[locale.code] &&
         historicalMbappeCard.withinViewport,
       `${locale.code}: the 2022 Mbappé card should use tournament-age/value metadata and two substantial evidence/context paragraphs. Measured ${JSON.stringify(historicalMbappeCard)}.`
     );
     if (locale.code !== "en") {
+      await page.keyboard.press("Escape");
       await page.locator(".best-xi-honourables-button").click();
       await page.locator(
         '.best-xi-honourables-panel [data-best-xi-player-name="Yassine Bounou"] [data-best-xi-player-trigger]'
@@ -1612,9 +1668,9 @@ async function assertHighlightsLocales(browser) {
         zh: "亚辛·布努"
       };
       const expectedHistoricalClubs = {
-        es: "Sevilla",
-        ko: "Sevilla",
-        zh: "塞维利亚"
+        es: "Sevilla (LaLiga)",
+        ko: "Sevilla (라리가)",
+        zh: "塞维利亚（西甲）"
       };
       assert(
         localizedHistoricalReason.actual.length === 2 &&
@@ -1663,11 +1719,11 @@ async function assertHighlightsLocales(browser) {
         };
       }, locale.code);
       assert(
-        JSON.stringify(localizedHistoricalCoach.copy) ===
-          JSON.stringify([localizedHistoricalCoach.expected]) &&
-          localizedHistoricalCoach.skillCount === 0 &&
-          localizedHistoricalCoach.sinceText === "",
-        `${locale.code}: the historical coach card should show only its localized tournament rationale, without present-day age, tenure, or English profile extras. Measured ${JSON.stringify(localizedHistoricalCoach)}.`
+        localizedHistoricalCoach.copy[0] === localizedHistoricalCoach.expected &&
+          localizedHistoricalCoach.copy[1]?.includes("44") &&
+          localizedHistoricalCoach.skillCount === 3 &&
+          localizedHistoricalCoach.sinceText.includes("2018"),
+        `${locale.code}: the historical coach card should show its localized tournament rationale, tournament age, appointment year, and three style pills. Measured ${JSON.stringify(localizedHistoricalCoach)}.`
       );
       await page.keyboard.press("Escape");
       if (locale.code === "ko") {
@@ -1806,6 +1862,45 @@ async function assertHighlightsLocales(browser) {
             document.querySelector("#timeline-third-title")?.textContent.trim() === expectedOpeningTitle,
           { expectedEdition: editionYear, expectedOpeningTitle: `The ${nextYear} World Cup begins` },
           { timeout: 30000 }
+        );
+        const expectedIntroPlayers = HISTORICAL_HIGHLIGHTS.editions[editionYear].introPlayers
+          .map((entry) => typeof entry === "string" ? entry : entry.playerName);
+        const expectedIntroCopy = HISTORICAL_HIGHLIGHTS.editions[editionYear].intro;
+        const introPlayerSurface = await page.evaluate(() => {
+          const intro = document.querySelector(".intro-copy");
+          const visibleCopy = intro?.cloneNode(true);
+          visibleCopy?.querySelectorAll(".player-card").forEach((card) => card.remove());
+          const wrappers = Array.from(intro?.querySelectorAll(".highlight-player-hover") || []);
+          const interactions = wrappers.map((wrapper) => {
+            const trigger = wrapper.querySelector("[data-highlight-player-trigger]");
+            trigger?.click();
+            const card = wrapper.querySelector(".highlight-player-card");
+            return {
+              expanded: trigger?.getAttribute("aria-expanded") || "",
+              name: card?.querySelector(".player-card-name")?.textContent.trim() || "",
+              note: card?.querySelector(".player-card-note")?.textContent.trim() || "",
+              position: card?.querySelector(".player-card-position")?.textContent.trim() || "",
+              skillCount: card?.querySelectorAll(".player-skill-list > span").length || 0
+            };
+          });
+          document.body.click();
+          return {
+            canonicalNames: wrappers.map((wrapper) => wrapper.dataset.highlightPlayerName || ""),
+            interactions,
+            visibleCopy: visibleCopy?.textContent.replace(/\s+/gu, " ").trim() || ""
+          };
+        });
+        assert(
+          JSON.stringify(introPlayerSurface.canonicalNames) === JSON.stringify(expectedIntroPlayers) &&
+            introPlayerSurface.visibleCopy === expectedIntroCopy &&
+            introPlayerSurface.interactions.every((card) =>
+              card.expanded === "true" &&
+              card.name.length > 0 &&
+              card.note.length >= 20 &&
+              card.position.length > 0 &&
+              card.skillCount > 0
+            ),
+          `${editionYear}: every champion-summary player introduction should preserve the copy and open a complete player card. Measured ${JSON.stringify(introPlayerSurface)}.`
         );
         const previewChainItem = await page.evaluate(() => ({
           dates: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-date"), (node) =>

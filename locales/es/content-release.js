@@ -5,11 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "f0dfa3a6ceb251406b8840c5734d22135353c0fccfaff1ae02ce804234e2522b"
+  "sourceFingerprint": "14ebe71dc560b0ccc5a904a3388e766d9219d5e239dd5e88a91e6a6447b9598d"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Mobile bracket drags now stay inside the Tournament canvas without scrolling the page.": "Los arrastres del cuadro ahora permanecen dentro del lienzo de Torneo móvil sin desplazar la página.",
-  "Simpler mobile Tournament canvas": "Lienzo de Torneo más sencillo en móviles"
+  "All 3,647 historical profiles now show sourced tournament-time clubs and leagues in four languages and Ball Boy.": "Los 3.647 perfiles históricos ahora muestran en cuatro idiomas el club y la liga del jugador durante el torneo, con sus fuentes; Ball Boy usa los mismos datos verificados.",
+  "Cards now show World Cup goals and sourced assists; coach cards, champion banners, and light-mode Best XI are polished.": "Las tarjetas ahora muestran los goles mundialistas y las asistencias con fuente; también se pulieron las tarjetas de entrenadores, los banners de campeones y el Mejor XI en modo claro.",
+  "Complete historical player cards": "Tarjetas históricas de jugadores más completas",
+  "Every player named in historical World Cup stories now opens a complete, mobile-safe card across all 22 archives.": "Cada jugador mencionado en las historias de los Mundiales históricos ahora abre una tarjeta completa, bien posicionada en móviles en las 22 ediciones archivadas."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

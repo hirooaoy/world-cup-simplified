@@ -71,10 +71,11 @@ import {
 import {
   formatPlayerClubLine,
   formatPlayerCardWorldCupContext,
+  formatPlayerTournamentStatsLine,
   formatPlayerPosition as formatSharedPlayerPosition,
   getPlayerCardWorldCupReferenceDate,
   getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-21-world-cup-context-1";
+} from "./player-card-ui.js?v=2026-07-21-player-tournament-stats-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -23550,11 +23551,14 @@ function getPlayerTournamentStatKeys(player, profile = getPlayerProfile(player))
 
 function getPlayerTournamentStats(player, profile = getPlayerProfile(player)) {
   if (isHistoricalPlayerCard(player)) {
-    const goals = Number(profile?.goals || 0);
+    const goals = Number(profile?.goals);
+    const assists = Number(profile?.assists);
     const archiveYear = Number(profile?.tournamentYear || player?.tournamentYear || 0);
-    return Number.isInteger(goals) && goals > 0
-      ? { goals, assists: 0, archiveYear: Number.isInteger(archiveYear) && archiveYear > 0 ? archiveYear : null }
-      : null;
+    return {
+      goals: Number.isInteger(goals) && goals >= 0 ? goals : 0,
+      assists: Number.isInteger(assists) && assists >= 0 ? assists : null,
+      archiveYear: Number.isInteger(archiveYear) && archiveYear > 0 ? archiveYear : null
+    };
   }
 
   const statsByKey = getPlayerTournamentStatsByKey();
@@ -23570,37 +23574,7 @@ function getPlayerTournamentStats(player, profile = getPlayerProfile(player)) {
     totals.assists += stats.assists;
   }
 
-  return totals.goals || totals.assists ? totals : null;
-}
-
-function formatPlayerTournamentStatCount(count, statName) {
-  const number = Number(count);
-  if (!Number.isInteger(number) || number <= 0) {
-    return "";
-  }
-
-  if (currentLanguage === "zh") {
-    return statName === "goals" ? `${number}球` : `${number}助攻`;
-  }
-
-  if (currentLanguage === "es" || currentLanguage === "ko") {
-    return formatActiveLocaleMessage(
-      "player-stat-count",
-      {
-        count: number,
-        statName
-      },
-      statName === "goals"
-        ? `${number} ${number === 1 ? "goal" : "goals"}`
-        : `${number} ${number === 1 ? "assist" : "assists"}`
-    );
-  }
-
-  if (statName === "goals") {
-    return `${number} ${number === 1 ? "goal" : "goals"}`;
-  }
-
-  return `${number} ${number === 1 ? "assist" : "assists"}`;
+  return totals;
 }
 
 function renderPlayerTournamentStatsLine(player, profile = getPlayerProfile(player)) {
@@ -23608,44 +23582,14 @@ function renderPlayerTournamentStatsLine(player, profile = getPlayerProfile(play
   if (!stats) {
     return "";
   }
-
-  const parts = [
-    formatPlayerTournamentStatCount(stats.goals, "goals"),
-    formatPlayerTournamentStatCount(stats.assists, "assists")
-  ].filter(Boolean);
-
-  if (!parts.length) {
-    return "";
-  }
-
-  if (stats.archiveYear) {
-    if (currentLanguage === "zh") {
-      return `${stats.archiveYear}年世界杯：${parts.join("，")}`;
-    }
-    const fallback = `${stats.archiveYear} World Cup: ${parts.join(", ")}`;
-    return formatActiveLocaleMessage(
-      "player-tournament-stats",
-      {
-        parts,
-        variant: "archive",
-        year: stats.archiveYear
-      },
-      localizeText(fallback)
-    );
-  }
-
-  if (currentLanguage === "zh") {
-    return `本届世界杯：${parts.join("，")}`;
-  }
-  const fallback = `This World Cup: ${parts.join(", ")}`;
-  return formatActiveLocaleMessage(
-    "player-tournament-stats",
-    {
-      parts,
-      variant: "current"
-    },
-    localizeText(fallback)
-  );
+  const year = stats.archiveYear || 2026;
+  return formatPlayerTournamentStatsLine({
+    goals: stats.goals,
+    assists: stats.assists,
+    year,
+    language: currentLanguage,
+    current: !stats.archiveYear
+  });
 }
 
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
@@ -28187,6 +28131,19 @@ function getPostTournamentEmptyStateCopy(finalMatch) {
   };
 }
 
+function getHighlightsHref(editionYear = CURRENT_STANDINGS_YEAR) {
+  const params = new URLSearchParams();
+  if (editionYear !== 2026) {
+    params.set("year", String(editionYear));
+  }
+  if (currentLanguage !== DEFAULT_LANGUAGE) {
+    params.set("lang", currentLanguage);
+  }
+
+  const query = params.toString();
+  return `highlights.html${query ? `?${query}` : ""}`;
+}
+
 function createEmptyStateElement() {
   const selectedDate = dateFormatter.format(getDateFromKey(selectedDayKey));
   const reportUrl = getReportIssueUrl("no-matches");
@@ -28219,9 +28176,9 @@ function createEmptyStateElement() {
   const postTournamentCopy = postTournamentFinal
     ? getPostTournamentEmptyStateCopy(postTournamentFinal)
     : null;
-  const recapHref = currentLanguage === DEFAULT_LANGUAGE
-    ? "highlights.html"
-    : `highlights.html?lang=${encodeURIComponent(currentLanguage)}`;
+  const recapHref = getHighlightsHref(
+    postTournamentFinal ? getWorldCupEditionYear(postTournamentFinal) : CURRENT_STANDINGS_YEAR
+  );
   article.innerHTML = `
     ${nextMatchCopy ? `
       <p class="empty-state-next-description">${escapeHtml(nextMatchCopy.before)}<span class="empty-state-next-matchup">${renderFlag(nextMatch.homeTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.homeName)}</span> <span class="empty-state-next-versus">${escapeHtml(nextMatchCopy.versusText)}</span> ${renderFlag(nextMatch.awayTeam)} <span class="empty-state-next-team">${escapeHtml(nextMatchCopy.awayName)}</span></span>${escapeHtml(nextMatchCopy.after)}</p>
@@ -29916,6 +29873,7 @@ function renderFinalCelebration() {
 
   const championItem = getTournamentWrapChampionItem(completedFinal);
   const editionYear = getWorldCupEditionYear(completedFinal);
+  const highlightsHref = getHighlightsHref(editionYear);
   const headline = getLocalizedCatchUpCopyText(championItem.headline);
   const body = getLocalizedCatchUpCopyText(championItem.body);
   const reviewContent = getFinalCelebrationReviewContent(completedFinal, body);
@@ -29959,6 +29917,7 @@ function renderFinalCelebration() {
     <span class="final-celebration-confetti" aria-hidden="true">
       ${getFinalCelebrationConfettiMarkup()}
     </span>
+    <a class="final-celebration-link" href="${escapeHtml(highlightsHref)}" aria-label="${escapeHtml(`${t("viewRecap")}: FIFA World Cup ${editionYear}`)}"></a>
     <span class="final-celebration-copy">
       <span class="final-celebration-kicker"><span class="final-celebration-trophy" aria-hidden="true">🏆</span> FIFA World Cup ${editionYear}</span>
       <strong class="final-celebration-headline">${escapeHtml(headline)}</strong>
@@ -31606,6 +31565,7 @@ function renderSourceNote() {
     fifaHighlights: "https://www.youtube.com/channel/UCpcTrCXblq78GZrTUTLWeBw",
     forecast: "https://theanalyst.com/articles/world-cup",
     market: "https://www.oddschecker.com/football/world-cup",
+    engsoccerdata: "https://github.com/jalapic/engsoccerdata",
     transfermarkt: "https://github.com/dcaribou/transfermarkt-datasets",
     wikipedia: "https://en.wikipedia.org/wiki/Category:Association_football_players",
     wikimedia: "https://commons.wikimedia.org/wiki/Main_Page",
@@ -31624,7 +31584,7 @@ function renderSourceNote() {
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Tournament facts & confirmed lineups"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Forecasts"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.forecast, "Opta Analyst")}${itemSeparator}${sourceLink(sourceUrls.market, localizeText("public betting markets"))}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Predicted lineups & team news"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifa, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.sportsMole, "Sports Mole")}${itemSeparator}${sourceLink(sourceUrls.racingPost, "Racing Post")}${itemSeparator}${sourceLink(sourceUrls.skySports, "Sky Sports")}</span></span>`,
-    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Player information"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}</span></span>`,
+    `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Player information"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.wikipedia, "Wikipedia")}${itemSeparator}${sourceLink(sourceUrls.wikimedia, "Wikimedia Commons")}${itemSeparator}${sourceLink(sourceUrls.transfermarkt, "Transfermarkt")}${itemSeparator}${sourceLink(sourceUrls.engsoccerdata, "engsoccerdata")}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Head-to-head records"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.nationalFootballTeams, "National Football Teams")}${itemSeparator}${sourceLink(sourceUrls.elevenVeleven, "11v11")}</span></span>`,
     `<span class="source-tooltip-row"><span class="source-tooltip-category">${escapeHtml(localizeText("Official highlights"))}</span>${sourceSeparator}<span class="source-tooltip-description">${sourceLink(sourceUrls.fifaHighlights, "FIFA")}${itemSeparator}${sourceLink(sourceUrls.foxHighlights, "FOX Sports")}</span></span>`
   ];

@@ -2,6 +2,13 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  historicalLeagueSourceId,
+  historicalLeagueSourceRevision,
+  historicalLeagueSources,
+  loadHistoricalLeagueIndex,
+  resolveHistoricalLeague
+} from "./historical-league-resolver.mjs";
 import { getPlayerNameMatchScore, normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -10,9 +17,21 @@ const sourceRevision = "35a8667f518b07469182ae16d35574dd0e7a00fb";
 const sourceId = `fjelstul-worldcup-wikipedia-squad-pages-${sourceRevision.slice(0, 7)}`;
 const rawSourceBase = `https://raw.githubusercontent.com/jfjelstul/worldcup/${sourceRevision}`;
 const sourcePageBase = `https://github.com/jfjelstul/worldcup/blob/${sourceRevision}`;
+const rawLeagueSourceBase = `https://raw.githubusercontent.com/jalapic/engsoccerdata/${historicalLeagueSourceRevision}`;
 const checkOnly = process.argv.includes("--check");
+const reportAssociations = process.argv.includes("--report-associations");
+const reportAssociationArgument = process.argv.find((argument) => argument.startsWith("--report-association="));
+const reportAssociation = reportAssociationArgument
+  ? reportAssociationArgument.slice("--report-association=".length)
+  : "";
+const reportAssociationSet = new Set(reportAssociation.split(",").map((value) => value.trim()).filter(Boolean));
+const reportClubs = process.argv.includes("--report-clubs");
 const sourceDirArgument = process.argv.find((argument) => argument.startsWith("--source-dir="));
 const sourceRoot = sourceDirArgument ? path.resolve(sourceDirArgument.slice("--source-dir=".length)) : "";
+const leagueSourceDirArgument = process.argv.find((argument) => argument.startsWith("--league-source-dir="));
+const leagueSourceRoot = leagueSourceDirArgument
+  ? path.resolve(leagueSourceDirArgument.slice("--league-source-dir=".length))
+  : "";
 
 const ignoredHeadings = new Set([
   "Contents",
@@ -76,6 +95,7 @@ const directClubOverrides = new Map([
     "Jorge Góngora / Peru / 1930",
     {
       club: "Universitario",
+      clubAssociation: "Peru",
       source: "universitario-player-history",
       sourceUrl: "https://universitario.pe/noticias/historia-jugador/jorge-gongora-el-primer-centro-delantero-de-la-u"
     }
@@ -84,6 +104,7 @@ const directClubOverrides = new Map([
     "Nils Liedholm / Sweden / 1950",
     {
       club: "AC Milan",
+      clubAssociation: "Italy",
       source: "ac-milan-roster-archive",
       sourceUrl: "https://www.acmilan.com/en/roster-archive/men-first-team-archive/acmilan-1950-roster"
     }
@@ -136,9 +157,15 @@ function extractSquadRows(tableHtml) {
     const name = visibleText(playerCell[1]);
     const playerHref = playerCell[1].match(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/i)?.[1] || "";
     const shirtNumber = Number(visibleText(cells[0][1]));
-    const club = visibleText(cells.at(-1)[1]);
+    const clubCell = cells.at(-1)[1];
+    const club = visibleText(clubCell);
+    const clubAssociation = decodeHtml(
+      clubCell.match(/<img\b[^>]*\balt=["']([^"']+)["']/i)?.[1] || ""
+    ).trim();
+    const clubAnchors = [...clubCell.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi)];
+    const clubWikipediaPath = clubAnchors.at(-1)?.[1] || "";
     if (name && club) {
-      parsed.push({ name, club, playerHref, shirtNumber });
+      parsed.push({ name, club, clubAssociation, clubWikipediaPath, playerHref, shirtNumber });
     }
   }
   return parsed;
@@ -214,6 +241,18 @@ async function loadSource(relativePath) {
   return response.text();
 }
 
+async function loadLeagueSource(relativePath) {
+  if (leagueSourceRoot) {
+    return readFile(path.join(leagueSourceRoot, relativePath), "utf8");
+  }
+
+  const response = await fetch(`${rawLeagueSourceBase}/${relativePath}`);
+  if (!response.ok) {
+    throw new Error(`Could not download historical league source ${relativePath}: HTTP ${response.status}`);
+  }
+  return response.text();
+}
+
 function editionSourcePath(year) {
   return `data-raw/Wikipedia-squad-pages/men-${year}-squads.html`;
 }
@@ -253,7 +292,13 @@ function resolveProfileClub(profile, squads) {
     if (linked.length !== 1) {
       throw new Error(`${profile.profileKey}: link override resolved ${linked.length} rows`);
     }
-    return { club: linked[0].club, source: sourceId, sourceUrl: archiveSourceUrl };
+    return {
+      club: linked[0].club,
+      clubAssociation: linked[0].clubAssociation,
+      clubWikipediaPath: linked[0].clubWikipediaPath,
+      source: sourceId,
+      sourceUrl: archiveSourceUrl
+    };
   }
 
   const allPlayers = squads.flatMap((squad) =>
@@ -291,7 +336,13 @@ function resolveProfileClub(profile, squads) {
     throw new Error(`${profile.profileKey}: no squad club match`);
   }
 
-  return { club: candidates[0].club, source: sourceId, sourceUrl: archiveSourceUrl };
+  return {
+    club: candidates[0].club,
+    clubAssociation: candidates[0].clubAssociation,
+    clubWikipediaPath: candidates[0].clubWikipediaPath,
+    source: sourceId,
+    sourceUrl: archiveSourceUrl
+  };
 }
 
 const profileData = JSON.parse(await readFile(profilePath, "utf8"));
@@ -309,15 +360,87 @@ const years = [...new Set(Object.values(profileData.profiles || {}).map((profile
 for (const year of years) {
   editions.set(year, await extractEdition(year, canonicalNameByWikipediaPath));
 }
+const historicalLeagueIndex = await loadHistoricalLeagueIndex(loadLeagueSource);
+
+if (reportAssociations || reportAssociation) {
+  const rows = [...editions.entries()].flatMap(([year, squads]) =>
+    squads.flatMap((squad) => squad.players.map((player) => ({ year, ...player })))
+  );
+  const resolvedProfiles = Object.values(profileData.profiles || {}).map((profile) => ({
+    profileKey: profile.profileKey,
+    year: profile.tournamentYear,
+    ...resolveProfileClub(profile, editions.get(Number(profile.tournamentYear)) || [])
+  }));
+  const associations = [...new Set(resolvedProfiles.map((row) => row.clubAssociation || "Unattached"))].sort();
+  const associationProfileCounts = Object.fromEntries(
+    associations.map((association) => [
+      association,
+      resolvedProfiles.filter((row) => (row.clubAssociation || "Unattached") === association).length
+    ])
+  );
+  const filteredProfiles = resolvedProfiles.filter((row) => reportAssociationSet.has(row.clubAssociation || "Unattached"));
+  const groupedClubs = [...new Map(filteredProfiles.map((row) => {
+    const key = `${row.clubAssociation || "Unattached"} / ${row.club}`;
+    return [key, {
+      association: row.clubAssociation || "Unattached",
+      club: row.club,
+      years: [...new Set(filteredProfiles.filter((item) =>
+        (item.clubAssociation || "Unattached") === (row.clubAssociation || "Unattached") && item.club === row.club
+      ).map((item) => item.year))].sort((left, right) => left - right)
+    }];
+  })).values()].sort((left, right) => left.association.localeCompare(right.association) || left.club.localeCompare(right.club));
+  console.log(JSON.stringify(reportAssociation
+    ? reportClubs ? groupedClubs : filteredProfiles
+    : {
+    years,
+    rowCount: rows.length,
+    clubCount: new Set(rows.map((row) => `${row.club} / ${row.clubAssociation}`)).size,
+    profileCount: resolvedProfiles.length,
+    associations,
+    associationProfileCounts,
+    unattachedRows: rows.filter((row) => !row.clubAssociation).map(({ year, name, club }) => ({ year, name, club }))
+  }, null, 2));
+  process.exit(0);
+}
 
 let changedProfiles = 0;
+let seasonMembershipProfiles = 0;
+let associationEraProfiles = 0;
+let curatedLeagueProfiles = 0;
+let notApplicableLeagueProfiles = 0;
 for (const profile of Object.values(profileData.profiles || {})) {
   const resolved = resolveProfileClub(profile, editions.get(Number(profile.tournamentYear)) || []);
+  const resolvedLeague = resolveHistoricalLeague(historicalLeagueIndex, {
+    association: resolved.clubAssociation,
+    club: resolved.club,
+    year: profile.tournamentYear
+  });
+  if (resolvedLeague.method === "season-membership") {
+    seasonMembershipProfiles += 1;
+  } else if (resolvedLeague.method === "association-era-default") {
+    associationEraProfiles += 1;
+  } else if (resolvedLeague.method === "curated-club-era-override") {
+    curatedLeagueProfiles += 1;
+  } else if (resolvedLeague.method === "not-applicable") {
+    notApplicableLeagueProfiles += 1;
+  }
   const changed =
     profile.club !== resolved.club ||
     profile.clubAtTournament !== resolved.club ||
     profile.clubAtTournamentSource !== resolved.source ||
-    profile.clubAtTournamentSourceUrl !== resolved.sourceUrl;
+    profile.clubAtTournamentSourceUrl !== resolved.sourceUrl ||
+    profile.league !== resolvedLeague.league ||
+    profile.leagueAtTournament !== resolvedLeague.league ||
+    profile.leagueAtTournamentAssociation !== resolvedLeague.association ||
+    profile.leagueAtTournamentResolution !== resolvedLeague.method ||
+    profile.leagueAtTournamentSource !== resolvedLeague.source ||
+    profile.leagueAtTournamentSourceUrl !== resolvedLeague.sourceUrl ||
+    (resolvedLeague.season
+      ? profile.leagueAtTournamentSeason !== resolvedLeague.season
+      : Object.hasOwn(profile, "leagueAtTournamentSeason")) ||
+    (resolvedLeague.tier
+      ? profile.leagueAtTournamentTier !== resolvedLeague.tier
+      : Object.hasOwn(profile, "leagueAtTournamentTier"));
 
   if (changed) {
     changedProfiles += 1;
@@ -327,31 +450,71 @@ for (const profile of Object.values(profileData.profiles || {})) {
     profile.clubAtTournament = resolved.club;
     profile.clubAtTournamentSource = resolved.source;
     profile.clubAtTournamentSourceUrl = resolved.sourceUrl;
+    profile.league = resolvedLeague.league;
+    profile.leagueAtTournament = resolvedLeague.league;
+    profile.leagueAtTournamentAssociation = resolvedLeague.association;
+    profile.leagueAtTournamentResolution = resolvedLeague.method;
+    profile.leagueAtTournamentSource = resolvedLeague.source;
+    profile.leagueAtTournamentSourceUrl = resolvedLeague.sourceUrl;
+    if (resolvedLeague.season) {
+      profile.leagueAtTournamentSeason = resolvedLeague.season;
+    } else {
+      delete profile.leagueAtTournamentSeason;
+    }
+    if (resolvedLeague.tier) {
+      profile.leagueAtTournamentTier = resolvedLeague.tier;
+    } else {
+      delete profile.leagueAtTournamentTier;
+    }
   }
 }
 
+const expectedSourceIds = [
+  ...new Set([
+    ...(profileData.sourceIds || []),
+    sourceId,
+    historicalLeagueSourceId,
+    "historical-league-association-era-rules-2026-07-21",
+    "historical-league-club-era-overrides-2026-07-21",
+    ...[...directClubOverrides.values()].map((entry) => entry.source)
+  ])
+];
+const expectedSources = historicalLeagueSources.map((source) => ({ ...source }));
+const sourceMetadataChanged =
+  JSON.stringify(profileData.sourceIds || []) !== JSON.stringify(expectedSourceIds) ||
+  JSON.stringify(profileData.sources || []) !== JSON.stringify(expectedSources);
+
 if (checkOnly) {
-  if (changedProfiles) {
-    throw new Error(`${changedProfiles} historical player club records are out of sync`);
+  if (changedProfiles || sourceMetadataChanged) {
+    throw new Error(
+      `${changedProfiles} historical player club or league records are out of sync` +
+      (sourceMetadataChanged ? "; historical league source metadata is stale" : "")
+    );
   }
-  console.log(`Historical player clubs are current: ${Object.keys(profileData.profiles || {}).length} profiles.`);
+  console.log(`Historical player clubs and leagues are current: ${Object.keys(profileData.profiles || {}).length} profiles.`);
   process.exit(0);
 }
 
 profileData.updatedAt = new Date().toISOString();
-profileData.sourceIds = [
-  ...new Set([
-    ...(profileData.sourceIds || []),
-    sourceId,
-    ...[...directClubOverrides.values()].map((entry) => entry.source)
-  ])
-];
+profileData.sourceIds = expectedSourceIds;
+profileData.sources = expectedSources;
 profileData.coverage = {
   ...(profileData.coverage || {}),
   clubStatus: "complete-tournament-time-clubs-1930-2022",
   clubProfileCount: Object.keys(profileData.profiles || {}).length,
-  clubNote: "Club is the player's club at that World Cup, resolved per player, team and tournament year."
+  clubNote: "Club is the player's club at that World Cup, resolved per player, team and tournament year.",
+  leagueStatus: "complete-tournament-time-leagues-1930-2022-with-justified-free-agent-exception",
+  leagueProfileCount: Object.keys(profileData.profiles || {}).length - notApplicableLeagueProfiles,
+  leagueNotApplicableProfileCount: notApplicableLeagueProfiles,
+  leagueSeasonMembershipProfileCount: seasonMembershipProfiles,
+  leagueAssociationEraProfileCount: associationEraProfiles,
+  leagueCuratedOverrideProfileCount: curatedLeagueProfiles,
+  leagueNote: "League is resolved from pinned club-season membership where available, then reviewed club-era exceptions and association-era competition rules. Free agents intentionally have no league."
 };
 
 await writeFile(profilePath, `${JSON.stringify(profileData, null, 2)}\n`);
-console.log(`Historical player clubs synchronized: ${Object.keys(profileData.profiles || {}).length} profiles (${changedProfiles} changed).`);
+console.log(
+  `Historical player clubs and leagues synchronized: ${Object.keys(profileData.profiles || {}).length} profiles ` +
+  `(${changedProfiles} changed; ${seasonMembershipProfiles} season membership; ${curatedLeagueProfiles} curated; ` +
+  `${associationEraProfiles} association-era; ${notApplicableLeagueProfiles} not applicable).`
+);

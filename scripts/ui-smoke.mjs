@@ -3453,8 +3453,9 @@ try {
   assert(
     (await syntheticLukakuCard.locator(".player-card-tournament-stats").innerText()).trim() ===
       "This World Cup: 2 goals, 1 assist" &&
-      (await syntheticDeBruyneCard.locator(".player-card-tournament-stats").count()) === 0,
-    "Player cards should show a tournament goals/assists row only when the player has non-zero current World Cup stats."
+      (await syntheticDeBruyneCard.locator(".player-card-tournament-stats").innerText()).trim() ===
+        "This World Cup: 0 goals, 0 assists",
+    "Every current player card should show the tournament goals/assists row, including a verified zero-zero total."
   );
   await playerTournamentStatsCheck.context.close();
 
@@ -5919,6 +5920,45 @@ try {
       "Argentina's philosophy was adaptability: free Messi, win the midfield battles and change shape whenever the match demanded it.",
     `The 2022 champion story should describe that Argentina side instead of reusing a country-level template. Measured ${argentina2022Style}.`
   );
+  const argentina2022BannerLink = page.locator(
+    "#final-celebration-banner .final-celebration-link"
+  );
+  const argentina2022BannerLinkState = await page.evaluate(() => {
+    const banner = document.querySelector("#final-celebration-banner");
+    const link = banner?.querySelector(".final-celebration-link");
+    const copy = banner?.querySelector(".final-celebration-copy");
+    const playerLink = banner?.querySelector(".player-link");
+    const bannerBounds = banner?.getBoundingClientRect();
+    const linkBounds = link?.getBoundingClientRect();
+    return {
+      ariaLabel: link?.getAttribute("aria-label") || "",
+      copyPointerEvents: copy ? getComputedStyle(copy).pointerEvents : "",
+      coversBanner: Boolean(
+        bannerBounds &&
+        linkBounds &&
+        Math.abs(bannerBounds.width - linkBounds.width) <= 2.1 &&
+        Math.abs(bannerBounds.height - linkBounds.height) <= 2.1
+      ),
+      href: link?.getAttribute("href") || "",
+      playerPointerEvents: playerLink ? getComputedStyle(playerLink).pointerEvents : "",
+      restingOverlayOpacity: banner ? getComputedStyle(banner, "::after").opacity : ""
+    };
+  });
+  await argentina2022BannerLink.hover();
+  await page.waitForTimeout(220);
+  const argentina2022BannerHoverOpacity = await page
+    .locator("#final-celebration-banner")
+    .evaluate((banner) => getComputedStyle(banner, "::after").opacity);
+  assert(
+    argentina2022BannerLinkState.href === "highlights.html?year=2022" &&
+      argentina2022BannerLinkState.ariaLabel === "View highlights: FIFA World Cup 2022" &&
+      argentina2022BannerLinkState.coversBanner &&
+      argentina2022BannerLinkState.copyPointerEvents === "none" &&
+      argentina2022BannerLinkState.playerPointerEvents === "auto" &&
+      argentina2022BannerLinkState.restingOverlayOpacity === "0" &&
+      argentina2022BannerHoverOpacity === "1",
+    `The full champion banner should link to its edition highlights, keep player links interactive, and show a slight hover wash. Measured ${JSON.stringify({ ...argentina2022BannerLinkState, hoverOpacity: argentina2022BannerHoverOpacity })}.`
+  );
   await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
   const historicalFinalProjectionRows = await page
     .locator("#match-info .match-prediction-block .prediction-row")
@@ -5946,6 +5986,14 @@ try {
     historicalFinalTieTooltip ===
       "If it goes to penalties, Argentina may have a slight record edge: 5 wins in 6 World Cup shootouts, compared with 2 in 4 for France.",
     `The 2022 final Tie tooltip should use each team's pre-final World Cup shootout record. Measured ${historicalFinalTieTooltip}.`
+  );
+
+  await argentina2022BannerLink.click();
+  await page.waitForURL(`${baseUrl}/highlights.html?year=2022`);
+  assert(
+    new URL(page.url()).searchParams.get("year") === "2022" &&
+      (await page.locator("#edition-picker-button").getAttribute("data-edition")) === "2022",
+    `Clicking the 2022 champion banner should open the 2022 highlights page. Measured ${page.url()}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2022-12-18&lang=zh&tz=America%2FLos_Angeles`, {
@@ -11465,7 +11513,7 @@ try {
   );
   assert(
     sourceLinkLabels ===
-      "FIFA|Opta Analyst|public betting markets|FIFA|Sports Mole|Racing Post|Sky Sports|Wikipedia|Wikimedia Commons|Transfermarkt|National Football Teams|11v11|FIFA|FOX Sports|HA",
+      "FIFA|Opta Analyst|public betting markets|FIFA|Sports Mole|Racing Post|Sky Sports|Wikipedia|Wikimedia Commons|Transfermarkt|engsoccerdata|National Football Teams|11v11|FIFA|FOX Sports|HA",
     "The source note should link each main source family and the creator without repeating the Settings report link."
   );
   assert(
@@ -11477,8 +11525,8 @@ try {
   );
   assert(
     sourceTooltipText ===
-      "Sources: Tournament facts & confirmed lineups — FIFA Forecasts — Opta Analyst · public betting markets Predicted lineups & team news — FIFA · Sports Mole · Racing Post · Sky Sports Player information — Wikipedia · Wikimedia Commons · Transfermarkt Head-to-head records — National Football Teams · 11v11 Official highlights — FIFA · FOX Sports Exact sources vary by match.",
-    "The source tooltip should explain the app's main source families without implying that one fixed list covers every match."
+      "Sources: Tournament facts & confirmed lineups — FIFA Forecasts — Opta Analyst · public betting markets Predicted lineups & team news — FIFA · Sports Mole · Racing Post · Sky Sports Player information — Wikipedia · Wikimedia Commons · Transfermarkt · engsoccerdata Head-to-head records — National Football Teams · 11v11 Official highlights — FIFA · FOX Sports Exact sources vary by match.",
+    `The source tooltip should explain the app's main source families without implying that one fixed list covers every match. Measured "${sourceTooltipText}".`
   );
   assert(
     releaseTooltipText === getExpectedReleaseTooltipText(releaseNotesData),

@@ -843,6 +843,9 @@ const sourceIds = new Set();
 for (const source of tournamentData.sources || []) {
   registerSource(source, sourceIds, "Tournament source");
 }
+for (const [index, source] of (historicalPlayerProfilesData.sources || []).entries()) {
+  registerSource(source, sourceIds, `Historical player profile source ${index + 1}`);
+}
 
 const historicalRankingSourceIds = new Set();
 for (const source of historicalRankingsData.sources || []) {

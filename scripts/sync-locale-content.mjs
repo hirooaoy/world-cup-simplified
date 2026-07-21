@@ -186,6 +186,7 @@ export function readStructuredContentGlossary(rootDir = defaultRootDir) {
 
 function collectStructuredCurrentValues(rootDir = defaultRootDir) {
   const profiles = readJson(path.join(rootDir, "data", "player-profiles.json"));
+  const historicalProfiles = readJson(path.join(rootDir, "data", "historical-player-profiles.json"));
   const teams = readJson(path.join(rootDir, "data", "teams.json"));
   const values = {
     clubs: new Set(),
@@ -198,6 +199,9 @@ function collectStructuredCurrentValues(rootDir = defaultRootDir) {
     addString(values.clubs, profile.club);
     addString(values.leagues, profile.league);
     addString(values.positions, profile.position);
+  }
+  for (const profile of Object.values(historicalProfiles.profiles || {})) {
+    addString(values.leagues, profile.league);
   }
   for (const team of teams.teams || []) {
     addStringArray(values.teamStyleTags, team.styleTags);

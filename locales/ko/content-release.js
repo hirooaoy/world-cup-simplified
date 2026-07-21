@@ -5,11 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "f0dfa3a6ceb251406b8840c5734d22135353c0fccfaff1ae02ce804234e2522b"
+  "sourceFingerprint": "14ebe71dc560b0ccc5a904a3388e766d9219d5e239dd5e88a91e6a6447b9598d"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Mobile bracket drags now stay inside the Tournament canvas without scrolling the page.": "모바일 대진표 드래그가 이제 페이지를 스크롤하지 않고 토너먼트 캔버스 안에 유지됩니다.",
-  "Simpler mobile Tournament canvas": "더 단순해진 모바일 토너먼트 캔버스"
+  "All 3,647 historical profiles now show sourced tournament-time clubs and leagues in four languages and Ball Boy.": "역대 선수 프로필 3,647개가 이제 4개 언어로 대회 당시 소속 클럽과 리그 및 출처를 표시하고, Ball Boy도 같은 검증 데이터를 사용합니다.",
+  "Cards now show World Cup goals and sourced assists; coach cards, champion banners, and light-mode Best XI are polished.": "선수 카드가 이제 월드컵 골과 출처가 확인된 도움을 표시하며, 감독 카드, 우승 배너, 라이트 모드 베스트 XI 스타일도 다듬었습니다.",
+  "Complete historical player cards": "더 완전해진 역대 선수 카드",
+  "Every player named in historical World Cup stories now opens a complete, mobile-safe card across all 22 archives.": "역대 월드컵 이야기에서 언급된 모든 선수가 이제 완전한 선수 카드를 열 수 있으며, 22개 보관 대회 모두 모바일에서도 화면 안에 안정적으로 표시됩니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

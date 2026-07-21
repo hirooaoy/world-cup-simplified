@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T21:11:06.468Z",
+  "updatedAt": "2026-07-21T22:31:42.499Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -10,7 +10,10 @@
     "curated-official-and-editorial-player-portraits",
     "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     "universitario-player-history",
-    "ac-milan-roster-archive"
+    "ac-milan-roster-archive",
+    "engsoccerdata-872c5c3",
+    "historical-league-association-era-rules-2026-07-21",
+    "historical-league-club-era-overrides-2026-07-21"
   ],
   "coverage": {
     "status": "complete-men-1930-2022-key-players-scorers-and-best-xi-by-team-year",
@@ -28,7 +31,14 @@
     "minimumBestXiImageCount": 484,
     "clubStatus": "complete-tournament-time-clubs-1930-2022",
     "clubProfileCount": 3647,
-    "clubNote": "Club is the player's club at that World Cup, resolved per player, team and tournament year."
+    "clubNote": "Club is the player's club at that World Cup, resolved per player, team and tournament year.",
+    "leagueStatus": "complete-tournament-time-leagues-1930-2022-with-justified-free-agent-exception",
+    "leagueProfileCount": 3646,
+    "leagueNotApplicableProfileCount": 1,
+    "leagueSeasonMembershipProfileCount": 1679,
+    "leagueAssociationEraProfileCount": 1947,
+    "leagueCuratedOverrideProfileCount": 20,
+    "leagueNote": "League is resolved from pinned club-season membership where available, then reviewed club-era exceptions and association-era competition rules. Free agents intentionally have no league."
   },
   "players": [
     {

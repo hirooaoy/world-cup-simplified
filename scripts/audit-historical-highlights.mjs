@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import {
+  HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS,
+  HISTORICAL_AWARD_CONTEXT_PLAYERS,
   HISTORICAL_HIGHLIGHTS,
   HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
   HISTORICAL_STORY_PROFILE_OVERRIDES
@@ -49,6 +51,7 @@ const normalizeName = (value) => String(value || "")
   .replace(/\p{Diacritic}/gu, "")
   .replace(/[^a-z0-9]/gi, "")
   .toLowerCase();
+const escapeRegExp = (value) => String(value || "").replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 const STORY_ENTITY_PATTERN = /\{(team|player):([^|{}]+)\|([^{}]+)\}/gu;
 const getStoryEntityTokens = (story) => [story?.title, story?.body]
   .flatMap((value) => [...String(value || "").matchAll(STORY_ENTITY_PATTERN)])
@@ -77,6 +80,26 @@ const resolveHistoricalStoryProfile = (year, playerName) => {
     : null;
   return { ...(sourceProfile || {}), ...override };
 };
+const getAwardReferencePlayerName = (reference) =>
+  typeof reference === "string" ? reference : reference?.playerName;
+const getAwardReferenceProfileYear = (year, reference) =>
+  Number(typeof reference === "string" ? year : reference?.profileYear || year);
+const getAwardReferenceVariants = (playerName, profile) => {
+  const variants = new Set([playerName, profile?.name, profile?.displayName]
+    .map((value) => String(value || "").trim())
+    .filter(Boolean));
+  for (const fullName of [...variants]) {
+    const parts = fullName.split(/\s+/u).filter(Boolean);
+    for (let index = 0; index < parts.length; index += 1) {
+      variants.add(parts.slice(index).join(" "));
+      if (parts[index].length >= 4) variants.add(parts[index]);
+    }
+  }
+  return [...variants].filter((variant) => variant.length >= 2);
+};
+const normalizeAwardContext = (value) => String(value || "")
+  .replace(/[’‘]/gu, "'")
+  .toLocaleLowerCase();
 const ambiguousPortraitIdentities = new Map([
   ["1978:oscar", {
     birthDate: "1954-06-20",
@@ -322,6 +345,49 @@ for (const [language, localeData] of historicalStoryLocales) {
   );
 }
 
+let historicalAwardContextPlayerReferences = 0;
+for (const [key, references] of Object.entries(HISTORICAL_AWARD_CONTEXT_PLAYERS)) {
+  const [yearText, awardKey] = key.split("|");
+  const year = Number(yearText);
+  const englishCopy = historicalAwardLocales.get("en").editions?.[yearText]?.[awardKey];
+  const koreanCopy = historicalAwardLocales.get("ko").editions?.[yearText]?.[awardKey];
+  const chineseCopy = historicalAwardLocales.get("zh").editions?.[yearText]?.[awardKey];
+  const koreanLabels = HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS.ko?.[key] || [];
+  const chineseLabels = HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS.zh?.[key] || [];
+  assert.ok(expectedYears.includes(year), `${key}: award player-card references use an unknown edition.`);
+  assert.ok(englishCopy?.context, `${key}: award player-card references use a missing award description.`);
+  assert.equal(koreanLabels.length, references.length, `${key}: Korean award player labels must match every reference.`);
+  assert.equal(chineseLabels.length, references.length, `${key}: Chinese award player labels must match every reference.`);
+  assert.equal(
+    new Set(references.map((reference) => normalizeName(getAwardReferencePlayerName(reference)))).size,
+    references.length,
+    `${key}: award description player-card references must be unique.`
+  );
+  for (const [index, reference] of references.entries()) {
+    const playerName = getAwardReferencePlayerName(reference);
+    const profileYear = getAwardReferenceProfileYear(year, reference);
+    const profile = findHistoricalProfile(profileYear, playerName);
+    const englishVariants = getAwardReferenceVariants(playerName, profile);
+    assert.ok(profile, `${key}: ${playerName} has no ${profileYear} player-card profile.`);
+    assert.ok(
+      englishVariants.some((variant) => normalizeAwardContext(englishCopy.context).includes(normalizeAwardContext(variant))),
+      `${key}: English award description does not contain ${playerName}.`
+    );
+    if (koreanLabels[index]) {
+      assert.ok(
+        normalizeAwardContext(koreanCopy?.context).includes(normalizeAwardContext(koreanLabels[index])),
+        `${key}: Korean award description does not contain ${koreanLabels[index]} for ${playerName}.`
+      );
+    }
+    assert.ok(
+      normalizeAwardContext(chineseCopy?.context).includes(normalizeAwardContext(chineseLabels[index])),
+      `${key}: Chinese award description does not contain ${chineseLabels[index]} for ${playerName}.`
+    );
+  }
+  historicalAwardContextPlayerReferences += references.length;
+}
+
+let historicalIntroPlayerReferences = 0;
 for (const [yearIndex, year] of expectedYears.entries()) {
   const tournament = history.tournaments.find((item) => item.year === year);
   const edition = HISTORICAL_HIGHLIGHTS.editions[year];
@@ -381,7 +447,67 @@ for (const [yearIndex, year] of expectedYears.entries()) {
     assert.ok(edition.coach.imageCredit?.trim(), `${year}: ${edition.coach.name} needs portrait credit.`);
     assert.ok(edition.coach.imageLicense?.trim(), `${year}: ${edition.coach.name} needs portrait licensing context.`);
   }
+  assert.ok(
+    Number.isInteger(edition.coach.ageAtTournament) &&
+      edition.coach.ageAtTournament >= 18 &&
+      edition.coach.ageAtTournament <= 100,
+    `${year}: ${edition.coach.name} needs a valid tournament-age card detail.`
+  );
+  assert.ok(
+    Number.isInteger(edition.coach.sinceYear) &&
+      edition.coach.sinceYear >= 1900 &&
+      edition.coach.sinceYear <= year,
+    `${year}: ${edition.coach.name} needs the start year of this national-team spell.`
+  );
+  assert.equal(edition.coach.styles?.length, 3, `${year}: ${edition.coach.name} needs exactly three style pills.`);
+  assert.equal(
+    new Set(edition.coach.styles).size,
+    3,
+    `${year}: ${edition.coach.name} style pills must be unique.`
+  );
   assert.ok(edition.intro.length >= 150, `${year}: champion summary is too shallow.`);
+  const introPlayers = (edition.introPlayers || []).map((entry) => ({
+    playerName: typeof entry === "string" ? entry : entry?.playerName,
+    triggerText: typeof entry === "string" ? entry : entry?.triggerText
+  }));
+  const introPlayerNames = new Set(introPlayers.map(({ playerName }) => normalizeName(playerName)));
+  assert.ok(introPlayers.length >= 1, `${year}: champion summary must introduce at least one player card.`);
+  assert.equal(
+    introPlayerNames.size,
+    introPlayers.length,
+    `${year}: champion summary player-card references must be unique.`
+  );
+  for (const { playerName, triggerText } of introPlayers) {
+    const profile = resolveHistoricalStoryProfile(year, playerName);
+    assert.ok(playerName && triggerText, `${year}: champion summary has an incomplete player-card reference.`);
+    assert.match(
+      edition.intro,
+      new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRegExp(triggerText)}(?=$|[^\\p{L}\\p{N}])`, "u"),
+      `${year}: champion summary does not contain the visible player name ${triggerText}.`
+    );
+    assert.ok(profile, `${year}: champion summary player ${playerName} has no player-card profile.`);
+    assert.ok(profile?.teamName, `${year}: champion summary player ${playerName} has no team.`);
+    assert.ok(profile?.position, `${year}: champion summary player ${playerName} has no position.`);
+    assert.ok(profile?.skills?.length, `${year}: champion summary player ${playerName} has no skills.`);
+    assert.ok(
+      String(profile?.note || profile?.styleNote || "").trim().length >= 20,
+      `${year}: champion summary player ${playerName} has no useful card note.`
+    );
+  }
+  const undeclaredFullNameReferences = Object.values(historicalProfiles.profiles || {})
+    .filter((profile) => Number(profile?.tournamentYear) === Number(year))
+    .filter((profile) => new RegExp(
+      `(^|[^\\p{L}\\p{N}])${escapeRegExp(profile.name)}(?=$|[^\\p{L}\\p{N}])`,
+      "u"
+    ).test(edition.intro))
+    .filter((profile) => !introPlayerNames.has(normalizeName(profile.name)))
+    .map((profile) => profile.name);
+  assert.deepEqual(
+    undeclaredFullNameReferences,
+    [],
+    `${year}: champion summary contains player names without player-card references.`
+  );
+  historicalIntroPlayerReferences += introPlayers.length;
   assert.ok(teamNames.has(edition.champion), `${year}: champion did not participate.`);
   assert.ok(teamNames.has(edition.coach.teamName), `${year}: coach team did not participate.`);
 
@@ -597,4 +723,4 @@ for (const [yearIndex, year] of expectedYears.entries()) {
 const historicalStoryEntityReferences = Object.values(historicalStoryLocales.get("en").editions)
   .flat()
   .reduce((count, story) => count + getStoryEntityTokens(story).length, 0);
-console.log(`Historical highlights audit passed: ${editorialYears.length} editions, ${previewYears.length} next-tournament previews, ${editorialYears.length * 11} starters, ${editorialYears.length * 11} honourable mentions, ${editorialYears.length} coaches with researched reasons and portraits, ${Object.keys(reasonLocaleMinimumLengths).length} complete localized rationale packs, ${historicalStoryLocales.size} localized story packs with ${historicalStoryEntityReferences} ranking/player references each, ${editorialYears.length * 3} stories, and 61 award cards in four locales.`);
+console.log(`Historical highlights audit passed: ${editorialYears.length} editions, ${previewYears.length} next-tournament previews, ${editorialYears.length * 11} starters, ${editorialYears.length * 11} honourable mentions, ${editorialYears.length} coaches with researched reasons, portraits, tournament ages, appointment years, and style pills, ${historicalIntroPlayerReferences} champion-summary player cards, ${historicalAwardContextPlayerReferences} award-description player cards, ${Object.keys(reasonLocaleMinimumLengths).length} complete localized rationale packs, ${historicalStoryLocales.size} localized story packs with ${historicalStoryEntityReferences} ranking/player references each, ${editorialYears.length * 3} stories, and 61 award cards in four locales.`);

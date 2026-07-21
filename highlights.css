@@ -411,6 +411,48 @@ html[data-theme="dark"] .champion-illustration::after {
   isolation: isolate;
 }
 
+html:not([data-theme="dark"]) .best-xi-card {
+  border-color: rgba(103, 53, 66, 0.16);
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 14px 36px rgba(116, 55, 72, 0.06);
+}
+
+html:not([data-theme="dark"]) .best-xi-band {
+  border-bottom-color: rgba(103, 53, 66, 0.13);
+  background: rgba(255, 255, 255, 0.64);
+}
+
+html:not([data-theme="dark"]) .best-xi-pitch {
+  background: transparent;
+}
+
+html:not([data-theme="dark"]) .best-xi-pitch .lineup-pitch-surface {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.16) 0,
+      rgba(255, 255, 255, 0.16) 50%,
+      rgba(135, 65, 83, 0.035) 50%,
+      rgba(135, 65, 83, 0.035) 100%
+    );
+}
+
+html:not([data-theme="dark"]) .best-xi-pitch .lineup-pitch-line.is-mid {
+  background: rgba(103, 53, 66, 0.11);
+}
+
+html:not([data-theme="dark"]) .best-xi-pitch :is(
+  .lineup-pitch-line.is-circle,
+  .lineup-pitch-line.is-box,
+  .lineup-pitch-line.is-six
+) {
+  border-color: rgba(103, 53, 66, 0.11);
+}
+
+html:not([data-theme="dark"]) .best-xi-pitch .lineup-pitch-line.is-spot {
+  background: rgba(103, 53, 66, 0.14);
+}
+
 .best-xi-band {
   position: relative;
   z-index: 12;
@@ -811,6 +853,24 @@ body[data-language="ko"] .highlight-row :is(h3, p) .rank-pill {
   line-height: 1;
 }
 
+html:not([data-theme="dark"]) .next-world-cup-section {
+  --timeline-marker-base: color-mix(
+    in srgb,
+    var(--celebration-primary) 7%,
+    var(--background)
+  );
+}
+
+html:not([data-theme="dark"]) .timeline-marker::before {
+  background: rgba(103, 53, 66, 0.14);
+}
+
+html:not([data-theme="dark"]) .timeline-marker i {
+  border-color: rgba(103, 53, 66, 0.17);
+  background: var(--timeline-marker-base);
+  box-shadow: 0 5px 14px rgba(116, 55, 72, 0.06);
+}
+
 .timeline-item.is-complete .timeline-marker i {
   border-color: color-mix(in srgb, var(--future-complete) 45%, var(--border));
   background: color-mix(in srgb, var(--future-complete) 9%, var(--background));
@@ -825,6 +885,19 @@ body[data-language="ko"] .highlight-row :is(h3, p) .rank-pill {
 .timeline-item.is-final .timeline-marker i {
   border-color: color-mix(in srgb, var(--future-final) 45%, var(--border));
   background: color-mix(in srgb, var(--future-final) 10%, var(--background));
+  color: var(--future-final);
+}
+
+html:not([data-theme="dark"]) .timeline-item.is-complete .timeline-marker i {
+  background: color-mix(
+    in srgb,
+    var(--future-complete) 14%,
+    var(--timeline-marker-base)
+  );
+}
+
+html:not([data-theme="dark"]) .timeline-item.is-final .timeline-marker i {
+  background: color-mix(in srgb, var(--future-final) 14%, var(--timeline-marker-base));
   color: var(--future-final);
 }
 

@@ -118,6 +118,119 @@ const HISTORICAL_COACH_PORTRAITS = Object.freeze({
   })
 });
 
+const HISTORICAL_COACH_CARD_DETAILS = Object.freeze({
+  1930: Object.freeze({
+    ageAtTournament: 31,
+    sinceYear: 1928,
+    styles: Object.freeze(["Tactical flexibility", "Attacking freedom", "Game management"])
+  }),
+  1934: Object.freeze({
+    ageAtTournament: 48,
+    sinceYear: 1929,
+    styles: Object.freeze(["Midfield control", "Tactical flexibility", "Game management"])
+  }),
+  1938: Object.freeze({
+    ageAtTournament: 52,
+    sinceYear: 1929,
+    styles: Object.freeze(["Counter-attack", "Tactical flexibility", "Attacking freedom"])
+  }),
+  1950: Object.freeze({
+    ageAtTournament: 42,
+    sinceYear: 1946,
+    styles: Object.freeze(["Compact defending", "Counter-attack", "Game management"])
+  }),
+  1954: Object.freeze({
+    ageAtTournament: 57,
+    sinceYear: 1950,
+    styles: Object.freeze(["Squad rotation", "Compact defending", "Counter-attack"])
+  }),
+  1958: Object.freeze({
+    ageAtTournament: 48,
+    sinceYear: 1958,
+    styles: Object.freeze(["Tactical flexibility", "Attacking freedom", "Defensive organization"])
+  }),
+  1962: Object.freeze({
+    ageAtTournament: 50,
+    sinceYear: 1961,
+    styles: Object.freeze(["Tactical flexibility", "Wing play", "Attacking freedom"])
+  }),
+  1966: Object.freeze({
+    ageAtTournament: 46,
+    sinceYear: 1963,
+    styles: Object.freeze(["Midfield control", "Compact defending", "Coordinated pressing"])
+  }),
+  1970: Object.freeze({
+    ageAtTournament: 38,
+    sinceYear: 1970,
+    styles: Object.freeze(["Attacking freedom", "Midfield control", "Coordinated pressing"])
+  }),
+  1974: Object.freeze({
+    ageAtTournament: 46,
+    sinceYear: 1974,
+    styles: Object.freeze(["Coordinated pressing", "Positional rotation", "Attacking freedom"])
+  }),
+  1978: Object.freeze({
+    ageAtTournament: 39,
+    sinceYear: 1974,
+    styles: Object.freeze(["Attacking freedom", "Wing play", "Midfield control"])
+  }),
+  1982: Object.freeze({
+    ageAtTournament: 54,
+    sinceYear: 1975,
+    styles: Object.freeze(["Compact defending", "Transition control", "Game management"])
+  }),
+  1986: Object.freeze({
+    ageAtTournament: 48,
+    sinceYear: 1983,
+    styles: Object.freeze(["Back-three structure", "Attacking freedom", "Wing play"])
+  }),
+  1990: Object.freeze({
+    ageAtTournament: 44,
+    sinceYear: 1984,
+    styles: Object.freeze(["Back-three structure", "Wing play", "Attacking freedom"])
+  }),
+  1994: Object.freeze({
+    ageAtTournament: 51,
+    sinceYear: 1991,
+    styles: Object.freeze(["Midfield control", "Compact defending", "Transition control"])
+  }),
+  1998: Object.freeze({
+    ageAtTournament: 56,
+    sinceYear: 1993,
+    styles: Object.freeze(["Compact defending", "Tactical flexibility", "Set-piece focus"])
+  }),
+  2002: Object.freeze({
+    ageAtTournament: 53,
+    sinceYear: 2001,
+    styles: Object.freeze(["Back-three structure", "Wing play", "Attacking freedom"])
+  }),
+  2006: Object.freeze({
+    ageAtTournament: 58,
+    sinceYear: 2004,
+    styles: Object.freeze(["Squad rotation", "Tactical flexibility", "Bold substitutions"])
+  }),
+  2010: Object.freeze({
+    ageAtTournament: 59,
+    sinceYear: 2008,
+    styles: Object.freeze(["Possession control", "Midfield control", "Game management"])
+  }),
+  2014: Object.freeze({
+    ageAtTournament: 54,
+    sinceYear: 2006,
+    styles: Object.freeze(["Tactical flexibility", "Attacking freedom", "Squad rotation"])
+  }),
+  2018: Object.freeze({
+    ageAtTournament: 49,
+    sinceYear: 2012,
+    styles: Object.freeze(["Compact defending", "Transition control", "Tactical flexibility"])
+  }),
+  2022: Object.freeze({
+    ageAtTournament: 44,
+    sinceYear: 2018,
+    styles: Object.freeze(["Tactical flexibility", "Midfield control", "Game management"])
+  })
+});
+
 export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
   "1954|Just Fontaine": Object.freeze({
     profileYear: 1958
@@ -208,6 +321,167 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
   })
 });
 
+export const HISTORICAL_AWARD_CONTEXT_PLAYERS = Object.freeze({
+  "1930|goldenBoot": Object.freeze(["Guillermo Stábile"]),
+  "1934|goldenBoot": Object.freeze(["Oldřich Nejedlý"]),
+  "1938|goldenBoot": Object.freeze(["Leônidas"]),
+  "1950|goldenBoot": Object.freeze(["Ademir"]),
+  "1954|goldenBoot": Object.freeze(["Sándor Kocsis"]),
+  "1958|goldenBoot": Object.freeze(["Just Fontaine"]),
+  "1962|goldenBoot": Object.freeze([
+    "Flórián Albert",
+    "Valentin Ivanov",
+    "Garrincha",
+    "Vavá",
+    "Leonel Sánchez",
+    "Dražan Jerković"
+  ]),
+  "1966|goldenBoot": Object.freeze(["Eusébio"]),
+  "1970|goldenBoot": Object.freeze(["Gerd Müller"]),
+  "1974|goldenBoot": Object.freeze(["Grzegorz Lato"]),
+  "1978|goldenBall": Object.freeze(["Mario Kempes"]),
+  "1978|goldenBoot": Object.freeze(["Mario Kempes"]),
+  "1982|goldenBall": Object.freeze(["Paolo Rossi"]),
+  "1982|goldenBoot": Object.freeze(["Paolo Rossi"]),
+  "1986|goldenBall": Object.freeze(["Diego Maradona"]),
+  "1990|goldenBall": Object.freeze(["Salvatore Schillaci"]),
+  "1990|goldenBoot": Object.freeze(["Salvatore Schillaci", "Tomáš Skuhravý"]),
+  "1994|goldenBall": Object.freeze(["Romário"]),
+  "1994|goldenBoot": Object.freeze(["Oleg Salenko", "Hristo Stoichkov"]),
+  "1994|goldenGlove": Object.freeze(["Michel Preud'homme"]),
+  "1998|goldenBall": Object.freeze(["Ronaldo"]),
+  "1998|goldenBoot": Object.freeze(["Davor Šuker"]),
+  "1998|goldenGlove": Object.freeze(["Fabien Barthez"]),
+  "2002|goldenBall": Object.freeze(["Oliver Kahn"]),
+  "2002|goldenBoot": Object.freeze(["Ronaldo"]),
+  "2002|goldenGlove": Object.freeze(["Oliver Kahn"]),
+  "2006|goldenBall": Object.freeze(["Zinedine Zidane"]),
+  "2006|goldenBoot": Object.freeze(["Miroslav Klose"]),
+  "2006|goldenGlove": Object.freeze(["Gianluigi Buffon", "Zinedine Zidane"]),
+  "2006|youngPlayer": Object.freeze(["Lukas Podolski"]),
+  "2010|goldenBall": Object.freeze(["Diego Forlán"]),
+  "2010|goldenBoot": Object.freeze(["Thomas Müller", "Diego Forlán", "David Villa", "Wesley Sneijder"]),
+  "2010|goldenGlove": Object.freeze(["Iker Casillas", "Óscar Cardozo", "Arjen Robben"]),
+  "2010|youngPlayer": Object.freeze(["Thomas Müller"]),
+  "2014|goldenBall": Object.freeze(["Lionel Messi"]),
+  "2014|goldenBoot": Object.freeze(["James Rodríguez"]),
+  "2014|goldenGlove": Object.freeze(["Manuel Neuer"]),
+  "2014|youngPlayer": Object.freeze(["Paul Pogba"]),
+  "2018|goldenBall": Object.freeze(["Luka Modrić"]),
+  "2018|goldenBoot": Object.freeze(["Harry Kane"]),
+  "2018|goldenGlove": Object.freeze(["Thibaut Courtois"]),
+  "2018|youngPlayer": Object.freeze([
+    "Kylian Mbappé",
+    Object.freeze({ playerName: "Pelé", profileYear: 1958 })
+  ]),
+  "2022|goldenBall": Object.freeze(["Lionel Messi"]),
+  "2022|goldenBoot": Object.freeze(["Kylian Mbappé", "Lionel Messi"]),
+  "2022|goldenGlove": Object.freeze(["Emiliano Martínez", "Randal Kolo Muani", "Kingsley Coman"]),
+  "2022|youngPlayer": Object.freeze(["Enzo Fernández"]),
+  "2022|fairPlay": Object.freeze(["Harry Maguire"])
+});
+
+export const HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS = Object.freeze({
+  ko: Object.freeze({
+    "1930|goldenBoot": Object.freeze(["스타빌레"]),
+    "1934|goldenBoot": Object.freeze(["네예들리"]),
+    "1938|goldenBoot": Object.freeze(["레오니다스"]),
+    "1950|goldenBoot": Object.freeze(["아데미르"]),
+    "1954|goldenBoot": Object.freeze(["코치시"]),
+    "1958|goldenBoot": Object.freeze(["퐁텐"]),
+    "1962|goldenBoot": Object.freeze(["알베르트", "이바노프", "가린샤", "바바", "산체스", "예르코비치"]),
+    "1966|goldenBoot": Object.freeze(["에우제비우"]),
+    "1970|goldenBoot": Object.freeze(["뮐러"]),
+    "1974|goldenBoot": Object.freeze(["라토"]),
+    "1978|goldenBall": Object.freeze(["켐페스"]),
+    "1978|goldenBoot": Object.freeze(["켐페스"]),
+    "1982|goldenBall": Object.freeze(["로시"]),
+    "1982|goldenBoot": Object.freeze([""]),
+    "1986|goldenBall": Object.freeze(["마라도나"]),
+    "1990|goldenBall": Object.freeze(["스킬라치"]),
+    "1990|goldenBoot": Object.freeze(["", "토마시 스쿠흐라비"]),
+    "1994|goldenBall": Object.freeze(["호마리우"]),
+    "1994|goldenBoot": Object.freeze(["살렌코", "스토이치코프"]),
+    "1994|goldenGlove": Object.freeze(["프뢰돔"]),
+    "1998|goldenBall": Object.freeze(["호나우두"]),
+    "1998|goldenBoot": Object.freeze(["슈케르"]),
+    "1998|goldenGlove": Object.freeze(["바르테즈"]),
+    "2002|goldenBall": Object.freeze(["칸"]),
+    "2002|goldenBoot": Object.freeze(["호나우두"]),
+    "2002|goldenGlove": Object.freeze(["칸"]),
+    "2006|goldenBall": Object.freeze(["지단"]),
+    "2006|goldenBoot": Object.freeze(["클로제"]),
+    "2006|goldenGlove": Object.freeze(["부폰", "지단"]),
+    "2006|youngPlayer": Object.freeze(["포돌스키"]),
+    "2010|goldenBall": Object.freeze(["포를란"]),
+    "2010|goldenBoot": Object.freeze(["뮐러", "포를란", "비야", "스네이더르"]),
+    "2010|goldenGlove": Object.freeze(["카시야스", "카르도소", "로번"]),
+    "2010|youngPlayer": Object.freeze(["뮐러"]),
+    "2014|goldenBall": Object.freeze(["메시"]),
+    "2014|goldenBoot": Object.freeze(["하메스"]),
+    "2014|goldenGlove": Object.freeze(["노이어"]),
+    "2014|youngPlayer": Object.freeze(["포그바"]),
+    "2018|goldenBall": Object.freeze(["모드리치"]),
+    "2018|goldenBoot": Object.freeze(["케인"]),
+    "2018|goldenGlove": Object.freeze(["쿠르투아"]),
+    "2018|youngPlayer": Object.freeze(["음바페", "펠레"]),
+    "2022|goldenBall": Object.freeze(["메시"]),
+    "2022|goldenBoot": Object.freeze(["음바페", "메시"]),
+    "2022|goldenGlove": Object.freeze(["마르티네스", "콜로 무아니", "코망"]),
+    "2022|youngPlayer": Object.freeze(["페르난데스"]),
+    "2022|fairPlay": Object.freeze(["매과이어"])
+  }),
+  zh: Object.freeze({
+    "1930|goldenBoot": Object.freeze(["斯塔比莱"]),
+    "1934|goldenBoot": Object.freeze(["内耶德利"]),
+    "1938|goldenBoot": Object.freeze(["莱昂尼达斯"]),
+    "1950|goldenBoot": Object.freeze(["阿德米尔"]),
+    "1954|goldenBoot": Object.freeze(["科奇士"]),
+    "1958|goldenBoot": Object.freeze(["方丹"]),
+    "1962|goldenBoot": Object.freeze(["阿尔贝特", "伊万诺夫", "加林查", "瓦瓦", "桑切斯", "耶尔科维奇"]),
+    "1966|goldenBoot": Object.freeze(["尤西比奥"]),
+    "1970|goldenBoot": Object.freeze(["穆勒"]),
+    "1974|goldenBoot": Object.freeze(["拉托"]),
+    "1978|goldenBall": Object.freeze(["肯佩斯"]),
+    "1978|goldenBoot": Object.freeze(["肯佩斯"]),
+    "1982|goldenBall": Object.freeze(["罗西"]),
+    "1982|goldenBoot": Object.freeze(["罗西"]),
+    "1986|goldenBall": Object.freeze(["马拉多纳"]),
+    "1990|goldenBall": Object.freeze(["斯基拉奇"]),
+    "1990|goldenBoot": Object.freeze(["斯基拉奇", "托马什·斯库赫拉维"]),
+    "1994|goldenBall": Object.freeze(["罗马里奥"]),
+    "1994|goldenBoot": Object.freeze(["萨连科", "斯托伊奇科夫"]),
+    "1994|goldenGlove": Object.freeze(["普雷德霍姆"]),
+    "1998|goldenBall": Object.freeze(["罗纳尔多"]),
+    "1998|goldenBoot": Object.freeze(["苏克"]),
+    "1998|goldenGlove": Object.freeze(["巴特兹"]),
+    "2002|goldenBall": Object.freeze(["卡恩"]),
+    "2002|goldenBoot": Object.freeze(["罗纳尔多"]),
+    "2002|goldenGlove": Object.freeze(["卡恩"]),
+    "2006|goldenBall": Object.freeze(["齐达内"]),
+    "2006|goldenBoot": Object.freeze(["克洛泽"]),
+    "2006|goldenGlove": Object.freeze(["布冯", "齐达内"]),
+    "2006|youngPlayer": Object.freeze(["波多尔斯基"]),
+    "2010|goldenBall": Object.freeze(["弗兰"]),
+    "2010|goldenBoot": Object.freeze(["穆勒", "弗兰", "比利亚", "斯内德"]),
+    "2010|goldenGlove": Object.freeze(["卡西利亚斯", "卡多索", "罗本"]),
+    "2010|youngPlayer": Object.freeze(["穆勒"]),
+    "2014|goldenBall": Object.freeze(["梅西"]),
+    "2014|goldenBoot": Object.freeze(["J罗"]),
+    "2014|goldenGlove": Object.freeze(["诺伊尔"]),
+    "2014|youngPlayer": Object.freeze(["博格巴"]),
+    "2018|goldenBall": Object.freeze(["莫德里奇"]),
+    "2018|goldenBoot": Object.freeze(["凯恩"]),
+    "2018|goldenGlove": Object.freeze(["库尔图瓦"]),
+    "2018|youngPlayer": Object.freeze(["姆巴佩", "贝利"]),
+    "2022|goldenBall": Object.freeze(["梅西"]),
+    "2022|goldenBoot": Object.freeze(["姆巴佩", "梅西"]),
+    "2022|goldenGlove": Object.freeze(["马丁内斯", "科洛·穆阿尼", "科曼"]),
+    "2022|youngPlayer": Object.freeze(["恩佐·费尔南德斯"]),
+    "2022|fairPlay": Object.freeze(["马奎尔"])
+  })
+});
+
 const player = (playerName, teamName, position, reason, honourable = null) => ({
   playerName,
   teamName,
@@ -218,13 +492,15 @@ const player = (playerName, teamName, position, reason, honourable = null) => ({
     : []
 });
 
-const edition = ({ year, champion, flag, formation, intro, coach, rows, highlights }) => ({
+const edition = ({ year, champion, flag, formation, intro, introPlayers, coach, rows, highlights }) => ({
   champion,
   flag,
   formation,
   intro,
+  introPlayers,
   coach: {
     ...coach,
+    ...(HISTORICAL_COACH_CARD_DETAILS[year] || {}),
     ...(HISTORICAL_COACH_PORTRAITS[coach.name] || {})
   },
   rows: rows.map((row) => row.map((starter) => ({
@@ -270,6 +546,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇺🇾",
       formation: "2-3-5",
       intro: "Uruguay beat Argentina 4–2 in Montevideo, but the title was built before the comeback: José Nasazzi held the back line together, José Leandro Andrade carried play through midfield, and Pedro Cea kept arriving beyond the first wave.",
+      introPlayers: ["José Nasazzi", "José Leandro Andrade", "Pedro Cea"],
       coach: {
         name: "Alberto Suppici",
         teamName: "Uruguay",
@@ -306,6 +583,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇮🇹",
       formation: "2-3-5",
       intro: "Italy beat Czechoslovakia 2–1 after extra time. The hosts were less a free-scoring machine than a flexible tournament side: Luis Monti set the aggression, Giuseppe Meazza solved tight spaces, and Raimundo Orsi supplied the final's equalizer.",
+      introPlayers: ["Luis Monti", "Giuseppe Meazza", "Raimundo Orsi"],
       coach: {
         name: "Vittorio Pozzo",
         teamName: "Italy",
@@ -342,6 +620,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇮🇹",
       formation: "3-2-3-2",
       intro: "Italy retained the World Cup by beating Hungary 4–2. Pozzo's side was more direct than in 1934: the midfield released quickly, Gino Colaussi attacked the far side, and Silvio Piola's movement kept opening the middle.",
+      introPlayers: ["Gino Colaussi", "Silvio Piola"],
       coach: {
         name: "Vittorio Pozzo",
         teamName: "Italy",
@@ -380,6 +659,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇺🇾",
       formation: "2-3-5",
       intro: "Uruguay won the final round by beating Brazil 2–1 in the Maracanã. Obdulio Varela slowed the emotional temperature, Juan Schiaffino connected midfield to attack, and Alcides Ghiggia kept finding the one channel Brazil left open.",
+      introPlayers: ["Obdulio Varela", { playerName: "Juan Alberto Schiaffino", triggerText: "Juan Schiaffino" }, "Alcides Ghiggia"],
       coach: {
         name: "Juan López Fontana",
         teamName: "Uruguay",
@@ -416,6 +696,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇩🇪",
       formation: "3-2-2-3",
       intro: "West Germany overturned a two-goal deficit to beat Hungary 3–2 in the Miracle of Bern. The champions narrowed the pitch, attacked the second ball and trusted Helmut Rahn to decide moments that Hungary's control could not eliminate.",
+      introPlayers: ["Helmut Rahn"],
       coach: {
         name: "Sepp Herberger",
         teamName: "West Germany",
@@ -454,6 +735,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇧🇷",
       formation: "3-3-4",
       intro: "Brazil beat Sweden 5–2 and turned individual freedom into a repeatable system. Didi governed the centre, Garrincha broke the right side open, and Pelé arrived between centre-back and full-back before anyone had a reference for him.",
+      introPlayers: ["Didi", "Garrincha", "Pelé"],
       coach: {
         name: "Vicente Feola",
         teamName: "Brazil",
@@ -490,6 +772,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇧🇷",
       formation: "4-2-4",
       intro: "Brazil retained the title by beating Czechoslovakia 3–1 after Pelé's injury changed the plan. Garrincha became the primary destabilizer, Amarildo filled the scoring gap, and Zito kept a more pragmatic champion connected.",
+      introPlayers: ["Pelé", "Garrincha", "Amarildo", "Zito"],
       coach: {
         name: "Aymoré Moreira",
         teamName: "Brazil",
@@ -526,6 +809,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: ENGLAND_FLAG,
       formation: "4-3-1-2",
       intro: "England beat West Germany 4–2 after extra time. Alf Ramsey's wingless structure crowded the decisive central spaces, Bobby Moore passed through pressure, and Bobby Charlton's movement gave Geoff Hurst room to finish.",
+      introPlayers: ["Bobby Moore", "Bobby Charlton", "Geoff Hurst"],
       coach: {
         name: "Alf Ramsey",
         teamName: "England",
@@ -562,6 +846,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇧🇷",
       formation: "4-3-3",
       intro: "Brazil beat Italy 4–1 and won every match. Gérson controlled the speed, Pelé occupied defenders without monopolizing the ball, and Jairzinho attacked the spaces their attention created—scoring in all six games.",
+      introPlayers: ["Gérson", "Pelé", "Jairzinho"],
       coach: {
         name: "Mário Zagallo",
         teamName: "Brazil",
@@ -598,6 +883,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇩🇪",
       formation: "4-3-3",
       intro: "West Germany recovered from losing to East Germany and beat the Netherlands 2–1 in the final. Franz Beckenbauer reorganized the build-up from libero, Berti Vogts denied Cruyff clean turns, and Gerd Müller lived inside the one space Total Football could not rotate away.",
+      introPlayers: ["Franz Beckenbauer", "Berti Vogts", { playerName: "Johan Cruyff", triggerText: "Cruyff" }, "Gerd Müller"],
       coach: {
         name: "Rinus Michels",
         teamName: "Netherlands",
@@ -634,6 +920,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇦🇷",
       formation: "4-3-1-2",
       intro: "Argentina beat the Netherlands 3–1 after extra time. César Menotti's side mixed width with a ferocious central press: Daniel Passarella stepped into midfield, Osvaldo Ardiles connected the phases, and Mario Kempes attacked from deeper than any marker expected.",
+      introPlayers: ["Daniel Passarella", "Osvaldo Ardiles", "Mario Kempes"],
       coach: {
         name: "César Luis Menotti",
         teamName: "Argentina",
@@ -670,6 +957,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇮🇹",
       formation: "4-3-3",
       intro: "Italy went from three group-stage draws to a 3–1 final win over West Germany. Gaetano Scirea played through the first press, Marco Tardelli made midfield a two-way fight, and Paolo Rossi turned four goalless games into six goals in the last three matches.",
+      introPlayers: ["Gaetano Scirea", "Marco Tardelli", "Paolo Rossi"],
       coach: {
         name: "Enzo Bearzot",
         teamName: "Italy",
@@ -706,6 +994,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇦🇷",
       formation: "4-3-1-2",
       intro: "Argentina beat West Germany 3–2 with a side designed around Diego Maradona without becoming dependent on his dribbling alone. Three centre-backs secured the transitions, Jorge Valdano stretched the line, and Jorge Burruchaga attacked the channel Maradona kept revealing.",
+      introPlayers: ["Diego Maradona", "Jorge Valdano", "Jorge Burruchaga"],
       coach: {
         name: "Carlos Bilardo",
         teamName: "Argentina",
@@ -742,6 +1031,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇩🇪",
       formation: "3-4-1-2",
       intro: "West Germany beat Argentina 1–0 in a tense final. Franz Beckenbauer's side owned the tournament through structure: Andreas Brehme provided left-sided creation, Lothar Matthäus controlled both boxes, and the front line kept pressing even when knockout games tightened.",
+      introPlayers: ["Andreas Brehme", "Lothar Matthäus"],
       coach: {
         name: "Franz Beckenbauer",
         teamName: "West Germany",
@@ -778,6 +1068,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇧🇷",
       formation: "3-4-3",
       intro: "Brazil beat Italy on penalties after a 0–0 final. Carlos Alberto Parreira stripped away romantic excess without losing attacking quality: Dunga protected the centre, Bebeto moved between lines, and Romário converted small advantages into decisive goals.",
+      introPlayers: ["Dunga", "Bebeto", "Romário"],
       coach: {
         name: "Carlos Alberto Parreira",
         teamName: "Brazil",
@@ -814,6 +1105,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇫🇷",
       formation: "4-2-2-2",
       intro: "France beat Brazil 3–0 for their first title. The hosts won from the back forward: Marcel Desailly protected space, Didier Deschamps and Emmanuel Petit controlled transitions, and Zinedine Zidane finally turned dominance into goals on the biggest night.",
+      introPlayers: ["Marcel Desailly", "Didier Deschamps", "Emmanuel Petit", "Zinedine Zidane"],
       coach: {
         name: "Aimé Jacquet",
         teamName: "France",
@@ -852,6 +1144,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇧🇷",
       formation: "3-4-1-2",
       intro: "Brazil beat Germany 2–0 and won all seven matches. Luiz Felipe Scolari's back three freed Cafu and Roberto Carlos, Gilberto Silva protected every transition, and the three Rs combined with enough separation to make improvisation structurally safe.",
+      introPlayers: ["Cafu", "Roberto Carlos", "Gilberto Silva"],
       coach: {
         name: "Luiz Felipe Scolari",
         teamName: "Brazil",
@@ -888,6 +1181,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇮🇹",
       formation: "4-3-1-2",
       intro: "Italy beat France on penalties after a 1–1 final. Marcello Lippi trusted a complete squad rather than a fixed attacking star: Andrea Pirlo escaped the first press, Fabio Cannavaro defended the next action, and ten different Italians scored.",
+      introPlayers: ["Andrea Pirlo", "Fabio Cannavaro"],
       coach: {
         name: "Marcello Lippi",
         teamName: "Italy",
@@ -924,6 +1218,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇪🇸",
       formation: "4-2-3-1",
       intro: "Spain beat the Netherlands 1–0 after extra time. The title came through patient territorial control rather than a flood of chances: Sergio Busquets protected every circulation, Xavi kept moving the block, and Andrés Iniesta attacked the space that finally opened.",
+      introPlayers: ["Sergio Busquets", "Xavi", "Andrés Iniesta"],
       coach: {
         name: "Vicente del Bosque",
         teamName: "Spain",
@@ -960,6 +1255,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇩🇪",
       formation: "4-3-3",
       intro: "Germany beat Argentina 1–0 after extra time, the product of a flexible squad rather than one fixed XI. Philipp Lahm restored the right side, Manuel Neuer defended beyond his box, and Toni Kroos gave a high-tempo team the pass that controlled its breathing.",
+      introPlayers: ["Philipp Lahm", "Manuel Neuer", "Toni Kroos"],
       coach: {
         name: "Joachim Löw",
         teamName: "Germany",
@@ -996,6 +1292,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇫🇷",
       formation: "4-3-3",
       intro: "France beat Croatia 4–2 with a team comfortable letting opponents have the ball. N'Golo Kanté and Paul Pogba controlled transition distance, Antoine Griezmann joined midfield to create the spare man, and Kylian Mbappé turned open grass into a tactical weapon.",
+      introPlayers: ["N'Golo Kanté", "Paul Pogba", "Antoine Griezmann", "Kylian Mbappé"],
       coach: {
         name: "Didier Deschamps",
         teamName: "France",
@@ -1032,6 +1329,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       flag: "🇦🇷",
       formation: "4-3-3",
       intro: "Argentina recovered from defeat to Saudi Arabia and beat France on penalties after a 3–3 final. Lionel Scaloni rebuilt the midfield around each opponent, Enzo Fernández accelerated the first pass, and Lionel Messi controlled the tournament from the right half-space.",
+      introPlayers: ["Enzo Fernández", "Lionel Messi"],
       coach: {
         name: "Lionel Scaloni",
         teamName: "Argentina",

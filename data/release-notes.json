@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-21T13:31:14-07:00",
+  "updatedAt": "2026-07-21T16:02:47-07:00",
   "releases": [
+    {
+      "date": "2026-07-21",
+      "title": "Complete historical player cards",
+      "titleZh": "更完整的历史球员卡",
+      "highlights": [
+        "Every player named in historical World Cup stories now opens a complete, mobile-safe card across all 22 archives.",
+        "All 3,647 historical profiles now show sourced tournament-time clubs and leagues in four languages and Ball Boy.",
+        "Cards now show World Cup goals and sourced assists; coach cards, champion banners, and light-mode Best XI are polished."
+      ],
+      "highlightsZh": [
+        "历届世界杯故事中的每位出场球员现均可打开完整卡片，22届历史赛事在移动端也能稳定显示。",
+        "全部3,647份历史球员资料现均以四种语言展示当届赛事时的俱乐部、联赛及来源，Ball Boy也会使用同一套核实数据。",
+        "比赛、奖项和最佳阵容中的球员卡现均显示世界杯进球及有来源的助攻数据；教练卡、冠军横幅与浅色模式下的最佳阵容样式也已完善。"
+      ]
+    },
     {
       "date": "2026-07-21",
       "title": "Simpler mobile Tournament canvas",

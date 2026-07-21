@@ -17,10 +17,11 @@ import {
 import {
   formatPlayerClubLine,
   formatPlayerCardWorldCupContext,
+  formatPlayerTournamentStatsLine,
   formatPlayerPosition,
   getPlayerCardWorldCupReferenceDate,
   getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-21-world-cup-context-1";
+} from "./player-card-ui.js?v=2026-07-21-player-tournament-stats-1";
 import {
   getLanguageConfig,
   getLocaleShellMessages,
@@ -29,10 +30,12 @@ import {
 } from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1-historical-best-xi-depth-1";
 import { getPlayerSkillCategory } from "./locales/player-note-templates.js?v=2026-07-21-best-xi-rebuild-3";
 import {
+  HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS,
+  HISTORICAL_AWARD_CONTEXT_PLAYERS,
   HISTORICAL_HIGHLIGHTS,
   HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
   HISTORICAL_STORY_PROFILE_OVERRIDES
-} from "./data/highlights-history.js?v=2026-07-21-historical-stories-1";
+} from "./data/highlights-history.js?v=2026-07-21-historical-award-description-player-cards-3-historical-coach-cards-1";
 import { CHAMPION_PHOTOS } from "./data/champion-photos.js?v=2026-07-21-all-team-photos-1";
 import {
   buildHistoricalBestXiDescriptionParagraphs
@@ -186,6 +189,26 @@ const ZH_PLAYER_SKILLS = Object.freeze({
   "Wing versatility": "边路多面性",
   "Box finishing": "禁区终结",
   "Wide-to-inside runs": "边路内切跑动"
+});
+
+const COACH_STYLE_TRANSLATIONS = Object.freeze({
+  "Attacking freedom": Object.freeze({ es: "Libertad ofensiva", ko: "공격 자유도", zh: "进攻自由" }),
+  "Back-three structure": Object.freeze({ es: "Estructura de tres centrales", ko: "백3 구조", zh: "三中卫结构" }),
+  "Bold substitutions": Object.freeze({ es: "Cambios valientes", ko: "과감한 교체", zh: "大胆换人" }),
+  "Compact defending": Object.freeze({ es: "Defensa compacta", ko: "압축 수비", zh: "紧凑防守" }),
+  "Coordinated pressing": Object.freeze({ es: "Presión coordinada", ko: "조직적 압박", zh: "协同压迫" }),
+  "Counter-attack": Object.freeze({ es: "Contraataque", ko: "역습", zh: "反击" }),
+  "Defensive organization": Object.freeze({ es: "Organización defensiva", ko: "수비 조직", zh: "防守组织" }),
+  "Game management": Object.freeze({ es: "Gestión del partido", ko: "경기 운영", zh: "比赛管理" }),
+  "Midfield control": Object.freeze({ es: "Control del mediocampo", ko: "중원 장악", zh: "中场控制" }),
+  "Positional rotation": Object.freeze({ es: "Rotación posicional", ko: "포지션 로테이션", zh: "位置轮换" }),
+  "Possession control": Object.freeze({ es: "Control de la posesión", ko: "점유 운영", zh: "控球控制" }),
+  "Set-piece focus": Object.freeze({ es: "Balón parado", ko: "세트피스 집중", zh: "定位球重点" }),
+  "Squad rotation": Object.freeze({ es: "Rotación de plantilla", ko: "선수단 로테이션", zh: "阵容轮换" }),
+  "Tactical flexibility": Object.freeze({ es: "Flexibilidad táctica", ko: "전술 유연성", zh: "战术灵活性" }),
+  "Transition control": Object.freeze({ es: "Control de transiciones", ko: "전환 통제", zh: "转换控制" }),
+  "Wing play": Object.freeze({ es: "Juego por bandas", ko: "측면 플레이", zh: "边路进攻" }),
+  "Youth pipeline": Object.freeze({ es: "Cantera", ko: "유소년 육성", zh: "青年梯队" })
 });
 
 const ZH_PLAYER_SKILL_CATEGORIES = Object.freeze({
@@ -639,6 +662,7 @@ let loadedCoachProfiles = null;
 let loadedTeams = null;
 let loadedStructuredGlossary = null;
 let loadedBestXi = null;
+let loadedTournamentStatsByKey = new Map();
 let loadedRankingYear = null;
 let loadedHistory = null;
 let loadedHistoricalAwards = null;
@@ -1333,6 +1357,16 @@ function getHistoricalStoryPlayerNames() {
   return [...names];
 }
 
+function getHistoricalAwardContextPlayerReferences(awardKey) {
+  const key = `${activeEdition}|${awardKey}`;
+  const references = HISTORICAL_AWARD_CONTEXT_PLAYERS[key] || [];
+  const localizedLabels = HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS[currentLanguage]?.[key] || [];
+  return references.map((reference, index) => ({
+    ...(typeof reference === "string" ? { playerName: reference } : reference),
+    triggerText: localizedLabels[index] || ""
+  }));
+}
+
 function getHistoricalStoryProfile(profileData, playerName) {
   const directProfile = getHistoricalProfile(profileData, playerName, activeEdition);
   if (directProfile) {
@@ -1414,6 +1448,23 @@ function buildHistoricalProfiles(editorialEdition, profileData, awardsEdition) {
     }
     profile.teamId = profile.teamName;
     profiles[playerName] = profile;
+  }
+  for (const awardKey of Object.keys(awardsEdition || {})) {
+    for (const reference of getHistoricalAwardContextPlayerReferences(awardKey)) {
+      const playerName = typeof reference === "string" ? reference : reference?.playerName;
+      const profileYear = Number(typeof reference === "string" ? activeEdition : reference?.profileYear || activeEdition);
+      if (!playerName || profiles[playerName]) {
+        continue;
+      }
+      const sourced = getHistoricalProfile(profileData, playerName, profileYear);
+      if (!sourced) {
+        continue;
+      }
+      profiles[playerName] = {
+        ...sourced,
+        teamId: sourced.teamName
+      };
+    }
   }
   return profiles;
 }
@@ -1518,14 +1569,83 @@ function renderHistoricalFairPlayFlags(teamNames) {
   container.replaceChildren(...teamNames.map((teamName) => createHistoricalTeamFlag(teamName)));
 }
 
-function renderHistoricalAwardExplanation(elementId, copy) {
+function normalizeHistoricalAwardMatchText(value) {
+  return String(value || "").replace(/[’‘]/gu, "'").toLocaleLowerCase();
+}
+
+function getHistoricalAwardPlayerTextVariants(playerName, triggerText = "") {
+  const explicitTriggerText = String(triggerText || "").trim();
+  const profile = loadedProfiles?.[playerName];
+  const variants = new Set([
+    playerName,
+    profile?.name,
+    profile?.displayName,
+    getHighlightPlayerName(playerName, profile),
+    getHistoricalLocalizedPlayerName(playerName),
+    explicitTriggerText
+  ].map((value) => String(value || "").trim()).filter(Boolean));
+
+  for (const fullName of [...variants]) {
+    const wordParts = fullName.split(/\s+/u).filter(Boolean);
+    for (let index = 0; index < wordParts.length; index += 1) {
+      variants.add(wordParts.slice(index).join(" "));
+      if (wordParts[index].length >= 4) {
+        variants.add(wordParts[index]);
+      }
+    }
+    const middleDotParts = fullName.split(/[·・]/u).map((part) => part.trim()).filter(Boolean);
+    for (const part of middleDotParts) {
+      if (part.length >= 2) {
+        variants.add(part);
+      }
+    }
+  }
+
+  return [...variants]
+    .filter((variant) => variant.length >= 2 || variant === explicitTriggerText)
+    .sort((left, right) => right.length - left.length);
+}
+
+function appendHistoricalAwardPlayerCopy(element, copy, references = []) {
+  const normalizedCopy = normalizeHistoricalAwardMatchText(copy);
+  const candidates = references.flatMap((reference) => {
+    const playerName = typeof reference === "string" ? reference : reference?.playerName;
+    const triggerText = typeof reference === "string" ? "" : reference?.triggerText;
+    return getHistoricalAwardPlayerTextVariants(playerName, triggerText).map((variant) => ({
+      sourceReference: reference,
+      playerName,
+      variant,
+      index: normalizedCopy.indexOf(normalizeHistoricalAwardMatchText(variant))
+    }));
+  }).filter(({ playerName, index }) => playerName && index >= 0)
+    .sort((left, right) => left.index - right.index || right.variant.length - left.variant.length);
+  const candidate = candidates[0];
+  if (!candidate) {
+    appendFootballInlineText(element, copy);
+    return;
+  }
+
+  appendFootballInlineText(element, copy.slice(0, candidate.index));
+  const visibleText = copy.slice(candidate.index, candidate.index + candidate.variant.length);
+  const mention = createHighlightPlayerMention(candidate.playerName, visibleText);
+  element.append(mention || document.createTextNode(visibleText));
+  appendHistoricalAwardPlayerCopy(
+    element,
+    copy.slice(candidate.index + candidate.variant.length),
+    references.filter((reference) => reference !== candidate.sourceReference)
+  );
+}
+
+function renderHistoricalAwardExplanation(elementId, copy, awardKey) {
   const explanation = getElement(elementId);
   if (!explanation || !copy) {
     return;
   }
   const strong = document.createElement("strong");
-  strong.textContent = copy.stat;
-  explanation.replaceChildren(strong, document.createTextNode(` ${copy.context}`));
+  const references = getHistoricalAwardContextPlayerReferences(awardKey);
+  appendHistoricalAwardPlayerCopy(strong, copy.stat, references);
+  explanation.replaceChildren(strong, document.createTextNode(" "));
+  appendHistoricalAwardPlayerCopy(explanation, copy.context, references);
 }
 
 function renderHistoricalFairPlayExplanation(copy) {
@@ -1534,8 +1654,11 @@ function renderHistoricalFairPlayExplanation(copy) {
     return;
   }
   const strong = document.createElement("strong");
-  strong.textContent = copy.stat;
-  explanation.replaceChildren(document.createTextNode(`${copy.context} `), strong);
+  const references = getHistoricalAwardContextPlayerReferences("fairPlay");
+  appendHistoricalAwardPlayerCopy(strong, copy.stat, references);
+  explanation.replaceChildren();
+  appendHistoricalAwardPlayerCopy(explanation, copy.context, references);
+  explanation.append(document.createTextNode(" "), strong);
 }
 
 function setHistoricalAwardLabel(awardKey, label, meaning) {
@@ -1597,7 +1720,7 @@ function renderHistoricalAwards() {
       getElement(ids.photoId)?.classList.remove("is-multiple-recipients");
       renderAwardPhoto(ids.photoId, displayNames[0], loadedProfiles?.[first.playerName]);
     }
-    renderHistoricalAwardExplanation(ids.explanationId, copy);
+    renderHistoricalAwardExplanation(ids.explanationId, copy, awardKey);
   });
 
   const fairPlay = awards.fairPlay;
@@ -1986,8 +2109,9 @@ function renderHistoricalEdition() {
   renderChampionPhoto(editorialEdition);
   const intro = document.querySelector(".intro-copy");
   if (intro) {
-    intro.textContent = editorialEdition.intro;
     intro.removeAttribute("data-highlight-player-mentions");
+    intro.replaceChildren();
+    appendHistoricalIntroCopy(intro, editorialEdition.intro, editorialEdition.introPlayers);
   }
   setText("best-xi-title", getBestXiEditionTitle());
   setText("awards-title", activeLocale.text.officialAwards);
@@ -2308,7 +2432,75 @@ function renderHighlightPlayerValueLine(profile) {
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}${primeSuffix}`;
 }
 
-function renderHighlightPlayerCopy(note, profile, noteClass = "") {
+function addHighlightTournamentStat(statsByKey, teamId, playerName, statName) {
+  const nameKey = normalizeHistoricalName(playerName);
+  if (!nameKey || !["goals", "assists"].includes(statName)) {
+    return;
+  }
+  const normalizedTeamId = String(teamId || "").trim().toUpperCase();
+  const keys = normalizedTeamId ? [`${normalizedTeamId}:${nameKey}`, nameKey] : [nameKey];
+  for (const key of keys) {
+    const stats = statsByKey.get(key) || { goals: 0, assists: 0 };
+    stats[statName] += 1;
+    statsByKey.set(key, stats);
+  }
+}
+
+function buildHighlightTournamentStats(fixtures = []) {
+  const statsByKey = new Map();
+  for (const fixture of fixtures) {
+    if (!["LIVE", "FT", "AET", "PEN"].includes(String(fixture?.status || "").toUpperCase())) {
+      continue;
+    }
+    for (const [side, goals] of [
+      ["home", fixture.goalsHome || []],
+      ["away", fixture.goalsAway || []]
+    ]) {
+      const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+      for (const goal of goals) {
+        if (goal?.ownGoal) {
+          continue;
+        }
+        addHighlightTournamentStat(statsByKey, teamId, goal?.name, "goals");
+        if (goal?.assistName && normalizeHistoricalName(goal.assistName) !== normalizeHistoricalName(goal.name)) {
+          addHighlightTournamentStat(statsByKey, teamId, goal.assistName, "assists");
+        }
+      }
+    }
+  }
+  return statsByKey;
+}
+
+function getHighlightPlayerTournamentStats(playerName, profile) {
+  if (activeEdition !== 2026) {
+    const goals = Number(profile?.goals);
+    const assists = Number(profile?.assists);
+    return {
+      goals: Number.isInteger(goals) && goals >= 0 ? goals : 0,
+      assists: Number.isInteger(assists) && assists >= 0 ? assists : null
+    };
+  }
+
+  const teamId = String(profile?.teamId || "").trim().toUpperCase();
+  const aliases = [
+    playerName,
+    profile?.name,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ];
+  const totals = { goals: 0, assists: 0 };
+  const keys = new Set(aliases.map(normalizeHistoricalName).filter(Boolean));
+  for (const nameKey of keys) {
+    const stats = loadedTournamentStatsByKey.get(teamId ? `${teamId}:${nameKey}` : nameKey);
+    if (stats) {
+      totals.goals += stats.goals;
+      totals.assists += stats.assists;
+    }
+  }
+  return totals;
+}
+
+function renderHighlightPlayerCopy(note, profile, noteClass = "", playerName = "") {
   const tournamentYear = Number(profile?.tournamentYear || activeEdition);
   const age = getHighlightPlayerAge(profile, getHighlightPlayerReferenceDate(profile));
   const ageLine = age === null
@@ -2325,6 +2517,15 @@ function renderHighlightPlayerCopy(note, profile, noteClass = "") {
         `<span class="player-card-note${noteClass ? ` ${escapeHtml(noteClass)}` : ""}" data-player-copy-paragraph="${index + 1}">${escapeHtml(paragraph)}</span>`
     )
     .join("");
+  const tournamentStatsLine = formatPlayerTournamentStatsLine({
+    ...getHighlightPlayerTournamentStats(playerName || profile?.name || profile?.displayName, profile),
+    year: tournamentYear,
+    language: currentLanguage,
+    current: activeEdition === 2026
+  });
+  const tournamentStatsMarkup = tournamentStatsLine
+    ? `<span class="player-card-note player-card-tournament-stats">${escapeHtml(tournamentStatsLine)}</span>`
+    : "";
   const metaMarkup = metaLine
     ? `<span class="player-card-note player-card-meta">${metaLine}</span>`
     : "";
@@ -2335,8 +2536,8 @@ function renderHighlightPlayerCopy(note, profile, noteClass = "") {
   const contextMarkup = contextLine
     ? `<span class="player-card-note player-card-world-cup-context">${escapeHtml(contextLine)}</span>`
     : "";
-  return noteMarkup || metaMarkup || contextMarkup
-    ? `<span class="player-card-copy">${noteMarkup}${metaMarkup}${contextMarkup}</span>`
+  return noteMarkup || tournamentStatsMarkup || metaMarkup || contextMarkup
+    ? `<span class="player-card-copy">${noteMarkup}${tournamentStatsMarkup}${metaMarkup}${contextMarkup}</span>`
     : "";
 }
 
@@ -2400,11 +2601,40 @@ function createHighlightPlayerMention(playerName, triggerText = "") {
       </span>
     </span>
     ${renderHighlightPlayerSkillList(profile)}
-    ${renderHighlightPlayerCopy(note, profile)}
+    ${renderHighlightPlayerCopy(note, profile, "", playerName)}
   `;
   wrapper.append(trigger, card);
   activateBestXiImages(wrapper);
   return wrapper;
+}
+
+function appendHistoricalIntroCopy(element, copy, introPlayers = []) {
+  const playerCandidates = introPlayers.map((entry) => {
+    const playerName = typeof entry === "string" ? entry : entry?.playerName;
+    const triggerText = typeof entry === "string" ? entry : entry?.triggerText;
+    return {
+      sourceEntry: entry,
+      playerName,
+      triggerText,
+      index: triggerText ? copy.indexOf(triggerText) : -1
+    };
+  });
+  const candidate = playerCandidates
+    .filter(({ playerName, index }) => playerName && index >= 0)
+    .sort((left, right) => left.index - right.index)[0];
+  if (!candidate) {
+    appendFootballInlineText(element, copy);
+    return;
+  }
+
+  appendFootballInlineText(element, copy.slice(0, candidate.index));
+  const mention = createHighlightPlayerMention(candidate.playerName, candidate.triggerText);
+  element.append(mention || document.createTextNode(candidate.triggerText));
+  appendHistoricalIntroCopy(
+    element,
+    copy.slice(candidate.index + candidate.triggerText.length),
+    introPlayers.filter((entry) => entry !== candidate.sourceEntry)
+  );
 }
 
 function appendHighlightPlayerCopy(element, copy, playerNames = [], teamIds = []) {
@@ -2542,13 +2772,16 @@ function positionHighlightInlinePlayerCard(playerHover) {
   const viewportMargin = 18;
   const cardWidth = Math.min(292, Math.max(0, window.innerWidth - viewportMargin * 2));
   const triggerRect = trigger.getBoundingClientRect();
+  card.style.setProperty("--player-card-width", `${cardWidth}px`);
+  card.style.setProperty("--player-card-shift", "0px");
+  playerHover.classList.toggle("is-card-below", triggerRect.top < 270);
+  const unshiftedCardRect = card.getBoundingClientRect();
+  const unshiftedLeft = unshiftedCardRect.width ? unshiftedCardRect.left : triggerRect.left;
   const desiredLeft = Math.min(
-    Math.max(triggerRect.left, viewportMargin),
+    Math.max(unshiftedLeft, viewportMargin),
     Math.max(viewportMargin, window.innerWidth - cardWidth - viewportMargin)
   );
-  card.style.setProperty("--player-card-width", `${cardWidth}px`);
-  card.style.setProperty("--player-card-shift", `${Math.round(desiredLeft - triggerRect.left)}px`);
-  playerHover.classList.toggle("is-card-below", triggerRect.top < 270);
+  card.style.setProperty("--player-card-shift", `${Math.round(desiredLeft - unshiftedLeft)}px`);
   updateHighlightPlayerValueTooltipBounds(card);
 }
 
@@ -2647,6 +2880,9 @@ function openHighlightPlayerCard(playerHover) {
   }
   activeHighlightPlayerHover.classList.add("is-card-portaled");
   floatingCard.innerHTML = sourceCard.innerHTML;
+  floatingCard.querySelectorAll("img[data-best-xi-image-bound]").forEach((image) => {
+    delete image.dataset.bestXiImageBound;
+  });
   floatingCard.setAttribute("aria-hidden", "false");
   activateBestXiImages(floatingCard);
   positionHighlightFloatingPlayerCard(activeHighlightPlayerHover);
@@ -3265,16 +3501,58 @@ function getBestXiCoachCopy(value) {
   return String(value || "").trim();
 }
 
+function getBestXiCoachSinceText(details) {
+  if (!details?.sinceYear) {
+    return "";
+  }
+  if (currentLanguage === "zh") {
+    return `${details.sinceYear} 年起`;
+  }
+  return activeAppLocalePack?.helpers?.formatAppMessage?.("coach-since", { year: details.sinceYear })
+    || `Since ${details.sinceYear}`;
+}
+
+function getBestXiCoachAgeText(details) {
+  const archivedAge = Number(details?.ageAtTournament);
+  const age = Number.isInteger(archivedAge) && archivedAge >= 18 && archivedAge <= 100
+    ? archivedAge
+    : activeEdition === 2026
+      ? getHighlightPlayerAge(details, getHighlightPlayerReferenceDate(details))
+      : null;
+  if (!Number.isInteger(age)) {
+    return "";
+  }
+  return formatMessage(activeLocale.text.playerAge, { age });
+}
+
+function getBestXiCoachStyles(details) {
+  if (!Array.isArray(details?.styles)) {
+    return [];
+  }
+  return Array.from(new Set(details.styles.map((style) => String(style || "").trim()).filter(Boolean)))
+    .slice(0, 3)
+    .map((style) => COACH_STYLE_TRANSLATIONS[style]?.[currentLanguage] || getBestXiAppText(style));
+}
+
 function renderBestXiCoachCard(coach, profile) {
   const displayName = coach?.name || profile?.name || "";
   const team = loadedTeams?.[coach?.teamId || profile?.teamId];
-  const teamName = getHighlightTeamName(team) || profile?.teamName || "";
+  const teamName = getHighlightTeamName(team)
+    || localizeHistoricalAwardTeam(coach?.teamName)
+    || profile?.teamName
+    || "";
   const role = currentLanguage === "zh"
     ? `${teamName}主教练`
     : activeAppLocalePack?.helpers?.formatAppMessage?.("coach-role", { teamText: teamName }) || `${teamName} Head Coach`;
+  const details = activeEdition === 2026 ? profile : coach;
+  const sinceText = getBestXiCoachSinceText(details);
+  const ageText = getBestXiCoachAgeText(details);
+  const styleTags = getBestXiCoachStyles(details);
   const note = getBestXiCoachReason(coach);
   const initials = getPlayerInitials(displayName);
-  const imageUrl = profile?.imageUrl || coach?.imageUrl || "";
+  const imageUrl = activeEdition === 2026
+    ? profile?.imageUrl || coach?.imageUrl || ""
+    : coach?.imageUrl || profile?.imageUrl || "";
   const photoMarkup = imageUrl
     ? `
       <span class="lineup-coach-card-photo" aria-hidden="true">
@@ -3290,10 +3568,13 @@ function renderBestXiCoachCard(coach, profile) {
       </span>
     `
     : `<span class="player-photo-fallback">${escapeHtml(initials)}</span>`;
-  const copyItems = [note]
+  const styleItems = styleTags
+    .map((style) => `<span>${escapeHtml(style)}</span>`)
+    .join("");
+  const copyItems = [note, ageText]
     .filter(Boolean)
     .map((item) => `<span class="player-card-note">${escapeHtml(item)}</span>`)
-    .join("");
+    .join("\n");
 
   return `
     <span class="player-card-header">
@@ -3303,8 +3584,10 @@ function renderBestXiCoachCard(coach, profile) {
           <strong class="player-card-name">${escapeHtml(displayName)}</strong>
         </span>
         <span class="player-card-position">${escapeHtml(role)}</span>
+        ${sinceText ? `<span class="player-card-club">${escapeHtml(sinceText)}</span>` : ""}
       </span>
     </span>
+    ${styleItems ? `<span class="player-skill-list">${styleItems}</span>` : ""}
     ${copyItems ? `<span class="player-card-copy lineup-coach-copy">${copyItems}</span>` : ""}
   `;
 }
@@ -3456,7 +3739,7 @@ function renderBestXiPlayerCard(playerElement) {
       </span>
     </span>
     ${renderHighlightPlayerSkillList(profile)}
-    ${renderHighlightPlayerCopy(getBestXiDescriptionParagraphs(player, profile), profile, "best-xi-player-reason")}
+    ${renderHighlightPlayerCopy(getBestXiDescriptionParagraphs(player, profile), profile, "best-xi-player-reason", player.playerName)}
   `;
   activateBestXiImages(card);
 }
@@ -3778,14 +4061,16 @@ async function initialize() {
 
   if (activeEdition === 2026) {
     try {
-      const [tournament, playerData, coachData, teamData, structuredGlossary] = await Promise.all([
+      const [tournament, fixtureData, playerData, coachData, teamData, structuredGlossary] = await Promise.all([
         loadJson("data/tournament.json"),
+        loadJson("data/fixtures.json"),
         loadJson("data/player-profiles.json"),
         loadJson("data/coach-profiles.json"),
         loadJson("data/teams.json"),
         loadJson("data/locales/structured-content-glossary.json")
       ]);
       loadedAwards = tournament.awards || {};
+      loadedTournamentStatsByKey = buildHighlightTournamentStats(fixtureData.fixtures || []);
       loadedProfiles = playerData.profiles || {};
       loadedCoachProfiles = coachData.profiles || {};
       loadedTeams = Object.fromEntries((teamData.teams || []).map((team) => [team.id, team]));
