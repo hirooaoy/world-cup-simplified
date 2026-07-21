@@ -3010,7 +3010,13 @@ try {
   );
   const floatingHoverCard = page.locator(".player-card-floating");
   await floatingHoverCard.waitFor({ state: "visible" });
-  await floatingHoverCard.hover({ force: true });
+  await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
+  const floatingHoverCardBox = await floatingHoverCard.boundingBox();
+  assert(floatingHoverCardBox, "Floating player-card hover geometry should be measurable.");
+  await page.mouse.move(
+    floatingHoverCardBox.x + floatingHoverCardBox.width / 2,
+    floatingHoverCardBox.y + floatingHoverCardBox.height / 2
+  );
   await page.waitForFunction(() => {
     const card = document.querySelector(".player-card-floating");
     return (
