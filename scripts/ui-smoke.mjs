@@ -3000,25 +3000,35 @@ try {
   await keyboardPlayerTrigger.evaluate((trigger) => {
     const source = trigger.closest(".player-hover") || trigger;
     window.__worldCupFloatingCardGraceProbe = new Promise((resolve) => {
+      let settled = false;
+      const finish = (result) => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        document.removeEventListener("pointerleave", handlePointerLeave, true);
+        window.clearTimeout(fallbackTimer);
+        resolve(result);
+      };
+      const handlePointerLeave = (event) => {
+        if (event.target !== source && !source.contains(event.target)) {
+          return;
+        }
+        document.removeEventListener("pointerleave", handlePointerLeave, true);
+        window.setTimeout(() => {
+          const card = document.querySelector(".player-card-floating");
+          const survived =
+            card?.classList.contains("is-visible") &&
+            card.getAttribute("aria-hidden") === "false";
+          card?.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
+          finish({ fired: true, survived: Boolean(survived) });
+        }, 150);
+      };
       const fallbackTimer = window.setTimeout(
-        () => resolve({ fired: false, survived: false }),
+        () => finish({ fired: false, survived: false }),
         2000
       );
-      source.addEventListener(
-        "pointerleave",
-        () => {
-          window.setTimeout(() => {
-            const card = document.querySelector(".player-card-floating");
-            const survived =
-              card?.classList.contains("is-visible") &&
-              card.getAttribute("aria-hidden") === "false";
-            card?.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
-            window.clearTimeout(fallbackTimer);
-            resolve({ fired: true, survived: Boolean(survived) });
-          }, 150);
-        },
-        { once: true }
-      );
+      document.addEventListener("pointerleave", handlePointerLeave, true);
     });
   });
   await page.mouse.move(hoverBridgeX, hoverBridgeY);
