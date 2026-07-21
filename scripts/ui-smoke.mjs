@@ -3010,21 +3010,34 @@ try {
   );
   const floatingHoverCard = page.locator(".player-card-floating");
   await floatingHoverCard.waitFor({ state: "visible" });
-  await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
-  const floatingHoverCardBox = await floatingHoverCard.boundingBox();
-  assert(floatingHoverCardBox, "Floating player-card hover geometry should be measurable.");
-  await page.mouse.move(
-    floatingHoverCardBox.x + floatingHoverCardBox.width / 2,
-    floatingHoverCardBox.y + floatingHoverCardBox.height / 2
+  const floatingCardHoverAttempts = [];
+  let floatingCardHovered = false;
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    await floatingHoverCard.dispatchEvent("pointerenter", { pointerType: "mouse" });
+    const floatingHoverCardBox = await floatingHoverCard.boundingBox();
+    assert(floatingHoverCardBox, "Floating player-card hover geometry should be measurable.");
+    const hoverPoint = {
+      x: floatingHoverCardBox.x + floatingHoverCardBox.width / 2,
+      y: floatingHoverCardBox.y + floatingHoverCardBox.height / 2
+    };
+    await page.mouse.move(hoverPoint.x, hoverPoint.y);
+    const hoverState = await floatingHoverCard.evaluate((card, point) => ({
+      ariaOpen: card.getAttribute("aria-hidden") === "false",
+      centerHitsCard: card.contains(document.elementFromPoint(point.x, point.y)),
+      hovered: card.matches(":hover"),
+      visible: card.classList.contains("is-visible")
+    }), hoverPoint);
+    floatingCardHoverAttempts.push(hoverState);
+    floatingCardHovered = hoverState.hovered && hoverState.visible && hoverState.ariaOpen;
+    if (floatingCardHovered) {
+      break;
+    }
+    await page.waitForTimeout(25);
+  }
+  assert(
+    floatingCardHovered,
+    `Floating player cards should accept a real pointer after live geometry settles. Measured ${JSON.stringify(floatingCardHoverAttempts)}.`
   );
-  await page.waitForFunction(() => {
-    const card = document.querySelector(".player-card-floating");
-    return (
-      card?.matches(":hover") &&
-      card.classList.contains("is-visible") &&
-      card.getAttribute("aria-hidden") === "false"
-    );
-  });
   const floatingCardVisibleDuringHandoff = await floatingHoverCard.isVisible();
   const floatingValueHelp = floatingHoverCard.locator(".player-card-value-help").first();
   const floatingValueHelpBox = await floatingValueHelp.boundingBox();
