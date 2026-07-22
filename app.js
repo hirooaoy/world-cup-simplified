@@ -53,7 +53,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-21-player-club-context-1";
+} from "./app-config.js?v=2026-07-21-release-notes-date-transitions-2";
 import {
   isEditionLiveSyncActive,
   requestLiveDataForActiveEdition
@@ -4014,12 +4014,12 @@ const localeContentLoaders = Object.freeze({
   es: Object.freeze({
     current: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
     archive: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-    release: () => import(`./locales/es/content-release.js?v=${LOCALE_PACK_VERSION}`)
+    release: () => import("./locales/es/content-release.js?v=2026-07-21-date-transitions-2")
   }),
   ko: Object.freeze({
     current: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`),
     archive: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-    release: () => import(`./locales/ko/content-release.js?v=${LOCALE_PACK_VERSION}`)
+    release: () => import("./locales/ko/content-release.js?v=2026-07-21-date-transitions-2")
   })
 });
 const localeContentLoadCache = new Map();
