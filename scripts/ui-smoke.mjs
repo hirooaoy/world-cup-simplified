@@ -5864,12 +5864,20 @@ try {
   const finalCelebrationAuthoredPlayerCases = [
     {
       date: "1958-06-29",
+      expectedCardNote:
+        "Garrincha stands out for attacking the space behind defenders before it fully opens. He uses his body to protect the ball and brings a teammate into the move. He gets his shot away before the nearest defender can reset.",
+      expectedCardPosition: "Right winger",
       expectedLinks: ["Pelé", "Garrincha"],
+      playerName: "Garrincha",
       year: 1958
     },
     {
       date: "1974-07-07",
+      expectedCardNote:
+        "Beckenbauer's edge is using contact without losing his defensive position. He holds the dangerous lane until a teammate can apply pressure. He checks the runner over his shoulder before the final pass arrives.",
+      expectedCardPosition: "Centre-back",
       expectedLinks: ["Beckenbauer", "Müller"],
+      playerName: "Beckenbauer",
       year: 1974
     }
   ];
@@ -5886,6 +5894,33 @@ try {
     assert(
       linkedNames.join("|") === playerCase.expectedLinks.join("|"),
       `The ${playerCase.year} philosophy should link every authored player name. Measured ${JSON.stringify(linkedNames)}.`
+    );
+    const canonicalProfileCard = philosophyLinks
+      .filter({ hasText: playerCase.playerName })
+      .locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+      .locator(".player-card");
+    await canonicalProfileCard.locator(".player-card-position").waitFor({ state: "attached" });
+    await page.waitForFunction(
+      ({ expectedCardNote, expectedCardPosition, playerName }) => {
+        const playerLink = [...document.querySelectorAll(
+          "#final-celebration-banner .final-celebration-bullets li:nth-child(3) .player-link"
+        )].find((link) => link.textContent.trim() === playerName);
+        const card = playerLink?.closest(".player-hover")?.querySelector(".player-card");
+        return (
+          card?.querySelector(".player-card-position")?.textContent.trim() === expectedCardPosition &&
+          card?.querySelector(".player-card-note")?.textContent.trim() === expectedCardNote
+        );
+      },
+      playerCase
+    );
+    const canonicalProfileCardState = await canonicalProfileCard.evaluate((card) => ({
+      note: card.querySelector(".player-card-note")?.textContent.trim() || "",
+      position: card.querySelector(".player-card-position")?.textContent.trim() || ""
+    }));
+    assert(
+      canonicalProfileCardState.note === playerCase.expectedCardNote &&
+        canonicalProfileCardState.position === playerCase.expectedCardPosition,
+      `The ${playerCase.year} final-celebration card for ${playerCase.playerName} should replace its immediate fallback with the canonical historical play-style profile. Measured ${JSON.stringify(canonicalProfileCardState)}.`
     );
   }
 

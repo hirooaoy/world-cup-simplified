@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "7b44cd54c44a78071fd0715e47edb250015f142e126228cae7524484bc82456a",
+  "sourceFingerprint": "a4f18977567c2871b6a3513edf5b86de484e2ce2b9a610162b18ecae341199a8",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Historical cards now lead with localized play-style descriptions, including story-only players and alternate names.": "Las tarjetas históricas ahora empiezan con descripciones localizadas del estilo de juego, incluidos jugadores exclusivos de las historias y nombres alternativos.",
+    "Historical cards and Ball Boy now use localized play-style descriptions, including story-only players and aliases.": "Las tarjetas históricas y Ball Boy ahora usan descripciones localizadas del estilo de juego, incluidos jugadores exclusivos de las historias y alias.",
     "Mobile ranking tooltips stay on-screen; award dividers and champion photo credits now fit their visible content.": "Los avisos de ranking en móvil permanecen en pantalla; los separadores de premios y los créditos de las fotos de campeones ahora se ajustan al contenido visible.",
     "Richer historical player stories": "Historias más ricas de jugadores históricos",
     "The site shell now lets more background color pass through its glass controls in light and dark mode.": "La interfaz del sitio ahora deja pasar más color del fondo a través de sus controles de cristal, tanto en modo claro como oscuro."

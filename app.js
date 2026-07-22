@@ -22885,9 +22885,7 @@ function getHistoricalPlayerProfile(player) {
     return null;
   }
 
-  if (player.historicalProfile) {
-    return player.historicalProfile;
-  }
+  const fallbackProfile = player.historicalProfile || null;
 
   if (!hasLoadedHistoricalPlayerProfiles) {
     scheduleHistoricalPlayerProfilesLoad();
@@ -22895,7 +22893,7 @@ function getHistoricalPlayerProfile(player) {
 
   const name = getPlayerName(player);
   if (!name) {
-    return null;
+    return fallbackProfile;
   }
 
   const tournamentYear = Number(player?.tournamentYear || player?.year);
@@ -22907,7 +22905,7 @@ function getHistoricalPlayerProfile(player) {
     }
   }
 
-  return historicalPlayerProfilesByName.get(normalizeTextKey(name)) || null;
+  return historicalPlayerProfilesByName.get(normalizeTextKey(name)) || fallbackProfile;
 }
 
 function isHistoricalPlayerProfilePending(player, profile) {

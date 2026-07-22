@@ -847,10 +847,16 @@ const localeCurrentContentLoaders = Object.freeze({
   es: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
   ko: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`)
 });
+const localeArchiveContentLoaders = Object.freeze({
+  es: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
+  ko: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`)
+});
 const localePlayerNamePromises = new Map();
 const localePlayerNameMaps = new Map();
 const localePlayerNameLookupMaps = new Map();
 const localeCurrentEntityTranslations = new Map();
+const localeHistoricalPlayerNoteHelpers = new Map();
+const localeHistoricalPlayerNoteTranslations = new Map();
 let replyContext = {
   fixtureId: "",
   historicalPlayerId: "",
@@ -922,6 +928,22 @@ function getLocaleCurrentContentTranslations(module, locale) {
   });
 }
 
+function getLocaleArchiveContentTranslations(module, locale) {
+  const metadata = module?.CONTENT_METADATA;
+  const translations = module?.CONTENT_TRANSLATIONS;
+  if (
+    metadata?.schemaVersion !== 1 ||
+    metadata?.language !== locale ||
+    metadata?.scope !== "archive" ||
+    !translations ||
+    typeof translations !== "object" ||
+    Array.isArray(translations)
+  ) {
+    throw new TypeError(`Invalid Ball Boy archive-content module: ${locale}`);
+  }
+  return translations;
+}
+
 function rebuildPlayerIndexForNameScope(scope) {
   if (scope === "current" && Object.keys(profilesDataCache).length) {
     playerIndexCache = buildPlayerIndex(profilesDataCache);
@@ -958,9 +980,15 @@ async function ensureBallBoyPlayerNames(locale, scope = "current") {
         loader(),
         normalizedScope === "current"
           ? localeCurrentContentLoaders[normalized]?.()
+          : Promise.resolve(null),
+        normalizedScope === "archive"
+          ? localeArchiveContentLoaders[normalized]?.()
+          : Promise.resolve(null),
+        normalizedScope === "archive"
+          ? loadLocaleDomain(normalized, "app")
           : Promise.resolve(null)
       ])
-        .then(([module, currentContentModule]) => {
+        .then(([module, currentContentModule, archiveContentModule, appLocalePack]) => {
           const names = Object.freeze(
             getLocalePlayerNameTranslations(module, normalized, normalizedScope)
           );
@@ -978,6 +1006,15 @@ async function ensureBallBoyPlayerNames(locale, scope = "current") {
               normalized,
               getLocaleCurrentContentTranslations(currentContentModule, normalized)
             );
+          }
+          if (archiveContentModule) {
+            localeHistoricalPlayerNoteTranslations.set(
+              normalized,
+              getLocaleArchiveContentTranslations(archiveContentModule, normalized)
+            );
+          }
+          if (appLocalePack?.helpers) {
+            localeHistoricalPlayerNoteHelpers.set(normalized, appLocalePack.helpers);
           }
           rebuildPlayerIndexForNameScope(normalizedScope);
           return names;
@@ -2717,6 +2754,34 @@ function getHistoricalPlayerPrompt(profile, locale = "en") {
   return `Tell me about ${name} from ${team} at the ${years} World Cup${profile?.tournamentYears?.length === 1 ? "" : "s"}`;
 }
 
+function getHistoricalPlayerReplyNote(profile, locale, localizedName, skills) {
+  const localeCode = normalizeBallBoyLocale(locale);
+  const sourceNote = String(profile?.note || "").trim();
+  if (localeCode === "zh") {
+    return profile?.noteZh || `${localizedName}的历史比赛特点包括${skills || "比赛阅读"}。`;
+  }
+  if (["es", "ko"].includes(localeCode)) {
+    const localizedStyleNote = localeHistoricalPlayerNoteHelpers
+      .get(localeCode)
+      ?.formatPlayerNote?.(sourceNote, {
+        historical: true,
+        localizedName
+      });
+    if (localizedStyleNote) {
+      return localizedStyleNote;
+    }
+
+    const authoredTranslation = localeHistoricalPlayerNoteTranslations
+      .get(localeCode)?.[sourceNote];
+    if (authoredTranslation) {
+      return authoredTranslation;
+    }
+
+    return getLocaleTemplates(locale)?.playerNote?.({ name: localizedName, skills }) || sourceNote;
+  }
+  return sourceNote;
+}
+
 function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
   const isZh = isZhLocale(locale);
   const localeCode = normalizeBallBoyLocale(locale);
@@ -2884,11 +2949,7 @@ function buildHistoricalPlayerReply(profile, team, question, locale = "en") {
       : `${localizedName} represented ${localizedTeam.name} at the ${years} World Cup${yearCount === 1 ? "" : "s"}; the archive does not specify a detailed position.`;
   }
 
-  const note = getLocaleTemplates(locale)?.playerNote
-    ? getLocaleTemplates(locale).playerNote({ name: localizedName, skills })
-    : isZh
-      ? profile.noteZh || `${localizedName}的历史比赛特点包括${skills || "比赛阅读"}。`
-      : profile.note || "";
+  const note = getHistoricalPlayerReplyNote(profile, locale, localizedName, skills);
   const followUps = isZh
     ? [`${localizedName}在世界杯进了多少球？`, `${localizedName}怎么踢？`]
     : localeCode === "es"

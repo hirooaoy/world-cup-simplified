@@ -171,6 +171,8 @@ try {
     header: card.querySelector(".scout-entity-header")?.textContent.replace(/\s+/g, " ").trim() || "",
     hasPlayerDetails: Boolean(card.querySelector('[aria-label="Player details"]')),
     lead: card.closest(".scout-answer")?.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+    watchPoints: [...card.querySelectorAll(".scout-player-watch-points li")]
+      .map((point) => point.textContent.trim()),
     worldCupContext: card.querySelector(".scout-player-world-cup-context")?.textContent.trim() || ""
   }));
   assert(
@@ -179,6 +181,11 @@ try {
       historicalMetrics.header.includes("Spain · Forward • 1998, 2002, 2006") &&
       historicalMetrics.header.includes("Real Madrid") &&
       historicalMetrics.worldCupContext === "At the 1998, 2002, and 2006 World Cups" &&
+      JSON.stringify(historicalMetrics.watchPoints) === JSON.stringify([
+        "Raúl stands out for attacking the space behind defenders before it fully opens.",
+        "He arrives on the move and gets his finish away before the nearest marker recovers.",
+        "He uses his body to protect the ball and brings a teammate into the move."
+      ]) &&
       historicalMetrics.factValues.some((fact) => fact.label === "Goals" && fact.value === "5") &&
       historicalMetrics.factValues.some((fact) => fact.label === "World Cups" && fact.value === "3") &&
       !historicalMetrics.hasPlayerDetails,
@@ -249,6 +256,76 @@ try {
       multiClubMetrics.overflow <= 1,
     `A grouped historical card should preserve its edition-to-club mapping. Measured ${JSON.stringify(multiClubMetrics)}.`
   );
+
+  const localizedHistoricalNotes = await page.evaluate(async () => {
+    const knowledge = await import("./chatbot-knowledge.js?ball-boy-historical-note-smoke=1");
+    const cases = [
+      {
+        key: "es-generated",
+        locale: "es",
+        question: "Who is historical José Leandro Andrade?"
+      },
+      {
+        key: "es-authored",
+        locale: "es",
+        question: "Who is historical Guillermo Stábile?"
+      },
+      {
+        key: "ko-generated",
+        locale: "ko",
+        question: "Who is historical José Leandro Andrade?"
+      },
+      {
+        key: "ko-authored",
+        locale: "ko",
+        question: "Who is historical Guillermo Stábile?"
+      }
+    ];
+    const results = {};
+    for (const testCase of cases) {
+      knowledge.resetBallBoyContext();
+      const reply = await knowledge.getBallBoyReply(testCase.question, {
+        locale: testCase.locale
+      });
+      results[testCase.key] = {
+        focus: reply?.focus || "",
+        historical: Boolean(reply?.historical),
+        kind: reply?.kind || "",
+        name: reply?.profile?.displayName || "",
+        note: reply?.profile?.note || ""
+      };
+    }
+    return results;
+  });
+  const expectedLocalizedHistoricalNotes = {
+    "es-generated": {
+      name: "José Leandro Andrade",
+      note: "Andrade destaca por marcar el ritmo del partido desde el mediocampo. Se mueve después de pasar para que el equipo conserve una salida cercana. Recibe de perfil para que el siguiente pase pueda avanzar."
+    },
+    "es-authored": {
+      name: "Guillermo Stábile",
+      note: "Stábile juega como un delantero centro vertical que ataca el espacio antes de que la defensa se acomode. Se mantiene preparado entre los centrales y remata el último pase con muy pocos toques."
+    },
+    "ko-generated": {
+      name: "호세 레안드로 안드라데",
+      note: "호세 레안드로 안드라데의 돋보이는 강점은 중원에서 경기 속도를 조율하는 능력이다. 패스한 뒤에도 움직여 팀이 가까운 출구를 유지하게 한다. 옆을 향한 자세로 받아 다음 패스를 전진 방향으로 연결한다."
+    },
+    "ko-authored": {
+      name: "기예르모 스타빌레",
+      note: "스타빌레는 수비가 자리 잡기 전에 공간을 공략하는 직선적인 중앙 공격수다. 센터백 사이에서 준비한 뒤 불필요한 터치를 줄여 마지막 패스를 슈팅으로 연결한다."
+    }
+  };
+  for (const [key, expected] of Object.entries(expectedLocalizedHistoricalNotes)) {
+    const measured = localizedHistoricalNotes[key];
+    assert(
+      measured?.kind === "player" &&
+        measured.historical &&
+        measured.focus === "overview" &&
+        measured.name === expected.name &&
+        measured.note === expected.note,
+      `${key}: Ball Boy should preserve the full historical player description. Measured ${JSON.stringify(measured)}.`
+    );
+  }
 
   console.log("Ball Boy player search smoke passed.");
 } finally {
