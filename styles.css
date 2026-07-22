@@ -1411,20 +1411,6 @@ body.has-final-celebration .site-header:has(
   animation: final-firework-launch 4.2s cubic-bezier(0.3, 0.7, 0.2, 1) var(--firework-delay) infinite;
 }
 
-.final-firework::before,
-.final-firework::after,
-.final-firework b,
-.final-firework i {
-  animation-play-state: paused;
-}
-
-body.is-final-celebration-fireworks-ready .final-firework::before,
-body.is-final-celebration-fireworks-ready .final-firework::after,
-body.is-final-celebration-fireworks-ready .final-firework b,
-body.is-final-celebration-fireworks-ready .final-firework i {
-  animation-play-state: running;
-}
-
 @keyframes final-firework-launch {
   0%, 3%, 60%, 100% {
     opacity: 0;
@@ -1598,11 +1584,6 @@ body.is-final-celebration-fireworks-ready .final-firework i {
 }
 
 .final-celebration-banner.is-entering {
-  opacity: 0;
-  transform: translateY(10px) scale(0.995);
-}
-
-.final-celebration-banner.is-exiting {
   opacity: 0;
   transform: translateY(10px) scale(0.995);
 }
@@ -2538,12 +2519,6 @@ h1 {
 .match-list {
   display: grid;
   gap: 18px;
-  opacity: 1;
-  transition: opacity 220ms ease;
-}
-
-.match-list.is-date-transitioning {
-  opacity: 0;
 }
 
 .match-layout {
@@ -3736,11 +3711,6 @@ h1 {
   animation: match-info-enter 560ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
 }
 
-.match-info.is-exiting {
-  pointer-events: none;
-  animation: match-info-exit 320ms cubic-bezier(0.4, 0, 1, 1) both;
-}
-
 @keyframes match-info-enter {
   from {
     opacity: 0;
@@ -3753,30 +3723,37 @@ h1 {
   }
 }
 
-@keyframes match-info-exit {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .match-list {
-    transition: none;
-  }
-
   .match-info.is-entering {
     animation: none;
   }
+}
 
-  .match-info.is-exiting {
-    animation: none;
+@keyframes calendar-view-fade-out {
+  to {
+    opacity: 0;
   }
+}
+
+@keyframes calendar-view-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+::view-transition-group(root) {
+  animation-duration: 200ms;
+  animation-timing-function: ease;
+}
+
+::view-transition-old(root) {
+  mix-blend-mode: normal;
+  animation: calendar-view-fade-out 100ms ease-in both;
+}
+
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: calendar-view-fade-in 130ms ease-out 70ms both;
 }
 
 @media (min-width: 1161px) {

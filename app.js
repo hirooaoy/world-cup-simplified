@@ -9238,84 +9238,42 @@ function setCalendarOpen(isOpen) {
   }
 }
 
-let pendingCalendarDaySelection = 0;
+let activeCalendarViewTransition = null;
 
-function waitForElementMotion(element, eventName, propertyName, fallbackMs) {
-  return new Promise((resolve) => {
-    let fallbackId = 0;
-    const finish = () => {
-      window.clearTimeout(fallbackId);
-      element.removeEventListener(eventName, handleEnd);
-      resolve();
-    };
-    const handleEnd = (event) => {
-      if (event.target === element && (!propertyName || event.propertyName === propertyName)) {
-        finish();
-      }
-    };
-
-    element.addEventListener(eventName, handleEnd);
-    fallbackId = window.setTimeout(finish, fallbackMs);
-  });
+function cancelActiveCalendarViewTransition() {
+  activeCalendarViewTransition?.skipTransition();
+  activeCalendarViewTransition = null;
 }
 
-async function exitDayBeforeCalendarSelection(selectionId) {
-  const banner = document.querySelector("#final-celebration-banner");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (prefersReducedMotion) {
-    return;
-  }
-
-  if (!matchInfo.hidden && !matchInfo.classList.contains("is-hidden")) {
-    matchInfo.classList.remove("is-entering");
-    matchInfo.classList.add("is-exiting");
-    await waitForElementMotion(matchInfo, "animationend", "", 380);
-    if (selectionId !== pendingCalendarDaySelection) {
-      return;
-    }
-  }
-
-  matchList.classList.add("is-date-transitioning");
-  const matchListExit = waitForElementMotion(matchList, "transitionend", "opacity", 280);
-
-  if (banner) {
-    banner.classList.add("is-exiting");
-    await Promise.all([
-      matchListExit,
-      waitForElementMotion(banner, "transitionend", "opacity", 960)
-    ]);
-    return;
-  }
-
-  await matchListExit;
-}
-
-async function selectCalendarDay(dayKey) {
+function selectCalendarDay(dayKey) {
   if (!dayKey || dayKey === selectedDayKey) {
     setCalendarOpen(false);
     return;
   }
 
-  const selectionId = ++pendingCalendarDaySelection;
   clearTransientInteractionState();
   setCalendarOpen(false);
-  updateDateControls(dayKey);
-  await exitDayBeforeCalendarSelection(selectionId);
-  if (selectionId !== pendingCalendarDaySelection) {
-    return;
-  }
-
-  matchInfo.classList.remove("is-exiting");
   selectedDayKey = dayKey;
   calendarMonthKey = getMonthKeyFromDayKey(dayKey);
   clearTeamSearch({ render: false });
-  renderSchedule({ historyMode: "push" });
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      matchList.classList.remove("is-date-transitioning");
-    });
-  });
+  updateDateControls();
+
+  const renderSelectedDay = () => renderSchedule({ historyMode: "push" });
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  cancelActiveCalendarViewTransition();
+  if (prefersReducedMotion || typeof document.startViewTransition !== "function") {
+    renderSelectedDay();
+    return;
+  }
+
+  const transition = document.startViewTransition(renderSelectedDay);
+  activeCalendarViewTransition = transition;
+  const clearTransition = () => {
+    if (activeCalendarViewTransition === transition) {
+      activeCalendarViewTransition = null;
+    }
+  };
+  transition.finished.then(clearTransition, clearTransition);
 }
 
 function setStandingsYearOpen(isOpen) {
@@ -9361,7 +9319,8 @@ function updateTabIndicator(shell, activeTab) {
     return;
   }
 
-  shell.style.setProperty("--active-tab-left", `${tabRect.left - shellRect.left}px`);
+  const indicatorLeft = tabRect.left - shellRect.left - shell.clientLeft;
+  shell.style.setProperty("--active-tab-left", `${indicatorLeft}px`);
   shell.style.setProperty("--active-tab-width", `${tabRect.width}px`);
 }
 
@@ -29845,12 +29804,12 @@ function getFinalCelebrationPhilosophy(winner, editionYear) {
 
 function getFinalCelebrationFireworksMarkup() {
   const bursts = [
-    { color: "var(--celebration-primary)", delay: "0.2s", scale: "0.78", x: "10%", y: "10%" },
-    { color: "var(--celebration-accent)", delay: "2.1s", scale: "0.96", x: "29%", y: "53%" },
-    { color: "var(--celebration-secondary)", delay: "1.1s", scale: "0.84", x: "51%", y: "8%" },
-    { color: "var(--celebration-primary)", delay: "3.1s", scale: "0.98", x: "73%", y: "57%" },
-    { color: "var(--celebration-secondary)", delay: "1.7s", scale: "0.8", x: "89%", y: "15%" },
-    { color: "var(--celebration-accent)", delay: "2.7s", scale: "0.74", x: "82%", y: "81%" }
+    { color: "var(--celebration-primary)", delay: "0.6s", scale: "0.78", x: "10%", y: "10%" },
+    { color: "var(--celebration-accent)", delay: "2.5s", scale: "0.96", x: "29%", y: "53%" },
+    { color: "var(--celebration-secondary)", delay: "1.5s", scale: "0.84", x: "51%", y: "8%" },
+    { color: "var(--celebration-primary)", delay: "3.5s", scale: "0.98", x: "73%", y: "57%" },
+    { color: "var(--celebration-secondary)", delay: "2.1s", scale: "0.8", x: "89%", y: "15%" },
+    { color: "var(--celebration-accent)", delay: "3.1s", scale: "0.74", x: "82%", y: "81%" }
   ];
 
   return bursts
@@ -29933,7 +29892,6 @@ function renderFinalCelebration() {
     background?.remove();
     document.body.classList.remove("has-final-celebration");
     document.body.classList.remove("is-final-celebration-calm");
-    document.body.classList.remove("is-final-celebration-fireworks-ready");
     delete document.body.dataset.finalCelebrationPalette;
     return;
   }
@@ -29952,7 +29910,6 @@ function renderFinalCelebration() {
       </ul>`
     : `<span class="final-celebration-summary">${escapeHtml(body)}</span>`;
   if (!background) {
-    document.body.classList.remove("is-final-celebration-fireworks-ready");
     background = document.createElement("div");
     background.className = "final-celebration-background";
     background.id = "final-celebration-background";
@@ -30007,7 +29964,6 @@ function renderFinalCelebration() {
         return;
       }
       reveal.classList.add("is-settled");
-      document.body.classList.add("is-final-celebration-fireworks-ready");
       reveal.removeEventListener("transitionend", settleReveal);
     };
     reveal.addEventListener("transitionend", settleReveal);
@@ -30017,12 +29973,6 @@ function renderFinalCelebration() {
         banner?.classList.remove("is-entering");
       });
     });
-  }
-  if (
-    reveal?.classList.contains("is-settled") ||
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ) {
-    document.body.classList.add("is-final-celebration-fireworks-ready");
   }
   document.body.dataset.finalCelebrationPalette = championItem.palette;
   document.body.classList.add("has-final-celebration");
@@ -33119,6 +33069,7 @@ window.addEventListener("popstate", async () => {
   clearPendingUrlStateUpdate();
   clearTransientInteractionState();
   syncUrl = false;
+  cancelActiveCalendarViewTransition();
   isRestoringHistoryState = true;
   const previousLanguage = currentLanguage;
   if (document.activeElement instanceof HTMLElement) {

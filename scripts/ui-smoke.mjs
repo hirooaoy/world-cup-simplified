@@ -2616,6 +2616,28 @@ try {
       new URL(location.href).searchParams.get("view") === "standings" &&
       document.querySelector("#standings-view")?.hidden === false
   );
+  const mainTabIndicatorGeometry = await page.evaluate(() => {
+    const shell = document.querySelector(".view-tabs");
+    const activeTab = document.querySelector(".view-tab.is-active");
+    const shellRect = shell.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
+    const indicatorLeft =
+      shellRect.left + shell.clientLeft +
+      Number.parseFloat(shell.style.getPropertyValue("--active-tab-left"));
+    const indicatorWidth = Number.parseFloat(
+      shell.style.getPropertyValue("--active-tab-width")
+    );
+
+    return {
+      leftDelta: Math.abs(indicatorLeft - tabRect.left),
+      rightDelta: Math.abs(indicatorLeft + indicatorWidth - tabRect.right)
+    };
+  });
+  assert(
+    mainTabIndicatorGeometry.leftDelta <= 0.25 &&
+      mainTabIndicatorGeometry.rightDelta <= 0.25,
+    `The selected main-tab fill should align with both edges of its tab, keeping an even inset to the outer pill. Measured ${JSON.stringify(mainTabIndicatorGeometry)}.`
+  );
   assert(
     !(await page.locator(".site-footer").isVisible()),
     "The bottom disclaimer should stay hidden across the Standings tab."
@@ -5320,6 +5342,37 @@ try {
       ),
     `July 20 should keep the animated champion cover, leave the final in Recent matches, and put one compact recap action below the post-tournament message. Measured ${JSON.stringify(postFinalCelebrationState)}.`
   );
+
+  await postFinalCelebrationCheck.page.locator("#day-label").click();
+  await postFinalCelebrationCheck.page
+    .locator('#calendar-grid [data-day-key="2026-07-01"]')
+    .click();
+  const calendarTransitionStart = await postFinalCelebrationCheck.page.evaluate(() => ({
+    active: Boolean(document.activeViewTransition),
+    dateLabel: document.querySelector("#day-label")?.textContent.trim() || "",
+    duration: getComputedStyle(document.documentElement, "::view-transition-group(root)").animationDuration,
+    hasLegacyExitState: Boolean(
+      document.querySelector(".final-celebration-banner.is-exiting, .match-list.is-date-transitioning, .match-info.is-exiting")
+    )
+  }));
+  await postFinalCelebrationCheck.page.evaluate(() => document.activeViewTransition?.finished);
+  const calendarTransitionEnd = await postFinalCelebrationCheck.page.evaluate(() => ({
+    dateLabel: document.querySelector("#day-label")?.textContent.trim() || "",
+    hasBanner: Boolean(document.querySelector("#final-celebration-banner")),
+    matchList: document.querySelector("#match-list")?.textContent.replace(/\s+/g, " ").trim() || "",
+    urlDate: new URL(location.href).searchParams.get("date")
+  }));
+  assert(
+    calendarTransitionStart.active &&
+      calendarTransitionStart.dateLabel === "Jul 1" &&
+      calendarTransitionStart.duration === "0.2s" &&
+      !calendarTransitionStart.hasLegacyExitState &&
+      calendarTransitionEnd.dateLabel === "Jul 1" &&
+      !calendarTransitionEnd.hasBanner &&
+      calendarTransitionEnd.matchList.includes("England") &&
+      calendarTransitionEnd.urlDate === "2026-07-01",
+    `Date changes should atomically fade to the selected schedule without legacy staged-exit state. Measured ${JSON.stringify({ start: calendarTransitionStart, end: calendarTransitionEnd })}.`
+  );
   await postFinalCelebrationCheck.context.close();
 
   const reducedMotionEntranceCheck = await openPageAtTime(
@@ -5356,6 +5409,21 @@ try {
       reducedMotionEntranceState.transforms.every((transform) => transform === "none") &&
       reducedMotionEntranceState.activeAnimationCounts.every((count) => count === 0),
     `Reduced-motion visitors should see the complete first-load page immediately. Measured ${JSON.stringify(reducedMotionEntranceState)}.`
+  );
+  await reducedMotionEntranceCheck.page.locator("#day-label").click();
+  await reducedMotionEntranceCheck.page
+    .locator('#calendar-grid [data-day-key="2026-07-01"]')
+    .click();
+  const reducedMotionDateChange = await reducedMotionEntranceCheck.page.evaluate(() => ({
+    activeTransition: Boolean(document.activeViewTransition),
+    dateLabel: document.querySelector("#day-label")?.textContent.trim() || "",
+    matchList: document.querySelector("#match-list")?.textContent.replace(/\s+/g, " ").trim() || ""
+  }));
+  assert(
+    !reducedMotionDateChange.activeTransition &&
+      reducedMotionDateChange.dateLabel === "Jul 1" &&
+      reducedMotionDateChange.matchList.includes("England"),
+    `Reduced-motion date changes should update immediately without a view transition. Measured ${JSON.stringify(reducedMotionDateChange)}.`
   );
   await reducedMotionEntranceCheck.context.close();
 

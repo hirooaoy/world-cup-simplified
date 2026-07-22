@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T21:51:07-07:00",
+  "updatedAt": "2026-07-21T22:48:00-07:00",
   "releases": [
     {
       "date": "2026-07-21",
@@ -8,12 +8,12 @@
       "highlights": [
         "Historical match cards now read like contemporary pre-match briefs, without archive-year or final-result hindsight.",
         "Player cards hide zero totals; Highlights photos lose outlines, and shell controls reveal more background color.",
-        "Changing dates updates the label immediately, then fades match info and champion banners out in reverse order."
+        "Date changes cross-fade the full schedule; reduced-motion updates instantly, and the main tabs stay evenly inset."
       ],
       "highlightsZh": [
         "历史比赛卡现以当时的赛前简报口吻呈现，不再带有存档年份或赛果倒推的视角。",
         "球员卡现会隐藏零数据；亮点照片移除描边，外壳控件也会透出更多背景色彩。",
-        "切换日期时会立即更新日期标签，再按相反顺序淡出比赛信息卡与冠军横幅。"
+        "切换日期时，完整赛程现会作为整体交叉淡化；减少动态效果模式会立即更新，比赛与积分榜的选中状态也会保持等距内边距。"
       ]
     },
     {

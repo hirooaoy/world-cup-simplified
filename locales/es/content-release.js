@@ -5,10 +5,10 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "a9a38d294cd46a55424a871b3ab5b4a0d04b2befe260e3f12eaf1a5bcf8ecaf5"
+  "sourceFingerprint": "7afbcb97cd5f1aee770dc0f0d532a252dc1f993182efdae8e4a51dd6d3ff8108"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Changing dates updates the label immediately, then fades match info and champion banners out in reverse order.": "Al cambiar de fecha, la etiqueta se actualiza de inmediato y después la información del partido y los banners de campeones desaparecen en orden inverso.",
+  "Date changes cross-fade the full schedule; reduced-motion updates instantly, and the main tabs stay evenly inset.": "Los cambios de fecha funden todo el calendario; el movimiento reducido se actualiza al instante y las pestañas principales mantienen un margen interior uniforme.",
   "Historical match cards now read like contemporary pre-match briefs, without archive-year or final-result hindsight.": "Las tarjetas de partidos históricos ahora se leen como previas de su época, sin el año de archivo ni una mirada condicionada por el resultado final.",
   "Player cards hide zero totals; Highlights photos lose outlines, and shell controls reveal more background color.": "Las tarjetas de jugadores ocultan los totales en cero; las fotos de Highlights pierden los contornos y los controles dejan ver más color de fondo.",
   "Sharper archives and smoother date changes": "Archivos más claros y cambios de fecha más suaves"
