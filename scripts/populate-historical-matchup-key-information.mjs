@@ -141,14 +141,6 @@ function nameSeries(names) {
   return `${cleanNames.slice(0, -1).join(", ")}, and ${cleanNames.at(-1)}`;
 }
 
-function formatScore(score) {
-  if (!score || !Number.isFinite(Number(score.home)) || !Number.isFinite(Number(score.away))) {
-    return "";
-  }
-
-  return `${score.home}-${score.away}`;
-}
-
 function sideScore(fixture, side) {
   if (!fixture.score) {
     return { for: null, against: null };
@@ -381,51 +373,16 @@ function opponentProblem(opponentName, opponentData, opponentPlayers) {
 function riskSentence(opponentName, opponentData, opponentPlayers) {
   const opponentNames = nameSeries(opponentPlayers.map((player) => player.name).slice(0, 3));
   if (opponentData.goals.length) {
-    return `${opponentName} had already shown the finish to make that pressure count.`;
+    return `${opponentName} can punish any opening through that finishing threat.`;
   }
   if (opponentData.score.against === 0) {
-    return `${opponentName} could make the match about patience rather than chances.`;
+    return `${opponentName} can make the match about patience rather than chances.`;
   }
   if (opponentNames) {
-    return `${opponentName} could still tilt the game through ${opponentNames}.`;
+    return `${opponentName} can tilt the game through ${opponentNames}.`;
   }
 
-  return `${opponentName} could still turn the same matchup with one clean spell.`;
-}
-
-function resultClause(fixture, side) {
-  if (fixture.status === "CANCELLED") {
-    return "the match was canceled before that test happened";
-  }
-
-  const score = formatScore(fixture.score);
-  if (!score) {
-    return "the record does not include a final score";
-  }
-
-  const sideResult = sideScore(fixture, side);
-  if (sideResult.for > sideResult.against) {
-    return `that route held in the ${score} win`;
-  }
-  if (sideResult.for < sideResult.against) {
-    return `that route was not enough in the ${score} loss`;
-  }
-
-  return `that route produced a ${score} draw`;
-}
-
-function generationBasis(sideData) {
-  if (sideData.appearances.length) {
-    return "actual match roster";
-  }
-  if (sideData.goals.length) {
-    return "match scoring record and tournament squad";
-  }
-  if (sideData.squad.length) {
-    return "tournament squad record";
-  }
-
-  return "historical fixture record";
+  return `${opponentName} can turn the matchup with one clean spell.`;
 }
 
 function buildSideData({ fixture, sourceMatch, side, sourceSide, indexes }) {
@@ -454,26 +411,23 @@ function buildSideData({ fixture, sourceMatch, side, sourceSide, indexes }) {
 function buildHistoricalCopy({ fixture, side, sideData, opponentData, players, opponentPlayers }) {
   const teamName = side === "home" ? fixture.homeSlot : fixture.awaySlot;
   const opponentName = side === "home" ? fixture.awaySlot : fixture.homeSlot;
-  const year = fixture.tournamentYear;
   const playerNames = nameSeries(players.map((player) => player.name).slice(0, 3));
-  const basis = generationBasis(sideData);
 
   if (fixture.status === "CANCELLED") {
     const playerContext = playerNames
-      ? `The period-specific baseline still comes from ${playerNames} in the ${basis}.`
-      : `The imported historical datasets do not include a usable ${teamName} player baseline for this canceled fixture.`;
-    return `${teamName}'s ${year} fixture with ${opponentName} was canceled, so there is no match roster to analyze. ${playerContext} Against ${opponentName}, the useful read is the matchup that never got played, not a confirmed tactical plan. Treat this as squad context, not match usage.`;
+      ? `${teamName}'s available options include ${playerNames}.`
+      : `${teamName} do not have a confirmed player list for this fixture.`;
+    return `${teamName}'s fixture with ${opponentName} is canceled, so there is no match plan to assess. ${playerContext} The matchup will not be played, and any player view remains squad context rather than confirmed usage.`;
   }
 
   const plan = sidePlan(sideData, players);
   const problem = opponentProblem(opponentName, opponentData, opponentPlayers);
   const risk = riskSentence(opponentName, opponentData, opponentPlayers);
-  const result = resultClause(fixture, side);
   const playerLine = playerNames
-    ? `${teamName}'s ${year} match lens runs through ${playerNames}, based on the ${basis}.`
-    : `${teamName}'s ${year} match lens comes from the ${basis}.`;
+    ? `${teamName} runs through ${playerNames}.`
+    : `${teamName} relies on its tournament shape.`;
 
-  return `${playerLine} Against ${opponentName}, ${teamName} had to beat ${problem}. Their own route was ${plan}, and ${result}. The risk was that ${risk}`;
+  return `${playerLine} Against ${opponentName}, ${teamName} needs to beat ${problem}. The route is ${plan}. The danger is that ${risk}`;
 }
 
 function buildFallbackSide(fixture, side, indexes) {

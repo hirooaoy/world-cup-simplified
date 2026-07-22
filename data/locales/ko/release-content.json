@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "a4f18977567c2871b6a3513edf5b86de484e2ce2b9a610162b18ecae341199a8",
+  "sourceFingerprint": "a9a38d294cd46a55424a871b3ab5b4a0d04b2befe260e3f12eaf1a5bcf8ecaf5",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Historical cards and Ball Boy now use localized play-style descriptions, including story-only players and aliases.": "역대 카드와 Ball Boy는 이제 현지화된 플레이 스타일 설명을 사용하며, 이야기 전용 선수와 별칭도 포함합니다.",
-    "Mobile ranking tooltips stay on-screen; award dividers and champion photo credits now fit their visible content.": "모바일 랭킹 툴팁이 화면 안에 유지되며, 수상 구분선과 우승팀 사진 출처 표시도 실제 보이는 내용에 맞게 조정됩니다.",
-    "Richer historical player stories": "더 풍부해진 역대 선수 이야기",
-    "The site shell now lets more background color pass through its glass controls in light and dark mode.": "사이트의 유리 효과 컨트롤이 라이트 모드와 다크 모드 모두에서 배경색을 더 자연스럽게 비춥니다."
+    "Changing dates updates the label immediately, then fades match info and champion banners out in reverse order.": "날짜를 바꾸면 라벨이 즉시 갱신되고, 경기 정보와 우승 배너가 반대 순서로 서서히 사라집니다.",
+    "Historical match cards now read like contemporary pre-match briefs, without archive-year or final-result hindsight.": "역대 경기 카드는 이제 보관 연도나 최종 결과를 되짚는 시선 없이 당시의 사전 브리핑처럼 읽힙니다.",
+    "Player cards hide zero totals; Highlights photos lose outlines, and shell controls reveal more background color.": "선수 카드는 0인 기록을 숨기고, Highlights 사진은 테두리를 없애며, 셸 컨트롤은 배경색을 더 드러냅니다.",
+    "Sharper archives and smoother date changes": "더 선명한 기록과 부드러운 날짜 전환"
   }
 }

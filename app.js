@@ -75,7 +75,7 @@ import {
   formatPlayerPosition as formatSharedPlayerPosition,
   getPlayerCardWorldCupReferenceDate,
   getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-21-player-tournament-stats-1";
+} from "./player-card-ui.js?v=2026-07-21-hide-zero-tournament-stats-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -6315,24 +6315,24 @@ function translateHistoricalResultClauseToZh(value) {
 
 function translateHistoricalRiskToZh(value) {
   const text = String(value || "").trim().replace(/\.$/, "");
-  const finishMatch = text.match(/^(.+) had already shown the finish to make that pressure count$/);
+  const finishMatch = text.match(/^(.+) can punish any opening through that finishing threat$/);
   if (finishMatch) {
-    return `${translateEntityNameToZh(finishMatch[1])}已经展现出把压力转化为进球的终结能力。`;
+    return `${translateEntityNameToZh(finishMatch[1])}可以凭借终结威胁惩罚任何空当。`;
   }
 
-  const patienceMatch = text.match(/^(.+) could make the match about patience rather than chances$/);
+  const patienceMatch = text.match(/^(.+) can make the match about patience rather than chances$/);
   if (patienceMatch) {
-    return `${translateEntityNameToZh(patienceMatch[1])}可能让比赛变成耐心而不是机会的较量。`;
+    return `${translateEntityNameToZh(patienceMatch[1])}可以让比赛变成耐心而不是机会的较量。`;
   }
 
-  const tiltMatch = text.match(/^(.+) could still tilt the game through (.+)$/);
+  const tiltMatch = text.match(/^(.+) can tilt the game through (.+)$/);
   if (tiltMatch) {
-    return `${translateEntityNameToZh(tiltMatch[1])}仍可能通过${translateNameSeriesToZh(tiltMatch[2])}改变比赛走势。`;
+    return `${translateEntityNameToZh(tiltMatch[1])}可以通过${translateNameSeriesToZh(tiltMatch[2])}改变比赛走势。`;
   }
 
-  const cleanSpellMatch = text.match(/^(.+) could still turn the same matchup with one clean spell$/);
+  const cleanSpellMatch = text.match(/^(.+) can turn the matchup with one clean spell$/);
   if (cleanSpellMatch) {
-    return `${translateEntityNameToZh(cleanSpellMatch[1])}仍可能凭借一段清晰发挥扭转同样的对位。`;
+    return `${translateEntityNameToZh(cleanSpellMatch[1])}可以凭借一段流畅发挥扭转对位。`;
   }
 
   return `${translateGeneratedSoccerPhraseToZh(text)}。`;
@@ -6341,37 +6341,35 @@ function translateHistoricalRiskToZh(value) {
 function translateHistoricalKeyInformationToZh(value) {
   const text = String(value || "").trim();
   const canceledMatch = text.match(
-    /^(.+)'s (\d{4}) fixture with (.+) was canceled, so there is no match roster to analyze\. (.+) Against (.+), the useful read is the matchup that never got played, not a confirmed tactical plan\. Treat this as squad context, not match usage\.$/
+    /^(.+)'s fixture with (.+) is canceled, so there is no match plan to assess\. (.+) The matchup will not be played, and any player view remains squad context rather than confirmed usage\.$/
   );
   if (canceledMatch) {
-    const [, teamName, year, opponentName, contextText] = canceledMatch;
-    const periodMatch = contextText.match(/^The period-specific baseline still comes from (.+) in the (.+)\.$/);
-    const noBaselineMatch = contextText.match(
-      /^The imported historical datasets do not include a usable (.+) player baseline for this canceled fixture\.$/
-    );
-    const context = periodMatch
-      ? `这一时期的基线仍来自${translateNameSeriesToZh(periodMatch[1])}，依据${translateHistoricalBasisToZh(periodMatch[2])}。`
-      : noBaselineMatch
-        ? `导入的历史数据集没有为这场取消的比赛提供可用的${translateEntityNameToZh(noBaselineMatch[1])}球员基线。`
+    const [, teamName, opponentName, contextText] = canceledMatch;
+    const optionsMatch = contextText.match(/^(.+)'s available options include (.+)\.$/);
+    const noPlayersMatch = contextText.match(/^(.+) do not have a confirmed player list for this fixture\.$/);
+    const context = optionsMatch
+      ? `${translateEntityNameToZh(optionsMatch[1])}可用的选择包括${translateNameSeriesToZh(optionsMatch[2])}。`
+      : noPlayersMatch
+        ? `${translateEntityNameToZh(noPlayersMatch[1])}尚未确认本场比赛的球员名单。`
         : `${translateGeneratedSoccerPhraseToZh(contextText)}。`;
 
-    return `${translateEntityNameToZh(teamName)}在${year}年原定对阵${translateEntityNameToZh(opponentName)}的比赛被取消，因此没有可分析的比赛名单。${context}对阵${translateEntityNameToZh(opponentName)}，有用的解读是这场从未进行的对位，而不是已确认的战术计划。请把这视为阵容背景，而不是比赛实际使用情况。`;
+    return `${translateEntityNameToZh(teamName)}对阵${translateEntityNameToZh(opponentName)}的比赛已经取消，因此没有可评估的比赛计划。${context}这场对决不会进行，任何球员分析都只是阵容背景，而不是已确认的使用情况。`;
   }
 
   const playerMatch = text.match(
-    /^(.+)'s (\d{4}) match lens runs through (.+), based on the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+    /^(.+) runs through (.+)\. Against (.+), (.+) needs to beat (.+)\. The route is (.+)\. The danger is that (.+)$/
   );
   if (playerMatch) {
-    const [, teamName, year, players, basis, opponentName, subjectName, problem, plan, result, risk] = playerMatch;
-    return `${translateEntityNameToZh(teamName)}在${year}年的比赛观察点集中在${translateNameSeriesToZh(players)}，依据${translateHistoricalBasisToZh(basis)}。对阵${translateEntityNameToZh(opponentName)}，${translateEntityNameToZh(subjectName)}必须破解${translateHistoricalProblemToZh(problem)}。他们自己的路径是${translateHistoricalPlanToZh(plan)}，并且${translateHistoricalResultClauseToZh(result)}。风险在于${translateHistoricalRiskToZh(risk)}`;
+    const [, teamName, players, opponentName, subjectName, problem, plan, risk] = playerMatch;
+    return `${translateEntityNameToZh(teamName)}的关键在于${translateNameSeriesToZh(players)}。对阵${translateEntityNameToZh(opponentName)}，${translateEntityNameToZh(subjectName)}需要破解${translateHistoricalProblemToZh(problem)}。比赛路径是${translateHistoricalPlanToZh(plan)}。危险在于${translateHistoricalRiskToZh(risk)}`;
   }
 
   const basisOnlyMatch = text.match(
-    /^(.+)'s (\d{4}) match lens comes from the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+    /^(.+) relies on its tournament shape\. Against (.+), (.+) needs to beat (.+)\. The route is (.+)\. The danger is that (.+)$/
   );
   if (basisOnlyMatch) {
-    const [, teamName, year, basis, opponentName, subjectName, problem, plan, result, risk] = basisOnlyMatch;
-    return `${translateEntityNameToZh(teamName)}在${year}年的比赛观察点来自${translateHistoricalBasisToZh(basis)}。对阵${translateEntityNameToZh(opponentName)}，${translateEntityNameToZh(subjectName)}必须破解${translateHistoricalProblemToZh(problem)}。他们自己的路径是${translateHistoricalPlanToZh(plan)}，并且${translateHistoricalResultClauseToZh(result)}。风险在于${translateHistoricalRiskToZh(risk)}`;
+    const [, teamName, opponentName, subjectName, problem, plan, risk] = basisOnlyMatch;
+    return `${translateEntityNameToZh(teamName)}依靠整体阵型。对阵${translateEntityNameToZh(opponentName)}，${translateEntityNameToZh(subjectName)}需要破解${translateHistoricalProblemToZh(problem)}。比赛路径是${translateHistoricalPlanToZh(plan)}。危险在于${translateHistoricalRiskToZh(risk)}`;
   }
 
   return "";
@@ -9099,27 +9097,27 @@ function getMatchCountForDay(dayKey) {
   return getCalendarDayMatchCounts().get(dayKey) || 0;
 }
 
-function getSelectedDateLabel() {
+function getSelectedDateLabel(dayKey = selectedDayKey) {
   const todayKey = getDayKey(new Date(), selectedTimeZone);
-  const selectedYear = selectedDayKey.slice(0, 4);
+  const selectedYear = dayKey.slice(0, 4);
   const currentYear = todayKey.slice(0, 4);
 
-  if (selectedDayKey === todayKey) {
+  if (dayKey === todayKey) {
     return t("calendarToday");
   }
 
   if (selectedYear !== currentYear) {
-    return navDateWithYearFormatter.format(getDateFromKey(selectedDayKey));
+    return navDateWithYearFormatter.format(getDateFromKey(dayKey));
   }
 
-  return navDateFormatter.format(getDateFromKey(selectedDayKey));
+  return navDateFormatter.format(getDateFromKey(dayKey));
 }
 
-function updateDateControls() {
-  const isToday = selectedDayKey === getDayKey(new Date(), selectedTimeZone);
-  const selectedDateLabel = dateFormatter.format(getDateFromKey(selectedDayKey));
+function updateDateControls(dayKey = selectedDayKey) {
+  const isToday = dayKey === getDayKey(new Date(), selectedTimeZone);
+  const selectedDateLabel = dateFormatter.format(getDateFromKey(dayKey));
 
-  dayLabel.textContent = getSelectedDateLabel();
+  dayLabel.textContent = getSelectedDateLabel(dayKey);
   dayLabel.classList.toggle("is-today", isToday);
   dayLabel.setAttribute("aria-label", localizeText(`Choose match date, ${selectedDateLabel}`));
   dayLabel.setAttribute("aria-expanded", String(isCalendarOpen));
@@ -9240,13 +9238,84 @@ function setCalendarOpen(isOpen) {
   }
 }
 
-function selectCalendarDay(dayKey) {
+let pendingCalendarDaySelection = 0;
+
+function waitForElementMotion(element, eventName, propertyName, fallbackMs) {
+  return new Promise((resolve) => {
+    let fallbackId = 0;
+    const finish = () => {
+      window.clearTimeout(fallbackId);
+      element.removeEventListener(eventName, handleEnd);
+      resolve();
+    };
+    const handleEnd = (event) => {
+      if (event.target === element && (!propertyName || event.propertyName === propertyName)) {
+        finish();
+      }
+    };
+
+    element.addEventListener(eventName, handleEnd);
+    fallbackId = window.setTimeout(finish, fallbackMs);
+  });
+}
+
+async function exitDayBeforeCalendarSelection(selectionId) {
+  const banner = document.querySelector("#final-celebration-banner");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  if (!matchInfo.hidden && !matchInfo.classList.contains("is-hidden")) {
+    matchInfo.classList.remove("is-entering");
+    matchInfo.classList.add("is-exiting");
+    await waitForElementMotion(matchInfo, "animationend", "", 380);
+    if (selectionId !== pendingCalendarDaySelection) {
+      return;
+    }
+  }
+
+  matchList.classList.add("is-date-transitioning");
+  const matchListExit = waitForElementMotion(matchList, "transitionend", "opacity", 280);
+
+  if (banner) {
+    banner.classList.add("is-exiting");
+    await Promise.all([
+      matchListExit,
+      waitForElementMotion(banner, "transitionend", "opacity", 960)
+    ]);
+    return;
+  }
+
+  await matchListExit;
+}
+
+async function selectCalendarDay(dayKey) {
+  if (!dayKey || dayKey === selectedDayKey) {
+    setCalendarOpen(false);
+    return;
+  }
+
+  const selectionId = ++pendingCalendarDaySelection;
   clearTransientInteractionState();
+  setCalendarOpen(false);
+  updateDateControls(dayKey);
+  await exitDayBeforeCalendarSelection(selectionId);
+  if (selectionId !== pendingCalendarDaySelection) {
+    return;
+  }
+
+  matchInfo.classList.remove("is-exiting");
   selectedDayKey = dayKey;
   calendarMonthKey = getMonthKeyFromDayKey(dayKey);
   clearTeamSearch({ render: false });
-  setCalendarOpen(false);
   renderSchedule({ historyMode: "push" });
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      matchList.classList.remove("is-date-transitioning");
+    });
+  });
 }
 
 function setStandingsYearOpen(isOpen) {
@@ -22654,31 +22723,30 @@ function parseHistoricalKeyInformationCopy(info) {
   }
 
   const canceledMatch = text.match(
-    /^(.+)'s (\d{4}) fixture with (.+) was canceled, so there is no match roster to analyze\./
+    /^(.+)'s fixture with (.+) is canceled, so there is no match plan to assess\./
   );
   if (canceledMatch) {
     return {
       teamName: canceledMatch[1],
-      year: canceledMatch[2],
-      opponentName: canceledMatch[3],
+      opponentName: canceledMatch[2],
       isCanceled: true
     };
   }
 
   const playerMatch = text.match(
-    /^(.+)'s (\d{4}) match lens runs through (.+), based on the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+    /^(.+) runs through (.+)\. Against (.+), (.+) needs to beat (.+)\. The route is (.+)\. The danger is that (.+)$/
   );
   if (playerMatch) {
-    const [, teamName, year, players, basis, opponentName, subjectName, problem, plan, result, risk] = playerMatch;
-    return { teamName, year, players, basis, opponentName, subjectName, problem, plan, result, risk, isCanceled: false };
+    const [, teamName, players, opponentName, subjectName, problem, plan, risk] = playerMatch;
+    return { teamName, players, opponentName, subjectName, problem, plan, risk, isCanceled: false };
   }
 
   const basisOnlyMatch = text.match(
-    /^(.+)'s (\d{4}) match lens comes from the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+    /^(.+) relies on its tournament shape\. Against (.+), (.+) needs to beat (.+)\. The route is (.+)\. The danger is that (.+)$/
   );
   if (basisOnlyMatch) {
-    const [, teamName, year, basis, opponentName, subjectName, problem, plan, result, risk] = basisOnlyMatch;
-    return { teamName, year, basis, opponentName, subjectName, problem, plan, result, risk, isCanceled: false };
+    const [, teamName, opponentName, subjectName, problem, plan, risk] = basisOnlyMatch;
+    return { teamName, opponentName, subjectName, problem, plan, risk, isCanceled: false };
   }
 
   return null;
@@ -29777,12 +29845,12 @@ function getFinalCelebrationPhilosophy(winner, editionYear) {
 
 function getFinalCelebrationFireworksMarkup() {
   const bursts = [
-    { color: "var(--celebration-primary)", delay: "-0.2s", scale: "0.78", x: "10%", y: "10%" },
-    { color: "var(--celebration-accent)", delay: "-2.1s", scale: "0.96", x: "29%", y: "53%" },
-    { color: "var(--celebration-secondary)", delay: "-1.1s", scale: "0.84", x: "51%", y: "8%" },
-    { color: "var(--celebration-primary)", delay: "-3.1s", scale: "0.98", x: "73%", y: "57%" },
-    { color: "var(--celebration-secondary)", delay: "-1.7s", scale: "0.8", x: "89%", y: "15%" },
-    { color: "var(--celebration-accent)", delay: "-2.7s", scale: "0.74", x: "82%", y: "81%" }
+    { color: "var(--celebration-primary)", delay: "0.2s", scale: "0.78", x: "10%", y: "10%" },
+    { color: "var(--celebration-accent)", delay: "2.1s", scale: "0.96", x: "29%", y: "53%" },
+    { color: "var(--celebration-secondary)", delay: "1.1s", scale: "0.84", x: "51%", y: "8%" },
+    { color: "var(--celebration-primary)", delay: "3.1s", scale: "0.98", x: "73%", y: "57%" },
+    { color: "var(--celebration-secondary)", delay: "1.7s", scale: "0.8", x: "89%", y: "15%" },
+    { color: "var(--celebration-accent)", delay: "2.7s", scale: "0.74", x: "82%", y: "81%" }
   ];
 
   return bursts
@@ -29865,6 +29933,7 @@ function renderFinalCelebration() {
     background?.remove();
     document.body.classList.remove("has-final-celebration");
     document.body.classList.remove("is-final-celebration-calm");
+    document.body.classList.remove("is-final-celebration-fireworks-ready");
     delete document.body.dataset.finalCelebrationPalette;
     return;
   }
@@ -29883,6 +29952,7 @@ function renderFinalCelebration() {
       </ul>`
     : `<span class="final-celebration-summary">${escapeHtml(body)}</span>`;
   if (!background) {
+    document.body.classList.remove("is-final-celebration-fireworks-ready");
     background = document.createElement("div");
     background.className = "final-celebration-background";
     background.id = "final-celebration-background";
@@ -29937,6 +30007,7 @@ function renderFinalCelebration() {
         return;
       }
       reveal.classList.add("is-settled");
+      document.body.classList.add("is-final-celebration-fireworks-ready");
       reveal.removeEventListener("transitionend", settleReveal);
     };
     reveal.addEventListener("transitionend", settleReveal);
@@ -29946,6 +30017,12 @@ function renderFinalCelebration() {
         banner?.classList.remove("is-entering");
       });
     });
+  }
+  if (
+    reveal?.classList.contains("is-settled") ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    document.body.classList.add("is-final-celebration-fireworks-ready");
   }
   document.body.dataset.finalCelebrationPalette = championItem.palette;
   document.body.classList.add("has-final-celebration");

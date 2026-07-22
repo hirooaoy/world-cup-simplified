@@ -3453,9 +3453,8 @@ try {
   assert(
     (await syntheticLukakuCard.locator(".player-card-tournament-stats").innerText()).trim() ===
       "This World Cup: 2 goals, 1 assist" &&
-      (await syntheticDeBruyneCard.locator(".player-card-tournament-stats").innerText()).trim() ===
-        "This World Cup: 0 goals, 0 assists",
-    "Every current player card should show the tournament goals/assists row, including a verified zero-zero total."
+      (await syntheticDeBruyneCard.locator(".player-card-tournament-stats").count()) === 0,
+    "Current player cards should omit the tournament stats row when both goals and assists are zero."
   );
   await playerTournamentStatsCheck.context.close();
 
@@ -5762,10 +5761,13 @@ try {
     "Historical match details should use the back-then prediction card instead of the archive-only result copy."
   );
   assert(
-    historicalGroupDetailText.includes("Qatar's 2022 match lens runs through Akram Afif, Almoez Ali, and Abdulaziz Hatem") &&
-      historicalGroupDetailText.includes("Against Ecuador, Qatar had to beat Ecuador's scoring threat through Enner Valencia") &&
-      historicalGroupDetailText.includes("Ecuador's 2022 match lens runs through Enner Valencia"),
-    "Historical key information should use era-specific roster and matchup copy."
+    historicalGroupDetailText.includes("Qatar runs through Akram Afif, Almoez Ali, and Abdulaziz Hatem") &&
+      historicalGroupDetailText.includes("Against Ecuador, Qatar needs to beat Ecuador's scoring threat through Enner Valencia") &&
+      historicalGroupDetailText.includes("Ecuador runs through Enner Valencia") &&
+      !historicalGroupDetailText.includes("2022 match lens") &&
+      !historicalGroupDetailText.includes("actual match roster") &&
+      !historicalGroupDetailText.includes("0-2 loss"),
+    "Historical key information should read like a contemporary pre-match brief."
   );
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),

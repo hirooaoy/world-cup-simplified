@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "a4f18977567c2871b6a3513edf5b86de484e2ce2b9a610162b18ecae341199a8",
+  "sourceFingerprint": "a9a38d294cd46a55424a871b3ab5b4a0d04b2befe260e3f12eaf1a5bcf8ecaf5",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Historical cards and Ball Boy now use localized play-style descriptions, including story-only players and aliases.": "Las tarjetas históricas y Ball Boy ahora usan descripciones localizadas del estilo de juego, incluidos jugadores exclusivos de las historias y alias.",
-    "Mobile ranking tooltips stay on-screen; award dividers and champion photo credits now fit their visible content.": "Los avisos de ranking en móvil permanecen en pantalla; los separadores de premios y los créditos de las fotos de campeones ahora se ajustan al contenido visible.",
-    "Richer historical player stories": "Historias más ricas de jugadores históricos",
-    "The site shell now lets more background color pass through its glass controls in light and dark mode.": "La interfaz del sitio ahora deja pasar más color del fondo a través de sus controles de cristal, tanto en modo claro como oscuro."
+    "Changing dates updates the label immediately, then fades match info and champion banners out in reverse order.": "Al cambiar de fecha, la etiqueta se actualiza de inmediato y después la información del partido y los banners de campeones desaparecen en orden inverso.",
+    "Historical match cards now read like contemporary pre-match briefs, without archive-year or final-result hindsight.": "Las tarjetas de partidos históricos ahora se leen como previas de su época, sin el año de archivo ni una mirada condicionada por el resultado final.",
+    "Player cards hide zero totals; Highlights photos lose outlines, and shell controls reveal more background color.": "Las tarjetas de jugadores ocultan los totales en cero; las fotos de Highlights pierden los contornos y los controles dejan ver más color de fondo.",
+    "Sharper archives and smoother date changes": "Archivos más claros y cambios de fecha más suaves"
   }
 }

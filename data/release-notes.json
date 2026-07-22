@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-21T18:29:21-07:00",
+  "updatedAt": "2026-07-21T21:51:07-07:00",
   "releases": [
+    {
+      "date": "2026-07-21",
+      "title": "Sharper archives and smoother date changes",
+      "titleZh": "更清晰的存档与更流畅的日期切换",
+      "highlights": [
+        "Historical match cards now read like contemporary pre-match briefs, without archive-year or final-result hindsight.",
+        "Player cards hide zero totals; Highlights photos lose outlines, and shell controls reveal more background color.",
+        "Changing dates updates the label immediately, then fades match info and champion banners out in reverse order."
+      ],
+      "highlightsZh": [
+        "历史比赛卡现以当时的赛前简报口吻呈现，不再带有存档年份或赛果倒推的视角。",
+        "球员卡现会隐藏零数据；亮点照片移除描边，外壳控件也会透出更多背景色彩。",
+        "切换日期时会立即更新日期标签，再按相反顺序淡出比赛信息卡与冠军横幅。"
+      ]
+    },
     {
       "date": "2026-07-21",
       "title": "Richer historical player stories",

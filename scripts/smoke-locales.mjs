@@ -52,7 +52,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Historias más ricas de jugadores históricos",
+    latestReleaseTitle: "Archivos más claros y cambios de fecha más suaves",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -123,7 +123,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "더 풍부해진 역대 선수 이야기",
+    latestReleaseTitle: "더 선명한 기록과 부드러운 날짜 전환",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -197,7 +197,7 @@ const highlightsLocaleCases = [
     oldHistoricalClubLine: "Liverpool (Football League Second Division)",
     bestXiClubLine: "Athletic Bilbao (La Liga)",
     worldCupContext: "At the 2026 World Cup",
-    zeroTournamentStats: "This World Cup: 0 goals, 0 assists",
+    zeroTournamentStats: "",
     goldenBootName: "Kylian Mbappé",
     bestXiInfo: "Selected by admin",
     bestCoachLabel: "Best coach",
@@ -227,7 +227,7 @@ const highlightsLocaleCases = [
     oldHistoricalClubLine: "利物浦（英格兰足球联赛乙级联赛）",
     bestXiClubLine: "毕尔巴鄂竞技（西甲）",
     worldCupContext: "2026年世界杯期间",
-    zeroTournamentStats: "本届世界杯：0球，0助攻",
+    zeroTournamentStats: "",
     goldenBootName: "基利安·姆巴佩",
     bestXiInfo: "管理员精选",
     bestCoachLabel: "最佳教练",
@@ -257,7 +257,7 @@ const highlightsLocaleCases = [
     oldHistoricalClubLine: "Liverpool (Segunda División de la Football League)",
     bestXiClubLine: "Athletic Bilbao (LaLiga)",
     worldCupContext: "En el Mundial de 2026",
-    zeroTournamentStats: "Este Mundial: 0 goles, 0 asistencias",
+    zeroTournamentStats: "",
     goldenBootName: "Kylian Mbappé",
     bestXiInfo: "Selección del administrador",
     bestCoachLabel: "Mejor entrenador",
@@ -287,7 +287,7 @@ const highlightsLocaleCases = [
     oldHistoricalClubLine: "리버풀 (풋볼 리그 2부)",
     bestXiClubLine: "아틀레틱 빌바오 (라리가)",
     worldCupContext: "2026년 월드컵 당시",
-    zeroTournamentStats: "이번 월드컵: 0골, 0도움",
+    zeroTournamentStats: "",
     goldenBootName: "킬리안 음바페",
     bestXiInfo: "운영자 선정",
     bestCoachLabel: "최우수 감독",
@@ -620,8 +620,7 @@ async function assertHistoricalHighlightPlayerNotes(browser) {
     const andrade = await readCard(page, "José Leandro Andrade");
     assert(
       andrade.note === locale.andrade &&
-        andrade.stats.includes("1930") &&
-        andrade.stats.includes("0") &&
+        andrade.stats === "" &&
         andrade.meta.includes("28") &&
         andrade.context.includes("1930") &&
         isInsideViewport(andrade),

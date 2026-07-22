@@ -4273,13 +4273,13 @@ for (const fixture of historyData.fixtures || []) {
       wordCount(copy) <= 95,
       `Historical fixture "${fixture.id}" keyInformation.${side} should stay concise`
     );
-    assert(
-      copy?.includes(`Against ${opponentName}`),
-      `Historical fixture "${fixture.id}" keyInformation.${side} must describe the historical opponent relationship`
-    );
     if (fixture.status !== "CANCELLED") {
       assert(
-        copy?.includes(" had to beat "),
+        copy?.includes(`Against ${opponentName}`),
+        `Historical fixture "${fixture.id}" keyInformation.${side} must describe the historical opponent relationship`
+      );
+      assert(
+        copy?.includes(" needs to beat "),
         `Historical fixture "${fixture.id}" keyInformation.${side} must describe the matchup pressure`
       );
     }

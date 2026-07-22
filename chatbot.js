@@ -13,7 +13,7 @@ import {
   loadLocaleDomain,
   normalizeLanguage
 } from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
-import { formatPlayerCardWorldCupContext } from "./player-card-ui.js?v=2026-07-21-world-cup-context-1";
+import { formatPlayerCardWorldCupContext } from "./player-card-ui.js?v=2026-07-21-hide-zero-tournament-stats-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;

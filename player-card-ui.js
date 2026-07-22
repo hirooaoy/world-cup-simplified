@@ -103,7 +103,7 @@ export function formatPlayerTournamentStatsLine({
 } = {}) {
   const normalizedGoals = normalizeTournamentStatCount(goals);
   const normalizedAssists = normalizeTournamentStatCount(assists);
-  if (normalizedGoals === null && normalizedAssists === null) {
+  if (!(normalizedGoals > 0) && !(normalizedAssists > 0)) {
     return "";
   }
 
@@ -112,36 +112,36 @@ export function formatPlayerTournamentStatsLine({
   if (language === "zh") {
     const label = current ? "本届世界杯" : hasEdition ? `${edition}年世界杯` : "世界杯";
     const parts = [
-      normalizedGoals === null ? "" : `${normalizedGoals}球`,
-      normalizedAssists === null ? "" : `${normalizedAssists}助攻`
+      normalizedGoals > 0 ? `${normalizedGoals}球` : "",
+      normalizedAssists > 0 ? `${normalizedAssists}助攻` : ""
     ].filter(Boolean);
     return `${label}：${parts.join("，")}`;
   }
   if (language === "es") {
     const label = current ? "Este Mundial" : hasEdition ? `Mundial ${edition}` : "Mundial";
     const parts = [
-      normalizedGoals === null
-        ? ""
-        : `${normalizedGoals} ${normalizedGoals === 1 ? "gol" : "goles"}`,
-      normalizedAssists === null
-        ? ""
-        : `${normalizedAssists} ${normalizedAssists === 1 ? "asistencia" : "asistencias"}`
+      normalizedGoals > 0
+        ? `${normalizedGoals} ${normalizedGoals === 1 ? "gol" : "goles"}`
+        : "",
+      normalizedAssists > 0
+        ? `${normalizedAssists} ${normalizedAssists === 1 ? "asistencia" : "asistencias"}`
+        : ""
     ].filter(Boolean);
     return `${label}: ${parts.join(", ")}`;
   }
   if (language === "ko") {
     const label = current ? "이번 월드컵" : hasEdition ? `${edition} 월드컵` : "월드컵";
     const parts = [
-      normalizedGoals === null ? "" : `${normalizedGoals}골`,
-      normalizedAssists === null ? "" : `${normalizedAssists}도움`
+      normalizedGoals > 0 ? `${normalizedGoals}골` : "",
+      normalizedAssists > 0 ? `${normalizedAssists}도움` : ""
     ].filter(Boolean);
     return `${label}: ${parts.join(", ")}`;
   }
 
   const label = current ? "This World Cup" : hasEdition ? `${edition} World Cup` : "World Cup";
   const parts = [
-    normalizedGoals === null ? "" : formatEnglishTournamentStat(normalizedGoals, "goal"),
-    normalizedAssists === null ? "" : formatEnglishTournamentStat(normalizedAssists, "assist")
+    normalizedGoals > 0 ? formatEnglishTournamentStat(normalizedGoals, "goal") : "",
+    normalizedAssists > 0 ? formatEnglishTournamentStat(normalizedAssists, "assist") : ""
   ].filter(Boolean);
   return `${label}: ${parts.join(", ")}`;
 }

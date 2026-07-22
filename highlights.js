@@ -21,7 +21,7 @@ import {
   formatPlayerPosition,
   getPlayerCardWorldCupReferenceDate,
   getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-21-player-tournament-stats-1";
+} from "./player-card-ui.js?v=2026-07-21-hide-zero-tournament-stats-1";
 import {
   getLanguageConfig,
   getLocaleShellMessages,

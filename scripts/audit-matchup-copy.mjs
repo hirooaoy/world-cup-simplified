@@ -798,10 +798,10 @@ for (const fixture of historyData.fixtures || []) {
     if (paragraphWords < 35 || paragraphWords > 95) {
       issues.push(issue("word count outside target", String(paragraphWords)));
     }
-    if (!text.includes(`Against ${opponent}`)) {
+    if (fixture.status !== "CANCELLED" && !text.includes(`Against ${opponent}`)) {
       issues.push(issue("missing historical opponent relationship", opponent));
     }
-    if (fixture.status !== "CANCELLED" && !text.includes(" had to beat ")) {
+    if (fixture.status !== "CANCELLED" && !text.includes(" needs to beat ")) {
       issues.push(issue("missing historical matchup pressure"));
     }
     if (fixture.status !== "CANCELLED" && players.length < 2) {
