@@ -24,6 +24,7 @@ try {
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ballBoyOnly = process.argv.includes("--ball-boy-only");
 const highlightsClubLinesOnly = process.argv.includes("--highlights-club-lines-only");
+const historicalHighlightNotesOnly = process.argv.includes("--historical-highlight-notes-only");
 const requestedLocale = process.argv
   .find((argument) => argument.startsWith("--locale="))
   ?.slice("--locale=".length);
@@ -51,7 +52,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Tarjetas históricas de jugadores más completas",
+    latestReleaseTitle: "Historias más ricas de jugadores históricos",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -122,7 +123,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "더 완전해진 역대 선수 카드",
+    latestReleaseTitle: "더 풍부해진 역대 선수 이야기",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -482,6 +483,183 @@ async function assertArchivedHomeSeo(browser) {
     );
   }
   await context.close();
+}
+
+async function assertHistoricalRankTooltipBounds(browser) {
+  const context = await browser.newContext({
+    hasTouch: true,
+    isMobile: true,
+    viewport: { width: 390, height: 844 }
+  });
+  const page = await context.newPage();
+  await page.goto(getUrl("/highlights.html?year=1930&lang=en"), { waitUntil: "domcontentloaded" });
+  await page.waitForFunction(
+    () =>
+      !document.body.classList.contains("is-locale-loading") &&
+      !document.body.classList.contains("is-initial-page-load") &&
+      document.querySelector("#edition-picker-button")?.dataset.edition === "1930",
+    null,
+    { timeout: 30000 }
+  );
+  const pill = page.locator(
+    '[data-historical-story-index="1"] p .rank-pill[aria-label^="Argentina retrospective Elo ranking 1 (1930)."]'
+  );
+  await pill.dispatchEvent("pointerdown", {
+    bubbles: true,
+    button: 0,
+    cancelable: true,
+    pointerType: "touch"
+  });
+  const bounds = await pill.evaluate((element) => {
+    const parsePx = (value) => Number.parseFloat(value) || 0;
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element, "::after");
+    const width = [
+      style.width,
+      style.paddingLeft,
+      style.paddingRight,
+      style.borderLeftWidth,
+      style.borderRightWidth
+    ].reduce((total, value) => total + parsePx(value), 0);
+    const transformParts = style.transform.match(/^matrix\((.+)\)$/)?.[1]
+      .split(",")
+      .map((value) => parsePx(value));
+    const left = rect.left + parsePx(style.left) + (transformParts?.[4] || 0);
+    return {
+      active: element.classList.contains("is-touch-tooltip-open"),
+      left,
+      right: left + width,
+      viewportWidth: document.documentElement.clientWidth
+    };
+  });
+  assert(
+    bounds.active && bounds.left >= 5.5 && bounds.right <= bounds.viewportWidth - 5.5,
+    `1930: the mobile retrospective Elo tooltip should stay inside the viewport. Measured ${JSON.stringify(bounds)}.`
+  );
+  await context.close();
+}
+
+async function assertHistoricalHighlightPlayerNotes(browser) {
+  const localeCases = [
+    {
+      code: "en",
+      andrade: "Andrade stands out for shaping the pace of the game from midfield. He moves after passing so the team keeps a nearby outlet. He receives side-on so his next pass can move forward.",
+      stabile: "Stábile plays as a direct central forward who attacks space before defenders can settle. He stays ready between centre-backs and meets the final pass with minimal extra touches."
+    },
+    {
+      code: "zh",
+      andrade: "他的突出特点是对中场比赛节奏的掌控。他会传球后继续移动，让球队始终保留近距离出球点。他也会侧身接球，让下一脚传球可以向前发展。",
+      stabile: "斯塔比莱是直接攻击空当的中锋，会在防守者站稳前启动。他始终在两名中后卫之间准备接应，并尽量减少终结前的多余触球。"
+    },
+    {
+      code: "es",
+      andrade: "Andrade destaca por marcar el ritmo del partido desde el mediocampo. Se mueve después de pasar para que el equipo conserve una salida cercana. Recibe de perfil para que el siguiente pase pueda avanzar.",
+      stabile: "Stábile juega como un delantero centro vertical que ataca el espacio antes de que la defensa se acomode. Se mantiene preparado entre los centrales y remata el último pase con muy pocos toques."
+    },
+    {
+      code: "ko",
+      andrade: "호세 레안드로 안드라데의 돋보이는 강점은 중원에서 경기 속도를 조율하는 능력이다. 패스한 뒤에도 움직여 팀이 가까운 출구를 유지하게 한다. 옆을 향한 자세로 받아 다음 패스를 전진 방향으로 연결한다.",
+      stabile: "스타빌레는 수비가 자리 잡기 전에 공간을 공략하는 직선적인 중앙 공격수다. 센터백 사이에서 준비한 뒤 불필요한 터치를 줄여 마지막 패스를 슈팅으로 연결한다."
+    }
+  ];
+  const readCard = async (page, playerName) => {
+    const trigger = page.locator(
+      `[data-highlight-player-name="${playerName}"] [data-highlight-player-trigger]`
+    ).first();
+    await trigger.tap();
+    await page.locator("#highlight-player-card.is-visible").waitFor({ state: "visible" });
+    return page.locator("#highlight-player-card").evaluate((card) => {
+      const rect = card.getBoundingClientRect();
+      const viewport = window.visualViewport;
+      const viewportLeft = viewport?.offsetLeft || 0;
+      const viewportTop = viewport?.offsetTop || 0;
+      const viewportWidth = viewport?.width || window.innerWidth;
+      const viewportHeight = viewport?.height || window.innerHeight;
+      return {
+        bounds: { bottom: rect.bottom, left: rect.left, right: rect.right, top: rect.top },
+        context: card.querySelector(".player-card-world-cup-context")?.textContent.trim() || "",
+        meta: card.querySelector(".player-card-meta")?.textContent.replace(/\s+/gu, " ").trim() || "",
+        note: card.querySelector('[data-player-copy-paragraph="1"]')?.textContent.trim() || "",
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        position: card.querySelector(".player-card-position")?.textContent.trim() || "",
+        stats: card.querySelector(".player-card-tournament-stats")?.textContent.trim() || "",
+        viewport: {
+          bottom: viewportTop + viewportHeight,
+          left: viewportLeft,
+          right: viewportLeft + viewportWidth,
+          top: viewportTop
+        }
+      };
+    });
+  };
+  const isInsideViewport = (state) =>
+    state.bounds.left >= state.viewport.left + 11 &&
+    state.bounds.right <= state.viewport.right - 11 &&
+    state.bounds.top >= state.viewport.top + 11 &&
+    state.bounds.bottom <= state.viewport.bottom - 11 &&
+    state.overflow <= 1;
+
+  for (const locale of localeCases) {
+    const context = await browser.newContext({
+      hasTouch: true,
+      isMobile: true,
+      viewport: { width: 390, height: 844 }
+    });
+    const page = await context.newPage();
+    const query = locale.code === "en" ? "?year=1930" : `?year=1930&lang=${locale.code}`;
+    await page.goto(getUrl(`/highlights.html${query}`), { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(
+      () =>
+        !document.body.classList.contains("is-locale-loading") &&
+        !document.body.classList.contains("is-initial-page-load") &&
+        document.querySelector("#edition-picker-button")?.dataset.edition === "1930",
+      null,
+      { timeout: 30000 }
+    );
+
+    const andrade = await readCard(page, "José Leandro Andrade");
+    assert(
+      andrade.note === locale.andrade &&
+        andrade.stats.includes("1930") &&
+        andrade.stats.includes("0") &&
+        andrade.meta.includes("28") &&
+        andrade.context.includes("1930") &&
+        isInsideViewport(andrade),
+      `${locale.code}: José Leandro Andrade's 1930 mobile card should use the rich localized play-style description and stay within the viewport. Measured ${JSON.stringify(andrade)}.`
+    );
+    await page.keyboard.press("Escape");
+
+    const stabile = await readCard(page, "Guillermo Stábile");
+    assert(
+      stabile.note === locale.stabile &&
+        stabile.stats.includes("1930") &&
+        stabile.stats.includes("8") &&
+        isInsideViewport(stabile),
+      `${locale.code}: Guillermo Stábile's authored historical description should use its reviewed locale overlay. Measured ${JSON.stringify(stabile)}.`
+    );
+    await page.keyboard.press("Escape");
+
+    if (locale.code === "en") {
+      await page.goto(getUrl("/highlights.html?year=1950"), { waitUntil: "domcontentloaded" });
+      await page.waitForFunction(
+        () =>
+          !document.body.classList.contains("is-locale-loading") &&
+          !document.body.classList.contains("is-initial-page-load") &&
+          document.querySelector("#edition-picker-button")?.dataset.edition === "1950",
+        null,
+        { timeout: 30000 }
+      );
+      const ademir = await readCard(page, "Ademir de Menezes");
+      assert(
+        ademir.note.startsWith("Ademir's edge is attacking the space behind defenders") &&
+          ademir.position === "Forward" &&
+          ademir.stats.includes("9 goals") &&
+          isInsideViewport(ademir),
+        `1950: Ademir de Menezes should resolve to Ademir's complete historical profile instead of a synthetic generic card. Measured ${JSON.stringify(ademir)}.`
+      );
+    }
+    await context.close();
+  }
 }
 
 async function assertHighlightsLocales(browser) {
@@ -1751,6 +1929,7 @@ async function assertHighlightsLocales(browser) {
       }
     }
     if (locale.code === "en") {
+      await assertHistoricalRankTooltipBounds(browser);
       const historicalRankingStoryContracts = [
         {
           year: 1950,
@@ -2768,7 +2947,11 @@ const baseUrl = `http://127.0.0.1:${port}`;
 const browser = await chromium.launch();
 
 try {
-  if (highlightsClubLinesOnly) {
+  if (historicalHighlightNotesOnly) {
+    await assertHistoricalHighlightPlayerNotes(browser);
+    console.log("Four-locale historical highlights player-note smoke tests passed.");
+    process.exitCode = 0;
+  } else if (highlightsClubLinesOnly) {
     await assertHighlightsLocales(browser);
     console.log(
       requestedLocale
@@ -2786,6 +2969,7 @@ try {
   );
   if (!ballBoyOnly) {
     await assertArchivedHomeSeo(browser);
+    await assertHistoricalHighlightPlayerNotes(browser);
     await assertHighlightsLocales(browser);
   }
   for (const locale of selectedLocaleCases) {

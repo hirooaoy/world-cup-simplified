@@ -557,7 +557,7 @@ html[data-theme="dark"] .best-xi-player-card .best-xi-player-reason {
   padding: 32px 0;
 }
 
-.award-row:not(:last-child),
+.award-row:not([hidden]):has(~ .award-row:not([hidden])),
 .highlight-row:not(:last-child) {
   border-bottom: 1px solid var(--hairline);
 }
@@ -988,9 +988,8 @@ html[data-theme="dark"] .next-world-cup-section {
   .champion-photo-credit {
     right: 8px;
     bottom: 8px;
-    left: 8px;
-    justify-content: flex-end;
-    max-width: none;
+    width: max-content;
+    max-width: calc(100% - 16px);
     flex-wrap: wrap;
     line-height: 1.25;
     white-space: normal;

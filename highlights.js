@@ -25,6 +25,7 @@ import {
 import {
   getLanguageConfig,
   getLocaleShellMessages,
+  LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
 } from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1-historical-best-xi-depth-1";
@@ -35,7 +36,7 @@ import {
   HISTORICAL_HIGHLIGHTS,
   HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
   HISTORICAL_STORY_PROFILE_OVERRIDES
-} from "./data/highlights-history.js?v=2026-07-21-historical-award-description-player-cards-3-historical-coach-cards-1";
+} from "./data/highlights-history.js?v=2026-07-21-historical-award-description-player-cards-3-historical-coach-cards-1-historical-story-style-notes-1";
 import { CHAMPION_PHOTOS } from "./data/champion-photos.js?v=2026-07-21-all-team-photos-1";
 import {
   buildHistoricalBestXiDescriptionParagraphs
@@ -671,6 +672,7 @@ let loadedHistoricalStoryCopy = null;
 let loadedHistoricalBestXiReasons = Object.freeze({});
 let loadedHistoricalPlayerNames = Object.freeze({});
 let loadedHistoricalPlayerNamesByNormalizedName = new Map();
+let loadedHistoricalPlayerNoteTranslations = Object.freeze({});
 let activeEdition = 2026;
 let activeHighlightRankPill = null;
 let activeHighlightPlayerHover = null;
@@ -816,11 +818,36 @@ const HISTORICAL_PLAYER_NAME_LOADERS = Object.freeze({
   }))
 });
 
+const HISTORICAL_PLAYER_NOTE_LOADERS = Object.freeze({
+  es: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
+  ko: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`)
+});
+
 async function loadHistoricalPlayerNameLocale(language) {
   if (activeEdition === 2026 || !HISTORICAL_PLAYER_NAME_LOADERS[language]) {
     return Object.freeze({});
   }
   return HISTORICAL_PLAYER_NAME_LOADERS[language]();
+}
+
+async function loadHistoricalPlayerNoteLocale(language) {
+  if (activeEdition === 2026 || !HISTORICAL_PLAYER_NOTE_LOADERS[language]) {
+    return Object.freeze({});
+  }
+  const localeModule = await HISTORICAL_PLAYER_NOTE_LOADERS[language]();
+  const metadata = localeModule?.CONTENT_METADATA;
+  const translations = localeModule?.CONTENT_TRANSLATIONS;
+  if (
+    metadata?.schemaVersion !== 1 ||
+    metadata?.language !== language ||
+    metadata?.scope !== "archive" ||
+    !translations ||
+    typeof translations !== "object" ||
+    Array.isArray(translations)
+  ) {
+    throw new TypeError(`Invalid historical player-note locale ${language}.`);
+  }
+  return translations;
 }
 
 async function loadHistoricalAwardCopyLocale(language) {
@@ -1017,7 +1044,8 @@ async function setLanguage(language, options = {}) {
     historicalBestXiReasons,
     historicalAwardCopy,
     historicalStoryCopy,
-    historicalPlayerNames
+    historicalPlayerNames,
+    historicalPlayerNoteTranslations
   ] = await Promise.all([
     loadHighlightsLocale(nextLanguage),
     ["es", "ko"].includes(nextLanguage)
@@ -1026,7 +1054,8 @@ async function setLanguage(language, options = {}) {
     loadHistoricalBestXiReasonLocale(nextLanguage),
     loadHistoricalAwardCopyLocale(nextLanguage),
     loadHistoricalStoryCopyLocale(nextLanguage),
-    loadHistoricalPlayerNameLocale(nextLanguage)
+    loadHistoricalPlayerNameLocale(nextLanguage),
+    loadHistoricalPlayerNoteLocale(nextLanguage)
   ]);
   currentLanguage = nextLanguage;
   activeLocale = validateHighlightsLocale(locale, nextLanguage);
@@ -1035,6 +1064,7 @@ async function setLanguage(language, options = {}) {
   loadedHistoricalAwardCopy = historicalAwardCopy;
   loadedHistoricalStoryCopy = historicalStoryCopy;
   loadedHistoricalPlayerNames = historicalPlayerNames;
+  loadedHistoricalPlayerNoteTranslations = historicalPlayerNoteTranslations;
   loadedHistoricalPlayerNamesByNormalizedName = new Map(
     Object.entries(historicalPlayerNames).map(([name, localizedName]) => [
       normalizeHistoricalName(name),
@@ -1233,8 +1263,13 @@ function normalizeHistoricalName(value) {
 function getHistoricalProfile(profileData, playerName, year) {
   const target = normalizeHistoricalName(playerName);
   return Object.values(profileData?.profiles || {}).find((profile) =>
-    Number(profile?.tournamentYear) === Number(year)
-      && normalizeHistoricalName(profile?.name) === target
+    Number(profile?.tournamentYear) === Number(year) && [
+      profile?.name,
+      profile?.displayName,
+      profile?.fullName,
+      profile?.imagePageTitle,
+      ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+    ].some((candidate) => normalizeHistoricalName(candidate) === target)
   ) || null;
 }
 
@@ -2280,6 +2315,7 @@ function getHighlightPlayerName(playerName, profile = loadedProfiles?.[playerNam
     || localizeEntity("players", playerName)
     || (currentLanguage === "zh" ? ZH_PLAYER_NAME_TRANSLATIONS[playerName] : "")
     || getHistoricalLocalizedPlayerName(playerName)
+    || getHistoricalLocalizedPlayerName(profile?.name)
     || profile?.displayName
     || playerName
     || "";
@@ -2330,15 +2366,37 @@ function renderHighlightPlayerSkillList(profile) {
 }
 
 function getHighlightPlayerNote(playerName, profile) {
+  const historical = Boolean(profile?.historical || activeEdition !== 2026);
+  const sourceNote = historical
+    ? profile?.styleNote || profile?.note || ""
+    : profile?.note || "";
   if (currentLanguage === "zh") {
-    return profile?.noteZh || profile?.note || "";
+    return historical
+      ? profile?.styleNoteZh || profile?.noteZh || sourceNote
+      : profile?.noteZh || sourceNote;
   }
   if (["es", "ko"].includes(currentLanguage)) {
-    return activeAppLocalePack?.helpers?.formatPlayerNote?.(profile?.note, {
-      localizedName: getHighlightPlayerName(playerName, profile)
-    }) || getHighlightPlayerSkills(profile).join(" · ");
+    const localizedName = getHighlightPlayerName(playerName, profile);
+    const localizedStyleNote = activeAppLocalePack?.helpers?.formatPlayerNote?.(sourceNote, {
+      historical,
+      localizedName
+    });
+    if (localizedStyleNote) {
+      return localizedStyleNote;
+    }
+    const authoredTranslation = loadedHistoricalPlayerNoteTranslations[sourceNote];
+    if (authoredTranslation) {
+      return authoredTranslation;
+    }
+    const localizedArchiveIdentity = historical && profile?.note !== sourceNote
+      ? activeAppLocalePack?.helpers?.formatPlayerNote?.(profile.note, {
+          historical: true,
+          localizedName
+        })
+      : "";
+    return localizedArchiveIdentity || getHighlightPlayerSkills(profile).join(" · ");
   }
-  return profile?.note || "";
+  return sourceNote;
 }
 
 function getHighlightPlayerAge(profile, referenceDate = new Date()) {
@@ -3038,14 +3096,24 @@ function updateHighlightRankTooltipBounds(pill) {
   }
   pill.style.removeProperty("--tooltip-shift-x");
   const rect = pill.getBoundingClientRect();
-  const width = Math.min(230, window.innerWidth * 0.72);
+  const tooltipStyle = window.getComputedStyle(pill, "::after");
+  const width = [
+    "width",
+    "padding-left",
+    "padding-right",
+    "border-left-width",
+    "border-right-width"
+  ].reduce((total, property) => (
+    total + (Number.parseFloat(tooltipStyle.getPropertyValue(property)) || 0)
+  ), 0);
   const edgeGap = 6;
-  const idealLeft = rect.left + rect.width / 2 - width / 2;
+  const anchorOffset = Number.parseFloat(tooltipStyle.left) || rect.width / 2;
+  const idealLeft = rect.left + anchorOffset - width / 2;
   const clampedLeft = Math.min(
     window.innerWidth - width - edgeGap,
     Math.max(edgeGap, idealLeft)
   );
-  pill.style.setProperty("--tooltip-shift-x", `${Math.round(clampedLeft - idealLeft)}px`);
+  pill.style.setProperty("--tooltip-shift-x", `${clampedLeft - idealLeft}px`);
 }
 
 function setupHighlightRankInteractions() {
@@ -4056,6 +4124,7 @@ async function initialize() {
     loadedHistoricalStoryCopy = null;
     loadedHistoricalPlayerNames = Object.freeze({});
     loadedHistoricalPlayerNamesByNormalizedName = new Map();
+    loadedHistoricalPlayerNoteTranslations = Object.freeze({});
     applyLocale();
   }
 

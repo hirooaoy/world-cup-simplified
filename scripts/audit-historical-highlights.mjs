@@ -7,6 +7,7 @@ import {
   HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
   HISTORICAL_STORY_PROFILE_OVERRIDES
 } from "../data/highlights-history.js";
+import { isGeneratedPlayerCardCopy } from "../locales/player-note-templates.js";
 import { getHistoricalTeamFlagMetadata } from "../team-flag-data.js";
 
 const readJson = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url), "utf8"));
@@ -67,9 +68,27 @@ const getYearReferences = (value) => [...JSON.stringify(value).matchAll(/\b(?:19
   .map(([year]) => Number(year));
 const findHistoricalProfile = (year, playerName) => Object.values(historicalProfiles.profiles || {})
   .find((profile) =>
-    Number(profile?.tournamentYear) === Number(year)
-      && normalizeName(profile?.name) === normalizeName(playerName)
+    Number(profile?.tournamentYear) === Number(year) && [
+      profile?.name,
+      profile?.displayName,
+      profile?.fullName,
+      profile?.imagePageTitle,
+      ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+    ].some((candidate) => normalizeName(candidate) === normalizeName(playerName))
   ) || null;
+for (const [key, override] of Object.entries(HISTORICAL_STORY_PROFILE_OVERRIDES)) {
+  if (override?.sourceId !== "historical-story-profile-2026-07-21") {
+    continue;
+  }
+  assert.ok(
+    isGeneratedPlayerCardCopy(override.styleNote, { historical: true }),
+    `${key}: story-only player profile needs a localizable play-style description.`
+  );
+  assert.ok(
+    String(override.styleNoteZh || "").trim().length >= 20,
+    `${key}: story-only player profile needs a Chinese play-style description.`
+  );
+}
 const resolveHistoricalStoryProfile = (year, playerName) => {
   const directProfile = findHistoricalProfile(year, playerName);
   if (directProfile) return directProfile;
@@ -370,6 +389,10 @@ for (const [key, references] of Object.entries(HISTORICAL_AWARD_CONTEXT_PLAYERS)
     const englishVariants = getAwardReferenceVariants(playerName, profile);
     assert.ok(profile, `${key}: ${playerName} has no ${profileYear} player-card profile.`);
     assert.ok(
+      String(profile?.styleNote || "").trim().length >= 20,
+      `${key}: ${playerName} has no play-style card description.`
+    );
+    assert.ok(
       englishVariants.some((variant) => normalizeAwardContext(englishCopy.context).includes(normalizeAwardContext(variant))),
       `${key}: English award description does not contain ${playerName}.`
     );
@@ -490,8 +513,8 @@ for (const [yearIndex, year] of expectedYears.entries()) {
     assert.ok(profile?.position, `${year}: champion summary player ${playerName} has no position.`);
     assert.ok(profile?.skills?.length, `${year}: champion summary player ${playerName} has no skills.`);
     assert.ok(
-      String(profile?.note || profile?.styleNote || "").trim().length >= 20,
-      `${year}: champion summary player ${playerName} has no useful card note.`
+      String(profile?.styleNote || "").trim().length >= 20,
+      `${year}: champion summary player ${playerName} has no play-style card description.`
     );
   }
   const undeclaredFullNameReferences = Object.values(historicalProfiles.profiles || {})
@@ -649,8 +672,8 @@ for (const [yearIndex, year] of expectedYears.entries()) {
         assert.ok(profile?.position, `${storyLabel}: ${canonicalName}'s player card has no position.`);
         assert.ok(profile?.skills?.length, `${storyLabel}: ${canonicalName}'s player card has no skills.`);
         assert.ok(
-          String(profile?.note || profile?.styleNote || "").trim().length >= 20,
-          `${storyLabel}: ${canonicalName}'s player card note is too thin.`
+          String(profile?.styleNote || "").trim().length >= 20,
+          `${storyLabel}: ${canonicalName}'s player card has no play-style description.`
         );
       }
     }
@@ -667,6 +690,14 @@ for (const [yearIndex, year] of expectedYears.entries()) {
     assert.ok(award.recipients?.length, `${year}: award has no recipients.`);
     for (const recipient of award.recipients) {
       assert.ok(teamNames.has(recipient.teamName), `${year}: award recipient team ${recipient.teamName} did not participate.`);
+      if (recipient.playerName) {
+        const profile = findHistoricalProfile(year, recipient.playerName);
+        assert.ok(profile, `${year}: award recipient ${recipient.playerName} has no player-card profile.`);
+        assert.ok(
+          String(profile?.styleNote || "").trim().length >= 20,
+          `${year}: award recipient ${recipient.playerName} has no play-style card description.`
+        );
+      }
     }
   }
 

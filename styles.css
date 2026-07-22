@@ -241,7 +241,11 @@ body.is-juggle-active .player-card-floating.is-visible {
   gap: 2px;
   overflow: hidden;
   padding: 3px;
-  background: rgba(245, 245, 247, 0.56);
+  border-color: rgba(255, 255, 255, 0.52);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(18px) saturate(138%);
+  backdrop-filter: blur(18px) saturate(138%);
 }
 
 .view-tabs::before,
@@ -265,7 +269,9 @@ body.is-juggle-active .player-card-floating.is-visible {
 }
 
 .view-tabs::before {
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 3px 12px rgba(10, 10, 10, 0.08);
 }
 
 .language-switch {
@@ -380,9 +386,9 @@ body.is-juggle-active .player-card-floating.is-visible {
 }
 
 .catch-up-button[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.64);
-  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.06),
-    0 5px 14px rgba(10, 10, 10, 0.06);
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 3px 12px rgba(10, 10, 10, 0.08);
   color: var(--text);
 }
 
@@ -420,13 +426,17 @@ body.is-juggle-active .player-card-floating.is-visible {
 }
 
 :is(.catch-up-button, .settings-button) {
-  background: rgba(245, 245, 247, 0.56);
+  border-color: rgba(255, 255, 255, 0.52);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(18px) saturate(138%);
+  backdrop-filter: blur(18px) saturate(138%);
 }
 
 .settings-button[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.64);
-  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.06),
-    0 5px 14px rgba(10, 10, 10, 0.06);
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 3px 12px rgba(10, 10, 10, 0.08);
   color: var(--text);
 }
 
@@ -11356,7 +11366,9 @@ html[data-theme="dark"] :is(
 }
 
 html[data-theme="dark"] .view-tabs {
-  background: rgba(34, 39, 47, 0.72);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 html[data-theme="dark"] :is(
@@ -11370,7 +11382,9 @@ html[data-theme="dark"] :is(
 }
 
 html[data-theme="dark"] .view-tabs::before {
-  background: rgba(18, 21, 26, 0.82);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 3px 12px rgba(0, 0, 0, 0.22);
 }
 
 html[data-theme="dark"] :is(
@@ -11395,7 +11409,9 @@ html[data-theme="dark"] :is(
 }
 
 html[data-theme="dark"] :is(.catch-up-button, .settings-button) {
-  background: rgba(34, 39, 47, 0.72);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   color: var(--text-secondary);
 }
 
@@ -11405,9 +11421,10 @@ html[data-theme="dark"] :is(
   .catch-up-button[aria-expanded="true"],
   .settings-button[aria-expanded="true"]
 ) {
-  border-color: var(--border);
-  background: rgba(45, 51, 61, 0.82);
-  box-shadow: var(--shadow-small);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 3px 12px rgba(0, 0, 0, 0.22);
   color: var(--text);
 }
 

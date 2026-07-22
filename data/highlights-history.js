@@ -265,6 +265,8 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2002-squads.html",
     skills: Object.freeze(["Progressive passing", "Box-to-box running", "Chance creation"]),
+    styleNote: "Kleberson stands out for shaping the pace of the game from midfield. He moves after passing so the team keeps a nearby outlet. He receives side-on so his next pass can move forward.",
+    styleNoteZh: "他的突出特点是对中场比赛节奏的掌控。他会传球后继续移动，让球队始终保留近距离出球点。他也会侧身接球，让下一脚传球可以向前发展。",
     note: "Brazil's 2002 World Cup central midfielder. He started the last three matches and helped create Ronaldo's second goal in the final.",
     noteZh: "他是巴西队在2002年世界杯的中前卫，最后三场全部首发，并参与制造了罗纳尔多在决赛中的第二粒进球。"
   }),
@@ -298,6 +300,8 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2022-squads.html",
     skills: Object.freeze(["Close control", "Ball carrying", "Press resistance"]),
+    styleNote: "Boufal's edge is purposeful movement away from the ball. He keeps his first touch close enough to make the next action simple. He moves into a clear supporting angle before pressure arrives.",
+    styleNoteZh: "布法尔最特别的地方是无球时有目的的移动。他会把第一脚触球控制得足够近，让下一步处理保持简单。他也会在压力到来前移动到清晰的接应角度。",
     note: "Morocco's 2022 World Cup left winger. His close control and carrying helped the first African semi-finalists progress without losing their attacking outlet.",
     noteZh: "他是摩洛哥队在2022年世界杯的左边锋，以近距离控球和推进能力帮助首支非洲四强球队始终保留反击出口。"
   }),
@@ -316,6 +320,8 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2022-squads.html",
     skills: Object.freeze(["One-on-one defending", "Recovery pace", "Penalty taking"]),
+    styleNote: "Montiel stands out for using contact without losing his defensive position. He holds the dangerous lane until a teammate can apply pressure. He checks the runner over his shoulder before the final pass arrives.",
+    styleNoteZh: "蒙铁尔的突出特点是在身体对抗中不丢失防守位置。他会守住危险线路，直到队友能对持球人施压。他也会在最后一传到来前回头确认跑动者的位置。",
     note: "Argentina's 2022 World Cup right-back. He converted the decisive penalty in the final shootout to seal the title.",
     noteZh: "他是阿根廷队在2022年世界杯的右后卫，并在决赛点球大战罚入制胜点球，为球队锁定冠军。"
   })

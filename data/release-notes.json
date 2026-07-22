@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-21T16:02:47-07:00",
+  "updatedAt": "2026-07-21T18:29:21-07:00",
   "releases": [
+    {
+      "date": "2026-07-21",
+      "title": "Richer historical player stories",
+      "titleZh": "更丰富的历史球员故事",
+      "highlights": [
+        "Historical cards now lead with localized play-style descriptions, including story-only players and alternate names.",
+        "Mobile ranking tooltips stay on-screen; award dividers and champion photo credits now fit their visible content.",
+        "The site shell now lets more background color pass through its glass controls in light and dark mode."
+      ],
+      "highlightsZh": [
+        "历史亮点球员卡现优先展示本地化的比赛风格描述，不再使用单薄的身份说明，并覆盖故事专属球员与别名。",
+        "移动端排名提示框现会保持在视口内；奖项分隔线与冠军照片来源标签也会贴合实际可见内容。",
+        "网站外壳的玻璃控件现会在浅色和深色模式下透出更多背景色彩。"
+      ]
+    },
     {
       "date": "2026-07-21",
       "title": "Complete historical player cards",

@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "14ebe71dc560b0ccc5a904a3388e766d9219d5e239dd5e88a91e6a6447b9598d"
+  "sourceFingerprint": "7b44cd54c44a78071fd0715e47edb250015f142e126228cae7524484bc82456a"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "All 3,647 historical profiles now show sourced tournament-time clubs and leagues in four languages and Ball Boy.": "Los 3.647 perfiles históricos ahora muestran en cuatro idiomas el club y la liga del jugador durante el torneo, con sus fuentes; Ball Boy usa los mismos datos verificados.",
-  "Cards now show World Cup goals and sourced assists; coach cards, champion banners, and light-mode Best XI are polished.": "Las tarjetas ahora muestran los goles mundialistas y las asistencias con fuente; también se pulieron las tarjetas de entrenadores, los banners de campeones y el Mejor XI en modo claro.",
-  "Complete historical player cards": "Tarjetas históricas de jugadores más completas",
-  "Every player named in historical World Cup stories now opens a complete, mobile-safe card across all 22 archives.": "Cada jugador mencionado en las historias de los Mundiales históricos ahora abre una tarjeta completa, bien posicionada en móviles en las 22 ediciones archivadas."
+  "Historical cards now lead with localized play-style descriptions, including story-only players and alternate names.": "Las tarjetas históricas ahora empiezan con descripciones localizadas del estilo de juego, incluidos jugadores exclusivos de las historias y nombres alternativos.",
+  "Mobile ranking tooltips stay on-screen; award dividers and champion photo credits now fit their visible content.": "Los avisos de ranking en móvil permanecen en pantalla; los separadores de premios y los créditos de las fotos de campeones ahora se ajustan al contenido visible.",
+  "Richer historical player stories": "Historias más ricas de jugadores históricos",
+  "The site shell now lets more background color pass through its glass controls in light and dark mode.": "La interfaz del sitio ahora deja pasar más color del fondo a través de sus controles de cristal, tanto en modo claro como oscuro."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 
