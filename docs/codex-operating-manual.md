@@ -20,6 +20,31 @@ continuous delivery by a solo developer using multiple Codex threads.
   to make throughout the day. Release ceremony is the exception, not the
   default.
 
+## Release Stop Contract
+
+This sequence governs every normal release:
+
+**Feature complete -> Review once -> Validate -> Fix only genuine blockers ->
+Commit -> Push -> GitHub CI -> Verify Vercel -> Quick production check -> STOP.**
+
+- Freeze the settled release before review. Do not repeatedly reopen the scope.
+- Choose validation from the actual product risk and run it once against the
+  settled candidate.
+- Classify a failure before changing anything. A genuine blocker is incorrect
+  product behavior, data, or a required generated artifact. Fix it minimally
+  and run only the directly affected check once.
+- A stale assertion, flaky timing failure, test-state leak, tooling problem,
+  optional cleanup, or broader test improvement belongs in a separate
+  maintenance task. Do not fix it during publishing.
+- Do not rerun a completed suite or manually rerun CI on an unchanged commit
+  merely to obtain a green result.
+- A quick production check is HTTP success plus one authoritative check of the
+  changed surface. Do not expand it into another browser or API test campaign.
+- Report red, pending, or unavailable CI truthfully. Never call CI green when
+  it is not green.
+- After the production check and exact-state report, stop. Do not continue with
+  opportunistic test, assertion, infrastructure, or product improvements.
+
 ## Parallel Work
 
 - Develop in parallel and keep independent World Cup tasks narrow.
@@ -78,7 +103,9 @@ relevant threads are working.
     local `HEAD` matches `origin/main`, record the current CI state, and report
     remaining local work.
 11. If exact-SHA CI is queued or running after production is verified, report
-    it and stop. Investigate only an actual failed job.
+    it and stop. If CI failed, classify the failure once under the Release Stop
+    Contract; do not manually rerun unchanged CI or maintain tests during the
+    release.
 
 Do not repeatedly ask what to include when `push latest` or `push all` is clear.
 Do not use temporary worktrees, hash inventories, partial patch extraction,
@@ -247,11 +274,14 @@ requires it.
    Release Boundaries.
 6. Let the repository's Vercel Git integration deploy `main`; do not also run
    `vercel --prod` for the same release.
-7. Verify the exact production commit, public alias, and relevant assets or
-   APIs, and confirm local `HEAD` matches `origin/main`.
-8. If CI has failed, investigate the exact failed job. If CI is queued or
-   running, report that state and stop once production and commit alignment are
-   verified.
+7. Verify the exact production commit and public alias with HTTP success plus
+   one authoritative check of the changed surface, and confirm local `HEAD`
+   matches `origin/main`.
+8. If CI has failed, inspect enough of the exact failed job to classify it. Fix
+   only a genuine release blocker; record stale assertions, flakes, test-state
+   leaks, and tooling failures for separate maintenance without manually
+   rerunning the unchanged commit. If CI is queued or running, report that
+   state and stop once production and commit alignment are verified.
 
 Use a manual Vercel deployment only for an explicitly requested redeploy, a
 failed Git-triggered deployment, promotion of a specific verified deployment,
@@ -263,18 +293,18 @@ or recovery/rollback.
   parallel work, stale data, CI infrastructure, or a third party before editing.
 - The publishing thread may fix a regression when it is directly caused by, or
   clearly part of, the settled release batch.
-- Publishing recovery is limited to one root cause. Investigate, repair, and
-  revalidate that cause until it is resolved or genuinely blocked. Do not
-  expand the publishing pass to unrelated failures. If validation reveals a
-  different root cause, stop and move it to a separate implementation task. Do
-  not continue feature development inside the publishing task.
+- Publishing recovery is limited to genuine product, data, or required
+  generated-artifact blockers. Make the smallest fix and rerun only the
+  materially affected check once. Do not repair stale assertions, flaky
+  timing, test-state leakage, or tooling during the release.
 - If validation discovers an unrelated issue, optional improvement, new
   methodology decision, or broad refactor, stop and report it for a separate
   implementation task.
 - Fix direct release regressions. Do not turn publishing into open-ended
   feature development.
 - For CI failures, inspect the exact run, job log, SHA, and workflow steps. Do
-  not infer the cause from an email summary alone.
+  not infer the cause from an email summary alone. Inspection is for
+  classification, not permission to rerun unchanged CI or improve the test.
 - Queued or running CI is not a failed release. Once the exact commit is live,
   the production alias is healthy, and local `HEAD` matches `origin/main`,
   report the pending CI state and stop rather than waiting indefinitely.
