@@ -233,7 +233,20 @@ const HISTORICAL_COACH_CARD_DETAILS = Object.freeze({
 
 export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
   "1954|Just Fontaine": Object.freeze({
-    profileYear: 1958
+    profileYear: 1958,
+    styleNote: "Fontaine builds his game around attacking the space behind defenders before it fully opens. Notice how he arrives on the move and gets his finish away before the nearest marker recovers. A second cue is how he uses his body to protect the ball and brings a teammate into the move.",
+    styleNoteZh: "他的比赛建立在对防线身后空当的提前攻击上。留意他如何移动中进入射门位置，并在最近的盯防者回位前完成终结。第二个线索是他如何用身体护住球，再让队友加入进攻。",
+    styleNoteMeta: Object.freeze({
+      origin: "authored",
+      version: "historical-style-authored-v1",
+      role: "striker",
+      signature: "attack-space-behind",
+      actions: Object.freeze(["moving-finish", "body-bring-teammate"]),
+      sources: Object.freeze(["editorial-story"]),
+      evidence: Object.freeze(["editorial-story"]),
+      confidence: "editorial",
+      structureId: "build-two-cues"
+    })
   }),
   "1998|Roberto Ayala": Object.freeze({
     profileYear: 2006,
@@ -247,6 +260,19 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-1998-squads.html",
     skills: Object.freeze(["Positioning", "Aerial defending", "Recovery pace"]),
+    styleNote: "Ayala stands out for using contact without losing his defensive position. One cue is how he holds the dangerous lane until a teammate can apply pressure. Another is how he checks the runner over his shoulder before the final pass arrives.",
+    styleNoteZh: "阿亚拉的突出特点，是身体对抗中不丢失防守位置。一个细节是他会守住危险线路，直到队友能对持球人施压。另一个细节是他会在最后一传到来前回头确认跑动者的位置。",
+    styleNoteMeta: Object.freeze({
+      origin: "authored",
+      version: "historical-style-authored-v1",
+      role: "centre-back",
+      signature: "contact-with-position",
+      actions: Object.freeze(["hold-danger-lane", "check-runner"]),
+      sources: Object.freeze(["editorial-story"]),
+      evidence: Object.freeze(["editorial-story"]),
+      confidence: "editorial",
+      structureId: "one-another"
+    }),
     note: "Argentina's 1998 World Cup centre-back. His late duel with Dennis Bergkamp decided the quarter-final.",
     noteZh: "他是阿根廷队在1998年世界杯的中后卫；四分之一决赛最后时刻，他与丹尼斯·博格坎普的对决决定了比赛。"
   }),
@@ -265,8 +291,19 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2002-squads.html",
     skills: Object.freeze(["Progressive passing", "Box-to-box running", "Chance creation"]),
-    styleNote: "Kleberson stands out for shaping the pace of the game from midfield. He moves after passing so the team keeps a nearby outlet. He receives side-on so his next pass can move forward.",
-    styleNoteZh: "他的突出特点是对中场比赛节奏的掌控。他会传球后继续移动，让球队始终保留近距离出球点。他也会侧身接球，让下一脚传球可以向前发展。",
+    styleNote: "For Kleberson, shaping the pace of the game from midfield is the foundation. Look first at how he moves after passing so the team keeps a nearby outlet. Also watch how he receives side-on so his next pass can move forward.",
+    styleNoteZh: "对克莱伯森来说，掌控中场比赛节奏是比赛基础。先看他如何传球后继续移动，让球队始终保留近距离出球点。也看他如何侧身接球，让下一脚传球可以向前发展。",
+    styleNoteMeta: Object.freeze({
+      origin: "authored",
+      version: "historical-style-authored-v1",
+      role: "central-midfielder",
+      signature: "shape-midfield-tempo",
+      actions: Object.freeze(["move-after-pass", "receive-side-on"]),
+      sources: Object.freeze(["editorial-story"]),
+      evidence: Object.freeze(["editorial-story"]),
+      confidence: "editorial",
+      structureId: "foundation-watch"
+    }),
     note: "Brazil's 2002 World Cup central midfielder. He started the last three matches and helped create Ronaldo's second goal in the final.",
     noteZh: "他是巴西队在2002年世界杯的中前卫，最后三场全部首发，并参与制造了罗纳尔多在决赛中的第二粒进球。"
   }),
@@ -282,6 +319,19 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2010-squads.html",
     skills: Object.freeze(["Line-breaking passing", "Tempo control", "Final-third vision"]),
+    styleNote: "Shaping the pace of the game from midfield defines the way Fàbregas plays. Look for how he receives side-on so his next pass can move forward, and how he moves after passing so the team keeps a nearby outlet.",
+    styleNoteZh: "掌控中场比赛节奏定义了法布雷加斯的比赛方式。观察他如何侧身接球，让下一脚传球可以向前发展，也观察他如何传球后继续移动，让球队始终保留近距离出球点。",
+    styleNoteMeta: Object.freeze({
+      origin: "authored",
+      version: "historical-style-authored-v1",
+      role: "central-midfielder",
+      signature: "shape-midfield-tempo",
+      actions: Object.freeze(["receive-side-on", "move-after-pass"]),
+      sources: Object.freeze(["editorial-story"]),
+      evidence: Object.freeze(["editorial-story"]),
+      confidence: "editorial",
+      structureId: "quality-defines"
+    }),
     note: "Spain's 2010 World Cup central midfielder. From the bench, he supplied the pass for Andrés Iniesta's winning goal in the final.",
     noteZh: "他是西班牙队在2010年世界杯的中前卫，并在决赛替补登场后助攻安德烈斯·伊涅斯塔打进制胜球。"
   }),
@@ -300,8 +350,19 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2022-squads.html",
     skills: Object.freeze(["Close control", "Ball carrying", "Press resistance"]),
-    styleNote: "Boufal's edge is purposeful movement away from the ball. He keeps his first touch close enough to make the next action simple. He moves into a clear supporting angle before pressure arrives.",
-    styleNoteZh: "布法尔最特别的地方是无球时有目的的移动。他会把第一脚触球控制得足够近，让下一步处理保持简单。他也会在压力到来前移动到清晰的接应角度。",
+    styleNote: "The key to Boufal is purposeful movement away from the ball. He keeps his first touch close enough to make the next action simple. Another part of his game appears when he moves into a clear supporting angle before pressure arrives.",
+    styleNoteZh: "理解布法尔的关键，是无球时有目的的移动。他会把第一脚触球控制得足够近，让下一步处理保持简单。比赛进入另一阶段时，他会在压力到来前移动到清晰的接应角度。",
+    styleNoteMeta: Object.freeze({
+      origin: "authored",
+      version: "historical-style-authored-v1",
+      role: "wide-attacker",
+      signature: "purposeful-off-ball",
+      actions: Object.freeze(["close-first-touch", "supporting-angle"]),
+      sources: Object.freeze(["editorial-story"]),
+      evidence: Object.freeze(["editorial-story"]),
+      confidence: "editorial",
+      structureId: "key-another"
+    }),
     note: "Morocco's 2022 World Cup left winger. His close control and carrying helped the first African semi-finalists progress without losing their attacking outlet.",
     noteZh: "他是摩洛哥队在2022年世界杯的左边锋，以近距离控球和推进能力帮助首支非洲四强球队始终保留反击出口。"
   }),
@@ -320,8 +381,19 @@ export const HISTORICAL_STORY_PROFILE_OVERRIDES = Object.freeze({
     clubAtTournamentSource: "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
     clubAtTournamentSourceUrl: "https://github.com/jfjelstul/worldcup/blob/35a8667f518b07469182ae16d35574dd0e7a00fb/data-raw/Wikipedia-squad-pages/men-2022-squads.html",
     skills: Object.freeze(["One-on-one defending", "Recovery pace", "Penalty taking"]),
-    styleNote: "Montiel stands out for using contact without losing his defensive position. He holds the dangerous lane until a teammate can apply pressure. He checks the runner over his shoulder before the final pass arrives.",
-    styleNoteZh: "蒙铁尔的突出特点是在身体对抗中不丢失防守位置。他会守住危险线路，直到队友能对持球人施压。他也会在最后一传到来前回头确认跑动者的位置。",
+    styleNote: "Using contact without losing his defensive position defines the way Montiel plays. Look for how he checks the runner over his shoulder before the final pass arrives, and how he holds the dangerous lane until a teammate can apply pressure.",
+    styleNoteZh: "身体对抗中不丢失防守位置定义了蒙铁尔的比赛方式。观察他如何在最后一传到来前回头确认跑动者的位置，也观察他如何守住危险线路，直到队友能对持球人施压。",
+    styleNoteMeta: Object.freeze({
+      origin: "authored",
+      version: "historical-style-authored-v1",
+      role: "full-back",
+      signature: "contact-with-position",
+      actions: Object.freeze(["check-runner", "hold-danger-lane"]),
+      sources: Object.freeze(["editorial-story"]),
+      evidence: Object.freeze(["editorial-story"]),
+      confidence: "editorial",
+      structureId: "quality-defines"
+    }),
     note: "Argentina's 2022 World Cup right-back. He converted the decisive penalty in the final shootout to seal the title.",
     noteZh: "他是阿根廷队在2022年世界杯的右后卫，并在决赛点球大战罚入制胜点球，为球队锁定冠军。"
   })
@@ -1004,7 +1076,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Carlos Bilardo",
         teamName: "Argentina",
-        reason: { en: "Bilardo built the tournament's clearest bespoke system: a 3-5-2 that protected Maradona from defensive waste, gave him two running targets and still had enough width to escape pressure." }
+        reason: { en: "Bilardo built the tournament's clearest bespoke system: a 3-5-2 that spared Maradona unnecessary defensive work, gave him two running targets and still had enough width to escape pressure." }
       },
       rows: [
         [player("Jean-Marie Pfaff", "Belgium", "GK", "Pfaff's explosive shot-stopping and willingness to sweep behind a loose defence gave Belgium the margin to survive two extra-time knockout matches.", ["Nery Pumpido", "Argentina"])],
@@ -1130,7 +1202,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Edgar Davids", "Netherlands", "CM", "Recalled after an earlier dispute, Davids gave the Dutch midfield ball-winning and forward thrust, including the late winner against Yugoslavia.", ["Didier Deschamps", "France"])
         ],
         [
-          player("Zinedine Zidane", "France", "AM", "Suspension interrupted his tournament, but Zidane's receiving angles and two final headers changed French history when the entire match was aimed at him.", ["Rivaldo", "Brazil"]),
+          player("Zinedine Zidane", "France", "AM", "Suspension interrupted Zidane's tournament, but he remained France's creative reference and produced his defining display in the final. His two headers secured the hosts' first World Cup title.", ["Rivaldo", "Brazil"]),
           player("Dennis Bergkamp", "Netherlands", "AM", "Bergkamp made every reception between the lines purposeful; his control, cut and finish against Argentina was the tournament's most technically complete decisive goal.", ["Michael Laudrup", "Denmark"])
         ],
         [

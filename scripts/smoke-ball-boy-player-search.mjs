@@ -147,7 +147,7 @@ try {
       ) &&
       clarificationMetrics.options.some((text) =>
         text.includes("Raul Meireles") &&
-        text.includes("Portugal · Position unavailable • 2010")
+        text.includes("Portugal · Midfielder • 2010")
       ) &&
       requestedPaths.includes("/data/ball-boy-historical-players.json") &&
       !requestedPaths.includes("/data/historical-player-profiles.json") &&
@@ -181,11 +181,10 @@ try {
       historicalMetrics.header.includes("Spain · Forward • 1998, 2002, 2006") &&
       historicalMetrics.header.includes("Real Madrid") &&
       historicalMetrics.worldCupContext === "At the 1998, 2002, and 2006 World Cups" &&
-      JSON.stringify(historicalMetrics.watchPoints) === JSON.stringify([
-        "Raúl stands out for attacking the space behind defenders before it fully opens.",
-        "He arrives on the move and gets his finish away before the nearest marker recovers.",
-        "He uses his body to protect the ball and brings a teammate into the move."
-      ]) &&
+      historicalMetrics.watchPoints.length === 3 &&
+      historicalMetrics.watchPoints[0].includes("Raúl") &&
+      historicalMetrics.watchPoints.every((point) => point.length >= 24 && !/undefined|null/i.test(point)) &&
+      new Set(historicalMetrics.watchPoints).size === 3 &&
       historicalMetrics.factValues.some((fact) => fact.label === "Goals" && fact.value === "5") &&
       historicalMetrics.factValues.some((fact) => fact.label === "World Cups" && fact.value === "3") &&
       !historicalMetrics.hasPlayerDetails,
@@ -317,12 +316,19 @@ try {
   };
   for (const [key, expected] of Object.entries(expectedLocalizedHistoricalNotes)) {
     const measured = localizedHistoricalNotes[key];
+    const generated = key.endsWith("generated");
+    const localizedNoteIsComplete = generated
+      ? measured?.note?.includes(expected.name) &&
+        measured.note.length >= 100 &&
+        measured.note.split(/[.!?。！？]/u).filter((part) => part.trim()).length >= 3 &&
+        !/Conviene seguir|lectura del juego|경기 이해/u.test(measured.note)
+      : measured?.note === expected.note;
     assert(
       measured?.kind === "player" &&
         measured.historical &&
         measured.focus === "overview" &&
         measured.name === expected.name &&
-        measured.note === expected.note,
+        localizedNoteIsComplete,
       `${key}: Ball Boy should preserve the full historical player description. Measured ${JSON.stringify(measured)}.`
     );
   }

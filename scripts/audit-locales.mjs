@@ -40,15 +40,52 @@ import {
   getReviewedCurrentCopyMismatches
 } from "./locale-current-factual-copy.mjs";
 import {
+  GENERATED_PLAYER_NOTE_STRUCTURE_IDS,
   getPlayerSkillCategory,
   isGeneratedPlayerCardCopy,
+  parseGeneratedPlayerStyleNote,
   parseGeneratedHistoricalPlayerNote,
   parseGeneratedHistoricalPlayerSummary
 } from "../locales/player-note-templates.js";
 import { parseHistoricalResultStory } from "../locales/historical-result-templates.js";
+import {
+  HISTORICAL_EDITORIAL_STYLE_PHRASES,
+  HISTORICAL_SPECIAL_STYLE_PHRASES,
+  HISTORICAL_STYLE_CATALOGS
+} from "./refresh-historical-player-card-notes.mjs";
+import {
+  HISTORICAL_PLAYER_NOTE_SEMANTICS as ES_HISTORICAL_PLAYER_NOTE_SEMANTICS
+} from "../locales/es/historical-player-note-semantics.js";
+import {
+  HISTORICAL_PLAYER_NOTE_SEMANTICS as KO_HISTORICAL_PLAYER_NOTE_SEMANTICS
+} from "../locales/ko/historical-player-note-semantics.js";
 
 const LANGUAGE_CODES = ["en", "zh", "es", "ko"];
 const NEW_LANGUAGE_CODES = ["es", "ko"];
+const HISTORICAL_STYLE_SEMANTIC_ENTRIES = [
+  ...Object.values(HISTORICAL_STYLE_CATALOGS).flatMap((catalog) => [
+    ...catalog.signatures,
+    ...catalog.actions
+  ]),
+  ...Object.values(HISTORICAL_EDITORIAL_STYLE_PHRASES).flatMap((catalog) => [
+    ...catalog.signatures,
+    ...catalog.actions
+  ]),
+  HISTORICAL_SPECIAL_STYLE_PHRASES.penalty.signature,
+  ...HISTORICAL_SPECIAL_STYLE_PHRASES.penalty.actions,
+  HISTORICAL_SPECIAL_STYLE_PHRASES.impact.signature,
+  ...HISTORICAL_SPECIAL_STYLE_PHRASES.impact.actions,
+  ...Object.values(HISTORICAL_SPECIAL_STYLE_PHRASES.goal).flatMap((catalog) => [
+    catalog.signature,
+    ...catalog.actions
+  ])
+];
+const HISTORICAL_STYLE_SEMANTIC_IDS = new Set(
+  HISTORICAL_STYLE_SEMANTIC_ENTRIES.map((entry) => entry.id)
+);
+const HISTORICAL_STYLE_SEMANTIC_BY_ID = new Map(
+  HISTORICAL_STYLE_SEMANTIC_ENTRIES.map((entry) => [entry.id, entry])
+);
 const rootDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   ".."
@@ -120,6 +157,225 @@ const AUTHORED_PLAYER_NOTE_PROBES = Object.freeze([
     expected: Object.freeze({
       es: "Messi controla el ataque con toques cortos",
       ko: "메시는 짧은 터치와 한발 빠른 시야로 공격을 지휘한다"
+    })
+  })
+]);
+
+const CURRENT_PLAYER_NOTE_SEMANTIC_PROBES = Object.freeze([
+  Object.freeze({
+    signatureId: "centre-first-positioning",
+    actionIds: Object.freeze(["hold-central-goal-lane", "claim-cross-high"]),
+    expected: Object.freeze({
+      es: Object.freeze(["proteger primero el centro de la portería", "mantiene cerrado el carril central", "ataca el centro"]),
+      ko: Object.freeze(["골문 중앙부터 지키는", "중앙 통로를 지킨다", "가장 높은 처리 지점을 선점한다"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "rebound-control",
+    actionIds: Object.freeze(["parry-away-danger", "controlled-reflex-block"]),
+    expected: Object.freeze({
+      es: Object.freeze(["controlar dónde queda el balón", "desvía la parada", "mantiene manos y pies coordinados"]),
+      ko: Object.freeze(["세컨드볼의 방향을 통제하는", "위험이 적은 방향으로 쳐낸다", "손과 발을 함께 움직여"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "compact-reflex-shape",
+    actionIds: Object.freeze(["controlled-reflex-block", "claim-cross-high"]),
+    expected: Object.freeze({
+      es: Object.freeze(["postura compacta", "parada de reflejos", "punto más alto"]),
+      ko: Object.freeze(["몸을 작고 단단하게", "반사적으로 막은 공", "가장 높은 처리 지점"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "nearby-unit-organization",
+    actionIds: Object.freeze(["nearby-unit-cues", "lead-first-pressure"]),
+    expected: Object.freeze({
+      es: Object.freeze(["compañeros cercanos", "indicaciones breves", "activa la primera presión"]),
+      ko: Object.freeze(["주변 동료를 정렬", "짧은 지시", "첫 압박을 시작"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "front-line-leadership",
+    actionIds: Object.freeze(["lead-first-pressure", "attack-back-post"]),
+    expected: Object.freeze({
+      es: Object.freeze(["primera línea", "siguiente compañero", "segundo palo"]),
+      ko: Object.freeze(["전방 동료", "다음 동료", "먼 골대 통로"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "penalty-contact-calm",
+    actionIds: Object.freeze(["composed-penalty-strike", "attack-back-post"]),
+    expected: Object.freeze({
+      es: Object.freeze(["presión de un penalti", "acorta la carrera", "segundo palo"]),
+      ko: Object.freeze(["페널티킥의 압박", "도움닫기를 줄이고", "먼 골대 통로"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "clean-shot",
+    actionIds: Object.freeze(["finish-either-foot", "block-cross-angle"]),
+    expected: Object.freeze({
+      es: Object.freeze(["remate limpio", "cualquiera de las dos piernas", "bloquear el centro"]),
+      ko: Object.freeze(["깔끔한 슈팅", "어느 발로도", "크로스를 막을 거리"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "left-foot-passing",
+    actionIds: Object.freeze(["pass-with-left-foot", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["usar la zurda como salida de pase", "juega con la zurda el pase disponible"]),
+      ko: Object.freeze(["왼발을 패스 선택지로 활용", "왼발로 가능한 패스를 연결"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "disguised-passing",
+    actionIds: Object.freeze(["hide-pass-intent", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["ocultar hasta el último momento", "da a entender que jugará"]),
+      ko: Object.freeze(["마지막 순간까지 패스 의도를 숨기는", "한쪽으로 연결할 듯하다가"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "pullback-creation",
+    actionIds: Object.freeze(["pull-ball-back", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["encontrar a un compañero que llega con un pase atrás", "desde cerca de la línea de fondo"]),
+      ko: Object.freeze(["뒤로 내주는 패스", "엔드라인 근처에서"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "passing-continuity",
+    actionIds: Object.freeze(["play-available-pass", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["mantener la posesión en movimiento", "siguiente compañero disponible"]),
+      ko: Object.freeze(["점유의 흐름을 이어가는", "다음으로 연결할 수 있는 동료"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "crossing-volume",
+    actionIds: Object.freeze(["repeat-wide-delivery", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["volver a la banda para repetir los envíos", "otro balón hacia el área"]),
+      ko: Object.freeze(["측면으로 돌아가 반복", "페널티지역으로 다시 공을 보낼"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "one-on-one-running",
+    actionIds: Object.freeze(["run-at-isolated-defender", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["conducir directamente hacia un defensor aislado", "defensor que tiene delante"]),
+      ko: Object.freeze(["고립된 수비수를 향해", "공을 통제한 채"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "shot-stopping-readiness",
+    actionIds: Object.freeze(["set-for-shot", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["proteger el centro de la portería", "mantiene cerrado el carril central"]),
+      ko: Object.freeze(["골문 중앙을 지키는 판단", "중앙 통로를 닫아 둔다"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "aerial-defending",
+    actionIds: Object.freeze(["contest-aerial-ball", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["balones aéreos en su zona defensiva", "antes de que el atacante pueda controlarlo"]),
+      ko: Object.freeze(["수비 구역의 공중볼", "공을 향해 움직여"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "pressing-work",
+    actionIds: Object.freeze(["join-team-pressure", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["participar activamente en la presión", "compañeros cierran las opciones cercanas"]),
+      ko: Object.freeze(["팀 압박에 적극적으로 참여", "동료들이 근처 선택지를 닫는"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "set-piece-responsibility",
+    actionIds: Object.freeze(["deliver-dead-ball", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["asumir los envíos ofensivos a balón parado", "córneres y faltas"]),
+      ko: Object.freeze(["공격 세트피스 킥을 맡아", "코너킥과 프리킥"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "chance-passing",
+    actionIds: Object.freeze(["play-to-available-runner", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["buscar el pase que puede crear", "corredor disponible"]),
+      ko: Object.freeze(["다음 기회를 만들 수 있는 패스", "패스를 받을 수 있는 동료"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "ball-carrying",
+    actionIds: Object.freeze(["carry-into-space", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["hacer avanzar la posesión", "espacio disponible"]),
+      ko: Object.freeze(["점유를 전진시키는 운반", "열린 공간으로 운반"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "dribbling-control",
+    actionIds: Object.freeze(["carry-under-pressure", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["pese a la presión cercana", "balón cerca mientras avanza"]),
+      ko: Object.freeze(["근접 압박을 받으면서도", "공을 가까이 둔다"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "wide-service",
+    actionIds: Object.freeze(["send-wide-delivery", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["poner balones desde las bandas", "desde una posición de banda"]),
+      ko: Object.freeze(["측면 지역에서 공을 보내는", "측면 위치에서"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "goal-threat-positioning",
+    actionIds: Object.freeze(["move-into-shot-position", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["siguiente pase puede convertirse en remate", "puede acabar en remate"]),
+      ko: Object.freeze(["다음 패스를 슈팅으로 바꿀", "패스가 슈팅으로 이어질 위치"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "finishing-readiness",
+    actionIds: Object.freeze(["set-for-finish", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["prepararse para definir", "se prepara para rematar"]),
+      ko: Object.freeze(["공이 올 때 마무리를 준비", "공을 받으면 슈팅을 준비"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "pace-in-space",
+    actionIds: Object.freeze(["accelerate-into-space", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["usar su velocidad cuando se abre el camino", "acelera cuando se abre"]),
+      ko: Object.freeze(["통로가 열릴 때 속도를 활용", "통로가 열리면 가속"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "aerial-duels",
+    actionIds: Object.freeze(["contest-aerial-ball", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["competir por balones aéreos", "va hacia el balón que cae"]),
+      ko: Object.freeze(["공중볼 경합에 참여", "떨어지는 공을 향해 움직여"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "strength-in-contact",
+    actionIds: Object.freeze(["hold-through-contact", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["usar su fuerza en el contacto directo", "mantiene la posición durante el contacto"]),
+      ko: Object.freeze(["직접 몸싸움에서 힘을 활용", "몸싸움을 버티며 위치를 지킨"])
+    })
+  }),
+  Object.freeze({
+    signatureId: "goalkeeper-distribution",
+    actionIds: Object.freeze(["restart-to-teammate", "move-after-release"]),
+    expected: Object.freeze({
+      es: Object.freeze(["salida disponible después de recuperar la posesión", "reanuda el juego con un pase a un compañero disponible"]),
+      ko: Object.freeze(["공을 되찾은 뒤 연결할 수 있는 동료", "공을 보내 경기를 재개한다"])
     })
   })
 ]);
@@ -1424,13 +1680,97 @@ function auditPlayerNoteTemplates(
     return;
   }
 
+  const additionalTraitParserProbes = [
+    {
+      structure: "paired-observation",
+      note: "Tester's signature is creating a clean shot before the defense can reset. Watch how he meets the pass without adding an extra touch. In a separate phase, he moves after releasing the ball so the receiver still has support."
+    },
+    {
+      structure: "two-clues",
+      note: "Watch Tester for creating a clean shot before the defense can reset. The clearest example is how he meets the pass without adding an extra touch. Away from that phase, Tester moves after releasing the ball so the receiver still has support."
+    },
+    {
+      structure: "second-detail",
+      note: "Tester stands out for creating a clean shot before the defense can reset. He meets the pass without adding an extra touch. A different detail is how Tester moves after releasing the ball so the receiver still has support."
+    },
+    {
+      structure: "separating-clue",
+      note: "What separates Tester is creating a clean shot before the defense can reset. Tester meets the pass without adding an extra touch. In another phase, he moves after releasing the ball so the receiver still has support."
+    },
+    {
+      structure: "foundation-watch",
+      note: "For Tester, the foundation is creating a clean shot before the defense can reset. Look first at how he meets the pass without adding an extra touch. In another phase, watch how he moves after releasing the ball so the receiver still has support."
+    },
+    {
+      structure: "different-phase",
+      note: "The key to Tester is creating a clean shot before the defense can reset. He meets the pass without adding an extra touch. In a different phase, he moves after releasing the ball so the receiver still has support."
+    }
+  ];
+  const additionalTraitParserFailures = additionalTraitParserProbes
+    .map(({ structure, note }) => {
+      const parsed = parseGeneratedPlayerStyleNote(note);
+      return parsed?.structure === structure &&
+        parsed?.qualityId === "clean-shot" &&
+        parsed?.actionIds?.[0] === "first-time-finish" &&
+        parsed?.actionIds?.[1] === "move-after-release"
+        ? ""
+        : `${structure}: ${parsed ? JSON.stringify(parsed) : "unparseable"}`;
+    })
+    .filter(Boolean);
+  check(
+    "player-note English parser",
+    additionalTraitParserFailures.length === 0,
+    `additional-trait English shells are not round-trippable: ${formatSamples(additionalTraitParserFailures)}`,
+    "Keep every reviewed English sentence shell aligned with the shared semantic parser."
+  );
+
+  const historicalSemanticMap = language === "es"
+    ? ES_HISTORICAL_PLAYER_NOTE_SEMANTICS
+    : KO_HISTORICAL_PLAYER_NOTE_SEMANTICS;
+  const historicalSemanticKeys = new Set(Object.keys(historicalSemanticMap));
+  const missingHistoricalSemantics = [...HISTORICAL_STYLE_SEMANTIC_IDS]
+    .filter((id) => !historicalSemanticKeys.has(id));
+  const extraHistoricalSemantics = [...historicalSemanticKeys]
+    .filter((id) => !HISTORICAL_STYLE_SEMANTIC_IDS.has(id));
+  const invalidHistoricalSemantics = Object.entries(historicalSemanticMap)
+    .filter(([id, value]) => {
+      const text = String(value || "").trim();
+      if (!text || /[.!?…。！？]$/u.test(text) || hasSuspiciousPlaceholder(text)) return true;
+      return language === "es"
+        ? !/[a-záéíóúñ]/iu.test(text) ||
+            text.toLocaleLowerCase("es-419") ===
+              String(HISTORICAL_STYLE_SEMANTIC_BY_ID.get(id)?.en || "").toLocaleLowerCase("en-US")
+        : !/\p{Script=Hangul}/u.test(text);
+    })
+    .map(([id]) => id);
+  check(
+    "player-note semantic registry",
+    HISTORICAL_STYLE_SEMANTIC_ENTRIES.length === HISTORICAL_STYLE_SEMANTIC_IDS.size,
+    `historical player-note generator has duplicate semantic IDs (${HISTORICAL_STYLE_SEMANTIC_ENTRIES.length} entries, ${HISTORICAL_STYLE_SEMANTIC_IDS.size} unique)`
+  );
+  check(
+    "player-note semantic registry",
+    missingHistoricalSemantics.length === 0 &&
+      extraHistoricalSemantics.length === 0 &&
+      invalidHistoricalSemantics.length === 0,
+    `${language} historical semantic registry drift: missing ${formatSamples(missingHistoricalSemantics)}, extra ${formatSamples(extraHistoricalSemantics)}, invalid ${formatSamples(invalidHistoricalSemantics)}`,
+    "Every generated historical semantic ID needs one reviewed, punctuation-free locale rendering."
+  );
+
   const currentProfiles = Object.values(playerProfiles?.profiles || {});
   const historicalProfiles = Object.values(historicalPlayerProfiles?.profiles || {});
   const currentTemplated = currentProfiles.filter((profile) =>
-    isGeneratedPlayerCardCopy(profile.note)
+    isGeneratedPlayerCardCopy(profile.note, {
+      copyMeta: profile.noteMeta,
+      localizedName: profile.displayName || profile.name
+    })
   );
   const historicalStyleTemplated = historicalProfiles.filter((profile) =>
-    isGeneratedPlayerCardCopy(profile.styleNote, { historical: true })
+    isGeneratedPlayerCardCopy(profile.styleNote, {
+      historical: true,
+      copyMeta: profile.styleNoteMeta,
+      localizedName: profile.displayName || profile.name
+    })
   );
   const historicalNoteMisses = historicalProfiles.filter(
     (profile) => !parseGeneratedHistoricalPlayerNote(profile.note)
@@ -1461,10 +1801,39 @@ function auditPlayerNoteTemplates(
     )}`
   );
 
+  const ronaldo1998 = historicalProfiles.find(
+    (profile) => profile.profileKey === "Ronaldo / Brazil / 1998"
+  );
+  const ronaldoLocalizedName = ronaldo1998
+    ? playerNames?.archive?.[ronaldo1998.name] ||
+      playerNames?.archive?.[ronaldo1998.displayName] ||
+      ronaldo1998.displayName ||
+      ronaldo1998.name
+    : "";
+  const ronaldoLocalizedStyle = ronaldo1998
+    ? pack.helpers.formatPlayerNote(ronaldo1998.styleNote, {
+        historical: true,
+        localizedName: ronaldoLocalizedName,
+        copyMeta: ronaldo1998.styleNoteMeta
+      })
+    : "";
+  const ronaldoExpectedAction = language === "es"
+    ? "se acerca al balón para recibir al pie antes de atacar el espacio a la espalda de la defensa"
+    : "공 쪽으로 내려와 발밑에 받은 뒤 수비 뒷공간을 공략한다";
+  check(
+    "player-note historical semantic regression",
+    ronaldo1998?.styleNoteMeta?.actions?.includes("fw-check-to-feet") &&
+      ronaldoLocalizedStyle.toLocaleLowerCase(language === "es" ? "es-419" : "ko-KR")
+        .includes(ronaldoExpectedAction),
+    `${language} Ronaldo 1998 lost the reviewed receive-to-feet action: ${ronaldoLocalizedStyle || "(empty)"}`,
+    "Keep fw-check-to-feet registered in every historical player-note locale."
+  );
+
   const currentNames = playerNames?.current || {};
   const archiveNames = playerNames?.archive || {};
   const renderFailures = [];
   const newsroomArtifacts = [];
+  const historicalLocaleGlueArtifacts = [];
   const renderSamples = [
     ...currentTemplated.map((profile) => ({
       historical: false,
@@ -1474,7 +1843,8 @@ function auditPlayerNoteTemplates(
         profile.displayName ||
         profile.name,
       owner: profile.name,
-      source: profile.note
+      source: profile.note,
+      copyMeta: profile.noteMeta
     })),
     ...historicalStyleTemplated.map((profile) => ({
       historical: true,
@@ -1484,7 +1854,8 @@ function auditPlayerNoteTemplates(
         profile.displayName ||
         profile.name,
       owner: profile.profileKey,
-      source: profile.styleNote
+      source: profile.styleNote,
+      copyMeta: profile.styleNoteMeta
     })),
     ...historicalProfiles.map((profile) => ({
       historical: true,
@@ -1494,17 +1865,21 @@ function auditPlayerNoteTemplates(
         profile.displayName ||
         profile.name,
       owner: `${profile.profileKey} note`,
-      source: profile.note
+      source: profile.note,
+      copyMeta: null
     }))
   ];
 
   for (const sample of renderSamples) {
     const packRecognizes = pack.helpers.isTemplatedPlayerNote(sample.source, {
-      historical: sample.historical
+      historical: sample.historical,
+      localizedName: sample.localizedName,
+      copyMeta: sample.copyMeta
     });
     const localized = pack.helpers.formatPlayerNote(sample.source, {
       historical: sample.historical,
-      localizedName: sample.localizedName
+      localizedName: sample.localizedName,
+      copyMeta: sample.copyMeta
     });
     const hasExpectedScript =
       language === "es" ? /[áéíóúñ]|\b(?:el|la|los|las|de|del|en|con|por|para|y)\b/iu.test(localized) : /\p{Script=Hangul}/u.test(localized);
@@ -1529,6 +1904,28 @@ function auditPlayerNoteTemplates(
     ) {
       newsroomArtifacts.push(`${sample.owner}: ${localized}`);
     }
+    if (sample.historical && sample.copyMeta?.origin === "generated") {
+      if (language === "es") {
+        const normalizedLocalized = localized.toLocaleLowerCase("es-419");
+        const wrapsTemporalAction = (sample.copyMeta.actions || []).some((id) => {
+          const action = String(historicalSemanticMap[id] || "")
+            .trim()
+            .toLocaleLowerCase("es-419");
+          return /\bcuando\b/iu.test(action) && normalizedLocalized.includes(`cuando ${action}`);
+        });
+        if (/Una tarea de .+ es que /iu.test(localized) || wrapsTemporalAction) {
+          historicalLocaleGlueArtifacts.push(`${sample.owner}: ${localized}`);
+        }
+        if (/\bDespués,\s+[^.]{0,48}\bdespués\b/iu.test(localized)) {
+          historicalLocaleGlueArtifacts.push(`${sample.owner}: ${localized}`);
+        }
+      } else if (
+        /(?:한 가지 일은|또 다른 일은|하나는|다른 하나는|한 가지 단서는|다른 단서는)[^.]*다\./u.test(localized)
+        || /다른 장면에서는 별도로/u.test(localized)
+      ) {
+        historicalLocaleGlueArtifacts.push(`${sample.owner}: ${localized}`);
+      }
+    }
   }
   check(
     "player-note templates",
@@ -1541,6 +1938,351 @@ function auditPlayerNoteTemplates(
     newsroomArtifacts.length === 0,
     `${language} player notes contain repeated Spanish calques: ${formatSamples(newsroomArtifacts)}`,
     "Keep reusable goalkeeper actions in natural broadcast Spanish so every card benefits from one reviewed fix."
+  );
+  check(
+    "player-note historical locale grammar",
+    historicalLocaleGlueArtifacts.length === 0,
+    `${language} historical player notes contain broken template-to-action joins: ${formatSamples(historicalLocaleGlueArtifacts)}`,
+    "Join already-finite localized actions as direct sentences instead of nesting them under clue, task, or temporal noun frames."
+  );
+
+  const metadataProbe = currentProfiles.find(
+    (profile) => profile.noteMeta?.origin === "generated"
+  );
+  if (metadataProbe) {
+    const metadataLocalizedName =
+      currentNames[metadataProbe.name] ||
+      currentNames[metadataProbe.displayName] ||
+      metadataProbe.displayName ||
+      metadataProbe.name;
+    const metadataRendered = pack.helpers.formatPlayerNote(
+      "Deliberately unparsable English copy used to verify the metadata route.",
+      {
+        localizedName: metadataLocalizedName,
+        copyMeta: metadataProbe.noteMeta
+      }
+    );
+    check(
+      "player-note metadata",
+      Boolean(metadataRendered) && !/Deliberately unparsable/iu.test(metadataRendered),
+      `${language} cannot render player-card semantics from noteMeta when English grammar changes`
+    );
+  }
+
+  const currentSemanticProbeFailures = CURRENT_PLAYER_NOTE_SEMANTIC_PROBES
+    .map((probe) => {
+      const rendered = pack.helpers.formatPlayerNote(
+        "Deliberately unparsable semantic registry probe.",
+        {
+          localizedName: language === "ko" ? "테스트 골키퍼" : "Portero de prueba",
+          copyMeta: {
+            origin: "generated",
+            structureId: "second-detail",
+            signatureId: probe.signatureId,
+            actionIds: probe.actionIds
+          }
+        }
+      );
+      const normalized = language === "es"
+        ? rendered.toLocaleLowerCase("es-419")
+        : rendered;
+      const missing = probe.expected[language].filter(
+        (fragment) => !normalized.includes(language === "es" ? fragment.toLocaleLowerCase("es-419") : fragment)
+      );
+      return missing.length ? `${probe.signatureId}: missing ${missing.join(", ")}` : "";
+    })
+    .filter(Boolean);
+  check(
+    "player-note semantic registry",
+    currentSemanticProbeFailures.length === 0,
+    `${language} current semantic registry probes failed: ${formatSamples(currentSemanticProbeFailures)}`,
+    "Every current player-note semantic ID needs one reviewed locale rendering."
+  );
+
+  const mixedFallbackRegressionCases = [
+    { name: "Virgil van Dijk", roleGroup: "defender" },
+    { name: "Alex Freeman", roleGroup: "defender" },
+    { name: "Amine Sbai", roleGroup: "forward" },
+    { name: "Florian Wiegele", roleGroup: "goalkeeper" },
+    { name: "Ardon Jashari", roleGroup: "midfielder" }
+  ];
+  const mixedFallbackCases = mixedFallbackRegressionCases.map(({ name }) =>
+    currentProfiles.find(
+      (profile) => profile.name === name || profile.displayName === name
+    )
+  );
+  const mixedFallbackFailures = mixedFallbackCases
+    .map((profile, index) => {
+      const expected = mixedFallbackRegressionCases[index];
+      const owner = `${expected.name} (${expected.roleGroup})`;
+      if (!profile) return `${owner}: no role-fallback representative`;
+      const metadata = profile.noteMeta;
+      if (
+        metadata?.roleGroup !== expected.roleGroup ||
+        metadata?.beatSources?.[1]?.kind !== "role-fallback"
+      ) {
+        return `${owner}: supporting beat is not disclosed as role-fallback`;
+      }
+      const localizedName =
+        currentNames[profile.name] ||
+        currentNames[profile.displayName] ||
+        profile.displayName ||
+        profile.name;
+      const rendered = pack.helpers.formatPlayerNote(profile.note, {
+        localizedName,
+        copyMeta: metadata
+      });
+      const normalized = language === "es"
+        ? rendered.toLocaleLowerCase("es-419")
+        : rendered;
+      const observationMarker = language === "es"
+        ? /\bsi\b/iu
+        : /(?:하는지|두는지|키는지|꾸는지|가는지|이는지|는지|르는지|리는지|여는지|내는지|오는지|서는지)/u;
+      const deprecatedRoleFormula = language === "es"
+        ? /responsabilidad propia de un/iu
+        : /역할의 책임으로/u;
+      return rendered && observationMarker.test(normalized) && !deprecatedRoleFormula.test(normalized)
+        ? ""
+        : `${profile.name}: missing an observational uncertainty bridge (${rendered || "empty"})`;
+    })
+    .filter(Boolean);
+  check(
+    "player-note mixed fallback honesty",
+    mixedFallbackFailures.length === 0,
+    `${language} presents role-fallback support as another personal strength: ${formatSamples(mixedFallbackFailures)}`,
+    "Keep the sourced headline action personal, then frame the supporting fallback as something to watch rather than another established trait."
+  );
+
+  const additionalTraitProfiles = currentTemplated.filter(
+    (profile) => profile.noteMeta?.supportRelation === "additional-trait"
+  );
+  const reinforcingBridgePattern = language === "es"
+    ? /(?:vuelve a aparecer|otra lo confirma|esa misma lectura|dos acciones lo explican|se reconoce tanto|se ve cuando.+también cuando)/iu
+    : /(?:두 장면이 이를 보여준다|같은 장점이 반복된다|같은 판단은 다음 동작|두 동작이 핵심이다|플레이를 보면 흐름이 선명하다)/u;
+  const additiveBridgePattern = language === "es"
+    ? /(?:por separado|además|otro detalle|fuera de esa|en otro momento|en otra faceta|una pista distinta|también (?:conviene|merece|hay que)|más allá|fase distinta|también |otro aspecto|conviene observar además|detalle diferente|fase aparte|hay que notar|en otra fase|otra fase del juego|en una faceta aparte|detalle aparte|otro punto|otra parte de su juego|otro tramo|hay otro detalle|ampliar la lectura|otra pregunta|después queda otra pregunta|completar la imagen|lo siguiente es observar|hay dos preguntas|la primera es si|la segunda es si)/iu
+    : /(?:이와 별도로|또 |다른 장면에서는|이와 다른 장면에서는|경기의 다른 대목에서는|한편|별개의 장면에서는|여기에|그 예와는 별개로|국면이 바뀌면|다른 측면에서는|다른 세부 장면에서는|별개의 국면에서는|그 동작과 별개로|또 다른 순간에는|또한|경기의 다른 국면에서는|별도의 장면에서는|별도의 국면에서는|그 밖에도|별도로 보면|다른 지점에서는|다른 국면에서는|이와는 다른 상황에서|더 넓게 보려면|별개로|다음에는|더 넓은 그림|다음으로)/u;
+  const additionalTraitBridgeFailures = additionalTraitProfiles
+    .map((profile) => {
+      const localizedName =
+        currentNames[profile.name] ||
+        currentNames[profile.displayName] ||
+        profile.displayName ||
+        profile.name;
+      const rendered = pack.helpers.formatPlayerNote(profile.note, {
+        localizedName,
+        copyMeta: profile.noteMeta
+      });
+      return !rendered ||
+        reinforcingBridgePattern.test(rendered) ||
+        !additiveBridgePattern.test(rendered)
+        ? `${profile.name}: ${rendered || "empty"}`
+        : "";
+    })
+    .filter(Boolean);
+  check(
+    "player-note additional-trait honesty",
+    additionalTraitProfiles.length > 0 && additionalTraitBridgeFailures.length === 0,
+    `${language} makes an additional trait sound like proof of the headline quality: ${formatSamples(additionalTraitBridgeFailures)}`,
+    "Use an additive or phase pivot for action two; reserve reinforcing bridges for explicitly reinforcing evidence."
+  );
+
+  const mechanicalLocalePattern = language === "es"
+    ? /(?:\bcuando\b[^.?!]{0,120}\bcuando\b|fijarse en cómo fija|\bconviene\b[^.?!]{0,120}\btambién conviene\b|\bmirar\b[^.?!]{0,120}\bmirar\b|responsabilidad propia de un)/iu
+    : /(?:그 장면을 벗어나면|첫 동작을 벗어나면|먼저[^.。!?]{0,120}먼저|첫 번째로 첫|역할의 책임으로)/u;
+  const mechanicalLocaleFailures = additionalTraitProfiles
+    .map((profile) => {
+      const localizedName =
+        currentNames[profile.name] ||
+        currentNames[profile.displayName] ||
+        profile.displayName ||
+        profile.name;
+      const rendered = pack.helpers.formatPlayerNote(profile.note, {
+        localizedName,
+        copyMeta: profile.noteMeta
+      });
+      return mechanicalLocalePattern.test(rendered)
+        ? `${profile.name}: ${rendered}`
+        : "";
+    })
+    .filter(Boolean);
+  check(
+    "player-note natural cadence",
+    mechanicalLocaleFailures.length === 0,
+    `${language} current player notes retain mechanical or colliding transitions: ${formatSamples(mechanicalLocaleFailures)}`,
+    "Keep additive pivots independent, avoid repeated framing verbs, and render fallback evidence as a viewing question."
+  );
+
+  const structureRenderings = GENERATED_PLAYER_NOTE_STRUCTURE_IDS.map((structureId) => ({
+    structureId,
+    rendered: pack.helpers.formatPlayerNote(
+      "Deliberately unparsable structure cadence probe.",
+      {
+        localizedName: language === "ko" ? "테스트 선수" : "Jugador de prueba",
+        copyMeta: {
+          origin: "generated",
+          structureId,
+          roleGroup: "player",
+          signatureId: "clean-shot",
+          actionIds: ["moving-finish", "draw-and-release"]
+        }
+      }
+    )
+  }));
+  const structureRenderingOwners = new Map();
+  for (const { structureId, rendered } of structureRenderings) {
+    const normalized = String(rendered || "").replace(/\s+/gu, " ").trim();
+    const owners = structureRenderingOwners.get(normalized) || [];
+    owners.push(structureId);
+    structureRenderingOwners.set(normalized, owners);
+  }
+  const collapsedStructures = [...structureRenderingOwners.entries()]
+    .filter(([rendered, owners]) => !rendered || owners.length > 1)
+    .map(([rendered, owners]) => `${owners.join("+")}: ${rendered || "(empty)"}`);
+  check(
+    "player-note cadence",
+    collapsedStructures.length === 0 &&
+      structureRenderingOwners.size === GENERATED_PLAYER_NOTE_STRUCTURE_IDS.length,
+    `${language} collapses source player-note structures into shared locale frames: ${formatSamples(collapsedStructures)}`,
+    "Give every source structure its own natural cadence while preserving the semantic signature and action IDs."
+  );
+
+  const currentAdditionalCadenceStructures = [
+    "paired-observation",
+    "two-clues",
+    "second-detail",
+    "separating-clue",
+    "foundation-watch",
+    "different-phase"
+  ];
+  const localizedAdditionalCadenceFrames = currentAdditionalCadenceStructures.flatMap(
+    (structureId) => Array.from({ length: 5 }, (_, cadenceVariantIndex) => {
+      const rendered = pack.helpers.formatPlayerNote(
+        "Deliberately unparsable localized cadence probe.",
+        {
+          localizedName: language === "ko" ? "테스트 선수" : "Jugador de prueba",
+          copyMeta: {
+            origin: "generated",
+            structureId,
+            roleGroup: "player",
+            signatureId: "clean-shot",
+            actionIds: ["moving-finish", "draw-and-release"],
+            supportRelation: "additional-trait",
+            fallbackFraming: "none",
+            cadenceVariantId: `${structureId}-${cadenceVariantIndex}`,
+            cadenceVariantIndex
+          }
+        }
+      );
+      const sentences = String(rendered || "")
+        .split(/(?<=[.!?。！？])\s+/u)
+        .map((sentence) => sentence.replace(/\s+/gu, " ").trim())
+        .filter(Boolean);
+      return {
+        owner: `${structureId}:${cadenceVariantIndex}`,
+        frame: sentences.at(-1) || ""
+      };
+    })
+  );
+  const localizedAdditionalCadenceCounts = new Map();
+  for (const { frame } of localizedAdditionalCadenceFrames) {
+    localizedAdditionalCadenceCounts.set(
+      frame,
+      (localizedAdditionalCadenceCounts.get(frame) || 0) + 1
+    );
+  }
+  const largestLocalizedAdditionalCadence = Math.max(
+    0,
+    ...localizedAdditionalCadenceCounts.values()
+  );
+  check(
+    "player-note localized cadence",
+    localizedAdditionalCadenceCounts.size >= 24 && largestLocalizedAdditionalCadence <= 3,
+    `${language} collapses the 30 current additional-trait cadences into `
+      + `${localizedAdditionalCadenceCounts.size} third-sentence frames; largest group `
+      + `${largestLocalizedAdditionalCadence}: ${formatSamples(
+        localizedAdditionalCadenceFrames
+          .filter(({ frame }) => (localizedAdditionalCadenceCounts.get(frame) || 0) === largestLocalizedAdditionalCadence)
+          .map(({ owner, frame }) => `${owner}: ${frame || "(empty)"}`)
+      )}`,
+    "Keep at least four idiomatic localized third beats per source structure and prevent any one frame from exceeding ten percent of the 30 probes."
+  );
+
+  const roleGuideRendering = structureRenderings.find(
+    ({ structureId }) => structureId === "role-guide"
+  )?.rendered || "";
+  const standoutClaimPattern = language === "es"
+    ? /\b(?:sello|gran virtud|se distingue|destaca|clave del juego)\b/iu
+    : /(?:대표적인 강점|차별점|플레이의 중심|가장 잘 보여주는 특징|플레이의 핵심|돋보이는 강점)/u;
+  const roleGuideIsObservational = language === "es"
+    ? /hay dos preguntas.+la primera es si.+la segunda es si/isu.test(roleGuideRendering)
+    : /두 가지를 물으면 된다.+를 본다.+를 본다/su.test(roleGuideRendering);
+  check(
+    "player-note role guide",
+    Boolean(roleGuideRendering) &&
+      roleGuideIsObservational &&
+      !standoutClaimPattern.test(roleGuideRendering),
+    `${language} role-guide copy either loses its viewing questions or turns zero-source guidance into a standout claim: ${roleGuideRendering || "(empty)"}`,
+    "Use two explicit viewing questions without promoting role-level actions into signature strengths."
+  );
+
+  const historicalRoleLevelProfiles = historicalStyleTemplated.filter(
+    (profile) => profile.styleNoteMeta?.confidence === "role-level"
+  );
+  const historicalRoleLevelStructures = [...new Set(
+    historicalRoleLevelProfiles.map((profile) => profile.styleNoteMeta.structureId)
+  )].sort();
+  const historicalRoleLevelRenderings = historicalRoleLevelStructures.map((structureId) => ({
+    structureId,
+    rendered: pack.helpers.formatPlayerNote(
+      "Deliberately unparsable historical role-level cadence probe.",
+      {
+        historical: true,
+        localizedName: language === "ko" ? "역할 테스트" : "Prueba de función",
+        copyMeta: {
+          origin: "generated",
+          confidence: "role-level",
+          role: "goalkeeper",
+          structureId,
+          signature: "gk-patience",
+          actions: ["gk-safe-restart", "gk-through-ball"]
+        }
+      }
+    )
+  }));
+  const historicalRoleLevelCadences = new Map();
+  for (const { structureId, rendered } of historicalRoleLevelRenderings) {
+    const normalized = String(rendered || "").replace(/\s+/gu, " ").trim();
+    const owners = historicalRoleLevelCadences.get(normalized) || [];
+    owners.push(structureId);
+    historicalRoleLevelCadences.set(normalized, owners);
+  }
+  const historicalRoleLevelCollapsed = [...historicalRoleLevelCadences.entries()]
+    .filter(([rendered, owners]) => !rendered || owners.length > 1)
+    .map(([rendered, owners]) => `${owners.join("+")}: ${rendered || "(empty)"}`);
+  const historicalRoleLevelClaimLeaks = historicalRoleLevelProfiles
+    .map((profile) => ({
+      owner: profile.profileKey,
+      rendered: pack.helpers.formatPlayerNote(profile.styleNote, {
+        historical: true,
+        localizedName:
+          archiveNames[profile.name] ||
+          archiveNames[profile.displayName] ||
+          profile.displayName ||
+          profile.name,
+        copyMeta: profile.styleNoteMeta
+      })
+    }))
+    .filter(({ rendered }) => standoutClaimPattern.test(rendered))
+    .map(({ owner, rendered }) => `${owner}: ${rendered}`);
+  check(
+    "player-note role-level honesty",
+    historicalRoleLevelProfiles.length > 0 &&
+      historicalRoleLevelCollapsed.length === 0 &&
+      historicalRoleLevelCadences.size === historicalRoleLevelStructures.length &&
+      historicalRoleLevelClaimLeaks.length === 0,
+    `${language} historical role-level notes collapse cadence or claim a player-specific edge: collapsed ${formatSamples(historicalRoleLevelCollapsed)}, claims ${formatSamples(historicalRoleLevelClaimLeaks)}`,
+    "Use the supplied localized role and retain varied duty-led frames without claiming inferred role actions are a signature strength."
   );
 
   const currentOverlayLeaks = currentTemplated
@@ -1568,18 +2310,22 @@ function auditPlayerNoteTemplates(
   });
   const expectedBarcenas =
     language === "ko"
-      ? ["크로스의 높이와 속도를 조절한다", "백스윙을 최소화해 슈팅한다"]
-      : ["Varía la altura y la velocidad de sus centros", "remata con muy poco armado"];
+      ? ["수비수 한 명을 끌어낸 뒤 그 뒤로 뛰는 동료에게 연결한다", "크로스의 높이와 속도를 조절한다"]
+      : ["atrae a un defensor y libera al compañero que rompe a su espalda", "varía la altura y la velocidad de sus centros"];
+  const normalizedBarcenasLocalized = language === "es"
+    ? barcenasLocalized.toLocaleLowerCase("es-419")
+    : barcenasLocalized;
   check(
     "player-note semantics",
-    expectedBarcenas.every((fragment) => barcenasLocalized.includes(fragment)),
-    `${language} Bárcenas delivery/shot note is not newsroom-quality: ${barcenasLocalized || "(empty)"}`
+    expectedBarcenas.every((fragment) => normalizedBarcenasLocalized.includes(fragment)),
+    `${language} Bárcenas creation/delivery note is not newsroom-quality: ${barcenasLocalized || "(empty)"}`
   );
 
   check(
     "player-note runtime",
     /helpers\?\.formatPlayerNote\?\./u.test(appSource || "") &&
-      /helpers\?\.isTemplatedPlayerNote\?\./u.test(appSource || ""),
+      /helpers\?\.isTemplatedPlayerNote\?\./u.test(appSource || "") &&
+      /copyMeta/u.test(appSource || ""),
     "app.js does not route player-card prose through the deterministic locale formatter"
   );
 

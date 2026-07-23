@@ -38,6 +38,8 @@ const SCHEMA_4_REQUIRED_EMBEDDED_INPUTS = {
   "lineup-prediction-revisions.json": "lineupPredictionRevisions"
 };
 const COMPLETED_STATUSES = new Set(["FT", "AET", "PEN"]);
+const MATCHUP_KEY_INFORMATION_SOURCE_ID = "matchup-archive-present-tense-2026-07-22";
+const MUTABLE_EDITORIAL_SOURCE_SCOPES = new Set(["matchup-key-information"]);
 const CURRENT_EDITION_INPUTS = Object.fromEntries(
   Object.entries(SCHEMA_4_REQUIRED_EMBEDDED_INPUTS).filter(
     ([file]) => !["edition-lifecycle.json", "tournament.json"].includes(file)
@@ -150,29 +152,99 @@ function verifyArchiveMetadata(archive, entry) {
   };
 }
 
-function withoutArchiveSource(tournament) {
+function withoutMutableEditorialSources(tournament) {
   return {
     ...tournament,
     sources: Array.isArray(tournament?.sources)
-      ? tournament.sources.filter((source) => source?.id !== ARCHIVE_SOURCE_ID)
+      ? tournament.sources.filter(
+          (source) =>
+            source?.id !== ARCHIVE_SOURCE_ID &&
+            !MUTABLE_EDITORIAL_SOURCE_SCOPES.has(source?.editorialScope)
+        )
       : tournament?.sources
   };
+}
+
+function withoutFixtureEditorialCopy(data) {
+  const normalized = structuredClone(data);
+  delete normalized.updatedAt;
+  if (Array.isArray(normalized.sourceIds)) {
+    normalized.sourceIds = normalized.sourceIds.filter(
+      (sourceId) => sourceId !== MATCHUP_KEY_INFORMATION_SOURCE_ID
+    );
+  }
+  for (const fixture of Array.isArray(normalized.fixtures) ? normalized.fixtures : []) {
+    if (!fixture || typeof fixture !== "object" || Array.isArray(fixture)) continue;
+    delete fixture.keyInformation;
+  }
+  return normalized;
+}
+
+function withoutPlayerProfileEditorialCopy(data) {
+  const normalized = structuredClone(data);
+  delete normalized.updatedAt;
+  for (const profile of Object.values(normalized.profiles || {})) {
+    if (!profile || typeof profile !== "object" || Array.isArray(profile)) continue;
+    delete profile.skills;
+    delete profile.note;
+    delete profile.noteZh;
+    delete profile.noteMeta;
+  }
+  return normalized;
+}
+
+function withoutBestXiEditorialCopy(data) {
+  const normalized = structuredClone(data);
+  delete normalized.updatedAt;
+  const selection = normalized.selection;
+  if (!selection || typeof selection !== "object" || Array.isArray(selection)) {
+    return normalized;
+  }
+  delete selection.methodology;
+  delete selection.methodologyLocalized;
+  if (selection.coach && typeof selection.coach === "object" && !Array.isArray(selection.coach)) {
+    delete selection.coach.reason;
+  }
+  for (const slot of Array.isArray(selection.slots) ? selection.slots : []) {
+    const players = [slot?.starter, ...(Array.isArray(slot?.honourables) ? slot.honourables : [])];
+    for (const player of players) {
+      if (!player || typeof player !== "object" || Array.isArray(player)) continue;
+      delete player.reason;
+    }
+  }
+  return normalized;
+}
+
+function normalizeCurrentEditionInputForArchiveComparison(file, data) {
+  if (file === "fixtures.json") return withoutFixtureEditorialCopy(data);
+  if (file === "player-profiles.json") return withoutPlayerProfileEditorialCopy(data);
+  if (file === "highlights-best-xi.json") return withoutBestXiEditorialCopy(data);
+  return data;
+}
+
+function currentEditionDifferenceMessage(file, archiveVersion) {
+  if (["fixtures.json", "player-profiles.json", "highlights-best-xi.json"].includes(file)) {
+    return `Current ${file} has protected tournament-data changes relative to the latest immutable archive ${archiveVersion}; create a superseding late-correction archive before merge.`;
+  }
+  return `Current ${file} differs from the latest immutable archive ${archiveVersion}; create a superseding late-correction archive before merge.`;
 }
 
 async function verifyCurrentEditionInputs(dataDir, archive) {
   for (const [file, selector] of Object.entries(CURRENT_EDITION_INPUTS)) {
     const current = JSON.parse(await readFile(path.join(dataDir, file), "utf8"));
     const archived = getEmbeddedValue(archive, selector);
+    const currentProtectedData = normalizeCurrentEditionInputForArchiveComparison(file, current);
+    const archivedProtectedData = normalizeCurrentEditionInputForArchiveComparison(file, archived);
     assert(
-      stringifyArchiveJson(current) === stringifyArchiveJson(archived),
-      `Current ${file} differs from the latest immutable archive ${archive.archiveVersion}; create a superseding late-correction archive before merge.`
+      stringifyArchiveJson(currentProtectedData) === stringifyArchiveJson(archivedProtectedData),
+      currentEditionDifferenceMessage(file, archive.archiveVersion)
     );
   }
 
   const currentTournament = JSON.parse(await readFile(path.join(dataDir, "tournament.json"), "utf8"));
   assert(
-    stringifyArchiveJson(withoutArchiveSource(currentTournament)) ===
-      stringifyArchiveJson(withoutArchiveSource(archive.tournament)),
+    stringifyArchiveJson(withoutMutableEditorialSources(currentTournament)) ===
+      stringifyArchiveJson(withoutMutableEditorialSources(archive.tournament)),
     `Current tournament.json differs from the latest immutable archive ${archive.archiveVersion}; create a superseding late-correction archive before merge.`
   );
 }

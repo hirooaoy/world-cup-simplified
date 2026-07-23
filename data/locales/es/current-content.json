@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "current",
-  "sourceFingerprint": "0cabfde41989e65a12dd3d97fc2aa94bd7d4561d50cd6828a0c33de1fc8d0bba",
+  "sourceFingerprint": "040bbc53adb09fba4c93b9d3cfa462d863078ce1463308f83fb1df1b14adff5c",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
     "⚽ Belgium and IR Iran shared a 0-0 draw.": "⚽ Bélgica y Irán empataron 0-0.",
@@ -229,6 +229,7 @@
     "Argentina 3-0 Algeria": "Argentina 3-0 Argelia",
     "Argentina reached six points in Group J and booked a Round of 32 place.": "Argentina llegó a seis puntos en el Grupo J y aseguró su pase a dieciseisavos de final.",
     "Argentina's 3-2 extra-time win sent them into the round of 16 and ended Cabo Verde's debut run.": "La victoria 3-2 de Argentina tras la prórroga le dio el pase a octavos de final y puso fin al debut mundialista de Cabo Verde.",
+    "Argentina's midfield rotations open space in the centre for Messi. He drops into it, draws defenders and switches play to the free side, then chooses his moment to join the move near the box. Without the ball, he stays high as the outlet.": "Las rotaciones del mediocampo argentino abren espacio para Messi por dentro. Él baja a ocuparlo, atrae defensores y cambia el juego hacia el costado libre; después elige cuándo sumarse cerca del área. Sin balón, permanece arriba como referencia para la salida.",
     "Arnold's Iraq profile is direct and competitive, using organized defending, pressing spells, and quick forward balls to unsettle opponents.": "La propuesta de Arnold para Irak es directa y competitiva: defensa organizada, fases de presión y balones verticales rápidos para incomodar al rival.",
     "Arthur Masuaku set up Yoane Wissa for a finish in the 45+5 minute, bringing DR Congo level at 1-1.": "Arthur Masuaku asistió a Yoane Wissa, que marcó en el minuto 45+5 y puso el 1-1 para RD del Congo.",
     "Attacking structure": "Estructura de ataque",

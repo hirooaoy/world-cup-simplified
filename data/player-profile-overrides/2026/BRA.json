@@ -88,9 +88,47 @@
         "Back-post defending",
         "Experienced buildup"
       ],
-      "note": "Sandro's edge is keeping the ball calm when pressure arrives. He checks the runner over his shoulder before the final pass arrives. He recognizes when to slow the play and when to take the risk.",
-      "noteZh": "他最特别的地方是压力到来时仍能让球保持稳定。他会最后一传到来前回头确认跑动者的位置。他也会判断何时放慢节奏，何时承担风险。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/alex-sandro/profil/spieler/79960"
+      "note": "What separates Sandro is staying connected to runners when the ball moves elsewhere. Sandro checks the runner over his shoulder before the final pass arrives. At another point, he plays through nearby pressure instead of around it.",
+      "noteZh": "球转移到别处时仍能跟住无球跑动是理解Alex Sandro踢法的关键。先看他如何在最后一传到来前回头确认跑动者的位置。到了另一个比赛环节，他会穿过最近一层逼抢，而不总是绕开压力。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/alex-sandro/profil/spieler/79960",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-another-moment",
+        "cadenceVariantIndex": 1,
+        "signatureId": "runner-tracking",
+        "actionIds": [
+          "check-runner",
+          "play-through-pressure"
+        ],
+        "headlineActionId": "check-runner",
+        "supportingSignatureId": "passing-weight-angle",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Back-post defending",
+          "Experienced buildup"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Back-post defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Experienced buildup",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Alisson Becker": {
       "displayName": "Alisson Becker",
@@ -107,9 +145,47 @@
         "Sweeper-keeper range",
         "Calm distribution"
       ],
-      "note": "Watch Becker for sharp reactions backed by early positioning. He leaves his line early when a through ball escapes the back line. He chooses the simple restart before pressure can close in.",
-      "noteZh": "要看懂他的作用，关键是提前站位后的快速反应。留意他如何直塞球越过后防时及时出击。他也会在逼抢靠近前选择最稳妥的出球方式。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/alisson/profil/spieler/105470"
+      "note": "The key to Becker is staying balanced until the shot reveals its direction. He keeps his feet active and makes the save with the fewest movements. In another phase, Becker leaves his line early when a through ball escapes the back line.",
+      "noteZh": "射门方向明确前保持身体平衡构成Alisson Becker踢法的核心。他会保持脚下轻快，用最少动作完成扑救。除此之外，值得留意他会在直塞球越过后防时及时出击。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/alisson/profil/spieler/105470",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-phase",
+        "cadenceVariantIndex": 3,
+        "signatureId": "goalkeeper-balance",
+        "actionIds": [
+          "economical-save",
+          "sweeper-exit"
+        ],
+        "headlineActionId": "economical-save",
+        "supportingSignatureId": "high-starting-position",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "One-on-one saves",
+          "Sweeper-keeper range"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "One-on-one saves",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Sweeper-keeper range",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Bremer": {
       "displayName": "Bremer",
@@ -126,9 +202,47 @@
         "Front-foot defending",
         "Box clearances"
       ],
-      "note": "Bremer stands out for reading the flight of the ball before the duel begins. He holds the route into the box until support arrives. He waits for a loose touch and then steps through the ball.",
-      "noteZh": "他的突出特点是在争顶前先判断球的飞行轨迹。他会守住进入禁区的路线，直到队友能对持球人施压。他也会等对手触球稍大后再连人带球一起压上。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/bremer/profil/spieler/516716"
+      "note": "Bremer's signature is protecting the most dangerous space before stepping to the ball. Watch how he holds the route into the box until support arrives. Away from that moment, he moves toward the dropping ball and contests it before the attacker can settle.",
+      "noteZh": "观察Bremer时，可以先看先保护最危险空间，再考虑上抢。他会守住进入禁区的路线，直到队友能对持球人施压。另一个比赛细节是他会迎向落下的球，在对手站稳前参与争抢。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bremer/profil/spieler/516716",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-away-moment",
+        "cadenceVariantIndex": 3,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "contest-aerial-ball"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "aerial-duels",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Front-foot defending",
+          "Aerial duels"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Front-foot defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial duels",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Bruno Guimaraes": {
       "displayName": "Bruno Guimarães",
@@ -145,9 +259,47 @@
         "Central progression",
         "Pressure escapes"
       ],
-      "note": "Guimarães is defined by seeing the decisive pass one beat before it opens. He plays through nearby pressure instead of around it. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他靠比防线早一步看到决定性的传球与同位置球员拉开差异。他会穿过最近一层逼抢，而不总是绕开压力。他也会第一脚触球先摆脱压力，再选择传球方向。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/bruno-guimaraes/profil/spieler/520624"
+      "note": "For Guimarães, the foundation is moving the defense with the weight and angle of his passing. Look first at how he takes the first available forward lane before it closes. Separately, look at how he uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "用传球的力度和角度移动防线是理解Bruno Guimarães踢法的关键。先看他如何在向前线路关闭前及时送出传球。到了另一个比赛环节，他会在第一脚触球时先摆脱压力，再选择传球方向。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bruno-guimaraes/profil/spieler/520624",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-separate-look",
+        "cadenceVariantIndex": 2,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "first-forward-lane",
+          "first-touch-escape"
+        ],
+        "headlineActionId": "first-forward-lane",
+        "supportingSignatureId": "pressure-composure",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Central progression",
+          "Pressure escapes"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Central progression",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Pressure escapes",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Casemiro": {
       "displayName": "Casemiro",
@@ -164,9 +316,47 @@
         "Counter protection",
         "Defensive positioning"
       ],
-      "note": "Casemiro is defined by creating a clean shot before the defense can reset. He holds the passing lane into midfield until support arrives. He adjusts his position early enough to make the difficult action look simple.",
-      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会提前调整位置，让困难处理看起来简单。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/casemiro/profil/spieler/16306"
+      "note": "Casemiro stands out for reading the next phase before the space fully opens. He adjusts his position early enough to make the difficult action look simple. A different detail is how Casemiro holds the passing lane into midfield until support arrives.",
+      "noteZh": "空当完全出现前读懂下一阶段构成Casemiro踢法的核心。他会提前调整位置，让困难处理看起来简单。除此之外，值得留意他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/casemiro/profil/spieler/16306",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "read-next-phase",
+        "actionIds": [
+          "early-position-adjustment",
+          "hold-midfield-lane"
+        ],
+        "headlineActionId": "early-position-adjustment",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Defensive positioning",
+          "Counter protection"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive positioning",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Counter protection",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Danilo": {
       "displayName": "Danilo",
@@ -183,9 +373,47 @@
         "Right-side cover",
         "Back-line balance"
       ],
-      "note": "Danilo is defined by organizing teammates before danger becomes obvious. He holds the route into the box until support arrives. He protects the route to goal and challenges only when the touch is loose.",
-      "noteZh": "他靠在危险出现前组织好队友与同位置球员拉开差异。他会守住进入禁区的路线，直到队友能对持球人施压。他也会先封住通向球门的路线，再等待对手触球失误时上抢。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/145707"
+      "note": "Danilo stands out for organizing teammates before danger becomes obvious. He keeps the line connected with constant small instructions. A different detail is how Danilo holds the route into the box until support arrives.",
+      "noteZh": "Danilo的比赛建立在危险出现前组织好队友之上。首先看他如何用持续而简短的提醒保持整条防线连接。另一个方面是他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/145707",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "early-organization",
+        "actionIds": [
+          "line-instructions",
+          "hold-box-route"
+        ],
+        "headlineActionId": "line-instructions",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Defensive leadership",
+          "Right-side cover"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive leadership",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Right-side cover",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Danilo Santos": {
       "displayName": "Danilo Santos",
@@ -202,9 +430,47 @@
         "Forward surges",
         "Second-ball pressure"
       ],
-      "note": "Santos's edge is creating a better angle for the next pass. He plays through nearby pressure instead of around it. He positions himself for the next touch before the first contest is over.",
-      "noteZh": "他最特别的地方是为下一脚传球制造更好的角度。他会穿过最近一层逼抢，而不总是绕开压力。他也会第一次争抢还没结束，就先为下一脚触球站好位置。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/808509"
+      "note": "Watch Santos for choosing the moment of contact instead of diving in. The clearest example is how he waits for a loose touch and then steps through the ball. A separate clue is how Santos pushes the ball beyond the first challenge and accelerates after it.",
+      "noteZh": "选择身体接触时机，而不是贸然上抢构成Danilo Santos踢法的核心。他会等对手触球稍大后果断上抢。除此之外，值得留意他会把球趟过第一道上抢后再加速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/808509",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "duel-timing",
+        "actionIds": [
+          "win-loose-touch",
+          "push-and-accelerate"
+        ],
+        "headlineActionId": "win-loose-touch",
+        "supportingSignatureId": "open-midfield-carry",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Ball-winning midfield",
+          "Forward surges"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Ball-winning midfield",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Forward surges",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Douglas Santos": {
       "displayName": "Douglas Santos",
@@ -221,9 +487,47 @@
         "Overlap timing",
         "Defensive recovery"
       ],
-      "note": "Santos stands out for keeping the ball calm when pressure arrives. He waits until the wide defender looks inside before running beyond him. He turns early and protects the route toward goal.",
-      "noteZh": "他的突出特点是压力到来时仍能让球保持稳定。他会等边路防守者看向内侧后再从外线套上。他也会提前转身，优先封住通向球门的路线。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/douglas-santos/profil/spieler/220793"
+      "note": "What separates Santos is choosing the moment to join an attack from deep. Santos waits until the wide defender looks inside before running beyond him. Also note how he turns early and protects the route toward goal.",
+      "noteZh": "Douglas Santos最鲜明的特点是从后场加入进攻的启动时机。一个直接线索是他会等边路防守者看向内侧后再从外线套上。另一个独立细节是他会提前转身，优先封住通向球门的路线。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/douglas-santos/profil/spieler/220793",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-also-note",
+        "cadenceVariantIndex": 2,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap timing",
+          "Defensive recovery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap timing",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive recovery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Ederson": {
       "displayName": "Ederson",
@@ -240,9 +544,47 @@
         "Sweeper positioning",
         "Fast restarts"
       ],
-      "note": "Ederson's signature is turning a save into the first pass of an attack. He leaves his line early when a through ball escapes the back line. He sets his feet before the shot and reacts without an extra step.",
-      "noteZh": "他的比赛方式建立在把一次扑救变成进攻第一传上。他会直塞球越过后防时及时出击。他也会在射门前站稳脚步，再用最少动作完成扑救。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/238223"
+      "note": "The key to Ederson is turning a save into the first pass of an attack. He chooses the simple restart before pressure can close in. There is another side to his game: he leaves his line early when a through ball escapes the back line.",
+      "noteZh": "理解Ederson，要先看把一次扑救变成进攻第一传。他会在逼抢靠近前选择最稳妥的出球方式。比赛进入另一种局面时，他也会在直塞球越过后防时及时出击。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/238223",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-side",
+        "cadenceVariantIndex": 0,
+        "signatureId": "save-starts-attack",
+        "actionIds": [
+          "simple-restart",
+          "sweeper-exit"
+        ],
+        "headlineActionId": "simple-restart",
+        "supportingSignatureId": "high-starting-position",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Long distribution",
+          "Sweeper positioning"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Long distribution",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Sweeper positioning",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ederson Silva": {
       "displayName": "Ederson Silva",
@@ -259,9 +601,47 @@
         "Counter-pressing",
         "Midfield arrivals"
       ],
-      "note": "Silva's signature is creating a better angle for the next pass. He angles his run to block the easy pass as he closes the ball. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的比赛方式建立在为下一脚传球制造更好的角度上。他会接近持球人时调整路线，同时封住最简单的传球。他也会从边后卫与中后卫之间的空当穿过。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/607854"
+      "note": "The key to Silva is waiting for a defender's attention to shift before moving. He arrives in the box late enough to be difficult to track. A separate part of his game is how Silva angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "理解Ederson Silva，要先看等防守者注意力转移后再启动。他会稍晚进入禁区，让盯防者难以持续跟住。比赛进入另一种局面时，他也会在接近持球人时调整路线，同时封住最简单的传球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/607854",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-separate-game-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "press-angle"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Box-to-box running",
+          "Counter-pressing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Box-to-box running",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Counter-pressing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Endrick": {
       "displayName": "Endrick",
@@ -278,9 +658,47 @@
         "Near-post runs",
         "Fearless shooting"
       ],
-      "note": "Endrick is defined by creating a clean shot before the defense can reset. He attacks the near-post lane before the marker can turn. He changes pace after the defender has committed his feet.",
-      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会在盯防者转身前冲向近门柱线路。他也会等防守者脚步固定后突然变速。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/endrick/profil/spieler/971570"
+      "note": "What separates Endrick is the timing of his run across the nearest defender. Endrick attacks the near-post lane before the marker can turn. Away from that action, he shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "Endrick的优势在于抢到近门柱身前的跑动时机。最直接的表现是他会在盯防者转身前冲向近门柱线路。另一个值得观察的细节是他会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/endrick/profil/spieler/971570",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "near-post-timing",
+        "actionIds": [
+          "near-post-run",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "near-post-run",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Near-post runs",
+          "Explosive finishing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Near-post runs",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Explosive finishing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Fabinho": {
       "displayName": "Fabinho",
@@ -297,9 +715,47 @@
         "Tactical fouls",
         "Simple progression"
       ],
-      "note": "Fabinho stands out for protecting the most dangerous space before stepping to the ball. He adjusts his position early enough to make the difficult action look simple. He plays through nearby pressure instead of around it.",
-      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会提前调整位置，让困难处理看起来简单。他也会穿过最近一层逼抢，而不总是绕开压力。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/fabinho/profil/spieler/225693"
+      "note": "The key to Fabinho is reading the next phase before the space fully opens. He adjusts his position early enough to make the difficult action look simple. In another phase, Fabinho takes the first available forward lane before it closes.",
+      "noteZh": "空当完全出现前读懂下一阶段构成Fabinho踢法的核心。他会提前调整位置，让困难处理看起来简单。除此之外，值得留意他会在向前线路关闭前及时送出传球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/fabinho/profil/spieler/225693",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-phase",
+        "cadenceVariantIndex": 3,
+        "signatureId": "read-next-phase",
+        "actionIds": [
+          "early-position-adjustment",
+          "first-forward-lane"
+        ],
+        "headlineActionId": "early-position-adjustment",
+        "supportingSignatureId": "passing-weight-angle",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Tactical fouls",
+          "Simple progression"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Tactical fouls",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Simple progression",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Gabriel Magalhaes": {
       "displayName": "Gabriel Magalhães",
@@ -316,9 +772,47 @@
         "Left-sided defending",
         "Aerial dominance"
       ],
-      "note": "Watch Magalhães for seeing the decisive pass one beat before it opens. He holds the route into the box until support arrives. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何守住进入禁区的路线，直到队友能对持球人施压。他也会主动在最合适的高点迎球，而不是站在原地等球落下。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel/profil/spieler/435338"
+      "note": "For Magalhães, the foundation is protecting the most dangerous space before stepping to the ball. Look first at how he holds the route into the box until support arrives. Separately, look at how he meets the ball early instead of waiting underneath it.",
+      "noteZh": "理解Gabriel Magalhães，要先看先保护最危险空间，再考虑上抢。他会守住进入禁区的路线，直到队友能对持球人施压。比赛进入另一种局面时，他也会主动在最合适的高点迎球，而不是站在原地等球落下。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel/profil/spieler/435338",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-separate-look",
+        "cadenceVariantIndex": 2,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "meet-ball-early"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "aerial-reading",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-sided defending",
+          "Aerial dominance"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-sided defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial dominance",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Gabriel Martinelli": {
       "displayName": "Gabriel Martinelli",
@@ -335,9 +829,47 @@
         "Left-wing pressing",
         "Runs in behind"
       ],
-      "note": "Martinelli's signature is creating a clean shot before the defense can reset. He angles his run to block the easy pass as he closes the ball. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的比赛方式建立在在防线重组前制造干净射门上。他会接近持球人时调整路线，同时封住最简单的传球。他也会从边后卫与中后卫之间的空当穿过。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel-martinelli/profil/spieler/655488"
+      "note": "Watch Martinelli for pressing with a clear target rather than simply chasing. The clearest example is how he angles his run to block the easy pass as he closes the ball. In a different phase, Martinelli moves through the gap between full-back and centre-back.",
+      "noteZh": "带着明确目标逼抢，而不是只追着球跑构成Gabriel Martinelli踢法的核心。他会在接近持球人时调整路线，同时封住最简单的传球。除此之外，值得留意他会从边后卫与中后卫之间的空当穿过。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel-martinelli/profil/spieler/655488",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-different-phase",
+        "cadenceVariantIndex": 4,
+        "signatureId": "targeted-press",
+        "actionIds": [
+          "press-angle",
+          "attack-channel-gap"
+        ],
+        "headlineActionId": "press-angle",
+        "supportingSignatureId": "early-run",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-wing pressing",
+          "Runs in behind"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-wing pressing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Runs in behind",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Igor Thiago": {
       "displayName": "Igor Thiago",
@@ -354,9 +886,47 @@
         "Penalty-box finishing",
         "Aerial presence"
       ],
-      "note": "Thiago stands out for giving centre-backs a physical problem they cannot ignore. He shifts onto his stronger foot and shoots with little backlift. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "他的突出特点是让中后卫无法忽视的身体支点作用。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会主动在最合适的高点迎球，而不是站在原地等球落下。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/igor-thiago/profil/spieler/739443"
+      "note": "What separates Thiago is giving centre-backs a physical problem they cannot ignore. Thiago pins a defender and creates room for the next runner. Away from that action, he arrives balanced and finishes before the nearest defender can recover.",
+      "noteZh": "观察Igor Thiago时，可以先看让中后卫无法忽视的身体支点作用。他会牵制一名后卫，为后插上的队友腾出空间。另一个比赛细节是他会保持身体平衡，在最近防守者回位前完成射门。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/igor-thiago/profil/spieler/739443",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "physical-reference",
+        "actionIds": [
+          "pin-and-create",
+          "moving-finish"
+        ],
+        "headlineActionId": "pin-and-create",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Target play",
+          "Penalty-box finishing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Target play",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-box finishing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Léo Pereira": {
       "displayName": "Léo Pereira",
@@ -373,9 +943,47 @@
         "Long diagonals",
         "Box defending"
       ],
-      "note": "Pereira is defined by moving the defense with the weight and angle of his passing. He protects the route to goal and challenges only when the touch is loose. He holds the route into the box until support arrives.",
-      "noteZh": "他靠用传球的力度和角度移动防线与同位置球员拉开差异。他会先封住通向球门的路线，再等待对手触球失误时上抢。他也会守住进入禁区的路线，直到队友能对持球人施压。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/leo-pereira/profil/spieler/288431"
+      "note": "Pereira stands out for moving the defense with the weight and angle of his passing. He plays through nearby pressure instead of around it. Pereira also holds the route into the box until support arrives.",
+      "noteZh": "用传球的力度和角度移动防线构成Léo Pereira踢法的核心。他会穿过最近一层逼抢，而不总是绕开压力。除此之外，值得留意他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/leo-pereira/profil/spieler/288431",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "play-through-pressure",
+          "hold-box-route"
+        ],
+        "headlineActionId": "play-through-pressure",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-back passing",
+          "Box defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Box defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Lucas Paqueta": {
       "displayName": "Lucas Paquetá",
@@ -392,9 +1000,47 @@
         "Between-lines passing",
         "Late box runs"
       ],
-      "note": "Watch Paquetá for seeing the decisive pass one beat before it opens. He opens his body on the first touch so he can play forward. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何第一脚触球时打开身体，准备向前处理。他也会出球后继续移动，让接球队友始终有支援。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/lucas-paqueta/profil/spieler/444523"
+      "note": "Paquetá's signature is waiting for a defender's attention to shift before moving. Watch how he arrives in the box late enough to be difficult to track. At another point in the move, he opens his body on the first touch so he can play forward.",
+      "noteZh": "看Lucas Paquetá的作用，关键是等防守者注意力转移后再启动。他会稍晚进入禁区，让盯防者难以持续跟住。换到另一个阶段，还可以看到他会在第一脚触球时打开身体，准备向前处理。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/lucas-paqueta/profil/spieler/444523",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "open-body-forward"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "planned-tight-receive",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Late box runs",
+          "Between-lines passing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Late box runs",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Between-lines passing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Luiz Henrique": {
       "displayName": "Luiz Henrique",
@@ -411,9 +1057,47 @@
         "Inside cuts",
         "Carry-and-shoot threat"
       ],
-      "note": "Henrique stands out for changing direction without losing control of the ball. He changes his position early enough to give the passer a clear target. He changes pace after the defender has committed his feet.",
-      "noteZh": "他的突出特点是变向时仍把球控制在脚下。他会提前改变位置，为传球队友提供清晰目标。他也会等防守者脚步固定后突然变速。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/luiz-henrique/profil/spieler/800175"
+      "note": "What separates Henrique is changing direction without losing control of the ball. Henrique draws the first challenge, then carries through the gap. At another point, he uses a clean first touch to open a shooting lane from distance.",
+      "noteZh": "观察Luiz Henrique时，可以先看变向时仍把球控制在脚下。他会主动吸引第一次上抢，再带球穿过由此出现的空当。另一个比赛细节是他会用干净的第一脚触球打开远射线路。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/luiz-henrique/profil/spieler/800175",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-another-moment",
+        "cadenceVariantIndex": 1,
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "carry-through-gap",
+          "open-distance-shot"
+        ],
+        "headlineActionId": "carry-through-gap",
+        "supportingSignatureId": "long-shot-threat",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-wing dribbling",
+          "Carry-and-shoot threat"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-wing dribbling",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Carry-and-shoot threat",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Marquinhos": {
       "displayName": "Marquinhos",
@@ -430,9 +1114,47 @@
         "Cover defending",
         "Clean distribution"
       ],
-      "note": "Marquinhos's edge is organizing teammates before danger becomes obvious. He holds the route into the box until support arrives. He protects the route to goal and challenges only when the touch is loose.",
-      "noteZh": "他最特别的地方是在危险出现前组织好队友。他会守住进入禁区的路线，直到队友能对持球人施压。他也会先封住通向球门的路线，再等待对手触球失误时上抢。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/marquinhos/profil/spieler/181767"
+      "note": "Marquinhos's signature is organizing teammates before danger becomes obvious. Watch how he keeps the line connected with constant small instructions. Separately, he holds the route into the box until support arrives.",
+      "noteZh": "Marquinhos的比赛建立在危险出现前组织好队友之上。首先看他如何用持续而简短的提醒保持整条防线连接。另一个方面是他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/marquinhos/profil/spieler/181767",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-separately",
+        "cadenceVariantIndex": 0,
+        "signatureId": "early-organization",
+        "actionIds": [
+          "line-instructions",
+          "hold-box-route"
+        ],
+        "headlineActionId": "line-instructions",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Back-line leadership",
+          "Cover defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Back-line leadership",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Cover defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Matheus Cunha": {
       "displayName": "Matheus Cunha",
@@ -449,9 +1171,47 @@
         "Forward carrying",
         "Combination play"
       ],
-      "note": "Cunha's signature is creating a clean shot before the defense can reset. He changes his position early enough to give the passer a clear target. He protects the ball with his body and returns it into a runner's path.",
-      "noteZh": "他的比赛方式建立在在防线重组前制造干净射门上。他会提前改变位置，为传球队友提供清晰目标。他也会用身体护住球，再把球送回跑动队友的线路。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/matheus-cunha/profil/spieler/517894"
+      "note": "Cunha's signature is making the next teammate's action easier. Watch how he protects the ball with his body and returns it into a runner's path. Another detail is how he pushes the ball beyond the first challenge and accelerates after it.",
+      "noteZh": "理解Matheus Cunha，要先看让队友下一步处理更轻松。他会用身体护住球，再把球送回跑动队友的线路。比赛进入另一种局面时，他也会把球趟过第一道上抢后再加速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/matheus-cunha/profil/spieler/517894",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-detail",
+        "cadenceVariantIndex": 2,
+        "signatureId": "help-next-action",
+        "actionIds": [
+          "body-and-return",
+          "push-and-accelerate"
+        ],
+        "headlineActionId": "body-and-return",
+        "supportingSignatureId": "open-midfield-carry",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Combination play",
+          "Forward carrying"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Combination play",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Forward carrying",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Neymar": {
       "displayName": "Neymar",
@@ -471,9 +1231,47 @@
         "Fouls drawn",
         "Disguised passing"
       ],
-      "note": "Neymar stands out for seeing the decisive pass one beat before it opens. He moves after releasing the ball so the receiver still has support. He plays through nearby pressure instead of around it.",
-      "noteZh": "他的突出特点是比防线早一步看到决定性的传球。他会出球后继续移动，让接球队友始终有支援。他也会穿过最近一层逼抢，而不总是绕开压力。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/neymar/profil/spieler/68290"
+      "note": "Watch Neymar for seeing the decisive pass one beat before it opens. The clearest example is how he draws a defender in and releases the runner behind him. A separate clue is how Neymar shapes toward one option before releasing the ball into another lane.",
+      "noteZh": "看Neymar的作用，关键是比防线早一步看到决定性的传球。他会先吸引防守者靠近，再把球送到其身后的跑动线路。换到另一个阶段，还可以看到他会身体先朝向一个选项，再把球送入另一条线路。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/neymar/profil/spieler/68290",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "hide-pass-intent"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "disguised-passing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Box-area invention",
+          "Disguised passing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Box-area invention",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Disguised passing",
+            "grade": "specific"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.8
+      }
     },
     "Raphinha": {
       "displayName": "Raphinha",
@@ -490,9 +1288,47 @@
         "Left-footed delivery",
         "Diagonal runs"
       ],
-      "note": "Raphinha stands out for pressing with a clear target rather than simply chasing. He looks up before crossing and picks a runner rather than an empty area. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的突出特点是带着明确目标逼抢，而不是只追着球跑。他会传中前先观察，再把球送向具体跑动者。他也会从边后卫与中后卫之间的空当穿过。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/raphinha/profil/spieler/411295"
+      "note": "The key to Raphinha is pressing with a clear target rather than simply chasing. He angles his run to block the easy pass as he closes the ball. Elsewhere in the game, Raphinha looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "Raphinha的比赛建立在带着明确目标逼抢，而不是只追着球跑之上。首先看他如何在接近持球人时调整路线，同时封住最简单的传球。另一个方面是他会在传中前先观察，再把球送向具体跑动者。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/raphinha/profil/spieler/411295",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-elsewhere-game",
+        "cadenceVariantIndex": 1,
+        "signatureId": "targeted-press",
+        "actionIds": [
+          "press-angle",
+          "pick-cross-target"
+        ],
+        "headlineActionId": "press-angle",
+        "supportingSignatureId": "tight-space-delivery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wide pressing",
+          "Left-footed delivery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wide pressing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Left-footed delivery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Rayan": {
       "displayName": "Rayan",
@@ -509,9 +1345,47 @@
         "Direct running",
         "Right-side power"
       ],
-      "note": "Watch Rayan for seeing the decisive pass one beat before it opens. He changes pace after the defender has committed his feet. He absorbs contact and keeps the ball close enough to continue forward.",
-      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何等防守者脚步固定后突然变速。他也会承受身体接触后仍把球留在可继续推进的位置。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/rayan/profil/spieler/1012564"
+      "note": "Rayan stands out for making purposeful movement away from the ball. He changes his position early enough to give the passer a clear target. In a separate phase, Rayan absorbs contact and keeps the ball close enough to continue forward.",
+      "noteZh": "Rayan的优势在于有目的地进行无球移动。最直接的表现是他会提前调整位置，为持球队友提供清晰目标。另一个值得观察的细节是他会承受身体接触后仍把球留在可继续推进的位置。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/rayan/profil/spieler/1012564",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-outside-sequence",
+        "cadenceVariantIndex": 4,
+        "signatureId": "purposeful-off-ball",
+        "actionIds": [
+          "offer-clear-target",
+          "absorb-and-carry"
+        ],
+        "headlineActionId": "offer-clear-target",
+        "supportingSignatureId": "strength-continuity",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Direct running",
+          "Right-side power"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Direct running",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Right-side power",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Roger Ibanez": {
       "displayName": "Roger Ibañez",
@@ -528,9 +1402,47 @@
         "Ball carrying",
         "Right-sided cover"
       ],
-      "note": "Watch Ibañez for recovering position without panicking after the first line is broken. He draws the first challenge, then carries through the gap. He holds the route into the box until support arrives.",
-      "noteZh": "要看懂他的作用，关键是第一道防线被突破后仍能冷静回位。留意他如何主动吸引第一次上抢，再带球穿过由此出现的空当。他也会守住进入禁区的路线，直到队友能对持球人施压。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/roger-ibanez/profil/spieler/524481"
+      "note": "For Ibañez, the foundation is recovering position without panicking after the first line is broken. Look first at how he turns early and protects the route toward goal. Beyond the first action, he carries into the available space before releasing the ball.",
+      "noteZh": "看Roger Ibañez的作用，关键是第一道防线被突破后仍能冷静回位。他会提前转身，优先封住通向球门的路线。换到另一个阶段，还可以看到他会先带入眼前空当，再把球交出去。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/roger-ibanez/profil/spieler/524481",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond-action",
+        "cadenceVariantIndex": 4,
+        "signatureId": "calm-recovery",
+        "actionIds": [
+          "protect-goal-route",
+          "carry-into-space"
+        ],
+        "headlineActionId": "protect-goal-route",
+        "supportingSignatureId": "ball-carrying",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Recovery defending",
+          "Ball carrying"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Ball carrying",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Vinicius Junior": {
       "displayName": "Vinícius Júnior",
@@ -547,9 +1459,47 @@
         "Chance passes",
         "Left-wing isolation"
       ],
-      "note": "Júnior is defined by creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He changes his position early enough to give the passer a clear target.",
-      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会提前改变位置，为传球队友提供清晰目标。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/vinicius-junior/profil/spieler/371998"
+      "note": "For Vinícius, the foundation is changing direction without losing control of the ball. Look first at how he changes pace after the defender has committed his feet. Beyond that, watch how he moves into a position where an available pass can lead to a shot.",
+      "noteZh": "Vinícius Júnior的比赛建立在变向时仍把球控制在脚下之上。首先看他如何等防守者脚步固定后突然变速。另一个方面是他会移动到接球后可以形成射门的位置。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/vinicius-junior/profil/spieler/371998",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond",
+        "cadenceVariantIndex": 0,
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "change-pace",
+          "move-into-shot-position"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "goal-threat-positioning",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-wing isolation",
+          "Goal threat"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-wing isolation",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Goal threat",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Weverton": {
       "displayName": "Weverton",
@@ -566,9 +1516,47 @@
         "Penalty experience",
         "Box organization"
       ],
-      "note": "Weverton stands out for staying ready through long quiet spells. He recognizes when to slow the play and when to take the risk. He keeps the line connected with constant small instructions.",
-      "noteZh": "他的突出特点是在长时间无事可做后依然保持专注。他会判断何时放慢节奏，何时承担风险。他也会用持续而简短的提醒保持整条防线连接。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/weverton/profil/spieler/69400"
+      "note": "Watch Weverton for staying ready through long quiet spells. The clearest example is how he keeps his decisions calm when a sudden save is required. Also watch how Weverton keeps the line connected with constant small instructions.",
+      "noteZh": "Weverton最鲜明的特点是长时间无事可做后依然保持专注。一个直接线索是他会在突然需要扑救时仍能冷静判断。另一个独立细节是他会用持续而简短的提醒保持整条防线连接。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/weverton/profil/spieler/69400",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-also-watch",
+        "cadenceVariantIndex": 2,
+        "signatureId": "long-focus",
+        "actionIds": [
+          "sudden-save-calm",
+          "line-instructions"
+        ],
+        "headlineActionId": "sudden-save-calm",
+        "supportingSignatureId": "early-organization",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Veteran goalkeeping",
+          "Box organization"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Veteran goalkeeping",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Box organization",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     }
   }
 }

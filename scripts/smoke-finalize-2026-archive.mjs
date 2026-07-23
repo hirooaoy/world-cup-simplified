@@ -639,6 +639,110 @@ try {
   assert.equal(verification.verifiedEntries[0].schemaVersion, 4);
   assert.equal(verification.verifiedEntries[0].fixtureCount, 104);
 
+  const playerProfilesPath = path.join(temporaryDataDir, "player-profiles.json");
+  const editorialPlayerProfiles = structuredClone(initialData.playerProfilesData);
+  editorialPlayerProfiles.updatedAt = "2026-07-21T00:00:00.000Z";
+  Object.assign(editorialPlayerProfiles.profiles["Player T01"], {
+    skills: ["Rewritten editorial skill"],
+    note: "Rewritten English player-card description.",
+    noteZh: "重写后的中文球员卡描述。",
+    noteMeta: {
+      origin: "generated",
+      generatorVersion: "current-player-style-v2",
+      roleGroup: "forward",
+      signatureId: "test-signature",
+      actionIds: ["test-action-one", "test-action-two"],
+      sourceSkills: ["Test skill"],
+      confidence: 1
+    }
+  });
+  await writeFile(playerProfilesPath, stringifyArchiveJson(editorialPlayerProfiles));
+  const editorialProfileVerification = await verify2026Archive({
+    dataDir: temporaryDataDir,
+    surfaceRoot: temporarySurfaceRoot
+  });
+  assert.equal(editorialProfileVerification.latestArchiveVersion, initialPlan.archiveVersion);
+  editorialPlayerProfiles.profiles["Player T01"].position = "Changed protected position";
+  await writeFile(playerProfilesPath, stringifyArchiveJson(editorialPlayerProfiles));
+  await assert.rejects(
+    verify2026Archive({ dataDir: temporaryDataDir, surfaceRoot: temporarySurfaceRoot }),
+    /player-profiles\.json has protected tournament-data changes/
+  );
+  await writeFile(playerProfilesPath, stringifyArchiveJson(initialData.playerProfilesData));
+
+  const bestXiPath = path.join(temporaryDataDir, "highlights-best-xi.json");
+  const editorialBestXi = structuredClone(initialData.highlightsBestXiData);
+  editorialBestXi.updatedAt = "2026-07-21T00:00:00.000Z";
+  editorialBestXi.selection.methodology = "Rewritten editorial methodology.";
+  editorialBestXi.selection.methodologyLocalized.es = "Metodologia editorial reescrita.";
+  editorialBestXi.selection.coach.reason.en = "Rewritten coach rationale.";
+  editorialBestXi.selection.slots[0].starter.reason.en = [
+    "Rewritten tournament evidence.",
+    "Rewritten footballing rationale."
+  ];
+  await writeFile(bestXiPath, stringifyArchiveJson(editorialBestXi));
+  const editorialBestXiVerification = await verify2026Archive({
+    dataDir: temporaryDataDir,
+    surfaceRoot: temporarySurfaceRoot
+  });
+  assert.equal(editorialBestXiVerification.latestArchiveVersion, initialPlan.archiveVersion);
+  editorialBestXi.selection.slots[0].starter.position = "ST";
+  await writeFile(bestXiPath, stringifyArchiveJson(editorialBestXi));
+  await assert.rejects(
+    verify2026Archive({ dataDir: temporaryDataDir, surfaceRoot: temporarySurfaceRoot }),
+    /highlights-best-xi\.json has protected tournament-data changes/
+  );
+  await writeFile(bestXiPath, stringifyArchiveJson(initialData.highlightsBestXiData));
+
+  const fixturesPath = path.join(temporaryDataDir, "fixtures.json");
+  const editorialFixtures = structuredClone(initialData.fixturesData);
+  editorialFixtures.updatedAt = "2026-07-22T00:00:00.000Z";
+  editorialFixtures.sourceIds.push("matchup-archive-present-tense-2026-07-22");
+  editorialFixtures.fixtures[0].keyInformation = {
+    schemaVersion: 3,
+    mode: "pre-match-reconstruction",
+    temporalCutoff: "kickoff",
+    sourceId: "matchup-archive-present-tense-2026-07-22",
+    home: "Team 1 are preparing around their confirmed starters and the opening-match stakes.",
+    away: "Team 2 are preparing around their confirmed starters and the opening-match stakes."
+  };
+  await writeFile(fixturesPath, stringifyArchiveJson(editorialFixtures));
+  const editorialFixtureVerification = await verify2026Archive({
+    dataDir: temporaryDataDir,
+    surfaceRoot: temporarySurfaceRoot
+  });
+  assert.equal(editorialFixtureVerification.latestArchiveVersion, initialPlan.archiveVersion);
+  editorialFixtures.fixtures[0].score.home = 7;
+  await writeFile(fixturesPath, stringifyArchiveJson(editorialFixtures));
+  await assert.rejects(
+    verify2026Archive({ dataDir: temporaryDataDir, surfaceRoot: temporarySurfaceRoot }),
+    /fixtures\.json has protected tournament-data changes/
+  );
+  await writeFile(fixturesPath, stringifyArchiveJson(initialData.fixturesData));
+
+  const tournamentPath = path.join(temporaryDataDir, "tournament.json");
+  const tournamentWithEditorialMethodology = structuredClone(initialPlan.nextTournament);
+  tournamentWithEditorialMethodology.sources.push({
+    id: "matchup-archive-present-tense-2026-07-22",
+    label: "Cutoff-safe matchup reconstruction methodology",
+    type: "editorial",
+    editorialScope: "matchup-key-information",
+    checkedAt: "2026-07-22T00:00:00.000Z"
+  });
+  await writeFile(tournamentPath, stringifyArchiveJson(tournamentWithEditorialMethodology));
+  const editorialSourceVerification = await verify2026Archive({
+    dataDir: temporaryDataDir,
+    surfaceRoot: temporarySurfaceRoot
+  });
+  assert.equal(editorialSourceVerification.latestArchiveVersion, initialPlan.archiveVersion);
+  tournamentWithEditorialMethodology.awards.goldenBall.playerName = "Changed protected winner";
+  await writeFile(tournamentPath, stringifyArchiveJson(tournamentWithEditorialMethodology));
+  await assert.rejects(
+    verify2026Archive({ dataDir: temporaryDataDir, surfaceRoot: temporarySurfaceRoot }),
+    /tournament\.json differs from the latest immutable archive/
+  );
+  await writeFile(tournamentPath, stringifyArchiveJson(initialPlan.nextTournament));
+
   const mutableSurfaceFile = ARCHIVE_SURFACE_INPUT_FILES[0];
   const mutableSurfacePath = path.join(temporarySurfaceRoot, mutableSurfaceFile);
   const originalSurfaceContents = TEST_SURFACE_SNAPSHOTS.get(mutableSurfaceFile);
@@ -674,7 +778,11 @@ try {
     await writeFile(currentWorkflowInputPath, "{}\n");
     await assert.rejects(
       verify2026Archive({ dataDir: temporaryDataDir, surfaceRoot: temporarySurfaceRoot }),
-      new RegExp(`${workflowInput.replace(/\./g, "\\.")} differs from the latest immutable archive`)
+      new RegExp(
+        ["player-profiles.json", "highlights-best-xi.json"].includes(workflowInput)
+          ? `${workflowInput.replace(/\./g, "\\.")} has protected tournament-data changes`
+          : `${workflowInput.replace(/\./g, "\\.")} differs from the latest immutable archive`
+      )
     );
     await writeFile(currentWorkflowInputPath, currentWorkflowInputContents);
   }

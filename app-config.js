@@ -1,4 +1,4 @@
-export const DATA_VERSION = "2026-07-21-player-club-context-1";
+export const DATA_VERSION = "2026-07-22-player-card-copy-1";
 
 export const DATA_URLS = Object.freeze({
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,

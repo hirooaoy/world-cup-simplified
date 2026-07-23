@@ -3,6 +3,10 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { HISTORICAL_HIGHLIGHTS } from "../data/highlights-history.js";
+import {
+  historicalIdentityNameKey,
+  isKoreanNationalTeam
+} from "./historical-player-identity.mjs";
 import { normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -10,9 +14,25 @@ const dataDir = path.join(root, "data");
 const historyPath = path.join(dataDir, "history.json");
 const outputPath = path.join(dataDir, "historical-player-profiles.json");
 const playerProfilesPath = path.join(dataDir, "player-profiles.json");
+const helpRequested = process.argv.includes("--help") || process.argv.includes("-h");
 const bestXiTargetsOnly = process.argv.includes("--best-xi-targets");
+const consolidateIdentitiesOnly = process.argv.includes("--consolidate-identities");
 const sourceId = "historical-player-card-baseline-2026-06-23";
 const inheritedImageSource = "current-player-profile";
+const HISTORICAL_CANONICAL_NAME_CORRECTIONS = new Map([
+  ["El Arbi Hababi Hababi", "El Arbi Hababi"]
+]);
+
+if (helpRequested) {
+  console.log(`Usage: node scripts/populate-historical-player-profiles.mjs [options]
+
+Options:
+  --best-xi-targets          Merge only missing Best XI targets into the existing corpus
+  --consolidate-identities   Merge duplicate player/team/year identities in place
+  --help, -h                 Show this help without reading or writing profile data`);
+  process.exit(0);
+}
+
 const imageFieldNames = [
   "imageUrl",
   "imageSource",
@@ -51,7 +71,12 @@ const preservedEnrichmentFieldNames = [
   "marketValueAtTournamentUnavailableReason",
   "peakMarketValueEurMillions",
   "peakMarketValueSource",
-  "peakMarketValueSourceUrl"
+  "peakMarketValueSourceUrl",
+  "skills",
+  "noteZh",
+  "styleNote",
+  "styleNoteZh",
+  "styleNoteMeta"
 ];
 const bestXiPositionLabels = new Map([
   ["GK", "Goalkeeper"],
@@ -182,7 +207,7 @@ function historicalProfileKey(name, teamName, tournamentYear) {
 }
 
 function historicalRecordKey(name, teamName, tournamentYear) {
-  return [normalizePlayerName(name), normalizeTeamName(teamName), tournamentYear].join("|");
+  return [historicalIdentityNameKey(name, teamName), normalizeTeamName(teamName), tournamentYear].join("|");
 }
 
 function addProfileAliases(map, profile) {
@@ -222,7 +247,19 @@ function createHistoricalEnrichmentLookup(profilesData) {
   const lookup = new Map();
   for (const profile of Object.values(profilesData?.profiles || {})) {
     const key = historicalRecordKey(profile.name, profile.teamName, profile.tournamentYear);
-    lookup.set(key, pickPreservedEnrichmentFields(profile));
+    const fields = pickPreservedEnrichmentFields(profile);
+    const previous = lookup.get(key);
+    if (!previous) {
+      lookup.set(key, { fields, preferred: Boolean(profile.bestXiSelection) });
+      continue;
+    }
+    const preferred = Boolean(profile.bestXiSelection);
+    const mergedFields = preferred && !previous.preferred
+      ? { ...previous.fields, ...fields }
+      : previous.preferred && !preferred
+        ? { ...fields, ...previous.fields }
+        : { ...previous.fields, ...fields };
+    lookup.set(key, { fields: mergedFields, preferred: previous.preferred || preferred });
   }
   return lookup;
 }
@@ -249,7 +286,7 @@ function createCurrentImageLookup(profilesData) {
 
 function getEnrichmentFieldsForRecord(record, historicalEnrichmentLookup, currentImageLookup) {
   const historicalKey = historicalRecordKey(record.name, record.teamName, record.tournamentYear);
-  const historicalFields = pickPreservedEnrichmentFields(historicalEnrichmentLookup.get(historicalKey));
+  const historicalFields = pickPreservedEnrichmentFields(historicalEnrichmentLookup.get(historicalKey)?.fields);
   if (Object.keys(historicalFields).length) {
     return historicalFields;
   }
@@ -259,14 +296,15 @@ function getEnrichmentFieldsForRecord(record, historicalEnrichmentLookup, curren
 
 function getRecord(records, name, fixture, teamName) {
   const tournamentYear = Number(fixture?.tournamentYear);
-  const key = historicalRecordKey(name, teamName, tournamentYear);
+  const canonicalName = HISTORICAL_CANONICAL_NAME_CORRECTIONS.get(name) || name;
+  const key = historicalRecordKey(canonicalName, teamName, tournamentYear);
   const existing = records.get(key);
   if (existing) {
     return existing;
   }
 
   const record = {
-    name,
+    name: canonicalName,
     goalCount: 0,
     keyMatchIds: new Set(),
     matchIds: new Set(),
@@ -299,6 +337,10 @@ function addBestXiSelection(records, entry, tournamentYear, kind) {
 
   const fixture = { tournamentYear: Number(tournamentYear) };
   const record = getRecord(records, entry.playerName, fixture, entry.teamName);
+  if (isKoreanNationalTeam(entry.teamName)) {
+    // Best XI data carries the reviewed display order; fixture sources may reverse the same name.
+    record.name = entry.playerName;
+  }
   record.bestXiSelection = true;
   record.bestXiSelectionKinds.add(kind);
   record.editorialPosition = bestXiPositionLabels.get(entry.position) || entry.position || record.editorialPosition;
@@ -970,9 +1012,96 @@ function buildProfile(record, imageFields = {}) {
   };
 }
 
+function consolidateHistoricalProfileIdentities(profilesData) {
+  const entries = Object.entries(profilesData?.profiles || {});
+  const groups = new Map();
+  for (const entry of entries) {
+    const [, profile] = entry;
+    const identityKey = historicalRecordKey(profile.name, profile.teamName, profile.tournamentYear);
+    if (!groups.has(identityKey)) groups.set(identityKey, []);
+    groups.get(identityKey).push(entry);
+  }
+
+  const replacements = new Map();
+  const removedKeys = new Set();
+  const merges = [];
+  for (const [identityKey, group] of groups) {
+    if (group.length < 2) continue;
+    const canonicalEntry = group.find(([, profile]) => profile.bestXiSelection) || group[0];
+    const [canonicalKey, canonical] = canonicalEntry;
+    const merged = { ...Object.assign({}, ...group.map(([, profile]) => profile)), ...canonical };
+    const maxNumber = (field) => Math.max(...group.map(([, profile]) => Number(profile[field] || 0)));
+    const union = (field) => [...new Set(group.flatMap(([, profile]) => profile[field] || []))];
+    merged.profileKey = historicalProfileKey(canonical.name, canonical.teamName, canonical.tournamentYear);
+    merged.name = canonical.name;
+    merged.displayName = canonical.displayName || canonical.name;
+    merged.goals = maxNumber("goals");
+    merged.ownGoals = maxNumber("ownGoals");
+    merged.keyMatchCount = maxNumber("keyMatchCount");
+    merged.scorerMatchCount = maxNumber("scorerMatchCount");
+    merged.teams = union("teams");
+    merged.tournamentYears = union("tournamentYears").sort((left, right) => left - right);
+    merged.skills = union("skills");
+    if (group.some(([, profile]) => profile.bestXiSelection)) {
+      merged.bestXiSelection = true;
+      merged.bestXiSelectionKinds = union("bestXiSelectionKinds").sort();
+    }
+    replacements.set(canonicalKey, merged);
+    for (const [profileKey] of group) {
+      if (profileKey !== canonicalKey) removedKeys.add(profileKey);
+    }
+    merges.push({ identityKey, canonicalKey, removedKeys: group.map(([profileKey]) => profileKey).filter((key) => key !== canonicalKey) });
+  }
+
+  const profiles = {};
+  for (const [profileKey, profile] of entries) {
+    if (removedKeys.has(profileKey)) continue;
+    profiles[profileKey] = replacements.get(profileKey) || profile;
+  }
+  return { profiles, merges };
+}
+
+function historicalCoverageCounts(profiles) {
+  const values = Object.values(profiles || {});
+  const resolutionCount = (resolution) => values.filter(
+    (profile) => profile.leagueAtTournamentResolution === resolution
+  ).length;
+  return {
+    clubProfileCount: values.filter((profile) => String(profile.club || "").trim()).length,
+    leagueProfileCount: values.filter((profile) => String(profile.leagueAtTournament || profile.league || "").trim()).length,
+    leagueNotApplicableProfileCount: resolutionCount("not-applicable"),
+    leagueSeasonMembershipProfileCount: resolutionCount("season-membership"),
+    leagueAssociationEraProfileCount: resolutionCount("association-era-default"),
+    leagueCuratedOverrideProfileCount: resolutionCount("curated-club-era-override")
+  };
+}
+
 const historyData = await readJson(historyPath);
 const existingHistoricalProfilesData = await readOptionalJson(outputPath);
 const currentPlayerProfilesData = await readOptionalJson(playerProfilesPath);
+
+if (consolidateIdentitiesOnly) {
+  const consolidation = consolidateHistoricalProfileIdentities(existingHistoricalProfilesData);
+  const output = {
+    ...existingHistoricalProfilesData,
+    updatedAt: new Date().toISOString(),
+    coverage: {
+      ...(existingHistoricalProfilesData?.coverage || {}),
+      ...historicalCoverageCounts(consolidation.profiles)
+    },
+    profiles: consolidation.profiles
+  };
+  await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
+  console.log(
+    `Historical player identity consolidation: ${consolidation.merges.length} duplicate groups merged; `
+      + `${Object.keys(consolidation.profiles).length} profiles remain.`
+  );
+  for (const merge of consolidation.merges) {
+    console.log(`- ${merge.canonicalKey} absorbed ${merge.removedKeys.join(", ")}`);
+  }
+  process.exit(0);
+}
+
 const historicalEnrichmentLookup = createHistoricalEnrichmentLookup(existingHistoricalProfilesData);
 const currentImageLookup = createCurrentImageLookup(currentPlayerProfilesData);
 const records = new Map();
@@ -1046,9 +1175,10 @@ const output = {
     ? { sources: existingHistoricalProfilesData.sources }
     : {}),
   coverage: {
-    ...(bestXiTargetsOnly ? existingHistoricalProfilesData?.coverage || {} : {}),
+    ...(existingHistoricalProfilesData?.coverage || {}),
     status: "complete-men-1930-2022-key-players-scorers-and-best-xi-by-team-year",
-    note: "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs, historical goal records, or an editorial Best XI."
+    note: "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs, historical goal records, or an editorial Best XI.",
+    ...historicalCoverageCounts(profiles)
   },
   profiles
 };

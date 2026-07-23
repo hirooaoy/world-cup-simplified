@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "7afbcb97cd5f1aee770dc0f0d532a252dc1f993182efdae8e4a51dd6d3ff8108",
+  "sourceFingerprint": "88d7daaf082dacb023eae010012a6e1a1f834b63768ac7f1481bd20435f955d1",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Date changes cross-fade the full schedule; reduced-motion updates instantly, and the main tabs stay evenly inset.": "날짜를 바꾸면 전체 일정이 교차 페이드되고, 모션 감소 모드에서는 즉시 갱신됩니다. 기본 탭의 안쪽 여백도 균일하게 유지됩니다.",
-    "Historical match cards now read like contemporary pre-match briefs, without archive-year or final-result hindsight.": "역대 경기 카드는 이제 보관 연도나 최종 결과를 되짚는 시선 없이 당시의 사전 브리핑처럼 읽힙니다.",
-    "Player cards hide zero totals; Highlights photos lose outlines, and shell controls reveal more background color.": "선수 카드는 0인 기록을 숨기고, Highlights 사진은 테두리를 없애며, 셸 컨트롤은 배경색을 더 드러냅니다.",
-    "Sharper archives and smoother date changes": "더 선명한 기록과 부드러운 날짜 전환"
+    "All four languages share stricter checks and a fresh cache version, so returning visitors receive the new copy.": "네 언어 모두 더 엄격한 검사를 공통 적용하고 새 캐시 버전을 사용해 재방문 사용자도 새 문구를 받습니다.",
+    "Current and historical cards now use longer, more varied profiles, with evidence-backed traits or honest fallbacks.": "현재 및 역대 선수 카드는 더 길고 다양한 프로필을 사용하며, 근거가 있는 특징이나 정직한 대체 설명을 제공합니다.",
+    "Generic profiles stay separate from Best XI and Honourable Mention rationales, so each card tells the right story.": "일반 프로필은 베스트 XI 및 명예 언급 선정 이유와 분리되어 각 카드가 목적에 맞는 이야기를 전합니다.",
+    "Richer player cards across every World Cup": "모든 월드컵의 선수 카드를 더 풍부하게"
   }
 }

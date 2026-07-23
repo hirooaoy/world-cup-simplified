@@ -1,6 +1,49 @@
 {
-  "updatedAt": "2026-07-21T23:04:02-07:00",
+  "updatedAt": "2026-07-22T16:18:17-07:00",
   "releases": [
+    {
+      "date": "2026-07-22",
+      "title": "Richer player cards across every World Cup",
+      "titleZh": "历届世界杯球员卡内容更丰富",
+      "highlights": [
+        "Current and historical cards now use longer, more varied profiles, with evidence-backed traits or honest fallbacks.",
+        "Generic profiles stay separate from Best XI and Honourable Mention rationales, so each card tells the right story.",
+        "All four languages share stricter checks and a fresh cache version, so returning visitors receive the new copy."
+      ],
+      "highlightsZh": [
+        "现役及历届球员卡现采用更长、句式更丰富的三句式简介：有可靠依据时呈现个人特点，资料有限时则明确使用基于位置职责的描述。",
+        "通用球员简介继续与最佳阵容及荣誉提名的入选理由分开，让每张卡片讲述与其用途相符的内容。",
+        "英文、中文、西班牙文和韩文内容现共用更严格的质量检查及全新缓存版本，确保回访用户也能看到更新后的文案。"
+      ]
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Match-specific briefs for every World Cup",
+      "titleZh": "每场世界杯比赛都有专属赛前简报",
+      "highlights": [
+        "All 1,069 matches from 1930 through 2026 now carry a four-sentence, opponent-specific Key information brief for each team.",
+        "The 2026 archive and 1970–2022 history use confirmed starters; earlier editions stay honest with manager, stage, host, and prior-tournament context where lineups are not verified.",
+        "Every brief is reconstructed at kickoff, excludes the current result, and follows a reusable contract already tested against a synthetic 2030 edition."
+      ],
+      "highlightsZh": [
+        "从1930年至2026年的全部1,069场比赛，现均为双方各提供一段由四句话组成、针对具体对手的关键信息简报。",
+        "2026年存档及1970至2022年历史比赛会使用已确认首发；更早届次若缺乏可靠阵容，则只采用主教练、阶段、东道主及赛前既有赛事背景。",
+        "每段简报都以开球时点重建，排除本场赛果，并遵循已通过2030年模拟届次测试的可复用内容规范。"
+      ]
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Consistent shootout results",
+      "titleZh": "更一致的点球大战赛果",
+      "highlights": [
+        "Switzerland–Colombia now shows as complete: grey card, 0–0 score, and Switzerland’s 4–3 shootout win.",
+        "Result checks now catch missing or conflicting shootout winners across current and historical World Cups."
+      ],
+      "highlightsZh": [
+        "瑞士对哥伦比亚现会显示为已完成的灰色对阵卡，并标明0比0及瑞士点球4比3取胜。",
+        "赛果检查现会在当前及历届世界杯数据中识别缺失或冲突的点球大战胜者。"
+      ]
+    },
     {
       "date": "2026-07-21",
       "title": "Sharper archives and smoother date changes",

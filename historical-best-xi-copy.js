@@ -122,7 +122,7 @@ function koreanTopic(value) {
   return "는";
 }
 
-function teamPerformanceClause({ language, teamName, year, performance }) {
+function teamPerformanceClause({ language, teamName, year, performance, isChampion = false }) {
   if (!performance.key && !performance.label) return "";
   const team = teamName || { en: "The team", es: "La selección", ko: "대표팀", zh: "球队" }[language];
   const tournament = {
@@ -189,8 +189,9 @@ function teamPerformanceClause({ language, teamName, year, performance }) {
       "group-stage": `${team}进入${tournament}小组赛`
     }
   };
-  if (performance.key && clauses[language][performance.key]) {
-    return clauses[language][performance.key];
+  const performanceKey = isChampion ? "champions" : performance.key;
+  if (performanceKey && clauses[language][performanceKey]) {
+    return clauses[language][performanceKey];
   }
   if (language === "en") return `${team} finished ${performance.label} at ${tournament}`;
   if (language === "es") return `${team} terminó ${performance.label} en ${tournament}`;
@@ -312,12 +313,125 @@ function fallbackEvidence({ language, playerName, teamName, year }) {
   return `${playerName}代表${teamName}参加了${year}年世界杯。`;
 }
 
+function stableVariant(value) {
+  let hash = 0;
+  for (const character of normalizeText(value)) {
+    hash = ((hash * 31) + character.codePointAt(0)) >>> 0;
+  }
+  return hash;
+}
+
+function normalizedComparableText(value) {
+  return normalizeText(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
+function rationaleStartsWithPlayer(rationale, playerName) {
+  const text = normalizedComparableText(rationale);
+  const name = normalizedComparableText(playerName);
+  if (!text || !name) return false;
+  if (text === name || text.startsWith(`${name} `)) return true;
+  return name
+    .split(" ")
+    .filter((part) => [...part].length >= 3)
+    .some((part) => text === part || text.startsWith(`${part} `));
+}
+
+function rationaleMentionsScoring(rationale, language) {
+  const text = normalizeText(rationale).toLowerCase();
+  if (!text) return false;
+  return ({
+    en: /\b(?:scor(?:e|ed|ing)|goals?|hat[- ]trick)\b/u,
+    es: /\b(?:marc(?:a|ó|o|aron|aba|ando)|goles?|triplete)\b/u,
+    ko: /(?:득점|골|해트트릭)/u,
+    zh: /(?:进球|入球|攻入|打进|破门|梅开二度|帽子戏法)/u
+  })[language].test(text);
+}
+
+function rationaleMentionsParticipation(rationale, language) {
+  const text = normalizeText(rationale).toLowerCase();
+  if (!text) return false;
+  return ({
+    en: /\b(?:appearances?|starts?|started|every minute|played (?:all|every|\d+)|all \d+ matches?)\b/u,
+    es: /\b(?:apariciones?|titular|disputó|disputo|jugó|jugo|todos los minutos)\b/u,
+    ko: /(?:출전|선발|전 시간|모든 경기)/u,
+    zh: /(?:出场|首发|打满|每一分钟)/u
+  })[language].test(text);
+}
+
+function rationaleMentionsPerformance(rationale, performanceKey, language) {
+  const text = normalizeText(rationale).toLowerCase();
+  if (!text || !performanceKey) return false;
+  const patterns = {
+    en: {
+      final: /\bfinal\b/u,
+      "final-round": /\bfinal round\b/u,
+      "third-place-match": /\b(?:third[- ]place|finished third)\b/u,
+      "second-group-stage": /\bsecond (?:group|round)\b/u,
+      third: /\b(?:third place|finished third)\b/u,
+      fourth: /\b(?:fourth place|finished fourth)\b/u,
+      "semi-finals": /\bsemi[- ]finals?\b/u,
+      "quarter-finals": /\bquarter[- ]finals?\b/u,
+      "round-of-16": /\b(?:round of 16|last 16)\b/u,
+      "group-stage": /\bgroup(?: stage)?\b/u
+    },
+    es: {
+      final: /\bfinal\b/u,
+      "final-round": /\b(?:liguilla|fase) final\b/u,
+      "third-place-match": /\btercer puesto\b/u,
+      "second-group-stage": /\bsegunda (?:fase|ronda)\b/u,
+      third: /\btercer puesto\b/u,
+      fourth: /\bcuarto puesto\b/u,
+      "semi-finals": /\bsemifinal(?:es)?\b/u,
+      "quarter-finals": /\bcuartos? de final\b/u,
+      "round-of-16": /\boctavos? de final\b/u,
+      "group-stage": /\b(?:fase de )?grupos?\b/u
+    },
+    ko: {
+      final: /결승/u,
+      "final-round": /결승 리그/u,
+      "third-place-match": /(?:3·4위전|3위 결정전)/u,
+      "second-group-stage": /2차 조별/u,
+      third: /3위/u,
+      fourth: /4위/u,
+      "semi-finals": /(?:준결승|4강)/u,
+      "quarter-finals": /(?:8강|준준결승)/u,
+      "round-of-16": /16강/u,
+      "group-stage": /조별/u
+    },
+    zh: {
+      final: /决赛/u,
+      "final-round": /决赛阶段/u,
+      "third-place-match": /(?:季军赛|三四名)/u,
+      "second-group-stage": /第二阶段小组/u,
+      third: /(?:季军|第三名)/u,
+      fourth: /第四名/u,
+      "semi-finals": /(?:半决赛|四强)/u,
+      "quarter-finals": /(?:四分之一决赛|八强)/u,
+      "round-of-16": /(?:十六强|八分之一决赛)/u,
+      "group-stage": /小组/u
+    }
+  };
+  return patterns[language]?.[performanceKey]?.test(text) || false;
+}
+
+export function resolveHistoricalBestXiEvidencePosition(selectionPosition, profilePosition) {
+  return normalizeText(selectionPosition) || normalizeText(profilePosition);
+}
+
 export function buildHistoricalBestXiEvidence(input = {}) {
   const language = normalizeLanguage(input.language ?? input.locale);
   const playerName = localizedText(input.playerName ?? input.localizedPlayerName, language);
   const teamName = localizedText(input.teamName ?? input.localizedTeamName, language);
   const year = count(readField(input, "tournamentYear"));
-  const group = positionGroup(readField(input, "position"));
+  const group = positionGroup(resolveHistoricalBestXiEvidencePosition(
+    readField(input, "selectionPosition"),
+    readField(input, "position")
+  ));
   if (group === "coach") return "";
 
   const appearances = count(readField(input, "tournamentAppearances"));
@@ -331,63 +445,85 @@ export function buildHistoricalBestXiEvidence(input = {}) {
   if (matches !== null && cleanSheets !== null && cleanSheets > matches) cleanSheets = null;
 
   const performance = performanceValue(readField(input, "tournamentTeamPerformance"), language);
-  const performanceClause = teamPerformanceClause({ language, teamName, year, performance });
-  const includeGoals = group === "attacker" || group === "midfielder" || group === "unknown";
+  const isChampion = readField(input, "isChampion") === true;
+  const rationale = localizedRationale(
+    input.existingRationale ?? input.rationale ?? input.fallbackRationale,
+    language
+  );
+  const performanceClause = teamPerformanceClause({
+    language,
+    teamName,
+    year,
+    performance,
+    isChampion
+  });
+  const includeGoals = (
+    group === "attacker" || group === "midfielder" || group === "unknown"
+  ) && !rationaleMentionsScoring(rationale, language);
+  const includeParticipation = !rationaleMentionsParticipation(rationale, language);
   const playerStats = playerStatsClause({
     language,
     playerName,
-    appearances,
-    starts,
+    appearances: includeParticipation ? appearances : null,
+    starts: includeParticipation ? starts : null,
     matches,
     goals,
     includeGoals
   });
-  const hasAppearanceRecord = (appearances !== null && appearances > 0) || (starts !== null && starts > 0);
+  const hasAppearanceRecord = includeParticipation && (
+    (appearances !== null && appearances > 0) || (starts !== null && starts > 0)
+  );
   const defensive = group === "goalkeeper" || group === "defender";
   const defenseFact = defensiveTeamFact({ language, teamName, matches, cleanSheets, goalsAgainst });
   const attackFact = attackingTeamFact({ language, teamName, matches, goalsFor });
 
-  if (hasAppearanceRecord) {
-    const playerAndFinish = playerStats && performanceClause
-      ? language === "en"
-        ? `${playerStats} as ${performanceClause}`
-        : language === "es"
-          ? `${playerStats}; ${performanceClause}`
-          : language === "ko"
-            ? `${playerStats}. ${performanceClause}`
-            : `${playerStats}，${performanceClause}`
-      : playerStats || performanceClause;
-    return finishSentences(language, [playerAndFinish, defensive ? defenseFact : attackFact]);
+  const teamFact = defensive ? defenseFact : attackFact;
+  const playerFact = hasAppearanceRecord || (includeGoals && playerStats)
+    ? playerStats
+    : includeGoals && playerName && goals !== null && goals > 0 && goalsFor !== null && goals <= goalsFor
+      ? ({
+          en: `${playerName} contributed ${goals} of those goals`,
+          es: `${playerName} aportó ${goals} de esos goles`,
+          ko: `${playerName}${koreanTopic(playerName)} 그중 ${goals}골을 넣었다`,
+          zh: `${playerName}贡献了其中${goals}球`
+        })[language]
+      : playerStats;
+  const supportingFacts = [teamFact, playerFact].filter(Boolean);
+  const repeatsPerformance = !isChampion && rationaleMentionsPerformance(
+    rationale,
+    performance.key,
+    language
+  );
+  const performanceFact = repeatsPerformance && supportingFacts.length >= 2
+    ? ""
+    : performanceClause;
+  const teamFirst = rationaleStartsWithPlayer(rationale, playerName);
+  const variant = stableVariant(`${year}|${playerName}`) % 2;
+  const orderFacts = (resultFact) => teamFirst
+    ? variant === 0
+      ? [resultFact, teamFact, playerFact]
+      : [teamFact, resultFact, playerFact]
+    : variant === 0
+      ? [playerFact, resultFact, teamFact]
+      : [playerFact, teamFact, resultFact];
+  let evidence = finishSentences(language, orderFacts(performanceFact));
+  const minimumLength = { en: 65, es: 65, ko: 30, zh: 25 }[language];
+  if (!performanceFact && [...evidence].length < minimumLength) {
+    evidence = finishSentences(language, orderFacts(performanceClause));
   }
-
-  // Early tournaments often lack reliable appearance records. In those cases,
-  // keep the evidence at team level and let the researched rationale explain
-  // the player's individual case.
-  const sentences = [];
-  if (performanceClause) sentences.push(performanceClause);
-  if (defensive) {
-    if (defenseFact) sentences.push(defenseFact);
-  } else {
-    if (attackFact) sentences.push(attackFact);
-    if (includeGoals && playerName && attackFact && goals !== null && goals > 0 && goalsFor !== null && goals <= goalsFor) {
-      if (language === "en") sentences.push(`${playerName} contributed ${goals} of those goals`);
-      else if (language === "es") sentences.push(`${playerName} aportó ${goals} de esos goles`);
-      else if (language === "ko") sentences.push(`${playerName}${koreanTopic(playerName)} 그중 ${goals}골을 넣었다`);
-      else sentences.push(`${playerName}贡献了其中${goals}球`);
-    } else if (playerStats) {
-      sentences.push(playerStats);
-    }
-  }
-  return finishSentences(language, sentences) || fallbackEvidence({ language, playerName, teamName, year });
+  return evidence || fallbackEvidence({ language, playerName, teamName, year });
 }
 
 export function buildHistoricalBestXiDescriptionParagraphs(input = {}, existingRationale) {
   const language = normalizeLanguage(input.language ?? input.locale);
-  const evidence = buildHistoricalBestXiEvidence(input);
   const rationale = localizedRationale(existingRationale, language) ||
     localizedRationale(input.existingRationale, language) ||
     localizedRationale(input.rationale, language) ||
     localizedRationale(input.fallbackRationale, language);
+  const evidence = buildHistoricalBestXiEvidence({
+    ...input,
+    existingRationale: rationale
+  });
   const fallback = evidence || fallbackEvidence({
     language,
     playerName: localizedText(input.playerName ?? input.localizedPlayerName, language),

@@ -2,17 +2,20 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
+import { resolvePlayerNameInPool } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
-const matchupResearchPath = path.join(dataDir, "matchup-research-notes.json");
-const playerAvailabilityPath = path.join(dataDir, "player-availability.json");
+const lineupsPath = path.join(dataDir, "lineups.json");
 const teamStyleProfilesPath = path.join(dataDir, "team-style-profiles.json");
 const teamsPath = path.join(dataDir, "teams.json");
 
-const sourceId = "editorial-preview-2026-06-22";
+const teamStyleSourceId = "editorial-preview-2026-06-22";
+const keyInformationSourceId = "matchup-archive-present-tense-2026-07-22";
+const priorResultsSourceId = "fifa-official-results-sync-2026-07-20";
+const schemaVersion = 4;
+const localeModelVersion = 2;
 
 const profiles = {
   ALG: {
@@ -456,326 +459,1021 @@ const profiles = {
   }
 };
 
-const matchupProblems = {
-  ALG: "Mahrez-Aouar control",
-  ARG: "Messi-Alvarez midfield breaks",
-  AUS: "Irvine-Volpato duel-and-service rhythm",
-  AUT: "Sabitzer-Laimer pressure waves",
-  BEL: "De Bruyne-to-Lukaku chance creation",
-  BIH: "Dzeko target play",
-  BRA: "Neymar-Vinicius isolation speed",
-  CAN: "Davies-David open-field speed",
-  CIV: "Kessie-Adingra power breaks",
-  COD: "Wissa-Sadiki counters",
-  COL: "Diaz-James width-and-service",
-  CPV: "Mendes-led compact counterpunch",
-  CRO: "Modric-Kovacic midfield control",
-  CUW: "Bacuna free-kick and corner play plus Chong outlets",
-  CZE: "Schick-Soucek aerial pressure",
-  ECU: "Caicedo-Hincapie midfield squeeze",
-  EGY: "Salah-Marmoush breakaway threat",
-  ENG: "Kane-Bellingham box entries",
-  ESP: "Yamal-Williams wide stretch",
-  FRA: "Olise-to-Mbappe chance creation",
-  GER: "Kimmich-Musiala-Wirtz central rotations",
-  GHA: "Semenyo-Williams forward running",
-  HAI: "Nazon-Pierrot direct box pressure",
-  IRN: "Taremi-Ghoddos counter craft",
-  IRQ: "Ali Jasim-to-Hussein counter route",
-  JOR: "Al-Taamari-Olwan counter timing",
-  JPN: "Doan-Kamada combination speed",
-  KOR: "Son-Lee quick-break service",
-  KSA: "Al-Dawsari pressing bursts",
-  MAR: "Hakimi-Brahim right-side surges",
-  MEX: "Gimenez-Chavez home pressure",
-  NED: "De Jong-Gakpo controlled buildup",
-  NOR: "Odegaard-to-Haaland supply",
-  NZL: "Cacace-to-Wood aerial service",
-  PAN: "Carrasquilla-Murillo right-side escape",
-  PAR: "Almiron-Enciso counters",
-  POR: "Vitinha-Bruno-Ronaldo supply",
-  QAT: "Afif-Almoez patient combinations",
-  RSA: "Williams-Mokoena-Foster save-to-counter chain",
-  SCO: "Robertson-McTominay left-side service",
-  SEN: "Mane-Jackson direct running",
-  SUI: "Xhaka-Embolo control-and-release",
-  SWE: "Isak-Gyokeres two-striker pressure",
-  TUN: "Skhiri-Saad compact counter route",
-  TUR: "Calhanoglu-Guler-Yildiz creative bursts",
-  URU: "Valverde-Nunez chaos running",
-  USA: "Pulisic-McKennie pressure breaks",
-  UZB: "Fayzullaev-Shomurodov disciplined attacks"
-};
-
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
 }
 
-async function readOptionalJson(filePath) {
-  try {
-    return await readJson(filePath);
-  } catch (error) {
-    if (error?.code === "ENOENT") {
-      return null;
-    }
+const attackingPositions = new Set(["AM", "LW", "RW", "LM", "RM", "ST"]);
 
-    throw error;
-  }
+function getPlayersAt(players, positions, excludedNames = new Set()) {
+  const positionSet = new Set(positions);
+  return players.filter((player) => positionSet.has(player.position) && !excludedNames.has(player.name));
 }
 
-function clone(value) {
-  return JSON.parse(JSON.stringify(value));
-}
-
-function formatList(values) {
-  if (values.length <= 1) {
-    return values.join("");
-  }
-
-  if (values.length === 2) {
-    return values.join(" and ");
-  }
-
-  return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
-}
-
-function getPlayerNames(players = []) {
-  return players
-    .map((player) => (typeof player === "string" ? player : player?.name))
-    .filter(Boolean);
-}
-
-function formatPossessiveName(name) {
-  return /s$/i.test(name) ? `${name}'` : `${name}'s`;
-}
-
-function getResearchSourceId(fixtureResearch) {
-  return fixtureResearch?.sourceId || fixtureResearch?.sourceIds?.[0] || sourceId;
-}
-
-function getSideResearch(fixtureResearch, side) {
-  return fixtureResearch?.[side] && typeof fixtureResearch[side] === "object"
-    ? fixtureResearch[side]
-    : null;
-}
-
-let baselineKeyPlayersByTeamId = new Map();
-let playerAvailabilityByTeamId = new Map();
-
-function buildPlayerAvailabilityByTeamId(playerAvailabilityData = {}) {
-  return new Map(
-    Object.entries(playerAvailabilityData.teams || {}).map(([teamId, availability]) => {
-      const fixtureUnavailableByFixture = new Map();
-      for (const player of availability.fixtureUnavailable || []) {
-        if (!fixtureUnavailableByFixture.has(player.fixtureId)) {
-          fixtureUnavailableByFixture.set(player.fixtureId, []);
-        }
-        fixtureUnavailableByFixture.get(player.fixtureId).push(player);
-      }
-
-      return [
-        teamId,
-        {
-          includedNames: (availability.included || []).filter((name) => typeof name === "string" && name.trim()),
-          fixtureUnavailableByFixture,
-          unavailable: availability.unavailable || []
-        }
-      ];
-    })
-  );
-}
-
-function findUnavailablePlayer(records, playerName) {
-  if (!records?.length || !playerName) {
-    return null;
-  }
-
-  const playerNameKey = normalizePlayerName(playerName);
-  return (
-    records.find((record) => normalizePlayerName(record.name) === playerNameKey) ||
-    records.find((record) => isPlayerNameMatch(playerName, record.name) || isPlayerNameMatch(record.name, playerName)) ||
-    null
-  );
-}
-
-function isPlayerInCurrentSquad(playerName, includedNames) {
-  return !includedNames?.length || includedNames.some((rosterName) => isPlayerNameMatch(playerName, rosterName));
-}
-
-function arePlayersUsableForFixture(players, teamId, fixtureId) {
-  if (!Array.isArray(players) || getPlayerNames(players).length < 3) {
-    return false;
-  }
-
-  const availability = playerAvailabilityByTeamId.get(teamId);
-  if (!availability) {
-    return true;
-  }
-
-  const fixtureUnavailable = availability.fixtureUnavailableByFixture.get(fixtureId) || [];
-  return players.every((player) => {
-    const name = typeof player === "string" ? player : player?.name;
-    return (
-      name &&
-      isPlayerInCurrentSquad(name, availability.includedNames) &&
-      !findUnavailablePlayer(availability.unavailable, name) &&
-      !findUnavailablePlayer(fixtureUnavailable, name)
+function getFirstAt(players, positions, excludedNames = new Set()) {
+  for (const position of positions) {
+    const player = players.find(
+      (candidate) => candidate.position === position && !excludedNames.has(candidate.name)
     );
-  });
-}
-
-function buildBaselineKeyPlayersByTeamId(fixtures = []) {
-  const byTeamId = new Map();
-
-  for (const fixture of fixtures) {
-    for (const side of ["home", "away"]) {
-      const teamId = fixture[`${side}TeamId`];
-      const players = fixture.keyPlayers?.[side];
-
-      if (!teamId || byTeamId.has(teamId) || !Array.isArray(players) || getPlayerNames(players).length < 3) {
-        continue;
-      }
-
-      byTeamId.set(teamId, clone(players));
+    if (player) {
+      return player;
     }
   }
-
-  return byTeamId;
+  return null;
 }
 
-function getSidePlayers(fixtureResearch, side, fallbackPlayers, teamId, fixtureId) {
-  const researchedPlayers = getSideResearch(fixtureResearch, side)?.keyPlayers;
-
-  if (Array.isArray(researchedPlayers) && researchedPlayers.length) {
-    return researchedPlayers;
+function getLastAt(players, positions, excludedNames = new Set()) {
+  for (const position of positions) {
+    const player = players.findLast(
+      (candidate) => candidate.position === position && !excludedNames.has(candidate.name)
+    );
+    if (player) {
+      return player;
+    }
   }
-
-  if (arePlayersUsableForFixture(fallbackPlayers, teamId, fixtureId)) {
-    return fallbackPlayers;
-  }
-
-  const baselinePlayers = baselineKeyPlayersByTeamId.get(teamId);
-  if (arePlayersUsableForFixture(baselinePlayers, teamId, fixtureId)) {
-    return baselinePlayers;
-  }
-
-  if (Array.isArray(fallbackPlayers) && fallbackPlayers.length) {
-    return fallbackPlayers;
-  }
-
-  return undefined;
+  return null;
 }
 
-function buildSideCopy(team, opponent, players, opponentPlayers, fixtureResearch, side) {
-  const profile = profiles[team.id];
-  const opponentProfile = profiles[opponent.id];
-  const opponentSide = side === "home" ? "away" : "home";
-  const sideResearch = getSideResearch(fixtureResearch, side);
-  const opponentResearch = getSideResearch(fixtureResearch, opponentSide);
-
-  if (!profile) {
-    throw new Error(`Missing profile for ${team.id}`);
+function requirePlayer(player, context) {
+  if (!player?.name) {
+    throw new Error(`Could not select ${context}`);
   }
-
-  if (!opponentProfile) {
-    throw new Error(`Missing profile for ${opponent.id}`);
-  }
-
-  const names = getPlayerNames(players);
-  const opponentNames = getPlayerNames(opponentPlayers).slice(0, 2);
-
-  if (names.length < 3 || opponentNames.length < 2) {
-    throw new Error(`Missing key players for ${team.id} vs ${opponent.id}`);
-  }
-
-  const summary = sideResearch?.summary || profile.summary;
-  const attackPlan = sideResearch?.attackPlan || profile.opponentPlans?.[opponent.id] || profile.attackPlan;
-  const opponentThreat = opponentResearch?.threat || opponentProfile.opponentThreats?.[team.id] || opponentProfile.threat;
-  const teamMatchupProblem = sideResearch?.matchupProblem || matchupProblems[team.id] || profile.threat;
-  const opponentMatchupProblem = opponentResearch?.matchupProblem || matchupProblems[opponent.id] || opponentProfile.threat;
-  const contextSentence = sideResearch?.contextSentence ? `${sideResearch.contextSentence} ` : "";
-
-  return `${team.name} ${summary}, led by ${formatList(names)}. Against ${opponent.name}, their ${teamMatchupProblem} has to beat ${formatPossessiveName(opponent.name)} ${opponentMatchupProblem}. ${contextSentence}They want to ${attackPlan}. The risk is ${opponent.name} can ${opponentThreat}.`;
+  return player;
 }
 
-const [fixturesData, teamsData, matchupResearchData, playerAvailabilityData] = await Promise.all([
-  readJson(fixturesPath),
-  readJson(teamsPath),
-  readOptionalJson(matchupResearchPath),
-  readOptionalJson(playerAvailabilityPath)
-]);
-const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
-const matchupResearchByFixture = matchupResearchData?.fixtures || {};
-playerAvailabilityByTeamId = buildPlayerAvailabilityByTeamId(playerAvailabilityData);
-baselineKeyPlayersByTeamId = buildBaselineKeyPlayersByTeamId(fixturesData.fixtures);
-let populated = 0;
+function getController(players, excludedNames = new Set()) {
+  return (
+    getFirstAt(players, ["DM"], excludedNames) ||
+    getFirstAt(players, ["CM"], excludedNames) ||
+    getFirstAt(players, ["AM"], excludedNames) ||
+    getFirstAt(players, ["LM", "RM"], excludedNames)
+  );
+}
 
-fixturesData.sourceIds = [
-  ...new Set([...(fixturesData.sourceIds || []), sourceId, ...(matchupResearchData?.sourceIds || [])])
-];
+function getDistributor(players, excludedNames = new Set()) {
+  return (
+    getFirstAt(players, ["DM"], excludedNames) ||
+    getLastAt(players, ["CM"], excludedNames) ||
+    getFirstAt(players, ["AM"], excludedNames) ||
+    getFirstAt(players, ["LM", "RM", "LWB", "RWB", "LB", "RB"], excludedNames)
+  );
+}
 
-fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
-  if (!fixture.homeTeamId || !fixture.awayTeamId) {
-    return fixture;
+function getPreferredStarters(players, preferredNames = []) {
+  const selected = [];
+  const selectedNames = new Set();
+  for (const preferredName of preferredNames) {
+    const resolution = resolvePlayerNameInPool(preferredName, players);
+    const player = resolution.status === "matched" ? resolution.candidate : null;
+    if (!player?.name || selectedNames.has(player.name)) continue;
+    selected.push(player);
+    selectedNames.add(player.name);
+  }
+  return selected;
+}
+
+function getHeadlineAttacker(players, excludedNames = new Set(), preferredNames = []) {
+  const preferredStarter = getPreferredStarters(players, preferredNames).find(
+    (player) => attackingPositions.has(player.position) && !excludedNames.has(player.name)
+  );
+  return (
+    preferredStarter ||
+    players.find(
+      (player) =>
+        player.isCaptain && attackingPositions.has(player.position) && !excludedNames.has(player.name)
+    ) ||
+    getFirstAt(players, ["RW", "LW", "AM", "ST", "RM", "LM", "RWB", "LWB"], excludedNames)
+  );
+}
+
+function getCentralThreat(players, excludedNames = new Set()) {
+  return (
+    players.find(
+      (player) =>
+        player.isCaptain && attackingPositions.has(player.position) && !excludedNames.has(player.name)
+    ) ||
+    getFirstAt(players, ["AM", "ST", "RW", "LW", "RM", "LM"], excludedNames)
+  );
+}
+
+function getStartingLanePair(players, opponentPlayers, variantSeed, preferredNames = []) {
+  const preferredWideNames = getPreferredStarters(players, preferredNames)
+    .filter((player) => ["LW", "RW", "LM", "RM", "LWB", "RWB"].includes(player.position))
+    .map((player) => player.name);
+  const matchups = [
+    {
+      lane: "right",
+      opponentLane: "left",
+      attackerPositions: ["RW", "RM", "RWB"],
+      defenderPositions: ["LB", "LWB", "LM", "LCB"]
+    },
+    {
+      lane: "left",
+      opponentLane: "right",
+      attackerPositions: ["LW", "LM", "LWB"],
+      defenderPositions: ["RB", "RWB", "RM", "RCB"]
+    }
+  ];
+
+  const candidates = matchups
+    .map((matchup) => {
+      const attacker = getFirstAt(players, matchup.attackerPositions);
+      const defender = getFirstAt(opponentPlayers, matchup.defenderPositions);
+      if (!attacker || !defender) return null;
+      const attackerRank = matchup.attackerPositions.indexOf(attacker.position);
+      const defenderRank = matchup.defenderPositions.indexOf(defender.position);
+      return {
+        ownStarter: attacker,
+        opposingStarter: defender,
+        variant: "wide-lanes",
+        lane: matchup.lane,
+        opponentLane: matchup.opponentLane,
+        // Prefer the clearest winger-v-full-back geometry. A stable hash only
+        // breaks equally strong left/right options, avoiding a right-first bias.
+        geometryScore:
+          (matchup.attackerPositions.length - attackerRank) * 10 +
+          (matchup.defenderPositions.length - defenderRank) * 5 +
+          Number(Boolean(attacker.isCaptain)),
+        preferenceIndex: preferredWideNames.indexOf(attacker.name),
+        selectionBasis: preferredWideNames.includes(attacker.name)
+          ? "watchlist-preferred-complete-wide-lane-geometry"
+          : "strongest-complete-wide-lane-geometry"
+      };
+    })
+    .filter(Boolean)
+    .sort((left, right) => {
+      const leftIsPreferred = left.preferenceIndex >= 0;
+      const rightIsPreferred = right.preferenceIndex >= 0;
+      if (leftIsPreferred !== rightIsPreferred) return leftIsPreferred ? -1 : 1;
+      if (leftIsPreferred && left.preferenceIndex !== right.preferenceIndex) {
+        return left.preferenceIndex - right.preferenceIndex;
+      }
+      const scoreDifference = right.geometryScore - left.geometryScore;
+      if (scoreDifference) return scoreDifference;
+      const preferredLane = variantSeed % 2 === 0 ? "left" : "right";
+      if (left.lane === preferredLane) return -1;
+      if (right.lane === preferredLane) return 1;
+      return left.lane.localeCompare(right.lane);
+    });
+
+  if (candidates.length) {
+    const { geometryScore, preferenceIndex, ...selected } = candidates[0];
+    return selected;
   }
 
-  const homeTeam = teamsById.get(fixture.homeTeamId);
-  const awayTeam = teamsById.get(fixture.awayTeamId);
-
-  if (!homeTeam || !awayTeam) {
-    throw new Error(`Missing team for ${fixture.id}`);
-  }
-
-  const fixtureResearch = matchupResearchByFixture[fixture.id] || null;
-  const keyInformationSourceId = getResearchSourceId(fixtureResearch);
-  const homePlayers = getSidePlayers(fixtureResearch, "home", fixture.keyPlayers?.home, fixture.homeTeamId, fixture.id);
-  const awayPlayers = getSidePlayers(fixtureResearch, "away", fixture.keyPlayers?.away, fixture.awayTeamId, fixture.id);
-
-  fixture.keyPlayers = {
-    ...(fixture.keyPlayers || {}),
-    sourceId: fixtureResearch ? keyInformationSourceId : fixture.keyPlayers?.sourceId || "key-player-baseline-2026-06-22",
-    method: fixtureResearch ? "fixture-research-notes" : fixture.keyPlayers?.method || "team-watchlist-baseline",
-    basis: fixtureResearch
-      ? "Fixture-specific source-backed watchlist; uses matchup research notes when current team news changes the emphasis"
-      : fixture.keyPlayers?.basis ||
-        "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
-    home: clone(homePlayers),
-    away: clone(awayPlayers)
+  return {
+    ownStarter: requirePlayer(getFirstAt(players, ["ST", "AM", "RW", "LW"]), "a central matchup starter"),
+    opposingStarter: requirePlayer(
+      getFirstAt(opponentPlayers, ["CB", "LCB", "RCB", "DM"]),
+      "an opposing central starter"
+    ),
+    variant: "central-lanes",
+    lane: "central",
+    opponentLane: "central",
+    selectionBasis: "central-fallback-geometry"
   };
+}
 
-  fixture.keyInformation = {
-    sourceId: keyInformationSourceId,
-    ...(fixtureResearch?.checkedAt ? { checkedAt: fixtureResearch.checkedAt } : {}),
-    ...(fixtureResearch?.sourceIds ? { researchSourceIds: fixtureResearch.sourceIds } : {}),
-    home: buildSideCopy(homeTeam, awayTeam, homePlayers, awayPlayers, fixtureResearch, "home"),
-    away: buildSideCopy(awayTeam, homeTeam, awayPlayers, homePlayers, fixtureResearch, "away")
-  };
-  populated += 2;
+function getStageClause(stage) {
+  return (
+    {
+      group: "in the group stage",
+      "round-of-32": "for a place in the round of 16",
+      "round-of-16": "for a place in the quarter-finals",
+      "quarter-finals": "for a place in the semi-finals",
+      "semi-finals": "for a place in the final",
+      "bronze-final": "in the bronze-medal match",
+      final: "in the final"
+    }[stage] || "in this tournament match"
+  );
+}
 
-  return fixture;
+const positionLabels = Object.freeze({
+  GK: "goalkeeper",
+  LB: "left-back",
+  LCB: "left centre-back",
+  CB: "centre-back",
+  RCB: "right centre-back",
+  RB: "right-back",
+  LWB: "left wing-back",
+  RWB: "right wing-back",
+  DM: "defensive midfield",
+  LM: "left midfield",
+  CM: "central midfield",
+  RM: "right midfield",
+  AM: "attacking midfield",
+  LW: "left wing",
+  RW: "right wing",
+  ST: "striker"
 });
 
-const teamStyleProfilesData = {
-  generatedBy: "scripts/populate-matchup-key-information.mjs",
-  sourceId,
-  profiles: Object.fromEntries(
-    Object.entries(profiles).map(([teamId, profile]) => [
-      teamId,
-      {
-        summary: profile.summary,
-        plan: profile.plan,
-        ...(profile.planZh ? { planZh: profile.planZh } : {}),
-        attackPlan: profile.attackPlan,
-        matchupWin: profile.matchupWin,
-        defensiveTask: profile.defensiveTask,
-        ...(profile.defensiveTaskZh ? { defensiveTaskZh: profile.defensiveTaskZh } : {})
-      }
-    ])
-  )
-};
+function positionLabel(player) {
+  return positionLabels[player.position] || String(player.position || "a starting position").toLowerCase();
+}
 
-await Promise.all([
-  writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`),
-  writeFile(teamStyleProfilesPath, `${JSON.stringify(teamStyleProfilesData, null, 2)}\n`)
-]);
-console.log(`Populated ${populated} matchup blurbs and ${Object.keys(profiles).length} shared team style profiles.`);
+function possessive(value) {
+  return /s$/i.test(value) ? `${value}'` : `${value}'s`;
+}
+
+function starterFact(player) {
+  return { name: player.name, position: player.position };
+}
+
+function stableVariant(...parts) {
+  let hash = 2_166_136_261;
+  for (const character of parts.join("|")) {
+    hash ^= character.codePointAt(0);
+    hash = Math.imul(hash, 16_777_619);
+  }
+  return hash >>> 0;
+}
+
+function buildPlanSentence(players, formation, variantSeed) {
+  const centralPlayers = getPlayersAt(players, ["CM"]);
+  const controller = requirePlayer(getController(players), "a midfield controller");
+  const defensiveMidfielder = getFirstAt(players, ["DM"]);
+  const attackingMidfielder = getFirstAt(players, ["AM"]);
+  const leftWide = getFirstAt(players, ["LW", "LM", "LWB"]);
+  const rightWide = getFirstAt(players, ["RW", "RM", "RWB"]);
+  const leftForward = getFirstAt(players, ["LW"]);
+  const rightForward = getFirstAt(players, ["RW"]);
+  const leftWingBack = getFirstAt(players, ["LWB"]);
+  const rightWingBack = getFirstAt(players, ["RWB"]);
+  const strikers = getPlayersAt(players, ["ST"]);
+  const striker = strikers[0] || getHeadlineAttacker(players, new Set([controller.name]));
+  const alternateCentral = centralPlayers.find((player) => player.name !== controller.name);
+
+  if (defensiveMidfielder && centralPlayers.length >= 2 && leftWide && rightWide) {
+    const selectedWide = variantSeed % 2 === 0 ? rightWide : leftWide;
+    const starters = [defensiveMidfielder, centralPlayers[0], centralPlayers[1], selectedWide];
+    return {
+      texts: [
+        `${defensiveMidfielder.name} starts at defensive midfield beneath ${centralPlayers[0].name} and ${centralPlayers[1].name}, with ${selectedWide.name} in the ${selectedWide === rightWide ? "right" : "left"} wide slot.`,
+        `Their starting structure puts ${defensiveMidfielder.name} at defensive midfield, ${centralPlayers[0].name} and ${centralPlayers[1].name} inside, and ${selectedWide.name} ${selectedWide === rightWide ? "right" : "left"}.`,
+        `${defensiveMidfielder.name} starts beneath ${centralPlayers[0].name} and ${centralPlayers[1].name}, with ${selectedWide.name} in the ${selectedWide === rightWide ? "right" : "left"} wide slot.`
+      ],
+      key: "single-pivot-width",
+      starters: starters.map(starterFact)
+    };
+  }
+
+  if (attackingMidfielder && striker && attackingMidfielder.name !== striker.name) {
+    const base = controller.name === attackingMidfielder.name
+      ? requirePlayer(getController(players, new Set([attackingMidfielder.name])), "a deeper midfielder")
+      : controller;
+    const starters = [base, attackingMidfielder, striker];
+    return {
+      texts: [
+        `${base.name} starts at ${positionLabel(base)} beneath ${attackingMidfielder.name} at attacking midfield and ${striker.name} at striker.`,
+        `The central starting structure runs from ${base.name} at ${positionLabel(base)} through ${attackingMidfielder.name} at attacking midfield to ${striker.name} at striker.`,
+        `${base.name}, ${attackingMidfielder.name}, and ${striker.name} fill the central midfield, attacking-midfield, and striker slots respectively.`
+      ],
+      key: "number-ten",
+      starters: starters.map(starterFact)
+    };
+  }
+
+  if (strikers.length >= 2) {
+    const wideMidfielder = getFirstAt(players, ["LM", "RM", "LWB", "RWB"]);
+    const starters = [controller, strikers[0], strikers[1]];
+    return {
+      texts: [
+        `${strikers[0].name} and ${strikers[1].name} fill the two striker slots, with ${controller.name} at ${positionLabel(controller)}${wideMidfielder ? ` and ${wideMidfielder.name} at ${positionLabel(wideMidfielder)}` : ""}.`,
+        `Their starting structure pairs ${strikers[0].name} and ${strikers[1].name} at striker above ${controller.name} at ${positionLabel(controller)}${wideMidfielder ? `, with ${wideMidfielder.name} at ${positionLabel(wideMidfielder)}` : ""}.`,
+        `${strikers[0].name} and ${strikers[1].name} form the striker pair above ${controller.name} at ${positionLabel(controller)}.`
+      ],
+      key: "front-pair",
+      starters: starters.map(starterFact)
+    };
+  }
+
+  if (leftForward && rightForward && striker) {
+    const starters = [leftForward, striker, rightForward, controller];
+    return {
+      texts: [
+        `${leftForward.name}, ${striker.name}, and ${rightForward.name} fill the three forward slots, with ${controller.name} at ${positionLabel(controller)} on the line below.`,
+        `The front line lists ${leftForward.name} left, ${striker.name} centrally, and ${rightForward.name} right, above ${controller.name} at ${positionLabel(controller)}.`,
+        `${leftForward.name}, ${striker.name}, and ${rightForward.name} fill the front three above ${controller.name}.`
+      ],
+      key: "front-three",
+      starters: starters.map(starterFact)
+    };
+  }
+
+  if (leftWingBack && rightWingBack && striker) {
+    const starters = [leftWingBack, rightWingBack, controller, striker];
+    return {
+      texts: [
+        `${leftWingBack.name} and ${rightWingBack.name} occupy the wing-back slots, with ${controller.name} central and ${striker.name} at striker.`,
+        `The official XI places ${leftWingBack.name} at left wing-back, ${rightWingBack.name} at right wing-back, ${controller.name} centrally, and ${striker.name} at striker.`,
+        `${leftWingBack.name} and ${rightWingBack.name} take the wing-back slots around ${controller.name}, with ${striker.name} at striker.`
+      ],
+      key: "wing-backs",
+      starters: starters.map(starterFact)
+    };
+  }
+
+  const selectedConnector = requirePlayer(
+    alternateCentral || attackingMidfielder || getFirstAt(players, ["LM", "RM"]),
+    "a midfield connector"
+  );
+  const selectedStriker = requirePlayer(striker, "a forward");
+  const starters = [controller, selectedConnector, selectedStriker];
+  return {
+    texts: [
+      `${controller.name}, ${selectedConnector.name}, and ${selectedStriker.name} occupy ${positionLabel(controller)}, ${positionLabel(selectedConnector)}, and ${positionLabel(selectedStriker)} in the central starting line.`,
+      `The central starting line contains ${controller.name} at ${positionLabel(controller)}, ${selectedConnector.name} at ${positionLabel(selectedConnector)}, and ${selectedStriker.name} at ${positionLabel(selectedStriker)}.`,
+      `${controller.name}, ${selectedConnector.name}, and ${selectedStriker.name} form the central starting line from midfield to attack.`
+    ],
+    key: "central",
+    starters: starters.map(starterFact)
+  };
+}
+
+function buildOpponentShapeSentence(opponent, opponentPlayers) {
+  const frontTwo = getPlayersAt(opponentPlayers, ["ST"])
+    .sort((left, right) => Number(Boolean(right.isCaptain)) - Number(Boolean(left.isCaptain)))
+    .slice(0, 2);
+  const distributor = requirePlayer(
+    getDistributor(opponentPlayers, new Set(frontTwo.map((player) => player.name))),
+    "an opponent distributor"
+  );
+  const attackingMidfielder = getFirstAt(opponentPlayers, ["AM"], new Set([distributor.name]));
+  const leftForward = getFirstAt(opponentPlayers, ["LW"]);
+  const rightForward = getFirstAt(opponentPlayers, ["RW"]);
+  const leftMidfielder = getFirstAt(opponentPlayers, ["LM"]);
+  const rightMidfielder = getFirstAt(opponentPlayers, ["RM"]);
+  const leftAttacker = leftForward || leftMidfielder;
+  const rightAttacker = rightForward || rightMidfielder;
+  const wideAttacker = leftAttacker || rightAttacker;
+  const striker = getFirstAt(opponentPlayers, ["ST"], new Set([distributor.name]));
+
+  if (frontTwo.length >= 2) {
+    const starters = [distributor, frontTwo[0], frontTwo[1]];
+    return {
+      texts: [
+        `${possessive(opponent.name)} starting XI pairs ${frontTwo[0].name} and ${frontTwo[1].name} at striker, with ${distributor.name} at ${positionLabel(distributor)} beneath them.`,
+        `${frontTwo[0].name} and ${frontTwo[1].name} occupy ${possessive(opponent.name)} two striker positions ahead of ${distributor.name} at ${positionLabel(distributor)}.`,
+        `${possessive(opponent.name)} striker pair is ${frontTwo[0].name} and ${frontTwo[1].name}, with ${distributor.name} on the midfield line below.`,
+        `For ${opponent.name}, ${frontTwo[0].name} and ${frontTwo[1].name} start together at striker above ${distributor.name} at ${positionLabel(distributor)}.`
+      ],
+      key: "opponent-front-pair",
+      zone: "central",
+      starters: starters.map(starterFact)
+    };
+  }
+  if (attackingMidfielder && striker) {
+    const starters = [distributor, attackingMidfielder, striker];
+    return {
+      texts: [
+        `${possessive(opponent.name)} central starting line runs from ${distributor.name} through ${attackingMidfielder.name} at attacking midfield to ${striker.name} at striker.`,
+        `${possessive(opponent.name)} shape places ${distributor.name} deeper than ${attackingMidfielder.name} at attacking midfield and ${striker.name} at striker.`,
+        `${possessive(opponent.name)} central stack runs from ${distributor.name} through ${attackingMidfielder.name} to striker ${striker.name}.`,
+        `For ${opponent.name}, ${distributor.name}, ${attackingMidfielder.name}, and ${striker.name} occupy successive central lines from midfield to striker.`
+      ],
+      key: "opponent-ten-forward",
+      zone: "between-lines",
+      starters: starters.map(starterFact)
+    };
+  }
+  if (leftForward && rightForward && striker) {
+    const starters = [leftForward, striker, rightForward, distributor];
+    return {
+      texts: [
+        `${possessive(opponent.name)} starting front line contains ${leftForward.name}, ${striker.name}, and ${rightForward.name}, with ${distributor.name} deeper at ${positionLabel(distributor)}.`,
+        `${possessive(opponent.name)} front line places ${leftForward.name} and ${rightForward.name} around striker ${striker.name}, with ${distributor.name} at ${positionLabel(distributor)} on the line below.`,
+        `${possessive(opponent.name)} front three are ${leftForward.name}, ${striker.name}, and ${rightForward.name}, with ${distributor.name} on the line below.`,
+        `For ${opponent.name}, ${leftForward.name} starts left of ${striker.name} and ${rightForward.name} right, one line ahead of ${distributor.name}.`
+      ],
+      key: "opponent-front-three",
+      zone: "wide",
+      starters: starters.map(starterFact)
+    };
+  }
+  if (leftMidfielder && rightMidfielder && striker) {
+    const starters = [distributor, leftMidfielder, rightMidfielder, striker];
+    return {
+      texts: [
+        `${possessive(opponent.name)} midfield spans the width, with ${leftMidfielder.name} left, ${rightMidfielder.name} right, ${distributor.name} central, and ${striker.name} at striker.`,
+        `${possessive(opponent.name)} midfield line places ${leftMidfielder.name} left and ${rightMidfielder.name} right around ${distributor.name}, with ${striker.name} in the striker slot above.`,
+        `${leftMidfielder.name} and ${rightMidfielder.name} give ${opponent.name} two wide midfield starters around ${distributor.name}, with ${striker.name} at striker.`,
+        `${possessive(opponent.name)} wide midfielders are ${leftMidfielder.name} and ${rightMidfielder.name}, with ${distributor.name} central and ${striker.name} at striker.`,
+        `For ${opponent.name}, ${leftMidfielder.name} and ${rightMidfielder.name} start either side of ${distributor.name}, with ${striker.name} on the line above.`
+      ],
+      key: "opponent-wide-midfield",
+      zone: "wide",
+      starters: starters.map(starterFact)
+    };
+  }
+  if (wideAttacker && striker) {
+    const starters = [distributor, wideAttacker, striker];
+    return {
+      texts: [
+        `${possessive(opponent.name)} shape spans two attacking lanes, with ${wideAttacker.name} at ${positionLabel(wideAttacker)}, ${striker.name} at striker, and ${distributor.name} deeper.`,
+        `${possessive(opponent.name)} ${wideAttacker.name} starts at ${positionLabel(wideAttacker)} outside ${striker.name}, while ${distributor.name} occupies the deeper line.`,
+        `${possessive(opponent.name)} ${wideAttacker.name} starts outside striker ${striker.name}, with ${distributor.name} on the deeper midfield line.`,
+        `For ${opponent.name}, ${wideAttacker.name} starts wide of ${striker.name}, with ${distributor.name} positioned on the midfield line below.`
+      ],
+      key: "opponent-wide-forward",
+      zone: "wide",
+      starters: starters.map(starterFact)
+    };
+  }
+
+  const threat = requirePlayer(getCentralThreat(opponentPlayers, new Set([distributor.name])), "an opponent threat");
+  const starters = [distributor, threat];
+  return {
+    texts: [
+      `${possessive(opponent.name)} central shape lists ${distributor.name} at ${positionLabel(distributor)} and ${threat.name} at ${positionLabel(threat)} on separate lines.`,
+      `${distributor.name} at ${positionLabel(distributor)} and ${threat.name} at ${positionLabel(threat)} are ${possessive(opponent.name)} two central starting references.`,
+      `${possessive(opponent.name)} central reference points are ${distributor.name} and ${threat.name} on two starting lines.`,
+      `For ${opponent.name}, ${distributor.name} and ${threat.name} occupy two different central lines in the starting shape.`
+    ],
+    key: "opponent-central-forward",
+    zone: "central",
+    starters: starters.map(starterFact)
+  };
+}
+
+function countWords(value) {
+  return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function copyPrior(prior, includeGroupPoints = false) {
+  return {
+    matches: prior.matches,
+    wins: prior.wins,
+    draws: prior.draws,
+    losses: prior.losses,
+    goalsFor: prior.goalsFor,
+    goalsAgainst: prior.goalsAgainst,
+    ...(includeGroupPoints ? { groupPoints: prior.groupPoints } : {})
+  };
+}
+
+function buildStakes(stage, prior, opponentPrior) {
+  if (stage === "group") {
+    return {
+      kind: "group-points",
+      teamPoints: prior.groupPoints,
+      opponentPoints: opponentPrior.groupPoints
+    };
+  }
+  const knockoutTargets = {
+    "round-of-32": "round of 16",
+    "round-of-16": "quarter-finals",
+    "quarter-finals": "semi-finals",
+    "semi-finals": "final"
+  };
+  if (knockoutTargets[stage]) {
+    return { kind: "knockout-place", target: knockoutTargets[stage] };
+  }
+  if (stage === "bronze-final") {
+    return { kind: "bronze", target: "bronze medal" };
+  }
+  if (stage === "final") {
+    return { kind: "title", target: "world title" };
+  }
+  return { kind: "knockout-place", target: "next round" };
+}
+
+function buildCurrentLocaleModel({
+  team,
+  opponent,
+  lineup,
+  opponentLineup,
+  stage,
+  editionYear,
+  prior,
+  opponentPrior,
+  layoutEvidence,
+  controller,
+  headlineAttacker,
+  matchup,
+  plan,
+  risk
+}) {
+  const includeGroupPoints = stage === "group";
+  const planModel = {
+    key: plan.key,
+    starters: plan.starters,
+    claimClass: "structural-description",
+    evidenceRefs: ["officialStartingXI", "officialTacticalLayout"],
+    surfaceTemplateId: `plan-${plan.key}`
+  };
+  const riskModel = {
+    key: risk.key,
+    zone: risk.zone,
+    starters: risk.starters,
+    claimClass: "structural-description",
+    evidenceRefs: ["officialStartingXI", "officialTacticalLayout"],
+    surfaceTemplateId: `risk-${risk.key}`
+  };
+  return {
+    version: localeModelVersion,
+    kind: "current-lineup",
+    team: { id: team.id, name: team.name },
+    opponent: { id: opponent.id, name: opponent.name },
+    stage: { id: stage, year: editionYear },
+    slots: {
+      identity: {
+        variant: "record-and-layout",
+        formation: lineup.formation,
+        layoutPerspective: layoutEvidence.perspective,
+        layoutTiming: layoutEvidence.timing,
+        prior: copyPrior(prior, includeGroupPoints),
+        namedStarters: [controller, headlineAttacker].map(starterFact),
+        claimClass: "official-layout-and-prior-context",
+        evidenceRefs: [
+          "priorTournamentMatches",
+          "officialStartingXI",
+          "officialTacticalLayout"
+        ],
+        surfaceTemplateId: "identity-record-and-layout"
+      },
+      matchup: {
+        variant: matchup.variant,
+        lane: matchup.lane,
+        opponentLane: matchup.opponentLane,
+        selectionBasis: matchup.selectionBasis,
+        opponentFormation: opponentLineup.formation,
+        opponentPrior: copyPrior(opponentPrior, includeGroupPoints),
+        stakes: buildStakes(stage, prior, opponentPrior),
+        ownStarter: starterFact(matchup.ownStarter),
+        opposingStarter: starterFact(matchup.opposingStarter),
+        claimClass: "official-layout-and-stage-context",
+        evidenceRefs: ["stage", "officialStartingXI", "officialTacticalLayout", "priorTournamentMatches"],
+        surfaceTemplateId: `matchup-${matchup.variant}-${buildStakes(stage, prior, opponentPrior).kind}`
+      },
+      plan: planModel,
+      risk: riskModel
+    }
+  };
+}
+
+function getOpeningStageReference(stage) {
+  return (
+    {
+      group: "before this group match",
+      "round-of-32": "before this round-of-32 tie",
+      "round-of-16": "before this round-of-16 tie",
+      "quarter-finals": "before this quarter-final",
+      "semi-finals": "before this semi-final",
+      "bronze-final": "before the bronze-medal match",
+      final: "before the final"
+    }[stage] || "before this tournament match"
+  );
+}
+
+function getMatchupLead(stage, team, opponent, prior, opponentPrior) {
+  if (stage === "group") {
+    return `With ${team.name} on ${prior.groupPoints} group points and ${opponent.name} on ${opponentPrior.groupPoints}`;
+  }
+  return (
+    {
+      "round-of-32": "With a round-of-16 place at stake",
+      "round-of-16": "With a quarter-final place at stake",
+      "quarter-finals": "With a semi-final place at stake",
+      "semi-finals": "With a place in the final at stake",
+      "bronze-final": "In the bronze-medal match",
+      final: "With the world title at stake"
+    }[stage] || "In this tournament match"
+  );
+}
+
+function buildMatchupSentences({
+  team,
+  opponent,
+  lineup,
+  opponentLineup,
+  stage,
+  prior,
+  opponentPrior,
+  matchup
+}) {
+  const lead = getMatchupLead(stage, team, opponent, prior, opponentPrior);
+  const stageClause = getStageClause(stage);
+  const directStageClause = stage === "group"
+    ? `in the group stage on ${prior.groupPoints} and ${opponentPrior.groupPoints} points respectively`
+    : stageClause;
+  const shapeContrast = `${possessive(team.name)} ${lineup.formation} meets ${possessive(opponent.name)} ${opponentLineup.formation}`;
+  if (matchup.variant === "wide-lanes") {
+    const ownLane = `${possessive(team.name)} ${matchup.lane}`;
+    const opposingLane = `${possessive(opponent.name)} ${matchup.opponentLane}`;
+    return [
+      `${lead}, ${shapeContrast}; ${matchup.ownStarter.name} starts on ${ownLane}, opposite ${matchup.opposingStarter.name} on ${opposingLane}.`,
+      `${team.name} meet ${opponent.name} ${directStageClause}, as a ${lineup.formation} faces a ${opponentLineup.formation}; ${matchup.ownStarter.name} lines up on ${ownLane} across from ${matchup.opposingStarter.name} on ${opposingLane}.`,
+      `${lead}, the shape contrast places ${matchup.ownStarter.name} at ${positionLabel(matchup.ownStarter)} on ${ownLane} and ${matchup.opposingStarter.name} at ${positionLabel(matchup.opposingStarter)} on ${opposingLane}.`,
+      ...(stage === "group"
+        ? [`Group points stand at ${prior.groupPoints}–${opponentPrior.groupPoints} as ${shapeContrast}; ${matchup.ownStarter.name} occupies ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`]
+        : [`${shapeContrast} ${stageClause}; ${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`]),
+      ...(stage === "group"
+        ? [`With group points at ${prior.groupPoints}–${opponentPrior.groupPoints}, ${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`]
+        : [`${lead}, ${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`])
+    ];
+  }
+  return [
+    `${lead}, ${shapeContrast}, placing ${matchup.ownStarter.name} at ${positionLabel(matchup.ownStarter)} and ${matchup.opposingStarter.name} at ${positionLabel(matchup.opposingStarter)} in the central lane.`,
+    `${team.name} meet ${opponent.name} ${directStageClause}, as a ${lineup.formation} faces a ${opponentLineup.formation} with ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} as central references.`,
+    `${lead}, the central shape contrast places ${matchup.ownStarter.name} at ${positionLabel(matchup.ownStarter)} against ${matchup.opposingStarter.name} at ${positionLabel(matchup.opposingStarter)} in ${possessive(opponent.name)} ${opponentLineup.formation}.`,
+    ...(stage === "group"
+      ? [`Group points stand at ${prior.groupPoints}–${opponentPrior.groupPoints} as ${shapeContrast}, placing ${matchup.ownStarter.name} opposite ${matchup.opposingStarter.name} centrally.`]
+      : [`${possessive(team.name)} ${lineup.formation} meets ${possessive(opponent.name)} ${opponentLineup.formation} ${stageClause}, with ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} as central references.`]),
+    ...(stage === "group"
+      ? [`With group points at ${prior.groupPoints}–${opponentPrior.groupPoints}, ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} occupy opposing central lines.`]
+      : [`${lead}, ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} occupy opposing central lines.`])
+  ];
+}
+
+function getLayoutDescription(layoutEvidence) {
+  const timing = layoutEvidence.timing === "post-kickoff" ? "after" : "before";
+  const base = `FIFA's ${layoutEvidence.perspective} layout`;
+  return {
+    subject: `${base}, published ${timing} kickoff,`,
+    object: `${base}, published ${timing} kickoff`
+  };
+}
+
+function buildOpeningSentences({
+  team,
+  lineup,
+  stage,
+  prior,
+  layoutEvidence,
+  controller,
+  headlineAttacker
+}) {
+  const layoutDescription = getLayoutDescription(layoutEvidence);
+  if (!prior.matches) {
+    return [
+      `${team.name} are entering their tournament opener; ${layoutDescription.subject} lists ${controller.name} at ${positionLabel(controller)} and ${headlineAttacker.name} at ${positionLabel(headlineAttacker)} in a ${lineup.formation}.`,
+      `${team.name} are in their tournament opener with ${controller.name} and ${headlineAttacker.name} in a ${lineup.formation}, as shown by ${layoutDescription.object}.`,
+      `${team.name} are beginning their tournament in a ${lineup.formation}; ${layoutDescription.subject} includes ${controller.name} and ${headlineAttacker.name}.`
+    ];
+  }
+  const record = `${prior.wins}-${prior.draws}-${prior.losses}`;
+  const goalBalance = `${prior.goalsFor}–${prior.goalsAgainst}`;
+  const stageReference = getOpeningStageReference(stage);
+  return [
+    `${team.name} are ${record} with a goal balance of ${goalBalance} ${stageReference}; ${layoutDescription.subject} lists ${controller.name} at ${positionLabel(controller)} and ${headlineAttacker.name} at ${positionLabel(headlineAttacker)} in a ${lineup.formation}.`,
+    `${team.name} are carrying a ${record} record and a goal balance of ${goalBalance} ${stageReference}; ${layoutDescription.subject} shows ${controller.name} and ${headlineAttacker.name} in a ${lineup.formation}.`,
+    `${team.name} are ${record} with a goal balance of ${goalBalance} ${stageReference}; in ${layoutDescription.object}, ${controller.name} and ${headlineAttacker.name} start in a ${lineup.formation}.`,
+    `${team.name} are ${record}, having scored ${prior.goalsFor} and conceded ${prior.goalsAgainst} ${stageReference}; ${layoutDescription.subject} places ${controller.name} and ${headlineAttacker.name} in a ${lineup.formation}.`
+  ];
+}
+
+function selectCopyCombination(optionGroups, variantSeed) {
+  let combinations = [{ sentences: [], preference: 0 }];
+  optionGroups.forEach((options, groupIndex) => {
+    const preferredIndex = (variantSeed >>> groupIndex) % options.length;
+    combinations = combinations.flatMap((combination) =>
+      options.map((sentence, optionIndex) => ({
+        sentences: [...combination.sentences, sentence],
+        preference: combination.preference + (optionIndex === preferredIndex ? 0 : 1)
+      }))
+    );
+  });
+  const candidates = combinations
+    .map((candidate) => ({ ...candidate, copy: candidate.sentences.join(" ") }))
+    .map((candidate) => ({ ...candidate, words: countWords(candidate.copy) }))
+    .filter((candidate) => candidate.words >= 76 && candidate.words <= 85)
+    .sort((left, right) => {
+      const distance = Math.abs(left.words - 81) - Math.abs(right.words - 81);
+      return left.preference - right.preference || distance || left.copy.localeCompare(right.copy);
+    });
+  if (!candidates.length) {
+    const measured = combinations
+      .map((candidate) => ({ copy: candidate.sentences.join(" "), words: countWords(candidate.sentences.join(" ")) }))
+      .sort((left, right) => left.words - right.words);
+    throw new Error(`No 76-85-word Key information combination; available range ${measured[0].words}-${measured.at(-1).words}; shortest: ${measured[0].copy}`);
+  }
+  return candidates[0].copy;
+}
+
+function buildSideCopy({
+  team,
+  opponent,
+  lineup,
+  opponentLineup,
+  stage,
+  editionYear,
+  prior,
+  opponentPrior,
+  layoutEvidence,
+  preferredNames
+}) {
+  const players = lineup.players;
+  const opponentPlayers = opponentLineup.players;
+  const controller = requirePlayer(getController(players), `${team.id} controller`);
+  const headlineAttacker = requirePlayer(
+    getHeadlineAttacker(players, new Set([controller.name]), preferredNames),
+    `${team.id} headline attacker`
+  );
+  const variantSeed = stableVariant(team.id, opponent.id, stage, lineup.formation);
+  const matchup = getStartingLanePair(players, opponentPlayers, variantSeed, preferredNames);
+  const plan = buildPlanSentence(players, lineup.formation, variantSeed);
+  const risk = buildOpponentShapeSentence(opponent, opponentPlayers);
+  let copy;
+  try {
+    copy = selectCopyCombination(
+      [
+        buildOpeningSentences({
+          team,
+          lineup,
+          stage,
+          prior,
+          layoutEvidence,
+          controller,
+          headlineAttacker
+        }),
+        buildMatchupSentences({ team, opponent, lineup, opponentLineup, stage, prior, opponentPrior, matchup }),
+        plan.texts,
+        risk.texts
+      ],
+      variantSeed
+    );
+  } catch (error) {
+    throw new Error(`${team.id} vs ${opponent.id}: ${error.message}`);
+  }
+
+  const wordCount = countWords(copy);
+  if (wordCount < 76 || wordCount > 85) {
+    throw new Error(`${team.id} vs ${opponent.id} Key information is ${wordCount} words; expected 76-85`);
+  }
+
+  return {
+    copy,
+    localeModel: buildCurrentLocaleModel({
+      team,
+      opponent,
+      lineup,
+      opponentLineup,
+      stage,
+      editionYear,
+      prior,
+      opponentPrior,
+      layoutEvidence,
+      controller,
+      headlineAttacker,
+      matchup,
+      plan,
+      risk
+    })
+  };
+}
+
+function getLineupResearchSourceIds(lineup) {
+  return [
+    ...new Set([
+      ...(lineup.sourceIds || []),
+      ...(lineup.layoutVerification?.sourceIds || [])
+    ].filter((id) => /lineup|tactical/i.test(id)))
+  ];
+}
+
+function getPreferredPlayerNames(keyPlayers = []) {
+  return keyPlayers
+    .map((player) => (typeof player === "string" ? player : player?.name))
+    .filter((name) => typeof name === "string" && name.trim())
+    .map((name) => name.trim());
+}
+
+function emptyPriorRecord() {
+  return {
+    matches: 0,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+    groupPoints: 0
+  };
+}
+
+function clonePriorRecord(record) {
+  return { ...(record || emptyPriorRecord()) };
+}
+
+export function buildPriorTournamentContexts(fixtures) {
+  const contexts = new Map();
+  const records = new Map();
+  const getRecord = (teamId) => {
+    if (!records.has(teamId)) records.set(teamId, emptyPriorRecord());
+    return records.get(teamId);
+  };
+  const chronologicalFixtures = [...fixtures]
+    .filter((fixture) => fixture.homeTeamId && fixture.awayTeamId && fixture.kickoffUtc)
+    .sort((left, right) => {
+      const timeDifference = Date.parse(left.kickoffUtc) - Date.parse(right.kickoffUtc);
+      return timeDifference || left.id.localeCompare(right.id);
+    });
+
+  for (const fixture of chronologicalFixtures) {
+    const homeRecord = getRecord(fixture.homeTeamId);
+    const awayRecord = getRecord(fixture.awayTeamId);
+    contexts.set(fixture.id, {
+      home: clonePriorRecord(homeRecord),
+      away: clonePriorRecord(awayRecord)
+    });
+
+    const homeGoals = Number(fixture.score?.home);
+    const awayGoals = Number(fixture.score?.away);
+    if (fixture.status !== "FT" || !Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) continue;
+
+    homeRecord.matches += 1;
+    awayRecord.matches += 1;
+    homeRecord.goalsFor += homeGoals;
+    homeRecord.goalsAgainst += awayGoals;
+    awayRecord.goalsFor += awayGoals;
+    awayRecord.goalsAgainst += homeGoals;
+    if (homeGoals > awayGoals) {
+      homeRecord.wins += 1;
+      awayRecord.losses += 1;
+      if (fixture.stage === "group") homeRecord.groupPoints += 3;
+    } else if (awayGoals > homeGoals) {
+      awayRecord.wins += 1;
+      homeRecord.losses += 1;
+      if (fixture.stage === "group") awayRecord.groupPoints += 3;
+    } else {
+      homeRecord.draws += 1;
+      awayRecord.draws += 1;
+      if (fixture.stage === "group") {
+        homeRecord.groupPoints += 1;
+        awayRecord.groupPoints += 1;
+      }
+    }
+  }
+
+  return contexts;
+}
+
+function getOfficialLayoutEvidence(fixture, lineup, sourceIds) {
+  const source = (lineup.layoutVerification?.sources || []).find(
+    (candidate) => candidate.exactLayout && candidate.status === "matched"
+  );
+  if (!source?.publishedAt || !source?.layoutPerspective) {
+    throw new Error(`Fixture ${fixture.id} needs timestamped official tactical-layout evidence`);
+  }
+  const minutesFromKickoff = Number(
+    ((Date.parse(source.publishedAt) - Date.parse(fixture.kickoffUtc)) / 60_000).toFixed(1)
+  );
+  if (!Number.isFinite(minutesFromKickoff)) {
+    throw new Error(`Fixture ${fixture.id} has invalid layout or kickoff timing`);
+  }
+  const timing = minutesFromKickoff <= 0 ? "pre-kickoff" : "post-kickoff";
+  const timingDescription = minutesFromKickoff <= 0
+    ? `${Math.abs(minutesFromKickoff)} minutes before kickoff`
+    : `${minutesFromKickoff} minutes after kickoff`;
+  return {
+    sourceIds,
+    publishedAt: source.publishedAt,
+    minutesFromKickoff,
+    timing,
+    perspective: source.layoutPerspective,
+    documentVersion: source.documentVersion,
+    exactLayout: source.exactLayout === true,
+    note: `FIFA's ${source.layoutPerspective} tactical layout was published ${timingDescription}; it is used only to describe the official starting structure.`
+  };
+}
+
+export function generateCurrentKeyInformationForFixture({
+  fixture,
+  lineup,
+  homeTeam,
+  awayTeam,
+  editionYear,
+  priorContext
+}) {
+  if (!homeTeam || !awayTeam) throw new Error(`Missing team for ${fixture.id}`);
+  if (
+    lineup?.mode !== "final" ||
+    lineup.home?.players?.length !== 11 ||
+    lineup.away?.players?.length !== 11 ||
+    !lineup.home?.formation ||
+    !lineup.away?.formation
+  ) {
+    throw new Error(`Fixture ${fixture.id} needs two official starting XIs and formations`);
+  }
+  if (!priorContext?.home || !priorContext?.away) {
+    throw new Error(`Fixture ${fixture.id} needs outcome-safe prior tournament context`);
+  }
+  const lineupSourceIds = getLineupResearchSourceIds(lineup);
+  if (!lineupSourceIds.length) throw new Error(`Fixture ${fixture.id} has no official lineup provenance`);
+  const layoutEvidence = getOfficialLayoutEvidence(fixture, lineup, lineupSourceIds);
+  const homeContent = buildSideCopy({
+    team: homeTeam,
+    opponent: awayTeam,
+    lineup: lineup.home,
+    opponentLineup: lineup.away,
+    stage: fixture.stage,
+    editionYear,
+    prior: priorContext.home,
+    opponentPrior: priorContext.away,
+    layoutEvidence,
+    preferredNames: getPreferredPlayerNames(fixture.keyPlayers?.home)
+  });
+  const awayContent = buildSideCopy({
+    team: awayTeam,
+    opponent: homeTeam,
+    lineup: lineup.away,
+    opponentLineup: lineup.home,
+    stage: fixture.stage,
+    editionYear,
+    prior: priorContext.away,
+    opponentPrior: priorContext.home,
+    layoutEvidence,
+    preferredNames: getPreferredPlayerNames(fixture.keyPlayers?.away)
+  });
+
+  return {
+    sourceId: keyInformationSourceId,
+    mode: "archive-present-tense",
+    schemaVersion,
+    narrativeMoment: "team-entrance",
+    outcomeCutoff: "kickoff",
+    generatedBy: "scripts/populate-matchup-key-information.mjs",
+    evidenceInputs: [
+      "teams",
+      "stage",
+      "officialStartingXI",
+      "officialTacticalLayout",
+      "priorTournamentMatches"
+    ],
+    excludedInputs: ["score", "winner", "currentMatchEvents", "cards", "substitutions", "shootout"],
+    researchSourceIds: [...new Set([...lineupSourceIds, priorResultsSourceId])],
+    layoutEvidence,
+    home: homeContent.copy,
+    away: awayContent.copy,
+    localeModel: {
+      version: localeModelVersion,
+      home: homeContent.localeModel,
+      away: awayContent.localeModel
+    }
+  };
+}
+
+async function main() {
+  const [fixturesData, teamsData, lineupsData] = await Promise.all([
+    readJson(fixturesPath),
+    readJson(teamsPath),
+    readJson(lineupsPath)
+  ]);
+  const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
+  const priorContexts = buildPriorTournamentContexts(fixturesData.fixtures);
+  let populated = 0;
+
+  fixturesData.sourceIds = [
+    ...new Set(
+      [...(fixturesData.sourceIds || []), keyInformationSourceId].filter(
+        (sourceId) => sourceId !== "matchup-pre-match-reconstruction-2026-07-22"
+      )
+    )
+  ];
+  fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
+    if (!fixture.homeTeamId || !fixture.awayTeamId) return fixture;
+    const fixtureEditionYear =
+      Number(fixture.tournamentYear) || Number(String(fixture.kickoffUtc || "").slice(0, 4));
+    if (!Number.isInteger(fixtureEditionYear) || fixtureEditionYear < 1930) {
+      throw new Error(`Fixture ${fixture.id} needs a valid edition year`);
+    }
+    const keyInformation = generateCurrentKeyInformationForFixture({
+      fixture,
+      lineup: lineupsData.lineups?.[fixture.id],
+      homeTeam: teamsById.get(fixture.homeTeamId),
+      awayTeam: teamsById.get(fixture.awayTeamId),
+      editionYear: fixtureEditionYear,
+      priorContext: priorContexts.get(fixture.id)
+    });
+    populated += 2;
+    return { ...fixture, keyInformation };
+  });
+
+  const teamStyleProfilesData = {
+    generatedBy: "scripts/populate-matchup-key-information.mjs",
+    sourceId: teamStyleSourceId,
+    profiles: Object.fromEntries(
+      Object.entries(profiles).map(([teamId, profile]) => [
+        teamId,
+        {
+          summary: profile.summary,
+          plan: profile.plan,
+          ...(profile.planZh ? { planZh: profile.planZh } : {}),
+          attackPlan: profile.attackPlan,
+          matchupWin: profile.matchupWin,
+          defensiveTask: profile.defensiveTask,
+          ...(profile.defensiveTaskZh ? { defensiveTaskZh: profile.defensiveTaskZh } : {})
+        }
+      ])
+    )
+  };
+
+  await Promise.all([
+    writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`),
+    writeFile(teamStyleProfilesPath, `${JSON.stringify(teamStyleProfilesData, null, 2)}\n`)
+  ]);
+  console.log(`Populated ${populated} matchup blurbs and ${Object.keys(profiles).length} shared team style profiles.`);
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await main();
+}

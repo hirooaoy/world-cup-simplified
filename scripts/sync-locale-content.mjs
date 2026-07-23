@@ -398,11 +398,19 @@ function collectFixtureCopy(target, fixture) {
 function collectProfileCopy(target, profiles, options = {}) {
   for (const profile of Object.values(profiles || {})) {
     if (options.historical) {
-      if (!isGeneratedPlayerCardCopy(profile.styleNote, { historical: true })) {
+      if (!isGeneratedPlayerCardCopy(profile.styleNote, {
+        historical: true,
+        copyMeta: profile.styleNoteMeta,
+        localizedName: profile.displayName || profile.name
+      })) {
         addString(target, profile.styleNote);
       }
     }
-    if (!isGeneratedPlayerCardCopy(profile.note, { historical: Boolean(options.historical) })) {
+    if (!isGeneratedPlayerCardCopy(profile.note, {
+      historical: Boolean(options.historical),
+      copyMeta: options.historical ? null : profile.noteMeta,
+      localizedName: profile.displayName || profile.name
+    })) {
       addString(target, profile.note);
     }
     // Player-card skill chips are localized through the compact deterministic

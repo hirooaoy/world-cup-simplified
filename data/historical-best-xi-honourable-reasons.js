@@ -9,7 +9,7 @@ const HONOURABLE_REASON_BY_YEAR = {
     "Pablo Dorado": "Dorado scored in two of his three starts, including the low opening finish in the final that gave Uruguay immediate control.",
     "Manuel Ferreira": "Argentina's captain linked the inside forwards and released Peucelle for the final equaliser, giving the attack more than its headline goals.",
     "Bert Patenaude": "Patenaude scored four in three matches, including the first World Cup hat-trick, as the United States won its group and reached the semi-finals.",
-    "Héctor Castro": "Castro scored the winner in Uruguay's opener and the fourth goal of the final; both came as a centre-forward, not the right winger in the current XI.",
+    "Héctor Castro": "Castro scored the winner in Uruguay's opener and the fourth goal of the final, both from centre-forward as he attacked the box before defenders could reset.",
     "Mario Evaristo": "Evaristo supplied Argentina's natural left-wing width in the final and earlier rounds, keeping defenders away from Stábile and Ferreira inside."
   },
   "1934": {
@@ -58,7 +58,7 @@ const HONOURABLE_REASON_BY_YEAR = {
     "Mihály Lantos": "Lantos balanced Hungary's high line from left-back, added two goals and remained a clean outlet throughout the run to the final.",
     "Horst Eckel": "Eckel's relentless right-half running let Fritz Walter dictate with the ball while West Germany crowded Hungary's creators in the final.",
     "Obdulio Varela": "Varela captained Uruguay through three straight wins and scored against England before injury cost the holders their midfield leader for the semi-final.",
-    "Ferenc Puskás": "Puskás scored three in three appearances, but an ankle injury removed him from the quarter- and semi-finals and limited his sharpness on returning for the final.",
+    "Ferenc Puskás": "Puskás scored four in three appearances, including the opening goal of the final. An ankle injury kept him out of the quarter-final and semi-final and left him short of full fitness on his return.",
     "Juan Hohberg": "Hohberg scored three, including two second-half goals against Hungary that dragged Uruguay's semi-final into extra time.",
     "Tom Finney": "Finney remained England's cleanest creator and scored from the spot against Uruguay, even as the holders ended their tournament in the quarter-final.",
     "Max Morlock": "Morlock scored six, supplied West Germany's running between the lines and began the final comeback only two minutes after Hungary made it 2–0.",
@@ -242,7 +242,7 @@ const HONOURABLE_REASON_BY_YEAR = {
     "Xabi Alonso": "Alonso switched play around compact blocks and protected Spain's rest defence beside Busquets, sustaining pressure even when matches remained scoreless.",
     "Mark van Bommel": "Van Bommel imposed the Netherlands' midfield edge, screened transitions and moved the ball forward quickly enough for Sneijder and Robben to attack early.",
     "Arjen Robben": "Robben returned from injury to score against Cameroon and Slovakia, then carried the Netherlands' main one-against-one threat all the way to the final.",
-    "Xavi": "Xavi set Spain's passing rhythm, repeatedly received beyond the first press and delivered the corner Puyol headed in to decide the semi-final.",
+    "Xavi": "Xavi set the rhythm of Spain's title run with a tournament-record 599 completed passes and Player of the Match displays against Portugal and Germany. His corner for Puyol decided the semi-final.",
     "Andrés Iniesta": "Iniesta's off-ball movement kept opening the inside channels, and his composed 116th-minute finish delivered Spain's first World Cup title.",
     "Luis Suárez": "Suárez scored three, including both goals against Korea Republic, and gave Uruguay a mobile forward who could create as well as finish in transition."
   },

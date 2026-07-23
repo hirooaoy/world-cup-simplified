@@ -182,6 +182,17 @@ requires it.
 - Ordinary UI, accessibility, copy, caching, tooling, and test changes do not
   change protected tournament history and must not create an immutable
   correction snapshot.
+- The archive verifier treats only these checked-in 2026 fields as mutable
+  editorial copy: fixture `keyInformation` and its dedicated
+  `matchup-archive-present-tense-2026-07-22` source reference; player-profile
+  `skills`, `note`, `noteZh`, and `noteMeta`; Best XI methodology text and
+  player/coach `reason`; plus the corresponding file-level `updatedAt`. A
+  tournament source-registry entry is also editorial when it explicitly uses
+  `editorialScope: "matchup-key-information"`. Scores, events, player identity,
+  team, position, selection membership, visibility, shirt number, facts, other
+  sources, and every other field remain exact archive comparisons. Additions to
+  this allowlist require a focused verifier regression that proves a copy-only
+  change passes and a nearby factual change still fails.
 - Use the reviewed late-correction workflow only when protected archived
   tournament data truly changes and the repository requires a correction.
 - Before creating a correction plan, settle the protected product data, public

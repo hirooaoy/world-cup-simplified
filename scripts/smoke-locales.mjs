@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -9,6 +9,10 @@ import {
   HISTORICAL_AWARD_CONTEXT_PLAYERS,
   HISTORICAL_HIGHLIGHTS
 } from "../data/highlights-history.js";
+import { formatPlayerNote as formatSpanishPlayerNote } from "../locales/es/app.js";
+import { ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS } from "../locales/es/player-names-archive.js";
+import { formatPlayerNote as formatKoreanPlayerNote } from "../locales/ko/app.js";
+import { KO_ARCHIVE_PLAYER_NAME_TRANSLATIONS } from "../locales/ko/player-names-archive.js";
 
 const require = createRequire(import.meta.url);
 let chromium;
@@ -52,7 +56,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Archivos más claros y cambios de fecha más suaves",
+    latestReleaseTitle: "Notas de la versión: Fichas de jugadores más completas en todos los Mundiales",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -123,7 +127,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "더 선명한 기록과 부드러운 날짜 전환",
+    latestReleaseTitle: "릴리스 노트: 모든 월드컵의 선수 카드를 더 풍부하게",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -540,25 +544,57 @@ async function assertHistoricalRankTooltipBounds(browser) {
 }
 
 async function assertHistoricalHighlightPlayerNotes(browser) {
+  const historicalPlayerData = JSON.parse(
+    await readFile(path.join(root, "data/historical-player-profiles.json"), "utf8")
+  );
+  const andradeProfile = historicalPlayerData.profiles?.["José Leandro Andrade / Uruguay / 1930"];
+  const ademirProfile = historicalPlayerData.profiles?.["Ademir / Brazil / 1950"];
+  assert(
+    andradeProfile?.styleNoteMeta?.origin === "generated" &&
+      ademirProfile?.styleNoteMeta?.origin === "generated",
+    "Historical smoke profiles should retain generated-copy metadata."
+  );
+  const andradeLocalizedNames = {
+    es: ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS[andradeProfile.name] || andradeProfile.displayName,
+    ko: KO_ARCHIVE_PLAYER_NAME_TRANSLATIONS[andradeProfile.name] || andradeProfile.displayName
+  };
+  const expectedAndradeNotes = {
+    en: andradeProfile.styleNote,
+    zh: andradeProfile.styleNoteZh,
+    es: formatSpanishPlayerNote(andradeProfile.styleNote, {
+      historical: true,
+      copyMeta: andradeProfile.styleNoteMeta,
+      localizedName: andradeLocalizedNames.es
+    }),
+    ko: formatKoreanPlayerNote(andradeProfile.styleNote, {
+      historical: true,
+      copyMeta: andradeProfile.styleNoteMeta,
+      localizedName: andradeLocalizedNames.ko
+    })
+  };
   const localeCases = [
     {
       code: "en",
-      andrade: "Andrade stands out for shaping the pace of the game from midfield. He moves after passing so the team keeps a nearby outlet. He receives side-on so his next pass can move forward.",
+      andrade: expectedAndradeNotes.en,
+      andradeMinimumLength: 140,
       stabile: "Stábile plays as a direct central forward who attacks space before defenders can settle. He stays ready between centre-backs and meets the final pass with minimal extra touches."
     },
     {
       code: "zh",
-      andrade: "他的突出特点是对中场比赛节奏的掌控。他会传球后继续移动，让球队始终保留近距离出球点。他也会侧身接球，让下一脚传球可以向前发展。",
+      andrade: expectedAndradeNotes.zh,
+      andradeMinimumLength: 60,
       stabile: "斯塔比莱是直接攻击空当的中锋，会在防守者站稳前启动。他始终在两名中后卫之间准备接应，并尽量减少终结前的多余触球。"
     },
     {
       code: "es",
-      andrade: "Andrade destaca por marcar el ritmo del partido desde el mediocampo. Se mueve después de pasar para que el equipo conserve una salida cercana. Recibe de perfil para que el siguiente pase pueda avanzar.",
+      andrade: expectedAndradeNotes.es,
+      andradeMinimumLength: 140,
       stabile: "Stábile juega como un delantero centro vertical que ataca el espacio antes de que la defensa se acomode. Se mantiene preparado entre los centrales y remata el último pase con muy pocos toques."
     },
     {
       code: "ko",
-      andrade: "호세 레안드로 안드라데의 돋보이는 강점은 중원에서 경기 속도를 조율하는 능력이다. 패스한 뒤에도 움직여 팀이 가까운 출구를 유지하게 한다. 옆을 향한 자세로 받아 다음 패스를 전진 방향으로 연결한다.",
+      andrade: expectedAndradeNotes.ko,
+      andradeMinimumLength: 100,
       stabile: "스타빌레는 수비가 자리 잡기 전에 공간을 공략하는 직선적인 중앙 공격수다. 센터백 사이에서 준비한 뒤 불필요한 터치를 줄여 마지막 패스를 슈팅으로 연결한다."
     }
   ];
@@ -618,8 +654,17 @@ async function assertHistoricalHighlightPlayerNotes(browser) {
     );
 
     const andrade = await readCard(page, "José Leandro Andrade");
+    const andradeIsLocalized =
+      locale.code !== "es" && locale.code !== "ko"
+        ? true
+        : andrade.note !== andradeProfile.styleNote &&
+          (locale.code === "es"
+            ? /\b(?:balón|carril|compañeros)\b/iu.test(andrade.note)
+            : /\p{Script=Hangul}/u.test(andrade.note));
     assert(
       andrade.note === locale.andrade &&
+        andrade.note.length >= locale.andradeMinimumLength &&
+        andradeIsLocalized &&
         andrade.stats === "" &&
         andrade.meta.includes("28") &&
         andrade.context.includes("1930") &&
@@ -650,7 +695,8 @@ async function assertHistoricalHighlightPlayerNotes(browser) {
       );
       const ademir = await readCard(page, "Ademir de Menezes");
       assert(
-        ademir.note.startsWith("Ademir's edge is attacking the space behind defenders") &&
+        ademir.note === ademirProfile.styleNote &&
+          ademir.note.length >= 140 &&
           ademir.position === "Forward" &&
           ademir.stats.includes("9 goals") &&
           isInsideViewport(ademir),
@@ -2746,7 +2792,9 @@ async function assertLocale(locale, browser) {
     return card?.textContent.replace(/\s+/g, " ").trim() || "";
   }, locale.currentNotePlayerName);
   assert(
-    currentNoteCard.includes(locale.currentNote) &&
+    currentNoteCard.toLocaleLowerCase(locale.htmlLang).includes(
+      locale.currentNote.toLocaleLowerCase(locale.htmlLang)
+    ) &&
       locale.rejectedPlayerNotePatterns.every((pattern) => !pattern.test(currentNoteCard)),
     `${locale.code}: the current player card should use the controlled football-note template without old machine-translation artifacts. Measured ${JSON.stringify(currentNoteCard)}.`
   );

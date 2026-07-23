@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "current",
-  "sourceFingerprint": "0cabfde41989e65a12dd3d97fc2aa94bd7d4561d50cd6828a0c33de1fc8d0bba",
+  "sourceFingerprint": "040bbc53adb09fba4c93b9d3cfa462d863078ce1463308f83fb1df1b14adff5c",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
     "⚽ Belgium and IR Iran shared a 0-0 draw.": "⚽ 벨기에와 이란은 0-0 무승부를 기록했다.",
@@ -229,6 +229,7 @@
     "Argentina 3-0 Algeria": "아르헨티나 3-0 알제리",
     "Argentina reached six points in Group J and booked a Round of 32 place.": "아르헨티나는 J조에서 승점 6을 기록해 32강 진출을 확정했다.",
     "Argentina's 3-2 extra-time win sent them into the round of 16 and ended Cabo Verde's debut run.": "아르헨티나는 연장전 끝 3-2 승리로 16강에 올랐고 카보베르데의 월드컵 데뷔 여정을 끝냈다.",
+    "Argentina's midfield rotations open space in the centre for Messi. He drops into it, draws defenders and switches play to the free side, then chooses his moment to join the move near the box. Without the ball, he stays high as the outlet.": "아르헨티나의 중원 로테이션은 메시가 쓸 중앙 공간을 만든다. 메시는 그곳으로 내려와 수비를 끌어당기고 비어 있는 반대편으로 전환한 뒤, 때를 골라 페널티지역 근처 공격에 합류한다. 공이 없을 때는 높은 위치에 남아 전방에서 공을 받아줄 선택지가 된다.",
     "Arnold's Iraq profile is direct and competitive, using organized defending, pressing spells, and quick forward balls to unsettle opponents.": "아널드 감독의 이라크는 직선적이고 경쟁적이다. 조직적인 수비와 구간별 압박, 빠른 전진 패스로 상대의 균형을 흔든다.",
     "Arthur Masuaku set up Yoane Wissa for a finish in the 45+5 minute, bringing DR Congo level at 1-1.": "아르튀르 마수아쿠의 패스를 받은 요안 위사가 45+5분에 득점해 콩고민주공화국을 1-1 동점으로 이끌었다.",
     "Attacking structure": "공격 구조",

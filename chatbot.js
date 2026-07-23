@@ -3,7 +3,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-21-historical-player-style-notes-1";
+} from "./chatbot-knowledge.js?v=2026-07-22-player-card-copy-1";
 import {
   appendFootballInlineText,
   renderFootballInlineHtml
@@ -12,7 +12,7 @@ import {
   getLanguageConfig,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
+} from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
 import { formatPlayerCardWorldCupContext } from "./player-card-ui.js?v=2026-07-21-hide-zero-tournament-stats-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;

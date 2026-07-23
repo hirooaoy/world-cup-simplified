@@ -17,8 +17,46 @@
         "Aerial clearances",
         "Calm build-up"
       ],
-      "note": "Watch Bardakcı for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "What separates Bardakcı is protecting the most dangerous space before stepping to the ball. Bardakcı holds the route into the box until support arrives. Also note how he steps toward the flight and heads clear before the forward can set himself.",
+      "noteZh": "先保护最危险空间，再考虑上抢是理解Abdülkerim Bardakcı踢法的关键。先看他如何守住进入禁区的路线，直到队友能对持球人施压。到了另一个比赛环节，他会迎向来球，在前锋站稳前头球解围。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-also-note",
+        "cadenceVariantIndex": 2,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "head-clear-early"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "aerial-reading",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-footed defending",
+          "Aerial clearances"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-footed defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial clearances",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Altay Bayindir": {
       "displayName": "Altay Bayındır",
@@ -27,8 +65,46 @@
         "Penalty-area reactions",
         "Long distribution"
       ],
-      "note": "Bayındır stands out for sharp reactions backed by early positioning. He chooses the simple restart before pressure can close in. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "他的突出特点是提前站位后的快速反应。他会在逼抢靠近前选择最稳妥的出球方式。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "Bayındır's signature is staying balanced until the shot reveals its direction. Watch how he keeps his feet active and makes the save with the fewest movements. At another point in the move, he chooses the simple restart before pressure can close in.",
+      "noteZh": "观察Altay Bayındır时，可以先看射门方向明确前保持身体平衡。他会保持脚下轻快，用最少动作完成扑救。另一个比赛细节是他会在逼抢靠近前选择最稳妥的出球方式。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "goalkeeper-balance",
+        "actionIds": [
+          "economical-save",
+          "simple-restart"
+        ],
+        "headlineActionId": "economical-save",
+        "supportingSignatureId": "save-starts-attack",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Goalkeeper reach",
+          "Long distribution"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Goalkeeper reach",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Long distribution",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Arda Guler": {
       "displayName": "Arda Güler",
@@ -38,8 +114,46 @@
         "Left-footed invention",
         "Final pass"
       ],
-      "note": "Güler is defined by creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会出球后继续移动，让接球队友始终有支援。"
+      "note": "Watch Güler for seeing the decisive pass one beat before it opens. The clearest example is how he draws a defender in and releases the runner behind him. Also notice how Güler moves into a position where an available pass can lead to a shot.",
+      "noteZh": "Arda Güler的优势在于比防线早一步看到决定性的传球。最直接的表现是他会先吸引防守者靠近，再把球送到其身后的跑动线路。另一个值得观察的细节是他会移动到接球后可以形成射门的位置。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-beyond-example",
+        "cadenceVariantIndex": 3,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "move-into-shot-position"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "goal-threat-positioning",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-footed invention",
+          "Goal threat"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-footed invention",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Goal threat",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Baris Alper Yilmaz": {
       "displayName": "Barış Alper Yılmaz",
@@ -48,8 +162,46 @@
         "Chance passes",
         "Power running"
       ],
-      "note": "Yılmaz's signature is creating a clean shot before the defense can reset. He draws a defender in and releases the runner behind him. He absorbs contact and keeps the ball close enough to continue forward.",
-      "noteZh": "他的比赛方式建立在在防线重组前制造干净射门上。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会承受身体接触后仍把球留在可继续推进的位置。"
+      "note": "The key to Yılmaz is using strength without slowing the next action. He absorbs contact and keeps the ball close enough to continue forward. In another phase, Yılmaz moves into a position where an available pass can lead to a shot.",
+      "noteZh": "Barış Alper Yılmaz的比赛建立在对抗中用力量但不拖慢下一步之上。首先看他如何承受身体接触后仍把球留在可继续推进的位置。另一个方面是他会移动到接球后可以形成射门的位置。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-phase",
+        "cadenceVariantIndex": 3,
+        "signatureId": "strength-continuity",
+        "actionIds": [
+          "absorb-and-carry",
+          "move-into-shot-position"
+        ],
+        "headlineActionId": "absorb-and-carry",
+        "supportingSignatureId": "goal-threat-positioning",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Power running",
+          "Goal threat"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Power running",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Goal threat",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Caglar Soyuncu": {
       "displayName": "Çağlar Söyüncü",
@@ -58,8 +210,46 @@
         "Recovery tackles",
         "Aerial duels"
       ],
-      "note": "Söyüncü's signature is choosing the moment of contact instead of diving in. He turns early and protects the route toward goal. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会提前转身，优先封住通向球门的路线。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
+      "note": "For Söyüncü, the foundation is recovering position without panicking after the first line is broken. Look first at how he turns early and protects the route toward goal. A separate point is how he waits for a loose touch and then steps through the ball.",
+      "noteZh": "最能体现Çağlar Söyüncü特点的是第一道防线被突破后仍能冷静回位。这一点直接体现在他会提前转身，优先封住通向球门的路线。除此之外，他也会等对手触球稍大后果断上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-separate-point",
+        "cadenceVariantIndex": 3,
+        "signatureId": "calm-recovery",
+        "actionIds": [
+          "protect-goal-route",
+          "win-loose-touch"
+        ],
+        "headlineActionId": "protect-goal-route",
+        "supportingSignatureId": "duel-timing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Recovery tackles",
+          "Aggressive centre-back defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery tackles",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aggressive centre-back defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Can Uzun": {
       "displayName": "Can Uzun",
@@ -77,9 +267,47 @@
         "Sharp shooting",
         "Creative upside"
       ],
-      "note": "Uzun's signature is receiving in tight spaces with his next action already planned. He shifts onto his stronger foot and shoots with little backlift. He changes position while keeping his priorities simple.",
-      "noteZh": "他的比赛方式建立在在狭小空间接球前就想好下一步上。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会改变起始位置，但始终坚持清晰简单的处理原则。",
-      "sourceUrl": "https://www.transfermarkt.com/can-uzun/profil/spieler/816585"
+      "note": "The key to Uzun is receiving in tight spaces with his next action already planned. He opens his body on the first touch so he can play forward. One more thing to notice is how Uzun shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "观察Can Uzun时，可以先看狭小空间接球前就想好下一步。他会在第一脚触球时打开身体，准备向前处理。另一个比赛细节是他会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "sourceUrl": "https://www.transfermarkt.com/can-uzun/profil/spieler/816585",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-one-more-thing",
+        "cadenceVariantIndex": 2,
+        "signatureId": "planned-tight-receive",
+        "actionIds": [
+          "open-body-forward",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "open-body-forward",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Between-lines receiving",
+          "Sharp shooting"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Between-lines receiving",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Sharp shooting",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Deniz Gul": {
       "displayName": "Deniz Gül",
@@ -88,8 +316,46 @@
         "Forward pressing",
         "Quick finishing"
       ],
-      "note": "Gül's signature is waiting for a defender's attention to shift before moving. He angles his run to block the easy pass as he closes the ball. He shifts onto his stronger foot and shoots with little backlift.",
-      "noteZh": "他的比赛方式建立在等防守者注意力转移后再启动上。他会接近持球人时调整路线，同时封住最简单的传球。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
+      "note": "Watch Gül for waiting for a defender's attention to shift before moving. The clearest example is how he arrives in the box late enough to be difficult to track. A separate clue is how Gül angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "最能体现Deniz Gül特点的是等防守者注意力转移后再启动。这一点直接体现在他会稍晚进入禁区，让盯防者难以持续跟住。除此之外，他也会在接近持球人时调整路线，同时封住最简单的传球。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "press-angle"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Penalty-box movement",
+          "Forward pressing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-box movement",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Forward pressing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Eren Elmali": {
       "displayName": "Eren Elmalı",
@@ -98,8 +364,46 @@
         "Overlap timing",
         "Recovery defending"
       ],
-      "note": "Elmalı is defined by making the safer decision before a duel becomes an emergency. He waits until the wide defender looks inside before running beyond him. He turns early and protects the route toward goal.",
-      "noteZh": "他靠在对抗变成险情前做出更安全的选择与同位置球员拉开差异。他会等边路防守者看向内侧后再从外线套上。他也会提前转身，优先封住通向球门的路线。"
+      "note": "Elmalı's signature is choosing the moment to join an attack from deep. Watch how he waits until the wide defender looks inside before running beyond him. Another detail is how he turns early and protects the route toward goal.",
+      "noteZh": "观察Eren Elmalı时，可以先看从后场加入进攻的启动时机。他会等边路防守者看向内侧后再从外线套上。另一个比赛细节是他会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-detail",
+        "cadenceVariantIndex": 2,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap timing",
+          "Recovery defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap timing",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Ferdi Kadioglu": {
       "displayName": "Ferdi Kadıoğlu",
@@ -108,8 +412,46 @@
         "Two-way flexibility",
         "Press escape"
       ],
-      "note": "Kadıoğlu stands out for creating a better angle for the next pass. He angles his run to block the easy pass as he closes the ball. He plays through nearby pressure instead of around it.",
-      "noteZh": "他的突出特点是为下一脚传球制造更好的角度。他会接近持球人时调整路线，同时封住最简单的传球。他也会穿过最近一层逼抢，而不总是绕开压力。"
+      "note": "What separates Kadıoğlu is changing direction without losing control of the ball. Kadıoğlu draws the first challenge, then carries through the gap. A separate detail appears when he angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "变向时仍把球控制在脚下是理解Ferdi Kadıoğlu踢法的关键。先看他如何主动吸引第一次上抢，再带球穿过由此出现的空当。到了另一个比赛环节，他会在接近持球人时调整路线，同时封住最简单的传球。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-separate-detail",
+        "cadenceVariantIndex": 4,
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "carry-through-gap",
+          "press-angle"
+        ],
+        "headlineActionId": "carry-through-gap",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Full-back carrying",
+          "Press escape"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Full-back carrying",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Press escape",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Hakan Calhanoglu": {
       "displayName": "Hakan Çalhanoğlu",
@@ -119,8 +461,46 @@
         "Set-piece delivery",
         "Tempo control"
       ],
-      "note": "Çalhanoğlu's edge is seeing the decisive pass one beat before it opens. He varies the height and pace of his delivery. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他最特别的地方是比防线早一步看到决定性的传球。他会通过改变落点和球速寻找防线最薄弱的区域。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "Çalhanoğlu stands out for seeing the decisive pass one beat before it opens. He draws a defender in and releases the runner behind him. A different detail is how Çalhanoğlu uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "Hakan Çalhanoğlu的比赛建立在比防线早一步看到决定性的传球之上。首先看他如何先吸引防守者靠近，再把球送到其身后的跑动线路。另一个方面是他会在第一脚触球时先摆脱压力，再选择传球方向。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "first-touch-escape"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "pressure-composure",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Deep playmaking",
+          "Tempo control"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Deep playmaking",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Tempo control",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Irfan Can Kahveci": {
       "displayName": "İrfan Can Kahveci",
@@ -145,9 +525,47 @@
         "Combination play",
         "Set-piece quality"
       ],
-      "note": "Kahveci's edge is delivering the ball without needing much space. He protects the ball with his body and returns it into a runner's path. He varies the height and pace of his delivery.",
-      "noteZh": "他最特别的地方是在很小空间里也能送出传中的能力。他会用身体护住球，再把球送回跑动队友的线路。他也会通过改变落点和球速寻找防线最薄弱的区域。",
-      "sourceUrl": "https://www.transfermarkt.com/irfan-can-kahveci/profil/spieler/216603"
+      "note": "For Kahveci, the foundation is delivering the ball without needing much space. Look first at how he looks up before crossing and picks a runner rather than an empty area. Also watch how he protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "很小空间里也能送出传中的能力是理解İrfan Can Kahveci踢法的关键。先看他如何在传中前先观察，再把球送向具体跑动者。到了另一个比赛环节，他会用身体护住球，再把球送回跑动队友的线路。",
+      "sourceUrl": "https://www.transfermarkt.com/irfan-can-kahveci/profil/spieler/216603",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-also-watch",
+        "cadenceVariantIndex": 1,
+        "signatureId": "tight-space-delivery",
+        "actionIds": [
+          "pick-cross-target",
+          "body-and-return"
+        ],
+        "headlineActionId": "pick-cross-target",
+        "supportingSignatureId": "help-next-action",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-footed crossing",
+          "Combination play"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-footed crossing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Combination play",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ismail Yuksek": {
       "displayName": "İsmail Yüksek",
@@ -157,8 +575,46 @@
         "Counter-pressing",
         "Simple progression"
       ],
-      "note": "Yüksek's signature is choosing the moment of contact instead of diving in. He angles his run to block the easy pass as he closes the ball. He plays through nearby pressure instead of around it.",
-      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会接近持球人时调整路线，同时封住最简单的传球。他也会穿过最近一层逼抢，而不总是绕开压力。"
+      "note": "Yüksek stands out for choosing the moment of contact instead of diving in. He waits for a loose touch and then steps through the ball. A different detail is how Yüksek angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "选择身体接触时机，而不是贸然上抢是理解İsmail Yüksek踢法的关键。先看他如何等对手触球稍大后果断上抢。到了另一个比赛环节，他会在接近持球人时调整路线，同时封住最简单的传球。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "duel-timing",
+        "actionIds": [
+          "win-loose-touch",
+          "press-angle"
+        ],
+        "headlineActionId": "win-loose-touch",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Midfield ball winning",
+          "Counter-pressing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield ball winning",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Counter-pressing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Kaan Ayhan": {
       "skills": [
@@ -166,8 +622,46 @@
         "Defensive versatility",
         "Back-line cover"
       ],
-      "note": "Ayhan stands out for creating a clean shot before the defense can reset. He changes position while keeping his priorities simple. He holds the route into the box until support arrives.",
-      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会改变起始位置，但始终坚持清晰简单的处理原则。他也会守住进入禁区的路线，直到队友能对持球人施压。"
+      "note": "The key to Ayhan is the flexibility to fill different roles without breaking the team's shape. He changes position while keeping his priorities simple. A separate part of his game is how Ayhan holds the route into the box until support arrives.",
+      "noteZh": "多个角色之间切换时仍保持球队结构是理解Kaan Ayhan踢法的关键。先看他如何改变起始位置，但始终坚持清晰简单的处理原则。到了另一个比赛环节，他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-separate-game-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "role-flexibility",
+        "actionIds": [
+          "simple-role-change",
+          "hold-box-route"
+        ],
+        "headlineActionId": "simple-role-change",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Defensive versatility",
+          "Back-line cover"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive versatility",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Back-line cover",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Kenan Yildiz": {
       "displayName": "Kenan Yıldız",
@@ -176,8 +670,46 @@
         "Close control",
         "Shot creation"
       ],
-      "note": "Yıldız stands out for seeing the decisive pass one beat before it opens. He draws the first challenge, then carries through the gap. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他的突出特点是比防线早一步看到决定性的传球。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会出球后继续移动，让接球队友始终有支援。"
+      "note": "For Yıldız, the foundation is seeing the decisive pass one beat before it opens. Look first at how he draws a defender in and releases the runner behind him. A separate point is how he draws the first challenge, then carries through the gap.",
+      "noteZh": "理解Kenan Yıldız，要先看比防线早一步看到决定性的传球。他会先吸引防守者靠近，再把球送到其身后的跑动线路。比赛进入另一种局面时，他也会主动吸引第一次上抢，再带球穿过由此出现的空当。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-separate-point",
+        "cadenceVariantIndex": 3,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "carry-through-gap"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "close-control-direction",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Inside-left creation",
+          "Close control"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Inside-left creation",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Close control",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Kerem Akturkoglu": {
       "displayName": "Kerem Aktürkoğlu",
@@ -186,8 +718,46 @@
         "Inside finishing",
         "Transition runs"
       ],
-      "note": "Aktürkoğlu's signature is explosive speed once open grass appears. He shifts onto his stronger foot and shoots with little backlift. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的比赛方式建立在看到空当后的爆发速度上。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "For Aktürkoğlu, the foundation is explosive speed once open grass appears. Look first at how he changes pace after the defender has committed his feet. Beyond the first action, he shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "Kerem Aktürkoğlu的优势在于看到空当后的爆发速度。最直接的表现是他会等防守者脚步固定后突然变速。另一个值得观察的细节是他会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond-action",
+        "cadenceVariantIndex": 4,
+        "signatureId": "open-grass-speed",
+        "actionIds": [
+          "change-pace",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wide acceleration",
+          "Inside finishing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wide acceleration",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Inside finishing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Merih Demiral": {
       "skills": [
@@ -195,8 +765,46 @@
         "Physical defending",
         "Set-piece threat"
       ],
-      "note": "Demiral stands out for reading the flight of the ball before the duel begins. He holds the route into the box until support arrives. He varies the height and pace of his delivery.",
-      "noteZh": "他的突出特点是在争顶前先判断球的飞行轨迹。他会守住进入禁区的路线，直到队友能对持球人施压。他也会通过改变落点和球速寻找防线最薄弱的区域。"
+      "note": "Demiral's signature is reading the flight of the ball before the duel begins. Watch how he meets the ball early instead of waiting underneath it. Away from that moment, he holds the route into the box until support arrives.",
+      "noteZh": "Merih Demiral的优势在于争顶前先判断球的飞行轨迹。最直接的表现是他会主动在最合适的高点迎球，而不是站在原地等球落下。另一个值得观察的细节是他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-away-moment",
+        "cadenceVariantIndex": 3,
+        "signatureId": "aerial-reading",
+        "actionIds": [
+          "meet-ball-early",
+          "hold-box-route"
+        ],
+        "headlineActionId": "meet-ball-early",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Aerial command",
+          "Physical defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial command",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Physical defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Mert Gunok": {
       "displayName": "Mert Günok",
@@ -205,8 +813,46 @@
         "Reflex saves",
         "Penalty-area command"
       ],
-      "note": "Watch Günok for staying ready through long quiet spells. He sets his feet before the shot and reacts without an extra step. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "要看懂他的作用，关键是在长时间无事可做后依然保持专注。留意他如何在射门前站稳脚步，再用最少动作完成扑救。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "Watch Günok for staying ready through long quiet spells. The clearest example is how he keeps his decisions calm when a sudden save is required. Also watch how Günok keeps his hands and feet connected so the reflex block stays controlled.",
+      "noteZh": "理解Mert Günok，要先看长时间无事可做后依然保持专注。他会在突然需要扑救时仍能冷静判断。比赛进入另一种局面时，他也会让手脚保持联动，使本能挡球也能控制方向。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-also-watch",
+        "cadenceVariantIndex": 2,
+        "signatureId": "long-focus",
+        "actionIds": [
+          "sudden-save-calm",
+          "controlled-reflex-block"
+        ],
+        "headlineActionId": "sudden-save-calm",
+        "supportingSignatureId": "compact-reflex-shape",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Veteran goalkeeping",
+          "Reflex saves"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Veteran goalkeeping",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Reflex saves",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Mert Muldur": {
       "displayName": "Mert Müldür",
@@ -224,9 +870,47 @@
         "Recovery speed",
         "Back-post coverage"
       ],
-      "note": "Müldür's signature is protecting the most dangerous space before stepping to the ball. He turns early and closes the runner before the box. He checks the runner over his shoulder before the final pass arrives.",
-      "noteZh": "他的比赛方式建立在先保护最危险空间，再考虑上抢上。他会提前转身，在对手进入禁区前缩短距离。他也会最后一传到来前回头确认跑动者的位置。",
-      "sourceUrl": "https://www.transfermarkt.com/mert-muldur/profil/spieler/353922"
+      "note": "What separates Müldür is protecting the most dangerous space before stepping to the ball. Müldür holds the route into the box until support arrives. Away from that action, he checks the runner over his shoulder before the final pass arrives.",
+      "noteZh": "先保护最危险空间，再考虑上抢构成Mert Müldür踢法的核心。他会守住进入禁区的路线，直到队友能对持球人施压。除此之外，值得留意他会在最后一传到来前回头确认跑动者的位置。",
+      "sourceUrl": "https://www.transfermarkt.com/mert-muldur/profil/spieler/353922",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "check-runner"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "runner-tracking",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Full-back defending",
+          "Back-post coverage"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Full-back defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Back-post coverage",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Oguz Aydin": {
       "displayName": "Oğuz Aydın",
@@ -244,9 +928,47 @@
         "Acceleration",
         "Direct crossing"
       ],
-      "note": "Aydın's signature is changing direction without losing control of the ball. He changes pace after the defender has committed his feet. He looks up before crossing and picks a runner rather than an empty area.",
-      "noteZh": "他的比赛方式建立在变向时仍把球控制在脚下上。他会等防守者脚步固定后突然变速。他也会传中前先观察，再把球送向具体跑动者。",
-      "sourceUrl": "https://www.transfermarkt.com/oguz-aydin/profil/spieler/563749"
+      "note": "Aydın stands out for changing direction without losing control of the ball. He changes pace after the defender has committed his feet. Aydın also looks up before crossing and picks a runner rather than an empty area.",
+      "noteZh": "变向时仍把球控制在脚下是理解Oğuz Aydın踢法的关键。先看他如何等防守者脚步固定后突然变速。到了另一个比赛环节，他会在传中前先观察，再把球送向具体跑动者。",
+      "sourceUrl": "https://www.transfermarkt.com/oguz-aydin/profil/spieler/563749",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "change-pace",
+          "pick-cross-target"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "tight-space-delivery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "One-on-one dribbling",
+          "Direct crossing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "One-on-one dribbling",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Direct crossing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Orkun Kokcu": {
       "displayName": "Orkun Kökçü",
@@ -264,9 +986,47 @@
         "Progressive passing",
         "Midfield shooting"
       ],
-      "note": "Watch Kökçü for seeing the decisive pass one beat before it opens. He plays through nearby pressure instead of around it. He shifts onto his stronger foot and shoots with little backlift.",
-      "noteZh": "要看懂他的作用，关键是比防线早一步看到决定性的传球。留意他如何穿过最近一层逼抢，而不总是绕开压力。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
-      "sourceUrl": "https://www.transfermarkt.com/orkun-kokcu/profil/spieler/454567"
+      "note": "What separates Kökçü is moving the defense with the weight and angle of his passing. Kökçü takes the first available forward lane before it closes. At another point, he shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "Orkun Kökçü最鲜明的特点是用传球的力度和角度移动防线。一个直接线索是他会在向前线路关闭前及时送出传球。另一个独立细节是他会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "sourceUrl": "https://www.transfermarkt.com/orkun-kokcu/profil/spieler/454567",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-another-moment",
+        "cadenceVariantIndex": 1,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "first-forward-lane",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "first-forward-lane",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Progressive passing",
+          "Midfield shooting"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Progressive passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield shooting",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ozan Kabak": {
       "sourceTitle": "Ozan Kabak",
@@ -283,9 +1043,47 @@
         "Aerial defending",
         "Recovery cover"
       ],
-      "note": "Kabak's edge is choosing the moment of contact instead of diving in. He meets the ball early instead of waiting underneath it. He turns early and protects the route toward goal.",
-      "noteZh": "他最特别的地方是选择身体接触时机，而不是贸然上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会提前转身，优先封住通向球门的路线。",
-      "sourceUrl": "https://www.transfermarkt.com/ozan-kabak/profil/spieler/361260"
+      "note": "The key to Kabak is choosing the moment of contact instead of diving in. He waits for a loose touch and then steps through the ball. A separate part of his game is how Kabak turns early and protects the route toward goal.",
+      "noteZh": "理解Ozan Kabak，要先看选择身体接触时机，而不是贸然上抢。他会等对手触球稍大后果断上抢。比赛进入另一种局面时，他也会提前转身，优先封住通向球门的路线。",
+      "sourceUrl": "https://www.transfermarkt.com/ozan-kabak/profil/spieler/361260",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-separate-game-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "duel-timing",
+        "actionIds": [
+          "win-loose-touch",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "win-loose-touch",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Aggressive duels",
+          "Recovery cover"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Aggressive duels",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery cover",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Salih Ozcan": {
       "displayName": "Salih Özcan",
@@ -301,9 +1099,47 @@
         "Defensive duels",
         "Disciplined support"
       ],
-      "note": "Özcan's edge is protecting the most dangerous space before stepping to the ball. He waits for a loose touch and then steps through the ball. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会等对手触球稍大后再连人带球一起压上。他也会出球后继续移动，让接球队友始终有支援。",
-      "sourceUrl": "https://www.transfermarkt.com/salih-ozcan/profil/spieler/244940"
+      "note": "Özcan stands out for choosing the moment of contact instead of diving in. He waits for a loose touch and then steps through the ball. Özcan also holds the passing lane into midfield until support arrives.",
+      "noteZh": "观察Salih Özcan时，可以先看选择身体接触时机，而不是贸然上抢。他会等对手触球稍大后果断上抢。另一个比赛细节是他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。",
+      "sourceUrl": "https://www.transfermarkt.com/salih-ozcan/profil/spieler/244940",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "duel-timing",
+        "actionIds": [
+          "win-loose-touch",
+          "hold-midfield-lane"
+        ],
+        "headlineActionId": "win-loose-touch",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Defensive duels",
+          "Midfield screening"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive duels",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield screening",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Samet Akaydin": {
       "skills": [
@@ -311,8 +1147,46 @@
         "Aerial defending",
         "Box clearances"
       ],
-      "note": "Akaydin's edge is the flexibility to fill different roles without breaking the team's shape. He meets the ball early instead of waiting underneath it. He holds the route into the box until support arrives.",
-      "noteZh": "他最特别的地方是在多个角色之间切换时仍保持球队结构。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会守住进入禁区的路线，直到队友能对持球人施压。"
+      "note": "For Akaydin, the foundation is protecting the most dangerous space before stepping to the ball. Look first at how he holds the route into the box until support arrives. Beyond the first action, he moves toward the dropping ball and contests it before the attacker can settle.",
+      "noteZh": "Samet Akaydin的比赛建立在先保护最危险空间，再考虑上抢之上。首先看他如何守住进入禁区的路线，直到队友能对持球人施压。另一个方面是他会迎向落下的球，在进攻者站稳前参与争抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond-action",
+        "cadenceVariantIndex": 4,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "contest-aerial-ball"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "aerial-defending",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Box clearances",
+          "Aerial defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Box clearances",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ugurcan Cakir": {
       "displayName": "Uğurcan Çakır",
@@ -330,9 +1204,47 @@
         "Penalty-area command",
         "Long distribution"
       ],
-      "note": "Çakır's signature is sharp reactions backed by early positioning. He judges when to leave his line and takes pressure off his defenders. He chooses the simple restart before pressure can close in.",
-      "noteZh": "他的比赛方式建立在提前站位后的快速反应上。他会判断何时出击，替后卫化解高球压力。他也会在逼抢靠近前选择最稳妥的出球方式。",
-      "sourceUrl": "https://www.transfermarkt.com/ugurcan-cakir/profil/spieler/292199"
+      "note": "Watch Çakır for command of the crowded space around goal. The clearest example is how he leaves his line only with a clear route to take pressure off his defenders. Also notice how Çakır chooses the simple restart before pressure can close in.",
+      "noteZh": "掌控门前拥挤空间的能力是理解Uğurcan Çakır踢法的关键。先看他如何判断何时出击，替后卫化解高球压力。到了另一个比赛环节，他会在逼抢靠近前选择最稳妥的出球方式。",
+      "sourceUrl": "https://www.transfermarkt.com/ugurcan-cakir/profil/spieler/292199",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-beyond-example",
+        "cadenceVariantIndex": 3,
+        "signatureId": "crowded-goal-command",
+        "actionIds": [
+          "claim-timing",
+          "simple-restart"
+        ],
+        "headlineActionId": "claim-timing",
+        "supportingSignatureId": "save-starts-attack",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Penalty-area command",
+          "Long distribution"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-area command",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Long distribution",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Yunus Akgun": {
       "displayName": "Yunus Akgün",
@@ -341,8 +1253,46 @@
         "Inside passing",
         "Quick shooting"
       ],
-      "note": "Akgün's signature is seeing the decisive pass one beat before it opens. He plays through nearby pressure instead of around it. He shifts onto his stronger foot and shoots with little backlift.",
-      "noteZh": "他的比赛方式建立在比防线早一步看到决定性的传球上。他会穿过最近一层逼抢，而不总是绕开压力。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
+      "note": "Akgün's signature is seeing the decisive pass one beat before it opens. Watch how he draws a defender in and releases the runner behind him. Away from that moment, he plays through nearby pressure instead of around it.",
+      "noteZh": "观察Yunus Akgün时，可以先看比防线早一步看到决定性的传球。他会先吸引防守者靠近，再把球送到其身后的跑动线路。另一个比赛细节是他会穿过最近一层逼抢，而不总是绕开压力。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-away-moment",
+        "cadenceVariantIndex": 3,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "play-through-pressure"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "passing-weight-angle",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-wing creation",
+          "Inside passing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-wing creation",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Inside passing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Zeki Celik": {
       "displayName": "Zeki Çelik",
@@ -351,8 +1301,46 @@
         "Back-three cover",
         "Wide discipline"
       ],
-      "note": "Çelik is defined by protecting the most dangerous space before stepping to the ball. He waits for a loose touch and then steps through the ball. He plays through nearby pressure instead of around it.",
-      "noteZh": "他靠先保护最危险空间，再考虑上抢与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会穿过最近一层逼抢，而不总是绕开压力。"
+      "note": "Çelik's signature is closing the crossing angle without losing the runner. Watch how he gets close enough to block the delivery without diving in. At another point in the move, he protects the route to goal and challenges only when the touch is loose.",
+      "noteZh": "封住传中角度时仍不丢掉跑动者是理解Zeki Çelik踢法的关键。先看他如何靠近到能封堵传中，但不贸然出脚。到了另一个比赛环节，他会先封住通向球门的路线，再等待对手触球失误时上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "cross-angle-control",
+        "actionIds": [
+          "block-cross-angle",
+          "protect-then-challenge"
+        ],
+        "headlineActionId": "block-cross-angle",
+        "supportingSignatureId": "safe-defensive-decision",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-back defending",
+          "Back-three cover"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-back defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Back-three cover",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     }
   }
 }

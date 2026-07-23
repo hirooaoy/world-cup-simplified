@@ -304,7 +304,10 @@ try {
     for (const pathname of ["/", "/report.html"]) {
       const page = await context.newPage();
       await page.goto(`${origin}${pathname}?lang=${language}`, { waitUntil: "domcontentloaded" });
-      await page.waitForFunction(() => document.querySelector("#source-note .source-credit"));
+      await page.waitForFunction((expected) => {
+        const note = document.querySelector("#source-note");
+        return note?.innerText.replace(/\s+/g, " ").trim() === expected;
+      }, expectedText);
       const footerState = await page.locator("#source-note").evaluate((note) => ({
         releaseTooltipCreatorCount: note.querySelectorAll(".release-tooltip .source-credit, .release-tooltip-note").length,
         text: note.innerText.replace(/\s+/g, " ").trim()

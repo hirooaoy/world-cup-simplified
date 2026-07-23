@@ -17,8 +17,46 @@
         "Simple progression",
         "Second-ball work"
       ],
-      "note": "O'Neill's edge is protecting the most dangerous space before stepping to the ball. He plays through nearby pressure instead of around it. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会穿过最近一层逼抢，而不总是绕开压力。他也会出球后继续移动，让接球队友始终有支援。"
+      "note": "O'Neill's signature is moving the defense with the weight and angle of his passing. Watch how he takes the first available forward lane before it closes. Separately, he positions himself for the next touch before the first contest is over.",
+      "noteZh": "理解Aiden O'Neill，要先看用传球的力度和角度移动防线。他会在向前线路关闭前及时送出传球。比赛进入另一种局面时，他也会在第一次争抢还没结束时，就先为下一脚触球站好位置。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-separately",
+        "cadenceVariantIndex": 0,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "first-forward-lane",
+          "anticipate-second-ball"
+        ],
+        "headlineActionId": "first-forward-lane",
+        "supportingSignatureId": "second-ball-reaction",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Simple progression",
+          "Second-ball work"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Simple progression",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Second-ball work",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ajdin Hrustic": {
       "displayName": "Ajdin Hrustić",
@@ -28,8 +66,46 @@
         "Set-piece delivery",
         "Tempo control"
       ],
-      "note": "Hrustić's edge is moving the defense with the weight and angle of his passing. He varies the height and pace of his delivery. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他最特别的地方是用传球的力度和角度移动防线。他会通过改变落点和球速寻找防线最薄弱的区域。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "Watch Hrustić for keeping the ball calm when pressure arrives. The clearest example is how he uses his first touch to escape pressure before choosing the pass. A separate clue is how Hrustić plays the available pass with his left foot.",
+      "noteZh": "压力到来时仍能让球保持稳定是理解Ajdin Hrustić踢法的关键。先看他如何在第一脚触球时先摆脱压力，再选择传球方向。到了另一个比赛环节，他会用左脚送出眼前可行的传球。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "pressure-composure",
+        "actionIds": [
+          "first-touch-escape",
+          "pass-with-left-foot"
+        ],
+        "headlineActionId": "first-touch-escape",
+        "supportingSignatureId": "left-foot-passing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Tempo control",
+          "Left-footed passing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Tempo control",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Left-footed passing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Alessandro Circati": {
       "position": "Centre-back",
@@ -38,8 +114,46 @@
         "Aerial defending",
         "Forward passing"
       ],
-      "note": "Circati's signature is keeping the ball calm when pressure arrives. He meets the ball early instead of waiting underneath it. He plays through nearby pressure instead of around it.",
-      "noteZh": "他的比赛方式建立在压力到来时仍能让球保持稳定上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会穿过最近一层逼抢，而不总是绕开压力。"
+      "note": "What separates Circati is moving the defense with the weight and angle of his passing. Circati takes the first available forward lane before it closes. Away from that action, he uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "最能体现Alessandro Circati特点的是用传球的力度和角度移动防线。这一点直接体现在他会在向前线路关闭前及时送出传球。除此之外，他也会在第一脚触球时先摆脱压力，再选择传球方向。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "first-forward-lane",
+          "first-touch-escape"
+        ],
+        "headlineActionId": "first-forward-lane",
+        "supportingSignatureId": "pressure-composure",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Forward passing",
+          "Centre-back composure"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Forward passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back composure",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Awer Mabil": {
       "league": "Segunda División",
@@ -48,8 +162,46 @@
         "One-on-one dribbling",
         "Counter runs"
       ],
-      "note": "Mabil's edge is explosive speed once open grass appears. He draws the first challenge, then carries through the gap. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他最特别的地方是看到空当后的爆发速度。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "The key to Mabil is explosive speed once open grass appears. He changes pace after the defender has committed his feet. Elsewhere in the game, Mabil moves through the gap between full-back and centre-back.",
+      "noteZh": "观察Awer Mabil时，可以先看看到空当后的爆发速度。他会等防守者脚步固定后突然变速。另一个比赛细节是他会从边后卫与中后卫之间的空当穿过。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-elsewhere-game",
+        "cadenceVariantIndex": 1,
+        "signatureId": "open-grass-speed",
+        "actionIds": [
+          "change-pace",
+          "attack-channel-gap"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "early-run",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wing speed",
+          "Counter runs"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wing speed",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Counter runs",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Aziz Behich": {
       "position": "Left-back",
@@ -58,8 +210,46 @@
         "Wide duels",
         "Overlap timing"
       ],
-      "note": "Watch Behich for calm decisions shaped by experience in high-pressure moments. He waits for a loose touch and then steps through the ball. He waits until the wide defender looks inside before running beyond him.",
-      "noteZh": "要看懂他的作用，关键是高压时刻由经验带来的冷静判断。留意他如何等对手触球稍大后再连人带球一起压上。他也会等边路防守者看向内侧后再从外线套上。"
+      "note": "For Behich, the foundation is choosing the moment to join an attack from deep. Look first at how he waits until the wide defender looks inside before running beyond him. Beyond that, watch how he waits for a loose touch and then steps through the ball.",
+      "noteZh": "最能体现Aziz Behich特点的是从后场加入进攻的启动时机。这一点直接体现在他会等边路防守者看向内侧后再从外线套上。除此之外，他也会等对手触球稍大后果断上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond",
+        "cadenceVariantIndex": 0,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "win-loose-touch"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "duel-timing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap timing",
+          "Wide duels"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap timing",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide duels",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Cameron Burgess": {
       "skills": [
@@ -67,8 +257,46 @@
         "Left-sided centre-back play",
         "Box clearances"
       ],
-      "note": "Burgess's edge is reading the flight of the ball before the duel begins. He protects the route to goal and challenges only when the touch is loose. He holds the route into the box until support arrives.",
-      "noteZh": "他最特别的地方是在争顶前先判断球的飞行轨迹。他会先封住通向球门的路线，再等待对手触球失误时上抢。他也会守住进入禁区的路线，直到队友能对持球人施压。"
+      "note": "What separates Burgess is moving the defense with the weight and angle of his passing. Burgess takes the first available forward lane before it closes. A separate detail appears when he holds the route into the box until support arrives.",
+      "noteZh": "Cameron Burgess的优势在于用传球的力度和角度移动防线。最直接的表现是他会在向前线路关闭前及时送出传球。另一个值得观察的细节是他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-separate-detail",
+        "cadenceVariantIndex": 4,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "first-forward-lane",
+          "hold-box-route"
+        ],
+        "headlineActionId": "first-forward-lane",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-sided centre-back play",
+          "Box clearances"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-sided centre-back play",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Box clearances",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Cameron Devlin": {
       "displayName": "Cammy Devlin",
@@ -91,9 +319,47 @@
         "Pressing range",
         "Combative energy"
       ],
-      "note": "Devlin's signature is choosing the moment of contact instead of diving in. He angles his run to block the easy pass as he closes the ball. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会接近持球人时调整路线，同时封住最简单的传球。他也会出球后继续移动，让接球队友始终有支援。",
-      "sourceUrl": "https://www.transfermarkt.com/cammy-devlin/profil/spieler/399162"
+      "note": "Devlin stands out for choosing the moment of contact instead of diving in. He waits for a loose touch and then steps through the ball. In a separate phase, Devlin angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "Cammy Devlin最鲜明的特点是选择身体接触时机，而不是贸然上抢。一个直接线索是他会等对手触球稍大后果断上抢。另一个独立细节是他会在接近持球人时调整路线，同时封住最简单的传球。",
+      "sourceUrl": "https://www.transfermarkt.com/cammy-devlin/profil/spieler/399162",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-outside-sequence",
+        "cadenceVariantIndex": 4,
+        "signatureId": "duel-timing",
+        "actionIds": [
+          "win-loose-touch",
+          "press-angle"
+        ],
+        "headlineActionId": "win-loose-touch",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Ball-winning bite",
+          "Pressing range"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Ball-winning bite",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Pressing range",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Christian Volpato": {
       "displayName": "Cristian Volpato",
@@ -106,8 +372,46 @@
         "Left-footed creation",
         "Between-lines receiving"
       ],
-      "note": "Volpato is defined by changing direction without losing control of the ball. He draws a defender in and releases the runner behind him. He opens his body on the first touch so he can play forward.",
-      "noteZh": "他靠变向时仍把球控制在脚下与同位置球员拉开差异。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会第一脚触球时打开身体，准备向前处理。"
+      "note": "Volpato stands out for seeing the decisive pass one beat before it opens. He draws a defender in and releases the runner behind him. A different detail is how Volpato opens his body on the first touch so he can play forward.",
+      "noteZh": "最能体现Cristian Volpato特点的是比防线早一步看到决定性的传球。这一点直接体现在他会先吸引防守者靠近，再把球送到其身后的跑动线路。除此之外，他也会在第一脚触球时打开身体，准备向前处理。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "open-body-forward"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "planned-tight-receive",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-footed creation",
+          "Between-lines receiving"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-footed creation",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Between-lines receiving",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Connor Metcalfe": {
       "skills": [
@@ -115,8 +419,46 @@
         "Midfield running",
         "Box arrivals"
       ],
-      "note": "Metcalfe's edge is creating a clean shot before the defense can reset. He moves after releasing the ball so the receiver still has support. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会出球后继续移动，让接球队友始终有支援。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "The key to Metcalfe is waiting for a defender's attention to shift before moving. He arrives in the box late enough to be difficult to track. There is another side to his game: he changes his position early enough to give the passer a clear target.",
+      "noteZh": "理解Connor Metcalfe，要先看等防守者注意力转移后再启动。他会稍晚进入禁区，让盯防者难以持续跟住。比赛进入另一种局面时，他也会提前调整位置，为持球队友提供清晰目标。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-side",
+        "cadenceVariantIndex": 0,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "offer-clear-target"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "purposeful-off-ball",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Box arrivals",
+          "Midfield running"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Box arrivals",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield running",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Harry Souttar": {
       "skills": [
@@ -124,8 +466,46 @@
         "Centre-back clearances",
         "Set-piece threat"
       ],
-      "note": "Souttar is defined by reading the flight of the ball before the duel begins. He holds the route into the box until support arrives. He varies the height and pace of his delivery.",
-      "noteZh": "他靠在争顶前先判断球的飞行轨迹与同位置球员拉开差异。他会守住进入禁区的路线，直到队友能对持球人施压。他也会通过改变落点和球速寻找防线最薄弱的区域。"
+      "note": "The key to Souttar is reading the flight of the ball before the duel begins. He meets the ball early instead of waiting underneath it. There is another side to his game: he holds the route into the box until support arrives.",
+      "noteZh": "争顶前先判断球的飞行轨迹构成Harry Souttar踢法的核心。他会主动在最合适的高点迎球，而不是站在原地等球落下。除此之外，值得留意他会守住进入禁区的路线，直到队友能对持球人施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-side",
+        "cadenceVariantIndex": 0,
+        "signatureId": "aerial-reading",
+        "actionIds": [
+          "meet-ball-early",
+          "hold-box-route"
+        ],
+        "headlineActionId": "meet-ball-early",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Aerial dominance",
+          "Centre-back clearances"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial dominance",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back clearances",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Jackson Irvine": {
       "skills": [
@@ -133,8 +513,46 @@
         "Late box runs",
         "Aerial midfield duels"
       ],
-      "note": "Watch Irvine for organizing teammates before danger becomes obvious. He moves after releasing the ball so the receiver still has support. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "要看懂他的作用，关键是在危险出现前组织好队友。留意他如何出球后继续移动，让接球队友始终有支援。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
+      "note": "Watch Irvine for waiting for a defender's attention to shift before moving. The clearest example is how he arrives in the box late enough to be difficult to track. Also watch how Irvine uses short cues to keep nearby passing and pressing options connected.",
+      "noteZh": "最能体现Jackson Irvine特点的是等防守者注意力转移后再启动。这一点直接体现在他会稍晚进入禁区，让盯防者难以持续跟住。除此之外，他也会用简短提醒让附近的传球与逼抢选择保持连接。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-also-watch",
+        "cadenceVariantIndex": 2,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "nearby-unit-cues"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "nearby-unit-organization",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Late box runs",
+          "Midfield leadership"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Late box runs",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield leadership",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Jacob Italiano": {
       "skills": [
@@ -142,8 +560,46 @@
         "Wide recovery",
         "Crossing angles"
       ],
-      "note": "Italiano is defined by making the safer decision before a duel becomes an emergency. He turns early and protects the route toward goal. He looks up before crossing and picks a runner rather than an empty area.",
-      "noteZh": "他靠在对抗变成险情前做出更安全的选择与同位置球员拉开差异。他会提前转身，优先封住通向球门的路线。他也会传中前先观察，再把球送向具体跑动者。"
+      "note": "For Italiano, the foundation is choosing the moment to join an attack from deep. Look first at how he waits until the wide defender looks inside before running beyond him. Also watch how he turns early and protects the route toward goal.",
+      "noteZh": "观察Jacob Italiano时，可以先看从后场加入进攻的启动时机。他会等边路防守者看向内侧后再从外线套上。另一个比赛细节是他会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-also-watch",
+        "cadenceVariantIndex": 1,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-back support",
+          "Wide recovery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-back support",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide recovery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Jason Geria": {
       "league": "J2 League",
@@ -152,8 +608,46 @@
         "Defensive positioning",
         "Wide duels"
       ],
-      "note": "Geria stands out for protecting the most dangerous space before stepping to the ball. He adjusts his position early enough to make the difficult action look simple. He waits for a loose touch and then steps through the ball.",
-      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会提前调整位置，让困难处理看起来简单。他也会等对手触球稍大后再连人带球一起压上。"
+      "note": "What separates Geria is protecting the most dangerous space before stepping to the ball. Geria holds the route into the box until support arrives. At another point, he waits for a loose touch and then steps through the ball.",
+      "noteZh": "先保护最危险空间，再考虑上抢构成Jason Geria踢法的核心。他会守住进入禁区的路线，直到队友能对持球人施压。除此之外，值得留意他会等对手触球稍大后果断上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-another-moment",
+        "cadenceVariantIndex": 1,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "win-loose-touch"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "duel-timing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-back discipline",
+          "Wide duels"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-back discipline",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide duels",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Jordan Bos": {
       "league": "Eredivisie",
@@ -162,8 +656,46 @@
         "Forward carries",
         "Overlap timing"
       ],
-      "note": "Bos's signature is recovery speed when the defensive line is exposed. He protects the route to goal and challenges only when the touch is loose. He waits until the wide defender looks inside before running beyond him.",
-      "noteZh": "他的比赛方式建立在防线暴露后的回追速度上。他会先封住通向球门的路线，再等待对手触球失误时上抢。他也会等边路防守者看向内侧后再从外线套上。"
+      "note": "Watch Bos for choosing the moment to join an attack from deep. The clearest example is how he waits until the wide defender looks inside before running beyond him. Elsewhere, Bos turns early and closes the runner before the box.",
+      "noteZh": "Bos的优势在于从后场加入进攻的启动时机。最直接的表现是他会等边路防守者看向内侧后再从外线套上。另一个值得观察的细节是他会提前转身，在对手进入禁区前缩短距离。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-elsewhere",
+        "cadenceVariantIndex": 0,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "recover-before-box"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "recovery-speed",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap timing",
+          "Left-back acceleration"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap timing",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Left-back acceleration",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Kai Trewin": {
       "position": "Centre-back",
@@ -172,8 +704,46 @@
         "Defensive midfield cover",
         "Calm duels"
       ],
-      "note": "Trewin is defined by moving the defense with the weight and angle of his passing. He holds the route into the box until support arrives. He waits for a loose touch and then steps through the ball.",
-      "noteZh": "他靠用传球的力度和角度移动防线与同位置球员拉开差异。他会守住进入禁区的路线，直到队友能对持球人施压。他也会等对手触球稍大后再连人带球一起压上。"
+      "note": "Trewin stands out for moving the defense with the weight and angle of his passing. He plays through nearby pressure instead of around it. Trewin also holds the route into the box until support arrives.",
+      "noteZh": "最能体现Kai Trewin特点的是用传球的力度和角度移动防线。这一点直接体现在他会穿过最近一层逼抢，而不总是绕开压力。除此之外，他也会守住进入禁区的路线，直到队友能对持球人施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "play-through-pressure",
+          "hold-box-route"
+        ],
+        "headlineActionId": "play-through-pressure",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-back passing",
+          "Defensive midfield cover"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive midfield cover",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Lucas Herrington": {
       "position": "Centre-back",
@@ -182,8 +752,46 @@
         "Aerial defending",
         "Back-line upside"
       ],
-      "note": "Watch Herrington for keeping the ball calm when pressure arrives. He meets the ball early instead of waiting underneath it. He changes position while keeping his priorities simple.",
-      "noteZh": "要看懂他的作用，关键是压力到来时仍能让球保持稳定。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会改变起始位置，但始终坚持清晰简单的处理原则。"
+      "note": "Herrington's signature is keeping the ball calm when pressure arrives. Watch how he uses his first touch to escape pressure before choosing the pass. Separately, he moves toward the dropping ball and contests it before the attacker can settle.",
+      "noteZh": "Lucas Herrington的比赛建立在压力到来时仍能让球保持稳定之上。首先看他如何在第一脚触球时先摆脱压力，再选择传球方向。另一个方面是他会迎向落下的球，在进攻者站稳前参与争抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-separately",
+        "cadenceVariantIndex": 0,
+        "signatureId": "pressure-composure",
+        "actionIds": [
+          "first-touch-escape",
+          "contest-aerial-ball"
+        ],
+        "headlineActionId": "first-touch-escape",
+        "supportingSignatureId": "aerial-defending",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Teenage composure",
+          "Aerial defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Teenage composure",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Mathew Leckie": {
       "league": "A-League Men",
@@ -192,8 +800,46 @@
         "Defensive work rate",
         "Direct carries"
       ],
-      "note": "Leckie's signature is calm decisions shaped by experience in high-pressure moments. He angles his run to block the easy pass as he closes the ball. He draws the first challenge, then carries through the gap.",
-      "noteZh": "他的比赛方式建立在高压时刻由经验带来的冷静判断上。他会接近持球人时调整路线，同时封住最简单的传球。他也会主动吸引第一次上抢，再带球穿过由此出现的空当。"
+      "note": "Leckie stands out for making purposeful movement away from the ball. He changes his position early enough to give the passer a clear target. A different detail is how Leckie angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "最能体现Mathew Leckie特点的是有目的地进行无球移动。这一点直接体现在他会提前调整位置，为持球队友提供清晰目标。除此之外，他也会在接近持球人时调整路线，同时封住最简单的传球。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "purposeful-off-ball",
+        "actionIds": [
+          "offer-clear-target",
+          "press-angle"
+        ],
+        "headlineActionId": "offer-clear-target",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Veteran wing running",
+          "Defensive work rate"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Veteran wing running",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive work rate",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Mathew Ryan": {
       "skills": [
@@ -201,8 +847,46 @@
         "Shot stopping",
         "Short distribution"
       ],
-      "note": "Ryan's edge is staying ready through long quiet spells. He sets his feet before the shot and reacts without an extra step. He chooses the simple restart before pressure can close in.",
-      "noteZh": "他最特别的地方是在长时间无事可做后依然保持专注。他会在射门前站稳脚步，再用最少动作完成扑救。他也会在逼抢靠近前选择最稳妥的出球方式。"
+      "note": "Ryan's signature is organizing teammates before danger becomes obvious. Watch how he keeps the line connected with constant small instructions. Away from that moment, he chooses the simple restart before pressure can close in.",
+      "noteZh": "看Mathew Ryan的作用，关键是危险出现前组织好队友。他会用持续而简短的提醒保持整条防线连接。换到另一个阶段，还可以看到他会在逼抢靠近前选择最稳妥的出球方式。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-away-moment",
+        "cadenceVariantIndex": 3,
+        "signatureId": "early-organization",
+        "actionIds": [
+          "line-instructions",
+          "simple-restart"
+        ],
+        "headlineActionId": "line-instructions",
+        "supportingSignatureId": "save-starts-attack",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Goalkeeper leadership",
+          "Short distribution"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Goalkeeper leadership",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Short distribution",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Milos Degenek": {
       "displayName": "Miloš Degenek",
@@ -212,8 +896,46 @@
         "Tournament experience",
         "Aerial duels"
       ],
-      "note": "Degenek is defined by the flexibility to fill different roles without breaking the team's shape. He recognizes when to slow the play and when to take the risk. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "他靠在多个角色之间切换时仍保持球队结构与同位置球员拉开差异。他会判断何时放慢节奏，何时承担风险。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
+      "note": "What separates Degenek is the flexibility to fill different roles without breaking the team's shape. Degenek changes position while keeping his priorities simple. Away from that action, he slows the play to restore control and takes the risk once the opening is clear.",
+      "noteZh": "看Miloš Degenek的作用，关键是多个角色之间切换时仍保持球队结构。他会改变起始位置，但始终坚持清晰简单的处理原则。换到另一个阶段，还可以看到他会判断何时放慢节奏，何时承担风险。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "role-flexibility",
+        "actionIds": [
+          "simple-role-change",
+          "manage-tempo-risk"
+        ],
+        "headlineActionId": "simple-role-change",
+        "supportingSignatureId": "experience-calm",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-back versatility",
+          "Tournament experience"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back versatility",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Tournament experience",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Mohamed Toure": {
       "displayName": "Mohamed Touré",
@@ -235,9 +957,47 @@
         "Penalty-box finishing",
         "Direct channel runs"
       ],
-      "note": "Touré stands out for explosive speed once open grass appears. He shifts onto his stronger foot and shoots with little backlift. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的突出特点是看到空当后的爆发速度。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会从边后卫与中后卫之间的空当穿过。",
-      "sourceUrl": "https://www.transfermarkt.com/mohamed-toure/profil/spieler/742770"
+      "note": "The key to Touré is explosive speed once open grass appears. He changes pace after the defender has committed his feet. In another phase, Touré arrives balanced and finishes before the nearest defender can recover.",
+      "noteZh": "最能体现Mohamed Touré特点的是看到空当后的爆发速度。这一点直接体现在他会等防守者脚步固定后突然变速。除此之外，他也会保持身体平衡，在最近防守者回位前完成射门。",
+      "sourceUrl": "https://www.transfermarkt.com/mohamed-toure/profil/spieler/742770",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-phase",
+        "cadenceVariantIndex": 3,
+        "signatureId": "open-grass-speed",
+        "actionIds": [
+          "change-pace",
+          "moving-finish"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Pace in behind",
+          "Penalty-box finishing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Pace in behind",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-box finishing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Nestory Irankunda": {
       "skills": [
@@ -245,8 +1005,46 @@
         "Explosive wing pace",
         "Power shooting"
       ],
-      "note": "Irankunda is defined by creating a clean shot before the defense can reset. He changes pace after the defender has committed his feet. He arrives in the box late enough to be difficult to track.",
-      "noteZh": "他靠在防线重组前制造干净射门与同位置球员拉开差异。他会等防守者脚步固定后突然变速。他也会稍晚进入禁区，让盯防者难以持续跟住。"
+      "note": "For Irankunda, the foundation is explosive speed once open grass appears. Look first at how he changes pace after the defender has committed his feet. Also watch how he uses a clean first touch to open a shooting lane from distance.",
+      "noteZh": "看到空当后的爆发速度是理解Nestory Irankunda踢法的关键。先看他如何等防守者脚步固定后突然变速。到了另一个比赛环节，他会用干净的第一脚触球打开远射线路。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-also-watch",
+        "cadenceVariantIndex": 1,
+        "signatureId": "open-grass-speed",
+        "actionIds": [
+          "change-pace",
+          "open-distance-shot"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "long-shot-threat",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Explosive wing pace",
+          "Power shooting"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Explosive wing pace",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Power shooting",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Nishan Velupillay": {
       "league": "A-League Men",
@@ -255,8 +1053,46 @@
         "Pressing runs",
         "Back-post movement"
       ],
-      "note": "Velupillay is defined by explosive speed once open grass appears. He angles his run to block the easy pass as he closes the ball. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他靠看到空当后的爆发速度与同位置球员拉开差异。他会接近持球人时调整路线，同时封住最简单的传球。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "Velupillay's signature is arriving at the far side after defenders have narrowed toward the ball. Watch how he holds the far-post lane, then attacks it as the cross leaves the passer. He also changes pace after the defender has committed his feet.",
+      "noteZh": "Nishan Velupillay的比赛建立在等防守者向球侧收缩后再到达后点之上。首先看他如何先留在后点线路，等传中离脚后再启动攻击落点。另一个方面是他会等防守者脚步固定后突然变速。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-he-also",
+        "cadenceVariantIndex": 1,
+        "signatureId": "back-post-arrival",
+        "actionIds": [
+          "attack-back-post",
+          "change-pace"
+        ],
+        "headlineActionId": "attack-back-post",
+        "supportingSignatureId": "open-grass-speed",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Back-post movement",
+          "Wide acceleration"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Back-post movement",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide acceleration",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Patrick Beach": {
       "skills": [
@@ -264,8 +1100,46 @@
         "Reaction saves",
         "Penalty-area command"
       ],
-      "note": "Beach's edge is the flexibility to fill different roles without breaking the team's shape. He sets his feet before the shot and reacts without an extra step. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "他最特别的地方是在多个角色之间切换时仍保持球队结构。他会在射门前站稳脚步，再用最少动作完成扑救。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "Watch Beach for sharp reactions backed by early positioning. The clearest example is how he sets his feet before the shot and reacts without an extra step. A separate clue is how Beach leaves his line only with a clear route to take pressure off his defenders.",
+      "noteZh": "Patrick Beach的优势在于提前站位后的快速反应。最直接的表现是他会在射门前站稳脚步，再用最少动作完成扑救。另一个值得观察的细节是他会判断何时出击，替后卫化解高球压力。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "early-position-reactions",
+        "actionIds": [
+          "set-and-react",
+          "claim-timing"
+        ],
+        "headlineActionId": "set-and-react",
+        "supportingSignatureId": "crowded-goal-command",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Reaction saves",
+          "Penalty-area command"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Reaction saves",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-area command",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Paul Izzo": {
       "league": "Danish Superliga",
@@ -274,8 +1148,45 @@
         "Goalkeeper depth",
         "Box reactions"
       ],
-      "note": "Izzo stands out for sharp reactions backed by early positioning. He keeps his decisions calm when a sudden save is required. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "他的突出特点是提前站位后的快速反应。他会突然需要扑救时仍能冷静判断。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "For Izzo, the foundation is sharp reactions backed by early positioning. Look first at how he sets his feet before the shot and reacts without an extra step. For a wider picture, notice whether he chooses the simple restart before pressure can close in.",
+      "noteZh": "提前站位后的快速反应是理解Paul Izzo踢法的关键。先看他如何在射门前站稳脚步，再用最少动作完成扑救。另一个问题是，Paul Izzo是否会在逼抢靠近前选择最稳妥的出球方式。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "foundation-watch",
+        "signatureId": "early-position-reactions",
+        "actionIds": [
+          "set-and-react",
+          "simple-restart"
+        ],
+        "headlineActionId": "set-and-react",
+        "supportingSignatureId": "save-starts-attack",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "role-responsibility",
+        "sourceSkills": [
+          "Box reactions"
+        ],
+        "roleFallbacks": [
+          "Calm restarts"
+        ],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Box reactions",
+            "grade": "broad"
+          },
+          {
+            "kind": "role-fallback",
+            "skill": "Calm restarts",
+            "grade": "role-level"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.65
+      }
     },
     "Paul Okon-Engstler": {
       "league": "A-League Men",
@@ -284,8 +1195,46 @@
         "Defensive midfield promise",
         "Simple passing"
       ],
-      "note": "Okon-Engstler is defined by seeing the decisive pass one beat before it opens. He moves after releasing the ball so the receiver still has support. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他靠比防线早一步看到决定性的传球与同位置球员拉开差异。他会出球后继续移动，让接球队友始终有支援。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "Okon-Engstler stands out for keeping possession moving with the available pass. He moves the ball to the next available teammate without holding it. Okon-Engstler also plays forward toward an available runner when the opening appears.",
+      "noteZh": "Paul Okon-Engstler的比赛建立在用眼前可行的传球保持球权流动之上。首先看他如何不拖延持球，把球交给下一名可接应的队友。另一个方面是他会线路出现时向前送给可接应的跑动者。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "passing-continuity",
+        "actionIds": [
+          "play-available-pass",
+          "play-to-available-runner"
+        ],
+        "headlineActionId": "play-available-pass",
+        "supportingSignatureId": "chance-passing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Simple passing",
+          "Chance passes"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Simple passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Chance passes",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Tete Yengi": {
       "league": "J1 League",
@@ -294,8 +1243,46 @@
         "Channel runs",
         "Aerial pressure"
       ],
-      "note": "Watch Yengi for using strength without slowing the next action. He moves through the gap between full-back and centre-back. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "要看懂他的作用，关键是在对抗中用力量但不拖慢下一步。留意他如何从边后卫与中后卫之间的空当穿过。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
+      "note": "Watch Yengi for using strength without slowing the next action. The clearest example is how he absorbs contact and keeps the ball close enough to continue forward. Elsewhere, Yengi moves through the gap between full-back and centre-back.",
+      "noteZh": "理解Tete Yengi，要先看对抗中用力量但不拖慢下一步。他会承受身体接触后仍把球留在可继续推进的位置。比赛进入另一种局面时，他也会从边后卫与中后卫之间的空当穿过。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-elsewhere",
+        "cadenceVariantIndex": 0,
+        "signatureId": "strength-continuity",
+        "actionIds": [
+          "absorb-and-carry",
+          "attack-channel-gap"
+        ],
+        "headlineActionId": "absorb-and-carry",
+        "supportingSignatureId": "early-run",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Striker power",
+          "Channel runs"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Striker power",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Channel runs",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     }
   }
 }

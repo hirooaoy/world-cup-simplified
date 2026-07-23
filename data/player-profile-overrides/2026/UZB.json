@@ -67,8 +67,46 @@
         "Creative dribbling",
         "Final pass"
       ],
-      "note": "Fayzullaev's edge is creating a clean shot before the defense can reset. He draws the first challenge, then carries through the gap. He draws a defender in and releases the runner behind him.",
-      "noteZh": "他最特别的地方是在防线重组前制造干净射门。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会先吸引防守者靠近，再把球送到其身后的跑动线路。"
+      "note": "What separates Fayzullaev is changing direction without losing control of the ball. Fayzullaev changes pace after the defender has committed his feet. Away from that action, he moves into a position where an available pass can lead to a shot.",
+      "noteZh": "变向时仍把球控制在脚下构成Abbosbek Fayzullaev踢法的核心。他会等防守者脚步固定后突然变速。除此之外，值得留意他会移动到接球后可以形成射门的位置。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "change-pace",
+          "move-into-shot-position"
+        ],
+        "headlineActionId": "change-pace",
+        "supportingSignatureId": "goal-threat-positioning",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Creative dribbling",
+          "Goal threat"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Creative dribbling",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Goal threat",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Abdukodir Khusanov": {
       "skills": [
@@ -76,8 +114,46 @@
         "Aerial defending",
         "Recovery tackles"
       ],
-      "note": "Khusanov's signature is recovery speed when the defensive line is exposed. He meets the ball early instead of waiting underneath it. He turns early and protects the route toward goal.",
-      "noteZh": "他的比赛方式建立在防线暴露后的回追速度上。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会提前转身，优先封住通向球门的路线。"
+      "note": "The key to Khusanov is recovering position without panicking after the first line is broken. He turns early and protects the route toward goal. Elsewhere in the game, Khusanov moves toward the dropping ball and contests it before the attacker can settle.",
+      "noteZh": "看Abdukodir Khusanov的作用，关键是第一道防线被突破后仍能冷静回位。他会提前转身，优先封住通向球门的路线。换到另一个阶段，还可以看到他会迎向落下的球，在进攻者站稳前参与争抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-elsewhere-game",
+        "cadenceVariantIndex": 1,
+        "signatureId": "calm-recovery",
+        "actionIds": [
+          "protect-goal-route",
+          "contest-aerial-ball"
+        ],
+        "headlineActionId": "protect-goal-route",
+        "supportingSignatureId": "aerial-defending",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Recovery tackles",
+          "Aerial defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery tackles",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Abdulla Abdullaev": {
       "league": "UAE Pro League",
@@ -86,8 +162,46 @@
         "Second balls",
         "Short passing"
       ],
-      "note": "Abdullaev is defined by making the safer decision before a duel becomes an emergency. He positions himself for the next touch before the first contest is over. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他靠在对抗变成险情前做出更安全的选择与同位置球员拉开差异。他会第一次争抢还没结束，就先为下一脚触球站好位置。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "Watch Abdullaev for reacting first when a duel leaves the ball free. The clearest example is how he positions himself for the next touch before the first contest is over. Also watch how Abdullaev moves the ball to the next available teammate without holding it.",
+      "noteZh": "对抗后球权松动时的第一反应是理解Abdulla Abdullaev踢法的关键。先看他如何在第一次争抢还没结束时，就先为下一脚触球站好位置。到了另一个比赛环节，他会不拖延持球，把球交给下一名可接应的队友。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-also-watch",
+        "cadenceVariantIndex": 2,
+        "signatureId": "second-ball-reaction",
+        "actionIds": [
+          "anticipate-second-ball",
+          "play-available-pass"
+        ],
+        "headlineActionId": "anticipate-second-ball",
+        "supportingSignatureId": "passing-continuity",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Second balls",
+          "Short passing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Second balls",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Short passing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Abduvohid Nematov": {
       "league": "Uzbekistan Super League",
@@ -96,8 +210,46 @@
         "Shot stopping",
         "Penalty-area reach"
       ],
-      "note": "Watch Nematov for organizing teammates before danger becomes obvious. He sets his feet before the shot and reacts without an extra step. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "要看懂他的作用，关键是在危险出现前组织好队友。留意他如何在射门前站稳脚步，再用最少动作完成扑救。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "Nematov's signature is organizing teammates before danger becomes obvious. Watch how he keeps the line connected with constant small instructions. At another point in the move, he keeps his feet active and makes the save with the fewest movements.",
+      "noteZh": "观察Abduvohid Nematov时，可以先看危险出现前组织好队友。他会用持续而简短的提醒保持整条防线连接。另一个比赛细节是他会保持脚下轻快，用最少动作完成扑救。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "early-organization",
+        "actionIds": [
+          "line-instructions",
+          "economical-save"
+        ],
+        "headlineActionId": "line-instructions",
+        "supportingSignatureId": "goalkeeper-balance",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Goalkeeper command",
+          "Penalty-area reach"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Goalkeeper command",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-area reach",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Akmal Mozgovoy": {
       "league": "Uzbekistan Super League",
@@ -106,8 +258,46 @@
         "Midfield coverage",
         "Ball recovery"
       ],
-      "note": "Mozgovoy's signature is seeing the decisive pass one beat before it opens. He holds the passing lane into midfield until support arrives. He turns early and protects the route toward goal.",
-      "noteZh": "他的比赛方式建立在比防线早一步看到决定性的传球上。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会提前转身，优先封住通向球门的路线。"
+      "note": "The key to Mozgovoy is protecting the most dangerous space before stepping to the ball. He holds the passing lane into midfield until support arrives. Elsewhere in the game, Mozgovoy turns early and protects the route toward goal.",
+      "noteZh": "理解Akmal Mozgovoy，要先看先保护最危险空间，再考虑上抢。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。比赛进入另一种局面时，他也会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-elsewhere-game",
+        "cadenceVariantIndex": 1,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-midfield-lane",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "hold-midfield-lane",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Midfield coverage",
+          "Ball recovery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield coverage",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Ball recovery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Avazbek Ulmasaliyev": {
       "sourceTitle": "Avazbek Ulmasaliev",
@@ -127,8 +317,46 @@
         "Wide recovery",
         "Overlap support"
       ],
-      "note": "Ulmasaliyev's signature is pressing with a clear target rather than simply chasing. He turns early and protects the route toward goal. He waits until the wide defender looks inside before running beyond him.",
-      "noteZh": "他的比赛方式建立在带着明确目标逼抢，而不是只追着球跑上。他会提前转身，优先封住通向球门的路线。他也会等边路防守者看向内侧后再从外线套上。"
+      "note": "Watch Ulmasaliyev for choosing the moment to join an attack from deep. The clearest example is how he waits until the wide defender looks inside before running beyond him. Also watch how Ulmasaliyev turns early and protects the route toward goal.",
+      "noteZh": "从后场加入进攻的启动时机是理解Avazbek Ulmasaliyev踢法的关键。先看他如何等边路防守者看向内侧后再从外线套上。到了另一个比赛环节，他会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-also-watch",
+        "cadenceVariantIndex": 2,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap support",
+          "Wide recovery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap support",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide recovery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Azizbek Amonov": {
       "league": "Uzbekistan Super League",
@@ -137,8 +365,46 @@
         "One-on-one dribbling",
         "Pulled-back passes"
       ],
-      "note": "Watch Amonov for creating a better angle for the next pass. He draws the first challenge, then carries through the gap. He plays through nearby pressure instead of around it.",
-      "noteZh": "要看懂他的作用，关键是为下一脚传球制造更好的角度。留意他如何主动吸引第一次上抢，再带球穿过由此出现的空当。他也会穿过最近一层逼抢，而不总是绕开压力。"
+      "note": "Amonov's signature is seeing the decisive pass one beat before it opens. Watch how he draws a defender in and releases the runner behind him. Another detail is how he pulls the ball back from near the end line toward a supporting runner.",
+      "noteZh": "最能体现Azizbek Amonov特点的是比防线早一步看到决定性的传球。这一点直接体现在他会先吸引防守者靠近，再把球送到其身后的跑动线路。除此之外，他也会接近底线后把球回传给后排接应的队友。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-detail",
+        "cadenceVariantIndex": 2,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "pull-ball-back"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "pullback-creation",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wide creativity",
+          "Pulled-back passes"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wide creativity",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Pulled-back passes",
+            "grade": "specific"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.8
+      }
     },
     "Azizjon Ganiev": {
       "displayName": "Aziz Ganiev",
@@ -151,8 +417,46 @@
         "Set pieces",
         "Tempo control"
       ],
-      "note": "Ganiev's edge is moving the defense with the weight and angle of his passing. He varies the height and pace of his delivery. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他最特别的地方是用传球的力度和角度移动防线。他会通过改变落点和球速寻找防线最薄弱的区域。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "What separates Ganiev is moving the defense with the weight and angle of his passing. Ganiev plays through nearby pressure instead of around it. In another phase of play, he varies the height and pace of his delivery.",
+      "noteZh": "观察Aziz Ganiev时，可以先看用传球的力度和角度移动防线。他会穿过最近一层逼抢，而不总是绕开压力。另一个比赛细节是他会通过改变落点和球速寻找防线最薄弱的区域。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-phase-of-play",
+        "cadenceVariantIndex": 3,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "play-through-pressure",
+          "vary-delivery"
+        ],
+        "headlineActionId": "play-through-pressure",
+        "supportingSignatureId": "dead-ball-technique",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Midfield passing",
+          "Set pieces"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Set pieces",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Behruzjon Karimov": {
       "league": "Uzbekistan Super League",
@@ -161,8 +465,46 @@
         "Aerial duels",
         "Simple buildup"
       ],
-      "note": "Karimov stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He protects the route to goal and challenges only when the touch is loose.",
-      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会先封住通向球门的路线，再等待对手触球失误时上抢。"
+      "note": "Karimov stands out for making the safer decision before a duel becomes an emergency. He protects the route to goal and challenges only when the touch is loose. A different detail is how Karimov plays through nearby pressure instead of around it.",
+      "noteZh": "对抗变成险情前做出更安全的选择是理解Bekhruz Karimov踢法的关键。先看他如何先封住通向球门的路线，再等待对手触球失误时上抢。到了另一个比赛环节，他会穿过最近一层逼抢，而不总是绕开压力。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "safe-defensive-decision",
+        "actionIds": [
+          "protect-then-challenge",
+          "play-through-pressure"
+        ],
+        "headlineActionId": "protect-then-challenge",
+        "supportingSignatureId": "passing-weight-angle",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Defensive cover",
+          "Simple buildup"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive cover",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Simple buildup",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Botirali Ergashev": {
       "league": "Uzbekistan Super League",
@@ -171,8 +513,46 @@
         "Shot stopping",
         "Cross handling"
       ],
-      "note": "Ergashev is defined by staying ready through long quiet spells. He sets his feet before the shot and reacts without an extra step. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "他靠在长时间无事可做后依然保持专注与同位置球员拉开差异。他会在射门前站稳脚步，再用最少动作完成扑救。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "For Ergashev, the foundation is command of the crowded space around goal. Look first at how he attacks the cross at the highest point he can control before traffic closes. Also watch how he sets his angle early and holds the centre until the ball leaves the foot.",
+      "noteZh": "最能体现Botirali Ergashev特点的是掌控门前拥挤空间的能力。这一点直接体现在他会在人群合拢前迎向传中，并在最高可控点处理来球。除此之外，他也会提前调整封堵角度，在球离脚前始终封住中央线路。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-also-watch",
+        "cadenceVariantIndex": 1,
+        "signatureId": "crowded-goal-command",
+        "actionIds": [
+          "claim-cross-high",
+          "set-for-shot"
+        ],
+        "headlineActionId": "claim-cross-high",
+        "supportingSignatureId": "shot-stopping-readiness",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Cross handling",
+          "Shot stopping"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Cross handling",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Shot stopping",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.79
+      }
     },
     "Dostonbek Khamdamov": {
       "league": "Uzbekistan Super League",
@@ -181,8 +561,46 @@
         "Combination play",
         "Box-area timing"
       ],
-      "note": "Watch Khamdamov for starting his run while defenders are still watching the ball. He protects the ball with his body and returns it into a runner's path. He adjusts his position early enough to make the difficult action look simple.",
-      "noteZh": "要看懂他的作用，关键是在防守者仍盯着球时提前启动。留意他如何用身体护住球，再把球送回跑动队友的线路。他也会提前调整位置，让困难处理看起来简单。"
+      "note": "What separates Khamdamov is starting his run while defenders are still watching the ball. Khamdamov moves through the gap between full-back and centre-back. Also note how he protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "观察Dostonbek Khamdamov时，可以先看防守者仍盯着球时提前启动。他会从边后卫与中后卫之间的空当穿过。另一个比赛细节是他会用身体护住球，再把球送回跑动队友的线路。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-also-note",
+        "cadenceVariantIndex": 2,
+        "signatureId": "early-run",
+        "actionIds": [
+          "attack-channel-gap",
+          "body-and-return"
+        ],
+        "headlineActionId": "attack-channel-gap",
+        "supportingSignatureId": "help-next-action",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wide movement",
+          "Combination play"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wide movement",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Combination play",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Eldor Shomurodov": {
       "skills": [
@@ -190,8 +608,46 @@
         "Target play",
         "Box finishing"
       ],
-      "note": "Watch Shomurodov for creating a clean shot before the defense can reset. He pins a defender and creates room for the next runner. He arrives in the box late enough to be difficult to track.",
-      "noteZh": "要看懂他的作用，关键是在防线重组前制造干净射门。留意他如何牵制一名后卫，为后插上的队友腾出空间。他也会稍晚进入禁区，让盯防者难以持续跟住。"
+      "note": "For Shomurodov, the foundation is giving centre-backs a physical problem they cannot ignore. Look first at how he pins a defender and creates room for the next runner. Beyond that, watch how he arrives balanced and finishes before the nearest defender can recover.",
+      "noteZh": "理解Eldor Shomurodov，要先看让中后卫无法忽视的身体支点作用。他会牵制一名后卫，为后插上的队友腾出空间。比赛进入另一种局面时，他也会保持身体平衡，在最近防守者回位前完成射门。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond",
+        "cadenceVariantIndex": 0,
+        "signatureId": "physical-reference",
+        "actionIds": [
+          "pin-and-create",
+          "moving-finish"
+        ],
+        "headlineActionId": "pin-and-create",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Target play",
+          "Box finishing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Target play",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Box finishing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Farrukh Sayfiev": {
       "league": "Uzbekistan Super League",
@@ -200,8 +656,46 @@
         "Crossing",
         "Wide defending"
       ],
-      "note": "Sayfiyev is defined by calm decisions shaped by experience in high-pressure moments. He looks up before crossing and picks a runner rather than an empty area. He holds the route into the box until support arrives.",
-      "noteZh": "他靠高压时刻由经验带来的冷静判断与同位置球员拉开差异。他会传中前先观察，再把球送向具体跑动者。他也会守住进入禁区的路线，直到队友能对持球人施压。"
+      "note": "Watch Sayfiyev for closing the crossing angle without losing the runner. The clearest example is how he gets close enough to block the delivery without diving in. A separate clue is how Sayfiyev slows the play to restore control and takes the risk once the opening is clear.",
+      "noteZh": "封住传中角度时仍不丢掉跑动者构成Farrukh Sayfiyev踢法的核心。他会靠近到能封堵传中，但不贸然出脚。除此之外，值得留意他会判断何时放慢节奏，何时承担风险。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "cross-angle-control",
+        "actionIds": [
+          "block-cross-angle",
+          "manage-tempo-risk"
+        ],
+        "headlineActionId": "block-cross-angle",
+        "supportingSignatureId": "experience-calm",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wide defending",
+          "Left-back experience"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wide defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Left-back experience",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Igor Sergeev": {
       "league": "Persian Gulf Pro League",
@@ -210,8 +704,46 @@
         "Aerial target",
         "Box movement"
       ],
-      "note": "Sergeev's edge is the flexibility to fill different roles without breaking the team's shape. He pins a defender and creates room for the next runner. He arrives in the box late enough to be difficult to track.",
-      "noteZh": "他最特别的地方是在多个角色之间切换时仍保持球队结构。他会牵制一名后卫，为后插上的队友腾出空间。他也会稍晚进入禁区，让盯防者难以持续跟住。"
+      "note": "Sergeev stands out for giving centre-backs a physical problem they cannot ignore. He pins a defender and creates room for the next runner. Also look at how Sergeev arrives in the box late enough to be difficult to track.",
+      "noteZh": "Igor Sergeev的优势在于让中后卫无法忽视的身体支点作用。最直接的表现是他会牵制一名后卫，为后插上的队友腾出空间。另一个值得观察的细节是他会稍晚进入禁区，让盯防者难以持续跟住。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-also-notice",
+        "cadenceVariantIndex": 2,
+        "signatureId": "physical-reference",
+        "actionIds": [
+          "pin-and-create",
+          "late-box-arrival"
+        ],
+        "headlineActionId": "pin-and-create",
+        "supportingSignatureId": "delayed-run",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Aerial target",
+          "Box movement"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial target",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Box movement",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Jakhongir Urozov": {
       "league": "Uzbekistan Super League",
@@ -220,8 +752,46 @@
         "Recovery speed",
         "Overlap support"
       ],
-      "note": "Watch Urozov for protecting the most dangerous space before stepping to the ball. He turns early and closes the runner before the box. He waits until the wide defender looks inside before running beyond him.",
-      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何提前转身，在对手进入禁区前缩短距离。他也会等边路防守者看向内侧后再从外线套上。"
+      "note": "Urozov's signature is choosing the moment to join an attack from deep. Watch how he waits until the wide defender looks inside before running beyond him. Another detail is how he gets close enough to block the delivery without diving in.",
+      "noteZh": "理解Jakhongir Urozov，要先看从后场加入进攻的启动时机。他会等边路防守者看向内侧后再从外线套上。比赛进入另一种局面时，他也会靠近到能封堵传中，但不贸然出脚。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-detail",
+        "cadenceVariantIndex": 2,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "block-cross-angle"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "cross-angle-control",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap support",
+          "Wide defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap support",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Jamshid Iskanderov": {
       "league": "Uzbekistan Super League",
@@ -230,8 +800,46 @@
         "Final pass",
         "Set-piece touch"
       ],
-      "note": "Iskanderov is defined by creating a better angle for the next pass. He draws a defender in and releases the runner behind him. He varies the height and pace of his delivery.",
-      "noteZh": "他靠为下一脚传球制造更好的角度与同位置球员拉开差异。他会先吸引防守者靠近，再把球送到其身后的跑动线路。他也会通过改变落点和球速寻找防线最薄弱的区域。"
+      "note": "For Iskanderov, the foundation is repeatable technique on dead balls. Look first at how he varies the height and pace of his delivery. Beyond that, watch how he plays forward toward an available runner when the opening appears.",
+      "noteZh": "看Jamshid Iskanderov的作用，关键是定位球上稳定而多变的脚法。他会通过改变落点和球速寻找防线最薄弱的区域。换到另一个阶段，还可以看到他会线路出现时向前送给可接应的跑动者。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond",
+        "cadenceVariantIndex": 0,
+        "signatureId": "dead-ball-technique",
+        "actionIds": [
+          "vary-delivery",
+          "play-to-available-runner"
+        ],
+        "headlineActionId": "vary-delivery",
+        "supportingSignatureId": "chance-passing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Set-piece touch",
+          "Final pass"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Set-piece touch",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Final pass",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Khojiakbar Alijonov": {
       "league": "Uzbekistan Super League",
@@ -240,8 +848,46 @@
         "Crossing",
         "Recovery defending"
       ],
-      "note": "Watch Alijonov for making the safer decision before a duel becomes an emergency. He looks up before crossing and picks a runner rather than an empty area. He turns early and protects the route toward goal.",
-      "noteZh": "要看懂他的作用，关键是在对抗变成险情前做出更安全的选择。留意他如何传中前先观察，再把球送向具体跑动者。他也会提前转身，优先封住通向球门的路线。"
+      "note": "The key to Alijonov is choosing the moment to join an attack from deep. He waits until the wide defender looks inside before running beyond him. There is another side to his game: he turns early and protects the route toward goal.",
+      "noteZh": "从后场加入进攻的启动时机构成Khojiakbar Alijonov踢法的核心。他会等边路防守者看向内侧后再从外线套上。除此之外，值得留意他会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-side",
+        "cadenceVariantIndex": 0,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-back running",
+          "Recovery defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-back running",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Odiljon Xamrobekov": {
       "displayName": "Odiljon Hamrobekov",
@@ -251,8 +897,46 @@
         "Ball winning",
         "Short passing"
       ],
-      "note": "Watch Hamrobekov for keeping the ball calm when pressure arrives. He waits for a loose touch and then steps through the ball. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "要看懂他的作用，关键是压力到来时仍能让球保持稳定。留意他如何等对手触球稍大后再连人带球一起压上。他也会出球后继续移动，让接球队友始终有支援。"
+      "note": "Hamrobekov stands out for keeping the ball calm when pressure arrives. He uses his first touch to escape pressure before choosing the pass. A different detail is how Hamrobekov waits for a loose touch and then steps through the ball.",
+      "noteZh": "Odiljon Hamrobekov的比赛建立在压力到来时仍能让球保持稳定之上。首先看他如何在第一脚触球时先摆脱压力，再选择传球方向。另一个方面是他会等对手触球稍大后果断上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "pressure-composure",
+        "actionIds": [
+          "first-touch-escape",
+          "win-loose-touch"
+        ],
+        "headlineActionId": "first-touch-escape",
+        "supportingSignatureId": "duel-timing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Midfield control",
+          "Ball winning"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield control",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Ball winning",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Oston Urunov": {
       "skills": [
@@ -260,8 +944,46 @@
         "Acceleration",
         "Inside shooting"
       ],
-      "note": "Urunov's signature is changing direction without losing control of the ball. He pushes the ball beyond the first challenge and accelerates after it. He shifts onto his stronger foot and shoots with little backlift.",
-      "noteZh": "他的比赛方式建立在变向时仍把球控制在脚下上。他会把球趟过第一道上抢后再加速。他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。"
+      "note": "For Urunov, the foundation is carrying momentum through open midfield. Look first at how he pushes the ball beyond the first challenge and accelerates after it. Also watch how he shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "看Oston Urunov的作用，关键是带球穿过开放中场的推进力。他会把球趟过第一道上抢后再加速。换到另一个阶段，还可以看到他会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-also-watch",
+        "cadenceVariantIndex": 1,
+        "signatureId": "open-midfield-carry",
+        "actionIds": [
+          "push-and-accelerate",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "push-and-accelerate",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Acceleration",
+          "Inside shooting"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Acceleration",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Inside shooting",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Otabek Shukurov": {
       "league": "UAE Pro League",
@@ -270,8 +992,46 @@
         "Set-piece delivery",
         "Defensive balance"
       ],
-      "note": "Watch Shukurov for moving the defense with the weight and angle of his passing. He varies the height and pace of his delivery. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "要看懂他的作用，关键是用传球的力度和角度移动防线。留意他如何通过改变落点和球速寻找防线最薄弱的区域。他也会出球后继续移动，让接球队友始终有支援。"
+      "note": "Watch Shukurov for moving the defense with the weight and angle of his passing. The clearest example is how he plays through nearby pressure instead of around it. Elsewhere, Shukurov serves corners and free kicks into the attacking area.",
+      "noteZh": "Otabek Shukurov的比赛建立在用传球的力度和角度移动防线之上。首先看他如何穿过最近一层逼抢，而不总是绕开压力。另一个方面是他会把角球和任意球送入进攻区域。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-elsewhere",
+        "cadenceVariantIndex": 0,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "play-through-pressure",
+          "deliver-dead-ball"
+        ],
+        "headlineActionId": "play-through-pressure",
+        "supportingSignatureId": "set-piece-responsibility",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Midfield passing",
+          "Set-piece delivery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Set-piece delivery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ruslanbek Jiyanov": {
       "league": "Uzbekistan Super League",
@@ -280,8 +1040,46 @@
         "Pressing",
         "Channel runs"
       ],
-      "note": "Jiyanov stands out for the flexibility to fill different roles without breaking the team's shape. He angles his run to block the easy pass as he closes the ball. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的突出特点是在多个角色之间切换时仍保持球队结构。他会接近持球人时调整路线，同时封住最简单的传球。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "Jiyanov's signature is starting his run while defenders are still watching the ball. Watch how he moves through the gap between full-back and centre-back. Away from that moment, he moves toward the ball as teammates close the nearby options.",
+      "noteZh": "防守者仍盯着球时提前启动是理解Ruslanbek Jiyanov踢法的关键。先看他如何从边后卫与中后卫之间的空当穿过。到了另一个比赛环节，他会队友封住附近选项时向球靠近施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-away-moment",
+        "cadenceVariantIndex": 3,
+        "signatureId": "early-run",
+        "actionIds": [
+          "attack-channel-gap",
+          "join-team-pressure"
+        ],
+        "headlineActionId": "attack-channel-gap",
+        "supportingSignatureId": "pressing-work",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Channel runs",
+          "Pressing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Channel runs",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Pressing",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     },
     "Rustamjon Ashurmatov": {
       "skills": [
@@ -289,8 +1087,46 @@
         "Aerial duels",
         "Back-line leadership"
       ],
-      "note": "Ashurmatov's edge is protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He keeps the line connected with constant small instructions.",
-      "noteZh": "他最特别的地方是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会用持续而简短的提醒保持整条防线连接。"
+      "note": "Ashurmatov stands out for protecting the most dangerous space before stepping to the ball. He holds the route into the box until support arrives. A different detail is how Ashurmatov keeps the line connected with constant small instructions.",
+      "noteZh": "最能体现Rustam Ashurmatov特点的是先保护最危险空间，再考虑上抢。这一点直接体现在他会守住进入禁区的路线，直到队友能对持球人施压。除此之外，他也会用持续而简短的提醒保持整条防线连接。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-different-detail",
+        "cadenceVariantIndex": 3,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "line-instructions"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "early-organization",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-back defending",
+          "Back-line leadership"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Back-line leadership",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Sherzod Esanov": {
       "league": "Uzbekistan Super League",
@@ -299,8 +1135,46 @@
         "Direct running",
         "Pressing effort"
       ],
-      "note": "Esanov's signature is the flexibility to fill different roles without breaking the team's shape. He pushes the ball beyond the first challenge and accelerates after it. He angles his run to block the easy pass as he closes the ball.",
-      "noteZh": "他的比赛方式建立在在多个角色之间切换时仍保持球队结构上。他会把球趟过第一道上抢后再加速。他也会接近持球人时调整路线，同时封住最简单的传球。"
+      "note": "What separates Esanov is pressing with a clear target rather than simply chasing. Esanov angles his run to block the easy pass as he closes the ball. Also note how he changes his position early enough to give the passer a clear target.",
+      "noteZh": "观察Sherzod Esanov时，可以先看带着明确目标逼抢，而不是只追着球跑。他会在接近持球人时调整路线，同时封住最简单的传球。另一个比赛细节是他会提前调整位置，为持球队友提供清晰目标。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-also-note",
+        "cadenceVariantIndex": 2,
+        "signatureId": "targeted-press",
+        "actionIds": [
+          "press-angle",
+          "offer-clear-target"
+        ],
+        "headlineActionId": "press-angle",
+        "supportingSignatureId": "purposeful-off-ball",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Pressing effort",
+          "Direct running"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Pressing effort",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Direct running",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Sherzod Nasrullaev": {
       "league": "Uzbekistan Super League",
@@ -309,8 +1183,46 @@
         "Crossing",
         "Defensive recovery"
       ],
-      "note": "Nasrullaev stands out for making the safer decision before a duel becomes an emergency. He looks up before crossing and picks a runner rather than an empty area. He turns early and protects the route toward goal.",
-      "noteZh": "他的突出特点是在对抗变成险情前做出更安全的选择。他会传中前先观察，再把球送向具体跑动者。他也会提前转身，优先封住通向球门的路线。"
+      "note": "The key to Nasrullaev is choosing the moment to join an attack from deep. He waits until the wide defender looks inside before running beyond him. A separate part of his game is how Nasrullaev turns early and protects the route toward goal.",
+      "noteZh": "看Sherzod Nasrullaev的作用，关键是从后场加入进攻的启动时机。他会等边路防守者看向内侧后再从外线套上。换到另一个阶段，还可以看到他会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-separate-game-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-back support",
+          "Defensive recovery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-back support",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Defensive recovery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Umarbek Eshmurodov": {
       "aliases": [
@@ -322,8 +1234,46 @@
         "Aerial defending",
         "Simple passing"
       ],
-      "note": "Eshmurodov stands out for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会主动在最合适的高点迎球，而不是站在原地等球落下。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "Eshmurodov's signature is making the safer decision before a duel becomes an emergency. Watch how he protects the route to goal and challenges only when the touch is loose. At another point in the move, he moves toward the dropping ball and contests it before the attacker can settle.",
+      "noteZh": "Umarbek Eshmurodov的优势在于对抗变成险情前做出更安全的选择。最直接的表现是他会先封住通向球门的路线，再等待对手触球失误时上抢。另一个值得观察的细节是他会迎向落下的球，在进攻者站稳前参与争抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-another-part",
+        "cadenceVariantIndex": 4,
+        "signatureId": "safe-defensive-decision",
+        "actionIds": [
+          "protect-then-challenge",
+          "contest-aerial-ball"
+        ],
+        "headlineActionId": "protect-then-challenge",
+        "supportingSignatureId": "aerial-defending",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-back cover",
+          "Aerial defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back cover",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Utkir Yusupov": {
       "league": "Uzbekistan Super League",
@@ -332,8 +1282,46 @@
         "Shot stopping",
         "Game management"
       ],
-      "note": "Yusupov's signature is staying ready through long quiet spells. He sets his feet before the shot and reacts without an extra step. He keeps his feet active and makes the save with the fewest movements.",
-      "noteZh": "他的比赛方式建立在在长时间无事可做后依然保持专注上。他会在射门前站稳脚步，再用最少动作完成扑救。他也会保持脚下轻快，用最少动作完成扑救。"
+      "note": "Watch Yusupov for staying ready through long quiet spells. The clearest example is how he keeps his decisions calm when a sudden save is required. Elsewhere, Yusupov sets his angle early and holds the centre until the ball leaves the foot.",
+      "noteZh": "最能体现Utkir Yusupov特点的是长时间无事可做后依然保持专注。这一点直接体现在他会在突然需要扑救时仍能冷静判断。除此之外，他也会提前调整封堵角度，在球离脚前始终封住中央线路。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-elsewhere",
+        "cadenceVariantIndex": 0,
+        "signatureId": "long-focus",
+        "actionIds": [
+          "sudden-save-calm",
+          "set-for-shot"
+        ],
+        "headlineActionId": "sudden-save-calm",
+        "supportingSignatureId": "shot-stopping-readiness",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Goalkeeper experience",
+          "Shot stopping"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Goalkeeper experience",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Shot stopping",
+            "grade": "generic"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.71
+      }
     }
   }
 }

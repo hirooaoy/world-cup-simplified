@@ -2,8 +2,13 @@ import {
   getGeneratedPlayerCardCopy,
   getPlayerSkillCategory,
   isGeneratedPlayerCardCopy
-} from "../player-note-templates.js";
+} from "../player-note-templates.js?v=2026-07-22-player-card-copy-1";
+import { HISTORICAL_PLAYER_NOTE_SEMANTICS } from "./historical-player-note-semantics.js?v=2026-07-22-player-card-copy-1";
 import { translateCompoundPosition } from "../position-runtime.js";
+import {
+  formatKeyInformation as formatStructuredKeyInformation,
+  formatKeyInformationSentences as formatStructuredKeyInformationSentences
+} from "../key-information-es.js";
 
 const UI = {
   adminMessage: "Mensaje del sitio",
@@ -1246,6 +1251,9 @@ const PLAYER_NOTE_QUALITIES = Object.freeze({
   "see-decisive-pass": "ver el pase decisivo un instante antes de que aparezca",
   "create-pass-angle": "crear un mejor ángulo para el siguiente pase",
   "early-position-reactions": "reaccionar rápido gracias a una colocación anticipada",
+  "centre-first-positioning": "proteger primero el centro de la portería antes de reaccionar al remate",
+  "rebound-control": "controlar dónde queda el balón cuando no puede atraparlo",
+  "compact-reflex-shape": "mantener una postura compacta en las paradas reflejas a corta distancia",
   "role-flexibility": "ocupar distintos roles sin romper la estructura del equipo",
   "duel-timing": "elegir el momento del contacto sin precipitarse",
   "open-grass-speed": "su aceleración explosiva cuando encuentra campo abierto",
@@ -1278,6 +1286,34 @@ const PLAYER_NOTE_QUALITIES = Object.freeze({
   "penalty-reading": "su paciencia para leer el último movimiento del lanzador",
   "runner-tracking": "seguir conectado con los desmarques cuando el balón se mueve a otra zona",
   "crowded-goal-command": "dominar el espacio congestionado alrededor de la portería",
+  "near-post-timing": "medir el momento del desmarque por delante del defensor más cercano",
+  "long-shot-threat": "obligar a los defensores a respetar el disparo desde fuera del área",
+  "cross-angle-control": "cerrar el ángulo de centro sin perder la referencia del corredor",
+  "second-ball-reaction": "reaccionar primero cuando un duelo deja el balón suelto",
+  "nearby-unit-organization": "ordenar a los compañeros cercanos antes de que empiece la siguiente fase",
+  "front-line-leadership": "dar a la primera línea una señal clara de cuándo moverse y presionar",
+  "back-post-arrival": "llegar al lado débil después de que la defensa se cierre hacia el balón",
+  "penalty-contact-calm": "repetir un golpeo limpio incluso bajo la presión de un penalti",
+  "left-foot-passing": "usar la zurda como salida de pase",
+  "disguised-passing": "ocultar hasta el último momento la intención del pase",
+  "pullback-creation": "encontrar a un compañero que llega con un pase atrás",
+  "passing-continuity": "mantener la posesión en movimiento con el pase disponible",
+  "crossing-volume": "volver a la banda para repetir los envíos",
+  "one-on-one-running": "conducir directamente hacia un defensor aislado",
+  "shot-stopping-readiness": "proteger el centro de la portería antes de que el tirador revele el remate",
+  "aerial-defending": "resolver los balones aéreos en su zona defensiva",
+  "pressing-work": "participar activamente en la presión del equipo",
+  "set-piece-responsibility": "asumir los envíos ofensivos a balón parado",
+  "chance-passing": "buscar el pase que puede crear la siguiente ocasión",
+  "ball-carrying": "hacer avanzar la posesión con el balón en los pies",
+  "dribbling-control": "avanzar con el balón pese a la presión cercana",
+  "wide-service": "poner balones desde las bandas",
+  "goal-threat-positioning": "ocupar posiciones donde el siguiente pase puede convertirse en remate",
+  "finishing-readiness": "prepararse para definir cuando recibe cerca de la portería",
+  "pace-in-space": "usar su velocidad cuando se abre el camino",
+  "aerial-duels": "competir por balones aéreos",
+  "strength-in-contact": "usar su fuerza en el contacto directo",
+  "goalkeeper-distribution": "encontrar una salida disponible después de recuperar la posesión",
   "attack-space-behind": "atacar el espacio a la espalda de la defensa antes de que se abra por completo",
   "shape-midfield-tempo": "marcar el ritmo del partido desde el mediocampo",
   "contact-with-position": "usar el contacto sin perder la posición defensiva",
@@ -1304,6 +1340,10 @@ const PLAYER_NOTE_ACTIONS = Object.freeze({
   "change-pace": "Cambia de ritmo cuando el defensor ya ha fijado los pies",
   "overlap-timing": "Espera a que el defensor de banda mire hacia dentro antes de doblarlo",
   "set-and-react": "Fija los apoyos antes del remate y reacciona sin dar un paso de más",
+  "hold-central-goal-lane": "Mantiene cerrado el carril central hasta que el toque del atacante revela el ángulo",
+  "parry-away-danger": "Desvía la parada lejos del siguiente atacante, no de vuelta a la zona de peligro",
+  "controlled-reflex-block": "Mantiene manos y pies coordinados para controlar incluso una parada de reflejos",
+  "claim-cross-high": "Ataca el centro en el punto más alto que puede dominar antes de que se cierre el tráfico",
   "body-and-return": "Protege el balón con el cuerpo y lo devuelve al camino del compañero que llega",
   "pick-cross-target": "Levanta la cabeza antes de centrar y busca a un compañero, no una zona vacía",
   "simple-restart": "Elige la salida sencilla antes de que la presión le cierre opciones",
@@ -1329,6 +1369,36 @@ const PLAYER_NOTE_ACTIONS = Object.freeze({
   "push-and-accelerate": "Empuja el balón más allá de la primera entrada y acelera después",
   "block-cross-angle": "Se acerca lo suficiente para bloquear el centro sin lanzarse al suelo",
   "open-distance-shot": "Con un primer control limpio, abre una línea de tiro desde lejos",
+  "shoot-right-foot": "Se perfila hacia la derecha y remata con muy poco armado",
+  "first-time-finish": "Remata el pase sin añadir un toque extra",
+  "moving-finish": "Llega equilibrado y finaliza antes de que se recupere el defensor más cercano",
+  "head-clear-early": "Ataca la trayectoria y despeja de cabeza antes de que el delantero pueda perfilarse",
+  "attack-dropping-ball": "Parte por fuera de su marcador y ataca el balón que cae",
+  "first-forward-lane": "Toma la primera línea de avance disponible antes de que se cierre",
+  "nearby-unit-cues": "Usa indicaciones breves para conectar las opciones cercanas de pase y presión",
+  "lead-first-pressure": "Activa la primera presión y orienta al siguiente compañero hacia el pase fácil",
+  "attack-back-post": "Espera en el segundo palo y ataca la zona cuando el centro sale del pie del pasador",
+  "composed-penalty-strike": "Acorta la carrera, mantiene el equilibrio y golpea sin precipitarse",
+  "finish-either-foot": "Coloca el balón para rematar con cualquiera de las dos piernas antes de que el defensor se recomponga",
+  "pass-with-left-foot": "Juega con la zurda el pase disponible",
+  "hide-pass-intent": "Da a entender que jugará hacia una opción antes de soltar el balón por otro carril",
+  "pull-ball-back": "Juega el pase atrás desde cerca de la línea de fondo hacia un compañero que llega en apoyo",
+  "play-available-pass": "Mueve el balón hacia el siguiente compañero disponible sin retenerlo",
+  "repeat-wide-delivery": "Se coloca para enviar otro balón hacia el área desde la banda",
+  "run-at-isolated-defender": "Conduce hacia el defensor que tiene delante con el balón controlado",
+  "set-for-shot": "Ajusta pronto el ángulo y mantiene cerrado el carril central hasta que el balón sale del pie",
+  "contest-aerial-ball": "Va hacia el balón que cae y lo disputa antes de que el atacante pueda controlarlo",
+  "join-team-pressure": "Se acerca al balón mientras sus compañeros cierran las opciones cercanas",
+  "deliver-dead-ball": "Envía córneres y faltas hacia la zona de ataque",
+  "play-to-available-runner": "Juega hacia adelante para encontrar a un corredor disponible cuando se abre la línea",
+  "carry-into-space": "Conduce hacia el espacio disponible antes de soltar el balón",
+  "carry-under-pressure": "Mantiene el balón cerca mientras avanza bajo presión",
+  "send-wide-delivery": "Envía el balón al área desde una posición de banda",
+  "move-into-shot-position": "Se mueve a una posición donde un pase disponible puede acabar en remate",
+  "set-for-finish": "Se prepara para rematar cuando el balón le llega cerca de la portería",
+  "accelerate-into-space": "Acelera cuando se abre el camino",
+  "hold-through-contact": "Mantiene la posición durante el contacto antes de continuar la jugada",
+  "restart-to-teammate": "Reanuda el juego con un pase a un compañero disponible",
   "body-bring-teammate": "Usa el cuerpo para proteger el balón e incorpora a un compañero a la jugada",
   "moving-finish": "Llega en movimiento y remata antes de que se recupere el marcador más cercano",
   "hold-danger-lane": "Protege el carril peligroso hasta que un compañero puede presionar",
@@ -1341,6 +1411,23 @@ const PLAYER_NOTE_ACTIONS = Object.freeze({
   "close-first-touch": "Mantiene el primer control cerca para simplificar la siguiente acción"
 });
 
+const PLAYER_NOTE_ROLE_LABELS = Object.freeze({
+  goalkeeper: "portero",
+  defender: "defensa",
+  "centre-back": "central",
+  "full-back": "lateral",
+  "wing-back": "carrilero",
+  "defensive-midfielder": "mediocentro defensivo",
+  "central-midfielder": "centrocampista central",
+  "attacking-midfielder": "mediapunta",
+  midfielder: "centrocampista",
+  "wide-attacker": "atacante de banda",
+  "second-striker": "segundo delantero",
+  forward: "delantero",
+  striker: "delantero centro",
+  player: "jugador"
+});
+
 function formatPlayerStyleOpener(parsed, mention, quality) {
   if (parsed.variant === "watch") {
     return `La clave para entender a ${mention} es ${quality}.`;
@@ -1348,37 +1435,301 @@ function formatPlayerStyleOpener(parsed, mention, quality) {
   if (parsed.variant === "signature") {
     return `El sello de ${mention} está en ${quality}.`;
   }
-  if (parsed.variant === "edge") {
+  if (["edge", "edge-comes"].includes(parsed.variant)) {
     return `La gran virtud de ${mention} es ${quality}.`;
   }
-  if (parsed.variant === "style") {
+  if (["style", "builds", "foundation"].includes(parsed.variant)) {
     return `El juego de ${mention} se apoya en ${quality}.`;
   }
-  if (parsed.variant === "defined") {
+  if (["defined", "separates", "quality-defines"].includes(parsed.variant)) {
     return `${mention} se distingue por ${quality}.`;
+  }
+  if (parsed.variant === "key") {
+    return `La clave del juego de ${mention} es ${quality}.`;
   }
   return `${mention} destaca por ${quality}.`;
 }
 
+function lowerPlayerNoteAction(value) {
+  const text = String(value || "").trim();
+  return text ? `${text[0].toLocaleLowerCase("es-419")}${text.slice(1)}` : "";
+}
+
+function formatHistoricalRoleLevelStyleNote(parsed, mention, role, actions) {
+  const [first, second] = actions;
+  const firstLower = lowerPlayerNoteAction(first);
+  const secondLower = lowerPlayerNoteAction(second);
+  const structures = {
+    "paired-observation": () =>
+      `Para seguir a ${mention}, conviene mirar dos detalles. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "two-clues": () =>
+      `${mention} deja dos pistas desde su posición de ${role}. La primera: ${firstLower}. La segunda: ${secondLower}.`,
+    "second-detail": () =>
+      `Al observar a ${mention}, hay dos acciones que seguir. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "separating-clue": () =>
+      `${mention} interviene en dos momentos distintos. En uno, ${firstLower}. En otra fase, ${secondLower}.`,
+    "repeated-evidence": () =>
+      `Dos respuestas ayudan a leer el trabajo de ${mention}: ${firstLower}; además, ${secondLower}.`,
+    "example-another": () =>
+      `Dos acciones ayudan a entender a ${mention}. En una, ${firstLower}. En la otra, ${secondLower}.`,
+    "foundation-watch": () =>
+      `Para observar a ${mention}, hay un punto de partida. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "different-phase": () =>
+      `${mention} resuelve dos fases distintas: en una, ${firstLower}; en otra, ${secondLower}.`,
+    "quality-defines-game": () =>
+      `El trabajo de ${mention} aparece en dos acciones. En una, ${firstLower}. En otra, ${secondLower}.`,
+    "two-cues": () =>
+      `Hay dos acciones útiles para leer a ${mention}: ${firstLower}; además, ${secondLower}.`,
+    "build-two-cues": () =>
+      `El cometido de ${mention} como ${role} se reparte en dos acciones. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "quality-defines": () =>
+      `Dos acciones permiten seguir a ${mention}. En la primera, ${firstLower}. En la segunda, ${secondLower}.`,
+    "one-another": () =>
+      `El trabajo de ${mention} reúne dos tareas. En una, ${firstLower}. En otra, ${secondLower}.`,
+    "key-another": () =>
+      `Desde su puesto de ${role}, ${mention} ${firstLower}. También ${secondLower}.`,
+    "legacy-three": () =>
+      `El trabajo de ${mention} reúne dos tareas. ${first}. Por último, ${secondLower}.`
+  };
+  return (structures[parsed.structure] || structures["legacy-three"])();
+}
+
+function formatHistoricalEvidenceStyleNote(parsed, mention, quality, actions) {
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const [first, second] = actions;
+  const firstLower = lowerPlayerNoteAction(first);
+  const secondLower = lowerPlayerNoteAction(second);
+  if (parsed.supportRelation === "additional-trait") {
+    const additiveStructures = {
+      "paired-observation": () =>
+        `${opener} Primero, ${firstLower}. Por separado, ${secondLower}.`,
+      "two-clues": () =>
+        `${opener} Una pista está en esta acción: ${firstLower}. En otra faceta, ${secondLower}.`,
+      "second-detail": () =>
+        `${opener} Primero, ${firstLower}. En otro aspecto, ${secondLower}.`,
+      "separating-clue": () =>
+        `${opener} ${mention} ${firstLower}. En una fase distinta, ${secondLower}.`,
+      "repeated-evidence": () =>
+        `${opener} Una jugada lo muestra: ${firstLower}. Aparte, ${secondLower}.`,
+      "example-another": () =>
+        `${opener} Un ejemplo está en esta acción: ${firstLower}. Fuera de esa fase, ${secondLower}.`,
+      "foundation-watch": () =>
+        `${opener} La primera acción es esta: ${firstLower}. En otra faceta, ${secondLower}.`,
+      "different-phase": () =>
+        `${opener} En una fase, ${firstLower}. En otra parte de su juego, ${secondLower}.`,
+      "quality-defines-game": () =>
+        `${opener} ${first}. Por separado, ${secondLower}.`,
+      "two-cues": () =>
+        `${opener} Una acción lo explica: ${firstLower}. Además, ${secondLower}.`,
+      "build-two-cues": () =>
+        `${opener} Primero conviene observar esta acción: ${firstLower}. Aparte, ${secondLower}.`,
+      "quality-defines": () =>
+        `${opener} Se aprecia en esta acción: ${firstLower}. En otro aspecto, ${secondLower}.`,
+      "one-another": () =>
+        `${opener} Una pista está en esta acción: ${firstLower}. En una faceta distinta, ${secondLower}.`,
+      "key-another": () =>
+        `${opener} ${first}. Más allá de eso, ${secondLower}.`,
+      "legacy-three": () =>
+        `${opener} ${first}. Por otra parte, ${secondLower}.`
+    };
+    return (additiveStructures[parsed.structure] || additiveStructures["legacy-three"])();
+  }
+  const structures = {
+    "paired-observation": () =>
+      `${opener} Dos acciones lo reflejan. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "two-clues": () =>
+      `${opener} Hay dos pistas claras. ${first}. Además, ${secondLower}.`,
+    "second-detail": () =>
+      `${opener} Primero, ${firstLower}. Otro detalle: ${secondLower}.`,
+    "separating-clue": () =>
+      `${opener} ${mention} ${firstLower}. En una fase distinta, ${secondLower}.`,
+    "repeated-evidence": () =>
+      `${opener} Una jugada lo muestra: ${firstLower}. Otra lo confirma: ${secondLower}.`,
+    "example-another": () =>
+      `${opener} Un ejemplo está en esta acción: ${firstLower}. Otro aparece aquí: ${secondLower}.`,
+    "foundation-watch": () =>
+      `${opener} La primera acción es esta: ${firstLower}. La segunda: ${secondLower}.`,
+    "different-phase": () =>
+      `${opener} En una fase, ${firstLower}. En otra, ${secondLower}.`,
+    "quality-defines-game": () =>
+      `${opener} ${first}. La misma lectura surge de nuevo: ${secondLower}.`,
+    "two-cues": () =>
+      `${opener} Dos acciones lo explican. Primero, ${firstLower}. Además, ${secondLower}.`,
+    "build-two-cues": () =>
+      `${opener} Se reconoce en dos acciones. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "quality-defines": () =>
+      `${opener} Dos acciones permiten verlo. Primero, ${firstLower}. La segunda acción: ${secondLower}.`,
+    "one-another": () =>
+      `${opener} Una pista está en esta acción: ${firstLower}. La otra: ${secondLower}.`,
+    "key-another": () =>
+      `${opener} ${first}. También cuenta esta acción: ${secondLower}.`,
+    "legacy-three": () =>
+      `${opener} ${first}. Por último, ${secondLower}.`
+  };
+  return (structures[parsed.structure] || structures["legacy-three"])();
+}
+
+function formatCurrentMixedFallbackStyleNote(parsed, mention, quality, role, actions) {
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const [first, second] = actions;
+  const firstLower = lowerPlayerNoteAction(first);
+  const secondLower = lowerPlayerNoteAction(second);
+  const firstFrames = {
+    "paired-observation": `Primero, ${firstLower}.`,
+    "two-clues": `La acción más clara: ${firstLower}.`,
+    "second-detail": `La primera acción: ${firstLower}.`,
+    "separating-clue": `${mention} ${firstLower}.`,
+    "foundation-watch": `Primero, ${firstLower}.`,
+    "different-phase": `La primera acción: ${firstLower}.`
+  };
+  const questionFrames = {
+    "paired-observation": `Para ampliar la lectura, conviene observar si ${secondLower}.`,
+    "two-clues": `Otra pregunta es si ${secondLower}.`,
+    "second-detail": `Después queda otra pregunta: si ${secondLower}.`,
+    "separating-clue": `En otra fase, hay que observar si ${secondLower}.`,
+    "foundation-watch": `Para completar la imagen, conviene notar si ${secondLower}.`,
+    "different-phase": `Lo siguiente es observar si ${secondLower}.`
+  };
+  const firstFrame = firstFrames[parsed.structure] || `${first}.`;
+  const questionFrame = questionFrames[parsed.structure] || questionFrames["different-phase"];
+  return `${opener} ${firstFrame} ${questionFrame}`;
+}
+
+function formatCurrentAdditionalTraitStyleNote(parsed, mention, quality, actions) {
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const [first, second] = actions;
+  const firstLower = lowerPlayerNoteAction(first);
+  const secondLower = lowerPlayerNoteAction(second);
+  const cadenceIndex = parsed.cadenceVariantIndex >= 0 && parsed.cadenceVariantIndex < 5
+    ? parsed.cadenceVariantIndex
+    : 0;
+  const structures = {
+    "paired-observation": [
+      `${opener} Primero, ${firstLower}. Por separado, ${secondLower}.`,
+      `${opener} Primero, ${firstLower}. Además, ${secondLower}.`,
+      `${opener} Primero, ${firstLower}. Otro detalle: ${secondLower}.`,
+      `${opener} Primero, ${firstLower}. Fuera de esa jugada, ${secondLower}.`,
+      `${opener} Primero, ${firstLower}. En otro momento, ${secondLower}.`
+    ],
+    "two-clues": [
+      `${opener} La pista principal está en que ${firstLower}. En otra faceta, ${secondLower}.`,
+      `${opener} La pista principal está en que ${firstLower}. Una pista distinta: ${secondLower}.`,
+      `${opener} La pista principal está en que ${firstLower}. También merece atención cómo ${secondLower}.`,
+      `${opener} La pista principal está en que ${firstLower}. Más allá de ese ejemplo, ${secondLower}.`,
+      `${opener} La pista principal está en que ${firstLower}. En una fase distinta, ${secondLower}.`
+    ],
+    "second-detail": [
+      `${opener} La primera acción: ${firstLower}. También ${secondLower}.`,
+      `${opener} La primera acción: ${firstLower}. Otro aspecto: ${secondLower}.`,
+      `${opener} La primera acción: ${firstLower}. Conviene observar además cómo ${secondLower}.`,
+      `${opener} La primera acción: ${firstLower}. Un detalle diferente: ${secondLower}.`,
+      `${opener} La primera acción: ${firstLower}. En una fase aparte, ${secondLower}.`
+    ],
+    "separating-clue": [
+      `${opener} ${mention} ${firstLower}. Fuera de esa acción, ${secondLower}.`,
+      `${opener} ${mention} ${firstLower}. En otro momento, ${secondLower}.`,
+      `${opener} ${mention} ${firstLower}. También hay que notar cómo ${secondLower}.`,
+      `${opener} ${mention} ${firstLower}. En otra fase del juego, ${secondLower}.`,
+      `${opener} ${mention} ${firstLower}. Un detalle aparte: ${secondLower}.`
+    ],
+    "foundation-watch": [
+      `${opener} Conviene mirar primero cómo ${firstLower}. Más allá de eso, ${secondLower}.`,
+      `${opener} Conviene mirar primero cómo ${firstLower}. También hay que observar cómo ${secondLower}.`,
+      `${opener} Conviene mirar primero cómo ${firstLower}. Por separado, ${secondLower}.`,
+      `${opener} Conviene mirar primero cómo ${firstLower}. Otro punto: ${secondLower}.`,
+      `${opener} Conviene mirar primero cómo ${firstLower}. Más allá de la primera acción, ${secondLower}.`
+    ],
+    "different-phase": [
+      `${opener} En la primera fase, ${firstLower}. En otra parte de su juego, ${secondLower}.`,
+      `${opener} En la primera fase, ${firstLower}. En otro tramo, ${secondLower}.`,
+      `${opener} En la primera fase, ${firstLower}. Hay otro detalle: ${secondLower}.`,
+      `${opener} En la primera fase, ${firstLower}. En otra fase, ${secondLower}.`,
+      `${opener} En la primera fase, ${firstLower}. En una faceta aparte, ${secondLower}.`
+    ]
+  };
+  const variants = structures[parsed.structure] || structures["different-phase"];
+  return variants[cadenceIndex];
+}
+
+function formatPlayerStyleNote(parsed, mention, quality, actions) {
+  const [first, second] = actions;
+  const firstLower = lowerPlayerNoteAction(first);
+  const secondLower = lowerPlayerNoteAction(second);
+  const role = PLAYER_NOTE_ROLE_LABELS[parsed.role];
+  if (parsed.structure === "role-guide") {
+    return `Al observar a ${mention}, hay dos preguntas. La primera es si ${firstLower}. La segunda es si ${secondLower}.`;
+  }
+  if (parsed.historical && parsed.confidence === "role-level") {
+    if (!role) return "";
+    return formatHistoricalRoleLevelStyleNote(parsed, mention, role, actions);
+  }
+  if (parsed.historical) {
+    return formatHistoricalEvidenceStyleNote(parsed, mention, quality, actions);
+  }
+  if (parsed.supportingBeatIsRoleFallback) {
+    if (!role) return "";
+    return formatCurrentMixedFallbackStyleNote(parsed, mention, quality, role, actions);
+  }
+  if (!parsed.historical && parsed.supportRelation === "additional-trait") {
+    return formatCurrentAdditionalTraitStyleNote(parsed, mention, quality, actions);
+  }
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const structures = {
+    "paired-observation": () =>
+      `${opener} Se aprecia primero cuando ${firstLower} y vuelve a aparecer cuando ${secondLower}.`,
+    "two-clues": () =>
+      `${opener} La primera pista es que ${firstLower}. La segunda, que ${secondLower}.`,
+    "second-detail": () =>
+      `${opener} Primero, ${firstLower}. El segundo detalle aparece cuando ${secondLower}.`,
+    "separating-clue": () =>
+      `${opener} ${mention} ${firstLower}. En otra fase, ${secondLower}.`,
+    "repeated-evidence": () =>
+      `${opener} Una jugada lo muestra cuando ${firstLower}; otra lo confirma cuando ${secondLower}.`,
+    "example-another": () =>
+      `${opener} Un ejemplo: ${firstLower}. El otro: ${secondLower}.`,
+    "foundation-watch": () =>
+      `${opener} Conviene mirar primero cómo ${firstLower}. Después, cómo ${secondLower}.`,
+    "different-phase": () =>
+      `${opener} En una fase, ${firstLower}; cuando cambia la jugada, ${secondLower}.`,
+    "quality-defines-game": () =>
+      `${opener} ${first}. Esa misma lectura aparece cuando ${secondLower}.`,
+    "two-cues": () =>
+      `${opener} Dos acciones lo explican: ${firstLower}; además, ${secondLower}.`,
+    "build-two-cues": () =>
+      `${opener} Se reconoce tanto en cómo ${firstLower} como en cómo ${secondLower}.`,
+    "quality-defines": () =>
+      `${opener} Se ve cuando ${firstLower} y también cuando ${secondLower}.`,
+    "one-another": () =>
+      `${opener} Una pista está en que ${firstLower}; la otra, en que ${secondLower}.`,
+    "key-another": () =>
+      `${opener} ${first}. También cuenta que ${secondLower}.`,
+    "legacy-three": () =>
+      `${opener} ${first}. Por último, ${secondLower}.`
+  };
+  return (structures[parsed.structure] || structures["legacy-three"])();
+}
+
 export function formatPlayerNote(value, options = {}) {
   const parsed = getGeneratedPlayerCardCopy(value, {
-    historical: Boolean(options.historical)
+    historical: Boolean(options.historical),
+    copyMeta: options.copyMeta,
+    localizedName: options.localizedName
   });
   if (!parsed) {
     return "";
   }
 
   if (parsed.kind === "style") {
-    const quality = PLAYER_NOTE_QUALITIES[parsed.qualityId];
-    const actions = parsed.actionIds.map((id) => PLAYER_NOTE_ACTIONS[id]);
-    const mention = String(parsed.mention || options.localizedName || "").trim();
+    const quality = PLAYER_NOTE_QUALITIES[parsed.qualityId]
+      || HISTORICAL_PLAYER_NOTE_SEMANTICS[parsed.qualityId];
+    const actions = parsed.actionIds.map(
+      (id) => PLAYER_NOTE_ACTIONS[id] || HISTORICAL_PLAYER_NOTE_SEMANTICS[id]
+    );
+    const mention = String(options.localizedName || parsed.mention || "").trim();
     if (!mention || !quality || actions.some((action) => !action)) {
       return "";
     }
-    return [
-      formatPlayerStyleOpener(parsed, mention, quality),
-      ...actions.map((action) => `${action}.`)
-    ].join(" ");
+    return formatPlayerStyleNote(parsed, mention, quality, actions);
   }
 
   if (parsed.kind === "historical-note") {
@@ -1409,7 +1760,9 @@ export function formatPlayerNote(value, options = {}) {
 
 export function isTemplatedPlayerNote(value, options = {}) {
   return isGeneratedPlayerCardCopy(value, {
-    historical: Boolean(options.historical)
+    historical: Boolean(options.historical),
+    copyMeta: options.copyMeta,
+    localizedName: options.localizedName
   });
 }
 
@@ -2196,6 +2549,22 @@ export function formatSourcedShootoutReason(type, data = {}) {
   return `Si llegan a los penales, ${translateTeamName(data.teamName)} puede tener una ligera ventaja: ha ganado ${data.wins} de sus ${data.appearances} tandas mundialistas y ${data.goalkeeperName} nunca ha perdido una con su selección.`;
 }
 
+export function formatKeyInformationSentences(model, options = {}) {
+  return formatStructuredKeyInformationSentences(model, {
+    ...options,
+    teamName: options.teamName || translateTeamName(model?.team?.name, model?.team?.id),
+    opponentName: options.opponentName || translateTeamName(model?.opponent?.name, model?.opponent?.id)
+  });
+}
+
+export function formatKeyInformation(model, options = {}) {
+  return formatStructuredKeyInformation(model, {
+    ...options,
+    teamName: options.teamName || translateTeamName(model?.team?.name, model?.team?.id),
+    opponentName: options.opponentName || translateTeamName(model?.opponent?.name, model?.opponent?.id)
+  });
+}
+
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {
     return value;
@@ -2248,6 +2617,8 @@ const pack = deepFreeze({
     formatPlayerSkill,
     formatPlayerNote,
     isTemplatedPlayerNote,
+    formatKeyInformation,
+    formatKeyInformationSentences,
     formatAppMessage,
     formatWorldCupShootoutHistory,
     formatSourcedShootoutReason

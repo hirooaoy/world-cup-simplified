@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { historicalIdentityNameKey } from "./historical-player-identity.mjs";
 import { normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -74,7 +75,7 @@ function normalizeHistoricalTeamName(value) {
 }
 
 function historicalProfileVersionKey(name, teamName, tournamentYear) {
-  const nameKey = normalizePlayerName(name);
+  const nameKey = historicalIdentityNameKey(name, teamName);
   const teamKey = normalizeHistoricalTeamName(teamName);
   const year = Number(tournamentYear);
 
@@ -194,12 +195,10 @@ function getMissingHistoricalRefs(requiredRefs, profilesData) {
     .sort((a, b) => a.localeCompare(b));
 }
 
-function countRequiredHistoricalProfileImages(requiredRefs, profilesData) {
-  const profilesByVersion = profileVersionMap(profilesData);
-  return [...requiredRefs.keys()].filter((refKey) => {
-    const profile = profilesByVersion.get(refKey);
-    return typeof profile?.imageUrl === "string" && profile.imageUrl.trim();
-  }).length;
+function countHistoricalProfileImages(profilesData) {
+  return Object.values(profilesData.profiles || {}).filter(
+    (profile) => typeof profile?.imageUrl === "string" && profile.imageUrl.trim()
+  ).length;
 }
 
 const [
@@ -219,7 +218,8 @@ const historicalRefs = collectHistoricalRefs(historyData);
 const missingCurrent = getMissingNames(currentNames, playerProfilesData);
 const missingHistorical = getMissingHistoricalRefs(historicalRefs, historicalPlayerProfilesData);
 const currentImageCount = countRequiredProfileImages(currentNames, playerProfilesData);
-const historicalImageCount = countRequiredHistoricalProfileImages(historicalRefs, historicalPlayerProfilesData);
+const historicalProfileCount = Object.keys(historicalPlayerProfilesData.profiles || {}).length;
+const historicalImageCount = countHistoricalProfileImages(historicalPlayerProfilesData);
 const minimumHistoricalImageCount = Number(historicalPlayerProfilesData.coverage?.minimumImageCount || 0);
 const historicalImageShortfall = Math.max(0, minimumHistoricalImageCount - historicalImageCount);
 
@@ -258,6 +258,6 @@ console.log(
   [
     `Player card coverage passed: ${currentNames.size} current profiles and ${historicalRefs.size} historical profile versions.`,
     `Current profile photos: ${currentImageCount}/${currentNames.size}.`,
-    `Historical profile photos: ${historicalImageCount}/${historicalRefs.size}.`
+    `Historical profile photos: ${historicalImageCount}/${historicalProfileCount}.`
   ].join("\n")
 );

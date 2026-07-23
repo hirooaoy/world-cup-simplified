@@ -10841,9 +10841,9 @@
         "source": "canonical",
         "sourceUrl": "https://github.com/jfjelstul/worldcup"
       },
-      "El Arbi Hababi Hababi": {
-        "canonicalName": "El Arbi Hababi Hababi",
-        "displayName": "El Arbi Hababi Hababi",
+      "El Arbi Hababi": {
+        "canonicalName": "El Arbi Hababi",
+        "displayName": "El Arbi Hababi",
         "source": "canonical",
         "sourceUrl": "https://github.com/jfjelstul/worldcup"
       },
@@ -35803,9 +35803,9 @@
         "source": "phonetic-transliteration",
         "sourceUrl": "data/locales/player-name-transliterations.json"
       },
-      "El Arbi Hababi Hababi": {
-        "canonicalName": "El Arbi Hababi Hababi",
-        "displayName": "엘 아르비 하바비 하바비",
+      "El Arbi Hababi": {
+        "canonicalName": "El Arbi Hababi",
+        "displayName": "엘 아르비 하바비",
         "source": "phonetic-transliteration",
         "sourceUrl": "data/locales/player-name-transliterations.json"
       },
@@ -46359,7 +46359,7 @@
       },
       "Moderato": {
         "canonicalName": "Moderato",
-        "displayName": "보통",
+        "displayName": "모데라토",
         "source": "phonetic-transliteration",
         "sourceUrl": "data/locales/player-name-transliterations.json"
       },

@@ -59,8 +59,46 @@
         "Front-foot defending",
         "Aerial contests"
       ],
-      "note": "Al-Amri stands out for creating a clean shot before the defense can reset. He holds the route into the box until support arrives. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "他的突出特点是在防线重组前制造干净射门。他会守住进入禁区的路线，直到队友能对持球人施压。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
+      "note": "What separates Al-Amri is protecting the most dangerous space before stepping to the ball. Al-Amri holds the route into the box until support arrives. At another point, he meets the ball early instead of waiting underneath it.",
+      "noteZh": "理解Abdulelah Al-Amri，要先看先保护最危险空间，再考虑上抢。他会守住进入禁区的路线，直到队友能对持球人施压。比赛进入另一种局面时，他也会主动在最合适的高点迎球，而不是站在原地等球落下。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-another-moment",
+        "cadenceVariantIndex": 1,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "meet-ball-early"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "aerial-reading",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Front-foot defending",
+          "Aerial contests"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Front-foot defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial contests",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Abdullah Al-Hamdan": {
       "aliases": [
@@ -75,8 +113,46 @@
         "Link play",
         "Channel movement"
       ],
-      "note": "Al-Hamdan's signature is pressing with a clear target rather than simply chasing. He protects the ball with his body and returns it into a runner's path. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的比赛方式建立在带着明确目标逼抢，而不是只追着球跑上。他会用身体护住球，再把球送回跑动队友的线路。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "Al-Hamdan's signature is pressing with a clear target rather than simply chasing. Watch how he angles his run to block the easy pass as he closes the ball. Separately, he protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "理解Abdullah Al-Hamdan，要先看带着明确目标逼抢，而不是只追着球跑。他会在接近持球人时调整路线，同时封住最简单的传球。比赛进入另一种局面时，他也会用身体护住球，再把球送回跑动队友的线路。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-separately",
+        "cadenceVariantIndex": 0,
+        "signatureId": "targeted-press",
+        "actionIds": [
+          "press-angle",
+          "body-and-return"
+        ],
+        "headlineActionId": "press-angle",
+        "supportingSignatureId": "help-next-action",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Forward pressing",
+          "Link play"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Forward pressing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Link play",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Abdullah Al-Khaibari": {
       "aliases": [
@@ -91,8 +167,46 @@
         "Second balls",
         "Simple circulation"
       ],
-      "note": "Al-Khaibari stands out for protecting the most dangerous space before stepping to the ball. He positions himself for the next touch before the first contest is over. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他的突出特点是先保护最危险空间，再考虑上抢。他会第一次争抢还没结束，就先为下一脚触球站好位置。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "For Al-Khaibari, the foundation is reacting first when a duel leaves the ball free. Look first at how he positions himself for the next touch before the first contest is over. Beyond the first action, he uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "最能体现Abdullah Al-Khaibari特点的是对抗后球权松动时的第一反应。这一点直接体现在他会在第一次争抢还没结束时，就先为下一脚触球站好位置。除此之外，他也会在第一脚触球时先摆脱压力，再选择传球方向。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond-action",
+        "cadenceVariantIndex": 4,
+        "signatureId": "second-ball-reaction",
+        "actionIds": [
+          "anticipate-second-ball",
+          "first-touch-escape"
+        ],
+        "headlineActionId": "anticipate-second-ball",
+        "supportingSignatureId": "pressure-composure",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Second balls",
+          "Simple circulation"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Second balls",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Simple circulation",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Ahmed Al-Kassar": {
       "aliases": [
@@ -112,9 +226,47 @@
         "Penalty-area control",
         "Restart choices"
       ],
-      "note": "Al-Kassar stands out for sharp reactions backed by early positioning. He uses his first touch to escape pressure before choosing the pass. He chooses the simple restart before pressure can close in.",
-      "noteZh": "他的突出特点是提前站位后的快速反应。他会第一脚触球先摆脱压力，再选择传球方向。他也会在逼抢靠近前选择最稳妥的出球方式。",
-      "sourceUrl": "https://www.transfermarkt.com/ahmed-al-kassar/profil/spieler/177956"
+      "note": "The key to Al-Kassar is sharp reactions backed by early positioning. He sets his feet before the shot and reacts without an extra step. Elsewhere in the game, Al-Kassar leaves his line only with a clear route to take pressure off his defenders.",
+      "noteZh": "理解Ahmed Al-Kassar，要先看提前站位后的快速反应。他会在射门前站稳脚步，再用最少动作完成扑救。比赛进入另一种局面时，他也会判断何时出击，替后卫化解高球压力。",
+      "sourceUrl": "https://www.transfermarkt.com/ahmed-al-kassar/profil/spieler/177956",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-elsewhere-game",
+        "cadenceVariantIndex": 1,
+        "signatureId": "early-position-reactions",
+        "actionIds": [
+          "set-and-react",
+          "claim-timing"
+        ],
+        "headlineActionId": "set-and-react",
+        "supportingSignatureId": "crowded-goal-command",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Reaction saves",
+          "Penalty-area control"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Reaction saves",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-area control",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Alaa Hejji": {
       "aliases": [
@@ -134,9 +286,47 @@
         "Counter-press support",
         "Tempo control"
       ],
-      "note": "Hejji is defined by keeping the ball calm when pressure arrives. He angles his run to block the easy pass as he closes the ball. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他靠压力到来时仍能让球保持稳定与同位置球员拉开差异。他会接近持球人时调整路线，同时封住最简单的传球。他也会出球后继续移动，让接球队友始终有支援。",
-      "sourceUrl": "https://www.transfermarkt.com/alaa-hejji/profil/spieler/443937"
+      "note": "Al Hejji's signature is keeping the ball calm when pressure arrives. Watch how he uses his first touch to escape pressure before choosing the pass. Separately, he angles his run to block the easy pass as he closes the ball.",
+      "noteZh": "压力到来时仍能让球保持稳定是理解Alaa Al Hejji踢法的关键。先看他如何在第一脚触球时先摆脱压力，再选择传球方向。到了另一个比赛环节，他会在接近持球人时调整路线，同时封住最简单的传球。",
+      "sourceUrl": "https://www.transfermarkt.com/alaa-hejji/profil/spieler/443937",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-separately",
+        "cadenceVariantIndex": 0,
+        "signatureId": "pressure-composure",
+        "actionIds": [
+          "first-touch-escape",
+          "press-angle"
+        ],
+        "headlineActionId": "first-touch-escape",
+        "supportingSignatureId": "targeted-press",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Central circulation",
+          "Counter-press support"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Central circulation",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Counter-press support",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ali Lajami": {
       "transfermarktPlayerCode": "ali-lajami",
@@ -147,8 +337,46 @@
         "Aerial defending",
         "Box clearances"
       ],
-      "note": "Watch Lajami for protecting the most dangerous space before stepping to the ball. He meets the ball early instead of waiting underneath it. He waits for a loose touch and then steps through the ball.",
-      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会等对手触球稍大后再连人带球一起压上。"
+      "note": "What separates Lajami is making the safer decision before a duel becomes an emergency. Lajami protects the route to goal and challenges only when the touch is loose. In another phase of play, he holds the route into the box until support arrives.",
+      "noteZh": "最能体现Ali Lajami特点的是对抗变成险情前做出更安全的选择。这一点直接体现在他会先封住通向球门的路线，再等待对手触球失误时上抢。除此之外，他也会守住进入禁区的路线，直到队友能对持球人施压。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-phase-of-play",
+        "cadenceVariantIndex": 3,
+        "signatureId": "safe-defensive-decision",
+        "actionIds": [
+          "protect-then-challenge",
+          "hold-box-route"
+        ],
+        "headlineActionId": "protect-then-challenge",
+        "supportingSignatureId": "protect-danger-space",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-back cover",
+          "Box clearances"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-back cover",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Box clearances",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ali Majrashi": {
       "transfermarktPlayerCode": "ali-majrashi",
@@ -159,8 +387,46 @@
         "Recovery speed",
         "Wide duels"
       ],
-      "note": "Majrashi stands out for choosing the moment to join an attack from deep. He changes pace after the defender has committed his feet. He waits for a loose touch and then steps through the ball.",
-      "noteZh": "他的突出特点是从后场加入进攻的启动时机。他会等防守者脚步固定后突然变速。他也会等对手触球稍大后再连人带球一起压上。"
+      "note": "Majrashi's signature is choosing the moment to join an attack from deep. Watch how he waits until the wide defender looks inside before running beyond him. He also turns early and closes the runner before the box.",
+      "noteZh": "Ali Majrashi最鲜明的特点是从后场加入进攻的启动时机。一个直接线索是他会等边路防守者看向内侧后再从外线套上。另一个独立细节是他会提前转身，在对手进入禁区前缩短距离。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-he-also",
+        "cadenceVariantIndex": 1,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "recover-before-box"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "recovery-speed",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Right-back overlaps",
+          "Recovery speed"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Right-back overlaps",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery speed",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ayman Yahya": {
       "aliases": [
@@ -175,8 +441,46 @@
         "Left-side flexibility",
         "One-on-one defending"
       ],
-      "note": "Yahya stands out for making purposeful movement away from the ball. He holds the route into the box until support arrives. He changes pace after the defender has committed his feet.",
-      "noteZh": "他的突出特点是用有目的的无球移动创造接应点。他会守住进入禁区的路线，直到队友能对持球人施压。他也会等防守者脚步固定后突然变速。"
+      "note": "Watch Yahya for changing direction without losing control of the ball. The clearest example is how he draws the first challenge, then carries through the gap. A separate clue is how Yahya waits for a loose touch and then steps through the ball.",
+      "noteZh": "Ayman Yahya的比赛建立在变向时仍把球控制在脚下之上。首先看他如何主动吸引第一次上抢，再带球穿过由此出现的空当。另一个方面是他会等对手触球稍大后果断上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-separate-clue",
+        "cadenceVariantIndex": 1,
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "carry-through-gap",
+          "win-loose-touch"
+        ],
+        "headlineActionId": "carry-through-gap",
+        "supportingSignatureId": "duel-timing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Wide carrying",
+          "One-on-one defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Wide carrying",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "One-on-one defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Firas Al-Buraikan": {
       "aliases": [
@@ -191,8 +495,46 @@
         "Link play",
         "Penalty-box timing"
       ],
-      "note": "Al-Buraikan stands out for starting his run while defenders are still watching the ball. He protects the ball with his body and returns it into a runner's path. He arrives in the box late enough to be difficult to track.",
-      "noteZh": "他的突出特点是在防守者仍盯着球时提前启动。他会用身体护住球，再把球送回跑动队友的线路。他也会稍晚进入禁区，让盯防者难以持续跟住。"
+      "note": "Al-Buraikan stands out for starting his run while defenders are still watching the ball. He moves through the gap between full-back and centre-back. Al-Buraikan also protects the ball with his body and returns it into a runner's path.",
+      "noteZh": "Firas Al-Buraikan最鲜明的特点是防守者仍盯着球时提前启动。一个直接线索是他会从边后卫与中后卫之间的空当穿过。另一个独立细节是他会用身体护住球，再把球送回跑动队友的线路。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "early-run",
+        "actionIds": [
+          "attack-channel-gap",
+          "body-and-return"
+        ],
+        "headlineActionId": "attack-channel-gap",
+        "supportingSignatureId": "help-next-action",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Centre-forward movement",
+          "Link play"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Centre-forward movement",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Link play",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Hassan Al-Tambakti": {
       "aliases": [
@@ -207,8 +549,46 @@
         "Duel defending",
         "High-line cover"
       ],
-      "note": "Al-Tambakti is defined by recovery speed when the defensive line is exposed. He waits for a loose touch and then steps through the ball. He holds the route into the box until support arrives.",
-      "noteZh": "他靠防线暴露后的回追速度与同位置球员拉开差异。他会等对手触球稍大后再连人带球一起压上。他也会守住进入禁区的路线，直到队友能对持球人施压。"
+      "note": "The key to Al-Tambakti is recovery speed when the defensive line is exposed. He turns early and closes the runner before the box. There is another side to his game: he waits for a loose touch and then steps through the ball.",
+      "noteZh": "Hassan Al-Tambakti最鲜明的特点是防线暴露后的回追速度。一个直接线索是他会提前转身，在对手进入禁区前缩短距离。另一个独立细节是他会等对手触球稍大后果断上抢。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-side",
+        "cadenceVariantIndex": 0,
+        "signatureId": "recovery-speed",
+        "actionIds": [
+          "recover-before-box",
+          "win-loose-touch"
+        ],
+        "headlineActionId": "recover-before-box",
+        "supportingSignatureId": "duel-timing",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Recovery pace",
+          "Duel defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery pace",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Duel defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Hassan Kadesh": {
       "aliases": [
@@ -228,9 +608,47 @@
         "Back-post defending",
         "Set-piece presence"
       ],
-      "note": "Watch Kadesh for making the safer decision before a duel becomes an emergency. He checks the runner over his shoulder before the final pass arrives. He varies the height and pace of his delivery.",
-      "noteZh": "要看懂他的作用，关键是在对抗变成险情前做出更安全的选择。留意他如何最后一传到来前回头确认跑动者的位置。他也会通过改变落点和球速寻找防线最薄弱的区域。",
-      "sourceUrl": "https://www.transfermarkt.com/hassan-kadesh/profil/spieler/260859"
+      "note": "What separates Kadesh is staying connected to runners when the ball moves elsewhere. Kadesh checks the runner over his shoulder before the final pass arrives. A separate detail appears when he meets the ball early instead of waiting underneath it.",
+      "noteZh": "看Hassan Kadesh的作用，关键是球转移到别处时仍能跟住无球跑动。他会在最后一传到来前回头确认跑动者的位置。换到另一个阶段，还可以看到他会主动在最合适的高点迎球，而不是站在原地等球落下。",
+      "sourceUrl": "https://www.transfermarkt.com/hassan-kadesh/profil/spieler/260859",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-separate-detail",
+        "cadenceVariantIndex": 4,
+        "signatureId": "runner-tracking",
+        "actionIds": [
+          "check-runner",
+          "meet-ball-early"
+        ],
+        "headlineActionId": "check-runner",
+        "supportingSignatureId": "aerial-reading",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Back-post defending",
+          "Set-piece presence"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Back-post defending",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Set-piece presence",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Jehad Thakri": {
       "aliases": [
@@ -250,9 +668,47 @@
         "Aerial defending",
         "Box protection"
       ],
-      "note": "Watch Thakri for the flexibility to fill different roles without breaking the team's shape. He meets the ball early instead of waiting underneath it. He holds the route into the box until support arrives.",
-      "noteZh": "要看懂他的作用，关键是在多个角色之间切换时仍保持球队结构。留意他如何主动在最合适的高点迎球，而不是站在原地等球落下。他也会守住进入禁区的路线，直到队友能对持球人施压。",
-      "sourceUrl": "https://www.transfermarkt.com/jehad-thakri/profil/spieler/901334"
+      "note": "For Thakri, the foundation is protecting the most dangerous space before stepping to the ball. Look first at how he holds the route into the box until support arrives. Beyond that, watch how he moves toward the dropping ball and contests it before the attacker can settle.",
+      "noteZh": "观察Jehad Thakri时，可以先看先保护最危险空间，再考虑上抢。他会守住进入禁区的路线，直到队友能对持球人施压。另一个比赛细节是他会迎向落下的球，在进攻者站稳前参与争抢。",
+      "sourceUrl": "https://www.transfermarkt.com/jehad-thakri/profil/spieler/901334",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond",
+        "cadenceVariantIndex": 0,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-box-route",
+          "contest-aerial-ball"
+        ],
+        "headlineActionId": "hold-box-route",
+        "supportingSignatureId": "aerial-defending",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Box protection",
+          "Aerial defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Box protection",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Aerial defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Khalid Al-Ghannam": {
       "aliases": [
@@ -267,8 +723,45 @@
         "Transition carries",
         "Inside runs"
       ],
-      "note": "Al-Ghannam's signature is changing direction without losing control of the ball. He changes his position early enough to give the passer a clear target. He moves through the gap between full-back and centre-back.",
-      "noteZh": "他的比赛方式建立在变向时仍把球控制在脚下上。他会提前改变位置，为传球队友提供清晰目标。他也会从边后卫与中后卫之间的空当穿过。"
+      "note": "Al-Ghannam stands out for changing direction without losing control of the ball. He draws the first challenge, then carries through the gap. A different question is whether he changes his position early enough to give the passer a clear target.",
+      "noteZh": "Khalid Al-Ghannam的优势在于变向时仍把球控制在脚下。最直接的表现是他会主动吸引第一次上抢，再带球穿过由此出现的空当。想看得更完整，还要观察他是否会提前调整位置，为持球队友提供清晰目标。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "signatureId": "close-control-direction",
+        "actionIds": [
+          "carry-through-gap",
+          "offer-clear-target"
+        ],
+        "headlineActionId": "carry-through-gap",
+        "supportingSignatureId": "purposeful-off-ball",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "role-responsibility",
+        "sourceSkills": [
+          "Left-wing dribbling"
+        ],
+        "roleFallbacks": [
+          "Direct running"
+        ],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-wing dribbling",
+            "grade": "broad"
+          },
+          {
+            "kind": "role-fallback",
+            "skill": "Direct running",
+            "grade": "role-level"
+          }
+        ],
+        "evidenceTier": "limited",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.65
+      }
     },
     "Mohamed Kanno": {
       "transfermarktPlayerCode": "mohamed-kanno",
@@ -279,8 +772,46 @@
         "Ball carrying",
         "Late box runs"
       ],
-      "note": "Kanno's signature is using strength without slowing the next action. He draws the first challenge, then carries through the gap. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "他的比赛方式建立在在对抗中用力量但不拖慢下一步上。他会主动吸引第一次上抢，再带球穿过由此出现的空当。他也会出球后继续移动，让接球队友始终有支援。"
+      "note": "For Kanno, the foundation is waiting for a defender's attention to shift before moving. Look first at how he arrives in the box late enough to be difficult to track. A separate point is how he absorbs contact and keeps the ball close enough to continue forward.",
+      "noteZh": "Mohamed Kanno的优势在于等防守者注意力转移后再启动。最直接的表现是他会稍晚进入禁区，让盯防者难以持续跟住。另一个值得观察的细节是他会承受身体接触后仍把球留在可继续推进的位置。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-separate-point",
+        "cadenceVariantIndex": 3,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "absorb-and-carry"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "strength-continuity",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Late box runs",
+          "Midfield power"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Late box runs",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield power",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Mohammed Abu Al-Shamat": {
       "aliases": [
@@ -300,9 +831,47 @@
         "Overlap timing",
         "Defensive energy"
       ],
-      "note": "Al-Shamat stands out for recovering position without panicking after the first line is broken. He waits until the wide defender looks inside before running beyond him. He angles his run to block the easy pass as he closes the ball.",
-      "noteZh": "他的突出特点是第一道防线被突破后仍能冷静回位。他会等边路防守者看向内侧后再从外线套上。他也会接近持球人时调整路线，同时封住最简单的传球。",
-      "sourceUrl": "https://www.transfermarkt.com/mohammed-abu-al-shamat/profil/spieler/1181852"
+      "note": "Al-Shamat's signature is choosing the moment to join an attack from deep. Watch how he waits until the wide defender looks inside before running beyond him. He also turns early and protects the route toward goal.",
+      "noteZh": "观察Mohammed Abu Al-Shamat时，可以先看从后场加入进攻的启动时机。他会等边路防守者看向内侧后再从外线套上。另一个比赛细节是他会提前转身，优先封住通向球门的路线。",
+      "sourceUrl": "https://www.transfermarkt.com/mohammed-abu-al-shamat/profil/spieler/1181852",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "paired-observation",
+        "cadenceVariantId": "paired-he-also",
+        "cadenceVariantIndex": 1,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap timing",
+          "Right-back recovery"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap timing",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Right-back recovery",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Mohammed Al-Owais": {
       "transfermarktPlayerCode": "mohammed-al-owais",
@@ -314,8 +883,46 @@
         "Big-game calm",
         "Long reach"
       ],
-      "note": "Al-Owais is defined by sharp reactions backed by early positioning. He uses his first touch to escape pressure before choosing the pass. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "他靠提前站位后的快速反应与同位置球员拉开差异。他会第一脚触球先摆脱压力，再选择传球方向。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "Watch Al-Owais for staying ready through long quiet spells. The clearest example is how he keeps his decisions calm when a sudden save is required. Elsewhere, Al-Owais keeps his feet active and makes the save with the fewest movements.",
+      "noteZh": "最能体现Mohammed Al-Owais特点的是长时间无事可做后依然保持专注。这一点直接体现在他会在突然需要扑救时仍能冷静判断。除此之外，他也会保持脚下轻快，用最少动作完成扑救。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-elsewhere",
+        "cadenceVariantIndex": 0,
+        "signatureId": "long-focus",
+        "actionIds": [
+          "sudden-save-calm",
+          "economical-save"
+        ],
+        "headlineActionId": "sudden-save-calm",
+        "supportingSignatureId": "goalkeeper-balance",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Big-game calm",
+          "Long reach"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Big-game calm",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Long reach",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Moteb Al-Harbi": {
       "aliases": [
@@ -335,9 +942,47 @@
         "Recovery defending",
         "Left-footed service"
       ],
-      "note": "Al-Harbi's signature is choosing the moment to join an attack from deep. He turns early and protects the route toward goal. He looks up before crossing and picks a runner rather than an empty area.",
-      "noteZh": "他的比赛方式建立在从后场加入进攻的启动时机上。他会提前转身，优先封住通向球门的路线。他也会传中前先观察，再把球送向具体跑动者。",
-      "sourceUrl": "https://www.transfermarkt.com/moteb-al-harbi/profil/spieler/869509"
+      "note": "For Al-Harbi, the foundation is choosing the moment to join an attack from deep. Look first at how he waits until the wide defender looks inside before running beyond him. Beyond that, watch how he turns early and protects the route toward goal.",
+      "noteZh": "Moteb Al-Harbi的优势在于从后场加入进攻的启动时机。最直接的表现是他会等边路防守者看向内侧后再从外线套上。另一个值得观察的细节是他会提前转身，优先封住通向球门的路线。",
+      "sourceUrl": "https://www.transfermarkt.com/moteb-al-harbi/profil/spieler/869509",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "foundation-watch",
+        "cadenceVariantId": "foundation-beyond",
+        "cadenceVariantIndex": 0,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-back overlaps",
+          "Recovery defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-back overlaps",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Musab Al-Juwayr": {
       "aliases": [
@@ -352,8 +997,46 @@
         "Set-piece delivery",
         "Midfield tempo"
       ],
-      "note": "Al-Juwayr is defined by moving the defense with the weight and angle of his passing. He varies the height and pace of his delivery. He uses his first touch to escape pressure before choosing the pass.",
-      "noteZh": "他靠用传球的力度和角度移动防线与同位置球员拉开差异。他会通过改变落点和球速寻找防线最薄弱的区域。他也会第一脚触球先摆脱压力，再选择传球方向。"
+      "note": "Al-Juwayr stands out for moving the defense with the weight and angle of his passing. He takes the first available forward lane before it closes. Also look at how Al-Juwayr uses his first touch to escape pressure before choosing the pass.",
+      "noteZh": "看Musab Al-Juwayr的作用，关键是用传球的力度和角度移动防线。他会在向前线路关闭前及时送出传球。换到另一个阶段，还可以看到他会在第一脚触球时先摆脱压力，再选择传球方向。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-also-notice",
+        "cadenceVariantIndex": 2,
+        "signatureId": "passing-weight-angle",
+        "actionIds": [
+          "first-forward-lane",
+          "first-touch-escape"
+        ],
+        "headlineActionId": "first-forward-lane",
+        "supportingSignatureId": "pressure-composure",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Progressive passing",
+          "Midfield tempo"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Progressive passing",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield tempo",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Nasser Al-Dawsari": {
       "aliases": [
@@ -373,9 +1056,47 @@
         "Passing discipline",
         "Late shooting"
       ],
-      "note": "Watch Al-Dawsari for protecting the most dangerous space before stepping to the ball. He shifts onto his stronger foot and shoots with little backlift. He moves after releasing the ball so the receiver still has support.",
-      "noteZh": "要看懂他的作用，关键是先保护最危险空间，再考虑上抢。留意他如何把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会出球后继续移动，让接球队友始终有支援。",
-      "sourceUrl": "https://www.transfermarkt.com/nasser-al-dawsari/profil/spieler/509911"
+      "note": "What separates Al-Dawsari is protecting the most dangerous space before stepping to the ball. Al-Dawsari holds the passing lane into midfield until support arrives. Away from that action, he shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "Nasser Al-Dawsari的比赛建立在先保护最危险空间，再考虑上抢之上。首先看他如何守住通向中场核心区域的传球线路，直到队友能对持球人施压。另一个方面是他会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "sourceUrl": "https://www.transfermarkt.com/nasser-al-dawsari/profil/spieler/509911",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "separating-clue",
+        "cadenceVariantId": "separates-away-action",
+        "cadenceVariantIndex": 0,
+        "signatureId": "protect-danger-space",
+        "actionIds": [
+          "hold-midfield-lane",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "hold-midfield-lane",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Midfield coverage",
+          "Late shooting"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Midfield coverage",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Late shooting",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Nawaf Al-Aqidi": {
       "aliases": [
@@ -390,8 +1111,46 @@
         "Goalkeeper distribution",
         "Cross handling"
       ],
-      "note": "Al-Aqidi's signature is sharp reactions backed by early positioning. He chooses the simple restart before pressure can close in. He judges when to leave his line and takes pressure off his defenders.",
-      "noteZh": "他的比赛方式建立在提前站位后的快速反应上。他会在逼抢靠近前选择最稳妥的出球方式。他也会判断何时出击，替后卫化解高球压力。"
+      "note": "Al-Aqidi stands out for command of the crowded space around goal. He attacks the cross at the highest point he can control before traffic closes. Al-Aqidi also keeps his hands and feet connected so the reflex block stays controlled.",
+      "noteZh": "Nawaf Al-Aqidi最鲜明的特点是掌控门前拥挤空间的能力。一个直接线索是他会在人群合拢前迎向传中，并在最高可控点处理来球。另一个独立细节是他会让手脚保持联动，使本能挡球也能控制方向。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "goalkeeper",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-name-also",
+        "cadenceVariantIndex": 0,
+        "signatureId": "crowded-goal-command",
+        "actionIds": [
+          "claim-cross-high",
+          "controlled-reflex-block"
+        ],
+        "headlineActionId": "claim-cross-high",
+        "supportingSignatureId": "compact-reflex-shape",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Cross handling",
+          "Reflex saves"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Cross handling",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Reflex saves",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Nawaf Boushal": {
       "aliases": [
@@ -411,9 +1170,47 @@
         "Recovery speed",
         "Wide defending"
       ],
-      "note": "Boushal's signature is pressing with a clear target rather than simply chasing. He turns early and closes the runner before the box. He holds the route into the box until support arrives.",
-      "noteZh": "他的比赛方式建立在带着明确目标逼抢，而不是只追着球跑上。他会提前转身，在对手进入禁区前缩短距离。他也会守住进入禁区的路线，直到队友能对持球人施压。",
-      "sourceUrl": "https://www.transfermarkt.com/nawaf-boushal/profil/spieler/821377"
+      "note": "Watch Boushal for recovery speed when the defensive line is exposed. The clearest example is how he turns early and closes the runner before the box. In a different phase, Boushal gets close enough to block the delivery without diving in.",
+      "noteZh": "理解Nawaf Boushal，要先看防线暴露后的回追速度。他会提前转身，在对手进入禁区前缩短距离。比赛进入另一种局面时，他也会靠近到能封堵传中，但不贸然出脚。",
+      "sourceUrl": "https://www.transfermarkt.com/nawaf-boushal/profil/spieler/821377",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-different-phase",
+        "cadenceVariantIndex": 4,
+        "signatureId": "recovery-speed",
+        "actionIds": [
+          "recover-before-box",
+          "block-cross-angle"
+        ],
+        "headlineActionId": "recover-before-box",
+        "supportingSignatureId": "cross-angle-control",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Recovery speed",
+          "Wide defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery speed",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Wide defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Saleh Al-Shehri": {
       "aliases": [
@@ -428,8 +1225,46 @@
         "First-time finishing",
         "Aerial timing"
       ],
-      "note": "Al-Shehri's signature is waiting for a defender's attention to shift before moving. He shifts onto his stronger foot and shoots with little backlift. He meets the ball early instead of waiting underneath it.",
-      "noteZh": "他的比赛方式建立在等防守者注意力转移后再启动上。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会主动在最合适的高点迎球，而不是站在原地等球落下。"
+      "note": "The key to Al-Shehri is waiting for a defender's attention to shift before moving. He arrives in the box late enough to be difficult to track. Elsewhere in the game, Al-Shehri meets the pass without adding an extra touch.",
+      "noteZh": "理解Saleh Al-Shehri，要先看等防守者注意力转移后再启动。他会稍晚进入禁区，让盯防者难以持续跟住。比赛进入另一种局面时，他也会迎球直接完成射门，不增加调整触球。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-elsewhere-game",
+        "cadenceVariantIndex": 1,
+        "signatureId": "delayed-run",
+        "actionIds": [
+          "late-box-arrival",
+          "first-time-finish"
+        ],
+        "headlineActionId": "late-box-arrival",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Penalty-box movement",
+          "First-time finishing"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Penalty-box movement",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "First-time finishing",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Salem Al-Dawsari": {
       "aliases": [
@@ -444,8 +1279,46 @@
         "Inside shooting",
         "Big-moment carrying"
       ],
-      "note": "Al-Dawsari stands out for seeing the decisive pass one beat before it opens. He shifts onto his stronger foot and shoots with little backlift. He changes his position early enough to give the passer a clear target.",
-      "noteZh": "他的突出特点是比防线早一步看到决定性的传球。他会把球调整到惯用脚，用很小的摆腿迅速完成射门。他也会提前改变位置，为传球队友提供清晰目标。"
+      "note": "The key to Al-Dawsari is seeing the decisive pass one beat before it opens. He draws a defender in and releases the runner behind him. There is another side to his game: he shifts onto his stronger foot and shoots with little backlift.",
+      "noteZh": "理解Salem Al-Dawsari，要先看比防线早一步看到决定性的传球。他会先吸引防守者靠近，再把球送到其身后的跑动线路。比赛进入另一种局面时，他也会把球调整到惯用脚，用很小的摆腿迅速完成射门。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-side",
+        "cadenceVariantIndex": 0,
+        "signatureId": "see-decisive-pass",
+        "actionIds": [
+          "draw-and-release",
+          "shoot-strong-foot"
+        ],
+        "headlineActionId": "draw-and-release",
+        "supportingSignatureId": "clean-shot",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Left-wing creation",
+          "Inside shooting"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Left-wing creation",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Inside shooting",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Saud Abdulhamid": {
       "transfermarktPlayerCode": "saud-abdulhamid",
@@ -456,8 +1329,46 @@
         "Overlap timing",
         "Recovery defending"
       ],
-      "note": "Abdulhamid's signature is making the safer decision before a duel becomes an emergency. He waits until the wide defender looks inside before running beyond him. He turns early and protects the route toward goal.",
-      "noteZh": "他的比赛方式建立在在对抗变成险情前做出更安全的选择上。他会等边路防守者看向内侧后再从外线套上。他也会提前转身，优先封住通向球门的路线。"
+      "note": "Watch Abdulhamid for choosing the moment to join an attack from deep. The clearest example is how he waits until the wide defender looks inside before running beyond him. Elsewhere, Abdulhamid turns early and protects the route toward goal.",
+      "noteZh": "看Saud Abdulhamid的作用，关键是从后场加入进攻的启动时机。他会等边路防守者看向内侧后再从外线套上。换到另一个阶段，还可以看到他会提前转身，优先封住通向球门的路线。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "defender",
+        "structureId": "two-clues",
+        "cadenceVariantId": "watch-elsewhere",
+        "cadenceVariantIndex": 0,
+        "signatureId": "deep-attack-timing",
+        "actionIds": [
+          "overlap-timing",
+          "protect-goal-route"
+        ],
+        "headlineActionId": "overlap-timing",
+        "supportingSignatureId": "calm-recovery",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Overlap timing",
+          "Recovery defending"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Overlap timing",
+            "grade": "specific"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Recovery defending",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.84
+      }
     },
     "Sultan Mandash": {
       "transfermarktPlayerCode": "sultan-mandash",
@@ -468,8 +1379,46 @@
         "Pressing effort",
         "Direct carrying"
       ],
-      "note": "Mandash is defined by making purposeful movement away from the ball. He angles his run to block the easy pass as he closes the ball. He draws the first challenge, then carries through the gap.",
-      "noteZh": "他靠用有目的的无球移动创造接应点与同位置球员拉开差异。他会接近持球人时调整路线，同时封住最简单的传球。他也会主动吸引第一次上抢，再带球穿过由此出现的空当。"
+      "note": "Mandash stands out for pressing with a clear target rather than simply chasing. He angles his run to block the easy pass as he closes the ball. Also look at how Mandash draws the first challenge, then carries through the gap.",
+      "noteZh": "Sultan Mandash最鲜明的特点是带着明确目标逼抢，而不是只追着球跑。一个直接线索是他会在接近持球人时调整路线，同时封住最简单的传球。另一个独立细节是他会主动吸引第一次上抢，再带球穿过由此出现的空当。",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "forward",
+        "structureId": "second-detail",
+        "cadenceVariantId": "standout-also-notice",
+        "cadenceVariantIndex": 2,
+        "signatureId": "targeted-press",
+        "actionIds": [
+          "press-angle",
+          "carry-through-gap"
+        ],
+        "headlineActionId": "press-angle",
+        "supportingSignatureId": "close-control-direction",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Pressing effort",
+          "Direct carrying"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Pressing effort",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Direct carrying",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     },
     "Ziyad Al-Johani": {
       "aliases": [
@@ -489,9 +1438,47 @@
         "Central coverage",
         "Short progression"
       ],
-      "note": "Al-Johani's signature is choosing the moment of contact instead of diving in. He holds the passing lane into midfield until support arrives. He plays through nearby pressure instead of around it.",
-      "noteZh": "他的比赛方式建立在选择身体接触时机，而不是贸然上抢上。他会守住通向中场核心区域的传球线路，直到队友能对持球人施压。他也会穿过最近一层逼抢，而不总是绕开压力。",
-      "sourceUrl": "https://www.transfermarkt.com/ziyad-al-johani/profil/spieler/901079"
+      "note": "The key to Al-Johani is choosing the moment of contact instead of diving in. He waits for a loose touch and then steps through the ball. In another phase, Al-Johani takes the first available forward lane before it closes.",
+      "noteZh": "选择身体接触时机，而不是贸然上抢构成Ziyad Al-Johani踢法的核心。他会等对手触球稍大后果断上抢。除此之外，值得留意他会在向前线路关闭前及时送出传球。",
+      "sourceUrl": "https://www.transfermarkt.com/ziyad-al-johani/profil/spieler/901079",
+      "noteMeta": {
+        "origin": "generated",
+        "generatorVersion": "current-player-style-v6",
+        "roleGroup": "midfielder",
+        "structureId": "different-phase",
+        "cadenceVariantId": "key-another-phase",
+        "cadenceVariantIndex": 3,
+        "signatureId": "duel-timing",
+        "actionIds": [
+          "win-loose-touch",
+          "first-forward-lane"
+        ],
+        "headlineActionId": "win-loose-touch",
+        "supportingSignatureId": "passing-weight-angle",
+        "supportRelation": "additional-trait",
+        "semanticSelectionBasis": "editorial-specificity-source-order-v1",
+        "fallbackFraming": "none",
+        "sourceSkills": [
+          "Ball winning",
+          "Short progression"
+        ],
+        "roleFallbacks": [],
+        "beatSources": [
+          {
+            "kind": "profile-skill",
+            "skill": "Ball winning",
+            "grade": "broad"
+          },
+          {
+            "kind": "profile-skill",
+            "skill": "Short progression",
+            "grade": "broad"
+          }
+        ],
+        "evidenceTier": "supported",
+        "confidenceBasis": "editorial-skill-specificity-v2",
+        "confidence": 0.76
+      }
     }
   }
 }

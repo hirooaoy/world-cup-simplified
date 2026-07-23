@@ -388,8 +388,7 @@ body.is-juggle-active .player-card-floating.is-visible {
 
 .catch-up-button[aria-expanded="true"] {
   background: rgba(10, 10, 10, 0.035);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5),
-    0 3px 12px rgba(10, 10, 10, 0.07);
+  box-shadow: none;
   color: var(--text);
 }
 
@@ -436,8 +435,7 @@ body.is-juggle-active .player-card-floating.is-visible {
 
 .settings-button[aria-expanded="true"] {
   background: rgba(10, 10, 10, 0.035);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5),
-    0 3px 12px rgba(10, 10, 10, 0.07);
+  box-shadow: none;
   color: var(--text);
 }
 
@@ -769,6 +767,12 @@ body.is-juggle-active .player-card-floating.is-visible {
 .settings-button:hover,
 .language-option:hover {
   color: rgba(10, 10, 10, 0.86);
+}
+
+:is(.catch-up-button, .settings-button):hover {
+  border-color: rgba(10, 10, 10, 0.1);
+  background: rgba(10, 10, 10, 0.035);
+  box-shadow: none;
 }
 
 .language-option.is-active,
@@ -1478,12 +1482,14 @@ body.has-final-celebration .site-header:has(
 
 .final-celebration-reveal {
   --final-celebration-reveal-gap: 0px;
+  position: relative;
   grid-column: 1 / -1;
   grid-row: 1;
   width: 100%;
   max-height: var(--final-celebration-reveal-height, 420px);
   margin-bottom: var(--final-celebration-reveal-gap);
   overflow: hidden;
+  border-radius: 22px;
   transition:
     max-height 900ms cubic-bezier(0.2, 0.72, 0.18, 1),
     margin-bottom 900ms cubic-bezier(0.2, 0.72, 0.18, 1);
@@ -1499,6 +1505,24 @@ body.has-final-celebration .site-header:has(
   max-height: none;
   overflow: visible;
   will-change: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .final-celebration-reveal:not(.is-settled)::after {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-bottom: 1px solid color-mix(in srgb, var(--celebration-primary) 26%, transparent);
+    border-radius: inherit;
+    content: "";
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 900ms ease-out;
+  }
+
+  .final-celebration-reveal.is-entering::after {
+    opacity: 0;
+  }
 }
 
 .final-celebration-banner {
@@ -1802,6 +1826,10 @@ body.has-final-celebration #matches-view .match-info {
 }
 
 @media (max-width: 680px) {
+  .final-celebration-reveal {
+    border-radius: 18px;
+  }
+
   .final-celebration-banner {
     min-height: 148px;
     padding: 20px;
@@ -1904,6 +1932,10 @@ html[data-theme="dark"] .final-celebration-banner {
     0 1px 0 rgba(255, 255, 255, 0.055) inset,
     0 20px 52px rgba(0, 0, 0, 0.2);
   color: #ffffff;
+}
+
+html[data-theme="dark"] .final-celebration-reveal:not(.is-settled)::after {
+  border-bottom-color: color-mix(in srgb, var(--celebration-primary) 40%, transparent);
 }
 
 html[data-theme="dark"] .final-celebration-kicker {
@@ -3707,14 +3739,18 @@ h1 {
   transform: rotate(-45deg);
 }
 
+.match-info-content {
+  min-width: 0;
+}
+
 .match-info.is-entering {
-  animation: match-info-enter 560ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+  animation: match-info-enter 240ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
 }
 
 @keyframes match-info-enter {
   from {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateY(3px);
   }
 
   to {
@@ -3729,31 +3765,130 @@ h1 {
   }
 }
 
-@keyframes calendar-view-fade-out {
-  to {
+/* Fade through so dense text never doubles up mid-transition. */
+@keyframes content-fade-through-out {
+  0% {
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+
+  40%,
+  100% {
     opacity: 0;
   }
 }
 
-@keyframes calendar-view-fade-in {
-  from {
+@keyframes content-fade-through-in {
+  0% {
     opacity: 0;
   }
+
+  40% {
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+html.is-match-info-content-transition {
+  view-transition-name: none;
+}
+
+html.is-match-info-content-transition.is-match-info-transition-old #match-info:not([hidden]):not(.is-hidden) > .match-info-content {
+  view-transition-name: match-info-content-old;
+}
+
+html.is-match-info-content-transition.is-match-info-transition-new #match-info:not([hidden]):not(.is-hidden) > .match-info-content {
+  view-transition-name: match-info-content-new;
+}
+
+html.is-calendar-scene-transition .site-header {
+  view-transition-name: calendar-header;
+}
+
+html.is-calendar-scene-transition .admin-message-banner {
+  view-transition-name: calendar-admin-message;
+}
+
+html.is-calendar-scene-transition .site-footer {
+  view-transition-name: calendar-footer;
+}
+
+html.is-calendar-scene-transition #scout-widget {
+  view-transition-name: calendar-scout;
 }
 
 ::view-transition-group(root) {
-  animation-duration: 200ms;
-  animation-timing-function: ease;
+  animation: none;
 }
 
 ::view-transition-old(root) {
   mix-blend-mode: normal;
-  animation: calendar-view-fade-out 100ms ease-in both;
+  animation: content-fade-through-out 180ms linear both;
 }
 
 ::view-transition-new(root) {
   mix-blend-mode: normal;
-  animation: calendar-view-fade-in 130ms ease-out 70ms both;
+  animation: content-fade-through-in 180ms linear both;
+}
+
+::view-transition-group(match-info-content-old),
+::view-transition-group(match-info-content-new) {
+  animation: none;
+}
+
+::view-transition-old(match-info-content-old) {
+  mix-blend-mode: normal;
+  animation: content-fade-through-out 160ms linear both;
+}
+
+::view-transition-new(match-info-content-new) {
+  mix-blend-mode: normal;
+  animation: content-fade-through-in 160ms linear both;
+}
+
+::view-transition-group(calendar-header),
+::view-transition-group(calendar-admin-message),
+::view-transition-group(calendar-footer),
+::view-transition-group(calendar-scout),
+::view-transition-old(calendar-header),
+::view-transition-old(calendar-admin-message),
+::view-transition-old(calendar-footer),
+::view-transition-old(calendar-scout),
+::view-transition-new(calendar-header),
+::view-transition-new(calendar-admin-message),
+::view-transition-new(calendar-footer),
+::view-transition-new(calendar-scout) {
+  animation: none;
+}
+
+::view-transition-old(calendar-header),
+::view-transition-old(calendar-admin-message),
+::view-transition-old(calendar-footer),
+::view-transition-old(calendar-scout) {
+  opacity: 0;
+}
+
+::view-transition-new(calendar-header),
+::view-transition-new(calendar-admin-message),
+::view-transition-new(calendar-footer),
+::view-transition-new(calendar-scout) {
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+html.is-calendar-date-transition .match-info.is-entering {
+  animation: none;
+}
+
+html.is-calendar-scene-transition .final-celebration-reveal,
+html.is-calendar-scene-transition .final-celebration-banner,
+html.is-calendar-scene-transition #matches-view .page-title,
+html.is-calendar-scene-transition #matches-view .match-list {
+  transition: none;
 }
 
 @media (min-width: 1161px) {
@@ -4629,9 +4764,19 @@ h1 {
   margin-top: 18px;
   overflow: hidden;
   padding: 3px;
-  border: 1px solid rgba(10, 10, 10, 0.08);
+  border: 1px solid rgba(10, 10, 10, 0.1);
   border-radius: 999px;
-  background: var(--surface-soft);
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(14px) saturate(130%);
+}
+
+.standings-mode-tabs::before {
+  background: rgba(10, 10, 10, 0.055);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(14px) saturate(130%);
 }
 
 .standings-mode-tab {
@@ -4648,8 +4793,8 @@ h1 {
   background: transparent;
   color: rgba(10, 10, 10, 0.58);
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   letter-spacing: 0;
   line-height: 1.1;
   transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
@@ -9052,6 +9197,16 @@ button.lineup-event-sub,
   text-underline-offset: 2px;
 }
 
+.site-footer .source-credit a {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-rendering: auto;
+}
+
 .site-footer button {
   appearance: none;
   border: 0;
@@ -11393,7 +11548,7 @@ html[data-theme="dark"] :is(
   background: var(--surface-soft);
 }
 
-html[data-theme="dark"] .view-tabs {
+html[data-theme="dark"] :is(.view-tabs, .standings-mode-tabs) {
   border-color: rgba(255, 255, 255, 0.14);
   background: transparent;
   box-shadow: none;
@@ -11409,7 +11564,7 @@ html[data-theme="dark"] :is(
   box-shadow: var(--shadow-small);
 }
 
-html[data-theme="dark"] .view-tabs::before {
+html[data-theme="dark"] :is(.view-tabs, .standings-mode-tabs)::before {
   background: rgba(255, 255, 255, 0.1);
   box-shadow: none;
 }
@@ -11448,10 +11603,9 @@ html[data-theme="dark"] :is(
   .catch-up-button[aria-expanded="true"],
   .settings-button[aria-expanded="true"]
 ) {
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 3px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: none;
   color: var(--text);
 }
 

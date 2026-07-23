@@ -3,6 +3,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { formatKeyInformationSentences as formatZhKeyInformationSentences } from "../locales/key-information-zh.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const failures = [];
@@ -91,7 +92,20 @@ function getFunctionSource(source, functionName) {
   if (start < 0) {
     return "";
   }
-  const bodyStart = source.indexOf("{", start);
+  const paramsStart = source.indexOf("(", start);
+  let paramsDepth = 0;
+  let paramsEnd = -1;
+  for (let index = paramsStart; index < source.length; index += 1) {
+    if (source[index] === "(") paramsDepth += 1;
+    if (source[index] === ")") {
+      paramsDepth -= 1;
+      if (paramsDepth === 0) {
+        paramsEnd = index;
+        break;
+      }
+    }
+  }
+  const bodyStart = paramsEnd >= 0 ? source.indexOf("{", paramsEnd) : -1;
   if (bodyStart < 0) {
     return "";
   }
@@ -153,6 +167,16 @@ function containsRawTeamName(text, teamNames) {
     const pattern = new RegExp(`(^|[^A-Za-z])${escapeRegExp(teamName)}(?=$|[^A-Za-z])`, "i");
     return pattern.test(String(text || ""));
   });
+}
+
+function withoutCanonicalPlayerNames(text, profile = {}) {
+  let cleaned = String(text || "");
+  const playerNames = [...new Set([profile.name, profile.displayName].filter(Boolean))]
+    .sort((left, right) => String(right).length - String(left).length);
+  for (const playerName of playerNames) {
+    cleaned = cleaned.replace(new RegExp(escapeRegExp(playerName), "gi"), " ");
+  }
+  return cleaned;
 }
 
 function getSourceSideKeyInformationZh(fixture, side) {
@@ -847,16 +871,27 @@ const sourceSideChinesePreviews = previewSides.filter(({ fixture, side }) =>
   String(getSourceSideKeyInformationZh(fixture, side)).trim()
 );
 const keyInformationFunction = getFunctionSource(appSource, "getKeyInformationText");
-const currentLanguageBranch = keyInformationFunction.search(/currentLanguage\s*===\s*["']zh["']/);
 const wordByWordCall = keyInformationFunction.search(
   /translateCurrentMatchPreviewToZh|localizedCopy\s*===\s*specificCopy/
 );
 const localizeEnglishCall = keyInformationFunction.search(/localizeText\s*\(\s*specificCopy\s*\)/);
 const hasStructuredPreviewRoute =
+  keyInformationFunction.includes("formatStructuredKeyInformation") &&
+  keyInformationFunction.includes("localeModel") &&
   keyInformationFunction.includes("buildLocalizedKeyInformationFallback") &&
-  currentLanguageBranch >= 0 &&
   wordByWordCall < 0 &&
-  (localizeEnglishCall < 0 || currentLanguageBranch < localizeEnglishCall);
+  localizeEnglishCall < 0;
+const structuredPreviewIssues = previewSides.flatMap(({ fixture, side }) => {
+  const model = fixture.keyInformation?.localeModel?.[side];
+  try {
+    const sentences = formatZhKeyInformationSentences(model);
+    return sentences.length === 4 && sentences.every((sentence) => /[\p{Script=Han}]/u.test(sentence))
+      ? []
+      : [`${fixture.id}.${side}`];
+  } catch {
+    return [`${fixture.id}.${side}`];
+  }
+});
 check(
   "match-preview",
   previewSides.length >= 204,
@@ -864,8 +899,9 @@ check(
 );
 check(
   "match-preview",
-  sourceSideChinesePreviews.length === previewSides.length || hasStructuredPreviewRoute,
-  `${sourceSideChinesePreviews.length}/${previewSides.length} paragraphs have source-side Chinese and getKeyInformationText still permits the word-by-word path`
+  sourceSideChinesePreviews.length === previewSides.length ||
+    (hasStructuredPreviewRoute && !structuredPreviewIssues.length),
+  `${sourceSideChinesePreviews.length}/${previewSides.length} paragraphs have source-side Chinese; structured-model issues: ${formatSamples(structuredPreviewIssues)}`
 );
 
 // Chinese player notes must not expose raw English country names.
@@ -874,14 +910,24 @@ const teamNames = [...new Set([
   ...Object.values(historicalProfiles).flatMap((profile) => [profile.teamName, ...(profile.teams || [])])
 ].filter((name) => /[A-Za-z]/.test(String(name || ""))))].sort((left, right) => right.length - left.length);
 const currentNoteLeaks = Object.entries(profiles).flatMap(([key, profile]) => {
-  const leakedName = containsRawTeamName(profile.noteZh, teamNames);
+  const leakedName = containsRawTeamName(withoutCanonicalPlayerNames(profile.noteZh, profile), teamNames);
   return leakedName ? [`${key}: ${leakedName} in ${profile.noteZh}`] : [];
 });
 const historicalNoteLeaks = Object.entries(historicalProfiles).flatMap(([key, profile]) =>
   ["noteZh", "styleNoteZh"].flatMap((field) => {
-    const leakedName = containsRawTeamName(profile[field], teamNames);
+    const leakedName = containsRawTeamName(withoutCanonicalPlayerNames(profile[field], profile), teamNames);
     return leakedName ? [`${key}.${field}: ${leakedName} in ${profile[field]}`] : [];
   })
+);
+const jordanNameProbe = { name: "Joe Jordan", displayName: "Joe Jordan" };
+check(
+  "player-note-country-name-collision",
+  !containsRawTeamName(withoutCanonicalPlayerNames("理解Joe Jordan的场上角色", jordanNameProbe), teamNames)
+    && containsRawTeamName(
+      withoutCanonicalPlayerNames("Joe Jordan代表Jordan出场", jordanNameProbe),
+      teamNames
+    ) === "Jordan",
+  "A country token inside a canonical player name must be ignored without hiding a separate raw-country leak."
 );
 check(
   "player-note-country",

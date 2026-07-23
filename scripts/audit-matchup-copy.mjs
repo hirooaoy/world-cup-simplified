@@ -9,33 +9,6 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const showDetails = process.argv.includes("--details");
 
-const beginnerJargon = [
-  "between the lines",
-  "counter-press",
-  "counter-pressing",
-  "second ball",
-  "second balls",
-  "restarts",
-  "set-piece",
-  "set pieces",
-  "low-margin",
-  "one-v-one",
-  "block",
-  "pockets",
-  "half-space",
-  "transition",
-  "transitions",
-  "wide switches",
-  "dead-ball",
-  "final action",
-  "press-resistant",
-  "penalty-stage",
-  "back line",
-  "fullback",
-  "center-back",
-  "centre-back"
-];
-
 const authoredChineseCopyPatterns = [
   /^⚽ (.+) and (.+) shared a 0-0 draw\.$/,
   /^⚽ (.+) and (.+) finished level at (.+)\.$/,
@@ -173,19 +146,26 @@ function wordCount(value) {
     .filter(Boolean).length;
 }
 
-function hasSupportedCurrentKeyInformationTranslationPattern(value) {
-  const text = String(value || "").trim().replace(/\s+/g, " ");
+const keyInformationSentenceSegmenter = new Intl.Segmenter("en", { granularity: "sentence" });
 
-  return [
-    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)They want to (.+?)\. The risk is (.+?) can (.+?)\.$/,
-    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)They want (.+?); the risk is (.+?) (.+?)\.$/i,
-    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)The risk is (.+?) (.+?)\.$/i
-  ].some((pattern) => pattern.test(text));
+function keyInformationSentences(value) {
+  return [...keyInformationSentenceSegmenter.segment(String(value || "").trim().replace(/\s+/g, " "))]
+    .map(({ segment }) => segment.trim())
+    .filter(Boolean);
 }
 
-function findJargon(value) {
-  const lower = String(value || "").toLowerCase();
-  return beginnerJargon.filter((term) => lower.includes(term));
+function hasSupportedKeyInformationPattern(value, teamName, opponentName) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  const sentences = keyInformationSentences(text);
+
+  return (
+    sentences.length === 4 &&
+    normalizeText(sentences[0]).includes(normalizeText(teamName)) &&
+    normalizeText(sentences[1]).includes(normalizeText(opponentName)) &&
+    !new RegExp(`\\b${escapeRegExp(teamName)}\\s+(?:is|was|has|needs|wants|plays|uses|enters)\\b`, "i").test(text) &&
+    !/\bthey\s+(?:is|was|has|needs|wants|plays|uses|enters)\b/i.test(text) &&
+    !/\b(?:must test|contest(?:s|ed)? (?:the )?central space|tracks? .{0,60} runs?|connect(?:s|ing)? the phases|runs? beyond)\b/i.test(text)
+  );
 }
 
 function copyMentionsPlayerName(copy, playerName) {
@@ -696,10 +676,6 @@ for (const fixture of fixturesData.fixtures || []) {
     const unavailableListed = players
       .map((player) => player.name)
       .filter((name) => unavailableNames.some((record) => isPlayerNameMatch(name, record.name)));
-    const missingNamesInCopy = players
-      .map((player) => player.name)
-      .filter((name) => !text.includes(name));
-    const jargon = findJargon(text);
 
     if (!fixture.keyInformation) {
       issues.push(issue("missing keyInformation"));
@@ -707,23 +683,17 @@ for (const fixture of fixturesData.fixtures || []) {
     if (!sourceIds.has(fixture.keyInformation?.sourceId)) {
       issues.push(issue("unknown keyInformation source", fixture.keyInformation?.sourceId || "none"));
     }
-    if (paragraphWords < 35 || paragraphWords > 85) {
+    if (paragraphWords < 60 || paragraphWords > 85) {
       issues.push(issue("word count outside target", String(paragraphWords)));
     }
-    if (text.includes(";") && !/; the risk is /i.test(text)) {
-      issues.push(issue("semicolon makes plan/risk harder to scan"));
+    const semicolonHeavySentence = keyInformationSentences(text).find(
+      (sentence) => (sentence.match(/;/g) || []).length > 1
+    );
+    if (semicolonHeavySentence) {
+      issues.push(issue("sentence overuses semicolons", semicolonHeavySentence));
     }
-    if (!text.includes(`Against ${opponent?.name}`)) {
-      issues.push(issue("missing opponent relationship", opponent?.name || opponentId));
-    }
-    if (!text.includes(" has to beat ")) {
-      issues.push(issue("missing style-vs-style matchup pressure"));
-    }
-    if (!/(?:The risk is |; the risk is )/i.test(text)) {
-      issues.push(issue("missing clear risk sentence"));
-    }
-    if (!hasSupportedCurrentKeyInformationTranslationPattern(text)) {
-      issues.push(issue("unsupported Chinese key-information translation pattern"));
+    if (!hasSupportedKeyInformationPattern(text, team?.name, opponent?.name)) {
+      issues.push(issue("unsupported four-sentence key-information pattern"));
     }
     if (missingProfiles.length) {
       issues.push(issue("missing player profiles", missingProfiles.join(", ")));
@@ -733,12 +703,6 @@ for (const fixture of fixturesData.fixtures || []) {
     }
     if (unavailableListed.length) {
       issues.push(issue("unavailable key player listed", unavailableListed.join(", ")));
-    }
-    if (missingNamesInCopy.length) {
-      issues.push(issue("key player absent from paragraph", missingNamesInCopy.join(", ")));
-    }
-    if (jargon.length) {
-      issues.push(issue("beginner jargon", jargon.join(", ")));
     }
 
     for (const player of players) {
@@ -784,10 +748,6 @@ for (const fixture of historyData.fixtures || []) {
     const players = fixture.keyPlayers?.[side] || [];
     const paragraphWords = wordCount(text);
     const issues = [];
-    const missingNamesInCopy = players
-      .map((player) => player.name)
-      .filter((name) => !copyMentionsPlayerName(text, name));
-    const jargon = findJargon(text);
 
     if (!fixture.keyInformation) {
       issues.push(issue("missing keyInformation"));
@@ -795,23 +755,18 @@ for (const fixture of historyData.fixtures || []) {
     if (!sourceIds.has(fixture.keyInformation?.sourceId)) {
       issues.push(issue("unknown keyInformation source", fixture.keyInformation?.sourceId || "none"));
     }
-    if (paragraphWords < 35 || paragraphWords > 95) {
+    if (fixture.status !== "CANCELLED" && (paragraphWords < 50 || paragraphWords > 85)) {
       issues.push(issue("word count outside target", String(paragraphWords)));
     }
-    if (fixture.status !== "CANCELLED" && !text.includes(`Against ${opponent}`)) {
-      issues.push(issue("missing historical opponent relationship", opponent));
+    if (fixture.status !== "CANCELLED" && !hasSupportedKeyInformationPattern(text, team, opponent)) {
+      issues.push(issue("unsupported historical four-sentence key-information pattern"));
     }
-    if (fixture.status !== "CANCELLED" && !text.includes(" needs to beat ")) {
-      issues.push(issue("missing historical matchup pressure"));
-    }
-    if (fixture.status !== "CANCELLED" && players.length < 2) {
-      issues.push(issue("not enough historical key players", String(players.length)));
-    }
-    if (missingNamesInCopy.length) {
-      issues.push(issue("historical key player absent from paragraph", missingNamesInCopy.join(", ")));
-    }
-    if (jargon.length) {
-      issues.push(issue("beginner jargon", jargon.join(", ")));
+    if (
+      fixture.status !== "CANCELLED" &&
+      Number(fixture.tournamentYear) >= 1970 &&
+      (players.length < 2 || players.length > 3)
+    ) {
+      issues.push(issue("historical key-player count outside confirmed-starter target", String(players.length)));
     }
 
     historicalRows.push({

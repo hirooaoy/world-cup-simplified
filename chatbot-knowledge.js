@@ -1,12 +1,12 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-18-locale-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-22-player-card-copy-1";
 import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
+} from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
 import { requestLiveDataForActiveEdition } from "./edition-runtime.js?v=2026-07-20-final-cutover-1";
 
-const BALL_BOY_DATA_VERSION = "2026-07-21-player-club-context-1";
+const BALL_BOY_DATA_VERSION = "2026-07-22-player-card-copy-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -2182,6 +2182,7 @@ async function hydrateHistoricalPlayer(profile, requestedYears = []) {
     name: latest.name || latest.displayName || profile.name,
     note: newestWith("styleNote") || newestWith("note") || "",
     noteZh: newestWith("styleNoteZh") || newestWith("noteZh") || "",
+    styleNoteMeta: newestWith("styleNoteMeta") || undefined,
     peakMarketValueEurMillions: Number(firstWith("peakMarketValueEurMillions")) || undefined,
     position: getMostCommonValue(selectedEditions.map((edition) => edition.position)) || profile.position || "Player",
     shirtNumber: shirtNumbers.length === 1 ? shirtNumbers[0] : "",
@@ -2765,7 +2766,8 @@ function getHistoricalPlayerReplyNote(profile, locale, localizedName, skills) {
       .get(localeCode)
       ?.formatPlayerNote?.(sourceNote, {
         historical: true,
-        localizedName
+        localizedName,
+        copyMeta: profile?.styleNoteMeta
       });
     if (localizedStyleNote) {
       return localizedStyleNote;

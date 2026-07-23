@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T22:31:42.499Z",
+  "updatedAt": "2026-07-23T01:25:04.612Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -30,13 +30,13 @@
     "bestXiImageCount": 484,
     "minimumBestXiImageCount": 484,
     "clubStatus": "complete-tournament-time-clubs-1930-2022",
-    "clubProfileCount": 3647,
+    "clubProfileCount": 3645,
     "clubNote": "Club is the player's club at that World Cup, resolved per player, team and tournament year.",
     "leagueStatus": "complete-tournament-time-leagues-1930-2022-with-justified-free-agent-exception",
-    "leagueProfileCount": 3646,
+    "leagueProfileCount": 3644,
     "leagueNotApplicableProfileCount": 1,
     "leagueSeasonMembershipProfileCount": 1679,
-    "leagueAssociationEraProfileCount": 1947,
+    "leagueAssociationEraProfileCount": 1945,
     "leagueCuratedOverrideProfileCount": 20,
     "leagueNote": "League is resolved from pinned club-season membership where available, then reviewed club-era exceptions and association-era competition rules. Free agents intentionally have no league."
   },
@@ -1108,9 +1108,9 @@
       "aliases": [],
       "displayName": "Ahmed Fathy",
       "name": "Ahmed Fathy",
-      "position": "Player",
+      "position": "Full-back",
       "positions": [
-        "Player"
+        "Full-back"
       ],
       "profileKeys": [
         "Ahmed Fathy / Egypt / 2018"
@@ -1732,6 +1732,7 @@
       "name": "Alberto Gilardino",
       "position": "Forward",
       "positions": [
+        "Striker",
         "Forward"
       ],
       "profileKeys": [
@@ -2379,7 +2380,8 @@
       "name": "Alessandro Del Piero",
       "position": "Forward",
       "positions": [
-        "Forward"
+        "Forward",
+        "Second striker"
       ],
       "profileKeys": [
         "Alessandro Del Piero / Italy / 1998",
@@ -2608,9 +2610,9 @@
       "aliases": [],
       "displayName": "Alexandros Tziolis",
       "name": "Alexandros Tziolis",
-      "position": "Forward",
+      "position": "Defensive midfielder",
       "positions": [
-        "Forward"
+        "Defensive midfielder"
       ],
       "profileKeys": [
         "Alexandros Tziolis / Greece / 2010"
@@ -4094,9 +4096,9 @@
       "aliases": [],
       "displayName": "Andranik Eskandarian",
       "name": "Andranik Eskandarian",
-      "position": "Player",
+      "position": "Defender",
       "positions": [
-        "Player"
+        "Defender"
       ],
       "profileKeys": [
         "Andranik Eskandarian / Iran / 1978"
@@ -4679,9 +4681,9 @@
       "aliases": [],
       "displayName": "Andrés Escobar",
       "name": "Andrés Escobar",
-      "position": "Player",
+      "position": "Defender",
       "positions": [
-        "Player"
+        "Defender"
       ],
       "profileKeys": [
         "Andrés Escobar / Colombia / 1994"
@@ -5074,6 +5076,7 @@
       "position": "Forward",
       "positions": [
         "Midfielder",
+        "Winger",
         "Forward"
       ],
       "profileKeys": [
@@ -5370,7 +5373,7 @@
       "position": "Central midfielder",
       "positions": [
         "Forward",
-        "Midfielder",
+        "Second striker",
         "Central midfielder"
       ],
       "profileKeys": [
@@ -6035,9 +6038,9 @@
       "aliases": [],
       "displayName": "Arie Haan",
       "name": "Arie Haan",
-      "position": "Defender",
+      "position": "Central midfielder",
       "positions": [
-        "Defender",
+        "Central midfielder",
         "Midfielder"
       ],
       "profileKeys": [
@@ -7018,7 +7021,7 @@
       "name": "Aziz Behich",
       "position": "Defender",
       "positions": [
-        "Player",
+        "Full-back",
         "Defender"
       ],
       "profileKeys": [
@@ -7036,9 +7039,9 @@
       "aliases": [],
       "displayName": "Aziz Bouhaddouz",
       "name": "Aziz Bouhaddouz",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Aziz Bouhaddouz / Morocco / 2018"
@@ -7793,9 +7796,9 @@
       "aliases": [],
       "displayName": "Bernardo Silva",
       "name": "Bernardo Silva",
-      "position": "Forward",
+      "position": "Midfielder",
       "positions": [
-        "Forward",
+        "Winger",
         "Midfielder"
       ],
       "profileKeys": [
@@ -8240,9 +8243,9 @@
       "aliases": [],
       "displayName": "Blaise Matuidi",
       "name": "Blaise Matuidi",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Blaise Matuidi / France / 2014"
@@ -8867,9 +8870,9 @@
       "aliases": [],
       "displayName": "Branko Oblak",
       "name": "Branko Oblak",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Branko Oblak / Yugoslavia / 1974"
@@ -9470,9 +9473,9 @@
       "aliases": [],
       "displayName": "Cacau",
       "name": "Cacau",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Cacau / Germany / 2010"
@@ -9615,7 +9618,7 @@
       "name": "Carles Puyol",
       "position": "Defender",
       "positions": [
-        "Player",
+        "Right-back",
         "Defender"
       ],
       "profileKeys": [
@@ -9769,9 +9772,9 @@
       "aliases": [],
       "displayName": "Carlos Alberto",
       "name": "Carlos Alberto",
-      "position": "Player",
+      "position": "Right-back",
       "positions": [
-        "Player"
+        "Right-back"
       ],
       "profileKeys": [
         "Carlos Alberto / Brazil / 1970"
@@ -10344,9 +10347,9 @@
       "aliases": [],
       "displayName": "Carlos Soler",
       "name": "Carlos Soler",
-      "position": "Player",
+      "position": "Central midfielder",
       "positions": [
-        "Player"
+        "Central midfielder"
       ],
       "profileKeys": [
         "Carlos Soler / Spain / 2022"
@@ -11535,9 +11538,9 @@
       "aliases": [],
       "displayName": "Clarence Seedorf",
       "name": "Clarence Seedorf",
-      "position": "Forward",
+      "position": "Central midfielder",
       "positions": [
-        "Forward"
+        "Central midfielder"
       ],
       "profileKeys": [
         "Clarence Seedorf / Netherlands / 1998"
@@ -11552,9 +11555,9 @@
       "aliases": [],
       "displayName": "Claude Makélélé",
       "name": "Claude Makélélé",
-      "position": "Central midfielder",
+      "position": "Defensive midfielder",
       "positions": [
-        "Central midfielder"
+        "Defensive midfielder"
       ],
       "profileKeys": [
         "Claude Makélélé / France / 2006"
@@ -12249,9 +12252,9 @@
       "aliases": [],
       "displayName": "Cristian Zaccardo",
       "name": "Cristian Zaccardo",
-      "position": "Player",
+      "position": "Right-back",
       "positions": [
-        "Player"
+        "Right-back"
       ],
       "profileKeys": [
         "Cristian Zaccardo / Italy / 2006"
@@ -12300,9 +12303,10 @@
       "aliases": [],
       "displayName": "Cristiano Ronaldo",
       "name": "Cristiano Ronaldo",
-      "position": "Forward",
+      "position": "Striker",
       "positions": [
-        "Forward"
+        "Winger",
+        "Striker"
       ],
       "profileKeys": [
         "Cristiano Ronaldo / Portugal / 2006",
@@ -12624,9 +12628,9 @@
       "aliases": [],
       "displayName": "Dani Alves",
       "name": "Dani Alves",
-      "position": "Defender",
+      "position": "Full-back",
       "positions": [
-        "Defender"
+        "Full-back"
       ],
       "profileKeys": [
         "Dani Alves / Brazil / 2014"
@@ -12658,9 +12662,9 @@
       "aliases": [],
       "displayName": "Dani Olmo",
       "name": "Dani Olmo",
-      "position": "Player",
+      "position": "Winger",
       "positions": [
-        "Player"
+        "Winger"
       ],
       "profileKeys": [
         "Dani Olmo / Spain / 2022"
@@ -12675,9 +12679,9 @@
       "aliases": [],
       "displayName": "Daniel Agger",
       "name": "Daniel Agger",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Daniel Agger / Denmark / 2010"
@@ -14033,10 +14037,10 @@
       "aliases": [],
       "displayName": "Dennis Bergkamp",
       "name": "Dennis Bergkamp",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
         "Forward",
-        "Second striker"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Dennis Bergkamp / Netherlands / 1994",
@@ -14508,10 +14512,10 @@
       "aliases": [],
       "displayName": "Diego Maradona",
       "name": "Diego Maradona",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
         "Midfielder",
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Diego Maradona / Argentina / 1982",
@@ -15929,9 +15933,9 @@
       "aliases": [],
       "displayName": "Edson Álvarez",
       "name": "Edson Álvarez",
-      "position": "Player",
+      "position": "Full-back",
       "positions": [
-        "Player"
+        "Full-back"
       ],
       "profileKeys": [
         "Edson Álvarez / Mexico / 2018"
@@ -16154,8 +16158,7 @@
       "name": "Egisto Pandolfini",
       "position": "Forward",
       "positions": [
-        "Forward",
-        "Player"
+        "Forward"
       ],
       "profileKeys": [
         "Egisto Pandolfini / Italy / 1950",
@@ -16204,16 +16207,16 @@
       ]
     },
     {
-      "id": "el arbi hababi hababi|morocco",
+      "id": "el arbi hababi|morocco",
       "aliases": [],
-      "displayName": "El Arbi Hababi Hababi",
-      "name": "El Arbi Hababi Hababi",
+      "displayName": "El Arbi Hababi",
+      "name": "El Arbi Hababi",
       "position": "Midfielder",
       "positions": [
         "Midfielder"
       ],
       "profileKeys": [
-        "El Arbi Hababi Hababi / Morocco / 1994"
+        "El Arbi Hababi / Morocco / 1994"
       ],
       "teamName": "Morocco",
       "tournamentYears": [
@@ -17402,9 +17405,9 @@
       "aliases": [],
       "displayName": "Ernesto Vidal",
       "name": "Ernesto Vidal",
-      "position": "Player",
+      "position": "Forward",
       "positions": [
-        "Player"
+        "Forward"
       ],
       "profileKeys": [
         "Ernesto Vidal / Uruguay / 1950"
@@ -17489,9 +17492,9 @@
       "aliases": [],
       "displayName": "Ernst Lörtscher",
       "name": "Ernst Lörtscher",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Ernst Lörtscher / Switzerland / 1938"
@@ -18608,8 +18611,7 @@
       "name": "Fernandinho",
       "position": "Midfielder",
       "positions": [
-        "Midfielder",
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Fernandinho / Brazil / 2014",
@@ -18934,7 +18936,8 @@
       "name": "Filippo Inzaghi",
       "position": "Forward",
       "positions": [
-        "Forward"
+        "Forward",
+        "Striker"
       ],
       "profileKeys": [
         "Filippo Inzaghi / Italy / 2002",
@@ -19164,10 +19167,10 @@
       "aliases": [],
       "displayName": "Francesco Totti",
       "name": "Francesco Totti",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
         "Midfielder",
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Francesco Totti / Italy / 2002",
@@ -19926,9 +19929,9 @@
       "aliases": [],
       "displayName": "Fritz Walter",
       "name": "Fritz Walter",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Fritz Walter / West Germany / 1954"
@@ -20577,9 +20580,9 @@
       "aliases": [],
       "displayName": "Gennaro Gattuso",
       "name": "Gennaro Gattuso",
-      "position": "Central midfielder",
+      "position": "Defensive midfielder",
       "positions": [
-        "Central midfielder"
+        "Defensive midfielder"
       ],
       "profileKeys": [
         "Gennaro Gattuso / Italy / 2006"
@@ -20664,9 +20667,9 @@
       "aliases": [],
       "displayName": "George Robledo",
       "name": "George Robledo",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "George Robledo / Chile / 1950"
@@ -21396,9 +21399,9 @@
       "aliases": [],
       "displayName": "Gianluca Zambrotta",
       "name": "Gianluca Zambrotta",
-      "position": "Defender",
+      "position": "Right-back",
       "positions": [
-        "Defender"
+        "Right-back"
       ],
       "profileKeys": [
         "Gianluca Zambrotta / Italy / 2006"
@@ -21714,9 +21717,9 @@
       "aliases": [],
       "displayName": "Giorgos Karagounis",
       "name": "Giorgos Karagounis",
-      "position": "Forward",
+      "position": "Central midfielder",
       "positions": [
-        "Forward"
+        "Central midfielder"
       ],
       "profileKeys": [
         "Giorgos Karagounis / Greece / 2010"
@@ -22276,7 +22279,7 @@
       "name": "Grzegorz Lato",
       "position": "Forward",
       "positions": [
-        "Midfielder",
+        "Winger",
         "Forward"
       ],
       "profileKeys": [
@@ -22489,9 +22492,9 @@
       "aliases": [],
       "displayName": "Gunnar Gren",
       "name": "Gunnar Gren",
-      "position": "Forward",
+      "position": "Central midfielder",
       "positions": [
-        "Forward"
+        "Central midfielder"
       ],
       "profileKeys": [
         "Gunnar Gren / Sweden / 1958"
@@ -22712,8 +22715,9 @@
       "aliases": [],
       "displayName": "György Sárosi",
       "name": "György Sárosi",
-      "position": "Forward",
+      "position": "Defensive midfielder",
       "positions": [
+        "Defensive midfielder",
         "Forward"
       ],
       "profileKeys": [
@@ -23274,9 +23278,9 @@
       "aliases": [],
       "displayName": "Hansi Müller",
       "name": "Hansi Müller",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Hansi Müller / West Germany / 1978"
@@ -23471,9 +23475,9 @@
       "aliases": [],
       "displayName": "Hasan Şaş",
       "name": "Hasan Şaş",
-      "position": "Forward",
+      "position": "Winger",
       "positions": [
-        "Forward"
+        "Winger"
       ],
       "profileKeys": [
         "Hasan Şaş / Turkey / 2002"
@@ -23781,9 +23785,9 @@
       "aliases": [],
       "displayName": "Héctor Scarone",
       "name": "Héctor Scarone",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Héctor Scarone / Uruguay / 1930"
@@ -24007,9 +24011,9 @@
       "aliases": [],
       "displayName": "Helmut Haller",
       "name": "Helmut Haller",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Helmut Haller / West Germany / 1966"
@@ -25015,7 +25019,8 @@
       "name": "Igor Chislenko",
       "position": "Midfielder",
       "positions": [
-        "Midfielder"
+        "Midfielder",
+        "Winger"
       ],
       "profileKeys": [
         "Igor Chislenko / Soviet Union / 1962",
@@ -25255,9 +25260,9 @@
       "aliases": [],
       "displayName": "Ilija Petković",
       "name": "Ilija Petković",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Ilija Petković / Yugoslavia / 1974"
@@ -25595,9 +25600,9 @@
       "aliases": [],
       "displayName": "Ivan Davidov",
       "name": "Ivan Davidov",
-      "position": "Player",
+      "position": "Right-back",
       "positions": [
-        "Player"
+        "Right-back"
       ],
       "profileKeys": [
         "Ivan Davidov / Bulgaria / 1966"
@@ -25772,9 +25777,9 @@
       "aliases": [],
       "displayName": "Ivan Vutsov",
       "name": "Ivan Vutsov",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Ivan Vutsov / Bulgaria / 1966"
@@ -25840,9 +25845,9 @@
       "aliases": [],
       "displayName": "Ivica Horvat",
       "name": "Ivica Horvat",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Ivica Horvat / Yugoslavia / 1954"
@@ -26068,9 +26073,9 @@
       "aliases": [],
       "displayName": "Jack Grealish",
       "name": "Jack Grealish",
-      "position": "Player",
+      "position": "Winger",
       "positions": [
-        "Player"
+        "Winger"
       ],
       "profileKeys": [
         "Jack Grealish / England / 2022"
@@ -26153,9 +26158,9 @@
       "aliases": [],
       "displayName": "Jackson Irvine",
       "name": "Jackson Irvine",
-      "position": "Forward",
+      "position": "Central midfielder",
       "positions": [
-        "Forward"
+        "Central midfielder"
       ],
       "profileKeys": [
         "Jackson Irvine / Australia / 2022"
@@ -27363,9 +27368,9 @@
       "aliases": [],
       "displayName": "Jeff Agoos",
       "name": "Jeff Agoos",
-      "position": "Player",
+      "position": "Defender",
       "positions": [
-        "Player"
+        "Defender"
       ],
       "profileKeys": [
         "Jeff Agoos / USA / 2002"
@@ -27779,9 +27784,9 @@
       "aliases": [],
       "displayName": "Jimmy Dickinson",
       "name": "Jimmy Dickinson",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Jimmy Dickinson / England / 1954"
@@ -28459,9 +28464,9 @@
       "aliases": [],
       "displayName": "John Boye",
       "name": "John Boye",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "John Boye / Ghana / 2014"
@@ -28981,9 +28986,9 @@
       "aliases": [],
       "displayName": "Jorge Costa",
       "name": "Jorge Costa",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Jorge Costa / Portugal / 2002"
@@ -30046,9 +30051,9 @@
       "aliases": [],
       "displayName": "Joseph Yobo",
       "name": "Joseph Yobo",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Joseph Yobo / Nigeria / 2014"
@@ -30252,9 +30257,9 @@
       "aliases": [],
       "displayName": "Jozef Barmoš",
       "name": "Jozef Barmoš",
-      "position": "Player",
+      "position": "Full-back",
       "positions": [
-        "Player"
+        "Full-back"
       ],
       "profileKeys": [
         "Jozef Barmoš / Czechoslovakia / 1982"
@@ -30376,9 +30381,9 @@
       "aliases": [],
       "displayName": "József Tóth",
       "name": "József Tóth",
-      "position": "Player",
+      "position": "Winger",
       "positions": [
-        "Player"
+        "Winger"
       ],
       "profileKeys": [
         "József Tóth / Hungary / 1954"
@@ -30393,9 +30398,9 @@
       "aliases": [],
       "displayName": "József Tóth",
       "name": "József Tóth",
-      "position": "Player",
+      "position": "Left-back",
       "positions": [
-        "Player"
+        "Left-back"
       ],
       "profileKeys": [
         "József Tóth / Hungary / 1982"
@@ -31168,9 +31173,9 @@
       "aliases": [],
       "displayName": "Julio Pérez",
       "name": "Julio Pérez",
-      "position": "Player",
+      "position": "Forward",
       "positions": [
-        "Player"
+        "Forward"
       ],
       "profileKeys": [
         "Julio Pérez / Uruguay / 1950"
@@ -31608,9 +31613,9 @@
       "aliases": [],
       "displayName": "Kaká",
       "name": "Kaká",
-      "position": "Midfielder",
+      "position": "Attacking midfielder",
       "positions": [
-        "Midfielder"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Kaká / Brazil / 2006",
@@ -32347,11 +32352,11 @@
       "aliases": [],
       "displayName": "Kevin De Bruyne",
       "name": "Kevin De Bruyne",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
         "Midfielder",
-        "Right forward",
-        "Forward"
+        "Central midfielder",
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Kevin De Bruyne / Belgium / 2014",
@@ -32797,9 +32802,9 @@
       "aliases": [],
       "displayName": "Kieran Trippier",
       "name": "Kieran Trippier",
-      "position": "Midfielder",
+      "position": "Wing-back",
       "positions": [
-        "Midfielder"
+        "Wing-back"
       ],
       "profileKeys": [
         "Kieran Trippier / England / 2018"
@@ -32814,9 +32819,9 @@
       "aliases": [],
       "displayName": "Kiko",
       "name": "Kiko",
-      "position": "Player",
+      "position": "Forward",
       "positions": [
-        "Player"
+        "Forward"
       ],
       "profileKeys": [
         "Kiko / Spain / 1998"
@@ -33107,9 +33112,9 @@
       "aliases": [],
       "displayName": "Kostas Katsouranis",
       "name": "Kostas Katsouranis",
-      "position": "Forward",
+      "position": "Defensive midfielder",
       "positions": [
-        "Forward"
+        "Defensive midfielder"
       ],
       "profileKeys": [
         "Kostas Katsouranis / Greece / 2010"
@@ -33192,9 +33197,9 @@
       "aliases": [],
       "displayName": "Kurt Hamrin",
       "name": "Kurt Hamrin",
-      "position": "Midfielder",
+      "position": "Winger",
       "positions": [
-        "Midfielder"
+        "Winger"
       ],
       "profileKeys": [
         "Kurt Hamrin / Sweden / 1958"
@@ -33260,9 +33265,9 @@
       "aliases": [],
       "displayName": "Kwang-rae Cho",
       "name": "Kwang-rae Cho",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Kwang-rae Cho / South Korea / 1986"
@@ -33508,9 +33513,9 @@
       "aliases": [],
       "displayName": "László Dajka",
       "name": "László Dajka",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "László Dajka / Hungary / 1986"
@@ -33646,9 +33651,9 @@
       "aliases": [],
       "displayName": "Lázár Szentes",
       "name": "Lázár Szentes",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Lázár Szentes / Hungary / 1982"
@@ -33801,9 +33806,9 @@
       "aliases": [],
       "displayName": "Lennart Skoglund",
       "name": "Lennart Skoglund",
-      "position": "Midfielder",
+      "position": "Winger",
       "positions": [
-        "Midfielder"
+        "Winger"
       ],
       "profileKeys": [
         "Lennart Skoglund / Sweden / 1958"
@@ -34028,9 +34033,9 @@
       "aliases": [],
       "displayName": "Liédson",
       "name": "Liédson",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Liédson / Portugal / 2010"
@@ -34064,9 +34069,10 @@
       "aliases": [],
       "displayName": "Lionel Messi",
       "name": "Lionel Messi",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Player",
+        "Winger",
+        "Attacking midfielder",
         "Forward"
       ],
       "profileKeys": [
@@ -34637,9 +34643,9 @@
       "aliases": [],
       "displayName": "Luis Cruz",
       "name": "Luis Cruz",
-      "position": "Player",
+      "position": "Defender",
       "positions": [
-        "Player"
+        "Defender"
       ],
       "profileKeys": [
         "Luis Cruz / Uruguay / 1954"
@@ -35771,9 +35777,9 @@
       "aliases": [],
       "displayName": "Marcelo",
       "name": "Marcelo",
-      "position": "Defender",
+      "position": "Full-back",
       "positions": [
-        "Defender"
+        "Full-back"
       ],
       "profileKeys": [
         "Marcelo / Brazil / 2014"
@@ -36031,9 +36037,9 @@
       "aliases": [],
       "displayName": "Marcos Coll",
       "name": "Marcos Coll",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Marcos Coll / Colombia / 1962"
@@ -37162,9 +37168,9 @@
       "aliases": [],
       "displayName": "Matthias Sindelar",
       "name": "Matthias Sindelar",
-      "position": "Forward",
+      "position": "Second striker",
       "positions": [
-        "Forward"
+        "Second striker"
       ],
       "profileKeys": [
         "Matthias Sindelar / Austria / 1934"
@@ -37385,9 +37391,9 @@
       "aliases": [],
       "displayName": "Maxime Bossis",
       "name": "Maxime Bossis",
-      "position": "Player",
+      "position": "Defender",
       "positions": [
-        "Player"
+        "Defender"
       ],
       "profileKeys": [
         "Maxime Bossis / France / 1982"
@@ -37686,10 +37692,10 @@
       "aliases": [],
       "displayName": "Michael Laudrup",
       "name": "Michael Laudrup",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
         "Midfielder",
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Michael Laudrup / Denmark / 1986",
@@ -38177,9 +38183,9 @@
       "aliases": [],
       "displayName": "Milan Luhový",
       "name": "Milan Luhový",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Milan Luhový / Czechoslovakia / 1990"
@@ -38916,9 +38922,9 @@
       "aliases": [],
       "displayName": "Moussa Sissoko",
       "name": "Moussa Sissoko",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Moussa Sissoko / France / 2014"
@@ -39076,14 +39082,12 @@
       ],
       "profileKeys": [
         "Myung-bo Hong / South Korea / 1990",
-        "Myung-bo Hong / South Korea / 1994",
-        "Myung-bo Hong / South Korea / 2002"
+        "Myung-bo Hong / South Korea / 1994"
       ],
       "teamName": "South Korea",
       "tournamentYears": [
         1990,
-        1994,
-        2002
+        1994
       ]
     },
     {
@@ -39142,9 +39146,9 @@
       "aliases": [],
       "displayName": "Nahuel Molina",
       "name": "Nahuel Molina",
-      "position": "Right wing back",
+      "position": "Right-back",
       "positions": [
-        "Right wing back"
+        "Right-back"
       ],
       "profileKeys": [
         "Nahuel Molina / Argentina / 2022"
@@ -39176,9 +39180,9 @@
       "aliases": [],
       "displayName": "Nándor Hidegkuti",
       "name": "Nándor Hidegkuti",
-      "position": "Forward",
+      "position": "Second striker",
       "positions": [
-        "Forward"
+        "Second striker"
       ],
       "profileKeys": [
         "Nándor Hidegkuti / Hungary / 1954"
@@ -39793,8 +39797,7 @@
       "name": "Noel Valladares",
       "position": "Goalkeeper",
       "positions": [
-        "Goalkeeper",
-        "Player"
+        "Goalkeeper"
       ],
       "profileKeys": [
         "Noel Valladares / Honduras / 2010",
@@ -39918,10 +39921,10 @@
       "aliases": [],
       "displayName": "Obdulio Varela",
       "name": "Obdulio Varela",
-      "position": "Midfielder",
+      "position": "Defensive midfielder",
       "positions": [
         "Midfielder",
-        "Player"
+        "Defensive midfielder"
       ],
       "profileKeys": [
         "Obdulio Varela / Uruguay / 1950",
@@ -40148,8 +40151,7 @@
       "name": "Oleksandr Zavarov",
       "position": "Midfielder",
       "positions": [
-        "Midfielder",
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Oleksandr Zavarov / Soviet Union / 1986",
@@ -40169,7 +40171,7 @@
       "position": "Forward",
       "positions": [
         "Forward",
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Oliver Bierhoff / Germany / 1998",
@@ -40360,9 +40362,9 @@
       "aliases": [],
       "displayName": "Oscar",
       "name": "Oscar",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Oscar / Brazil / 1982"
@@ -40945,9 +40947,9 @@
       "aliases": [],
       "displayName": "Paolo Maldini",
       "name": "Paolo Maldini",
-      "position": "Centre-back",
+      "position": "Left-back",
       "positions": [
-        "Centre-back"
+        "Left-back"
       ],
       "profileKeys": [
         "Paolo Maldini / Italy / 1990",
@@ -41174,9 +41176,9 @@
       "aliases": [],
       "displayName": "Paul Breitner",
       "name": "Paul Breitner",
-      "position": "Defender",
+      "position": "Left-back",
       "positions": [
-        "Defender",
+        "Left-back",
         "Midfielder"
       ],
       "profileKeys": [
@@ -41907,9 +41909,9 @@
       "aliases": [],
       "displayName": "Peter Etebo",
       "name": "Peter Etebo",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Peter Etebo / Nigeria / 2018"
@@ -42117,9 +42119,9 @@
       "aliases": [],
       "displayName": "Petit",
       "name": "Petit",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Petit / Portugal / 2006"
@@ -42326,9 +42328,9 @@
       "aliases": [],
       "displayName": "Pierre Issa",
       "name": "Pierre Issa",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Pierre Issa / South Africa / 1998"
@@ -42380,9 +42382,9 @@
       "aliases": [],
       "displayName": "Pierre van Hooijdonk",
       "name": "Pierre van Hooijdonk",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Pierre van Hooijdonk / Netherlands / 1998"
@@ -42916,9 +42918,9 @@
       "aliases": [],
       "displayName": "Rafik Halliche",
       "name": "Rafik Halliche",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Rafik Halliche / Algeria / 2014"
@@ -43342,9 +43344,9 @@
       "aliases": [],
       "displayName": "Raúl Cárdenas",
       "name": "Raúl Cárdenas",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Raúl Cárdenas / Mexico / 1954"
@@ -43359,9 +43361,9 @@
       "aliases": [],
       "displayName": "Raul Meireles",
       "name": "Raul Meireles",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Raul Meireles / Portugal / 2010"
@@ -43449,7 +43451,7 @@
       "position": "Forward",
       "positions": [
         "Forward",
-        "Midfielder"
+        "Winger"
       ],
       "profileKeys": [
         "Raymond Kopa / France / 1954",
@@ -43622,7 +43624,7 @@
       "position": "Midfielder",
       "positions": [
         "Midfielder",
-        "Player"
+        "Winger"
       ],
       "profileKeys": [
         "René Houseman / Argentina / 1974",
@@ -44066,9 +44068,9 @@
       "aliases": [],
       "displayName": "Ritsu Dōan",
       "name": "Ritsu Dōan",
-      "position": "Midfielder",
+      "position": "Winger",
       "positions": [
-        "Midfielder"
+        "Winger"
       ],
       "profileKeys": [
         "Ritsu Dōan / Japan / 2022"
@@ -44085,7 +44087,8 @@
       "name": "Rivaldo",
       "position": "Midfielder",
       "positions": [
-        "Midfielder"
+        "Midfielder",
+        "Striker"
       ],
       "profileKeys": [
         "Rivaldo / Brazil / 1998",
@@ -44102,10 +44105,11 @@
       "aliases": [],
       "displayName": "Rivellino",
       "name": "Rivellino",
-      "position": "Forward",
+      "position": "Central midfielder",
       "positions": [
-        "Forward",
-        "Midfielder"
+        "Central midfielder",
+        "Midfielder",
+        "Forward"
       ],
       "profileKeys": [
         "Rivellino / Brazil / 1970",
@@ -44664,8 +44668,7 @@
       "name": "Roberto Perfumo",
       "position": "Centre-back",
       "positions": [
-        "Centre-back",
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Roberto Perfumo / Argentina / 1966",
@@ -44753,7 +44756,8 @@
       "position": "Forward",
       "positions": [
         "Left forward",
-        "Forward"
+        "Forward",
+        "Striker"
       ],
       "profileKeys": [
         "Robin van Persie / Netherlands / 2006",
@@ -45228,10 +45232,10 @@
       "aliases": [],
       "displayName": "Ronaldinho",
       "name": "Ronaldinho",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
         "Midfielder",
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Ronaldinho / Brazil / 2002",
@@ -46006,8 +46010,7 @@
       "name": "Sami Khedira",
       "position": "Midfielder",
       "positions": [
-        "Midfielder",
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Sami Khedira / Germany / 2010",
@@ -46183,17 +46186,14 @@
       "name": "Sang-chul Yoo",
       "position": "Defender",
       "positions": [
-        "Defender",
-        "Midfielder"
+        "Defender"
       ],
       "profileKeys": [
-        "Sang-chul Yoo / South Korea / 1998",
-        "Sang-chul Yoo / South Korea / 2002"
+        "Sang-chul Yoo / South Korea / 1998"
       ],
       "teamName": "South Korea",
       "tournamentYears": [
-        1998,
-        2002
+        1998
       ]
     },
     {
@@ -46305,9 +46305,9 @@
       "aliases": [],
       "displayName": "Sead Kolašinac",
       "name": "Sead Kolašinac",
-      "position": "Player",
+      "position": "Full-back",
       "positions": [
-        "Player"
+        "Full-back"
       ],
       "profileKeys": [
         "Sead Kolašinac / Bosnia-Herzegovina / 2014"
@@ -46464,9 +46464,9 @@
       "aliases": [],
       "displayName": "Sergei Aleinikov",
       "name": "Sergei Aleinikov",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Sergei Aleinikov / Soviet Union / 1986"
@@ -46566,9 +46566,9 @@
       "aliases": [],
       "displayName": "Sergey Rodionov",
       "name": "Sergey Rodionov",
-      "position": "Player",
+      "position": "Forward",
       "positions": [
-        "Player"
+        "Forward"
       ],
       "profileKeys": [
         "Sergey Rodionov / Soviet Union / 1986"
@@ -46724,10 +46724,10 @@
       "aliases": [],
       "displayName": "Sergio Ramos",
       "name": "Sergio Ramos",
-      "position": "Defender",
+      "position": "Centre-back",
       "positions": [
         "Right-back",
-        "Defender"
+        "Centre-back"
       ],
       "profileKeys": [
         "Sergio Ramos / Spain / 2010",
@@ -47149,7 +47149,7 @@
       "position": "Forward",
       "positions": [
         "Forward",
-        "Player"
+        "Winger"
       ],
       "profileKeys": [
         "Simão / Portugal / 2006",
@@ -47612,9 +47612,9 @@
       "aliases": [],
       "displayName": "Stéphane Demol",
       "name": "Stéphane Demol",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Stéphane Demol / Belgium / 1986"
@@ -48083,9 +48083,9 @@
       "aliases": [],
       "displayName": "Sven Jacobsson",
       "name": "Sven Jacobsson",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Sven Jacobsson / Sweden / 1938"
@@ -48359,9 +48359,9 @@
       "aliases": [],
       "displayName": "Teófilo Cubillas",
       "name": "Teófilo Cubillas",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Forward",
+        "Attacking midfielder",
         "Midfielder"
       ],
       "profileKeys": [
@@ -48517,9 +48517,9 @@
       "aliases": [],
       "displayName": "Thiago Cionek",
       "name": "Thiago Cionek",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Thiago Cionek / Poland / 2018"
@@ -48576,6 +48576,7 @@
       "name": "Thierry Henry",
       "position": "Forward",
       "positions": [
+        "Winger",
         "Forward"
       ],
       "profileKeys": [
@@ -48969,9 +48970,9 @@
       "aliases": [],
       "displayName": "Tom Boyd",
       "name": "Tom Boyd",
-      "position": "Player",
+      "position": "Defender",
       "positions": [
-        "Player"
+        "Defender"
       ],
       "profileKeys": [
         "Tom Boyd / Scotland / 1998"
@@ -49056,9 +49057,10 @@
       "aliases": [],
       "displayName": "Tomas Brolin",
       "name": "Tomas Brolin",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Forward"
+        "Forward",
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Tomas Brolin / Sweden / 1990",
@@ -49368,9 +49370,9 @@
       "aliases": [],
       "displayName": "Tore Keller",
       "name": "Tore Keller",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Tore Keller / Sweden / 1938"
@@ -49611,9 +49613,9 @@
       "aliases": [],
       "displayName": "Ümit Davala",
       "name": "Ümit Davala",
-      "position": "Forward",
+      "position": "Wing-back",
       "positions": [
-        "Forward"
+        "Wing-back"
       ],
       "profileKeys": [
         "Ümit Davala / Turkey / 2002"
@@ -49645,9 +49647,9 @@
       "aliases": [],
       "displayName": "Uwe Bein",
       "name": "Uwe Bein",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Uwe Bein / West Germany / 1990"
@@ -50171,9 +50173,9 @@
       "aliases": [],
       "displayName": "Vilmos Kohut",
       "name": "Vilmos Kohut",
-      "position": "Player",
+      "position": "Striker",
       "positions": [
-        "Player"
+        "Striker"
       ],
       "profileKeys": [
         "Vilmos Kohut / Hungary / 1938"
@@ -50224,9 +50226,9 @@
       "aliases": [],
       "displayName": "Vincenzo Iaquinta",
       "name": "Vincenzo Iaquinta",
-      "position": "Forward",
+      "position": "Second striker",
       "positions": [
-        "Forward",
+        "Winger",
         "Second striker"
       ],
       "profileKeys": [
@@ -51124,9 +51126,9 @@
       "aliases": [],
       "displayName": "Włodzimierz Ciołek",
       "name": "Włodzimierz Ciołek",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Włodzimierz Ciołek / Poland / 1982"
@@ -51320,10 +51322,9 @@
       "aliases": [],
       "displayName": "Xavi",
       "name": "Xavi",
-      "position": "Attacking midfielder",
+      "position": "Central midfielder",
       "positions": [
-        "Midfielder",
-        "Attacking midfielder"
+        "Central midfielder"
       ],
       "profileKeys": [
         "Xavi / Spain / 2002",
@@ -51448,7 +51449,6 @@
       "name": "Yann Sommer",
       "position": "Goalkeeper",
       "positions": [
-        "Player",
         "Goalkeeper"
       ],
       "profileKeys": [
@@ -51534,9 +51534,9 @@
       "aliases": [],
       "displayName": "Yassine Meriah",
       "name": "Yassine Meriah",
-      "position": "Player",
+      "position": "Centre-back",
       "positions": [
-        "Player"
+        "Centre-back"
       ],
       "profileKeys": [
         "Yassine Meriah / Tunisia / 2018"
@@ -51701,7 +51701,9 @@
     },
     {
       "id": "yoo sang chul|south korea",
-      "aliases": [],
+      "aliases": [
+        "Sang-chul Yoo"
+      ],
       "displayName": "Yoo Sang-chul",
       "name": "Yoo Sang-chul",
       "position": "Central midfielder",
@@ -51827,9 +51829,9 @@
       "aliases": [],
       "displayName": "Youssef Chippo",
       "name": "Youssef Chippo",
-      "position": "Player",
+      "position": "Midfielder",
       "positions": [
-        "Player"
+        "Midfielder"
       ],
       "profileKeys": [
         "Youssef Chippo / Morocco / 1998"
@@ -52070,7 +52072,7 @@
       "position": "Forward",
       "positions": [
         "Forward",
-        "Midfielder"
+        "Winger"
       ],
       "profileKeys": [
         "Zbigniew Boniek / Poland / 1978",
@@ -52267,9 +52269,9 @@
       "aliases": [],
       "displayName": "Zizinho",
       "name": "Zizinho",
-      "position": "Forward",
+      "position": "Attacking midfielder",
       "positions": [
-        "Forward"
+        "Attacking midfielder"
       ],
       "profileKeys": [
         "Zizinho / Brazil / 1950"

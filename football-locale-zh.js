@@ -133,6 +133,7 @@ export const ZH_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Dodi Lukébakio": "多迪·卢克巴基奥",
   "Dominik Livakovic": "多米尼克·利瓦科维奇",
   "Dominik Livaković": "多米尼克·利瓦科维奇",
+  "Douglas Santos": "道格拉斯·桑托斯",
   "Duckens Nazon": "杜肯斯·纳松",
   "Dylan Batubinsika": "迪伦·巴图宾西卡",
   "Eberechi Eze": "埃贝雷奇·埃泽",

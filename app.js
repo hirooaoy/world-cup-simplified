@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-22-player-card-copy-1";
 import { renderFootballInlineHtml } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   HISTORICAL_TEAM_COUNTRY_CODES,
@@ -13,7 +13,8 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1";
+} from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
+import { formatKeyInformation as formatZhKeyInformation } from "./locales/key-information-zh.js?v=2026-07-22-key-information-schema-4";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
   ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX,
@@ -53,7 +54,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-21-release-notes-date-transitions-2";
+} from "./app-config.js?v=2026-07-22-player-card-copy-1";
 import {
   isEditionLiveSyncActive,
   requestLiveDataForActiveEdition
@@ -4332,7 +4333,48 @@ async function renderMatchInfoWhenLocaleReady(match, options = {}) {
     return false;
   }
 
-  renderMatchInfo(match, options);
+  const canTransitionContent =
+    options.commit === true &&
+    !matchInfo.hidden &&
+    Boolean(activeMatchId) &&
+    activeMatchId !== match.id &&
+    !isRestoringHistoryState &&
+    !activeCalendarViewTransition &&
+    !document.activeViewTransition &&
+    typeof document.startViewTransition === "function" &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!canTransitionContent) {
+    cancelActiveMatchInfoViewTransition();
+    renderMatchInfo(match, options);
+    return true;
+  }
+
+  cancelActiveMatchInfoViewTransition();
+  document.documentElement.classList.add(
+    "is-match-info-content-transition",
+    "is-match-info-transition-old"
+  );
+  const transition = document.startViewTransition(() => {
+    document.documentElement.classList.replace(
+      "is-match-info-transition-old",
+      "is-match-info-transition-new"
+    );
+    renderMatchInfo(match, {
+      ...options,
+      animateLineupEntrance: false,
+      contentTransition: true
+    });
+  });
+  activeMatchInfoViewTransition = transition;
+  const clearTransition = () => {
+    if (activeMatchInfoViewTransition === transition) {
+      activeMatchInfoViewTransition = null;
+      clearMatchInfoViewTransitionClasses();
+    }
+  };
+  transition.finished.then(clearTransition, clearTransition);
+  await transition.updateCallbackDone;
   return true;
 }
 
@@ -9239,10 +9281,50 @@ function setCalendarOpen(isOpen) {
 }
 
 let activeCalendarViewTransition = null;
+let activeMatchInfoViewTransition = null;
+
+function clearCalendarViewTransitionClasses() {
+  document.documentElement.classList.remove(
+    "is-calendar-date-transition",
+    "is-calendar-content-transition",
+    "is-calendar-scene-transition",
+    "is-calendar-transition-old",
+    "is-calendar-transition-new"
+  );
+}
+
+function clearMatchInfoViewTransitionClasses() {
+  document.documentElement.classList.remove(
+    "is-match-info-content-transition",
+    "is-match-info-transition-old",
+    "is-match-info-transition-new"
+  );
+}
+
+function cancelActiveMatchInfoViewTransition() {
+  activeMatchInfoViewTransition?.skipTransition();
+  activeMatchInfoViewTransition = null;
+  clearMatchInfoViewTransitionClasses();
+}
 
 function cancelActiveCalendarViewTransition() {
   activeCalendarViewTransition?.skipTransition();
   activeCalendarViewTransition = null;
+  clearCalendarViewTransitionClasses();
+}
+
+function getFinalCelebrationSceneKey(dayKey) {
+  if (
+    activeView !== "matches" ||
+    isInitialDataLoading ||
+    isInitialLiveDataLoading ||
+    isDeferredDataLoading ||
+    !hasInitialScheduleContentPainted
+  ) {
+    return "";
+  }
+
+  return getFinalCelebrationMatchForDay(dayKey)?.id || "";
 }
 
 function selectCalendarDay(dayKey) {
@@ -9250,6 +9332,10 @@ function selectCalendarDay(dayKey) {
     setCalendarOpen(false);
     return;
   }
+
+  const currentCelebrationId = getFinalCelebrationSceneKey(selectedDayKey);
+  const nextCelebrationId = getFinalCelebrationSceneKey(dayKey);
+  const shouldTransitionScene = currentCelebrationId !== nextCelebrationId;
 
   clearTransientInteractionState();
   setCalendarOpen(false);
@@ -9260,17 +9346,34 @@ function selectCalendarDay(dayKey) {
 
   const renderSelectedDay = () => renderSchedule({ historyMode: "push" });
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  cancelActiveMatchInfoViewTransition();
   cancelActiveCalendarViewTransition();
-  if (prefersReducedMotion || typeof document.startViewTransition !== "function") {
+  if (
+    !shouldTransitionScene ||
+    prefersReducedMotion ||
+    typeof document.startViewTransition !== "function"
+  ) {
     renderSelectedDay();
     return;
   }
 
-  const transition = document.startViewTransition(renderSelectedDay);
+  document.documentElement.classList.add(
+    "is-calendar-date-transition",
+    "is-calendar-scene-transition",
+    "is-calendar-transition-old"
+  );
+  const transition = document.startViewTransition(() => {
+    document.documentElement.classList.replace(
+      "is-calendar-transition-old",
+      "is-calendar-transition-new"
+    );
+    renderSelectedDay();
+  });
   activeCalendarViewTransition = transition;
   const clearTransition = () => {
     if (activeCalendarViewTransition === transition) {
       activeCalendarViewTransition = null;
+      clearCalendarViewTransitionClasses();
     }
   };
   transition.finished.then(clearTransition, clearTransition);
@@ -22530,11 +22633,11 @@ function getSourceLocalizedKeyInformationCopy(info, language = currentLanguage) 
   }
 
   const languageKeys = language === "zh"
-    ? ["zh", "zhHans", "zh-Hans", "en"]
+    ? ["zh", "zhHans", "zh-Hans"]
     : language === "es"
-      ? ["es", "es-419", "en"]
+      ? ["es", "es-419"]
       : language === "ko"
-        ? ["ko", "ko-KR", "en"]
+        ? ["ko", "ko-KR"]
         : ["en"];
   for (const key of languageKeys) {
     const value = getKeyInformationCopy(info[key]);
@@ -22619,15 +22722,60 @@ function buildLocalizedKeyInformationFallback(team, players = [], opponent = nul
   return `${teamName}的基本思路是${identityText}。${playerText}${matchupText}`;
 }
 
-function getKeyInformationText(team, info, players = [], opponent = null) {
-  if (currentLanguage === "zh") {
-    const sourceCopy = getSourceLocalizedKeyInformationCopy(info, "zh");
-    return sourceCopy
-      ? localizeKnownDisplayEntities(sourceCopy)
-      : buildLocalizedKeyInformationFallback(team, players, opponent);
+function formatStructuredKeyInformation(localeModel, team, opponent, options = {}) {
+  const formatter = currentLanguage === "zh"
+    ? formatZhKeyInformation
+    : activeAppLocalePack?.helpers?.formatKeyInformation;
+  if (!formatter || !localeModel) {
+    return "";
   }
 
-  if (currentLanguage === "es" || currentLanguage === "ko") {
+  const formatPlayerName = (name) => {
+    if (options.historical && currentLanguage === "zh") {
+      return localizeHistoricalScorerName(name);
+    }
+    return getLocalizedPlayerDisplayName({
+      name,
+      historical: Boolean(options.historical),
+      tournamentYear: options.tournamentYear,
+      historicalTeamName: options.historicalTeamName
+    });
+  };
+  try {
+    return formatter(localeModel, {
+      formatPlayerName,
+      teamName: getLocalizedTeamName(team),
+      opponentName: getLocalizedTeamName(opponent)
+    });
+  } catch (error) {
+    console.warn("Could not format structured Key information; using the safe localized fallback.", error);
+    return "";
+  }
+}
+
+function getKeyInformationText(
+  team,
+  info,
+  players = [],
+  opponent = null,
+  localeModel = null,
+  options = {}
+) {
+  if (currentLanguage !== "en") {
+    const sourceCopy = getSourceLocalizedKeyInformationCopy(info, currentLanguage);
+    if (sourceCopy) {
+      return currentLanguage === "zh"
+        ? localizeKnownDisplayEntities(sourceCopy)
+        : localizeDisplayText(sourceCopy);
+    }
+
+    if (localeModel) {
+      const structuredCopy = formatStructuredKeyInformation(localeModel, team, opponent, options);
+      if (structuredCopy) {
+        return structuredCopy;
+      }
+    }
+
     return buildLocalizedKeyInformationFallback(team, players, opponent);
   }
 
@@ -22966,13 +23114,28 @@ function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player
   }
 
   const sourceName = getPlayerName(player);
+  const exactLocalizedName =
+    ZH_PLAYER_NAME_TRANSLATIONS[sourceName] ||
+    ZH_PLAYER_NAME_TRANSLATIONS[displayName];
+  if (exactLocalizedName) {
+    return exactLocalizedName;
+  }
+
   const localizedSourceName = localizeDisplayText(sourceName);
-  if (localizedSourceName && localizedSourceName !== sourceName) {
+  if (
+    localizedSourceName &&
+    localizedSourceName !== sourceName &&
+    !/[A-Za-z]/.test(localizedSourceName)
+  ) {
     return localizedSourceName;
   }
 
   const localizedDisplayName = localizeDisplayText(displayName);
-  if (localizedDisplayName && localizedDisplayName !== displayName) {
+  if (
+    localizedDisplayName &&
+    localizedDisplayName !== displayName &&
+    !/[A-Za-z]/.test(localizedDisplayName)
+  ) {
     return localizedDisplayName;
   }
 
@@ -23273,6 +23436,8 @@ function exposeLocalPlayerCardLocalizationTestHooks() {
     ...(window.__worldCupTestHooks || {}),
     localization: {
       buildLocalizedKeyInformationFallback,
+      formatStructuredKeyInformation,
+      getLocalizedTeamName,
       getResultHighlights,
       translateTextToZh
     },
@@ -23725,11 +23890,10 @@ function getPlayerCardNote(player, profile = getPlayerProfile(player)) {
     return profile?.styleNote || profile?.note || getPlayerNote(player) || "";
   }
 
-  if ((currentLanguage === "es" || currentLanguage === "ko") && profile?.note) {
-    return profile.note;
-  }
-
-  return getPlayerNote(player) || profile?.note || "";
+  // Fixture notes are short, match-specific teasers. Generic player cards should
+  // use the canonical profile description in every language and only fall back
+  // to fixture copy when a profile has not been populated yet.
+  return profile?.note || getPlayerNote(player) || "";
 }
 
 function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
@@ -23753,15 +23917,22 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
 
   if (currentLanguage === "es" || currentLanguage === "ko") {
     const historical = isHistoricalPlayerCard(player);
+    const copyMeta = historical ? profile?.styleNoteMeta : profile?.noteMeta;
+    const localizedName = getLocalizedPlayerDisplayName(player, profile);
     const localizedPlayerNote = activeAppLocalePack?.helpers?.formatPlayerNote?.(note, {
       historical,
-      localizedName: getLocalizedPlayerDisplayName(player, profile)
+      localizedName,
+      copyMeta
     });
     if (localizedPlayerNote) {
       return localizedPlayerNote;
     }
 
-    if (activeAppLocalePack?.helpers?.isTemplatedPlayerNote?.(note, { historical })) {
+    if (activeAppLocalePack?.helpers?.isTemplatedPlayerNote?.(note, {
+      historical,
+      localizedName,
+      copyMeta
+    })) {
       const skills = getPlayerSkills(player, profile)
         .map(localizePlayerSkill)
         .filter(Boolean);
@@ -24848,9 +25019,11 @@ function renderKeyInformationTeam(
   players = [],
   mentionPlayers = players,
   opponent = null,
-  label = getKeyInformationLabel(team)
+  label = getKeyInformationLabel(team),
+  localeModel = null,
+  options = {}
 ) {
-  const text = getKeyInformationText(team, info, players, opponent);
+  const text = getKeyInformationText(team, info, players, opponent, localeModel, options);
   return `
     <article class="key-info-team">
       <h4>${renderKeyInformationHeading(team, label)}</h4>
@@ -24864,11 +25037,38 @@ function renderKeyInformation(match) {
   const keyInformation = match.keyInformation || {};
   const keyPlayers = match.keyPlayers || {};
   const mentionPlayers = getMatchMentionPlayers(match, keyInformation);
+  const lineupMentionPlayers = getMatchLineupMentionPlayers(match);
+  const displayPlayersForSide = (side) => {
+    const teamId = side === "home" ? match.homeTeamId : match.awayTeamId;
+    const copy = keyInformation[side] || "";
+    const confirmedMentionPlayers = lineupMentionPlayers.filter(
+      (player) =>
+        player.teamId === teamId &&
+        (textMentionsFullPlayerName(copy, player.name) || copy.includes(player.name))
+    );
+    return confirmedMentionPlayers.length ? confirmedMentionPlayers.slice(0, 3) : keyPlayers[side];
+  };
 
   return `
     <div class="key-info-grid">
-      ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, mentionPlayers, match.awayTeam)}
-      ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, mentionPlayers, match.homeTeam)}
+      ${renderKeyInformationTeam(
+        match.homeTeam,
+        keyInformation.home,
+        displayPlayersForSide("home"),
+        mentionPlayers,
+        match.awayTeam,
+        getKeyInformationLabel(match.homeTeam),
+        keyInformation.localeModel?.home
+      )}
+      ${renderKeyInformationTeam(
+        match.awayTeam,
+        keyInformation.away,
+        displayPlayersForSide("away"),
+        mentionPlayers,
+        match.homeTeam,
+        getKeyInformationLabel(match.awayTeam),
+        keyInformation.localeModel?.away
+      )}
     </div>
   `;
 }
@@ -27503,6 +27703,21 @@ function renderHistoricalKeyInformation(match) {
     away: getHistoricalSideKeyPlayers(match, "away")
   };
   const mentionPlayers = getHistoricalMentionPlayers(match);
+  const mentionPlayersForSide = (side) => {
+    const localeModel = keyInformation.localeModel?.[side];
+    if (!localeModel) {
+      return mentionPlayers;
+    }
+    if (localeModel.kind !== "historical-evidence") {
+      return [];
+    }
+    const confirmedStarterKeys = new Set(
+      (localeModel.slots?.identity?.confirmedStarters || [])
+        .map((starter) => normalizeTextKey(typeof starter === "string" ? starter : starter?.name))
+        .filter(Boolean)
+    );
+    return mentionPlayers.filter((player) => confirmedStarterKeys.has(normalizeTextKey(getPlayerName(player))));
+  };
 
   if (keyInformation.home && keyInformation.away) {
     return `
@@ -27511,17 +27726,29 @@ function renderHistoricalKeyInformation(match) {
           match.homeTeam,
           keyInformation.home,
           keyPlayers.home,
-          mentionPlayers,
+          mentionPlayersForSide("home"),
           match.awayTeam,
-          getHistoricalKeyInformationLabel(match.homeTeam, keyInformation.home)
+          getHistoricalKeyInformationLabel(match.homeTeam, keyInformation.home),
+          keyInformation.localeModel?.home,
+          {
+            historical: true,
+            historicalTeamName: match.homeTeam.name,
+            tournamentYear: Number(match.tournamentYear)
+          }
         )}
         ${renderKeyInformationTeam(
           match.awayTeam,
           keyInformation.away,
           keyPlayers.away,
-          mentionPlayers,
+          mentionPlayersForSide("away"),
           match.homeTeam,
-          getHistoricalKeyInformationLabel(match.awayTeam, keyInformation.away)
+          getHistoricalKeyInformationLabel(match.awayTeam, keyInformation.away),
+          keyInformation.localeModel?.away,
+          {
+            historical: true,
+            historicalTeamName: match.awayTeam.name,
+            tournamentYear: Number(match.tournamentYear)
+          }
         )}
       </div>
     `;
@@ -27860,9 +28087,13 @@ function setMatchInfoLayoutState(hasMatchInfo) {
   const matchesView = viewPanels.matches;
   const banner = document.querySelector("#final-celebration-banner");
   const hadMatchInfo = matchesView.classList.contains("has-match-info");
+  const isCalendarTransition = document.documentElement.classList.contains(
+    "is-calendar-date-transition"
+  );
   const shouldAnimate =
     banner &&
     hadMatchInfo !== hasMatchInfo &&
+    !isCalendarTransition &&
     window.matchMedia("(min-width: 1161px) and (prefers-reduced-motion: no-preference)").matches;
   const previousWidth = shouldAnimate ? banner.getBoundingClientRect().width : 0;
   const previousFooterTop = shouldAnimate ? siteFooter?.getBoundingClientRect().top : 0;
@@ -27870,6 +28101,14 @@ function setMatchInfoLayoutState(hasMatchInfo) {
   matchesView.classList.toggle("has-match-info", hasMatchInfo);
 
   if (!shouldAnimate) {
+    if (isCalendarTransition) {
+      finalCelebrationLayoutAnimation?.cancel();
+      finalCelebrationLayoutAnimation = null;
+      finalCelebrationFooterAnimation?.cancel();
+      finalCelebrationFooterAnimation = null;
+      window.cancelAnimationFrame(finalCelebrationFooterAnimationFrame);
+      finalCelebrationFooterAnimationFrame = 0;
+    }
     return;
   }
 
@@ -27882,7 +28121,7 @@ function setMatchInfoLayoutState(hasMatchInfo) {
         { width: `${nextWidth}px` }
       ],
       {
-        duration: 480,
+        duration: 260,
         easing: "cubic-bezier(0.2, 0.72, 0.18, 1)"
       }
     );
@@ -27915,7 +28154,7 @@ function setMatchInfoLayoutState(hasMatchInfo) {
         { transform: "translateY(0)" }
       ],
       {
-        duration: 480,
+        duration: 260,
         easing: "cubic-bezier(0.2, 0.72, 0.18, 1)"
       }
     );
@@ -27937,6 +28176,19 @@ function renderMatchInfoCloseControl() {
   `;
 }
 
+function setMatchInfoContent(markup) {
+  const closeControl = matchInfo.querySelector(":scope > .match-info-close");
+  const content = matchInfo.querySelector(":scope > .match-info-content");
+
+  if (!closeControl || !content) {
+    matchInfo.innerHTML = `${renderMatchInfoCloseControl()}<div class="match-info-content">${markup}</div>`;
+    return;
+  }
+
+  closeControl.setAttribute("aria-label", t("matchDetailsClose"));
+  content.innerHTML = markup;
+}
+
 function dismissMatchInfo() {
   const returnFocusTarget = document.querySelector(
     `.match-row[data-match-id="${CSS.escape(activeMatchId)}"] .match-row-trigger, .yesterday-match-card[data-match-id="${CSS.escape(activeMatchId)}"] .yesterday-match-button`
@@ -27956,10 +28208,17 @@ function dismissMatchInfo() {
 function renderMatchInfo(match, options = {}) {
   clearTransientInteractionState();
   const wasMatchInfoHidden = matchInfo.hidden || matchInfo.classList.contains("is-hidden");
-  const shouldResetMatchInfoScroll = activeMatchId !== match.id;
-  const shouldAnimateEntrance = wasMatchInfoHidden || shouldResetMatchInfoScroll;
+  const didMatchChange = activeMatchId !== match.id;
+  const shouldResetMatchInfoScroll = didMatchChange;
+  const shouldAnimateEntrance =
+    wasMatchInfoHidden &&
+    !document.documentElement.classList.contains("is-calendar-date-transition");
   const shouldAnimateLineupEntrance =
-    options.animateLineupEntrance !== false && (wasMatchInfoHidden || activeMatchId !== match.id);
+    options.animateLineupEntrance !== false &&
+    !wasMatchInfoHidden &&
+    didMatchChange &&
+    !options.contentTransition &&
+    !document.documentElement.classList.contains("is-calendar-date-transition");
   activeMatchId = match.id;
   if (options.commit) {
     committedMatchId = match.id;
@@ -27978,7 +28237,7 @@ function renderMatchInfo(match, options = {}) {
   });
 
   if (match.isHistorical) {
-    matchInfo.innerHTML = `${renderMatchInfoCloseControl()}${renderHistoricalMatchInfo(match)}`;
+    setMatchInfoContent(renderHistoricalMatchInfo(match));
     if (shouldResetMatchInfoScroll) {
       matchInfo.scrollTop = 0;
     }
@@ -28011,8 +28270,7 @@ function renderMatchInfo(match, options = {}) {
   const shouldShowStatusBeforeContext =
     displayMatch.status === "LIVE" || displayMatch.status === "FT" || displayMatch.status === "DELAYED";
 
-  matchInfo.innerHTML = `
-    ${renderMatchInfoCloseControl()}
+  setMatchInfoContent(`
     <section class="info-block match-summary">
       ${renderMatchContextKicker(match, localizedContextLabel)}
       <h2 class="summary-title">
@@ -28039,7 +28297,7 @@ function renderMatchInfo(match, options = {}) {
       <h3>${escapeHtml(localizeText("Past matches"))}</h3>
       ${renderPastResults(displayMatch)}
     </section>
-  `;
+  `);
   if (shouldResetMatchInfoScroll) {
     matchInfo.scrollTop = 0;
   }
@@ -29804,7 +30062,7 @@ function getFinalCelebrationPhilosophy(winner, editionYear) {
 
 function getFinalCelebrationFireworksMarkup() {
   const bursts = [
-    { color: "var(--celebration-primary)", delay: "0.6s", scale: "0.78", x: "10%", y: "10%" },
+    { color: "var(--celebration-primary)", delay: "1.1s", scale: "0.78", x: "10%", y: "10%" },
     { color: "var(--celebration-accent)", delay: "2.5s", scale: "0.96", x: "29%", y: "53%" },
     { color: "var(--celebration-secondary)", delay: "1.5s", scale: "0.84", x: "51%", y: "8%" },
     { color: "var(--celebration-primary)", delay: "3.5s", scale: "0.98", x: "73%", y: "57%" },
@@ -29872,6 +30130,9 @@ function getFinalCelebrationReviewContent(finalMatch, fallbackBody) {
 
 function renderFinalCelebration() {
   const matchesView = viewPanels.matches;
+  const isCalendarSceneTransition = document.documentElement.classList.contains(
+    "is-calendar-scene-transition"
+  );
   const completedFinal =
     activeView === "matches" ? getFinalCelebrationMatchForDay(selectedDayKey) : null;
   const shouldCelebrate =
@@ -29920,15 +30181,25 @@ function renderFinalCelebration() {
 
   if (!banner) {
     reveal = document.createElement("div");
-    reveal.className = "final-celebration-reveal is-entering";
+    reveal.className = `final-celebration-reveal ${
+      isCalendarSceneTransition ? "is-settled" : "is-entering"
+    }`;
     reveal.id = "final-celebration-reveal";
     banner = document.createElement("section");
-    banner.className = "final-celebration-banner is-entering";
+    banner.className = `final-celebration-banner${
+      isCalendarSceneTransition ? "" : " is-entering"
+    }`;
     banner.id = "final-celebration-banner";
     banner.setAttribute("role", "status");
     banner.setAttribute("aria-live", "polite");
     reveal.append(banner);
     matchesView.prepend(reveal);
+  }
+
+  if (isCalendarSceneTransition) {
+    reveal?.classList.remove("is-entering");
+    reveal?.classList.add("is-settled");
+    banner.classList.remove("is-entering");
   }
 
   banner.setAttribute(
@@ -29938,7 +30209,7 @@ function renderFinalCelebration() {
       .map((sentence) => (/[.!?]$/u.test(sentence) ? sentence : `${sentence}.`))
       .join(" ")
   );
-  banner.innerHTML = `
+  const bannerMarkup = `
     <span class="final-celebration-confetti" aria-hidden="true">
       ${getFinalCelebrationConfettiMarkup()}
     </span>
@@ -29949,7 +30220,21 @@ function renderFinalCelebration() {
       ${descriptionMarkup}
     </span>
   `;
-  if (reveal?.classList.contains("is-entering")) {
+  const bannerContentKey = JSON.stringify({
+    body,
+    bullets: reviewContent?.bullets || [],
+    descriptionMarkup,
+    headline,
+    highlightsHref,
+    language: currentLanguage,
+    matchId: completedFinal.id,
+    recapLabel: t("viewRecap")
+  });
+  if (banner.dataset.contentKey !== bannerContentKey) {
+    banner.innerHTML = bannerMarkup;
+    banner.dataset.contentKey = bannerContentKey;
+  }
+  if (!isCalendarSceneTransition && reveal?.classList.contains("is-entering")) {
     const bannerStyles = window.getComputedStyle(banner);
     const expandedHeight =
       banner.getBoundingClientRect().height +
@@ -33069,6 +33354,7 @@ window.addEventListener("popstate", async () => {
   clearPendingUrlStateUpdate();
   clearTransientInteractionState();
   syncUrl = false;
+  cancelActiveMatchInfoViewTransition();
   cancelActiveCalendarViewTransition();
   isRestoringHistoryState = true;
   const previousLanguage = currentLanguage;

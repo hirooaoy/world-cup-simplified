@@ -19,9 +19,9 @@
     "scheduleUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums"
   },
   "archivedAt": "2026-07-20T23:37:05.227Z",
-  "archiveVersion": "2026-final-2026-07-21T21-43-20-201Z",
-  "archiveFile": "data/archives/world-cup-2026-final-2026-07-21T21-43-20-201Z.json",
-  "archiveSha256": "6f4a97474a7a14ea0d63abbb1c737059e742042a6761339a168d6aaf6cef5750",
+  "archiveVersion": "2026-final-2026-07-23T04-22-54-714Z",
+  "archiveFile": "data/archives/world-cup-2026-final-2026-07-23T04-22-54-714Z.json",
+  "archiveSha256": "b2c3d91c08580daa7e83c37cefdc12ed1c6625e1d41b376429ea8adb2af7b3c5",
   "archiveManifest": "data/archives/world-cup-2026-manifest.json",
-  "lastCorrectedAt": "2026-07-21T21:43:20.201Z"
+  "lastCorrectedAt": "2026-07-23T04:22:54.714Z"
 }

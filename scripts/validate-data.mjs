@@ -24,6 +24,13 @@ import {
 } from "./forecast-math.mjs";
 import { auditHistoricalForecasts } from "./historical-forecast-model.mjs";
 import { validateFifaTacticalLineupIndex } from "./fifa-tactical-lineup-discovery.mjs";
+import {
+  ALLOWED_EVIDENCE_INPUTS,
+  EXCLUDED_CURRENT_MATCH_INPUTS,
+  KEY_INFORMATION_MODE,
+  KEY_INFORMATION_SCHEMA_VERSION,
+  KEY_INFORMATION_SOURCE_ID
+} from "./key-information-contract.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -515,6 +522,44 @@ function requireSourceIds(sourceIds, sourceIdSet, owner) {
   }
 }
 
+function validateArchivePresentTenseMetadata(record, sourceIdSet, owner) {
+  assert(record?.sourceId === KEY_INFORMATION_SOURCE_ID, `${owner}.sourceId must use the shared Key information source`);
+  assert(record?.mode === KEY_INFORMATION_MODE, `${owner}.mode must be "${KEY_INFORMATION_MODE}"`);
+  assert(
+    record?.schemaVersion === KEY_INFORMATION_SCHEMA_VERSION,
+    `${owner}.schemaVersion must be ${KEY_INFORMATION_SCHEMA_VERSION}`
+  );
+  assert(record?.narrativeMoment === "team-entrance", `${owner}.narrativeMoment must be "team-entrance"`);
+  assert(record?.outcomeCutoff === "kickoff", `${owner}.outcomeCutoff must be "kickoff"`);
+  assert(!Object.hasOwn(record || {}, "temporalCutoff"), `${owner} must not retain legacy temporalCutoff`);
+  assert(!Object.hasOwn(record || {}, "preKickoffInputs"), `${owner} must not retain legacy preKickoffInputs`);
+  assert(typeof record?.generatedBy === "string" && record.generatedBy.trim(), `${owner}.generatedBy must identify its generator`);
+  assert(Array.isArray(record?.evidenceInputs), `${owner}.evidenceInputs must be an array`);
+  const allowedInputs = new Set(ALLOWED_EVIDENCE_INPUTS);
+  for (const input of record?.evidenceInputs || []) {
+    assert(allowedInputs.has(input), `${owner}.evidenceInputs contains unsupported input "${input}"`);
+  }
+  assert(
+    JSON.stringify(record?.excludedInputs) === JSON.stringify(EXCLUDED_CURRENT_MATCH_INPUTS),
+    `${owner}.excludedInputs must declare every prohibited current-match input`
+  );
+  requireSourceIds(record?.researchSourceIds, sourceIdSet, `${owner}.researchSourceIds`);
+  assert(record?.researchSourceIds?.length > 0, `${owner}.researchSourceIds must not be empty`);
+}
+
+function validateStartingXiProvenance(record, expectedInput, shouldHaveStartingXi, owner) {
+  const inputs = new Set(record?.evidenceInputs || []);
+  const startingXiInputs = ["officialStartingXI", "confirmedStartingXI"].filter((input) => inputs.has(input));
+  if (shouldHaveStartingXi) {
+    assert(
+      startingXiInputs.length === 1 && startingXiInputs[0] === expectedInput,
+      `${owner}.evidenceInputs must use only "${expectedInput}" for its starting-XI evidence`
+    );
+  } else {
+    assert(startingXiInputs.length === 0, `${owner}.evidenceInputs must not claim unavailable starting-XI evidence`);
+  }
+}
+
 function registerSource(source, sourceIdSet, owner) {
   assert(source && typeof source === "object" && !Array.isArray(source), `${owner} must be an object`);
   if (!source || typeof source !== "object" || Array.isArray(source)) {
@@ -845,6 +890,45 @@ for (const source of tournamentData.sources || []) {
 }
 for (const [index, source] of (historicalPlayerProfilesData.sources || []).entries()) {
   registerSource(source, sourceIds, `Historical player profile source ${index + 1}`);
+}
+const historicalKeyInformationGeneration = historyData.keyInformationGeneration;
+assert(
+  historicalKeyInformationGeneration &&
+    typeof historicalKeyInformationGeneration === "object" &&
+    !Array.isArray(historicalKeyInformationGeneration),
+  "history.json keyInformationGeneration must be an object"
+);
+assert(
+  historicalKeyInformationGeneration?.sourceId === KEY_INFORMATION_SOURCE_ID,
+  "history.json keyInformationGeneration must use the shared reconstruction source"
+);
+assert(
+  historicalKeyInformationGeneration?.mode === KEY_INFORMATION_MODE &&
+    historicalKeyInformationGeneration?.schemaVersion === KEY_INFORMATION_SCHEMA_VERSION &&
+    historicalKeyInformationGeneration?.narrativeMoment === "team-entrance" &&
+    historicalKeyInformationGeneration?.outcomeCutoff === "kickoff" &&
+    JSON.stringify(historicalKeyInformationGeneration?.excludedInputs) ===
+      JSON.stringify(EXCLUDED_CURRENT_MATCH_INPUTS),
+  "history.json keyInformationGeneration must declare the shared archive-present-tense schema and outcome exclusions"
+);
+assert(
+  typeof historicalKeyInformationGeneration?.generatedBy === "string" &&
+    historicalKeyInformationGeneration.generatedBy.trim(),
+  "history.json keyInformationGeneration must identify its generator"
+);
+assert(
+  Array.isArray(historicalKeyInformationGeneration?.researchSources) &&
+    historicalKeyInformationGeneration.researchSources.length > 0,
+  "history.json keyInformationGeneration must include pinned researchSources"
+);
+for (const [index, source] of (historicalKeyInformationGeneration?.researchSources || []).entries()) {
+  registerSource(source, sourceIds, `Historical key-information research source ${index + 1}`);
+  assert(/^[a-f0-9]{40}$/i.test(source?.commit || ""), `Historical key-information research source ${index + 1} must pin a commit`);
+  assert(/^[a-f0-9]{64}$/i.test(source?.sha256 || ""), `Historical key-information research source ${index + 1} must pin a sha256`);
+  assert(
+    typeof source?.url === "string" && source.url.includes(source.commit),
+    `Historical key-information research source ${index + 1} URL must pin the declared commit`
+  );
 }
 
 const historicalRankingSourceIds = new Set();
@@ -1359,7 +1443,7 @@ function isGroupComplete(groupId) {
   );
 }
 
-function getScoreWinnerTeamId(fixture, score) {
+function getScoreWinnerSide(score) {
   if (!score) {
     return "";
   }
@@ -1371,7 +1455,12 @@ function getScoreWinnerTeamId(fixture, score) {
     return "";
   }
 
-  return home > away ? fixture.homeTeamId : fixture.awayTeamId;
+  return home > away ? "home" : "away";
+}
+
+function getScoreWinnerTeamId(fixture, score) {
+  const winnerSide = getScoreWinnerSide(score);
+  return winnerSide ? fixture[`${winnerSide}TeamId`] : "";
 }
 
 function validateScorePair(pair, owner) {
@@ -2999,6 +3088,27 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(isNumber(fixture.score?.home), `Final fixture "${fixture.id}" must include numeric home score`);
     assert(isNumber(fixture.score?.away), `Final fixture "${fixture.id}" must include numeric away score`);
     validateScoreDetails(fixture);
+    const penaltyWinnerTeamId = getScoreWinnerTeamId(fixture, fixture.scoreDetails?.penalties);
+
+    if (fixture.scoreDetails?.penalties !== undefined) {
+      assert(
+        fixture.score.home === fixture.score.away,
+        `Final fixture "${fixture.id}" must use scoreDetails.penalties only with a level final score`
+      );
+      assert(
+        penaltyWinnerTeamId,
+        `Final fixture "${fixture.id}" scoreDetails.penalties must identify a winner`
+      );
+    }
+
+    if (fixture.winnerTeamId !== undefined) {
+      const inferredWinnerTeamId = penaltyWinnerTeamId || getScoreWinnerTeamId(fixture, fixture.score);
+      assert(teams.has(fixture.winnerTeamId), `Fixture "${fixture.id}" winnerTeamId references unknown team "${fixture.winnerTeamId}"`);
+      assert(
+        fixture.winnerTeamId === inferredWinnerTeamId,
+        `Fixture "${fixture.id}" winnerTeamId must match the final score or scoreDetails.penalties winner`
+      );
+    }
 
     if (
       knockoutStages.has(fixture.stage) &&
@@ -3007,19 +3117,14 @@ for (const fixture of fixturesData.fixtures || []) {
       isNumber(fixture.score?.away) &&
       fixture.score.home === fixture.score.away
     ) {
-      const penaltyWinnerTeamId = getScoreWinnerTeamId(fixture, fixture.scoreDetails?.penalties);
-
       assert(
         penaltyWinnerTeamId,
         `Final knockout fixture "${fixture.id}" ended level and must include non-tied scoreDetails.penalties`
       );
-      if (fixture.winnerTeamId !== undefined) {
-        assert(teams.has(fixture.winnerTeamId), `Fixture "${fixture.id}" winnerTeamId references unknown team "${fixture.winnerTeamId}"`);
-        assert(
-          fixture.winnerTeamId === penaltyWinnerTeamId,
-          `Fixture "${fixture.id}" winnerTeamId must match scoreDetails.penalties winner`
-        );
-      }
+      assert(
+        fixture.winnerTeamId !== undefined,
+        `Final knockout fixture "${fixture.id}" decided on penalties must include winnerTeamId`
+      );
     }
 
     if (
@@ -3531,13 +3636,17 @@ for (const fixture of fixturesData.fixtures || []) {
       sourceIds.has(fixture.keyInformation.sourceId),
       `Fixture "${fixture.id}" keyInformation references unknown source`
     );
-    if (fixture.keyInformation.researchSourceIds !== undefined) {
-      requireSourceIds(
-        fixture.keyInformation.researchSourceIds,
-        sourceIds,
-        `Fixture "${fixture.id}" keyInformation.researchSourceIds`
-      );
-    }
+    validateArchivePresentTenseMetadata(
+      fixture.keyInformation,
+      sourceIds,
+      `Fixture "${fixture.id}" keyInformation`
+    );
+    validateStartingXiProvenance(
+      fixture.keyInformation,
+      "officialStartingXI",
+      true,
+      `Fixture "${fixture.id}" keyInformation`
+    );
   }
 
   if (hasConfirmedTeams) {
@@ -3575,7 +3684,9 @@ for (const fixture of fixturesData.fixtures || []) {
         `Confirmed fixture "${fixture.id}" keyInformation.${side} uses generic placeholder wording`
       );
       assert(
-        /Against /.test(copy || ""),
+        normalizePlayerName(copy).includes(
+          normalizePlayerName(fixture.keyInformation?.localeModel?.[side]?.opponent?.name)
+        ),
         `Confirmed fixture "${fixture.id}" keyInformation.${side} must describe the opponent relationship`
       );
     }
@@ -4106,6 +4217,8 @@ function getExpectedHistoricalShootoutRecord(teamName, cutoffKey) {
   };
 }
 
+const historicalKeyInformationSentenceSegmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+
 for (const fixture of historyData.fixtures || []) {
   assert(fixture.id, "Each historical fixture must have an id");
   assert(!historicalFixtureIds.has(fixture.id), `Duplicate historical fixture id "${fixture.id}"`);
@@ -4150,6 +4263,9 @@ for (const fixture of historyData.fixtures || []) {
     assert(fixture.score, `Historical final fixture "${fixture.id}" must include score`);
     assert(isNumber(fixture.score?.home), `Historical final fixture "${fixture.id}" must include numeric home score`);
     assert(isNumber(fixture.score?.away), `Historical final fixture "${fixture.id}" must include numeric away score`);
+    if (fixture.scoreDetails !== undefined) {
+      validateScoreDetails(fixture);
+    }
   }
   const expectsShootoutOutlook = isHistoricalShootoutOutlookFixture(fixture);
   assert(
@@ -4158,6 +4274,28 @@ for (const fixture of historyData.fixtures || []) {
       ? `Historical knockout fixture "${fixture.id}" must include a pre-match shootoutOutlook from 1978 onward`
       : `Historical fixture "${fixture.id}" must not imply a shootout under pre-1978 or non-knockout rules`
   );
+  const historicalPenalties = fixture.scoreDetails?.penalties;
+  if (historicalPenalties !== undefined) {
+    assert(
+      fixture.status === "FT" && fixture.score?.home === fixture.score?.away,
+      `Historical fixture "${fixture.id}" must use scoreDetails.penalties only with a level final score`
+    );
+    assert(
+      getScoreWinnerSide(historicalPenalties),
+      `Historical fixture "${fixture.id}" scoreDetails.penalties must identify a winner`
+    );
+  }
+  if (
+    fixture.status === "FT" &&
+    expectsShootoutOutlook &&
+    fixture.tournamentYear >= 1982 &&
+    fixture.score?.home === fixture.score?.away
+  ) {
+    assert(
+      getScoreWinnerSide(historicalPenalties),
+      `Historical knockout fixture "${fixture.id}" ended level and must include non-tied scoreDetails.penalties`
+    );
+  }
   if (fixture.shootoutOutlook !== undefined) {
     historicalShootoutOutlookCount += 1;
     const outlook = fixture.shootoutOutlook;
@@ -4262,25 +4400,49 @@ for (const fixture of historyData.fixtures || []) {
     sourceIds.has(fixture.keyInformation?.sourceId),
     `Historical fixture "${fixture.id}" keyInformation references unknown source`
   );
+  validateArchivePresentTenseMetadata(
+    fixture.keyInformation,
+    sourceIds,
+    `Historical fixture "${fixture.id}" keyInformation`
+  );
+  const isCanceledHistoricalFixture = fixture.status === "CANCELLED";
+  const hasHistoricalStartingLineups = Number(fixture.tournamentYear) >= 1970 && !isCanceledHistoricalFixture;
+  const expectedHistoricalCoverage = isCanceledHistoricalFixture
+    ? "cancelled-squad-context"
+    : hasHistoricalStartingLineups
+      ? "confirmed-starting-lineup-evidence"
+      : "team-stage-evidence";
+  assert(
+    fixture.keyInformation?.historicalCoverage === expectedHistoricalCoverage,
+    `Historical fixture "${fixture.id}" keyInformation.historicalCoverage must be "${expectedHistoricalCoverage}"`
+  );
+  validateStartingXiProvenance(
+    fixture.keyInformation,
+    "confirmedStartingXI",
+    hasHistoricalStartingLineups,
+    `Historical fixture "${fixture.id}" keyInformation`
+  );
   for (const side of ["home", "away"]) {
     const copy = fixture.keyInformation?.[side];
+    const teamName = side === "home" ? fixture.homeSlot : fixture.awaySlot;
     const opponentName = side === "home" ? fixture.awaySlot : fixture.homeSlot;
     assert(
       typeof copy === "string" && copy.trim().length >= 160,
       `Historical fixture "${fixture.id}" keyInformation.${side} must include a detailed historical matchup note`
     );
-    assert(
-      wordCount(copy) <= 95,
-      `Historical fixture "${fixture.id}" keyInformation.${side} should stay concise`
-    );
-    if (fixture.status !== "CANCELLED") {
+    if (!isCanceledHistoricalFixture) {
+      const sentences = [...historicalKeyInformationSentenceSegmenter.segment(copy || "")]
+        .map(({ segment }) => segment.trim())
+        .filter(Boolean);
       assert(
-        copy?.includes(`Against ${opponentName}`),
-        `Historical fixture "${fixture.id}" keyInformation.${side} must describe the historical opponent relationship`
+        wordCount(copy) >= 50 && wordCount(copy) <= 85,
+        `Historical fixture "${fixture.id}" keyInformation.${side} must contain 50-85 words`
       );
       assert(
-        copy?.includes(" needs to beat "),
-        `Historical fixture "${fixture.id}" keyInformation.${side} must describe the matchup pressure`
+        sentences.length === 4 &&
+          normalizePlayerName(sentences[0]).includes(normalizePlayerName(teamName)) &&
+          normalizePlayerName(sentences[1]).includes(normalizePlayerName(opponentName)),
+        `Historical fixture "${fixture.id}" keyInformation.${side} must use four present-tense semantic sentences with team, matchup, plan, and risk`
       );
     }
   }
@@ -4290,18 +4452,49 @@ for (const fixture of historyData.fixtures || []) {
     sourceIds.has(fixture.keyPlayers?.sourceId),
     `Historical fixture "${fixture.id}" keyPlayers references unknown source`
   );
+  validateArchivePresentTenseMetadata(
+    fixture.keyPlayers,
+    sourceIds,
+    `Historical fixture "${fixture.id}" keyPlayers`
+  );
+  validateStartingXiProvenance(
+    fixture.keyPlayers,
+    "confirmedStartingXI",
+    hasHistoricalStartingLineups,
+    `Historical fixture "${fixture.id}" keyPlayers`
+  );
   assert(Array.isArray(fixture.keyPlayers?.home), `Historical fixture "${fixture.id}" keyPlayers.home must be an array`);
   assert(Array.isArray(fixture.keyPlayers?.away), `Historical fixture "${fixture.id}" keyPlayers.away must be an array`);
   for (const side of ["home", "away"]) {
     const players = fixture.keyPlayers?.[side] || [];
-    if (fixture.status !== "CANCELLED") {
-      assert(players.length >= 2, `Historical fixture "${fixture.id}" keyPlayers.${side} must include at least two historical players`);
+    const confirmedStarters = fixture.keyInformation?.confirmedStarters?.[side];
+    if (hasHistoricalStartingLineups) {
+      assert(
+        Array.isArray(confirmedStarters) && confirmedStarters.length === 11 && new Set(confirmedStarters).size === 11,
+        `Historical fixture "${fixture.id}" keyInformation.confirmedStarters.${side} must include 11 unique starters`
+      );
+      assert(
+        players.length >= 2 && players.length <= 3,
+        `Historical fixture "${fixture.id}" keyPlayers.${side} must include 2-3 profile-backed confirmed starters`
+      );
+    } else if (!isCanceledHistoricalFixture) {
+      assert(
+        players.length === 0,
+        `Historical fixture "${fixture.id}" keyPlayers.${side} must be empty when match appearances are unavailable`
+      );
     }
+    const starterNames = new Set((confirmedStarters || []).map(normalizePlayerName));
     for (const [index, player] of players.entries()) {
       assert(
         typeof player?.name === "string" && player.name.trim(),
         `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player name`
       );
+      if (hasHistoricalStartingLineups && typeof player?.name === "string" && player.name.trim()) {
+        assert(
+          starterNames.has(normalizePlayerName(player.name)),
+          `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must be a confirmed starter`
+        );
+      }
       if (typeof player?.name === "string" && player.name.trim()) {
         addRequiredHistoricalProfile(
           requiredHistoricalProfileRefs,

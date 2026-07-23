@@ -338,7 +338,9 @@ function assertCleanMatchMetaLayout(metrics, message) {
 }
 
 async function getMobileMatchupGridMetrics(pageInstance, fixtureId) {
-  return pageInstance.locator(`[data-match-id="${fixtureId}"]`).evaluate((row) => {
+  const rowLocator = pageInstance.locator(`[data-match-id="${fixtureId}"]:visible`).first();
+  await rowLocator.waitFor({ state: "visible" });
+  return rowLocator.evaluate((row) => {
     const rect = (selector) => {
       const element = row.querySelector(selector);
       const bounds = element?.getBoundingClientRect();
@@ -2824,8 +2826,16 @@ try {
       document.querySelectorAll(".match-row.is-selected, .yesterday-match-card.is-selected").length === 1
   );
   const keyInformationText = await page.locator(".key-info-team p").first().innerText();
+  const selectedKeyInformationFixture = fixturesData.fixtures.find(
+    (fixture) => fixture.id === selectedMatchSeoState.matchId
+  );
+  const selectedHomeName = teamsById.get(selectedKeyInformationFixture?.homeTeamId)?.name || "";
+  const selectedAwayName = teamsById.get(selectedKeyInformationFixture?.awayTeamId)?.name || "";
   assert(
-    keyInformationText.includes("Against "),
+    selectedHomeName &&
+      selectedAwayName &&
+      keyInformationText.includes(selectedHomeName) &&
+      keyInformationText.includes(selectedAwayName),
     "Key information should include matchup-specific opponent context."
   );
   assert(
@@ -3130,30 +3140,28 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="france-iraq-2026-06-22"]').click();
-  const franceMentionCommaGap = await page
-    .locator(".key-info-team")
+  const expectedMbappeGenericCardNote =
+    "Mbappé's signature is explosive speed once open grass appears. Near goal, he shifts onto his stronger foot and shoots with little backlift. When defenders crowd him, he looks for the next pass instead of forcing a shot.";
+  const mbappeGenericCardNoteLocator = page
+    .locator("#match-info .key-info-team")
     .first()
-    .locator("p")
-    .evaluate((paragraph) => {
-      const link = [...paragraph.querySelectorAll(".player-link")].find(
-        (candidate) => candidate.textContent.trim() === "Kylian Mbappe"
-      );
-      const hover = link?.closest(".player-hover");
-      const nextText = hover?.nextSibling;
-
-      if (!link || nextText?.nodeType !== Node.TEXT_NODE || !nextText.textContent.startsWith(",")) {
-        return Number.POSITIVE_INFINITY;
-      }
-
-      const commaRange = document.createRange();
-      commaRange.setStart(nextText, 0);
-      commaRange.setEnd(nextText, 1);
-
-      return commaRange.getBoundingClientRect().left - link.getBoundingClientRect().right;
-    });
+    .locator(".player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "Kylian Mbappe" }) })
+    .first()
+    .locator(
+      ".player-card-copy > .player-card-note:not(.player-card-tournament-stats):not(.player-card-meta):not(.player-card-world-cup-context)"
+    );
+  await page.waitForFunction((expectedNote) =>
+    [...document.querySelectorAll("#match-info .key-info-team .player-hover")].some((hover) =>
+      hover.querySelector(".player-link")?.textContent?.trim() === "Kylian Mbappe" &&
+      [...hover.querySelectorAll(".player-card-copy > .player-card-note")].some(
+        (note) => note.textContent?.trim() === expectedNote
+      )
+    ), expectedMbappeGenericCardNote, { timeout: 30000 });
+  const mbappeGenericCardNote = await mbappeGenericCardNoteLocator.innerText();
   assert(
-    franceMentionCommaGap >= 0 && franceMentionCommaGap < 1,
-    "Player-card mentions should not insert spaces before comma punctuation."
+    mbappeGenericCardNote.trim() === expectedMbappeGenericCardNote,
+    `Generic player cards opened from a fixture should use Mbappé's detailed canonical profile, not the short match teaser. Measured ${JSON.stringify(mbappeGenericCardNote.trim())}.`
   );
 
   await page.setViewportSize({ width: 360, height: 760 });
@@ -3418,25 +3426,25 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
-  const lukakuCard = page
+  const tielemansCard = page
     .locator("#match-info .key-info-team .player-hover")
-    .filter({ has: page.locator(".player-link", { hasText: "Romelu Lukaku" }) })
+    .filter({ has: page.locator(".player-link", { hasText: "Youri Tielemans" }) })
     .first()
     .locator(".player-card");
   assert(
-    (await lukakuCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku" &&
-      (await lukakuCard.locator(".player-card-number").innerText()).trim() === "#9",
+    (await tielemansCard.locator(".player-card-name").innerText()).trim() === "Youri Tielemans" &&
+      (await tielemansCard.locator(".player-card-number").innerText()).trim() === "#8",
     "Player hover card should show the country-team uniform number beside the name when available."
   );
   assert(
-    (await lukakuCard.locator(".player-card-name-line .player-card-flag .flag").getAttribute("aria-label")) ===
+    (await tielemansCard.locator(".player-card-name-line .player-card-flag .flag").getAttribute("aria-label")) ===
       "Belgium flag",
     "Player hover card should show the player's country flag before the name."
   );
-  const lukakuCardText = await lukakuCard.innerText();
+  const tielemansCardText = await tielemansCard.innerText();
   assert(
-    lukakuCardText.includes("Value €6m (Prime €100m)") &&
-      lukakuCardText.includes("At the 2026 World Cup"),
+    tielemansCardText.includes("Value €30m (Prime €55m)") &&
+      tielemansCardText.includes("At the 2026 World Cup"),
     "Current player cards should show Prime value and identify the 2026 World Cup snapshot."
   );
   const playerTournamentStatsCheck = await openPageAtTime(
@@ -3463,19 +3471,19 @@ try {
   );
   await playerTournamentStatsCheck.page.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
   const syntheticLukakuCard = playerTournamentStatsCheck.page
-    .locator("#match-info .key-info-team .player-hover")
+    .locator("#match-info .scorer-highlight .player-hover")
     .filter({ has: playerTournamentStatsCheck.page.locator(".player-link", { hasText: "Romelu Lukaku" }) })
     .first()
     .locator(".player-card");
-  const syntheticDeBruyneCard = playerTournamentStatsCheck.page
+  const syntheticTielemansCard = playerTournamentStatsCheck.page
     .locator("#match-info .key-info-team .player-hover")
-    .filter({ has: playerTournamentStatsCheck.page.locator(".player-link", { hasText: "Kevin De Bruyne" }) })
+    .filter({ has: playerTournamentStatsCheck.page.locator(".player-link", { hasText: "Youri Tielemans" }) })
     .first()
     .locator(".player-card");
   assert(
     (await syntheticLukakuCard.locator(".player-card-tournament-stats").innerText()).trim() ===
       "This World Cup: 2 goals, 1 assist" &&
-      (await syntheticDeBruyneCard.locator(".player-card-tournament-stats").count()) === 0,
+      (await syntheticTielemansCard.locator(".player-card-tournament-stats").count()) === 0,
     "Current player cards should omit the tournament stats row when both goals and assists are zero."
   );
   await playerTournamentStatsCheck.context.close();
@@ -3487,31 +3495,35 @@ try {
   await page.locator('[data-match-id="tunisia-japan-2026-06-20"]').click();
   const japanTunisiaChineseInfo = await page.locator(".key-info-team").last().locator("p").innerText();
   assert(
-    japanTunisiaChineseInfo.includes("上田绮世") &&
-      japanTunisiaChineseInfo.includes("堂安律") &&
+    japanTunisiaChineseInfo.includes("伊东纯也") &&
+      japanTunisiaChineseInfo.includes("阿奥·塔纳卡") &&
       japanTunisiaChineseInfo.includes("镰田大地") &&
       japanTunisiaChineseInfo.includes("面对突尼斯") &&
-      japanTunisiaChineseInfo.includes("日本的基本思路是"),
-    "Chinese Japan key information should use the structured localized preview with the post-Kubo trio against Tunisia."
+      japanTunisiaChineseInfo.includes("阵型对照") &&
+      japanTunisiaChineseInfo.includes("官方首发布置") &&
+      japanTunisiaChineseInfo.includes("中路的首发结构") &&
+      japanTunisiaChineseInfo.includes("5-3-2"),
+    `Chinese Japan key information should render the four model-backed slots and confirmed matchup facts against Tunisia. Measured ${JSON.stringify(japanTunisiaChineseInfo)}.`
   );
   assert(
-    !/Takefusa Kubo|久保建英|Ayase Ueda/.test(japanTunisiaChineseInfo),
-    "Chinese Japan key information should not surface Kubo or raw English Ueda after the Tunisia absence update."
+    !/Takefusa Kubo|久保建英|Ayase Ueda|日本的基本思路是|最值得关注的是|重点看/.test(
+      japanTunisiaChineseInfo
+    ),
+    "Chinese Japan key information should not fall back to the legacy template or absent-player copy."
   );
-  const uedaChineseLink = page.locator(".key-info-team").last().locator(".player-link", { hasText: "上田绮世" }).first();
+  const itoChineseLink = page.locator(".key-info-team").last().locator(".player-link", { hasText: "伊东纯也" }).first();
   assert(
-    (await uedaChineseLink.count()) === 1,
-    "Chinese key information should link Ayase Ueda's localized name."
+    (await itoChineseLink.count()) === 1,
+    "Chinese key information should link Junya Ito's localized name."
   );
-  const uedaChineseCard = page
+  const itoChineseCard = page
     .locator("#match-info .key-info-team .player-hover")
-    .filter({ has: page.locator(".player-link", { hasText: "上田绮世" }) })
+    .filter({ has: page.locator(".player-link", { hasText: "伊东纯也" }) })
     .first()
     .locator(".player-card");
   assert(
-    (await uedaChineseCard.locator(".player-card-name").innerText()).trim() === "上田绮世" &&
-      (await uedaChineseCard.locator(".player-card-club").innerText()).includes("费耶诺德"),
-    "Chinese Ayase Ueda hover card should localize the display name and club."
+    (await itoChineseCard.locator(".player-card-name").innerText()).trim() === "伊东纯也",
+    "Chinese Junya Ito hover card should preserve the localized display name from the model-backed paragraph."
   );
   const chinesePlayerCardLocalizationLeaks = await page.evaluate(async () => {
     const hasLowercaseLatinWord = (value) => /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(String(value || ""));
@@ -3596,13 +3608,16 @@ try {
   await page.locator('[data-match-id="japan-sweden-2026-06-25"]').click();
   const japanSwedenChineseInfo = await page.locator(".key-info-team").first().locator("p").innerText();
   assert(
-    japanSwedenChineseInfo.includes("久保建英") &&
+    japanSwedenChineseInfo.includes("阿奥·塔纳卡") &&
       japanSwedenChineseInfo.includes("堂安律") &&
-      japanSwedenChineseInfo.includes("镰田大地") &&
+      japanSwedenChineseInfo.includes("前田大然") &&
       japanSwedenChineseInfo.includes("面对瑞典") &&
-      japanSwedenChineseInfo.includes("日本的基本思路是") &&
+      japanSwedenChineseInfo.includes("阵型对照") &&
+      japanSwedenChineseInfo.includes("官方首发布置") &&
+      japanSwedenChineseInfo.includes("锋线") &&
+      japanSwedenChineseInfo.includes("3-4-3") &&
       !/Takefusa Kubo|Ritsu Doan|Daichi Kamada|Ayase Ueda/.test(japanSwedenChineseInfo),
-    "Chinese Japan key information should use the structured localized preview with the Kubo-led trio against Sweden."
+    "Chinese Japan key information should render the four model-backed slots and confirmed matchup facts against Sweden."
   );
 
   const pendingH2hFixture = fixturesData.fixtures.find(
@@ -3635,25 +3650,32 @@ try {
   const brazilChineseInfo = brazilJapanChineseInfo[0] || "";
   const japanBrazilChineseInfo = brazilJapanChineseInfo[1] || "";
   assert(
-    brazilChineseInfo.includes("巴西的基本思路是") &&
+    brazilChineseInfo.includes("巴西") &&
       brazilChineseInfo.includes("面对日本") &&
-      brazilChineseInfo.includes("最值得关注的是") &&
-      brazilChineseInfo.includes("同时限制对手的") &&
-      !/球队特点|风格关键词|They want|the risk is|Neymar has returned|Vinicius isolated|[A-Za-z]{3,}/.test(brazilChineseInfo),
-    "Chinese Brazil key information should be assembled from localized team, player, and style fields rather than retranslating the English paragraph."
+      brazilChineseInfo.includes("阵型对照") &&
+      brazilChineseInfo.includes("官方首发布置") &&
+      brazilChineseInfo.includes("首发结构") &&
+      brazilChineseInfo.includes("3-4-3") &&
+      !brazilChineseInfo.includes("内马尔") &&
+      !/球队特点|风格关键词|基本思路|最值得关注|重点看|They want|the risk is|Neymar has returned|Vinicius isolated|[A-Za-z]{3,}/.test(brazilChineseInfo),
+    `Chinese Brazil key information should use the starters named in the match-specific brief, not a stale bench-based key-player list. Measured ${JSON.stringify(brazilChineseInfo)}.`
   );
   assert(
-    japanBrazilChineseInfo.includes("日本的基本思路是") &&
+    japanBrazilChineseInfo.includes("日本") &&
       japanBrazilChineseInfo.includes("面对巴西") &&
-      japanBrazilChineseInfo.includes("最值得关注的是") &&
-      japanBrazilChineseInfo.includes("同时限制对手的") &&
-      !/球队特点|风格关键词|They want|the risk is|Kubo could play|Brazil breaking|[A-Za-z]{3,}/.test(japanBrazilChineseInfo),
-    "Chinese Japan key information should be assembled from localized team, player, and style fields rather than retranslating the English paragraph."
+      japanBrazilChineseInfo.includes("阵型对照") &&
+      japanBrazilChineseInfo.includes("官方首发布置") &&
+      japanBrazilChineseInfo.includes("首发结构") &&
+      japanBrazilChineseInfo.includes("4-1-2-3") &&
+      !japanBrazilChineseInfo.includes("久保") &&
+      !/球队特点|风格关键词|基本思路|最值得关注|重点看|They want|the risk is|Kubo could play|Brazil breaking|[A-Za-z]{3,}/.test(japanBrazilChineseInfo),
+    `Chinese Japan key information should use the starters named in the match-specific brief, not a stale bench-based key-player list. Measured ${JSON.stringify(japanBrazilChineseInfo)}.`
   );
   const chineseKeyInformationCoverageIssues = await page.evaluate(async () => {
-    const buildStructuredPreview =
-      window.__worldCupTestHooks?.localization?.buildLocalizedKeyInformationFallback;
-    if (typeof buildStructuredPreview !== "function") {
+    const localizationHooks = window.__worldCupTestHooks?.localization;
+    const formatStructuredPreview = localizationHooks?.formatStructuredKeyInformation;
+    const getLocalizedTeamName = localizationHooks?.getLocalizedTeamName;
+    if (typeof formatStructuredPreview !== "function" || typeof getLocalizedTeamName !== "function") {
       return [{ fixtureId: "test-hooks", side: "all", issue: "missing localization test hook" }];
     }
 
@@ -3675,7 +3697,9 @@ try {
 
       for (const side of ["home", "away"]) {
         const source = fixture.keyInformation?.[side];
-        if (!source) {
+        const model = fixture.keyInformation?.localeModel?.[side];
+        if (!source || !model) {
+          issues.push({ fixtureId: fixture.id, side, issue: "missing-source-or-model" });
           continue;
         }
 
@@ -3683,13 +3707,22 @@ try {
         const opponentId = side === "home" ? fixture.awayTeamId : fixture.homeTeamId;
         const team = teamsById.get(teamId);
         const opponent = teamsById.get(opponentId);
-        const players = fixture.keyPlayers?.[side] || [];
-        const translated = team ? buildStructuredPreview(team, players, opponent) : "";
+        const translated = team && opponent
+          ? formatStructuredPreview(model, team, opponent)
+          : "";
+        const localizedTeamName = team ? getLocalizedTeamName(team) : "";
+        const localizedOpponentName = opponent ? getLocalizedTeamName(opponent) : "";
+        const sentenceCount = (translated.match(/[。！？]/g) || []).length;
         const stale =
           !translated ||
           translated === source ||
-          !translated.includes("的基本思路是") ||
-          (opponent && !translated.includes("重点看")) ||
+          sentenceCount !== 4 ||
+          !translated.includes(localizedTeamName) ||
+          !translated.includes(`面对${localizedOpponentName}`) ||
+          !translated.includes(model.slots?.matchup?.opponentFormation || "__missing-formation__") ||
+          !translated.includes("阵型对照") ||
+          !translated.includes("官方首发布置") ||
+          !translated.includes("首发结构") ||
           /Against |They want|The risk is|has to beat|led by|main names to track|key information|球队特点|风格关键词/i.test(translated);
 
         if (stale || hasLatinLeak(translated)) {
@@ -3839,7 +3872,7 @@ try {
       bellinghamRenderedText.includes("中场") &&
       bellinghamRenderedText.includes("皇家马德里（西甲）") &&
       bellinghamRenderedText.includes("23岁") &&
-      bellinghamRenderedText.includes("防守者仍盯着球时提前启动") &&
+      bellinghamRenderedText.includes("稍晚进入禁区") &&
       !/Jude|Midfielder|Real Madrid|La Liga|Age/.test(bellinghamRenderedText),
     `The complete Chinese Bellingham card should localize its identity, role, club, age, and note. Measured ${bellinghamRenderedText}.`
   );
@@ -3879,41 +3912,41 @@ try {
   await page.locator('[data-match-id="mexico-south-africa-2026-06-11"]').click();
   const mexicoParagraphLinks = await page
     .locator(".key-info-team")
-    .first()
+    .last()
     .locator("p .player-link")
     .evaluateAll((links) => links.map((link) => link.textContent.trim()));
   const normalizedMexicoParagraphLinks = mexicoParagraphLinks.map((text) =>
     text.normalize("NFD").replace(/\p{Diacritic}/gu, "")
   );
   assert(
-    normalizedMexicoParagraphLinks.some((text) => text.includes("Gimenez")) &&
-      normalizedMexicoParagraphLinks.some((text) => text.includes("Alvarez")),
+    normalizedMexicoParagraphLinks.some((text) => text.includes("Raul Jimenez")) &&
+      normalizedMexicoParagraphLinks.some((text) => text.includes("Julian Quinones")),
     "Mexico's accented player aliases should link from the matchup paragraph."
   );
-  const gimenezLink = page
+  const jimenezLink = page
     .locator(".key-info-team")
-    .first()
-    .locator("p .player-link", { hasText: /^Gim[eé]nez$/ })
+    .last()
+    .locator("p .player-link", { hasText: /^Ra[uú]l Jim[eé]nez$/ })
     .first();
-  const gimenezCard = page
+  const jimenezCard = page
     .locator("#match-info .key-info-team .player-hover")
-    .filter({ has: page.locator(".player-link", { hasText: /^Gim[eé]nez$/ }) })
+    .filter({ has: page.locator(".player-link", { hasText: /^Ra[uú]l Jim[eé]nez$/ }) })
     .first()
     .locator(".player-card");
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .key-info-team p .player-link")].some(
       (link) =>
-        /^Gim[eé]nez$/.test(link.textContent?.trim() || "") &&
-        link.getAttribute("aria-label")?.startsWith("Santiago Giménez:")
+        /^Ra[uú]l Jim[eé]nez$/.test(link.textContent?.trim() || "") &&
+        link.getAttribute("aria-label")?.startsWith("Raúl Jiménez:")
     )
   );
   assert(
-    (await gimenezLink.getAttribute("aria-label"))?.startsWith("Santiago Giménez:"),
-    "Mexico's unaccented Gimenez paragraph alias should open Santiago Giménez's hover card."
+    (await jimenezLink.getAttribute("aria-label"))?.startsWith("Raúl Jiménez:"),
+    "Mexico's unaccented Raul Jimenez paragraph alias should open Raúl Jiménez's hover card."
   );
   assert(
-    (await gimenezCard.locator(".player-card-name").innerText()).trim() === "Santiago Giménez" &&
-      (await gimenezCard.locator(".player-card-position").innerText()).trim() === "Striker",
+    (await jimenezCard.locator(".player-card-name").innerText()).trim() === "Raúl Jiménez" &&
+      (await jimenezCard.locator(".player-card-position").innerText()).trim() === "Striker",
     "Player hover card should show the display name above the position."
   );
 
@@ -4001,18 +4034,23 @@ try {
       delete document.documentElement.dataset.theme;
     }
   }, originalTooltipTheme);
-  const vozinhaLink = page.locator(".key-info-team .player-link", { hasText: "Vozinha" }).first();
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-29&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-76-round-of-32-2026-06-29"]');
+  await page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
+  const casemiroLink = page.locator(".key-info-team .player-link", { hasText: "Casemiro" }).first();
   assert(
-    (await vozinhaLink.count()) === 1,
+    (await casemiroLink.count()) === 1,
     "Single-name player aliases should link from key information."
   );
-  const vozinhaCard = page
+  const casemiroCard = page
     .locator("#match-info .key-info-team .player-hover")
-    .filter({ has: page.locator(".player-link", { hasText: "Vozinha" }) })
+    .filter({ has: page.locator(".player-link", { hasText: "Casemiro" }) })
     .first()
     .locator(".player-card");
   assert(
-    (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) >= 1,
+    (await casemiroCard.locator(".player-photo img, .player-photo-fallback").count()) >= 1,
     "Single-name player hover cards should include a face or initials fallback."
   );
 
@@ -4363,10 +4401,10 @@ try {
   await page.waitForSelector('[data-match-id="match-99-quarter-final-2026-07-11"]');
   await page.locator('[data-match-id="match-99-quarter-final-2026-07-11"]').click();
   const quarterFinalContextSearchActions = await page.locator("#match-info").evaluate((root) => {
-    const previousSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const previousSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Previous: Round of 16"
     );
-    const nextSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const nextSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Next: Semi-finals"
     );
 
@@ -5347,10 +5385,21 @@ try {
   await postFinalCelebrationCheck.page
     .locator('#calendar-grid [data-day-key="2026-07-01"]')
     .click();
+  await postFinalCelebrationCheck.page.waitForFunction(() =>
+    document.documentElement.classList.contains("is-calendar-transition-new")
+  );
   const calendarTransitionStart = await postFinalCelebrationCheck.page.evaluate(() => ({
     active: Boolean(document.activeViewTransition),
     dateLabel: document.querySelector("#day-label")?.textContent.trim() || "",
-    duration: getComputedStyle(document.documentElement, "::view-transition-group(root)").animationDuration,
+    duration: getComputedStyle(document.documentElement, "::view-transition-new(root)").animationDuration,
+    rootTransitionName: getComputedStyle(document.documentElement).viewTransitionName,
+    matchesTransitionName: getComputedStyle(document.querySelector("#matches-view")).viewTransitionName,
+    headerTransitionName: getComputedStyle(document.querySelector(".site-header")).viewTransitionName,
+    dateControlsTransitionName: getComputedStyle(
+      document.querySelector("#matches-view .page-title")
+    ).viewTransitionName,
+    isContentTransition: document.documentElement.classList.contains("is-calendar-content-transition"),
+    isSceneTransition: document.documentElement.classList.contains("is-calendar-scene-transition"),
     hasLegacyExitState: Boolean(
       document.querySelector(".final-celebration-banner.is-exiting, .match-list.is-date-transitioning, .match-info.is-exiting")
     )
@@ -5359,19 +5408,138 @@ try {
   const calendarTransitionEnd = await postFinalCelebrationCheck.page.evaluate(() => ({
     dateLabel: document.querySelector("#day-label")?.textContent.trim() || "",
     hasBanner: Boolean(document.querySelector("#final-celebration-banner")),
+    hasTransitionScope: document.documentElement.classList.contains("is-calendar-date-transition"),
+    headerTransitionName: getComputedStyle(document.querySelector(".site-header")).viewTransitionName,
     matchList: document.querySelector("#match-list")?.textContent.replace(/\s+/g, " ").trim() || "",
     urlDate: new URL(location.href).searchParams.get("date")
   }));
   assert(
     calendarTransitionStart.active &&
       calendarTransitionStart.dateLabel === "Jul 1" &&
-      calendarTransitionStart.duration === "0.2s" &&
+      calendarTransitionStart.duration === "0.18s" &&
+      calendarTransitionStart.rootTransitionName === "root" &&
+      calendarTransitionStart.matchesTransitionName === "none" &&
+      calendarTransitionStart.headerTransitionName === "calendar-header" &&
+      calendarTransitionStart.dateControlsTransitionName === "none" &&
+      !calendarTransitionStart.isContentTransition &&
+      calendarTransitionStart.isSceneTransition &&
       !calendarTransitionStart.hasLegacyExitState &&
       calendarTransitionEnd.dateLabel === "Jul 1" &&
       !calendarTransitionEnd.hasBanner &&
+      !calendarTransitionEnd.hasTransitionScope &&
+      calendarTransitionEnd.headerTransitionName === "none" &&
       calendarTransitionEnd.matchList.includes("England") &&
       calendarTransitionEnd.urlDate === "2026-07-01",
-    `Date changes should atomically fade to the selected schedule without legacy staged-exit state. Measured ${JSON.stringify({ start: calendarTransitionStart, end: calendarTransitionEnd })}.`
+    `Leaving the championship should use one short scene dissolve while the date controls and persistent chrome stay stable. Measured ${JSON.stringify({ start: calendarTransitionStart, end: calendarTransitionEnd })}.`
+  );
+
+  await postFinalCelebrationCheck.page.locator("#day-label").click();
+  await postFinalCelebrationCheck.page
+    .locator('#calendar-grid [data-day-key="2026-07-02"]')
+    .click();
+  await postFinalCelebrationCheck.page.waitForFunction(() =>
+    document.querySelector("#day-label")?.textContent.trim() === "Jul 2" &&
+    document.querySelector("#match-list")?.textContent.includes("Portugal")
+  );
+  const ordinaryDateChangeState = await postFinalCelebrationCheck.page.evaluate(() => ({
+    active: Boolean(document.activeViewTransition),
+    dateLabel: document.querySelector("#day-label")?.textContent.trim() || "",
+    hasTransitionScope: document.documentElement.classList.contains("is-calendar-date-transition"),
+    isContentTransition: document.documentElement.classList.contains("is-calendar-content-transition"),
+    isSceneTransition: document.documentElement.classList.contains("is-calendar-scene-transition"),
+    matchListOpacity: getComputedStyle(document.querySelector("#match-list")).opacity,
+    matchListTransitionName: getComputedStyle(document.querySelector("#match-list")).viewTransitionName,
+    matchList: document.querySelector("#match-list")?.textContent.replace(/\s+/g, " ").trim() || "",
+    runningMatchListAnimations: document
+      .querySelector("#match-list")
+      ?.getAnimations()
+      .filter((animation) => animation.playState === "running" || animation.playState === "pending")
+      .length || 0,
+    headerTransitionName: getComputedStyle(document.querySelector(".site-header")).viewTransitionName,
+    urlDate: new URL(location.href).searchParams.get("date")
+  }));
+  assert(
+    !ordinaryDateChangeState.active &&
+      ordinaryDateChangeState.dateLabel === "Jul 2" &&
+      !ordinaryDateChangeState.hasTransitionScope &&
+      !ordinaryDateChangeState.isContentTransition &&
+      !ordinaryDateChangeState.isSceneTransition &&
+      ordinaryDateChangeState.matchListOpacity === "1" &&
+      ordinaryDateChangeState.matchListTransitionName === "none" &&
+      ordinaryDateChangeState.runningMatchListAnimations === 0 &&
+      ordinaryDateChangeState.headerTransitionName === "none" &&
+      ordinaryDateChangeState.matchList.includes("Portugal") &&
+      ordinaryDateChangeState.urlDate === "2026-07-02",
+    `Ordinary dates should replace their schedule immediately without a fade or view transition. Measured ${JSON.stringify(ordinaryDateChangeState)}.`
+  );
+
+  await postFinalCelebrationCheck.page.evaluate(() => {
+    document.querySelector('[data-match-id="match-83-round-of-32-2026-07-02"] .match-row-trigger')?.click();
+  });
+  await postFinalCelebrationCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    return !info?.hidden && Boolean(info.querySelector(":scope > .match-info-content"));
+  });
+  const firstMatchInfoEntrance = await postFinalCelebrationCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info");
+    window.__stableMatchInfoShell = info;
+    window.__stableMatchInfoClose = info?.querySelector(":scope > .match-info-close");
+    const styles = info ? getComputedStyle(info) : null;
+    return {
+      animationDuration: styles?.animationDuration || "",
+      entering: info?.classList.contains("is-entering") || false,
+      hasContentWrapper: Boolean(info?.querySelector(":scope > .match-info-content")),
+      hasCloseControl: Boolean(window.__stableMatchInfoClose)
+    };
+  });
+  assert(
+    firstMatchInfoEntrance.entering &&
+      firstMatchInfoEntrance.animationDuration === "0.24s" &&
+      firstMatchInfoEntrance.hasContentWrapper &&
+      firstMatchInfoEntrance.hasCloseControl,
+    `The first match-detail reveal should be one short, subtle shell entrance. Measured ${JSON.stringify(firstMatchInfoEntrance)}.`
+  );
+
+  await postFinalCelebrationCheck.page.evaluate(() => {
+    document.querySelector('[data-match-id="match-84-round-of-32-2026-07-02"] .match-row-trigger')?.click();
+  });
+  await postFinalCelebrationCheck.page.waitForFunction(() =>
+    document.documentElement.classList.contains("is-match-info-transition-new")
+  );
+  const matchInfoContentTransitionStart = await postFinalCelebrationCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info");
+    const close = info?.querySelector(":scope > .match-info-close");
+    const content = info?.querySelector(":scope > .match-info-content");
+    return {
+      active: Boolean(document.activeViewTransition),
+      duration: getComputedStyle(
+        document.documentElement,
+        "::view-transition-new(match-info-content-new)"
+      ).animationDuration,
+      rootTransitionName: getComputedStyle(document.documentElement).viewTransitionName,
+      contentTransitionName: content ? getComputedStyle(content).viewTransitionName : "",
+      entering: info?.classList.contains("is-entering") || false,
+      shellStable: info === window.__stableMatchInfoShell,
+      closeStable: close === window.__stableMatchInfoClose
+    };
+  });
+  await postFinalCelebrationCheck.page.evaluate(() => document.activeViewTransition?.finished);
+  const matchInfoContentTransitionEnd = await postFinalCelebrationCheck.page.evaluate(() => ({
+    hasTransitionScope: document.documentElement.classList.contains("is-match-info-content-transition"),
+    text: document.querySelector("#match-info")?.textContent.replace(/\s+/g, " ").trim() || ""
+  }));
+  assert(
+    matchInfoContentTransitionStart.active &&
+      matchInfoContentTransitionStart.duration === "0.16s" &&
+      matchInfoContentTransitionStart.rootTransitionName === "none" &&
+      matchInfoContentTransitionStart.contentTransitionName === "match-info-content-new" &&
+      !matchInfoContentTransitionStart.entering &&
+      matchInfoContentTransitionStart.shellStable &&
+      matchInfoContentTransitionStart.closeStable &&
+      !matchInfoContentTransitionEnd.hasTransitionScope &&
+      matchInfoContentTransitionEnd.text.includes("Spain") &&
+      matchInfoContentTransitionEnd.text.includes("Austria"),
+    `Switching matches should dissolve only the inner details while the card shell and close control remain stable. Measured ${JSON.stringify({ start: matchInfoContentTransitionStart, end: matchInfoContentTransitionEnd })}.`
   );
   await postFinalCelebrationCheck.context.close();
 
@@ -5379,6 +5547,14 @@ try {
     "2026-07-20T19:30:00Z",
     "/?view=matches&tz=America%2FLos_Angeles",
     { contextOptions: { reducedMotion: "reduce" } }
+  );
+  await reducedMotionEntranceCheck.page.waitForFunction(() =>
+    [
+      "#final-celebration-banner",
+      "#matches-view .page-title",
+      "#match-list > .empty-state",
+      "#match-list > .yesterday-section"
+    ].every((selector) => document.querySelector(selector))
   );
   const reducedMotionEntranceState = await reducedMotionEntranceCheck.page.evaluate(() => {
     const elements = [
@@ -5771,9 +5947,39 @@ try {
     (await page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).count()) === 2,
     "Historical scorer names should expose player-card triggers."
   );
+  const historicalKeyInformationPlayerLinks = await page
+    .locator("#match-info .key-info-team .player-link")
+    .allTextContents();
   assert(
-    (await page.locator("#match-info .key-info-team .player-link").count()) >= 6,
-    "Historical key information should expose era-specific key-player card triggers."
+    historicalKeyInformationPlayerLinks.length >= 5 &&
+      historicalKeyInformationPlayerLinks.includes("Akram Afif") &&
+      historicalKeyInformationPlayerLinks.includes("Enner Valencia"),
+    `Historical key information should expose era-specific key-player card triggers. Measured ${JSON.stringify(historicalKeyInformationPlayerLinks)}.`
+  );
+  const historicalMentionCommaGap = await page
+    .locator("#match-info .key-info-team")
+    .first()
+    .locator("p")
+    .evaluate((paragraph) => {
+      const link = [...paragraph.querySelectorAll(".player-link")].find((candidate) => {
+        const nextText = candidate.closest(".player-hover")?.nextSibling;
+        return nextText?.nodeType === Node.TEXT_NODE && nextText.textContent.startsWith(",");
+      });
+      const nextText = link?.closest(".player-hover")?.nextSibling;
+
+      if (!link || nextText?.nodeType !== Node.TEXT_NODE || !nextText.textContent.startsWith(",")) {
+        return Number.POSITIVE_INFINITY;
+      }
+
+      const commaRange = document.createRange();
+      commaRange.setStart(nextText, 0);
+      commaRange.setEnd(nextText, 1);
+
+      return commaRange.getBoundingClientRect().left - link.getBoundingClientRect().right;
+    });
+  assert(
+    historicalMentionCommaGap >= 0 && historicalMentionCommaGap < 1,
+    "Player-card mentions should not insert spaces before comma punctuation."
   );
   await assertPlayerCardTriggersStayInternal(
     page.locator("#match-info"),
@@ -5801,10 +6007,10 @@ try {
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Fenerbahçe") &&
       historicalScorerCardText.includes(
-        "Valencia stands out for attacking the space behind defenders before it fully opens."
+        "With Valencia, start with finding the inside channel without crowding the central attacker."
       ) &&
       historicalScorerCardText.includes(
-        "He arrives on the move and gets his finish away before the nearest marker recovers."
+        "He threatens outside before cutting behind midfield."
       ) &&
       historicalScorerCardText.includes("2022 World Cup: 3 goals") &&
       historicalScorerCardText.includes("Age 33") &&
@@ -5828,25 +6034,66 @@ try {
     !historicalGroupDetailText.includes("Archived result shown instead of a pre-match probability"),
     "Historical match details should use the back-then prediction card instead of the archive-only result copy."
   );
+  const historicalKeyInformationParagraphs = await page
+    .locator("#match-info .key-info-team p")
+    .allInnerTexts();
   assert(
-    historicalGroupDetailText.includes("Qatar runs through Akram Afif, Almoez Ali, and Abdulaziz Hatem") &&
-      historicalGroupDetailText.includes("Against Ecuador, Qatar needs to beat Ecuador's scoring threat through Enner Valencia") &&
-      historicalGroupDetailText.includes("Ecuador runs through Enner Valencia") &&
+    historicalKeyInformationParagraphs.length === 2 &&
+      historicalKeyInformationParagraphs.every((paragraph) =>
+        paragraph.split(/(?<=[.!?])\s+/).filter(Boolean).length === 4
+      ) &&
+      historicalGroupDetailText.includes(
+        "In Group A at the 2022 tournament, Qatar are the host side under Félix Sánchez"
+      ) &&
+      historicalGroupDetailText.includes(
+        "the confirmed XI includes Akram Afif, Abdulaziz Hatem, and Almoez Ali"
+      ) &&
+      historicalGroupDetailText.includes(
+        "Against Ecuador, this opening group fixture offers 3 points for victory"
+      ) &&
+      historicalGroupDetailText.includes(
+        "In Group A at the 2022 tournament, Ecuador are competing under Gustavo Alfaro"
+      ) &&
+      historicalGroupDetailText.includes(
+        "the confirmed XI includes Michael Estrada, Romario Ibarra, and Enner Valencia"
+      ) &&
+      historicalGroupDetailText.includes(
+        "Against Qatar, a win gives Ecuador 3 points"
+      ) &&
+      !/contest central space|tracks .*runs|connect the phases/i.test(historicalGroupDetailText) &&
       !historicalGroupDetailText.includes("2022 match lens") &&
       !historicalGroupDetailText.includes("actual match roster") &&
       !historicalGroupDetailText.includes("0-2 loss"),
-    "Historical key information should read like a contemporary pre-match brief."
+    `Historical key information should render two four-sentence, lineup-backed pre-match briefs without result hindsight. Measured ${JSON.stringify(historicalKeyInformationParagraphs)}.`
   );
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),
     "Historical match details should not show source or goals sections."
   );
 
-  await page.goto(`${baseUrl}?view=matches&date=1982-06-29&tz=America%2FLos_Angeles`, {
+  for (const language of ["en", "zh", "es", "ko"]) {
+    await page.goto(
+      `${baseUrl}?view=matches&date=1950-07-16&lang=${language}&tz=America%2FLos_Angeles`,
+      { waitUntil: "load" }
+    );
+    await page.waitForSelector('[data-match-id="wc-1950-1950-07-16-final-round-uruguay-brazil"]');
+    await page.locator('[data-match-id="wc-1950-1950-07-16-final-round-uruguay-brazil"]').click();
+    const historicalContextKeyInfo = await page.locator("#match-info .key-info-grid").evaluate((grid) => ({
+      homeText: grid.querySelector(".key-info-team p")?.textContent.replace(/\s+/g, " ").trim() || "",
+      playerLinks: grid.querySelectorAll(".key-info-team p .player-link").length
+    }));
+    assert(
+      historicalContextKeyInfo.homeText.includes("Juan López") && historicalContextKeyInfo.playerLinks === 0,
+      `Historical-context Key information must keep manager Juan López as plain text with no player links in ${language}. Measured ${JSON.stringify(historicalContextKeyInfo)}.`
+    );
+  }
+
+  await page.goto(`${baseUrl}?view=matches&date=1982-06-29&lang=en&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector('[data-match-id="wc-1982-1982-06-29-matchday-4-italy-argentina"]');
   await page.locator('[data-match-id="wc-1982-1982-06-29-matchday-4-italy-argentina"]').click();
+  await page.waitForSelector("#match-info .key-info-team h4");
   const italyArgentinaHistoricalHeadings = (await page.locator("#match-info .key-info-team h4").allInnerTexts())
     .map(normalizeFlaggedText);
   const italyHistoricalHeading = italyArgentinaHistoricalHeadings.find((heading) => heading.startsWith("Italy")) || "";
@@ -5935,7 +6182,7 @@ try {
     {
       date: "1958-06-29",
       expectedCardNote:
-        "Garrincha stands out for attacking the space behind defenders before it fully opens. He uses his body to protect the ball and brings a teammate into the move. He gets his shot away before the nearest defender can reset.",
+        "Making the wide defender guard more than one route defines the way Garrincha plays. Look for how he takes the first touch away from the full-back's strongest challenge. Separately, he reaches the byline with enough control to pick a cutback target.",
       expectedCardPosition: "Right winger",
       expectedLinks: ["Pelé", "Garrincha"],
       playerName: "Garrincha",
@@ -5944,7 +6191,7 @@ try {
     {
       date: "1974-07-07",
       expectedCardNote:
-        "Beckenbauer's edge is using contact without losing his defensive position. He holds the dangerous lane until a teammate can apply pressure. He checks the runner over his shoulder before the final pass arrives.",
+        "What separates Beckenbauer is stepping beyond the first pressure to change the point of attack. Beckenbauer uses the next simple pass to settle the line after a sudden setback. Separately, he holds the dangerous lane until a teammate can pressure the ball.",
       expectedCardPosition: "Centre-back",
       expectedLinks: ["Beckenbauer", "Müller"],
       playerName: "Beckenbauer",
@@ -6149,7 +6396,7 @@ try {
   await page.waitForSelector('[data-match-id="wc-2022-2022-11-23-matchday-4-germany-japan"]');
   await page.locator('[data-match-id="wc-2022-2022-11-23-matchday-4-germany-japan"]').click();
   const germanyJapanHistoricalPast = await page.locator("#match-info").evaluate((root) => {
-    const pastSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const pastSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Past World Cup meetings"
     );
 
@@ -6173,7 +6420,7 @@ try {
   await page.waitForSelector('[data-match-id="canada-bosnia-2026-06-12"]');
   await page.locator('[data-match-id="canada-bosnia-2026-06-12"]').click();
   const currentUnknownCoveragePast = await page.locator("#match-info").evaluate((root) => {
-    const pastSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const pastSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Past matches"
     );
 
@@ -6204,7 +6451,7 @@ try {
       return clone.textContent.replace(/\s+/g, " ").trim();
     };
     const storyList = root.querySelector(".result-story-highlights");
-    const pastSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const pastSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Past World Cup meetings"
     );
     return {
@@ -6248,7 +6495,7 @@ try {
   await page.locator(".match-row").first().click();
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .scorer-highlight .player-card")].some((card) =>
-      card.textContent.includes("Alberto stands out for creating a clean shot before the defense can reset.")
+      card.textContent.includes("For Alberto, start with choosing the overlap only after the space behind him is protected.")
     )
   );
   const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
@@ -6259,9 +6506,9 @@ try {
     .locator(".player-card");
   const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
   assert(
-    scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
+      scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
       scorerOnlyHistoricalCardText.includes("Santos") &&
-      scorerOnlyHistoricalCardText.includes("Alberto stands out for creating a clean shot before the defense can reset.") &&
+      scorerOnlyHistoricalCardText.includes("For Alberto, start with choosing the overlap only after the space behind him is protected.") &&
       scorerOnlyHistoricalCardText.includes("1970 World Cup: 1 goal") &&
       scorerOnlyHistoricalCardText.includes("At the 1970 World Cup") &&
       !scorerOnlyHistoricalCardText.includes("Italy in the Final (4-1 win)") &&
@@ -6291,7 +6538,7 @@ try {
   await page.locator('[data-match-id="wc-1934-1934-05-27-preliminary-round-hungary-egypt"]').click();
   const historical1934FirstRoundDetail = await page.locator("#match-info").evaluate((root) => {
     const text = root.innerText;
-    const sectionHeadings = [...root.querySelectorAll(":scope > .info-block")]
+    const sectionHeadings = [...root.querySelectorAll(":scope > .match-info-content > .info-block")]
       .map((section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() || "")
       .filter(Boolean);
 
@@ -6319,7 +6566,7 @@ try {
   await page.locator(".match-row").first().click();
   const historicalKnockoutDetail = await page.locator("#match-info").evaluate((root) => {
     const text = root.innerText;
-    const sectionHeadings = [...root.querySelectorAll(":scope > .info-block")]
+    const sectionHeadings = [...root.querySelectorAll(":scope > .match-info-content > .info-block")]
       .map((section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() || "")
       .filter(Boolean);
 
@@ -6354,7 +6601,7 @@ try {
   await page.waitForSelector('[data-match-id="wc-2022-2022-12-13-semi-finals-argentina-croatia"]');
   await page.locator('[data-match-id="wc-2022-2022-12-13-semi-finals-argentina-croatia"]').click();
   const historicalSemiPreviousWinners = await page.locator("#match-info").evaluate((root) => {
-    const previousSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const previousSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Previous: Quarter-finals"
     );
     const winnerNodes = [...(previousSection?.querySelectorAll(".knockout-context-team.is-subject") || [])];
@@ -6376,7 +6623,7 @@ try {
   await page.waitForSelector('[data-match-id="wc-2022-2022-12-06-round-of-16-morocco-spain"]');
   await page.locator('[data-match-id="wc-2022-2022-12-06-round-of-16-morocco-spain"]').click();
   const historicalRoundOf16NextWinner = await page.locator("#match-info").evaluate((root) => {
-    const nextSection = [...root.querySelectorAll(":scope > .info-block")].find(
+    const nextSection = [...root.querySelectorAll(":scope > .match-info-content > .info-block")].find(
       (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Next: Quarter-finals"
     );
     const winnerNodes = [...(nextSection?.querySelectorAll(".knockout-context-team.is-subject") || [])];
@@ -8735,7 +8982,7 @@ try {
     return (
       selectedRow?.dataset.matchId === "match-101-semi-final-2026-07-14" &&
       info?.scrollTop === 0 &&
-      info.classList.contains("is-entering")
+      !info.classList.contains("is-entering")
     );
   });
   assert(
@@ -11613,6 +11860,25 @@ try {
     };
   });
   const creatorHref = await sourceNote.locator("a", { hasText: /^HA$/ }).getAttribute("href");
+  const footerLabelTypography = await sourceNote.evaluate((note) => {
+    const typography = (element) => {
+      const styles = getComputedStyle(element);
+      return {
+        fontFamily: styles.fontFamily,
+        fontSize: styles.fontSize,
+        fontStyle: styles.fontStyle,
+        fontWeight: styles.fontWeight,
+        letterSpacing: styles.letterSpacing,
+        lineHeight: styles.lineHeight,
+        textRendering: styles.textRendering
+      };
+    };
+    return {
+      creator: typography(note.querySelector(".source-credit a")),
+      releaseNotes: typography(note.querySelector(".release-tooltip-trigger")),
+      sources: typography(note.querySelector(".source-tooltip-trigger"))
+    };
+  });
   const expectedSourceNoteText = "Sources • Release notes • Made by HA";
   assert(
     normalizedSourceNoteText === expectedSourceNoteText,
@@ -11629,6 +11895,23 @@ try {
       sourceTriggerHref === null &&
       releaseTriggerHref === null,
     "The source and release note triggers should be in-page tooltip buttons, not navigation links."
+  );
+  assert(
+    footerLabelTypography.creator.fontFamily === footerLabelTypography.sources.fontFamily &&
+      footerLabelTypography.creator.fontFamily === footerLabelTypography.releaseNotes.fontFamily &&
+      footerLabelTypography.creator.fontSize === footerLabelTypography.sources.fontSize &&
+      footerLabelTypography.creator.fontSize === footerLabelTypography.releaseNotes.fontSize &&
+      footerLabelTypography.creator.fontStyle === footerLabelTypography.sources.fontStyle &&
+      footerLabelTypography.creator.fontStyle === footerLabelTypography.releaseNotes.fontStyle &&
+      footerLabelTypography.creator.fontWeight === footerLabelTypography.sources.fontWeight &&
+      footerLabelTypography.creator.fontWeight === footerLabelTypography.releaseNotes.fontWeight &&
+      footerLabelTypography.creator.letterSpacing === footerLabelTypography.sources.letterSpacing &&
+      footerLabelTypography.creator.letterSpacing === footerLabelTypography.releaseNotes.letterSpacing &&
+      footerLabelTypography.creator.lineHeight === footerLabelTypography.sources.lineHeight &&
+      footerLabelTypography.creator.lineHeight === footerLabelTypography.releaseNotes.lineHeight &&
+      footerLabelTypography.creator.textRendering === footerLabelTypography.sources.textRendering &&
+      footerLabelTypography.creator.textRendering === footerLabelTypography.releaseNotes.textRendering,
+    `The HA creator link should use the same typography as Sources and Release notes. Measured ${JSON.stringify(footerLabelTypography)}.`
   );
   assert(
     sourceTooltipText ===
@@ -12965,7 +13248,7 @@ try {
     ["m103LeftOfSemi102", tournamentCheck.m103Rect.center < tournamentCheck.semi102Rect.center - 24],
     ["m103BelowM104", tournamentCheck.m103Rect.top > tournamentCheck.m104Rect.bottom],
     ["m103CloseToM104", tournamentCheck.m103Rect.top - tournamentCheck.m104Rect.bottom <= 180],
-    ["likelihoodTextHasTie", tournamentCheck.likelihoodText.includes("TIE")],
+    ["likelihoodTextHasTie", expectedTiePillCount === 0 || tournamentCheck.likelihoodText.includes("TIE")],
     ["likelihoodTextNoHere", !tournamentCheck.likelihoodText.includes("here")],
     ["likelihoodTextNoNamedCountryWithPercent", !/\d+%\s+(?:Germany|Sweden|France|Canada|Argentina|Spain|Morocco|Japan)\b/.test(tournamentCheck.likelihoodText)],
     ["slotOddsNoGermany", !tournamentCheck.slotOddsText.includes("Germany ")],
@@ -12982,7 +13265,7 @@ try {
       "m97TooltipChanceWin",
       !expectedM97HasOutcomePills || tournamentCheck.m97Tooltips.includes("chance to win in regulation")
     ],
-    ["likelihoodTooltipsShootoutFirst", tournamentCheck.likelihoodTooltips.includes("If it goes to penalties")],
+    ["likelihoodTooltipsShootoutFirst", expectedTiePillCount === 0 || tournamentCheck.likelihoodTooltips.includes("If it goes to penalties")],
     ["likelihoodTooltipsNoRegulationPreamble", !tournamentCheck.likelihoodTooltips.includes("chance of a tie after 90 minutes")],
     ["likelihoodTooltipsNoUpset", !tournamentCheck.likelihoodTooltips.includes("pull off the upset")],
     [
@@ -14803,7 +15086,7 @@ try {
   await page.waitForSelector('[data-match-id="wc-1958-1958-06-19-quarter-finals-france-northern-ireland"]');
   await page.locator('[data-match-id="wc-1958-1958-06-19-quarter-finals-france-northern-ireland"]').click();
   const historical1958QuarterFinalDetail = await page.locator("#match-info").evaluate((root) => {
-    const sectionHeadings = [...root.querySelectorAll(":scope > .info-block")]
+    const sectionHeadings = [...root.querySelectorAll(":scope > .match-info-content > .info-block")]
       .map((section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() || "")
       .filter(Boolean);
 
@@ -15048,6 +15331,14 @@ try {
   await page.goto(`${baseUrl}?view=standings&standingsYear=1950&standingsMode=groups`, { waitUntil: "load" });
   await waitForHistoricalStandingsYear(page, 1950, "groups");
   await page.waitForSelector(".historical-championship-table");
+  await page.waitForFunction(() => {
+    const championshipCard = document.querySelector(".historical-championship-table");
+    return (
+      document.querySelectorAll(".standings-card h2").length >= 5 &&
+      championshipCard?.querySelectorAll("tbody .standing-name").length === 4 &&
+      championshipCard?.querySelector(".standing-status-pill.is-champion")
+    );
+  });
   const historical1950FinalStandingsCheck = await page.evaluate(() => {
     const championshipCard = document.querySelector(".historical-championship-table");
     return {
@@ -16446,15 +16737,35 @@ try {
     `On touch devices, switching main tabs should clear an open formation/player card and any touch tooltip state. Measured ${JSON.stringify(touchFormationTabSwitchState)}.`
   );
 
-  await touchPage.goto(`${baseUrl}?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles`, {
-    waitUntil: "load"
-  });
-  await touchPage.waitForFunction(
+  const touchTournamentOddsCheck = await openPageAtTime(
+    "2026-07-14T23:00:00.000Z",
+    "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+    {
+      contextOptions: {
+        hasTouch: true,
+        isMobile: true,
+        viewport: { width: 390, height: 844 }
+      },
+      fixtureTransform(data) {
+        const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+        final.status = "SCHEDULED";
+        delete final.score;
+        delete final.scoreDetails;
+        delete final.winnerTeamId;
+        delete final.winner;
+        delete final.goalsHome;
+        delete final.goalsAway;
+        delete final.projection;
+      }
+    }
+  );
+  const touchTournamentOddsPage = touchTournamentOddsCheck.page;
+  await touchTournamentOddsPage.waitForFunction(
     () =>
       document.querySelectorAll(".progress-connectors path").length >= 29 &&
       document.querySelector(".progress-match[data-open-match-id] .knockout-likelihood[data-tooltip]")
   );
-  const touchTournamentOddsPill = touchPage
+  const touchTournamentOddsPill = touchTournamentOddsPage
     .locator(".progress-match[data-open-match-id] .knockout-likelihood[data-tooltip]")
     .first();
   await touchTournamentOddsPill.evaluate((pill) => {
@@ -16466,11 +16777,11 @@ try {
       })
     );
   });
-  await touchPage.waitForFunction(() => {
+  await touchTournamentOddsPage.waitForFunction(() => {
     const pill = document.querySelector(".knockout-likelihood.is-touch-tooltip-open");
     return pill && Number(getComputedStyle(pill, "::after").opacity) > 0.8;
   });
-  const touchTournamentTooltipOpen = await touchPage.evaluate(() => {
+  const touchTournamentTooltipOpen = await touchTournamentOddsPage.evaluate(() => {
     const params = new URL(window.location.href).searchParams;
     const pill = document.querySelector(".knockout-likelihood.is-touch-tooltip-open");
 
@@ -16492,9 +16803,9 @@ try {
       touchTournamentTooltipOpen.selectedMatches === "false",
     `On touch devices, tapping a tournament odds tooltip should not open the parent match card. Measured ${JSON.stringify(touchTournamentTooltipOpen)}.`
   );
-  await touchPage.locator("#standings-heading").tap();
-  await touchPage.waitForFunction(() => !document.querySelector(".is-touch-tooltip-open"));
-  const touchTournamentTooltipClosed = await touchPage.evaluate(() => {
+  await touchTournamentOddsPage.locator("#standings-heading").tap();
+  await touchTournamentOddsPage.waitForFunction(() => !document.querySelector(".is-touch-tooltip-open"));
+  const touchTournamentTooltipClosed = await touchTournamentOddsPage.evaluate(() => {
     const params = new URL(window.location.href).searchParams;
 
     return {
@@ -16520,9 +16831,11 @@ try {
       })
     );
   });
-  await touchPage.waitForFunction(() => document.querySelector(".knockout-likelihood.is-touch-tooltip-open"));
-  await touchPage.locator("#matches-tab").tap();
-  await touchPage.waitForFunction(() => {
+  await touchTournamentOddsPage.waitForFunction(() =>
+    document.querySelector(".knockout-likelihood.is-touch-tooltip-open")
+  );
+  await touchTournamentOddsPage.locator("#matches-tab").tap();
+  await touchTournamentOddsPage.waitForFunction(() => {
     const params = new URL(window.location.href).searchParams;
     return (
       document.querySelector("#matches-tab")?.getAttribute("aria-selected") === "true" &&
@@ -16530,7 +16843,7 @@ try {
       !document.querySelector(".is-touch-tooltip-open")
     );
   });
-  const touchTournamentTooltipTabSwitchState = await touchPage.evaluate(() => {
+  const touchTournamentTooltipTabSwitchState = await touchTournamentOddsPage.evaluate(() => {
     const params = new URL(window.location.href).searchParams;
     return {
       activeTooltipCount: document.querySelectorAll(".is-touch-tooltip-open").length,
@@ -16546,19 +16859,20 @@ try {
       touchTournamentTooltipTabSwitchState.view === "",
     `On touch devices, switching main tabs should clear an open tournament odds tooltip. Measured ${JSON.stringify(touchTournamentTooltipTabSwitchState)}.`
   );
+  await touchTournamentOddsCheck.context.close();
 
   await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await touchPage.waitForSelector(".match-row");
   await touchPage.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
-  const touchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Romelu Lukaku" }).first();
+  const touchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Youri Tielemans" }).first();
   await touchPlayerLink.click();
   const touchPlayerCard = touchPage.locator(".player-card:visible").first();
   await touchPlayerCard.waitFor({ state: "visible" });
   assert(
     (await touchPlayerLink.getAttribute("aria-expanded")) === "true" &&
-      (await touchPlayerCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
+      (await touchPlayerCard.locator(".player-card-name").innerText()).trim() === "Youri Tielemans",
     "On touch devices, the first player-name tap should open the player card without navigating away."
   );
   await touchPage.locator(".player-card-floating .player-card-value-help").first().tap();
@@ -16613,7 +16927,7 @@ try {
   const visibleTouchHoverPlayerCards = touchPage.locator(".player-card:visible");
   assert(
     (await visibleTouchHoverPlayerCards.count()) === 1 &&
-      (await visibleTouchHoverPlayerCards.first().locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
+      (await visibleTouchHoverPlayerCards.first().locator(".player-card-name").innerText()).trim() === "Youri Tielemans",
     "On touch devices, touch hover events should not preview a second player card before tap."
   );
   await secondTouchPlayerLink.click();
@@ -17028,8 +17342,9 @@ try {
       haalandBallBoyMetrics.inlineFlagColor === "rgb(10, 10, 10)" &&
       haalandBallBoyMetrics.inlineFlagFilter === "none" &&
       haalandBallBoyMetrics.inlineFlagOpacity === "1" &&
-      haalandBallBoyMetrics.note.startsWith("Haaland's edge is creating a clean shot before the defense can reset") &&
-      haalandBallBoyMetrics.note.includes("He arrives in the box late enough to be difficult to track.") &&
+      haalandBallBoyMetrics.note.startsWith("Watch Haaland for reading the flight of the ball before the duel begins") &&
+      haalandBallBoyMetrics.noteBullets[1] ===
+        "The clearest example is how he starts outside his marker and attacks the dropping ball." &&
       !/\b(?:World Cup|\d+ goals?|\d+ assists?)\b/i.test(haalandBallBoyMetrics.note) &&
       haalandBallBoyMetrics.noteBullets.length === 3 &&
       haalandBallBoyMetrics.followUpCount === 3 &&

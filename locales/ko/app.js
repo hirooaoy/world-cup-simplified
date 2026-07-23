@@ -2,8 +2,13 @@ import {
   getGeneratedPlayerCardCopy,
   getPlayerSkillCategory,
   isGeneratedPlayerCardCopy
-} from "../player-note-templates.js";
+} from "../player-note-templates.js?v=2026-07-22-player-card-copy-1";
+import { HISTORICAL_PLAYER_NOTE_SEMANTICS } from "./historical-player-note-semantics.js?v=2026-07-22-player-card-copy-1";
 import { translateCompoundPosition } from "../position-runtime.js";
+import {
+  formatKeyInformation as formatStructuredKeyInformation,
+  formatKeyInformationSentences as formatStructuredKeyInformationSentences
+} from "../key-information-ko.js";
 
 const UI = {
   adminMessage: "공지 메시지",
@@ -1228,6 +1233,9 @@ const PLAYER_NOTE_QUALITIES = Object.freeze({
   "see-decisive-pass": "길이 열리기 한발 앞서 결정적 패스를 보는 시야",
   "create-pass-angle": "다음 패스의 각도를 더 좋게 만드는 움직임",
   "early-position-reactions": "한발 빠른 위치 선정에서 나오는 반응 속도",
+  "centre-first-positioning": "슈팅에 반응하기 전에 골문 중앙부터 지키는 위치 선정",
+  "rebound-control": "공을 잡아낼 수 없을 때 세컨드볼의 방향을 통제하는 능력",
+  "compact-reflex-shape": "근거리 반사 신경 선방에서도 몸을 작고 단단하게 유지하는 자세",
   "role-flexibility": "팀의 구조를 깨뜨리지 않고 여러 역할을 소화하는 유연성",
   "duel-timing": "성급하게 달려들지 않고 몸싸움 시점을 고르는 판단",
   "open-grass-speed": "열린 공간이 생겼을 때 나오는 폭발적인 속도",
@@ -1260,6 +1268,34 @@ const PLAYER_NOTE_QUALITIES = Object.freeze({
   "penalty-reading": "키커의 마지막 동작까지 기다려 읽는 인내심",
   "runner-tracking": "공이 다른 곳으로 이동해도 침투 선수를 놓치지 않는 집중력",
   "crowded-goal-command": "문전의 혼잡한 공간을 장악하는 능력",
+  "near-post-timing": "가장 가까운 수비 앞으로 파고드는 타이밍",
+  "long-shot-threat": "수비가 페널티지역 밖 슈팅까지 의식하게 만드는 능력",
+  "cross-angle-control": "주자를 놓치지 않으면서 크로스 각도를 닫는 능력",
+  "second-ball-reaction": "경합 뒤 흐른 공에 가장 먼저 반응하는 능력",
+  "nearby-unit-organization": "다음 국면이 시작되기 전에 주변 동료를 정렬하는 리더십",
+  "front-line-leadership": "전방 동료에게 움직임과 압박 시작 시점을 분명히 알려주는 리더십",
+  "back-post-arrival": "수비가 공 쪽으로 좁혀진 뒤 반대편에 도착하는 움직임",
+  "penalty-contact-calm": "페널티킥의 압박 속에서도 같은 타격을 반복하는 침착함",
+  "left-foot-passing": "왼발을 패스 선택지로 활용하는 능력",
+  "disguised-passing": "마지막 순간까지 패스 의도를 숨기는 능력",
+  "pullback-creation": "뒤로 내주는 패스로 지원하는 동료를 찾아 연결하는 능력",
+  "passing-continuity": "가능한 패스로 점유의 흐름을 이어가는 능력",
+  "crossing-volume": "측면으로 돌아가 반복해 볼을 보내는 움직임",
+  "one-on-one-running": "고립된 수비수를 향해 공을 직접 운반하는 능력",
+  "shot-stopping-readiness": "슈터가 마무리 방향을 드러내기 전에 골문 중앙을 지키는 판단",
+  "aerial-defending": "수비 구역의 공중볼을 처리하는 능력",
+  "pressing-work": "팀 압박에 적극적으로 참여하는 움직임",
+  "set-piece-responsibility": "공격 세트피스 킥을 맡아 처리하는 능력",
+  "chance-passing": "다음 기회를 만들 수 있는 패스를 찾는 능력",
+  "ball-carrying": "발밑의 공으로 점유를 전진시키는 운반 능력",
+  "dribbling-control": "근접 압박을 받으면서도 공을 전진시키는 능력",
+  "wide-service": "측면 지역에서 공을 보내는 능력",
+  "goal-threat-positioning": "다음 패스를 슈팅으로 바꿀 수 있는 위치를 찾는 움직임",
+  "finishing-readiness": "문전에서 공이 올 때 마무리를 준비하는 움직임",
+  "pace-in-space": "앞선 통로가 열릴 때 속도를 활용하는 능력",
+  "aerial-duels": "공중볼 경합에 참여하는 능력",
+  "strength-in-contact": "직접 몸싸움에서 힘을 활용하는 능력",
+  "goalkeeper-distribution": "공을 되찾은 뒤 연결할 수 있는 동료를 찾는 배급 판단",
   "attack-space-behind": "공간이 완전히 열리기 전에 수비 뒷공간을 공략하는 움직임",
   "shape-midfield-tempo": "중원에서 경기 속도를 조율하는 능력",
   "contact-with-position": "수비 위치를 잃지 않으면서 몸싸움을 활용하는 능력",
@@ -1286,6 +1322,10 @@ const PLAYER_NOTE_ACTIONS = Object.freeze({
   "change-pace": "수비의 발이 고정되는 순간 속도를 바꾼다",
   "overlap-timing": "측면 수비가 안쪽을 보는 순간까지 기다렸다 바깥으로 겹쳐 뛴다",
   "set-and-react": "슈팅 전에 발을 세운 뒤 불필요한 스텝 없이 반응한다",
+  "hold-central-goal-lane": "공격수의 터치로 각도가 드러날 때까지 중앙 통로를 지킨다",
+  "parry-away-danger": "잡지 못한 공을 다음 공격수가 아닌 위험이 적은 방향으로 쳐낸다",
+  "controlled-reflex-block": "손과 발을 함께 움직여 반사적으로 막은 공의 방향까지 통제한다",
+  "claim-cross-high": "문전이 더 혼잡해지기 전에 크로스를 향해 나가 가장 높은 처리 지점을 선점한다",
   "body-and-return": "몸으로 공을 지킨 뒤 침투하는 동료의 진행 방향으로 돌려준다",
   "pick-cross-target": "크로스 전에 고개를 들어 빈 공간이 아닌 침투 선수를 겨냥한다",
   "simple-restart": "압박이 닫히기 전에 가장 단순하고 안전한 재개를 선택한다",
@@ -1311,6 +1351,36 @@ const PLAYER_NOTE_ACTIONS = Object.freeze({
   "push-and-accelerate": "첫 압박 너머로 공을 밀어놓은 뒤 속도를 높인다",
   "block-cross-angle": "성급하게 달려들지 않으면서 크로스를 막을 거리까지 접근한다",
   "open-distance-shot": "깔끔한 첫 터치로 중거리 슈팅 통로를 연다",
+  "shoot-right-foot": "오른발 쪽으로 공을 옮긴 뒤 백스윙을 최소화해 슈팅한다",
+  "first-time-finish": "패스에 추가 터치 없이 바로 마무리한다",
+  "moving-finish": "균형을 유지한 채 도착해 가장 가까운 수비가 복귀하기 전에 마무리한다",
+  "head-clear-early": "낙하지점을 향해 전진해 공격수가 자세를 잡기 전에 헤딩으로 걷어낸다",
+  "attack-dropping-ball": "마커 바깥에서 출발해 떨어지는 공을 향해 들어간다",
+  "first-forward-lane": "닫히기 전에 가장 먼저 열린 전진 통로를 택한다",
+  "nearby-unit-cues": "짧은 지시로 주변의 패스와 압박 선택지를 연결한다",
+  "lead-first-pressure": "첫 압박을 시작한 뒤 다음 동료가 쉬운 패스 길을 닫도록 이끈다",
+  "attack-back-post": "먼 골대 통로를 지키다가 크로스가 떠나는 순간 그 공간을 공격한다",
+  "composed-penalty-strike": "도움닫기를 줄이고 균형을 잡은 채 서두르지 않고 찬다",
+  "finish-either-foot": "수비가 정비되기 전에 어느 발로도 마무리할 수 있도록 공을 놓는다",
+  "pass-with-left-foot": "왼발로 가능한 패스를 연결한다",
+  "hide-pass-intent": "한쪽으로 연결할 듯하다가 다른 통로로 공을 보낸다",
+  "pull-ball-back": "엔드라인 근처에서 뒤따라 들어오는 동료에게 공을 내준다",
+  "play-available-pass": "공을 지체하지 않고 다음으로 연결할 수 있는 동료에게 보낸다",
+  "repeat-wide-delivery": "페널티지역으로 다시 공을 보낼 수 있는 측면 위치를 잡는다",
+  "run-at-isolated-defender": "공을 통제한 채 앞에 있는 수비수를 향해 직접 전진한다",
+  "set-for-shot": "각도를 일찍 잡고 공이 발을 떠날 때까지 중앙 통로를 닫아 둔다",
+  "contest-aerial-ball": "떨어지는 공을 향해 움직여 공격수가 자세를 잡기 전에 경합한다",
+  "join-team-pressure": "동료들이 근처 선택지를 닫는 동안 공 쪽으로 움직인다",
+  "deliver-dead-ball": "코너킥과 프리킥을 공격 구역으로 보낸다",
+  "play-to-available-runner": "통로가 열리면 패스를 받을 수 있는 동료를 향해 전진 패스를 보낸다",
+  "carry-into-space": "공을 보내기 전에 열린 공간으로 운반한다",
+  "carry-under-pressure": "압박 속에서 움직일 때도 공을 가까이 둔다",
+  "send-wide-delivery": "측면 위치에서 공을 공격 구역으로 보낸다",
+  "move-into-shot-position": "받을 수 있는 패스가 슈팅으로 이어질 위치로 이동한다",
+  "set-for-finish": "문전에서 공을 받으면 슈팅을 준비한다",
+  "accelerate-into-space": "앞선 통로가 열리면 가속한다",
+  "hold-through-contact": "몸싸움을 버티며 위치를 지킨 뒤 다음 플레이를 이어간다",
+  "restart-to-teammate": "연결할 수 있는 동료에게 공을 보내 경기를 재개한다",
   "body-bring-teammate": "몸으로 공을 지킨 뒤 동료가 공격 전개에 참여하도록 연결한다",
   "moving-finish": "움직이는 상태에서 도착해 가장 가까운 수비가 복귀하기 전에 슈팅한다",
   "hold-danger-lane": "동료가 압박할 수 있을 때까지 가장 위험한 통로를 지킨다",
@@ -1323,6 +1393,23 @@ const PLAYER_NOTE_ACTIONS = Object.freeze({
   "close-first-touch": "첫 터치를 몸 가까이에 두어 다음 동작을 단순하게 만든다"
 });
 
+const PLAYER_NOTE_ROLE_LABELS = Object.freeze({
+  goalkeeper: "골키퍼",
+  defender: "수비수",
+  "centre-back": "센터백",
+  "full-back": "풀백",
+  "wing-back": "윙백",
+  "defensive-midfielder": "수비형 미드필더",
+  "central-midfielder": "중앙 미드필더",
+  "attacking-midfielder": "공격형 미드필더",
+  midfielder: "미드필더",
+  "wide-attacker": "측면 공격수",
+  "second-striker": "세컨드 스트라이커",
+  forward: "공격수",
+  striker: "스트라이커",
+  player: "선수"
+});
+
 function formatPlayerStyleOpener(parsed, mention, quality) {
   if (parsed.variant === "watch") {
     return `${withKoreanParticle(mention, "을", "를")} 볼 때 주목할 점은 ${quality}이다.`;
@@ -1330,37 +1417,279 @@ function formatPlayerStyleOpener(parsed, mention, quality) {
   if (parsed.variant === "signature") {
     return `${mention}의 대표적인 강점은 ${quality}이다.`;
   }
-  if (parsed.variant === "edge") {
+  if (["edge", "edge-comes"].includes(parsed.variant)) {
     return `${mention}의 차별점은 ${quality}이다.`;
   }
-  if (parsed.variant === "style") {
+  if (["style", "builds", "foundation"].includes(parsed.variant)) {
     return `${mention} 플레이의 중심은 ${quality}이다.`;
   }
-  if (parsed.variant === "defined") {
+  if (["defined", "separates", "quality-defines"].includes(parsed.variant)) {
     return `${withKoreanParticle(mention, "을", "를")} 가장 잘 보여주는 특징은 ${quality}이다.`;
+  }
+  if (parsed.variant === "key") {
+    return `${mention} 플레이의 핵심은 ${quality}이다.`;
   }
   return `${mention}의 돋보이는 강점은 ${quality}이다.`;
 }
 
+function formatHistoricalRoleLevelStyleNote(parsed, mention, role, actions) {
+  const [first, second] = actions;
+  const structures = {
+    "paired-observation": () =>
+      `${withKoreanParticle(mention, "을", "를")} 볼 때는 두 장면을 따라가면 된다. 먼저 ${first}. 이어 ${second}.`,
+    "two-clues": () =>
+      `${mention}의 ${role} 위치에는 두 가지 단서가 있다. 먼저 ${first}. 이어 ${second}.`,
+    "second-detail": () =>
+      `${withKoreanParticle(mention, "을", "를")} 볼 때는 먼저 ${first}. 또 다른 장면에서는 ${second}.`,
+    "separating-clue": () =>
+      `${withKoreanParticle(mention, "은", "는")} 서로 다른 두 국면에 관여한다. 한 국면에서는 ${first}. 다른 국면에서는 ${second}.`,
+    "repeated-evidence": () =>
+      `${mention}의 움직임은 두 가지 책임으로 읽을 수 있다. 한 번은 ${first}. 또 한 번은 ${second}.`,
+    "example-another": () =>
+      `${mention}의 플레이는 두 장면으로 살펴볼 수 있다. 첫 장면에서는 ${first}. 다음 장면에서는 ${second}.`,
+    "foundation-watch": () =>
+      `${withKoreanParticle(mention, "을", "를")} 관찰할 때는 먼저 ${first}. 이어 ${second}.`,
+    "different-phase": () =>
+      `${withKoreanParticle(mention, "은", "는")} 두 국면을 다르게 처리한다. 한쪽에서는 ${first}. 다른 쪽에서는 ${second}.`,
+    "quality-defines-game": () =>
+      `${mention}의 움직임은 두 동작에서 확인할 수 있다. ${first}. 다른 책임에서는 ${second}.`,
+    "two-cues": () =>
+      `${withKoreanParticle(mention, "을", "를")} 볼 때 확인할 동작은 둘이다. ${first}. 또 ${second}.`,
+    "build-two-cues": () =>
+      `${mention}의 ${role} 임무는 두 장면에 걸쳐 이어진다. 먼저 ${first}. 이어 ${second}.`,
+    "quality-defines": () =>
+      `${mention}의 움직임을 두 장면에서 볼 수 있다. 한 장면에서는 ${first}. 다른 장면에서는 ${second}.`,
+    "one-another": () =>
+      `${mention}의 역할은 두 장면에서 드러난다. 한 장면에서는 ${first}. 다른 장면에서는 ${second}.`,
+    "key-another": () =>
+      `${withKoreanParticle(mention, "은", "는")} ${role} 위치에서 ${first}. 여기에 ${second}.`,
+    "legacy-three": () =>
+      `${mention}의 경기에는 두 가지 책임이 보인다. ${first}. 마지막으로 ${second}.`
+  };
+  return (structures[parsed.structure] || structures["legacy-three"])();
+}
+
+function formatHistoricalAdditionalTraitStyleNote(parsed, mention, quality, actions) {
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const [first, second] = actions;
+  const structures = {
+    "paired-observation": () =>
+      `${opener} 먼저 ${first}. 이와 별도로 ${second}.`,
+    "two-clues": () =>
+      `${opener} 한 장면에서는 ${first}. 또 다른 측면에서는 ${second}.`,
+    "second-detail": () =>
+      `${opener} 먼저 ${first}. 다른 세부 장면에서는 ${second}.`,
+    "separating-clue": () =>
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 다른 국면에서는 ${second}.`,
+    "repeated-evidence": () =>
+      `${opener} 한 장면은 이렇다. ${first}. 이와 별도로 ${second}.`,
+    "example-another": () =>
+      `${opener} 한 예에서는 ${first}. 그 장면을 벗어나면 ${second}.`,
+    "foundation-watch": () =>
+      `${opener} 먼저 볼 장면에서는 ${first}. 또 다른 측면에서는 ${second}.`,
+    "different-phase": () =>
+      `${opener} 한 국면에서는 ${first}. 다른 국면에서는 ${second}.`,
+    "quality-defines-game": () =>
+      `${opener} ${first}. 이와 별도로 ${second}.`,
+    "two-cues": () =>
+      `${opener} 첫 동작에서는 ${first}. 여기에 ${second}.`,
+    "build-two-cues": () =>
+      `${opener} 먼저 ${first}. 별개의 장면에서는 ${second}.`,
+    "quality-defines": () =>
+      `${opener} 실제로 ${first}. 또 다른 측면에서는 ${second}.`,
+    "one-another": () =>
+      `${opener} 한 장면에서는 ${first}. 별개의 장면에서는 ${second}.`,
+    "key-another": () =>
+      `${opener} ${first}. 그와 별개로 ${second}.`,
+    "legacy-three": () =>
+      `${opener} ${first}. 마지막으로 별개의 장면에서는 ${second}.`
+  };
+  return (structures[parsed.structure] || structures["legacy-three"])();
+}
+
+function toKoreanWhetherClause(value) {
+  const text = String(value || "").trim();
+  const endings = [
+    [/한다$/u, "하는지"],
+    [/둔다$/u, "두는지"],
+    [/킨다$/u, "키는지"],
+    [/꾼다$/u, "꾸는지"],
+    [/간다$/u, "가는지"],
+    [/인다$/u, "이는지"],
+    [/는다$/u, "는지"],
+    [/른다$/u, "르는지"],
+    [/린다$/u, "리는지"],
+    [/연다$/u, "여는지"],
+    [/낸다$/u, "내는지"],
+    [/온다$/u, "오는지"],
+    [/선다$/u, "서는지"]
+  ];
+  for (const [ending, replacement] of endings) {
+    if (ending.test(text)) return text.replace(ending, replacement);
+  }
+  return text.replace(/다$/u, "는지");
+}
+
+function formatCurrentMixedFallbackStyleNote(parsed, mention, quality, role, actions) {
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const [first, second] = actions;
+  const secondQuestion = toKoreanWhetherClause(second);
+  const firstFrames = {
+    "paired-observation": `첫 장면에서는 ${first}.`,
+    "two-clues": `가장 분명한 장면에서는 ${first}.`,
+    "second-detail": `첫 장면에서는 ${first}.`,
+    "separating-clue": `${withKoreanParticle(mention, "은", "는")} ${first}.`,
+    "foundation-watch": `구체적으로는 ${first}.`,
+    "different-phase": `첫 장면에서는 ${first}.`
+  };
+  const questionFrames = {
+    "paired-observation": `더 넓게 보려면 ${secondQuestion}도 살펴봐야 한다.`,
+    "two-clues": `별개로 ${secondQuestion}도 확인해야 한다.`,
+    "second-detail": `다음에는 ${secondQuestion}를 확인하면 된다.`,
+    "separating-clue": `다른 국면에서는 ${secondQuestion}를 봐야 한다.`,
+    "foundation-watch": `더 넓은 그림을 위해 ${secondQuestion}도 확인해야 한다.`,
+    "different-phase": `다음으로 ${secondQuestion}를 확인한다.`
+  };
+  const firstFrame = firstFrames[parsed.structure] || `${first}.`;
+  const questionFrame = questionFrames[parsed.structure] || questionFrames["different-phase"];
+  return `${opener} ${firstFrame} ${questionFrame}`;
+}
+
+function formatCurrentAdditionalTraitStyleNote(parsed, mention, quality, actions) {
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const [first, second] = actions;
+  const cadenceIndex = parsed.cadenceVariantIndex >= 0 && parsed.cadenceVariantIndex < 5
+    ? parsed.cadenceVariantIndex
+    : 0;
+  const structures = {
+    "paired-observation": [
+      `${opener} 한 장면에서는 ${first}. 이와 별도로 ${second}.`,
+      `${opener} 한 장면에서는 ${first}. 또 ${second}.`,
+      `${opener} 한 장면에서는 ${first}. 다른 장면에서는 ${second}.`,
+      `${opener} 한 장면에서는 ${first}. 이와 다른 장면에서는 ${second}.`,
+      `${opener} 한 장면에서는 ${first}. 경기의 다른 대목에서는 ${second}.`
+    ],
+    "two-clues": [
+      `${opener} 주된 장면에서는 ${first}. 한편 ${second}.`,
+      `${opener} 주된 장면에서는 ${first}. 별개의 장면에서는 ${second}.`,
+      `${opener} 주된 장면에서는 ${first}. 여기에 ${second}.`,
+      `${opener} 주된 장면에서는 ${first}. 그 예와는 별개로 ${second}.`,
+      `${opener} 주된 장면에서는 ${first}. 국면이 바뀌면 ${second}.`
+    ],
+    "second-detail": [
+      `${opener} 첫 장면에서는 ${first}. 또 ${second}.`,
+      `${opener} 첫 장면에서는 ${first}. 다른 측면에서는 ${second}.`,
+      `${opener} 첫 장면에서는 ${first}. 이와 별도로 ${second}.`,
+      `${opener} 첫 장면에서는 ${first}. 다른 세부 장면에서는 ${second}.`,
+      `${opener} 첫 장면에서는 ${first}. 별개의 국면에서는 ${second}.`
+    ],
+    "separating-clue": [
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 그 동작과 별개로 ${second}.`,
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 또 다른 순간에는 ${second}.`,
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 또한 ${second}.`,
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 경기의 다른 국면에서는 ${second}.`,
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 별도의 장면에서는 ${second}.`
+    ],
+    "foundation-watch": [
+      `${opener} 구체적으로는 ${first}. 그 밖에도 ${second}.`,
+      `${opener} 눈여겨볼 장면에서는 ${first}. 또 ${second}.`,
+      `${opener} 한 장면에서는 ${first}. 별도로 보면 ${second}.`,
+      `${opener} 주된 장면에서는 ${first}. 다른 지점에서는 ${second}.`,
+      `${opener} 실제 플레이에서는 ${first}. 별도의 국면에서는 ${second}.`
+    ],
+    "different-phase": [
+      `${opener} 한 국면에서는 ${first}. 경기의 다른 대목에서는 ${second}.`,
+      `${opener} 한 국면에서는 ${first}. 한편 ${second}.`,
+      `${opener} 한 국면에서는 ${first}. 다른 국면에서는 ${second}.`,
+      `${opener} 한 국면에서는 ${first}. 별개의 장면에서는 ${second}.`,
+      `${opener} 한 국면에서는 ${first}. 이와는 다른 상황에서 ${second}.`
+    ]
+  };
+  const variants = structures[parsed.structure] || structures["different-phase"];
+  return variants[cadenceIndex];
+}
+
+function formatPlayerStyleNote(parsed, mention, quality, actions) {
+  const [first, second] = actions;
+  const role = PLAYER_NOTE_ROLE_LABELS[parsed.role];
+  if (parsed.structure === "role-guide") {
+    const firstQuestion = toKoreanWhetherClause(first);
+    const secondQuestion = toKoreanWhetherClause(second);
+    return `${withKoreanParticle(mention, "을", "를")} 볼 때는 두 가지를 물으면 된다. 먼저 ${firstQuestion}를 본다. 다음으로 ${secondQuestion}를 본다.`;
+  }
+  if (parsed.historical && parsed.confidence === "role-level") {
+    if (!role) return "";
+    return formatHistoricalRoleLevelStyleNote(parsed, mention, role, actions);
+  }
+  if (parsed.historical && parsed.supportRelation === "additional-trait") {
+    return formatHistoricalAdditionalTraitStyleNote(parsed, mention, quality, actions);
+  }
+  if (parsed.supportingBeatIsRoleFallback) {
+    if (!role) return "";
+    return formatCurrentMixedFallbackStyleNote(parsed, mention, quality, role, actions);
+  }
+  if (!parsed.historical && parsed.supportRelation === "additional-trait") {
+    return formatCurrentAdditionalTraitStyleNote(parsed, mention, quality, actions);
+  }
+  const opener = formatPlayerStyleOpener(parsed, mention, quality);
+  const structures = {
+    "paired-observation": () =>
+      `${opener} 두 장면이 이를 보여준다. 먼저 ${first}. 이어 ${second}.`,
+    "two-clues": () =>
+      `${opener} 첫 단서는 이렇다. ${first}. 두 번째로 ${second}.`,
+    "second-detail": () =>
+      `${opener} 먼저 ${first}. 세부적으로는 ${second}.`,
+    "separating-clue": () =>
+      `${opener} ${withKoreanParticle(mention, "은", "는")} ${first}. 다른 국면에서는 ${second}.`,
+    "repeated-evidence": () =>
+      `${opener} 같은 장점이 반복된다. 한 번은 ${first}. 또 한 번은 ${second}.`,
+    "example-another": () =>
+      `${opener} 대표적인 예가 두 가지다. ${first}. 또 ${second}.`,
+    "foundation-watch": () =>
+      `${opener} 먼저 볼 장면에서는 ${first}. 이어서 ${second}.`,
+    "different-phase": () =>
+      `${opener} 한 국면에서는 ${first}. 다른 국면에서는 ${second}.`,
+    "quality-defines-game": () =>
+      `${opener} ${first}. 같은 판단은 다음 동작으로 이어진다. ${second}.`,
+    "two-cues": () =>
+      `${opener} 두 동작이 핵심이다. ${first}. 그리고 ${second}.`,
+    "build-two-cues": () =>
+      `${opener} 플레이를 보면 흐름이 선명하다. ${first}. 이어 ${second}.`,
+    "quality-defines": () =>
+      `${opener} 실제로 ${first}. 또 다른 상황에서는 ${second}.`,
+    "one-another": () =>
+      parsed.historical
+        ? `${opener} 두 장면이 단서가 된다. 먼저 ${first}. 이어 ${second}.`
+        : `${opener} 한 가지 단서는 ${first}. 다른 단서는 ${second}.`,
+    "key-another": () =>
+      `${opener} ${first}. 여기에 한 가지가 더 있다. ${second}.`,
+    "legacy-three": () =>
+      `${opener} ${first}. 마지막으로 ${second}.`
+  };
+  return (structures[parsed.structure] || structures["legacy-three"])();
+}
+
 export function formatPlayerNote(value, options = {}) {
   const parsed = getGeneratedPlayerCardCopy(value, {
-    historical: Boolean(options.historical)
+    historical: Boolean(options.historical),
+    copyMeta: options.copyMeta,
+    localizedName: options.localizedName
   });
   if (!parsed) {
     return "";
   }
 
   if (parsed.kind === "style") {
-    const quality = PLAYER_NOTE_QUALITIES[parsed.qualityId];
-    const actions = parsed.actionIds.map((id) => PLAYER_NOTE_ACTIONS[id]);
+    const quality = PLAYER_NOTE_QUALITIES[parsed.qualityId]
+      || HISTORICAL_PLAYER_NOTE_SEMANTICS[parsed.qualityId];
+    const actions = parsed.actionIds.map(
+      (id) => PLAYER_NOTE_ACTIONS[id] || HISTORICAL_PLAYER_NOTE_SEMANTICS[id]
+    );
     const mention = String(options.localizedName || parsed.mention || "").trim();
     if (!mention || !quality || actions.some((action) => !action)) {
       return "";
     }
-    return [
-      formatPlayerStyleOpener(parsed, mention, quality),
-      ...actions.map((action) => `${action}.`)
-    ].join(" ");
+    return formatPlayerStyleNote(parsed, mention, quality, actions);
   }
 
   if (parsed.kind === "historical-note") {
@@ -1385,7 +1714,9 @@ export function formatPlayerNote(value, options = {}) {
 
 export function isTemplatedPlayerNote(value, options = {}) {
   return isGeneratedPlayerCardCopy(value, {
-    historical: Boolean(options.historical)
+    historical: Boolean(options.historical),
+    copyMeta: options.copyMeta,
+    localizedName: options.localizedName
   });
 }
 
@@ -2178,6 +2509,22 @@ export function formatSourcedShootoutReason(type, data = {}) {
   return `승부차기로 가면 ${subjectTeam} 근소하게 앞설 수 있습니다. 월드컵 승부차기 ${data.appearances}번 중 ${data.wins}번 이겼고, ${goalkeeperTopic} 국가대표 승부차기에서 한 번도 진 적이 없습니다.`;
 }
 
+export function formatKeyInformationSentences(model, options = {}) {
+  return formatStructuredKeyInformationSentences(model, {
+    ...options,
+    teamName: options.teamName || translateTeamName(model?.team?.name, model?.team?.id),
+    opponentName: options.opponentName || translateTeamName(model?.opponent?.name, model?.opponent?.id)
+  });
+}
+
+export function formatKeyInformation(model, options = {}) {
+  return formatStructuredKeyInformation(model, {
+    ...options,
+    teamName: options.teamName || translateTeamName(model?.team?.name, model?.team?.id),
+    opponentName: options.opponentName || translateTeamName(model?.opponent?.name, model?.opponent?.id)
+  });
+}
+
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {
     return value;
@@ -2230,6 +2577,8 @@ const pack = deepFreeze({
     formatPlayerSkill,
     formatPlayerNote,
     isTemplatedPlayerNote,
+    formatKeyInformation,
+    formatKeyInformationSentences,
     formatAppMessage,
     formatWorldCupShootoutHistory,
     formatSourcedShootoutReason

@@ -3140,12 +3140,21 @@
       "note": "Full award-list cross-check, including the Netherlands as FIFA Fair Play Award winner."
     },
     {
+      "id": "matchup-archive-present-tense-2026-07-22",
+      "label": "Evidence-aware World Cup matchup archive methodology",
+      "url": "docs/key-information-contract.md",
+      "type": "editorial",
+      "editorialScope": "matchup-key-information",
+      "checkedAt": "2026-07-22T00:00:00Z",
+      "note": "Four-sentence team briefs use archive-present tense and exclude the current match outcome. Exact layouts preserve their actual nominal, observed, or revised FIFA publication perspective, including post-kickoff archival documents."
+    },
+    {
       "id": "world-cup-2026-final-archive",
       "label": "World Cup 2026 final official snapshot",
-      "url": "data/archives/world-cup-2026-final-2026-07-21T21-43-20-201Z.json",
+      "url": "data/archives/world-cup-2026-final-2026-07-23T04-22-54-714Z.json",
       "type": "official-archive",
-      "checkedAt": "2026-07-21T21:43:20.201Z",
-      "note": "Immutable 104-match archive 2026-final-2026-07-21T21-43-20-201Z; SHA-256 6f4a97474a7a14ea0d63abbb1c737059e742042a6761339a168d6aaf6cef5750."
+      "checkedAt": "2026-07-23T04:22:54.714Z",
+      "note": "Immutable 104-match archive 2026-final-2026-07-23T04-22-54-714Z; SHA-256 b2c3d91c08580daa7e83c37cefdc12ed1c6625e1d41b376429ea8adb2af7b3c5."
     }
   ],
   "groups": [

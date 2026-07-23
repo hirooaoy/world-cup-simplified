@@ -2,7 +2,8 @@
 import fs from "node:fs";
 import {
   buildHistoricalBestXiDescriptionParagraphs,
-  buildHistoricalBestXiEvidence
+  buildHistoricalBestXiEvidence,
+  resolveHistoricalBestXiEvidencePosition
 } from "../historical-best-xi-copy.js";
 import { HISTORICAL_HIGHLIGHTS } from "../data/highlights-history.js";
 
@@ -34,10 +35,42 @@ const PARAGRAPH_LENGTH_LIMITS = Object.freeze({
   ko: Object.freeze({ minimum: 30, maximum: 150 }),
   zh: Object.freeze({ minimum: 25, maximum: 110 })
 });
+const EVIDENCE_MINIMUM_LENGTHS = Object.freeze({ en: 65, es: 65, ko: 30, zh: 25 });
 const CLOSING_PUNCTUATION = /[.!?…。！？]$/u;
+const CHAMPION_EVIDENCE_PATTERNS = Object.freeze({
+  en: /\bwon the \d{4} World Cup\b/u,
+  es: /\bganó el Mundial de \d{4}\b/u,
+  ko: /\d{4}년 월드컵에서 우승했다/u,
+  zh: /赢得了\d{4}年世界杯冠军/u
+});
+const ENGLISH_SEMANTIC_STOP_WORDS = new Set([
+  "about", "across", "after", "again", "against", "also", "among", "around", "because",
+  "before", "behind", "being", "both", "could", "during", "each", "enough", "every", "from",
+  "gave", "giving", "helped", "into", "itself", "made", "make", "matches", "more", "most",
+  "only", "other", "over", "player", "side", "still", "team", "than", "that", "their", "them",
+  "then", "there", "these", "they", "this", "those", "through", "tournament", "under", "very",
+  "were", "while", "with", "without", "world", "would"
+]);
+const ENGLISH_COUNT_WORDS = Object.freeze({
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  ten: 10,
+  eleven: 11,
+  twelve: 12,
+  thirteen: 13
+});
 
 const profilesData = readJson("../data/historical-player-profiles.json");
 const history = readJson("../data/history.json");
+const highlightsRenderSource = fs.readFileSync(new URL("../highlights.js", import.meta.url), "utf8");
 const rationaleLocales = new Map([
   ["es", readJson("../data/locales/es/historical-best-xi-reasons.json")],
   ["ko", readJson("../data/locales/ko/historical-best-xi-reasons.json")],
@@ -57,6 +90,89 @@ const normalizeParagraph = (value) => String(value || "").replace(/\s+/gu, " ").
 const normalizeRationale = (value) => normalizeParagraph(
   Array.isArray(value) ? value.join(" ") : value
 );
+const normalizeSemanticText = (value) => normalizeParagraph(value)
+  .normalize("NFD")
+  .replace(/\p{Diacritic}/gu, "")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/gu, " ")
+  .trim();
+const startsWithPlayerName = (value, playerName) => {
+  const text = normalizeSemanticText(value);
+  const nameParts = normalizeSemanticText(playerName)
+    .split(" ")
+    .filter((part) => part.length >= 3);
+  return nameParts.some((part) => text === part || text.startsWith(`${part} `));
+};
+const semanticTokens = (value, entities = []) => {
+  let text = normalizeSemanticText(value);
+  for (const entity of entities) {
+    const normalizedEntity = normalizeSemanticText(entity);
+    if (normalizedEntity) text = text.replaceAll(normalizedEntity, " ");
+  }
+  return new Set(
+    text
+      .split(" ")
+      .filter((token) => token.length >= 4 && !ENGLISH_SEMANTIC_STOP_WORDS.has(token))
+  );
+};
+const semanticContainment = (left, right, entities = []) => {
+  const leftTokens = semanticTokens(left, entities);
+  const rightTokens = semanticTokens(right, entities);
+  if (!leftTokens.size || !rightTokens.size) return 0;
+  let shared = 0;
+  for (const token of leftTokens) {
+    if (rightTokens.has(token)) shared += 1;
+  }
+  return shared / Math.min(leftTokens.size, rightTokens.size);
+};
+const evidenceStructure = (value, playerName, teamName) => {
+  let text = normalizeSemanticText(value);
+  for (const entity of [playerName, teamName]) {
+    const normalizedEntity = normalizeSemanticText(entity);
+    if (normalizedEntity) text = text.replaceAll(normalizedEntity, "[entity]");
+  }
+  return text.replace(/\b\d+(?:\.\d+)?\b/gu, "[number]");
+};
+const normalizeCountWords = (value) => normalizeSemanticText(value)
+  .split(" ")
+  .map((token) => Object.prototype.hasOwnProperty.call(ENGLISH_COUNT_WORDS, token)
+    ? String(ENGLISH_COUNT_WORDS[token])
+    : token)
+  .join(" ");
+const extractPlayerStatClaims = (value, playerName, requireNamedSentence = false) => {
+  const nameParts = normalizeSemanticText(playerName)
+    .split(" ")
+    .filter((part) => part.length >= 3);
+  const sentences = String(value || "").split(/[.!?]+/u).map(normalizeCountWords);
+  const claims = new Set();
+  for (const sentence of sentences) {
+    if (
+      requireNamedSentence
+      && !nameParts.some((part) => sentence === part || sentence.startsWith(`${part} `) || sentence.includes(` ${part} `))
+    ) {
+      continue;
+    }
+    for (const pattern of [
+      /\b(?:scor\w*|contribut\w*)\s+(\d+)\b/gu,
+      /\b(\d+)\s+goals?\b/gu
+    ]) {
+      for (const match of sentence.matchAll(pattern)) claims.add(`goals:${match[1]}`);
+    }
+    for (const pattern of [
+      /\b(?:made|played)\s+(\d+)\s+(?:appearances?|matches?)\b/gu,
+      /\b(\d+)\s+appearances?\b/gu
+    ]) {
+      for (const match of sentence.matchAll(pattern)) claims.add(`appearances:${match[1]}`);
+    }
+    for (const pattern of [
+      /\bstarted(?: all)?\s+(\d+)\b/gu,
+      /\b(\d+)\s+starts?\b/gu
+    ]) {
+      for (const match of sentence.matchAll(pattern)) claims.add(`starts:${match[1]}`);
+    }
+  }
+  return claims;
+};
 const isStrictIsoDate = (value) => {
   const text = String(value || "");
   if (!/^\d{4}-\d{2}-\d{2}$/u.test(text)) return false;
@@ -92,6 +208,12 @@ for (const [language, localeData] of rationaleLocales) {
   if (!localeData?.reasons || typeof localeData.reasons !== "object") {
     addIssue(language, "historical Best XI rationale pack has no reasons object");
   }
+}
+if (!/selectionPosition:\s*player\?\.position/u.test(highlightsRenderSource)) {
+  addIssue("render contract", "historical Best XI cards must pass the selected slot position to the evidence helper");
+}
+if (!/resolveHistoricalBestXiEvidencePosition\(player\?\.position,\s*profile\?\.position\)/u.test(highlightsRenderSource)) {
+  addIssue("render contract", "production and audit must share selection-first evidence-position resolution");
 }
 
 const openingDateByYear = new Map(
@@ -152,7 +274,7 @@ for (const [year, edition] of editions) {
   for (const [kind, entries] of [["starter", starters], ["honourable", honourables]]) {
     for (const entry of entries) {
       coverage.selections += 1;
-      selectionRecords.push({ year, kind, entry });
+      selectionRecords.push({ year, kind, entry, champion: edition.champion });
     }
   }
 }
@@ -169,9 +291,13 @@ let validBirthCount = 0;
 let validEvidenceRecordCount = 0;
 let appearanceTupleCount = 0;
 let validLocaleDescriptionCount = 0;
+let repeatedEnglishNameRestartCount = 0;
+let highSemanticOverlapCount = 0;
+let duplicateEnglishStatClaimCount = 0;
+const englishEvidenceStructures = new Map();
 
 for (const record of selectionRecords) {
-  const { year, kind, entry } = record;
+  const { year, kind, entry, champion } = record;
   const context = `${year} ${entry?.playerName || "unnamed player"} (${kind})`;
   const coverage = coverageByYear.get(year);
   const openingDate = openingDateByYear.get(year);
@@ -375,6 +501,12 @@ for (const record of selectionRecords) {
     }
   }
 
+  const evidencePosition = resolveHistoricalBestXiEvidencePosition(entry.position, profile.position);
+  if (hasContent(entry.position) && evidencePosition !== entry.position) {
+    addIssue(context, `selection position ${entry.position} was not preserved for evidence rendering`);
+  }
+  const selectionIsChampion = normalizeName(entry.teamName) === normalizeName(champion);
+
   for (const language of LANGUAGES) {
     const rationaleKey = `${year}|player|${entry.playerName}`;
     const rawRationale = language === "en"
@@ -396,7 +528,9 @@ for (const record of selectionRecords) {
       playerName: entry.playerName,
       teamName: entry.teamName,
       tournamentYear: year,
-      position: entry.position || profile.position,
+      selectionPosition: entry.position,
+      position: evidencePosition,
+      isChampion: selectionIsChampion,
       existingRationale: rationale,
       fallbackRationale: rationale
     };
@@ -431,6 +565,64 @@ for (const record of selectionRecords) {
         validDescription = false;
         addIssue(localeContext, "evidence and rationale paragraphs must not be duplicates");
       }
+      if (
+        selectionIsChampion
+        && normalizedParagraphs[0]
+        && !CHAMPION_EVIDENCE_PATTERNS[language].test(normalizedParagraphs[0])
+      ) {
+        validDescription = false;
+        addIssue(localeContext, "champion evidence must say that the team won the World Cup");
+      }
+      if (language === "en" && normalizedParagraphs[0] && normalizedParagraphs[1]) {
+        const structure = evidenceStructure(
+          normalizedParagraphs[0],
+          entry.playerName,
+          entry.teamName
+        );
+        englishEvidenceStructures.set(
+          structure,
+          (englishEvidenceStructures.get(structure) || 0) + 1
+        );
+        if (
+          startsWithPlayerName(normalizedParagraphs[0], entry.playerName)
+          && startsWithPlayerName(normalizedParagraphs[1], entry.playerName)
+        ) {
+          repeatedEnglishNameRestartCount += 1;
+          validDescription = false;
+          addIssue(localeContext, "both evidence and rationale restart with the player name");
+        }
+        const overlap = semanticContainment(
+          normalizedParagraphs[0],
+          normalizedParagraphs[1],
+          [entry.playerName, entry.teamName]
+        );
+        if (overlap >= 0.85) {
+          highSemanticOverlapCount += 1;
+          validDescription = false;
+          addIssue(
+            localeContext,
+            `evidence and rationale repeat too much semantic content (${overlap.toFixed(2)} containment)`
+          );
+        }
+        const evidenceClaims = extractPlayerStatClaims(
+          normalizedParagraphs[0],
+          entry.playerName,
+          true
+        );
+        const rationaleClaims = extractPlayerStatClaims(
+          normalizedParagraphs[1],
+          entry.playerName
+        );
+        const duplicateClaims = [...evidenceClaims].filter((claim) => rationaleClaims.has(claim));
+        if (duplicateClaims.length) {
+          duplicateEnglishStatClaimCount += duplicateClaims.length;
+          validDescription = false;
+          addIssue(
+            localeContext,
+            `evidence repeats player stat claim${duplicateClaims.length === 1 ? "" : "s"}: ${duplicateClaims.join(", ")}`
+          );
+        }
+      }
       const limits = PARAGRAPH_LENGTH_LIMITS[language];
       for (const [index, paragraph] of normalizedParagraphs.entries()) {
         const paragraphNumber = index + 1;
@@ -439,11 +631,14 @@ for (const record of selectionRecords) {
           validDescription = false;
           addIssue(localeContext, `paragraph ${paragraphNumber} needs closing punctuation`);
         }
-        if (length < limits.minimum || length > limits.maximum) {
+        const minimumLength = paragraphNumber === 1
+          ? EVIDENCE_MINIMUM_LENGTHS[language]
+          : limits.minimum;
+        if (length < minimumLength || length > limits.maximum) {
           validDescription = false;
           addIssue(
             localeContext,
-            `paragraph ${paragraphNumber} length ${length} is outside ${limits.minimum}-${limits.maximum}`
+            `paragraph ${paragraphNumber} length ${length} is outside ${minimumLength}-${limits.maximum}`
           );
         }
       }
@@ -453,6 +648,15 @@ for (const record of selectionRecords) {
       validLocaleDescriptionCount += 1;
     }
   }
+}
+
+const largestEnglishEvidenceStructure = [...englishEvidenceStructures.values()]
+  .sort((left, right) => right - left)[0] || 0;
+if (largestEnglishEvidenceStructure > 32) {
+  addIssue(
+    "copy diversity",
+    `one normalized evidence structure is reused ${largestEnglishEvidenceStructure} times; maximum is 32`
+  );
 }
 
 if (selectedProfileIds.size !== EXPECTED_PROFILE_COUNT) {
@@ -512,6 +716,11 @@ for (const [year, coverage] of coverageByYear) {
     + `peaks ${coverage.peakValues}/${EXPECTED_PLAYERS_PER_EDITION}.`
   );
 }
+console.log(
+  `Editorial copy diversity: ${englishEvidenceStructures.size} normalized evidence structures; `
+  + `largest reuse ${largestEnglishEvidenceStructure}; repeated name restarts ${repeatedEnglishNameRestartCount}; `
+  + `high semantic overlaps ${highSemanticOverlapCount}; duplicate player-stat claims ${duplicateEnglishStatClaimCount}.`
+);
 
 if (issues.length) {
   console.error(`Historical Best XI quality audit found ${issues.length} issue${issues.length === 1 ? "" : "s"}:`);

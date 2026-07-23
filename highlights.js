@@ -1,10 +1,10 @@
-import { DATA_VERSION, LANGUAGE_STORAGE_KEY } from "./app-config.js?v=2026-07-21-player-club-context-1";
+import { DATA_VERSION, LANGUAGE_STORAGE_KEY } from "./app-config.js?v=2026-07-22-player-card-copy-1";
 import { appendFootballInlineText } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   ZH_CLUB_NAME_TRANSLATIONS,
   ZH_LEAGUE_NAME_TRANSLATIONS,
   ZH_PLAYER_NAME_TRANSLATIONS
-} from "./football-locale-zh.js?v=2026-07-20-final-celebration-bullets-1";
+} from "./football-locale-zh.js?v=2026-07-22-player-card-copy-1";
 import {
   formatLineupShortName,
   renderLineupAvatarFrame,
@@ -28,19 +28,20 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-21-player-club-context-1-historical-best-xi-depth-1";
-import { getPlayerSkillCategory } from "./locales/player-note-templates.js?v=2026-07-21-best-xi-rebuild-3";
+} from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
+import { getPlayerSkillCategory } from "./locales/player-note-templates.js?v=2026-07-22-player-card-copy-1";
 import {
   HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS,
   HISTORICAL_AWARD_CONTEXT_PLAYERS,
   HISTORICAL_HIGHLIGHTS,
   HISTORICAL_NEXT_WORLD_CUP_PREVIEWS,
   HISTORICAL_STORY_PROFILE_OVERRIDES
-} from "./data/highlights-history.js?v=2026-07-21-historical-award-description-player-cards-3-historical-coach-cards-1-historical-story-style-notes-1";
+} from "./data/highlights-history.js?v=2026-07-22-player-card-copy-1";
 import { CHAMPION_PHOTOS } from "./data/champion-photos.js?v=2026-07-21-all-team-photos-1";
 import {
-  buildHistoricalBestXiDescriptionParagraphs
-} from "./historical-best-xi-copy.js?v=2026-07-21-historical-best-xi-depth-1";
+  buildHistoricalBestXiDescriptionParagraphs,
+  resolveHistoricalBestXiEvidencePosition
+} from "./historical-best-xi-copy.js?v=2026-07-22-historical-best-xi-depth-2";
 import { getHistoricalTeamFlagMetadata } from "./team-flag-data.js?v=2026-07-21-shared-historical-flags-1";
 
 const WORLD_CUP_EDITIONS = Object.freeze([
@@ -672,7 +673,7 @@ let loadedHistoricalStoryCopy = null;
 let loadedHistoricalBestXiReasons = Object.freeze({});
 let loadedHistoricalPlayerNames = Object.freeze({});
 let loadedHistoricalPlayerNamesByNormalizedName = new Map();
-let loadedHistoricalPlayerNoteTranslations = Object.freeze({});
+let loadedPlayerNoteTranslations = Object.freeze({});
 let activeEdition = 2026;
 let activeHighlightRankPill = null;
 let activeHighlightPlayerHover = null;
@@ -788,7 +789,7 @@ async function loadHistoricalBestXiReasonLocale(language) {
     return Object.freeze({});
   }
   const localeData = await loadJson(
-    `data/locales/${language}/historical-best-xi-reasons.json?v=2026-07-21-best-xi-rebuild-3`
+    `data/locales/${language}/historical-best-xi-reasons.json?v=${DATA_VERSION}`
   );
   if (
     localeData?.schemaVersion !== 1
@@ -803,24 +804,30 @@ async function loadHistoricalBestXiReasonLocale(language) {
 
 const HISTORICAL_PLAYER_NAME_LOADERS = Object.freeze({
   es: () => Promise.all([
-    import("./locales/es/player-names.js?v=2026-07-21-best-xi-rebuild-3"),
-    import("./locales/es/player-names-archive.js?v=2026-07-21-best-xi-rebuild-3")
+    import(`./locales/es/player-names.js?v=${LOCALE_PACK_VERSION}`),
+    import(`./locales/es/player-names-archive.js?v=${LOCALE_PACK_VERSION}`)
   ]).then(([currentNames, archiveNames]) => Object.freeze({
     ...(currentNames.ES_PLAYER_NAME_TRANSLATIONS || {}),
     ...(archiveNames.ES_ARCHIVE_PLAYER_NAME_TRANSLATIONS || {})
   })),
   ko: () => Promise.all([
-    import("./locales/ko/player-names.js?v=2026-07-21-best-xi-rebuild-3"),
-    import("./locales/ko/player-names-archive.js?v=2026-07-21-best-xi-rebuild-3")
+    import(`./locales/ko/player-names.js?v=${LOCALE_PACK_VERSION}`),
+    import(`./locales/ko/player-names-archive.js?v=${LOCALE_PACK_VERSION}`)
   ]).then(([currentNames, archiveNames]) => Object.freeze({
     ...(currentNames.KO_PLAYER_NAME_TRANSLATIONS || {}),
     ...(archiveNames.KO_ARCHIVE_PLAYER_NAME_TRANSLATIONS || {})
   }))
 });
 
-const HISTORICAL_PLAYER_NOTE_LOADERS = Object.freeze({
-  es: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-  ko: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`)
+const PLAYER_NOTE_LOADERS = Object.freeze({
+  es: Object.freeze({
+    current: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
+    archive: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`)
+  }),
+  ko: Object.freeze({
+    current: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`),
+    archive: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`)
+  })
 });
 
 async function loadHistoricalPlayerNameLocale(language) {
@@ -830,22 +837,24 @@ async function loadHistoricalPlayerNameLocale(language) {
   return HISTORICAL_PLAYER_NAME_LOADERS[language]();
 }
 
-async function loadHistoricalPlayerNoteLocale(language) {
-  if (activeEdition === 2026 || !HISTORICAL_PLAYER_NOTE_LOADERS[language]) {
+async function loadPlayerNoteLocale(language) {
+  const scope = activeEdition === 2026 ? "current" : "archive";
+  const loader = PLAYER_NOTE_LOADERS[language]?.[scope];
+  if (!loader) {
     return Object.freeze({});
   }
-  const localeModule = await HISTORICAL_PLAYER_NOTE_LOADERS[language]();
+  const localeModule = await loader();
   const metadata = localeModule?.CONTENT_METADATA;
   const translations = localeModule?.CONTENT_TRANSLATIONS;
   if (
     metadata?.schemaVersion !== 1 ||
     metadata?.language !== language ||
-    metadata?.scope !== "archive" ||
+    metadata?.scope !== scope ||
     !translations ||
     typeof translations !== "object" ||
     Array.isArray(translations)
   ) {
-    throw new TypeError(`Invalid historical player-note locale ${language}.`);
+    throw new TypeError(`Invalid player-note locale ${language}/${scope}.`);
   }
   return translations;
 }
@@ -1045,7 +1054,7 @@ async function setLanguage(language, options = {}) {
     historicalAwardCopy,
     historicalStoryCopy,
     historicalPlayerNames,
-    historicalPlayerNoteTranslations
+    playerNoteTranslations
   ] = await Promise.all([
     loadHighlightsLocale(nextLanguage),
     ["es", "ko"].includes(nextLanguage)
@@ -1055,7 +1064,7 @@ async function setLanguage(language, options = {}) {
     loadHistoricalAwardCopyLocale(nextLanguage),
     loadHistoricalStoryCopyLocale(nextLanguage),
     loadHistoricalPlayerNameLocale(nextLanguage),
-    loadHistoricalPlayerNoteLocale(nextLanguage)
+    loadPlayerNoteLocale(nextLanguage)
   ]);
   currentLanguage = nextLanguage;
   activeLocale = validateHighlightsLocale(locale, nextLanguage);
@@ -1064,7 +1073,7 @@ async function setLanguage(language, options = {}) {
   loadedHistoricalAwardCopy = historicalAwardCopy;
   loadedHistoricalStoryCopy = historicalStoryCopy;
   loadedHistoricalPlayerNames = historicalPlayerNames;
-  loadedHistoricalPlayerNoteTranslations = historicalPlayerNoteTranslations;
+  loadedPlayerNoteTranslations = playerNoteTranslations;
   loadedHistoricalPlayerNamesByNormalizedName = new Map(
     Object.entries(historicalPlayerNames).map(([name, localizedName]) => [
       normalizeHistoricalName(name),
@@ -2379,12 +2388,13 @@ function getHighlightPlayerNote(playerName, profile) {
     const localizedName = getHighlightPlayerName(playerName, profile);
     const localizedStyleNote = activeAppLocalePack?.helpers?.formatPlayerNote?.(sourceNote, {
       historical,
-      localizedName
+      localizedName,
+      copyMeta: historical ? profile?.styleNoteMeta : profile?.noteMeta
     });
     if (localizedStyleNote) {
       return localizedStyleNote;
     }
-    const authoredTranslation = loadedHistoricalPlayerNoteTranslations[sourceNote];
+    const authoredTranslation = loadedPlayerNoteTranslations[sourceNote];
     if (authoredTranslation) {
       return authoredTranslation;
     }
@@ -3270,12 +3280,15 @@ function getBestXiDescriptionParagraphs(player, profile) {
   if (activeEdition === 2026) {
     return rationale;
   }
+  const historicalEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
   return buildHistoricalBestXiDescriptionParagraphs({
     language: currentLanguage,
     playerName: getBestXiDisplayName(player),
     teamName: getBestXiTeamName(player?.teamId),
     tournamentYear: Number(profile?.tournamentYear || activeEdition),
-    position: profile?.position || player?.position,
+    selectionPosition: player?.position,
+    position: resolveHistoricalBestXiEvidencePosition(player?.position, profile?.position),
+    isChampion: player?.teamId === historicalEdition?.champion,
     profile
   }, rationale);
 }
@@ -4124,19 +4137,19 @@ async function initialize() {
     loadedHistoricalStoryCopy = null;
     loadedHistoricalPlayerNames = Object.freeze({});
     loadedHistoricalPlayerNamesByNormalizedName = new Map();
-    loadedHistoricalPlayerNoteTranslations = Object.freeze({});
+    loadedPlayerNoteTranslations = Object.freeze({});
     applyLocale();
   }
 
   if (activeEdition === 2026) {
     try {
       const [tournament, fixtureData, playerData, coachData, teamData, structuredGlossary] = await Promise.all([
-        loadJson("data/tournament.json"),
-        loadJson("data/fixtures.json"),
-        loadJson("data/player-profiles.json"),
-        loadJson("data/coach-profiles.json"),
-        loadJson("data/teams.json"),
-        loadJson("data/locales/structured-content-glossary.json")
+        loadJson(`data/tournament.json?v=${DATA_VERSION}`),
+        loadJson(`data/fixtures.json?v=${DATA_VERSION}`),
+        loadJson(`data/player-profiles.json?v=${DATA_VERSION}`),
+        loadJson(`data/coach-profiles.json?v=${DATA_VERSION}`),
+        loadJson(`data/teams.json?v=${DATA_VERSION}`),
+        loadJson(`data/locales/structured-content-glossary.json?v=${DATA_VERSION}`)
       ]);
       loadedAwards = tournament.awards || {};
       loadedTournamentStatsByKey = buildHighlightTournamentStats(fixtureData.fixtures || []);
@@ -4153,7 +4166,7 @@ async function initialize() {
     }
 
     try {
-      loadedBestXi = await loadJson("data/highlights-best-xi.json");
+      loadedBestXi = await loadJson(`data/highlights-best-xi.json?v=${DATA_VERSION}`);
       renderAwards(loadedAwards || {}, loadedProfiles || {});
       renderHighlightStoryTitles();
       renderHighlightPlayerMentions();
@@ -4171,12 +4184,12 @@ async function initialize() {
         coachData,
         structuredGlossary
       ] = await Promise.all([
-        loadJson("data/history.json"),
+        loadJson(`data/history.json?v=${DATA_VERSION}`),
         loadJson(`data/historical-player-profiles.json?v=${DATA_VERSION}`),
-        loadJson("data/world-cup-awards.json"),
-        loadJson("data/historical-rankings.json"),
-        loadJson("data/coach-profiles.json"),
-        loadJson("data/locales/structured-content-glossary.json")
+        loadJson(`data/world-cup-awards.json?v=${DATA_VERSION}`),
+        loadJson(`data/historical-rankings.json?v=${DATA_VERSION}`),
+        loadJson(`data/coach-profiles.json?v=${DATA_VERSION}`),
+        loadJson(`data/locales/structured-content-glossary.json?v=${DATA_VERSION}`)
       ]);
       const editorialEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
       const awardsEdition = historicalAwardData.editions?.[String(activeEdition)] || {};

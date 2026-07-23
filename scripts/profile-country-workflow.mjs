@@ -58,12 +58,19 @@ function runStep(label, commandArgs) {
   }
 }
 
-function updateCurationTracker(teamIds) {
+function updateCurationTracker(teamIds, profileEdition) {
   if (!existsSync(trackerPath)) {
     return;
   }
 
   const tracker = JSON.parse(readFileSync(trackerPath, "utf8"));
+  const trackerEdition = normalizeProfileEdition(tracker?.currentTournament?.edition || "");
+  if (trackerEdition && trackerEdition !== profileEdition) {
+    console.log(
+      `Skipped curation tracker update because it describes edition ${trackerEdition}, not ${profileEdition}.`
+    );
+    return;
+  }
   const profilesData = JSON.parse(readFileSync(playerProfilesPath, "utf8"));
   const profiles = Object.values(profilesData.profiles || {});
   const now = new Date().toISOString();
@@ -77,7 +84,7 @@ function updateCurationTracker(teamIds) {
 
     team.status = "ready";
     team.profileCount = profiles.filter((profile) => profile?.teamId === team.teamId).length;
-    team.lastAudit = `passed strict country workflow at ${now}`;
+    team.lastAudit = `passed strict ${profileEdition} country workflow at ${now}`;
   }
 
   writeFileSync(trackerPath, `${JSON.stringify(tracker, null, 2)}\n`);
@@ -99,9 +106,12 @@ const profileEdition = normalizeProfileEdition(
 );
 const skipSmoke = hasArg("skip-smoke");
 const skipChecks = hasArg("skip-checks");
+const rewriteSubstantive = hasArg("rewrite-substantive");
 
 if (!teams) {
-  console.error("Usage: pnpm profiles:country -- --teams=CRO,PAN");
+  console.error(
+    "Usage: pnpm profiles:country -- --teams=CRO,PAN [--edition=2026] [--rewrite-substantive]"
+  );
   process.exit(1);
 }
 
@@ -123,11 +133,24 @@ runStep("Generate country profiles", [
   "--squad-only"
 ]);
 
+runStep("Refresh country player-card notes", [
+  "scripts/refresh-player-card-notes-from-tournament-evidence.mjs",
+  `--teams=${teams}`,
+  `--profile-edition=${profileEdition}`,
+  ...(rewriteSubstantive ? ["--rewrite-substantive"] : [])
+]);
+
 runStep("Audit generated country profiles", [
   "scripts/audit-country-player-profiles.mjs",
   `--teams=${teams}`,
   `--min-profiles=${minProfiles}`,
   `--max-profiles=${minProfiles}`
+]);
+
+runStep("Audit country player-card notes", [
+  "scripts/audit-player-card-notes.mjs",
+  `--teams=${teams}`,
+  "--strict"
 ]);
 
 if (!skipChecks) {
@@ -138,6 +161,6 @@ if (!skipChecks) {
   }
 }
 
-updateCurationTracker(teamIds);
+updateCurationTracker(teamIds, profileEdition);
 console.log("");
-console.log(`Country profile workflow passed for ${teams}.`);
+console.log(`Country profile workflow passed for ${teams} in edition ${profileEdition}.`);
