@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "2d7b94a437128c5a8e3b8b46b9c6299bff4fa168cc376fb9db2e2ab7956f4cba"
+  "sourceFingerprint": "809890bdfad71b2ca328fd11d72ee0f52c5eeeb6e1333690d8d6bfe7dcf5261c"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Audit and smoke coverage now guards the refreshed player-card and key-information contracts.": "감사와 스모크 테스트가 새로 정비한 선수 카드와 핵심 정보 규칙을 지키도록 보강되었습니다.",
-  "Historical Key information briefs now use confirmed lineups and current structured localization.": "역대 핵심 정보 브리프는 이제 확정 라인업과 현재의 구조화된 현지화 방식을 사용합니다.",
-  "Historical player cards now carry more specific tournament-time style notes across the archive.": "역대 선수 카드는 아카이브 전반에서 해당 대회 시점에 맞춘 더 구체적인 스타일 설명을 담습니다.",
-  "Sharper historical player cards and match briefs": "더 선명해진 역대 선수 카드와 경기 브리프"
+  "Faster historical archive loading": "더 빨라진 역사 아카이브 로딩",
+  "Historical Highlights now loads one edition at a time instead of every World Cup at once.": "역대 하이라이트는 이제 모든 월드컵을 한 번에 받지 않고 한 대회씩 불러옵니다.",
+  "Home now avoids downloading the full historical archive until an archive view needs it.": "홈은 이제 아카이브 화면이 필요할 때까지 전체 역사 아카이브를 다운로드하지 않습니다.",
+  "New budget, writing, and smoke checks guard loading speed and player-card quality.": "새 예산, 문안, 스모크 검사가 로딩 속도와 선수 카드 품질을 지킵니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

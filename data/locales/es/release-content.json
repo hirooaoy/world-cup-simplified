@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "2d7b94a437128c5a8e3b8b46b9c6299bff4fa168cc376fb9db2e2ab7956f4cba",
+  "sourceFingerprint": "809890bdfad71b2ca328fd11d72ee0f52c5eeeb6e1333690d8d6bfe7dcf5261c",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Audit and smoke coverage now guards the refreshed player-card and key-information contracts.": "Las auditorías y pruebas smoke ahora protegen los contratos actualizados de fichas de jugadores e información clave.",
-    "Historical Key information briefs now use confirmed lineups and current structured localization.": "Los resúmenes históricos de Información clave ahora usan alineaciones confirmadas y la localización estructurada actual.",
-    "Historical player cards now carry more specific tournament-time style notes across the archive.": "Las fichas históricas ahora incorporan notas de estilo más específicas de cada torneo en todo el archivo.",
-    "Sharper historical player cards and match briefs": "Fichas históricas y resúmenes de partido más claros"
+    "Faster historical archive loading": "Carga más rápida del archivo histórico",
+    "Historical Highlights now loads one edition at a time instead of every World Cup at once.": "Los Highlights históricos ahora cargan una edición a la vez, no todos los Mundiales de golpe.",
+    "Home now avoids downloading the full historical archive until an archive view needs it.": "El inicio ya no descarga todo el archivo histórico hasta que una vista de archivo lo necesita.",
+    "New budget, writing, and smoke checks guard loading speed and player-card quality.": "Nuevas comprobaciones de presupuesto, redacción y smoke protegen la velocidad y la calidad de las fichas."
   }
 }

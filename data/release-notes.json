@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-27T11:20:00-07:00",
+  "updatedAt": "2026-07-27T16:35:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-27",
+      "title": "Faster historical archive loading",
+      "titleZh": "历史存档加载更快",
+      "highlights": [
+        "Home now avoids downloading the full historical archive until an archive view needs it.",
+        "Historical Highlights now loads one edition at a time instead of every World Cup at once.",
+        "New budget, writing, and smoke checks guard loading speed and player-card quality."
+      ],
+      "highlightsZh": [
+        "首页现会等到用户进入存档视图时，才下载完整历史存档。",
+        "历史亮点页现按单届赛事加载，不再一次下载所有世界杯资料。",
+        "新增预算、文案与烟测检查，用来守住加载速度和球员卡质量。"
+      ]
+    },
     {
       "date": "2026-07-27",
       "title": "Sharper historical player cards and match briefs",
