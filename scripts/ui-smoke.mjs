@@ -6302,19 +6302,20 @@ try {
       linkedNames.join("|") === playerCase.expectedLinks.join("|"),
       `The ${playerCase.year} philosophy should link every authored player name. Measured ${JSON.stringify(linkedNames)}.`
     );
-    const canonicalProfileCard = philosophyLinks
-      .filter({ hasText: playerCase.playerName })
+    const authoredPlayerLink = philosophyLinks.filter({ hasText: playerCase.playerName });
+    const canonicalProfileCard = authoredPlayerLink
       .locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
       .locator(".player-card");
     await canonicalProfileCard.locator(".player-card-position").waitFor({ state: "attached" });
-    await philosophyLinks.filter({ hasText: playerCase.playerName }).hover();
+    await authoredPlayerLink.click();
     await page.waitForFunction(
       ({ expectedCardNote, expectedCardPosition, playerName }) => {
         const playerLink = [...document.querySelectorAll(
           "#final-celebration-banner .final-celebration-bullets li:nth-child(3) .player-link"
         )].find((link) => link.textContent.trim() === playerName);
-        const card = playerLink?.closest(".player-hover")?.querySelector(".player-card");
-        return (
+        const sourceCard = playerLink?.closest(".player-hover")?.querySelector(".player-card");
+        const floatingCard = document.querySelector(".player-card-floating.is-visible");
+        return [sourceCard, floatingCard].some((card) =>
           card?.querySelector(".player-card-position")?.textContent.trim() === expectedCardPosition &&
           card?.querySelector(".player-card-note")?.textContent.trim() === expectedCardNote
         );

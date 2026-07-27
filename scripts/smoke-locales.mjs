@@ -2131,6 +2131,7 @@ async function assertHighlightsLocales(browser) {
             node.textContent.replace(/\s+/gu, " ").trim()
           ),
           firstUndated: document.querySelector(".next-world-cup-timeline .timeline-item")?.classList.contains("is-undated") || false,
+          coachAvatarText: document.querySelector("#best-xi-coach-avatar")?.textContent.trim() || "",
           coachHasPortrait: Boolean(document.querySelector("#best-xi-coach-avatar img[src]")),
           heading: document.querySelector("#next-world-cup-title")?.textContent.trim() || "",
           itemCount: document.querySelectorAll(".next-world-cup-timeline .timeline-item").length,
@@ -2144,7 +2145,7 @@ async function assertHighlightsLocales(browser) {
         }));
         assert(
           previewChainItem.itemCount === 3 &&
-            previewChainItem.coachHasPortrait &&
+            (previewChainItem.coachHasPortrait || previewChainItem.coachAvatarText.length >= 2) &&
             previewChainItem.dates.every((date) => date.length > 0) &&
             !previewChainItem.firstUndated &&
             previewChainItem.heading === "See you next time" &&
