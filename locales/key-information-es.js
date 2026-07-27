@@ -448,28 +448,34 @@ function v2CurrentStakes(slot, team, opponent) {
 function formatV2CurrentPlan(slot, options) {
   const names = v2PlayersWithPositions(slot.starters, options);
   const descriptions = {
-    "single-pivot-width": "combinar una base defensiva, dos puestos interiores y una salida exterior",
-    "front-three": "distribuir tres puestos de ataque por delante del medio",
-    "number-ten": "ordenar tres alturas desde el medio hasta el delantero",
-    "front-pair": "situar una pareja de delanteros por delante del medio",
-    "wing-backs": "conectar los dos carriles con el medio y el delantero",
-    central: "formar el eje central de la alineación"
+    "single-pivot-width": "la base defensiva, dos puestos interiores y una posición exterior",
+    "front-three": "los tres puestos de ataque por delante del medio",
+    "number-ten": "tres alturas centrales desde el medio hasta el delantero",
+    "front-pair": "la pareja de delanteros por delante del medio",
+    "wing-backs": "los dos puestos de carrilero y la posición central",
+    central: "el eje central de la alineación"
   };
-  return `La disposición oficial usa a ${names} para ${descriptions[slot.key] || "definir la estructura inicial"}.`;
+  return `La disposición inicial sitúa a ${names} en ${descriptions[slot.key] || "la estructura central del once"}.`;
 }
 
-function v2CurrentLayoutLabel(identity) {
-  const perspective = {
-    nominal: "nominal",
-    observed: "observado",
-    revised: "revisado"
-  }[identity.layoutPerspective];
-  const timing = {
-    "pre-kickoff": "publicado antes del inicio",
-    "post-kickoff": "publicado después del inicio"
-  }[identity.layoutTiming];
-  const details = [perspective, timing].filter(Boolean).join(" y ");
-  return `el esquema táctico oficial${details ? ` ${details}` : ""}`;
+function v2CurrentFormationStructure(identity, options) {
+  const loneStriker = identity.loneStriker ? player(identity.loneStriker, options) : "un único delantero";
+  const descriptions = {
+    "5-4-1": `una línea de cinco defensas detrás de cuatro centrocampistas y ${loneStriker} solo en punta`,
+    "4-4-2": "una línea de cuatro defensas, cuatro centrocampistas y dos delanteros",
+    "4-1-2-3": "cuatro defensas, un puesto de mediocentro defensivo, dos interiores y tres atacantes",
+    "4-2-3-1": "cuatro defensas, dos puestos de medio retrasados, tres posiciones ofensivas y un único delantero",
+    "4-3-3": "cuatro defensas, tres centrocampistas y tres atacantes",
+    "3-4-3": "tres defensas, cuatro centrocampistas y tres atacantes",
+    "5-2-3": "cinco defensas, dos puestos centrales y tres atacantes",
+    "5-3-2": "cinco defensas, tres centrocampistas y dos delanteros",
+    "3-5-2": "tres defensas, cinco centrocampistas y dos delanteros",
+    "3-4-1-2": "tres defensas, cuatro centrocampistas, un mediapunta y dos delanteros",
+    "4-1-3-2": "cuatro defensas, un puesto retrasado, tres posiciones por delante y dos delanteros",
+    "4-2-1-3": "cuatro defensas, dos puestos centrales, un mediapunta y tres atacantes",
+    "4-1-4-1": `cuatro defensas, un mediocentro defensivo, una línea de cuatro y ${loneStriker} solo en punta`
+  };
+  return descriptions[identity.formation] || `la estructura correspondiente al ${identity.formation}`;
 }
 
 function v2CurrentLaneLabel(lane, team) {
@@ -506,12 +512,12 @@ function formatV2Current(model, options) {
   const matchup = model.slots.matchup;
   const opponentLane = matchup.opponentLane || (matchup.lane === "left" ? "right" : matchup.lane === "right" ? "left" : "central");
   const laneContrast = matchup.variant === "wide-lanes"
-    ? `sitúa a ${v2PlayerWithPosition(matchup.ownStarter, options)} en ${v2CurrentLaneLabel(matchup.lane, team)} y a ${v2PlayerWithPosition(matchup.opposingStarter, options)} en ${v2CurrentLaneLabel(opponentLane, opponent)}, dos posiciones enfrentadas en la misma banda`
-    : `sitúa a ${v2PlayerWithPosition(matchup.ownStarter, options)} y ${v2PlayerWithPosition(matchup.opposingStarter, options)} en líneas centrales opuestas`;
+    ? `${v2PlayerWithPosition(matchup.ownStarter, options)} ocupa ${v2CurrentLaneLabel(matchup.lane, team)}, frente a ${v2PlayerWithPosition(matchup.opposingStarter, options)} en ${v2CurrentLaneLabel(opponentLane, opponent)}`
+    : `${v2PlayerWithPosition(matchup.ownStarter, options)} y ${v2PlayerWithPosition(matchup.opposingStarter, options)} ocupan líneas centrales opuestas para ${team} y ${opponent}`;
   return [
-    `${team} llega ${v2Record(identity.prior)}; ${v2CurrentLayoutLabel(identity)} muestra un ${identity.formation} con ${v2PlayersWithPositions(identity.namedStarters, options)} entre los titulares.`,
-    `Contra ${opponent}, ${v2CurrentStakes(matchup.stakes, team, opponent)}; el contraste entre el ${identity.formation} de ${team} y el ${matchup.opponentFormation} de ${opponent} ${laneContrast}.`,
+    `${team} se dispone en un ${identity.formation}, con ${v2CurrentFormationStructure(identity, options)}.`,
     formatV2CurrentPlan(model.slots.plan, options),
+    `${laneContrast}.`,
     formatV2CurrentRisk(model.slots.risk, model, options)
   ];
 }
@@ -670,9 +676,67 @@ function formatV2HistoricalRisk(slot, model, options) {
   throw new Error(`Unsupported Spanish historical Key information risk: ${slot.key}`);
 }
 
+function v2HistoricalRoleBalance(counts = {}) {
+  const parts = [
+    counts.defender ? v2Count(counts.defender, "defensa", "defensas") : "",
+    counts.midfielder ? v2Count(counts.midfielder, "centrocampista", "centrocampistas") : "",
+    counts.forward ? v2Count(counts.forward, "delantero", "delanteros") : "",
+    counts.player ? v2Count(counts.player, "titular de otra posición", "titulares de otras posiciones") : ""
+  ].filter(Boolean);
+  const outfield = list(parts);
+  return counts.goalkeeper === 1
+    ? `${outfield} por delante del portero`
+    : `${outfield}${counts.goalkeeper ? ` y ${v2Count(counts.goalkeeper, "portero", "porteros")}` : ""}`;
+}
+
+function v2HistoricalPlayerRolePhrases(facts, options) {
+  const labels = {
+    forward: "en ataque",
+    midfielder: "en el centro del campo",
+    defender: "en defensa",
+    goalkeeper: "en la portería",
+    player: "en el once"
+  };
+  return ["forward", "midfielder", "defender", "goalkeeper", "player"]
+    .map((position) => {
+      const names = (facts || [])
+        .filter((fact) => fact.position === position)
+        .map((fact) => player(fact, options));
+      return names.length ? `${list(names)} ${labels[position]}` : "";
+    })
+    .filter(Boolean);
+}
+
+function v2HistoricalPlayerLineupSentence(team, facts, options) {
+  const phrases = v2HistoricalPlayerRolePhrases(facts, options);
+  if (phrases.length === 1) return `${team} alinea a ${phrases[0]}.`;
+  if (phrases.length === 2) return `${team} alinea a ${phrases[0]}, con ${phrases[1]}.`;
+  return `${team} alinea a ${list(phrases)}.`;
+}
+
+function formatV2HistoricalLineupComparison(model, options) {
+  const team = resolveKeyInformationTeam(model, "team", options);
+  const opponent = resolveKeyInformationTeam(model, "opponent", options);
+  const identity = model.slots.identity;
+  const risk = model.slots.risk;
+  const managers = (identity.managers || []).filter(Boolean);
+  const opponentManagers = (risk.opponentManagers || []).filter(Boolean);
+  const teamLead = managers.length ? `Bajo la dirección de ${list(managers)}, ` : "";
+  const opponentLead = opponentManagers.length ? `Bajo la dirección de ${list(opponentManagers)}, ` : "";
+  return [
+    `${teamLead}el once confirmado de ${team} incluye ${v2HistoricalRoleBalance(identity.roleCounts)}.`,
+    v2HistoricalPlayerLineupSentence(team, identity.confirmedStarterFacts, options),
+    `${opponentLead}el once confirmado de ${opponent} incluye ${v2HistoricalRoleBalance(risk.opponentRoleCounts)}.`,
+    v2HistoricalPlayerLineupSentence(opponent, risk.opponentConfirmedStarterFacts, options)
+  ];
+}
+
 function formatV2Historical(model, options) {
   const team = resolveKeyInformationTeam(model, "team", options);
   const identity = model.slots.identity;
+  if (identity.displayMode === "lineup-comparison") {
+    return formatV2HistoricalLineupComparison(model, options);
+  }
   const host = identity.isHost ? " como selección anfitriona" : "";
   const managers = (identity.managers || []).filter(Boolean);
   const manager = managers.length ? ` bajo la dirección de ${list(managers)}` : "";

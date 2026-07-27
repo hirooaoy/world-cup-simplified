@@ -1,0 +1,1673 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1982,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Djamel Zidane / Algeria / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is usable, but its near-post detail blends into Algeria's adjacent forward cards rather than identifying Zidane's 1982 role.",
+      "repetitionFlag": "Algeria's forward cards repeat blind-side, near-post and pull-wide cues.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lakhdar Belloumi / Algeria / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic give-and-go paragraph misses the playmaker who scored the winner in Algeria's defining victory over West Germany.",
+      "repetitionFlag": "Algeria's two midfield-support sentences use archive-wide generated language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rabah Madjer / Algeria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim generic runner cards in 1982 and 1986 suppress Madjer's distinct contribution to each tournament.",
+      "repetitionFlag": "The 1986 card reuses the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Salah Assad / Algeria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same generic forward mechanics recur in 1986 and do not explain Assad's separate two-goal 1982 tournament.",
+      "repetitionFlag": "The 1986 card reuses the same near-post and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tedj Bensaoula / Algeria / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but it nearly duplicates Madjer and adds no individual cue beyond Bensaoula's recorded goal.",
+      "repetitionFlag": "Algeria's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Américo Gallego / Argentina / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1982 card borrows Gallego's supported 1978 central-screening portrait without establishing his separate role in this tournament.",
+      "repetitionFlag": "The 1982 card reuses the supported 1978 centre-holding and forward-pass mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Daniel Bertoni / Argentina / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1978 and 1982 cards reuse the same generic forward actions, obscuring Bertoni's different two-goal 1982 contribution.",
+      "repetitionFlag": "The 1978 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Daniel Passarella / Argentina / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1982 card reuses Passarella's supported 1978 captain-stopper portrait instead of explaining his separate two-goal edition.",
+      "repetitionFlag": "The 1982 card reuses the supported 1978 front-foot and goal-side mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Diego Maradona / Argentina / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The approved authored portrait is natural, exact to 1982 and honest about both Maradona's freedom and the cost of receiving too far from goal.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Osvaldo Ardiles / Argentina / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim tempo cards in 1978 and 1982 flatten two materially different Ardiles tournaments into one career-level guide.",
+      "repetitionFlag": "The 1978 card reuses the same pause and switch-angle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ramón Díaz / Argentina / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side movement guide is a reasonable fallback, but its two actions repeat Argentina's other forwards and do not distinguish Díaz's 1982 goal.",
+      "repetitionFlag": "Argentina's forward cards repeat delay-run and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ubaldo Fillol / Argentina / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same balanced-goalkeeper mechanics recur from 1978, leaving Fillol's separate 1982 tournament without its own portrait.",
+      "repetitionFlag": "The 1978 card reuses the same set-feet and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernd Krauss / Austria / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph is coherent, but the exact delay and support-timing decisions outrun the broad defensive source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bruno Pezzey / Austria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim 1978 and 1982 defender cards suppress the distinct context of Pezzey's two tournaments.",
+      "repetitionFlag": "The 1978 card reuses the same goal-side and delay mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Friedrich Koncilia / Austria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The repeated 1978 goalkeeper paragraph does not establish a separate 1982 edition for Koncilia.",
+      "repetitionFlag": "The 1978 card reuses the same set-feet and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gernot Jurtin / Austria / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The movement guide is honest at role level, but its near-post and pull-wide cues merge with Austria's surrounding forward cards.",
+      "repetitionFlag": "Austria's forward cards repeat near-post, delay and pull-wide cues.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hans Krankl / Austria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim runner cards in 1978 and 1982 replace two edition portraits with one generic finishing template.",
+      "repetitionFlag": "The 1978 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Herbert Prohaska / Austria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1978 and 1982 cards repeat the same switch-and-recycle description instead of distinguishing Prohaska's editions.",
+      "repetitionFlag": "The 1978 card reuses the same switch-angle and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kurt Jara / Austria / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is concise, but it repeats Jurtin and other Austrian forwards without an individual 1982 detail.",
+      "repetitionFlag": "Austria's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Reinhold Hintermaier / Austria / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause paragraph is plausible, but it is archive-generic and does not connect its midfield identity to Hintermaier's recorded goal.",
+      "repetitionFlag": "Austria's midfield cards share broad tempo-and-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Walter Schachner / Austria / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1978 and 1982 cards reuse the same generic forward actions and fail to explain Schachner's two-goal 1982 contribution.",
+      "repetitionFlag": "The 1978 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alexandre Czerniatynski / Belgium / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is serviceable, but it overlaps Belgium's forward cluster and offers no distinctive 1982 cue.",
+      "repetitionFlag": "Belgium's forward cards repeat delay-run, near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eric Gerets / Belgium / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads coherently, but its exact engagement and interception decisions need edition evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Erwin Vandenbergh / Belgium / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim forward cards in 1982 and 1986 suppress the separate tournament identity of each Vandenbergh edition.",
+      "repetitionFlag": "The 1986 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Franky Vercauteren / Belgium / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same support-and-recycle midfielder paragraph recurs in 1986 rather than describing Vercauteren's 1982 tournament.",
+      "repetitionFlag": "The 1986 card reuses the same move-after and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jan Ceulemans / Belgium / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic runner portrait is reused again in 1990, leaving Ceulemans's 1982 edition without a distinct tournament identity.",
+      "repetitionFlag": "The 1990 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jean-Marie Pfaff / Belgium / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1982 card borrows the source-backed 1986 sweeping portrait without exact 1982 support, so only the earlier edition needs separation.",
+      "repetitionFlag": "The near-verbatim 1986 card is the supported source portrait.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ludo Coeck / Belgium / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-reset guide is plausible, but it nearly duplicates Vercauteren and does not distinguish Coeck's recorded goal.",
+      "repetitionFlag": "Belgium's midfielder cards repeat move-after and recycle language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "René Verheyen / Belgium / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner fallback is honest but nearly duplicates Ceulemans within the same team and adds no individual cue.",
+      "repetitionFlag": "Belgium's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Éder / Brazil / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Left-sided width and movement inside fit Éder's stored 1982 case, but the far-post ending displaces his exceptional left-foot shot threat and two goals.",
+      "repetitionFlag": "Brazil's forward descriptions need clearer separation between width, finishing and shooting threat.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Falcão / Brazil / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-pause card misses Brazil's balancing midfielder and late-arriving three-goal scorer, the identity central to his 1982 edition.",
+      "repetitionFlag": "Brazil's midfield cards share broad passing-support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Júnior / Brazil / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The defensive full-back template displaces Júnior's most important 1982 trait: moving inside as a second playmaker for Brazil.",
+      "repetitionFlag": "The current card resembles a generic defensive full-back rather than Brazil's stored Best XI portrait.",
+      "dataIssue": "Same display identity also appears for a different Brazil player in 2002; do not merge the editions.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luizinho / Brazil / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Channel cover, early turning and runner checks form a coherent exact-edition portrait of the defender protecting space behind Brazil's adventurous shape.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oscar / Brazil / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot centre-back guide is coherent, but its interception and box-distance mechanics need exact 1982 support before approval.",
+      "repetitionFlag": "",
+      "dataIssue": "The 2014 Brazil profile named Oscar is a different player; only 1978 and 1982 are recurring editions here.",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Serginho / Brazil / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The archive-wide blind-side template does not explain Serginho's own two-goal role at the point of Brazil's 1982 attack.",
+      "repetitionFlag": "Brazil's forward cards reuse generic delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sócrates / Brazil / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Third-player combinations and late arrival fit the exact 1982 evidence, but the entire paragraph is duplicated for Giresse and loses Sócrates's individual voice.",
+      "repetitionFlag": "The complete visible mechanics are shared with Alain Giresse's 1982 card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Zico / Brazil / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Drawing pressure and releasing runners fit Zico's exact 1982 evidence, but the generic recycle sentence underplays the speed, scoring and shot threat of his four-goal tournament.",
+      "repetitionFlag": "Brazil's midfield cards share a generic safe-recycle ending.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Elie Onana / Cameroon / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-intercept defender paragraph is coherent, but both exact decisions outrun the broad defensive source.",
+      "repetitionFlag": "Cameroon's centre-back cards share delay and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ephrem M'Bom / Cameroon / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads naturally, but its support timing and interception mechanics require evidence.",
+      "repetitionFlag": "Cameroon's centre-back cards share goal-side and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Grégoire M'Bida / Cameroon / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle fallback is plausible, but it says little about M'Bida beyond a generic midfielder role and his recorded goal.",
+      "repetitionFlag": "The switch-and-recycle shell recurs widely across the edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jean-Pierre Tokoto / Cameroon / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner fallback is honest but nearly interchangeable with several scoreless forwards in the edition.",
+      "repetitionFlag": "Cameroon's forward cards share delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roger Milla / Cameroon / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic runner paragraph is reused in 1990 and 1994, erasing the very different role and impact of Milla's 1982 edition.",
+      "repetitionFlag": "The 1990 and 1994 cards reuse the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Thomas N'Kono / Cameroon / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim centre-first goalkeeper cards in 1982 and 1990 do not distinguish N'Kono's separate tournaments.",
+      "repetitionFlag": "The 1990 card reuses the same centre-protection and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Caszely / Chile / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The portable runner paragraph repeats 1974, but the stored scoreless editions do not establish Caszely's exact 1982 role or a material role difference.",
+      "repetitionFlag": "The 1974 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eduardo Bonvallet / Chile / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfield guide is coherent, but its individualized tempo decisions outrun the broad stored source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gustavo Moscoso / Chile / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide is serviceable, but it blends into Chile's crowded forward group and does not distinguish Moscoso's goal.",
+      "repetitionFlag": "Chile's forward cards repeat start-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Carlos Letelier / Chile / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner guide is plausible, but adjacent Chile forwards use the same two cues and the card gives Letelier little separation.",
+      "repetitionFlag": "Chile's forward cards repeat near-post and start-run language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miguel Ángel Gamboa / Chile / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide runner fallback is honest, but it is almost interchangeable with Yáñez and other Chile forwards.",
+      "repetitionFlag": "Chile's forward cards repeat pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miguel Ángel Neira / Chile / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause paragraph is plausible, but it remains a generic midfielder description and does not distinguish Neira's recorded goal.",
+      "repetitionFlag": "Chile's midfield copy uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Patricio Yáñez / Chile / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner card is usable, but its two actions duplicate the surrounding Chile attack.",
+      "repetitionFlag": "Chile's forward cards repeat delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antonín Panenka / Czechoslovakia / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic switch-and-recycle paragraph misses the exact-edition identity behind Panenka's two-goal tournament.",
+      "repetitionFlag": "The switch-and-recycle shell recurs widely across the edition.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jozef Barmoš / Czechoslovakia / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The wide-duel paragraph is coherent, but touchline trapping and showing the winger outside need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ladislav Vízek / Czechoslovakia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is usable, but it shares both cues with the team's other forwards and provides no individual distinction.",
+      "repetitionFlag": "Czechoslovakia's forward cards repeat delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Petr Janečka / Czechoslovakia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it is nearly identical to Nehoda beside it.",
+      "repetitionFlag": "Czechoslovakia's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Zdeněk Nehoda / Czechoslovakia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible, but it duplicates Janečka and cannot identify Nehoda on its own.",
+      "repetitionFlag": "Czechoslovakia's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ever Hernández / El Salvador / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner fallback is honest, but it is one of several interchangeable forward cards in the El Salvador group.",
+      "repetitionFlag": "El Salvador's forward cards repeat start-run, delay and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Joaquín Ventura / El Salvador / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle midfielder guide is plausible, but its archive-generic mechanics provide no El Salvador-specific distinction.",
+      "repetitionFlag": "The move-after and recycle shell recurs widely across the edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jorge González / El Salvador / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running card is serviceable, but its generic mechanics do not capture González's individual ball-carrying identity.",
+      "repetitionFlag": "El Salvador's forward cards repeat delay-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José María Rivas / El Salvador / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible, but it repeats the same forward vocabulary without a Rivas-specific observation.",
+      "repetitionFlag": "El Salvador's forward cards repeat delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Ramírez Zapata / El Salvador / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide and near-post fallback is modest, but it does not distinguish the scorer of El Salvador's only tournament goal.",
+      "repetitionFlag": "El Salvador's forward cards repeat pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bryan Robson / England / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same support-and-pause card recurs in 1986 and does not distinguish Robson's two-goal 1982 tournament.",
+      "repetitionFlag": "The 1986 card reuses the same move-after and pause mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kenny Sansom / England / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim defender cards in 1982 and 1986 replace two tournament portraits with one generic career guide.",
+      "repetitionFlag": "The 1986 card reuses the same goal-side and step mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mick Mills / England / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot defender paragraph is coherent, but its interception and delay decisions exceed the broad physical-duel source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Paul Mariner / England / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is plausible, but its pull-wide ending is generic and does not distinguish Mariner's recorded goal.",
+      "repetitionFlag": "England's forward cards use archive-wide runner language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Peter Shilton / England / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same centre-first goalkeeper paragraph appears in 1986 and 1990, obscuring the distinct context of all three Shilton editions.",
+      "repetitionFlag": "The 1986 and 1990 cards reuse the same centre-protection and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Trevor Francis / England / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic pull-wide runner template does not explain Francis's own two-goal contribution to England's unbeaten 1982 tournament.",
+      "repetitionFlag": "England's forward cards use generic run and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alain Couriol / France / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-reset paragraph is a reasonable role guide, but it provides no Couriol-specific distinction beyond his recorded goal.",
+      "repetitionFlag": "France's midfield cards repeat move-after and recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alain Giresse / France / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Third-player support and late arrival match the exact 1982 evidence, but the paragraph is duplicated for Sócrates and loses Giresse's individual voice.",
+      "repetitionFlag": "The complete visible mechanics are shared with Sócrates's 1982 card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernard Genghini / France / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim support cards in 1982 and 1986 suppress Genghini's separate two-goal 1982 identity.",
+      "repetitionFlag": "The 1986 card reuses the same move-after and third-player mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernard Lacombe / France / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1978 forward template is reused in 1982 rather than distinguishing Lacombe's later tournament role.",
+      "repetitionFlag": "The 1978 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bruno Bellone / France / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim runner cards in 1982 and 1986 flatten Bellone's two editions into a generic career description.",
+      "repetitionFlag": "The 1986 card reuses the same pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Didier Six / France / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The repeated 1978 runner paragraph does not explain Six's distinct two-goal 1982 contribution.",
+      "repetitionFlag": "The 1978 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dominique Rocheteau / France / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same generic near-post portrait is reused across 1978, 1982 and 1986 despite three different tournament contexts.",
+      "repetitionFlag": "The 1978 and 1986 cards reuse the same near-post and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gérard Janvion / France / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The cover-and-intercept defender guide reads coherently, but its exact stepping decisions need edition evidence.",
+      "repetitionFlag": "France's defender cards share patient front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gérard Soler / France / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner fallback is plausible, but it overlaps France's many forwards and does not distinguish Soler's recorded goal.",
+      "repetitionFlag": "France's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jean-Luc Ettori / France / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control goalkeeper paragraph is coherent, but its exact depth and centre-protection decisions outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Marius Trésor / France / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Waiting for the loose touch, intercepting from the front and delaying the attack form a coherent exact-edition stopping portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Maxime Bossis / France / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph is useful, but its delay and interception mechanics require exact 1982 support.",
+      "repetitionFlag": "France's defender cards share delay and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Michel Platini / France / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1978 between-lines card is reused in 1982 and fails to distinguish Platini's separate two-goal tournament.",
+      "repetitionFlag": "The 1978 card reuses the same between-lines and recycle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "René Girard / France / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-reset guide is plausible, but it uses archive-wide midfielder language and adds little separation inside France's midfield.",
+      "repetitionFlag": "France's midfield cards repeat switching and recycle vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antonio Laing / Honduras / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is usable, but it blends into Honduras's surrounding forward cards and adds no individual cue beyond the goal.",
+      "repetitionFlag": "Honduras's forward cards repeat delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Armando Betancourt / Honduras / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is honest, but it nearly duplicates the rest of the Honduras attack.",
+      "repetitionFlag": "Honduras's forward cards repeat delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gilberto Yearwood / Honduras / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-reset midfielder paragraph is plausible, but its archive-wide mechanics provide no Yearwood-specific identity.",
+      "repetitionFlag": "The move-after and recycle shell recurs widely across the edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Héctor Zelaya / Honduras / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is modest, but it does not distinguish Zelaya's recorded goal or his role beside Yearwood.",
+      "repetitionFlag": "Honduras's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Prudencio Norales / Honduras / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is usable, but it is interchangeable with the team's other scoreless forward cards.",
+      "repetitionFlag": "Honduras's forward cards repeat start-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto Figueroa / Honduras / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide runner guide is plausible, but it nearly duplicates Betancourt and offers no individual observation.",
+      "repetitionFlag": "Honduras's forward cards repeat pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "András Törőcsik / Hungary / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same near-post forward paragraph recurs from 1978 and does not establish Törőcsik's separate 1982 edition.",
+      "repetitionFlag": "The 1978 card reuses the same near-post and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gábor Pölöskei / Hungary / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic early-run template does not explain Pölöskei's own two-goal contribution in 1982.",
+      "repetitionFlag": "Hungary's forward cards repeat start-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "József Tóth / Hungary / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The full-back support-and-delivery paragraph is coherent, but both exact wide actions need edition evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "This 1982 Újpest left-back is not Hungary's 1954 winger of the same name; do not merge them.",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "József Varga / Hungary / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender guide reads coherently, but its delay and front-foot interception mechanics outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "László Fazekas / Hungary / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim 1978 and 1982 forward cards suppress Fazekas's separate two-goal 1982 tournament.",
+      "repetitionFlag": "The 1978 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "László Kiss / Hungary / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic blind-side runner template does not explain the identity or context of Kiss's three-goal 1982 contribution.",
+      "repetitionFlag": "Hungary's forward cards repeat delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lázár Szentes / Hungary / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The box-pause and near-post striker guide is relatively distinctive, but its exact separation mechanics need support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tibor Nyilasi / Hungary / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The switch-and-recycle midfielder template leaves a two-goal 1982 tournament without its most important attacking identity.",
+      "repetitionFlag": "The switch-and-recycle shell recurs widely across the edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tibor Rab / Hungary / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide runner fallback is honest, but it overlaps Hungary's crowded forward group and provides no individual cue.",
+      "repetitionFlag": "Hungary's forward cards repeat pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alessandro Altobelli / Italy / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same near-post and early-run portrait recurs in 1986 rather than distinguishing Altobelli's 1982 final contribution.",
+      "repetitionFlag": "The 1986 card reuses the same near-post and start-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antonio Cabrini / Italy / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The defensive balancing actions have exact support, but the near-verbatim 1978 wording and defensive emphasis underplay Cabrini's distinct 1982 contribution.",
+      "repetitionFlag": "The supported 1978 and 1982 cards use the same reset-line and inside-cover mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bruno Conti / Italy / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Head-up carrying followed by movement inside forms a natural, distinctive exact-edition portrait of Italy's right-sided creator.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Claudio Gentile / Italy / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact wide-duel mechanics are supportable, but they displace Gentile's defining 1982 identity as the marker assigned to Maradona and Zico.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dino Zoff / Italy / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic 1978 centre-first goalkeeper paragraph is reused for the champion captain instead of expressing Zoff's distinct 1982 tournament.",
+      "repetitionFlag": "The 1978 card reuses the same centre-protection and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Francesco Graziani / Italy / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible, but it is generic beside Rossi and Altobelli and does not identify Graziani's own contribution.",
+      "repetitionFlag": "Italy's forwards repeat delay-run and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fulvio Collovati / Italy / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Aerial first contact and workable box distance form a coherent exact-edition portrait of Collovati's complementary role beside Scirea.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gaetano Scirea / Italy / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Covering the next danger is exact and useful, but the card omits the forward stepping and first-pass quality central to Scirea's 1982 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marco Tardelli / Italy / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-recycle paragraph misses Tardelli's two-way pressing, forward runs and two-goal tournament impact.",
+      "repetitionFlag": "Italy's midfielder card uses archive-wide move-after and recycle language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paolo Rossi / Italy / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Blind-side movement and a finish prepared in two touches form a concise, exact portrait of the striker whose six goals decided the tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdulaziz Al-Anberi / Kuwait / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is plausible, but it overlaps Kuwait's forward group and offers no player-specific evidence.",
+      "repetitionFlag": "Kuwait's forward cards repeat near-post, start-run and pull-wide cues.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdullah Al-Buloushi / Kuwait / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-third-player paragraph is usable, but it remains a generic midfield description and does not distinguish Al-Buloushi's goal.",
+      "repetitionFlag": "Kuwait's cards rely on archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Faisal Al-Dakhil / Kuwait / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is plausible, but it overlaps Kuwait's other forwards and adds no individual cue beyond his goal.",
+      "repetitionFlag": "Kuwait's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jasem Yaqoub / Kuwait / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it is nearly identical to Al-Suwayed beside it.",
+      "repetitionFlag": "Kuwait's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Yussef Al-Suwayed / Kuwait / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible, but it duplicates Yaqoub and cannot identify Al-Suwayed on its own.",
+      "repetitionFlag": "Kuwait's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Allan Boath / New Zealand / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-reset midfielder guide is honest, but it is archive-generic and overlaps New Zealand's other midfielders.",
+      "repetitionFlag": "New Zealand's midfield cards repeat move-after, pause and recycle vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Duncan Cole / New Zealand / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-support paragraph is plausible, but it provides little separation from Boath and Sumner.",
+      "repetitionFlag": "New Zealand's midfield cards repeat pause and move-after mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Steve Sumner / New Zealand / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause fallback is usable, but it does not distinguish the scorer and nearly duplicates Cole.",
+      "repetitionFlag": "New Zealand's midfield cards repeat move-after and pause mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Steve Wooddin / New Zealand / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible, but it uses generic tournament-wide mechanics and does not distinguish Wooddin's goal.",
+      "repetitionFlag": "New Zealand's forward cards repeat delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Wynton Rufer / New Zealand / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it remains interchangeable with many scoreless forwards and adds no Rufer-specific cue.",
+      "repetitionFlag": "New Zealand's forward cards use generic start-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Billy Hamilton / Northern Ireland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim 1982 and 1986 forward cards suppress Hamilton's separate two-goal 1982 tournament.",
+      "repetitionFlag": "The 1986 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Chris Nicholl / Northern Ireland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph is coherent, but its exact engagement and cover-timing mechanics need support.",
+      "repetitionFlag": "Northern Ireland's defender cards share goal-side and stepping vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "David McCreery / Northern Ireland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same support-and-pause midfielder paragraph recurs in 1986 instead of distinguishing McCreery's two editions.",
+      "repetitionFlag": "The 1986 card reuses the same move-after and pause mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gerry Armstrong / Northern Ireland / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-recycle midfielder card does not explain Armstrong's three-goal identity in Northern Ireland's 1982 run.",
+      "repetitionFlag": "Northern Ireland's midfield card uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jimmy Nicholl / Northern Ireland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The cover-and-intercept defender guide reads coherently, but both precise stepping decisions outrun the broad source.",
+      "repetitionFlag": "Northern Ireland's defender cards share stepping and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mal Donaghy / Northern Ireland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot and delay paragraph is coherent, but its exact decisions require edition evidence.",
+      "repetitionFlag": "Northern Ireland's defender cards share interception and delay vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Norman Whiteside / Northern Ireland / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-guide fallback is modest, but generic near-post and pull-wide cues do not distinguish the 17-year-old's 1982 tournament.",
+      "repetitionFlag": "Northern Ireland's forward cards use generic near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pat Jennings / Northern Ireland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper explanation is coherent, but forcing the angle and immediate reset mechanics exceed the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Juan Oblitas / Peru / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1978 early-run paragraph is reused in 1982 instead of distinguishing Oblitas's later tournament role.",
+      "repetitionFlag": "The 1978 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Germán Leguía / Peru / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is plausible, but it blends into Peru's forward cluster and offers no individual cue.",
+      "repetitionFlag": "Peru's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gerónimo Barbadillo / Peru / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is honest, but it is nearly interchangeable with the team's other forwards.",
+      "repetitionFlag": "Peru's forward cards repeat delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Guillermo La Rosa / Peru / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim runner cards in 1978 and 1982 suppress the distinct context of La Rosa's later goal.",
+      "repetitionFlag": "The 1978 card reuses the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jaime Duarte / Peru / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same patient defender paragraph recurs from 1978 and does not establish Duarte's separate 1982 edition.",
+      "repetitionFlag": "The 1978 card reuses the same delay and front-foot mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jorge Olaechea / Peru / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot defender guide is coherent, but interception and cover-step timing need exact support.",
+      "repetitionFlag": "Peru's defender cards share patient front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ramón Quiroga / Peru / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The repeated 1978 balanced-goalkeeper paragraph does not distinguish Quiroga's separate 1982 tournament.",
+      "repetitionFlag": "The 1978 card reuses the same set-feet and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rubén Toribio Díaz / Peru / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph reads coherently, but its support and stepping decisions outrun the broad source.",
+      "repetitionFlag": "Peru's defender cards share goal-side and stepping language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andrzej Buncol / Poland / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch guide is plausible, but it remains a generic midfielder portrait and does not distinguish Buncol's goal.",
+      "repetitionFlag": "Poland's midfield cards share broad tempo vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andrzej Szarmach / Poland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same pull-wide runner portrait is reused across 1974, 1978 and 1982, flattening three separate Szarmach editions.",
+      "repetitionFlag": "The 1974 and 1978 cards reuse the same pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Grzegorz Lato / Poland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1978 winger paragraph is reused for Lato in 1982 instead of describing his different role in Poland's later run.",
+      "repetitionFlag": "The 1978 card reuses the same outside-inside and far-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jan Jałocha / Poland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-intercept defender paragraph is coherent, but both precise decisions need edition evidence.",
+      "repetitionFlag": "Poland's defenders share delay and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Janusz Kupcewicz / Poland / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is serviceable, but it provides no individual identity beyond Kupcewicz's recorded goal.",
+      "repetitionFlag": "Poland's midfield cards repeat switch and recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Józef Młynarczyk / Poland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim goalkeeper cards in 1982 and 1986 replace two editions with one body-reading and reset guide.",
+      "repetitionFlag": "The 1986 card reuses the same body-shape and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marek Dziuba / Poland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph reads coherently, but delay and goal-side engagement decisions need support.",
+      "repetitionFlag": "Poland's defenders share delay and goal-side vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Paweł Janas / Poland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot stepping guide is coherent, but its exact cover and interception timing outrun the broad source.",
+      "repetitionFlag": "Poland's defenders share front-foot and stepping vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Stefan Majewski / Poland / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph is useful, but its support and interception mechanics require exact evidence.",
+      "repetitionFlag": "Poland's defenders share goal-side and front-foot language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Włodzimierz Ciołek / Poland / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is plausible, but it remains generic and does not distinguish Ciołek's goal.",
+      "repetitionFlag": "Poland's midfield cards share move-after and short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Włodzimierz Smolarek / Poland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same pull-wide and near-post portrait recurs in 1986 rather than distinguishing Smolarek's 1982 edition.",
+      "repetitionFlag": "The 1986 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Zbigniew Boniek / Poland / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic winger card underplays the timed runs, varied finishing and hat-trick that defined Boniek's four-goal 1982 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "David Narey / Scotland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same goal-side defender paragraph recurs in 1986 rather than distinguishing Narey's 1982 scoring contribution.",
+      "repetitionFlag": "The 1986 card reuses the same goal-side and front-foot mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Graeme Souness / Scotland / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle midfielder guide is plausible, but it does not capture Souness's individual role or distinguish his goal.",
+      "repetitionFlag": "Scotland's midfield cards use archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Joe Jordan / Scotland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same blind-side forward paragraph is reused across 1974, 1978 and 1982 despite three separate Jordan tournaments.",
+      "repetitionFlag": "The 1974 and 1978 cards reuse the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "John Robertson / Scotland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim 1978 and 1982 forward cards suppress Robertson's distinct later tournament and recorded goal.",
+      "repetitionFlag": "The 1978 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "John Wark / Scotland / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-pause midfielder paragraph does not explain Wark's two-goal attacking contribution in 1982.",
+      "repetitionFlag": "Scotland's midfield card uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kenny Dalglish / Scotland / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1978 early-run portrait is reused in 1982 rather than distinguishing Dalglish's later tournament and goal.",
+      "repetitionFlag": "The 1978 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Steve Archibald / Scotland / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but it is generic and does not identify Archibald's own 1982 goal.",
+      "repetitionFlag": "Scotland's forward cards repeat delay-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Aleksandr Chivadze / Soviet Union / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot and delay defender paragraph is coherent, but its exact interception decisions need edition evidence.",
+      "repetitionFlag": "The Soviet defender cards share front-foot and delay vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Anatoliy Demyanenko / Soviet Union / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads naturally, but support and delay timing outrun the broad defensive source.",
+      "repetitionFlag": "The Soviet defender cards share goal-side and delay vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andriy Bal / Soviet Union / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same support-and-recycle midfielder paragraph recurs in 1986 instead of distinguishing Bal's 1982 goal.",
+      "repetitionFlag": "The 1986 card reuses the same move-after and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Khoren Hovhannisyan / Soviet Union / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is plausible, but it remains generic and offers little individual identity beyond the goal.",
+      "repetitionFlag": "The Soviet midfield cards share short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Oleh Blokhin / Soviet Union / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim runner cards in 1982 and 1986 flatten Blokhin's separate tournaments into one generic portrait.",
+      "repetitionFlag": "The 1986 card reuses the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ramaz Shengelia / Soviet Union / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide and near-post guide is plausible, but it blends into the edition's generic forward copy and does not distinguish Shengelia's goal.",
+      "repetitionFlag": "The forward mechanics recur widely across the edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Rinat Dasayev / Soviet Union / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-reading goalkeeper paragraph is coherent, but exact angle and reset decisions need support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sergei Baltacha / Soviet Union / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender guide is coherent, but its delay and goal-side engagement mechanics outrun the broad source.",
+      "repetitionFlag": "The Soviet defender cards share delay and goal-side language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Yuri Gavrilov / Soviet Union / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle midfielder card is a modest fallback, but it does not distinguish Gavrilov's recorded goal.",
+      "repetitionFlag": "The Soviet midfield cards use archive-wide switch-and-recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Enrique Saura / Spain / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle fallback is plausible, but it remains generic and does not distinguish Saura's goal.",
+      "repetitionFlag": "Spain's midfield cards share archive-wide tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jesús María Satrústegui / Spain / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is usable, but its two actions are generic and overlap Spain's surrounding forwards.",
+      "repetitionFlag": "Spain's forward cards repeat delay-run and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jesús María Zamora / Spain / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-reset card is plausible, but it provides no Zamora-specific identity beyond the recorded goal.",
+      "repetitionFlag": "Spain's midfield cards repeat move-after and recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Ramón Alexanko / Spain / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph is coherent, but its engagement and cover-step decisions require exact support.",
+      "repetitionFlag": "Spain's defender cards share goal-side and stepping vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Juanito / Spain / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is plausible, but it does not distinguish Juanito's 1982 attacking role or recorded goal.",
+      "repetitionFlag": "Spain's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "The 2006 Spain defender named Juanito is a different player; do not merge the two profiles.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Arconada / Spain / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper explanation reads coherently, but forcing the angle and resetting immediately outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Miguel Tendillo / Spain / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The stepping defender guide is coherent, but its exact cover and interception timing require evidence.",
+      "repetitionFlag": "Spain's defender cards share stepping and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Quini / Spain / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide runner fallback is honest, but it is interchangeable with other Spain forwards and offers no individual cue.",
+      "repetitionFlag": "Spain's forward cards repeat delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto López Ufarte / Spain / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide is plausible, but it remains generic beside Spain's other forwards and does not distinguish Ufarte's goal.",
+      "repetitionFlag": "Spain's forward cards repeat start-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hans-Peter Briegel / West Germany / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The wide-duel paragraph is coherent, but showing outside and blocking the delivery need exact 1982 support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Harald Schumacher / West Germany / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same balanced-goalkeeper paragraph recurs in 1986 and does not distinguish Schumacher's 1982 finalist edition.",
+      "repetitionFlag": "The 1986 card reuses the same set-feet and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Horst Hrubesch / West Germany / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide runner guide is plausible, but it underplays Hrubesch's aerial reference-point identity and recorded goal.",
+      "repetitionFlag": "West Germany's forward cards use generic runner language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karl-Heinz Rummenigge / West Germany / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same generic blind-side portrait is reused across 1978, 1982 and 1986, obscuring Rummenigge's distinct five-goal 1982 tournament.",
+      "repetitionFlag": "The 1978 and 1986 cards reuse the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karlheinz Förster / West Germany / 1982",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1982 card borrows the source-backed 1986 contact-and-position portrait without establishing Förster's separate earlier edition.",
+      "repetitionFlag": "The opening and goal-side mechanics recur from the supported 1986 portrait.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Klaus Fischer / West Germany / 1982",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic blind-side runner template does not explain Fischer's two-goal tournament or decisive overhead-kick equalizer in the semi-final.",
+      "repetitionFlag": "West Germany's forwards repeat delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Manfred Kaltz / West Germany / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Overlap timing tied to available cover and immediate recovery form a coherent exact-edition full-back portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paul Breitner / West Germany / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The short-support guide is plausible, but it underplays Breitner's more important 1982 attacking responsibility and final goal.",
+      "repetitionFlag": "West Germany's midfield card uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Pierre Littbarski / West Germany / 1982",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A first touch away from the full-back followed by movement into the half-space forms a distinctive exact-edition wide-creator portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Uwe Reinders / West Germany / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it remains generic and offers no Reinders-specific distinction beyond the goal.",
+      "repetitionFlag": "West Germany's forward cards repeat start-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dragan Pantelić / Yugoslavia / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper paragraph is coherent, but its exact angle and set-feet decisions outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ivan Gudelj / Yugoslavia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause midfielder guide is plausible, but it remains generic and does not distinguish Gudelj's goal.",
+      "repetitionFlag": "Yugoslavia's midfield cards share broad support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Miloš Hrstić / Yugoslavia / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads coherently, but engagement and interception decisions need exact evidence.",
+      "repetitionFlag": "Yugoslavia's defender cards share goal-side and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Nenad Stojković / Yugoslavia / 1982",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The cover-step and interception paragraph is coherent, but both precise decisions outrun the broad defensive source.",
+      "repetitionFlag": "Yugoslavia's defender cards share stepping and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Safet Sušić / Yugoslavia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but generic centre-forward mechanics do not identify Sušić's creative 1982 role.",
+      "repetitionFlag": "Yugoslavia's forward cards use archive-wide runner language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Vladimir Petrović / Yugoslavia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is plausible, but it remains a generic midfielder description and gives Petrović little individual identity.",
+      "repetitionFlag": "Yugoslavia's midfield cards repeat short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zlatko Vujović / Yugoslavia / 1982",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide may reasonably persist in 1990, but its unsupported delay-run and near-post mechanics need a modest evidence-aware repair.",
+      "repetitionFlag": "Near-verbatim 1990 card without a stored material role change.",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

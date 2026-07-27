@@ -1,0 +1,2042 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1998,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Ariel Ortega / Argentina / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 1994 (0 goals), 1998 (2 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same pause and switch angle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Roa / Argentina / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The balance guide omits his decisive England shootout and does not yet express his exact 1998 goalkeeper identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Claudio López / Argentina / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Box-pause and near-post cues do not establish his second-striker transition role or goal against the Netherlands.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gabriel Batistuta / Argentina / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 1994 (4 goals), 1998 (5 goals), 2002 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998, 2002 cards reuse the same delay run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Javier Zanetti / Argentina / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic defender guide omits his two-way progression and the rehearsed goal against England.",
+      "repetitionFlag": "Argentina has 2 cards built from the same patient-defending pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Sebastián Verón / Argentina / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-pause paragraph does not establish his ball progression, playmaking or set-play contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mauricio Pineda / Argentina / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defender guide does not explain his left-sided role or decisive group goal against Croatia.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Nelson Vivas / Argentina / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise delay and goal side decisions require exact-edition confirmation.",
+      "repetitionFlag": "Argentina has 2 cards built from the same patient-defending pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andi Herzog / Austria / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1990 (0 goals), 1998 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1990, 1998 cards reuse the same switch angle and simple reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arnold Wetl / Austria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and pause cues provide little Arnold Wetl-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hannes Reinmayr / Austria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic pull wide and near post cues provide little Hannes Reinmayr-specific 1998 identity.",
+      "repetitionFlag": "Austria has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ivica Vastić / Austria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Ivica Vastić-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mario Haas / Austria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic delay run and near post cues provide little Mario Haas-specific 1998 identity.",
+      "repetitionFlag": "Austria has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Toni Polster / Austria / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1990 (0 goals), 1998 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1990, 1998 cards reuse the same delay run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bertrand Crasson / Belgium / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Enzo Scifo / Belgium / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The supported 1986 progression portrait is reused for his separate scoreless 1998 role.",
+      "repetitionFlag": "The 1986, 1990, 1994, 1998 cards reuse the same carry gap and switch angle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Filip De Wilde / Belgium / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control sequence is coherent, but its precise narrow angle and protect centre decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Lorenzo Staelens / Belgium / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise step and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luc Nilis / Belgium / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Luc Nilis-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luís Oliveira / Belgium / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic pull wide and near post cues provide little Luís Oliveira-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marc Wilmots / Belgium / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic angle-and-support guide does not explain Marc Wilmots's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bebeto / Brazil / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The supported 1994 link-forward portrait is reused in 1998 despite a different strike partnership and tournament context.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same body return and delay run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cafu / Brazil / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Width, overlap timing and recovery form a concise exact-edition portrait aligned with his Honourable Mention role.",
+      "repetitionFlag": "Brazil has 2 cards built from the same wide-full-back pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "César Sampaio / Brazil / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-recycle guide does not explain César Sampaio's 3-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "Brazil has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Denílson / Brazil / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic midfield-angle copy displaces the wide dribbling and substitute threat that made his role distinctive.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dunga / Brazil / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Holding the screening zone before switching play clearly captures the exact midfield order he gave Brazil.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rivaldo / Brazil / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The support-and-switch copy understates three goals and the between-lines creation behind his Honourable Mention.",
+      "repetitionFlag": "Brazil has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto Carlos / Brazil / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Width, early delivery and recovery form a distinctive exact-edition portrait aligned with his Best XI role.",
+      "repetitionFlag": "Brazil has 2 cards built from the same wide-full-back pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ronaldo / Brazil / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Checking to feet, drawing pressure and releasing a runner capture the exact dual threat behind his four-goal tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Emil Kostadinov / Bulgaria / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (0 goals), 1998 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same pull wide and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Georgi Bachev / Bulgaria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Georgi Bachev-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hristo Stoichkov / Bulgaria / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The supported 1994 far-post portrait is reused for a scoreless 1998 edition with a materially different contribution.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same far post run and outside inside mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ilian Iliev / Bulgaria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and switch angle cues provide little Ilian Iliev-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ivaylo Petkov / Bulgaria / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise goal side and step decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Radostin Kishishev / Bulgaria / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise front foot and step decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zdravko Zdravkov / Bulgaria / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control sequence is coherent, but its precise narrow angle and protect centre decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "François Omam-Biyik / Cameroon / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1990 (1 goal), 1994 (1 goal), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1990, 1994, 1998 cards reuse the same delay run and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Joseph-Désiré Job / Cameroon / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and start run cues provide little Joseph-Désiré Job-specific 1998 identity.",
+      "repetitionFlag": "Cameroon has 3 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Patrick M'Boma / Cameroon / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Patrick M'Boma-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pierre Njanka / Cameroon / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defender guide omits the carrying threat and solo goal that define his 1998 portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Raymond Kalla / Cameroon / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Clarence Acuña / Chile / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and third player cues provide little Clarence Acuña-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Iván Zamorano / Chile / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner copy misses his reference and provider role in the partnership with Salas.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Luis Sierra / Chile / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and pause cues provide little José Luis Sierra-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marcelo Salas / Chile / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Marcelo Salas's 4-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antony de Ávila / Colombia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic pull wide and delay run cues provide little Antony de Ávila-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Valderrama / Colombia / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1990 (1 goal), 1994 (0 goals), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1990, 1994, 1998 cards reuse the same switch angle and simple reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ever Palacios / Colombia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise front foot and step decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Faryd Mondragón / Colombia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper sequence is coherent, but its precise protect centre and reset decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Faustino Asprilla / Colombia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The portable runner paragraph does not establish Asprilla's exact role in a scoreless 1998 tournament.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Léider Preciado / Colombia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little Léider Preciado-specific 1998 identity.",
+      "repetitionFlag": "Colombia has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Víctor Aristizábal / Colombia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Víctor Aristizábal-specific 1998 identity.",
+      "repetitionFlag": "Colombia has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aljoša Asanović / Croatia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle copy misses the progressive passing that connected Croatia's midfield to its forwards.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dario Šimić / Croatia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2006, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Davor Šuker / Croatia / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Delayed separation and one-touch finishing clearly express the Golden Boot striker's exact six-goal identity.",
+      "repetitionFlag": "The 2002 card reuses mechanics from this supported 1998 source portrait; assess downstream editions separately.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dražen Ladić / Croatia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork-and-set sequence is coherent, but its precise set feet and reset decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Goran Vlaović / Croatia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little Goran Vlaović-specific 1998 identity.",
+      "repetitionFlag": "Croatia has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Igor Štimac / Croatia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise step and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mario Stanić / Croatia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Mario Stanić-specific 1998 identity.",
+      "repetitionFlag": "Croatia has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Robert Jarni / Croatia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The recovery-focused wing-back copy displaces his attacking width and knockout goal against Germany.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Robert Prosinečki / Croatia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic angle-and-support guide does not explain Robert Prosinečki's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Allan Nielsen / Denmark / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and simple reset cues provide little Allan Nielsen-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Brian Laudrup / Denmark / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic channel-runner copy misses his carrying, one-versus-one threat and goals against France and Brazil.",
+      "repetitionFlag": "Denmark has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ebbe Sand / Denmark / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 2002 runner card does not distinguish Sand's scoring 1998 tournament from his later scoreless edition.",
+      "repetitionFlag": "The 1998 and 2002 cards reuse the same near-post and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jes Høgh / Denmark / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise delay and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Marc Rieper / Denmark / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Martin Jørgensen / Denmark / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic pull wide and delay run cues provide little Martin Jørgensen-specific 1998 identity.",
+      "repetitionFlag": "Denmark has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Michael Laudrup / Denmark / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Pausing side-on before accelerating combinations gives Denmark's creator a distinctive exact-edition portrait.",
+      "repetitionFlag": "Denmark has 2 cards built from the same tempo-control pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Peter Møller / Denmark / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic pull wide and near post cues provide little Peter Møller-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Peter Schmeichel / Denmark / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper sequence is coherent, but its precise protect centre and body shape decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Thomas Helveg / Denmark / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and switch angle cues provide little Thomas Helveg-specific 1998 identity.",
+      "repetitionFlag": "Denmark has 2 cards built from the same tempo-control pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alan Shearer / England / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Alan Shearer's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "England has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Darren Anderton / England / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The recovery-wing-back copy underplays his attacking width and group-stage goal against Colombia.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "David Beckham / England / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "One tempo paragraph spans the dismissal and free-kick context of 1998 and later tournaments with different responsibilities.",
+      "repetitionFlag": "The 1998, 2002, 2006 cards reuse the same switch angle and simple reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "David Seaman / England / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control sequence is coherent, but its precise narrow angle and protect centre decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Michael Owen / England / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 1998 (2 goals), 2002 (2 goals), 2006 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1998, 2002, 2006 cards reuse the same pull wide and delay run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paul Merson / England / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Paul Merson-specific 1998 identity.",
+      "repetitionFlag": "England has 2 cards built from the same angle-and-support pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paul Scholes / England / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and pause cues provide little Paul Scholes-specific 1998 identity.",
+      "repetitionFlag": "England has 2 cards built from the same angle-and-support pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Teddy Sheringham / England / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Teddy Sheringham-specific 1998 identity.",
+      "repetitionFlag": "England has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bixente Lizarazu / France / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-way full-back identity fits the exact-edition rationale, but reset-line and show-line mechanics need direct support.",
+      "repetitionFlag": "The 2002 card reuses mechanics from this supported 1998 source portrait; assess downstream editions separately.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Christophe Dugarry / France / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic pull wide and delay run cues provide little Christophe Dugarry-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "David Trezeguet / France / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little David Trezeguet-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Didier Deschamps / France / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Screening and switching fit his tournament role, but the counter-delay and circulation details still need direct proof.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Emmanuel Petit / France / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Full-back cover and two-touch circulation accurately express his two-way contribution and two goals.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fabien Barthez / France / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Reading through balls and resetting quickly form a useful exact-edition portrait of the champion goalkeeper.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Frank Leboeuf / France / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The line-control guide does not explain why stepping into the final and helping blank Brazil earned Honourable Mention.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Laurent Blanc / France / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The concise goal-side positioning guide is useful at its role-guide ceiling and avoids unsupported 1998 embellishment.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lilian Thuram / France / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The wide-duel guide omits two semifinal goals and the complete right-side contribution behind his Best XI selection.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marcel Desailly / France / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Channel cover and runner checks clearly express the space protection behind France's structure.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Stéphane Guivarc'h / France / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic runner paragraph does not establish what his scoreless centre-forward role contributed to France's attack.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Thierry Henry / France / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 1998 (3 goals), 2002 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1998, 2002 cards reuse the same halfspace and carry head up mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Youri Djorkaeff / France / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-third-player guide does not establish his hybrid attacking role around Zidane and the forwards.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zinedine Zidane / France / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The authored portrait ties creation, suspension and two final headers to this exact tournament without losing his football identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andreas Köpke / Germany / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control sequence is coherent, but its precise protect centre and set feet decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andreas Möller / Germany / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (0 goals), 1998 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same pause and switch angle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Christian Wörns / Germany / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise step and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dietmar Hamann / Germany / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and pause cues provide little Dietmar Hamann-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jürgen Klinsmann / Germany / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 1994 (5 goals), 1998 (3 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same pull wide and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oliver Bierhoff / Germany / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Oliver Bierhoff's 3-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ali Daei / Iran / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic runner copy misses the reference and linking responsibilities central to his scoreless tournament.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2006, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hamid Estili / Iran / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and pause cues provide little Hamid Estili-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Khodadad Azizi / Iran / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide does not establish his carrying and combination role in Iran's attack.",
+      "repetitionFlag": "Iran has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mehdi Mahdavikia / Iran / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-switch midfielder copy misses his right-sided pace and goal against the USA.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alessandro Costacurta / Italy / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alessandro Del Piero / Italy / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1998 (0 goals), 2002 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1998, 2002 cards reuse the same start run and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Angelo Di Livio / Italy / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and pause cues provide little Angelo Di Livio-specific 1998 identity.",
+      "repetitionFlag": "Italy has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Christian Vieri / Italy / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Pinning centre-backs before starting toward goal captures the reference-striker identity behind five goals in five matches.",
+      "repetitionFlag": "The 2002 card reuses mechanics from this supported 1998 source portrait; assess downstream editions separately.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gianluca Pagliuca / Italy / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper sequence is coherent, but its precise set feet and reset decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luigi Di Biagio / Italy / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and third player cues provide little Luigi Di Biagio-specific 1998 identity.",
+      "repetitionFlag": "Italy has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto Baggio / Italy / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same separation card flattens his 1990 emergence and 1998 veteran tournament while the supported 1994 portrait remains distinct.",
+      "repetitionFlag": "The 1990, 1998 cards reuse the same box pause and body return mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Darryl Powell / Jamaica / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Darryl Powell-specific 1998 identity.",
+      "repetitionFlag": "Jamaica has 2 cards built from the same tempo-control pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Deon Burton / Jamaica / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Deon Burton-specific 1998 identity.",
+      "repetitionFlag": "Jamaica has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marcus Gayle / Jamaica / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic pull wide and near post cues provide little Marcus Gayle-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Onandi Lowe / Jamaica / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and start run cues provide little Onandi Lowe-specific 1998 identity.",
+      "repetitionFlag": "Jamaica has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paul Hall / Jamaica / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Paul Hall-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Robbie Earle / Jamaica / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and move after cues provide little Robbie Earle-specific 1998 identity.",
+      "repetitionFlag": "Jamaica has 2 cards built from the same tempo-control pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Theodore Whitmore / Jamaica / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic angle-and-support guide does not explain Theodore Whitmore's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Akira Narahashi / Japan / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control paragraph does not explain his wing-back width and defensive responsibility in Japan's shape.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Masashi Nakayama / Japan / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide does not convey his reference-forward role or Japan's first World Cup goal.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Shoji Jo / Japan / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Shoji Jo-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alberto García Aspe / Mexico / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and third player cues provide little Alberto García Aspe-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cuauhtémoc Blanco / Mexico / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A goal and three featured appearances justify a more exact 1998 portrait than the generic runner mechanics.",
+      "repetitionFlag": "Near-verbatim mechanics recur in 2002 and 2010, but equal scoring alone does not establish a 1998 edition split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luis Hernández / Mexico / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Luis Hernández's 4-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "Mexico has 3 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pável Pardo / Mexico / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic third player and move after cues provide little Pável Pardo-specific 1998 identity.",
+      "repetitionFlag": "Mexico has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ramón Ramírez / Mexico / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and pause cues provide little Ramón Ramírez-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ricardo Peláez / Mexico / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Ricardo Peláez's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "Mexico has 3 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdeljalil Hadda / Morocco / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Abdeljalil Hadda's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Driss Benzekri / Morocco / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork-and-set sequence is coherent, but its precise set feet and reset decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mustapha Hadji / Morocco / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-pause paragraph understates the carrying and creative identity behind Morocco's attack.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Salaheddine Bassir / Morocco / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic blind-side runner guide does not explain Salaheddine Bassir's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Youssef Chippo / Morocco / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and third player cues provide little Youssef Chippo-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aron Winter / Netherlands / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise front foot and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Arthur Numan / Netherlands / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Boudewijn Zenden / Netherlands / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Boudewijn Zenden-specific 1998 identity.",
+      "repetitionFlag": "Netherlands has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Clarence Seedorf / Netherlands / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The progressive-midfield sequence is coherent, but its precise carry gap and simple reset decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dennis Bergkamp / Netherlands / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Between-lines reception and late box arrival clearly express his three-goal Best XI attacking identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Edgar Davids / Netherlands / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The angle-and-pause copy misses the ball-winning, forward thrust and Yugoslavia winner behind his Best XI place.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Edwin van der Sar / Netherlands / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control sequence is coherent, but its precise narrow angle and protect centre decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2006, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Frank de Boer / Netherlands / 1998",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Defending forward and turning the regain into a first pass align closely with his exact Honourable Mention rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marc Overmars / Netherlands / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The supported 1994 isolation portrait is reused for his separate scoring contribution in 1998.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same touch away and carry head up mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Patrick Kluivert / Netherlands / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Patrick Kluivert's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "Netherlands has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Phillip Cocu / Netherlands / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-recycle guide does not explain Phillip Cocu's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pierre van Hooijdonk / Netherlands / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The finishing sequence is coherent, but its precise one touch and box pause decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ronald de Boer / Netherlands / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic channel-runner guide does not explain Ronald de Boer's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Celestine Babayaro / Nigeria / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Finidi George / Nigeria / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (1 goal), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same move after and simple reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mutiu Adepoju / Nigeria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and switch angle cues provide little Mutiu Adepoju-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nwankwo Kanu / Nigeria / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner copy misstates a forward whose more important value came from receiving, protecting and linking play.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Peter Rufai / Nigeria / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper sequence is coherent, but its precise protect centre and body shape decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Rashidi Yekini / Nigeria / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (1 goal), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same delay run and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sunday Oliseh / Nigeria / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-switch paragraph underplays his ball-winning and the long-range winner against Spain.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tijani Babangida / Nigeria / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Defender mechanics are inapplicable to his wide attacking role and make the current card unusable.",
+      "repetitionFlag": "",
+      "dataIssue": "Stored position 'Defender' conflicts with Babangida's established wide attacking role and generates centre-back prose.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Victor Ikpeba / Nigeria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and start run cues provide little Victor Ikpeba-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilson Oruma / Nigeria / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and pause cues provide little Wilson Oruma-specific 1998 identity.",
+      "repetitionFlag": "Nigeria has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dan Eggen / Norway / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Erik Mykland / Norway / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and pause cues provide little Erik Mykland-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Håvard Flo / Norway / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-midfield copy misses his aerial wide-target role and goal in the win over Brazil.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kjetil Rekdal / Norway / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Kjetil Rekdal-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tore André Flo / Norway / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic channel-runner copy misses his aerial reference work and decisive attacking impact against Brazil.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Gamarra / Paraguay / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The positioning sequence fits his Best XI control, but the contact and step-timing language needs direct 1998 support.",
+      "repetitionFlag": "The 2006 card reuses mechanics from this supported 1998 source portrait; assess downstream editions separately.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Paredes / Paraguay / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Carlos Paredes-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Celso Ayala / Paraguay / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise delay and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jorge Luis Campos / Paraguay / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 2002 midfield card does not distinguish Campos's scoreless 1998 role from his later scoring edition.",
+      "repetitionFlag": "The 1998 and 2002 cards reuse the same move-after and simple-reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Cardozo / Paraguay / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1998 (1 goal), 2002 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1998, 2002 cards reuse the same delay run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Luis Chilavert / Paraguay / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The angle-control copy does not explain two clean sheets or the deep-block authority behind Honourable Mention.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miguel Ángel Benítez / Paraguay / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and near post cues provide little Miguel Ángel Benítez-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Adrian Ilie / Romania / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Adrian Ilie-specific 1998 identity.",
+      "repetitionFlag": "Romania has 3 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bogdan Stelea / Romania / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper sequence is coherent, but its precise set feet and body shape decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Constantin Gâlcă / Romania / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Constantin Gâlcă-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dan Petrescu / Romania / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The transition-recovery copy displaces his attacking wing-back identity and winning goal against England.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gabriel Popescu / Romania / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and simple reset cues provide little Gabriel Popescu-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gheorghe Popescu / Romania / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1990, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ilie Dumitrescu / Romania / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (2 goals), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same delay run and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lucian Marinescu / Romania / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic pull wide and delay run cues provide little Lucian Marinescu-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Viorel Moldovan / Romania / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Viorel Moldovan's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "Romania has 3 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fahad Al-Mehallel / Saudi Arabia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic delay run and near post cues provide little Fahad Al-Mehallel-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fuad Anwar / Saudi Arabia / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (2 goals), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same switch angle and simple reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mohammed Al-Khilaiwi / Saudi Arabia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (1 goal), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same delay run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sami Al-Jaber / Saudi Arabia / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (1 goal), 1998 (1 goal), 2002 (0 goals), 2006 (1 goal) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998, 2002, 2006 cards reuse the same delay run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Yousuf Al-Thunayan / Saudi Arabia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and near post cues provide little Yousuf Al-Thunayan-specific 1998 identity.",
+      "repetitionFlag": "Saudi Arabia has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Craig Burley / Scotland / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and move after cues provide little Craig Burley-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gordon Durie / Scotland / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little Gordon Durie-specific 1998 identity.",
+      "repetitionFlag": "Scotland has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "John Collins / Scotland / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and simple reset cues provide little John Collins-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kevin Gallacher / Scotland / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic delay run and near post cues provide little Kevin Gallacher-specific 1998 identity.",
+      "repetitionFlag": "Scotland has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tom Boyd / Scotland / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise check runner and simple exit decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Benni McCarthy / South Africa / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide does not capture the forward identity behind South Africa's first World Cup goal.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Brendan Augustine / South Africa / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little Brendan Augustine-specific 1998 identity.",
+      "repetitionFlag": "South Africa has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Helman Mkhalele / South Africa / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic move after and simple reset cues provide little Helman Mkhalele-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Phil Masinga / South Africa / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little Phil Masinga-specific 1998 identity.",
+      "repetitionFlag": "South Africa has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pierre Issa / South Africa / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The depth-protection guide risks idealizing rather than explaining an edition that also includes an own goal.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Shaun Bartlett / South Africa / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic runner guide does not explain Shaun Bartlett's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "South Africa has 2 cards built from the same runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Do-hoon Kim / South Korea / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its generic delay run and near post cues provide little Do-hoon Kim-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Do-keun Kim / South Korea / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and move after cues provide little Do-keun Kim-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jung-won Seo / South Korea / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1994 (1 goal), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1994, 1998 cards reuse the same start run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sang-chul Yoo / South Korea / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-back mechanics do not explain his versatile role or equalizing goal against Belgium.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Seok-ju Ha / South Korea / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-switch copy misses the set-piece threat, goal and dismissal that shaped his tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Yong-soo Choi / South Korea / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic pull wide and delay run cues provide little Yong-soo Choi-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abelardo / Spain / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alfonso / Spain / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic delay run and pull wide cues provide little Alfonso-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andoni Zubizarreta / Spain / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork-and-set sequence is coherent, but its precise set feet and protect centre decisions require exact-edition confirmation.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1986, 1990, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Aguilera / Spain / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence is coherent, but its precise delay and front foot decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Fernando Hierro / Spain / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic angle-and-support guide does not explain Fernando Hierro's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Morientes / Spain / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The repeated striker card does not distinguish Morientes's two-goal 1998 group-stage contribution from his three-goal 2002 run.",
+      "repetitionFlag": "The 1998 and 2002 cards reuse the same near-post and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kiko / Spain / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The separation-and-finish sequence is coherent, but its precise box pause and near post decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luis Enrique / Spain / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and simple reset cues provide little Luis Enrique-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 1994, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Raúl / Spain / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-midfielder paragraph displaces the receiving and finishing identity of Spain's young attacker.",
+      "repetitionFlag": "Spain has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Adel Sellimi / Tunisia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic start run and pull wide cues provide little Adel Sellimi-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kaies Ghodhbane / Tunisia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Kaies Ghodhbane-specific 1998 identity.",
+      "repetitionFlag": "Closely repeated mechanics also appear in 2002, but stored evidence does not establish a material role split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mehdi Ben Slimane / Tunisia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and start run cues provide little Mehdi Ben Slimane-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Riadh Bouazizi / Tunisia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and pause cues provide little Riadh Bouazizi-specific 1998 identity.",
+      "repetitionFlag": "Tunisia has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Skander Souayah / Tunisia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and third player cues provide little Skander Souayah-specific 1998 identity.",
+      "repetitionFlag": "Tunisia has 2 cards built from the same support-and-recycle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Brian Maisonneuve / USA / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support guide is plausible and appropriately modest, but its generic switch angle and simple reset cues provide little Brian Maisonneuve-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Brian McBride / USA / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1998 (1 goal), 2002 (2 goals), 2006 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1998, 2002, 2006 cards reuse the same start run and pull wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Chad Deering / USA / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible and appropriately modest, but its generic move after and simple reset cues provide little Chad Deering-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eric Wynalda / USA / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1990 (0 goals), 1994 (1 goal), 1998 (0 goals) flatten materially different tournament contributions into one reusable guide.",
+      "repetitionFlag": "The 1990, 1994, 1998 cards reuse the same delay run and near post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Joe-Max Moore / USA / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its generic pull wide and delay run cues provide little Joe-Max Moore-specific 1998 identity.",
+      "repetitionFlag": "USA has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roy Wegerle / USA / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Roy Wegerle-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Branko Brnović / Yugoslavia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its generic pause and move after cues provide little Branko Brnović-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Darko Kovačević / Yugoslavia / 1998",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible and appropriately modest, but its generic near post and pull wide cues provide little Darko Kovačević-specific 1998 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dragan Stojković / Yugoslavia / 1998",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The supported 1990 pressure-resistant portrait is reused for his separate one-goal 1998 edition.",
+      "repetitionFlag": "The 1990, 1998 cards reuse the same protect ball and third player mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Goran Đorović / Yugoslavia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defending sequence is coherent, but its precise goal side and delay decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ivica Kralj / Yugoslavia / 1998",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper sequence is coherent, but its precise set feet and body shape decisions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Predrag Mijatović / Yugoslavia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide does not establish his central attacking responsibility or tournament-defining penalty moment.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Siniša Mihajlović / Yugoslavia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional-defender copy misses the set-piece identity behind both a goal and an own goal.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Slobodan Komljenović / Yugoslavia / 1998",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic patient-defending guide does not explain Slobodan Komljenović's 2-goal 1998 contribution or establish a tournament-specific identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

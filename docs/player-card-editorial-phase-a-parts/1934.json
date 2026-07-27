@@ -1,0 +1,755 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1934,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Alberto Galateo / Argentina / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is plausible but over-specific for role-level evidence and nearly duplicates Devincenzi beside him.",
+      "repetitionFlag": "Shares the run-behind and pull-wide recipe with Alfredo Devincenzi.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alfredo Devincenzi / Argentina / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The broad forward identity is usable, but its two unsupported run mechanics make it too similar to Galateo to accept unchanged.",
+      "repetitionFlag": "Shares the run-behind and pull-wide recipe with Alberto Galateo.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernesto Belis / Argentina / 1934",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient-defending sequence reads naturally, but its individualized delay and goal-side mechanics outrun the stored Physical duels label.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Anton Schall / Austria / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A goal and four featured matches warrant an edition identity, while the current channel-running copy is only generic role inference.",
+      "repetitionFlag": "Nearly duplicates Georg Braun and overlaps Josef Bican within Austria's forward line.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Georg Braun / Austria / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is serviceable, but the unsupported acceleration and pull-wide details collapse into the same portrait as Schall.",
+      "repetitionFlag": "Near-duplicate of Anton Schall's channel-running card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hans Walzhofer / Austria / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Blind-side movement is a reasonable role lens, but the defender-look and near-post claims are false-specific and shared with Horvath.",
+      "repetitionFlag": "Shares the blind-side and near-post recipe with Johann Horvath.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Johann Horvath / Austria / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal edition provides a stronger exact story than the generic blind-side and near-post mechanics currently shown.",
+      "repetitionFlag": "Shares the blind-side and near-post recipe with Hans Walzhofer.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Josef Bican / Austria / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A famous striker has been reduced to a generic runner template that does not establish Bican's role or partial contribution in this exact tournament.",
+      "repetitionFlag": "Uses the same start-run and pull-wide mechanics as several Austria forwards.",
+      "dataIssue": "",
+      "confidence": "low"
+    },
+    {
+      "profileKey": "Karl Sesta / Austria / 1934",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Front-foot defending followed by a controlled first pass is natural, useful and consistent with the stored 1934 honourable-mention rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karl Zischek / Austria / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Width is the correct edition identity, but both follow-up actions move him inward and dilute the rationale's stronger point about holding the right side.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Matthias Sindelar / Austria / 1934",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Protection, short combination play and a quick finishing setup form a coherent watch lens supported by his exact 1934 rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Albert Heremans / Belgium / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side role guide is readable, but its two precise run cues lack individualized support and repeat the surrounding forward cards.",
+      "repetitionFlag": "Shares blind-side, defender-look and near-post language with Belgium's other forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernard Voorhoof / Belgium / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same runner portrait is reused across 1930, 1934 and 1938 and suppresses the exact two-goal story of this edition.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse in all three Voorhoof cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "François Devries / Belgium / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A concise forward guide is the honest target, but the current acceleration and pull-wide specifics are unsupported and visibly templated.",
+      "repetitionFlag": "Repeats the same run and pull-wide mechanics used across the Belgium trio.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Almeida / Brazil / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-level channel guide is plausible, but its exact run timing and pull-wide claims overstate the available evidence and mirror Armandinho.",
+      "repetitionFlag": "Near-duplicate of Armandinho and mechanically overlaps Leônidas.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Armandinho / Brazil / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The central-to-wide movement guide is readable but unsupported at this specificity and indistinguishable from the two nearby forwards.",
+      "repetitionFlag": "Near-duplicate of Almeida and mechanically overlaps Leônidas.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Leônidas / Brazil / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-identical 1934 and 1938 runner templates erase the material difference between a one-goal exit here and his seven-goal 1938 tournament.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Leônidas 1938 and strong overlap with both Brazil teammates.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antonín Puč / Czechoslovakia / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1934 and 1938 cards reuse the same winger portrait even though this edition includes two goals and the opening goal of the final.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Antonín Puč 1938.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Erich Srbek / Czechoslovakia / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Three featured matches suggest meaningful tournament usage, but the current card supplies only the archive's generic run-behind mechanics.",
+      "repetitionFlag": "Blends into Sobotka, Svoboda and the other Czechoslovakia forward templates.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "František Junek / Czechoslovakia / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is acceptable at role level, but its pull-wide and near-post claims are over-specific and repeated beside four teammates.",
+      "repetitionFlag": "Shares the pull-wide and near-post recipe with Nejedlý and other forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "František Plánička / Czechoslovakia / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The angle-setting mechanics are useful, but they displace the stored edition identity of a captain who led four knockout ties into extra time in the final.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "František Svoboda / Czechoslovakia / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The forward role guide is understandable, but defender-look and near-post specifics lack exact support and collide with Junek and Nejedlý.",
+      "repetitionFlag": "Shares blind-side and near-post mechanics with nearby Czechoslovakia forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jiří Sobotka / Czechoslovakia / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The running guide is plausible but too specific for role inference and nearly identical to Srbek's card within the finalists' attack.",
+      "repetitionFlag": "Near-duplicate of Erich Srbek's start-run and pull-wide portrait.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Josef Čtyřoký / Czechoslovakia / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Defensive positioning is the right central identity, but one role-default spacing cue should yield to the stored picture of steady box control behind advancing halves.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Josef Košťálek / Czechoslovakia / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic passing-angle card omits the stored edition identity of tireless right-half coverage connecting Puč and Nejedlý during the run to the final.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oldřich Nejedlý / Czechoslovakia / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same finishing template appears in 1938 and fails to distinguish this five-goal edition and semi-final hat-trick.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Oldřich Nejedlý 1938 and nearby near-post overlap.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdulrahman Fawzi / Egypt / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "An exact two-goal edition story exists while the current channel movement is generic role inference.",
+      "repetitionFlag": "Uses the same pull-wide forward recipe that blurs Mosaoud and Mahmoud beside him.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kamel Mosaoud / Egypt / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The defender-look and near-post details are false-specific for role-level evidence and nearly duplicate Mahmoud.",
+      "repetitionFlag": "Shares the blind-side and near-post portrait with Labib Mahmoud.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Labib Mahmoud / Egypt / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The card overclaims wide and near-post movement from limited evidence and reads as a near-copy of Mosaoud.",
+      "repetitionFlag": "Shares the blind-side and near-post portrait with Kamel Mosaoud.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alfred Aston / France / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A running role guide is reasonable, but its exact near-post and start-run details are unsupported and repeated nearly verbatim in 1938.",
+      "repetitionFlag": "Near-verbatim recurrence in Alfred Aston 1938 and overlap with Jean Nicolas.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Georges Verriest / France / 1934",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-angle and safe-recycling sequence reads well beside the forwards, but its personalized mechanics need more than the stored Tempo control label.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jean Nicolas / France / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-identical cards span 1934 and 1938 despite different scoring editions, leaving this one-goal tournament without its own portrait.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Jean Nicolas 1938 and forward-line overlap with Aston.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Edmund Conen / Germany / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Pinning a centre-back and offering a pressure outlet fit his direct striker role, but the stock delay-run ending undersells four goals and a rapid hat-trick.",
+      "repetitionFlag": "The defender-look action recurs throughout Germany's forward cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernst Lehner / Germany / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same channel-runner card is reused in a goalless 1938 edition and suppresses Lehner's two-goal contribution in 1934.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Ernst Lehner 1938 and strong teammate overlap.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Franz Dienert / Germany / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind guide is serviceable, but both concrete cues are unsupported and repeated across Germany's crowded forward set.",
+      "repetitionFlag": "Shares defender-look and near-post mechanics with Noack and other Germany forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karl Hohmann / Germany / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic angle-and-recycle midfield card does not explain a two-goal edition and needs exact tournament usage before its identity can be trusted.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Otto Siffling / Germany / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running identity is plausible, but its exact timing and pull-wide mechanics are role inference shared with Lehner and Kobierski.",
+      "repetitionFlag": "Shares the start-run and pull-wide recipe with Stanislaus Kobierski.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rudolf Noack / Germany / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A concise forward guide is appropriate, but the defender-look and pull-wide specifics are unsupported and visually repetitive beside Dienert.",
+      "repetitionFlag": "Overlaps Franz Dienert and the rest of Germany's run-behind group.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Stanislaus Kobierski / Germany / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The basic runner portrait is readable but over-specific and nearly duplicates Siffling within the same edition.",
+      "repetitionFlag": "Shares the start-run and pull-wide recipe with Otto Siffling.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gábor Szabó / Hungary / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is plausible, but both exact actions are unsupported and repeated among Hungary's four forward cards.",
+      "repetitionFlag": "Shares start-run and pull-wide mechanics with Toldi and Teleki.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Géza Toldi / Hungary / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same runner card serves 1934 and 1938 despite different scoring returns, suppressing a distinct two-goal edition here.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Géza Toldi 1938 and teammate overlap.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "György Sárosi / Hungary / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Second-ball reading and central protection fit his centre-half role, but a role-default holding cue underplays the stored build-up work and quarter-final duel.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jenő Vincze / Hungary / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind lens is acceptable, but the near-post and start-run specifics are unsupported and interchangeable with Hungary's other forwards.",
+      "repetitionFlag": "Repeats the same run mechanics used for Toldi and Szabó.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pál Teleki / Hungary / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A channel role guide is an honest target, but the pull-wide and defender-look details overclaim the evidence and duplicate Szabó.",
+      "repetitionFlag": "Near-duplicate of Gábor Szabó's channel-running portrait.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Anfilogino Guarisi / Italy / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is readable but too specific for role-level evidence and overlaps the champion's other generic forward cards.",
+      "repetitionFlag": "Shares defender-look and near-post mechanics with Schiavio and Ferrari.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Angelo Schiavio / Italy / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic channel-runner card displaces the stored identity of a four-goal striker who opened with a hat-trick and scored the extra-time final winner.",
+      "repetitionFlag": "Blends into Guarisi and Ferrari despite having the edition's strongest striker story.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Attilio Ferraris / Italy / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Role-default first-touch mechanics omit his stored edition identity as the tactical correction who restored Italy's midfield for the final.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Enrique Guaita / Italy / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The inside-right movement is accurate and useful, but the far-post ending should yield to the exact semi-final winner and combinations already stored.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eraldo Monzeglio / Italy / 1934",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Covering the next danger, tracking the channel and checking the runner form a coherent portrait supported by the exact 1934 rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gianpiero Combi / Italy / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic centre-protection guide does not establish the champion goalkeeper's exact tournament identity and repeats Cavanna's mechanics.",
+      "repetitionFlag": "Overlaps Giuseppe Cavanna on angle and central-lane protection.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giovanni Ferrari / Italy / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two exact-edition goals provide a stronger route than the generic defender-look and pull-wide template currently used.",
+      "repetitionFlag": "Blends into Schiavio and Guarisi within Italy's forward set.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giuseppe Cavanna / Italy / 1934",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-centre sequence reads naturally, but its personalized depth and lane mechanics need more than the stored Shot stopping label.",
+      "repetitionFlag": "Overlaps Gianpiero Combi on angle and central-lane protection.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Giuseppe Meazza / Italy / 1934",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Scanning, drawing pressure and releasing a runner give a natural problem-solving portrait consistent with Meazza's exact tournament rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Monti / Italy / 1934",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Second-ball reading, central protection and blocking the forward route coherently express the central-duel platform supported by the 1934 rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mario Pizziolo / Italy / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Generic transition mechanics omit the stored two-start story, right-half running and tournament-ending broken leg.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Raimundo Orsi / Italy / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Wide isolation and carrying are accurate foundations, but the portrait should emphasize his inward dribble and disguised final equalizer rather than a generic second-defender cue.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arend Schoemaker / Netherlands / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is plausible but its pull-wide and near-post mechanics are unsupported and repeated across the entire Netherlands trio.",
+      "repetitionFlag": "Shares the same two run cues with Smit and Vente.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kick Smit / Netherlands / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A run-behind guide is an honest ceiling, but defender-look and pull-wide specifics are interchangeable with Schoemaker and Vente.",
+      "repetitionFlag": "Near-duplicate of the other two Netherlands forward cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Leen Vente / Netherlands / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The basic forward identity is usable, but exact near-post and start-run claims are unsupported and visibly repeat the nearby cards.",
+      "repetitionFlag": "Near-duplicate of Smit and Schoemaker's run-behind portraits.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gheorghe Ciolac / Romania / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel guide is plausible, but pull-wide and defender-look mechanics are unsupported and nearly duplicate Sepi.",
+      "repetitionFlag": "Strong forward-template overlap with Grațian Sepi.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Grațian Sepi / Romania / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A concise runner guide is appropriate, but the exact start timing and pull-wide claims overstate the evidence and mirror Ciolac.",
+      "repetitionFlag": "Strong forward-template overlap with Gheorghe Ciolac.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ștefan Dobay / Romania / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-identical 1934 and 1938 runner cards suppress different scoring editions and leave Dobay's one-goal 1934 tournament without its own identity.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Ștefan Dobay 1938.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Campanal I / Spain / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic running guide needs modest wording and the generated opening visibly misidentifies the player as only I.",
+      "repetitionFlag": "Shares defender-look and pull-wide mechanics with Chacho and several Spain forwards.",
+      "dataIssue": "Display-name tokenization reduces Campanal I to I inside the visible note.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Chacho / Spain / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role guide is readable, but defender-look and near-post specifics lack exact support and repeat the surrounding forward cards.",
+      "repetitionFlag": "Near-duplicate run mechanics with Campanal I and other Spain forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Guillermo Gorostiza / Spain / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner identity is plausible but its exact start timing and pull-wide mechanics are role inference shared throughout Spain's attack.",
+      "repetitionFlag": "Shares the start-run and pull-wide recipe with multiple Spain forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Isidro Lángara / Spain / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic channel-runner template does not explain the famous striker's single 1934 World Cup appearance and goal.",
+      "repetitionFlag": "Mechanically indistinguishable from Iraragorri, Regueiro and the other Spain forwards.",
+      "dataIssue": "",
+      "confidence": "low"
+    },
+    {
+      "profileKey": "Jacinto Quincoces / Spain / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Aerial reading and channel cover fit, but the card omits the clean stepping-out quality that makes the stored 1934 rationale distinctive.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Iraragorri / Spain / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two exact-edition goals offer a stronger identity route than the generic pull-wide and defender-look mechanics currently displayed.",
+      "repetitionFlag": "Blends into Lángara, Regueiro and the rest of Spain's forward templates.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Leonardo Cilaurren / Spain / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Generic recovery and ball-protection mechanics displace the stored edition identity built around range, recovery work and preserving Spain's passing connections.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Regueiro / Spain / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A blind-side runner template omits his exact inside-left carrying and goal in the bruising first quarter-final with Italy.",
+      "repetitionFlag": "Blends into Lángara and Iraragorri despite having stored edition evidence.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ricardo Zamora / Spain / 1934",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Angle control, patient depth and central protection provide a useful watch lens consistent with the stored emphasis on positioning and authority.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arvid Thörn / Sweden / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is plausible, but defender-look and near-post mechanics are unsupported and repeated through Sweden's forward set.",
+      "repetitionFlag": "Near-duplicate of Carl-Erik Holmberg and other Sweden forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carl-Erik Holmberg / Sweden / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A concise runner guide is appropriate, but both exact actions are unsupported and almost identical to Thörn.",
+      "repetitionFlag": "Near-duplicate of Arvid Thörn's defender-look and near-post card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gösta Dunker / Sweden / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner identity is serviceable, but its exact timing is role inference shared with Holmberg and Jonasson.",
+      "repetitionFlag": "Shares near-post and start-run mechanics across Sweden's forward group.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Knut Kroon / Sweden / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind role guide is readable, but defender-look and pull-wide claims overstate support and repeat the team pattern.",
+      "repetitionFlag": "Shares defender-look and pull-wide mechanics with the Sweden forward group.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sven Jonasson / Sweden / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same forward template spans 1934 and 1938 despite different scoring editions and suppresses his two-goal story here.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Sven Jonasson 1938 and heavy teammate overlap.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Albert Büche / Switzerland / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A modest forward guide is the honest target, but near-post and pull-wide specifics lack support and repeat the entire Swiss attack.",
+      "repetitionFlag": "Shares the same two run cues with the other Switzerland forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "André Abegglen / Switzerland / 1934",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-identical cards hide a one-goal 1934 edition and a three-goal 1938 edition behind the same generic runner identity.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with André Abegglen 1938 and strong teammate overlap.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Leopold Kielholz / Switzerland / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic defender-look and near-post card underplays an exact three-goal edition and needs a tournament-specific identity.",
+      "repetitionFlag": "Blends into Abegglen and the other Switzerland runner templates.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Willy Jäggi / Switzerland / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is plausible, but pull-wide and near-post claims are unsupported and indistinguishable from Büche.",
+      "repetitionFlag": "Near-duplicate of Albert Büche within the Swiss forward group.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aldo Donelli / United States / 1934",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The exact story of the United States' only goal provides a more honest edition identity than generic start-run and pull-wide mechanics.",
+      "repetitionFlag": "Shares the same run template with Ryan and Dick.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Francis Ryan / United States / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A concise forward guide is appropriate, but defender-look and near-post specifics lack support and repeat Donelli's group.",
+      "repetitionFlag": "Overlaps both Aldo Donelli and Walter Dick within the three-card team.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Walter Dick / United States / 1934",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel guide is readable but over-specific, with pull-wide and defender-look mechanics repeated beside Ryan and Donelli.",
+      "repetitionFlag": "Overlaps both Francis Ryan and Aldo Donelli within the three-card team.",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

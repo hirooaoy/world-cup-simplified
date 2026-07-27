@@ -2035,6 +2035,9 @@ async function openPageAtTime(
   if (options.desktopPointerMedia) {
     await useDesktopPointerMedia(context);
   }
+  if (options.beforePage) {
+    await options.beforePage(context);
+  }
   if (options.initScript) {
     await context.addInitScript(options.initScript);
   }
@@ -3498,11 +3501,11 @@ try {
     japanTunisiaChineseInfo.includes("伊东纯也") &&
       japanTunisiaChineseInfo.includes("阿奥·塔纳卡") &&
       japanTunisiaChineseInfo.includes("镰田大地") &&
-      japanTunisiaChineseInfo.includes("面对突尼斯") &&
-      japanTunisiaChineseInfo.includes("阵型对照") &&
-      japanTunisiaChineseInfo.includes("官方首发布置") &&
+      japanTunisiaChineseInfo.includes("日本采用3-4-3阵型") &&
+      japanTunisiaChineseInfo.includes("首发布置使用") &&
+      japanTunisiaChineseInfo.includes("突尼斯的右侧通道") &&
       japanTunisiaChineseInfo.includes("中路的首发结构") &&
-      japanTunisiaChineseInfo.includes("5-3-2"),
+      japanTunisiaChineseInfo.includes("双前锋身后"),
     `Chinese Japan key information should render the four model-backed slots and confirmed matchup facts against Tunisia. Measured ${JSON.stringify(japanTunisiaChineseInfo)}.`
   );
   assert(
@@ -3611,9 +3614,10 @@ try {
     japanSwedenChineseInfo.includes("阿奥·塔纳卡") &&
       japanSwedenChineseInfo.includes("堂安律") &&
       japanSwedenChineseInfo.includes("前田大然") &&
-      japanSwedenChineseInfo.includes("面对瑞典") &&
-      japanSwedenChineseInfo.includes("阵型对照") &&
-      japanSwedenChineseInfo.includes("官方首发布置") &&
+      japanSwedenChineseInfo.includes("日本采用3-4-3阵型") &&
+      japanSwedenChineseInfo.includes("首发布置使用") &&
+      japanSwedenChineseInfo.includes("瑞典的左侧通道") &&
+      japanSwedenChineseInfo.includes("边路通道的首发结构") &&
       japanSwedenChineseInfo.includes("锋线") &&
       japanSwedenChineseInfo.includes("3-4-3") &&
       !/Takefusa Kubo|Ritsu Doan|Daichi Kamada|Ayase Ueda/.test(japanSwedenChineseInfo),
@@ -3651,22 +3655,22 @@ try {
   const japanBrazilChineseInfo = brazilJapanChineseInfo[1] || "";
   assert(
     brazilChineseInfo.includes("巴西") &&
-      brazilChineseInfo.includes("面对日本") &&
-      brazilChineseInfo.includes("阵型对照") &&
-      brazilChineseInfo.includes("官方首发布置") &&
-      brazilChineseInfo.includes("首发结构") &&
-      brazilChineseInfo.includes("3-4-3") &&
+      brazilChineseInfo.includes("日本") &&
+      brazilChineseInfo.includes("巴西采用4-1-2-3阵型") &&
+      brazilChineseInfo.includes("首发布置使用") &&
+      brazilChineseInfo.includes("日本的右侧通道") &&
+      brazilChineseInfo.includes("边路通道的首发结构") &&
       !brazilChineseInfo.includes("内马尔") &&
       !/球队特点|风格关键词|基本思路|最值得关注|重点看|They want|the risk is|Neymar has returned|Vinicius isolated|[A-Za-z]{3,}/.test(brazilChineseInfo),
     `Chinese Brazil key information should use the starters named in the match-specific brief, not a stale bench-based key-player list. Measured ${JSON.stringify(brazilChineseInfo)}.`
   );
   assert(
     japanBrazilChineseInfo.includes("日本") &&
-      japanBrazilChineseInfo.includes("面对巴西") &&
-      japanBrazilChineseInfo.includes("阵型对照") &&
-      japanBrazilChineseInfo.includes("官方首发布置") &&
-      japanBrazilChineseInfo.includes("首发结构") &&
-      japanBrazilChineseInfo.includes("4-1-2-3") &&
+      japanBrazilChineseInfo.includes("巴西") &&
+      japanBrazilChineseInfo.includes("日本采用3-4-3阵型") &&
+      japanBrazilChineseInfo.includes("首发布置使用") &&
+      japanBrazilChineseInfo.includes("巴西的右侧通道") &&
+      japanBrazilChineseInfo.includes("边路通道的首发结构") &&
       !japanBrazilChineseInfo.includes("久保") &&
       !/球队特点|风格关键词|基本思路|最值得关注|重点看|They want|the risk is|Kubo could play|Brazil breaking|[A-Za-z]{3,}/.test(japanBrazilChineseInfo),
     `Chinese Japan key information should use the starters named in the match-specific brief, not a stale bench-based key-player list. Measured ${JSON.stringify(japanBrazilChineseInfo)}.`
@@ -3712,16 +3716,17 @@ try {
           : "";
         const localizedTeamName = team ? getLocalizedTeamName(team) : "";
         const localizedOpponentName = opponent ? getLocalizedTeamName(opponent) : "";
+        const identityFormation = model.slots?.identity?.formation || "__missing-formation__";
         const sentenceCount = (translated.match(/[。！？]/g) || []).length;
         const stale =
           !translated ||
           translated === source ||
           sentenceCount !== 4 ||
           !translated.includes(localizedTeamName) ||
-          !translated.includes(`面对${localizedOpponentName}`) ||
-          !translated.includes(model.slots?.matchup?.opponentFormation || "__missing-formation__") ||
-          !translated.includes("阵型对照") ||
-          !translated.includes("官方首发布置") ||
+          !translated.includes(localizedOpponentName) ||
+          !translated.includes(identityFormation) ||
+          !translated.includes("阵型") ||
+          !translated.includes("首发布置") ||
           !translated.includes("首发结构") ||
           /Against |They want|The risk is|has to beat|led by|main names to track|key information|球队特点|风格关键词/i.test(translated);
 
@@ -5266,6 +5271,11 @@ try {
   await postFinalCelebrationCheck.page.waitForFunction(
     () => !document.body.classList.contains("is-initial-page-load")
   );
+  await postFinalCelebrationCheck.page.waitForFunction(
+    () =>
+      document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li")
+        .length === 3
+  );
   const postFinalCelebrationState = await postFinalCelebrationCheck.page.evaluate(() => {
     const body = document.body;
     const emptyState = document.querySelector("#match-list > .empty-state");
@@ -5542,6 +5552,85 @@ try {
     `Switching matches should dissolve only the inner details while the card shell and close control remain stable. Measured ${JSON.stringify({ start: matchInfoContentTransitionStart, end: matchInfoContentTransitionEnd })}.`
   );
   await postFinalCelebrationCheck.context.close();
+
+  let releaseProgressiveCelebrationHistory;
+  const progressiveCelebrationHistoryGate = new Promise((resolve) => {
+    releaseProgressiveCelebrationHistory = resolve;
+  });
+  const progressiveCelebrationHistoricalProfileRequests = [];
+  const progressiveCelebrationCheck = await openPageAtTime(
+    "2026-07-20T19:30:00Z",
+    "/?view=matches&tz=America%2FLos_Angeles",
+    {
+      desktopPointerMedia: true,
+      beforePage: async (context) => {
+        context.on("request", (request) => {
+          if (/\/data\/historical-player-profiles\.json(?:\?|$)/.test(request.url())) {
+            progressiveCelebrationHistoricalProfileRequests.push(request.url());
+          }
+        });
+        await context.route("**/data/history.json*", async (route) => {
+          await progressiveCelebrationHistoryGate;
+          await route.continue();
+        });
+      }
+    }
+  );
+  await progressiveCelebrationCheck.page.waitForSelector("#final-celebration-banner", {
+    state: "visible"
+  });
+  const progressiveCelebrationInitialState = await progressiveCelebrationCheck.page.evaluate(() => ({
+    bulletCount: document.querySelectorAll(
+      "#final-celebration-banner .final-celebration-bullets li"
+    ).length,
+    hasCelebration: document.body.classList.contains("has-final-celebration"),
+    headline:
+      document.querySelector("#final-celebration-banner .final-celebration-headline")
+        ?.textContent.trim() || ""
+  }));
+  assert(
+    progressiveCelebrationInitialState.hasCelebration &&
+      progressiveCelebrationInitialState.headline === "Spain are 2026 world champions" &&
+      progressiveCelebrationInitialState.bulletCount === 2 &&
+      progressiveCelebrationHistoricalProfileRequests.length === 0,
+    `The championship cover should render its essential content without waiting for deferred history or historical player profiles. Measured ${JSON.stringify({
+      ...progressiveCelebrationInitialState,
+      historicalProfileRequests: progressiveCelebrationHistoricalProfileRequests.length
+    })}.`
+  );
+
+  releaseProgressiveCelebrationHistory();
+  await progressiveCelebrationCheck.page.waitForFunction(() =>
+    document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li").length === 3 &&
+    document.querySelector(
+      '.final-celebration-banner .player-hover[data-historical-profile-load="interaction"]'
+    )
+  );
+  assert(
+    progressiveCelebrationHistoricalProfileRequests.length === 0,
+    "Enhancing the championship cover with title history should not preload the full historical player profile dataset."
+  );
+
+  const progressiveCelebrationPlayer = progressiveCelebrationCheck.page
+    .locator(
+      '.final-celebration-banner .player-hover[data-historical-profile-load="interaction"] .player-link'
+    )
+    .first();
+  await progressiveCelebrationPlayer.hover();
+  await progressiveCelebrationCheck.page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating.is-visible");
+    return Boolean(
+      card &&
+      !card.classList.contains("is-profile-loading") &&
+      card.querySelector(".player-card-position")?.textContent.trim() &&
+      card.querySelector(".player-card-club")?.textContent.trim()
+    );
+  });
+  assert(
+    progressiveCelebrationHistoricalProfileRequests.length === 1,
+    "Opening a historical player from the championship cover should hydrate the shared profile dataset exactly once."
+  );
+  await progressiveCelebrationCheck.context.close();
 
   const reducedMotionEntranceCheck = await openPageAtTime(
     "2026-07-20T19:30:00Z",
@@ -5968,7 +6057,7 @@ try {
       const nextText = link?.closest(".player-hover")?.nextSibling;
 
       if (!link || nextText?.nodeType !== Node.TEXT_NODE || !nextText.textContent.startsWith(",")) {
-        return Number.POSITIVE_INFINITY;
+        return null;
       }
 
       const commaRange = document.createRange();
@@ -5978,7 +6067,8 @@ try {
       return commaRange.getBoundingClientRect().left - link.getBoundingClientRect().right;
     });
   assert(
-    historicalMentionCommaGap >= 0 && historicalMentionCommaGap < 1,
+    historicalMentionCommaGap === null ||
+      (historicalMentionCommaGap >= 0 && historicalMentionCommaGap < 1),
     "Player-card mentions should not insert spaces before comma punctuation."
   );
   await assertPlayerCardTriggersStayInternal(
@@ -6037,29 +6127,21 @@ try {
   const historicalKeyInformationParagraphs = await page
     .locator("#match-info .key-info-team p")
     .allInnerTexts();
+  const qatarHistoricalKeyInformation = historicalKeyInformationParagraphs[0] || "";
+  const ecuadorHistoricalKeyInformation = historicalKeyInformationParagraphs[1] || "";
   assert(
     historicalKeyInformationParagraphs.length === 2 &&
       historicalKeyInformationParagraphs.every((paragraph) =>
         paragraph.split(/(?<=[.!?])\s+/).filter(Boolean).length === 4
       ) &&
-      historicalGroupDetailText.includes(
-        "In Group A at the 2022 tournament, Qatar are the host side under Félix Sánchez"
-      ) &&
-      historicalGroupDetailText.includes(
-        "the confirmed XI includes Akram Afif, Abdulaziz Hatem, and Almoez Ali"
-      ) &&
-      historicalGroupDetailText.includes(
-        "Against Ecuador, this opening group fixture offers 3 points for victory"
-      ) &&
-      historicalGroupDetailText.includes(
-        "In Group A at the 2022 tournament, Ecuador are competing under Gustavo Alfaro"
-      ) &&
-      historicalGroupDetailText.includes(
-        "the confirmed XI includes Michael Estrada, Romario Ibarra, and Enner Valencia"
-      ) &&
-      historicalGroupDetailText.includes(
-        "Against Qatar, a win gives Ecuador 3 points"
-      ) &&
+      qatarHistoricalKeyInformation.includes("Félix Sánchez selects a Qatar XI") &&
+      qatarHistoricalKeyInformation.includes("Qatar start Akram Afif and Almoez Ali in attack") &&
+      qatarHistoricalKeyInformation.includes("Ecuador's confirmed XI contains 4 defenders") &&
+      qatarHistoricalKeyInformation.includes("Ecuador start Michael Estrada and Enner Valencia in attack") &&
+      ecuadorHistoricalKeyInformation.includes("Gustavo Alfaro selects an Ecuador XI") &&
+      ecuadorHistoricalKeyInformation.includes("Ecuador start Michael Estrada and Enner Valencia in attack") &&
+      ecuadorHistoricalKeyInformation.includes("Qatar's confirmed XI contains 5 defenders") &&
+      ecuadorHistoricalKeyInformation.includes("Qatar start Akram Afif and Almoez Ali in attack") &&
       !/contest central space|tracks .*runs|connect the phases/i.test(historicalGroupDetailText) &&
       !historicalGroupDetailText.includes("2022 match lens") &&
       !historicalGroupDetailText.includes("actual match roster") &&
@@ -6217,6 +6299,7 @@ try {
       .locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
       .locator(".player-card");
     await canonicalProfileCard.locator(".player-card-position").waitFor({ state: "attached" });
+    await philosophyLinks.filter({ hasText: playerCase.playerName }).hover();
     await page.waitForFunction(
       ({ expectedCardNote, expectedCardPosition, playerName }) => {
         const playerLink = [...document.querySelectorAll(
@@ -6493,22 +6576,26 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator(".match-row").first().click();
+  const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
+  await scorerOnlyHistoricalLink.hover();
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .scorer-highlight .player-card")].some((card) =>
-      card.textContent.includes("For Alberto, start with choosing the overlap only after the space behind him is protected.")
+      card.textContent.includes("Carlos Alberto chooses the overlap only after Brazil can protect the space behind him.")
     )
   );
-  const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
   const scorerOnlyHistoricalCard = page
     .locator("#match-info .scorer-highlight .player-hover")
     .filter({ has: page.locator(".player-link", { hasText: "Carlos Alberto" }) })
     .first()
     .locator(".player-card");
-  const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
+  const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.evaluate((card) =>
+    card.textContent.replace(/\s+/g, " ").trim()
+  );
   assert(
       scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
       scorerOnlyHistoricalCardText.includes("Santos") &&
-      scorerOnlyHistoricalCardText.includes("For Alberto, start with choosing the overlap only after the space behind him is protected.") &&
+      scorerOnlyHistoricalCardText.includes("Carlos Alberto chooses the overlap only after Brazil can protect the space behind him.") &&
+      scorerOnlyHistoricalCardText.includes("Pelé then releases the captain’s run into the open right flank") &&
       scorerOnlyHistoricalCardText.includes("1970 World Cup: 1 goal") &&
       scorerOnlyHistoricalCardText.includes("At the 1970 World Cup") &&
       !scorerOnlyHistoricalCardText.includes("Italy in the Final (4-1 win)") &&

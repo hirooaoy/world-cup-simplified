@@ -1056,7 +1056,7 @@ export const KO_ARCHIVE_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Ferenc Sas": "프랭크 사스",
   "Ferenc Szojka": "페렌츠 쇼이카",
   "Ferjani Sassi": "페르자니 사시",
-  "Fernandinho": "페르난도",
+  "Fernandinho": "페르난지뉴",
   "Fernando Álvez": "페르디난드 호프",
   "Fernando Clavijo": "페르디난드 네일",
   "Fernando Gomes": "페르난도 고메스",

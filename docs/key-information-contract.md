@@ -1,9 +1,9 @@
 # Matchup Key Information Contract
 
-Key information is an archive-present-tense view of a match. It reads as the
-teams enter the match, but it may use the best archived starting-layout record
-even when FIFA published that record after kickoff. It is therefore not a claim
-that every detail was publicly knowable before kickoff.
+Key information is an archive-present-tense view of the two teams at the match.
+It concentrates on starting structure, player roles, and the direct comparison
+with the opponent. Publication timing and source mechanics remain provenance
+metadata; they are not part of the visible football analysis.
 
 The rich edition in `data/fixtures.json` and the aggregate archive in
 `data/history.json` keep their separate storage models, but receive the same
@@ -14,16 +14,24 @@ edition-neutral for later tournaments such as 2030.
 
 Each team receives four compact semantic sentences:
 
-1. identity: team, stage, official shape or prior tournament record;
-2. matchup: opponent and the match pressure or structural contrast;
-3. plan: what the documented shape or prior record makes available;
-4. risk: what the opponent's documented shape or prior record can expose.
+1. identity: the team's starting structure or documented lineup balance;
+2. personnel: named starters and their recorded positions;
+3. matchup: a direct structural or player comparison with the opponent;
+4. opponent: the opponent's documented starting structure and personnel.
 
 The sentences need not begin with one fixed scaffold. They must identify the
 team and opponent, stay in archive-present tense, use plural football agreement
-(`Spain are`, `Spain need`, `they have`), and remain specific to the edition and
-match. Current-copy target length is 60–85 words; historical-copy target length
-is 50–85 words.
+(`Spain are`, `Spain line up`, `they have`), and remain specific to the edition
+and match. Current-copy target length is 50–72 words. Lineup-backed historical
+copy targets 40–80 words; evidence-limited historical fallback copy targets
+50–85 words.
+
+Visible current and lineup-backed historical copy must not routinely repeat
+W-D-L records, goal balance, group points, round labels, qualification stakes,
+or source-publication timing. That context is already available elsewhere and
+does not improve the football comparison. The 1930–1966 evidence-limited tier
+may retain compact stage and prior-results context because confirmed starting
+lineups are unavailable.
 
 Starting positions support statements about the named starting XI, formation,
 line distribution, width, and conditional structural possibilities. They do
@@ -46,8 +54,9 @@ Every record declares:
 
 `outcomeCutoff` governs outcomes, not document publication. Current-match
 score, winner, events, cards, substitutions, shootout, awards, match statistics,
-result stories, and later-round progression are excluded. Earlier matches in
-the same edition are allowed and are processed before the current fixture.
+result stories, and later-round progression are excluded. Earlier matches may
+remain in structured provenance or support the evidence-limited fallback, but
+they are not surfaced in current or lineup-comparison prose.
 
 Allowed evidence categories are:
 
@@ -63,8 +72,7 @@ Allowed evidence categories are:
 The 2026 archive uses FIFA's official tactical PDFs for exact starting
 positions. The metadata must preserve whether a PDF is nominal, observed, or
 revised and must derive pre-/post-kickoff timing from `publishedAt` and the
-fixture kickoff. A post-kickoff observed or revised PDF is valid archival layout
-evidence, but must never be presented as an input known before kickoff.
+fixture kickoff. That distinction is deliberately invisible in the paragraph.
 
 The current 104-match archive contains 14 nominal pre-kickoff layouts and 90
 post-kickoff layouts (82 observed and 8 revised). This distinction is data, not
@@ -72,19 +80,20 @@ an exception in the prose contract.
 
 ## Historical evidence tiers
 
-- 1970–2022: confirmed starters from the pinned Fjelstul dataset, plus stage,
-  complete manager records, host status, tournament rules, and earlier results.
+- 1970–2022: compare both confirmed starting XIs through manager, role balance,
+  and selected starters. Stage, rules, and earlier results remain structured
+  evidence but are not repeated in the visible paragraph.
 - 1930–1966: no lineup-derived player claims; use team, stage, complete manager
   records, host status, tournament rules, and earlier results.
-- Verified asymmetric stakes are encoded for the reviewed matches where the
+- Verified asymmetric stakes remain encoded for reviewed matches where the
   tournament rules and prior table prove them, including 1950 Brazil–Yugoslavia,
   Sweden–Spain and Uruguay–Brazil; 1982 Italy–Brazil; and 2022
   Ecuador–Senegal.
-- Every standard four-team final group kickoff from 1998–2022 receives a
+- Every standard four-team final group kickoff from 1998–2022 retains a
   conservative points-only scenario: a result is called guaranteed or
   eliminating only when no goal-difference or later tiebreak can reverse it;
-  all other cases are labeled dependent. Sweden–Argentina in 2002 carries a
-  separately reviewed exact explanation.
+  all other cases are labeled dependent. These fields are preserved as archive
+  evidence, not displayed in lineup-comparison copy.
 - Final rounds and second group stages keep phase-specific records and points.
   Earlier-round points remain available as tournament history but are never
   described as carrying into a reset table.
@@ -111,9 +120,8 @@ translated paragraphs or current-match outcome fields.
 
 Current models are scoped by `stage.year` and canonical team ids. A new edition
 must not inherit unsourced editorial style labels from an earlier tournament.
-Current-edition identity and matchup claims are built from the official
-starting layout, stage, and prior results; their source ids must resolve in the
-edition source registry.
+Visible identity and matchup claims are built from the official starting XI and
+tactical layout; their source ids must resolve in the edition source registry.
 
 ## 2030 gate
 

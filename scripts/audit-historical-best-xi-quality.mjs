@@ -67,6 +67,10 @@ const ENGLISH_COUNT_WORDS = Object.freeze({
   twelve: 12,
   thirteen: 13
 });
+const ENGLISH_WRITTEN_STAT_QUANTITY = new RegExp(
+  `\\b(?:${Object.keys(ENGLISH_COUNT_WORDS).join("|")})\\s+(?:goals?|assists?|appearances?|starts?|matches?|minutes?|saves?|clean sheets?|chances?|tackles?|passes?|crosses?|duels?|penalties?|wins?)\\b`,
+  "i"
+);
 
 const profilesData = readJson("../data/historical-player-profiles.json");
 const history = readJson("../data/history.json");
@@ -574,6 +578,10 @@ for (const record of selectionRecords) {
         addIssue(localeContext, "champion evidence must say that the team won the World Cup");
       }
       if (language === "en" && normalizedParagraphs[0] && normalizedParagraphs[1]) {
+        if (ENGLISH_WRITTEN_STAT_QUANTITY.test(normalizedParagraphs[1])) {
+          validDescription = false;
+          addIssue(localeContext, "statistical quantities in the rationale must use digits");
+        }
         const structure = evidenceStructure(
           normalizedParagraphs[0],
           entry.playerName,

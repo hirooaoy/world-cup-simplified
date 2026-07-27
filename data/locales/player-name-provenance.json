@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T18:35:56.333Z",
+  "generatedAt": "2026-07-23T11:32:35.145Z",
   "methodology": "Locale-specific player labels from linked Wikipedia/Wikidata records, followed by checked-in editorial overrides and canonical-name fallback. Rendered match-provider aliases are resolved conservatively against canonical profiles and team roster overrides. Current and archive browser modules are split so historical names load only with archive views.",
   "providerNameCoverage": {
     "renderedCurrentNames": 1257,
@@ -3511,7 +3511,7 @@
     }
   },
   "profileDataUpdatedAt": {
-    "archive": "2026-07-21T16:55:42.660Z",
+    "archive": "2026-07-23T11:25:10.969Z",
     "coaches": "2026-07-08T06:01:39.000Z",
     "current": "2026-07-13T19:57:34.177Z"
   },
@@ -36909,7 +36909,7 @@
       },
       "Fernandinho": {
         "canonicalName": "Fernandinho",
-        "displayName": "페르난도",
+        "displayName": "페르난지뉴",
         "source": "phonetic-transliteration",
         "sourceUrl": "data/locales/player-name-transliterations.json"
       },

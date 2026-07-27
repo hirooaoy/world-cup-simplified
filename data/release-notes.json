@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-22T16:18:17-07:00",
+  "updatedAt": "2026-07-27T11:20:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-27",
+      "title": "Sharper historical player cards and match briefs",
+      "titleZh": "更清晰的历史球员卡与比赛简报",
+      "highlights": [
+        "Historical player cards now carry more specific tournament-time style notes across the archive.",
+        "Historical Key information briefs now use confirmed lineups and current structured localization.",
+        "Audit and smoke coverage now guards the refreshed player-card and key-information contracts."
+      ],
+      "highlightsZh": [
+        "历史球员卡现已在整个存档中使用更具体、贴合当届赛事的比赛风格说明。",
+        "历史关键信息简报现使用已确认阵容，并遵循当前结构化本地化规则。",
+        "审计与烟测现会守住更新后的球员卡和关键信息内容规范。"
+      ]
+    },
     {
       "date": "2026-07-22",
       "title": "Richer player cards across every World Cup",

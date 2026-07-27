@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "88d7daaf082dacb023eae010012a6e1a1f834b63768ac7f1481bd20435f955d1",
+  "sourceFingerprint": "2d7b94a437128c5a8e3b8b46b9c6299bff4fa168cc376fb9db2e2ab7956f4cba",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "All four languages share stricter checks and a fresh cache version, so returning visitors receive the new copy.": "네 언어 모두 더 엄격한 검사를 공통 적용하고 새 캐시 버전을 사용해 재방문 사용자도 새 문구를 받습니다.",
-    "Current and historical cards now use longer, more varied profiles, with evidence-backed traits or honest fallbacks.": "현재 및 역대 선수 카드는 더 길고 다양한 프로필을 사용하며, 근거가 있는 특징이나 정직한 대체 설명을 제공합니다.",
-    "Generic profiles stay separate from Best XI and Honourable Mention rationales, so each card tells the right story.": "일반 프로필은 베스트 XI 및 명예 언급 선정 이유와 분리되어 각 카드가 목적에 맞는 이야기를 전합니다.",
-    "Richer player cards across every World Cup": "모든 월드컵의 선수 카드를 더 풍부하게"
+    "Audit and smoke coverage now guards the refreshed player-card and key-information contracts.": "감사와 스모크 테스트가 새로 정비한 선수 카드와 핵심 정보 규칙을 지키도록 보강되었습니다.",
+    "Historical Key information briefs now use confirmed lineups and current structured localization.": "역대 핵심 정보 브리프는 이제 확정 라인업과 현재의 구조화된 현지화 방식을 사용합니다.",
+    "Historical player cards now carry more specific tournament-time style notes across the archive.": "역대 선수 카드는 아카이브 전반에서 해당 대회 시점에 맞춘 더 구체적인 스타일 설명을 담습니다.",
+    "Sharper historical player cards and match briefs": "더 선명해진 역대 선수 카드와 경기 브리프"
   }
 }

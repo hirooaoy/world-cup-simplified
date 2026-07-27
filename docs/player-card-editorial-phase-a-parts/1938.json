@@ -1,0 +1,755 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1938,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Arthur Ceuleers / Belgium / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward lens is plausible at role-guide level, but its two actions blur into Belgium's other forward cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernard Voorhoof / Belgium / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim reuse across 1930, 1934 and 1938 suppresses the materially different tournament context of each Voorhoof card.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hendrik Isemborghs / Belgium / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side role guide remains modest, but its pull-wide and near-post actions repeat the same small vocabulary used for both teammates.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Domingos da Guia / Brazil / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The covering-defender identity is coherent, observable and directly aligned with the stored exact-edition Best XI evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hércules / Brazil / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide stays within the broad evidence, but it is not sufficiently distinct from Brazil's five other forward templates.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Leônidas / Brazil / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A near-copy of his 1934 runner card suppresses the stored 1938 identity of seven-goal, improvisational tournament centrepiece.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lopes / Brazil / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is appropriately modest, but its delay and near-post cues are repeated throughout Brazil's forward set.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Martim Silveira / Brazil / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The screening headline matches the exact honourable-mention rationale, but the loose-second-ball mechanism is not established by the stored evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Perácio / Brazil / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A three-goal tournament is reduced to the same delay-run and near-post template as several teammates, leaving his individual football identity absent.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Roberto / Brazil / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-oriented running lens is plausible, but the near-post and pull-wide combination visibly repeats the surrounding Brazil cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Romeu / Brazil / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His three goals coexist with a generic runner paragraph indistinguishable from Perácio and other forwards, so the primary 1938 identity remains unknown.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Oliveira / Cuba / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The conservative forward guide is usable, but all three actions recur across Cuba's four-card attacking cluster.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Héctor Socorro / Cuba / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The team's three-goal scorer receives only the same channel-running template as his teammates, leaving the most important individual trait unestablished.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Magriñá / Cuba / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its pull-wide and delayed-run cues duplicate Socorro's and the wider archive formula.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tomás Fernández / Cuba / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The running guide is evidence-honest, but its near-post and early-run sequence adds no visible distinction beside Cuba's other forwards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antonín Puč / Czechoslovakia / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1934 and 1938 wide-attacker portraits do not distinguish Puč's materially different contribution in either tournament.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Arnošt Kreuz / Czechoslovakia / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel role is a fair fallback, but the delay-and-pull-wide sequence repeats Zeman and the dominant 1938 forward formula.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "František Plánička / Czechoslovakia / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Technical goalkeeping under pressure fits the exact Best XI case, but the precise set-and-reset footwork claims still need confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Josef Košťálek / Czechoslovakia / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The midfield angle-and-support identity is plausible, but it closely echoes his 1934 card and Kopecký's nearby support language.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Josef Zeman / Czechoslovakia / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest channel guide is usable, but its two actions are effectively the same as Kreuz's and many same-edition forwards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oldřich Nejedlý / Czechoslovakia / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1934 and 1938 finishing portraits suppress the difference between his five-goal Golden Boot run and this two-goal return.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Vlastimil Kopecký / Czechoslovakia / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle paragraph is coherent, but its personalized passing decisions outrun the stored broad tempo-control source.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hans Taihuttu / Dutch East Indies / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side forward guide is suitably modest, but it repeats the same pull-wide and near-post actions as both teammates.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hendrikus Zomers / Dutch East Indies / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback is plausible, but its near-post and early-run cues provide almost no squad-level distinction.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hong Djien The / Dutch East Indies / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role guide is otherwise adequate, but surname handling produces the visibly awkward sentence 'The starts his run' beside two repetitive forward cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "Name-token handling treats the surname 'The' like an English article in generated prose.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alfred Aston / France / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind guide is honest but almost duplicates his 1934 card and France teammate Heisserer's movement sequence.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Edmond Delfour / France / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward identity is plausible, but its delayed run and pull-wide actions repeat Nicolas and Veinante.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Émile Veinante / France / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1930 and 1938 channel portraits make Veinante's cards portable rather than edition-specific.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jean Nicolas / France / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1934 and 1938 runner portraits suppress the different scoring context of Nicolas's two tournaments.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Oscar Heisserer / France / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible, but its delayed and near-post cues are indistinguishable from Aston and the edition's dominant forward template.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernst Lehner / Germany / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1934 and 1938 channel portraits do not establish a distinct Lehner identity for either edition.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Fritz Szepan / Germany / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic channel-forward template does not establish his primary function within Germany's four nearly interchangeable attacking cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "low"
+    },
+    {
+      "profileKey": "Josef Gauchel / Germany / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run channel guide is evidence-honest, but it repeats Lehner and Szepan rather than differentiating the scorer.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilhelm Hahnemann / Germany / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback is plausible, but the pull-wide and near-post actions remain part of the same undifferentiated Germany cluster.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antal Szabó / Hungary / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork paragraph is coherent and useful, but the specific set-and-reset mechanics are individualized beyond the stored shot-stopping source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ferenc Sas / Hungary / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is modest, but its delayed and near-post runs overlap Hungary's remaining role-level forward cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Géza Toldi / Hungary / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1934 and 1938 runner portraits suppress the different tournament contribution of each Toldi card.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "György Sárosi / Hungary / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Protection, short linking and movement beyond the defence form a coherent centre-forward portrait supported by the exact finalist rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gyula Lázár / Hungary / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Short connections and side-on receiving clearly express the exact-edition passing link described in his honourable-mention case.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gyula Polgár / Hungary / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Channel cover and goal-side patience make a natural defensive portrait aligned with his stored central-duel evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gyula Zsengellér / Hungary / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The link-and-protect headline resembles Sárosi more than the stored pace and inside-left running evidence that distinguishes Zsengellér.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pál Titkos / Hungary / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The wide-carrying identity is plausible, but the unverified head-up mechanic displaces the exact evidence about left-sided width and scoring arrival.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sándor Bíró / Hungary / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Protecting open space behind Hungary's attack is the exact-edition identity, and both visible defensive actions support it coherently.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Vilmos Kohut / Hungary / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The finishing-and-rebound paragraph reads well, but a broad goal-threat source does not establish its one-touch and second-ball mechanics.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Aldo Olivieri / Italy / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Calm decision-making fits his exact champion rationale, but early instructions and striker-body reading need confirmation before approval.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alfredo Foni / Italy / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Wide-duel control and inside-lane protection directly express the exact tactical support his Best XI rationale describes.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Amedeo Biavati / Italy / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Touchline width followed by movement inside is natural, distinctive and aligned with the stored exact-edition right-wing evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gino Colaussi / Italy / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The far-post arrival portrait precisely matches the exact-edition mechanism behind his four-goal contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Giuseppe Meazza / Italy / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Tempo shaping and continued support after passing form a concise portrait of the captain-supplier role in the stored rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Michele Andreolo / Italy / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Second-ball anticipation followed by a forward-facing pass directly captures his exact-edition role as Italy's midfield hinge.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pietro Ferraris / Italy / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its early and pull-wide runs duplicate the edition's generic attacker template.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pietro Rava / Italy / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Inside-lane recovery and body angle are coherent, observable and directly supported by his exact-edition marking rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Silvio Piola / Italy / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic near-post runner card does not capture the central movement and combination value stored for the champion's five-goal striker.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ugo Locatelli / Italy / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The connector identity is correct, but generic short-support actions and overlap with Meazza underplay his exact-edition ground coverage.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Arie de Winter / Netherlands / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is modest, but its delayed and pull-wide sequence is nearly interchangeable with both Netherlands teammates.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bertus de Harder / Netherlands / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is plausible, but it provides no meaningful identity separation within the three-forward set.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Daaf Drok / Netherlands / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel role remains evidence-honest, but the delayed and pull-wide actions duplicate De Winter and the broader archive formula.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alf Martinsen / Norway / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side role guide is plausible, but its delayed and near-post actions blur into both Norwegian teammate cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arne Brustad / Norway / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Running behind is a fair fallback for the scorer, but the same delayed and near-post sequence appears beside Martinsen.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arne Ileby / Norway / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-oriented paragraph stays modest, but its near-post and pull-wide actions add no distinction to Norway's forward cluster.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antoni Łyko / Poland / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but its pull-wide and delayed-run cues repeat the surrounding Poland forward language.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernest Wilimowski / Poland / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact honourable-mention portrait cannot be judged cleanly while this zero-goal record duplicates the four-goal Ernst Wilimowski identity.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "Probable duplicate alias collision with Ernst Wilimowski / Poland / 1938, with Best XI and scorer evidence split across records.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernst Wilimowski / Poland / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The four-goal scorer's role-level blind-side card is entangled with a duplicate Ernest Wilimowski Best XI record and must follow identity resolution.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "Probable duplicate alias collision with Ernest Wilimowski / Poland / 1938, with scorer and Best XI evidence split across records.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fryderyk Scherfke / Poland / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind guide is appropriately restrained, but its early and pull-wide movements repeat the same Poland and edition-level template.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Coloman Braun-Bogdan / Romania / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback is plausible, but its pull-wide and near-post actions are repeated across Romania's entire forward set.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gyula Prassler / Romania / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide stays modest, but it is almost interchangeable with Baratky and the edition's dominant forward formula.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Iuliu Baratky / Romania / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scorer's channel identity is plausible, but its pull-wide and delayed-run sequence provides no separation from Prassler.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Silviu Bindea / Romania / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback is usable, but its near-post and pull-wide actions duplicate the same-team attacking cluster.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ștefan Dobay / Romania / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1934 and 1938 runner portraits obscure Dobay's different scoring contribution in the two editions.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Åke Andersson / Sweden / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but its early and pull-wide movements repeat several Sweden forward cards.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arne Nyberg / Sweden / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Far-post arrival from the flank is distinctive, coherent and directly aligned with the stored exact-edition honourable-mention evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Curt Bergsten / Sweden / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide remains conservative, but its pull-wide and near-post cues blur into the large Sweden forward cluster.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Erik Nilsson / Sweden / 1938",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Inside-lane recovery and far-post scanning form a useful full-back portrait supported by his exact-edition positioning rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gustav Wetterström / Sweden / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A three-goal contribution is represented by the same pull-wide and delayed-run template as several teammates, leaving his main identity absent.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Harry Andersson / Sweden / 1938",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The three-goal scorer is reduced to a standard near-post runner card that cannot distinguish him within Sweden's crowded forward set.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sven Jacobsson / Sweden / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The late-arriving midfielder portrait is coherent and distinct nearby, but its box timing is individualized without a stored supporting source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sven Jonasson / Sweden / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1934 and 1938 runner portraits fail to distinguish Jonasson's separate tournament contributions.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tore Keller / Sweden / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The penalty-box explanation is natural and distinct, but short-pause separation and early-shot mechanics outrun the broad goal-threat source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alessandro Frigerio / Switzerland / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback is plausible, but its early and pull-wide cues duplicate Bickel, Abegglen and the wider edition pattern.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alfred Bickel / Switzerland / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post running lens is modest and compatible with later continuity, but it remains indistinct within Switzerland's forward set.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "André Abegglen / Switzerland / 1938",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1934 and 1938 runner portraits suppress Abegglen's three-goal identity in this edition.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ernst Lörtscher / Switzerland / 1938",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The first-touch and side-on receiving paragraph is coherent and distinct, but neither individualized mechanic has a stored supporting source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Eugen Walaschek / Switzerland / 1938",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback remains evidence-honest, but delayed and near-post runs repeat the surrounding Swiss forward language.",
+      "repetitionFlag": "Nearby or recurring card copy overlaps materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

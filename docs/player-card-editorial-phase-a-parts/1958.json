@@ -1,0 +1,1034 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1958,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Alfredo Rojas / Argentina / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1958 and 1966 runner portraits make Rojas's cards portable rather than edition-specific.",
+      "repetitionFlag": "Nearby Argentina forward mechanics and the 1966 card overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ángel Labruna / Argentina / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward identity is a modest fallback, but its delayed and pull-wide actions add no separation within Argentina's five-card attack.",
+      "repetitionFlag": "Argentina's forward cards share the same delay, channel and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ludovico Avio / Argentina / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side role guide is usable, but its delayed and near-post cues are repeated across the Argentina set.",
+      "repetitionFlag": "Nearby Argentina forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Norberto Menéndez / Argentina / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scorer's running lens remains evidence-honest, but it is almost interchangeable with Avio and the wider squad cluster.",
+      "repetitionFlag": "Nearby Argentina forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oreste Corbatta / Argentina / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Argentina's three-goal scorer receives the same delayed-run and pull-wide template as his teammates, leaving his individual 1958 identity absent.",
+      "repetitionFlag": "The complete Argentina forward cluster uses the same small action family.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alfred Körner / Austria / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1954 runner card does not distinguish Körner's different 1958 tournament contribution.",
+      "repetitionFlag": "The 1954 card and nearby Austria forward cards overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hans Buzek / Austria / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback stays within the evidence, but its delay-and-pull-wide sequence repeats the Austria and edition-level formula.",
+      "repetitionFlag": "Nearby Austria forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Helmut Senekowitsch / Austria / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post running guide is plausible, but the pull-wide second action leaves it indistinct beside Austria's other forwards.",
+      "repetitionFlag": "Nearby Austria forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karl Koller / Austria / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-setting paragraph is coherent and distinct nearby, but its pause-and-switch mechanics outrun the broad stored source.",
+      "repetitionFlag": "The tempo-control shell recurs across many role-level midfield cards.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bellini / Brazil / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Back-line organization, runner awareness and aerial first contact form a coherent portrait aligned with the exact Best XI rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos José Castilho / Brazil / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced set-and-reset goalkeeper explanation works, but the precise mechanics are personalized beyond the stored shot-stopping source.",
+      "repetitionFlag": "The 1962 card repeats the same set-and-reset mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "De Sordi / Brazil / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph is coherent, but slowing the attack and intercepting from the front are not established by the broad physical-duel source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Didi / Brazil / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A near-copy of his 1954 progression card suppresses the exact 1958 metronome identity, body shape and outside-foot distribution stored in the Best XI case.",
+      "repetitionFlag": "The visible progression portrait is nearly identical to 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Djalma Santos / Brazil / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The recovery-full-back paragraph reads well, but its specific mechanics are not demonstrated by the exact final-only rationale stored for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Garrincha / Brazil / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "First-touch isolation and controlled delivery from the byline directly express the exact-edition mechanism behind his breakthrough tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gilmar / Brazil / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The calm restart-and-angle portrait is useful, but its personalized decisions recur unchanged across three editions without exact 1958 support.",
+      "repetitionFlag": "The same goalkeeper portrait recurs in 1962 and 1966.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Altafini / Brazil / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal forward is reduced to the same channel-and-pull-wide template as Brazil's other strikers, so his specific role remains unclear.",
+      "repetitionFlag": "Brazil's striker cards share the same channel-running action family.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mário Zagallo / Brazil / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1958 and 1962 inside-channel portraits suppress Zagallo's distinct tactical work in both title-winning editions.",
+      "repetitionFlag": "The 1962 card is nearly identical and nearby Brazil attacking identities overlap.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Nílton Santos / Brazil / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Overlap timing tied to defensive cover is distinctive, coherent and directly supported by the exact-edition full-back evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pelé / Brazil / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A near-copy of his injury-shortened 1962 linking card fails to capture the exact variety and audacity of Pelé's six-goal 1958 emergence.",
+      "repetitionFlag": "The visible linking portrait is nearly identical to 1962.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Vavá / Brazil / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-post movement is exactly supported, but the generic channel and delayed-run framing blurs him with Altafini and underuses the stored 1958 evidence.",
+      "repetitionFlag": "Brazil's striker cards share the same channel-running action family.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Zito / Brazil / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Midfield balance, full-back cover and quick release clearly express the exact role that let Brazil's creators stay forward.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jan Hertl / Czechoslovakia / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its delayed and pull-wide actions repeat the complete Czechoslovakia attacking set.",
+      "repetitionFlag": "Nearby Czechoslovakia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jaroslav Borovička / Czechoslovakia / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind guide stays modest, but its delay and pull-wide sequence adds no local identity distinction.",
+      "repetitionFlag": "Nearby Czechoslovakia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jiří Feureisl / Czechoslovakia / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scorer's channel guide is evidence-honest, but it is virtually interchangeable with Hertl and the wider forward cluster.",
+      "repetitionFlag": "Nearby Czechoslovakia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Milan Dvořák / Czechoslovakia / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A two-goal tournament is represented by the same near-post and pull-wide template as several teammates, leaving his primary identity absent.",
+      "repetitionFlag": "The three multi-goal Czechoslovakia cards use the same small action family.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Václav Hovorka / Czechoslovakia / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal scorer receives an early-run and pull-wide role guide indistinguishable from the surrounding attack.",
+      "repetitionFlag": "The three multi-goal Czechoslovakia cards use the same small action family.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zdeněk Zikán / Czechoslovakia / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The team's four-goal scorer is reduced to generic blind-side, pull-wide and near-post cues, so his important 1958 identity needs research.",
+      "repetitionFlag": "The three multi-goal Czechoslovakia cards use the same small action family.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alan A'Court / England / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but its early and pull-wide actions repeat England's nearby forward cards.",
+      "repetitionFlag": "Nearby England forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alan Hodgkinson / England / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goalkeeper guide is usable, but its angle and set-position cues overlap two teammates and nearly repeat his 1962 card.",
+      "repetitionFlag": "Three England goalkeeper cards and the 1962 card share closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bobby Charlton / England / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1958 and 1962 runner portraits fail to distinguish Charlton's separate early-tournament roles.",
+      "repetitionFlag": "The 1962 card and nearby England forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bobby Robson / England / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback is plausible, but its pull-wide and near-post actions provide no squad-level distinction.",
+      "repetitionFlag": "Nearby England forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Colin McDonald / England / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape and reset goalkeeper paragraph is coherent, but both individualized actions exceed the broad shot-stopping source.",
+      "repetitionFlag": "England's three goalkeeper cards share closely related angle and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Derek Kevan / England / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "England's two-goal scorer receives only the same near-post and early-run template as the surrounding forwards, leaving his identity absent.",
+      "repetitionFlag": "Nearby England forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Eddie Hopkinson / England / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork explanation reads naturally, but set-and-reset mechanics are personalized beyond the stored shot-stopping evidence.",
+      "repetitionFlag": "England's three goalkeeper cards share closely related set and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Johnny Haynes / England / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic runner card does not establish his main 1958 function or separate him from England's other forward records.",
+      "repetitionFlag": "Nearby England forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "low"
+    },
+    {
+      "profileKey": "Tom Finney / England / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1954 wide-attacker card does not distinguish Finney's different 1958 tournament contribution.",
+      "repetitionFlag": "The 1954 card is nearly identical.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jean Vincent / France / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1954 runner card does not distinguish Vincent's different 1958 tournament contribution.",
+      "repetitionFlag": "The 1954 card and nearby France forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Just Fontaine / France / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The first movement behind defenders is exactly supported, but the generic pull-wide action underuses the finishing variety that defines the stored 1958 evidence.",
+      "repetitionFlag": "France's role-level forward cards repeat the same pull-wide cue.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Maryan Wisnieski / France / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal forward is reduced to generic blind-side and near-post cues that do not distinguish him within France's attack.",
+      "repetitionFlag": "Nearby France forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Raymond Kopa / France / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Width, inward drift and releasing the overlap form a distinctive creator portrait aligned with the exact tournament rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roger Piantoni / France / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A three-goal contribution is represented by the same channel and pull-wide template as lesser-used teammates, leaving his own role unclear.",
+      "repetitionFlag": "Nearby France forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Yvon Douis / France / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback is plausible, but delayed and near-post movements overlap Wisnieski and the wider team cluster.",
+      "repetitionFlag": "Nearby France forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dezső Bundzsák / Hungary / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide stays modest, but its delayed and pull-wide sequence repeats Hungary's other forward cards.",
+      "repetitionFlag": "Nearby Hungary forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ferenc Szojka / Hungary / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback is plausible, but its pull-wide and near-post cues provide little separation inside Hungary's attack.",
+      "repetitionFlag": "Nearby Hungary forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "József Bencsics / Hungary / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide is evidence-honest, but it repeats Bundzsák and Sándor rather than identifying the scorer.",
+      "repetitionFlag": "Nearby Hungary forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "József Bozsik / Hungary / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A centre-back patience card conflicts with the recurring central-midfielder record and requires role resolution before editorial approval.",
+      "repetitionFlag": "",
+      "dataIssue": "The 1958 profile shifts Bozsik from the 1954 central-midfielder role to a broad defender role that generates centre-back mechanics.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Károly Sándor / Hungary / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its early and pull-wide actions overlap the complete Hungary forward set.",
+      "repetitionFlag": "Nearby Hungary forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lajos Tichy / Hungary / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Hungary's four-goal scorer receives a generic blind-side runner card and changes to an unrelated midfield identity in 1962, so exact-edition research is needed.",
+      "repetitionFlag": "The nearby forward cluster overlaps, while the 1962 card carries a materially different role identity.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Blanco / Mexico / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1954 runner card does not distinguish Blanco's different 1958 tournament contribution.",
+      "repetitionFlag": "The 1954 card and nearby Mexico forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Calderón de la Barca / Mexico / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its early and pull-wide actions repeat Blanco and González.",
+      "repetitionFlag": "Nearby Mexico forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos González / Mexico / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind guide stays evidence-honest, but it is nearly interchangeable with Mexico's other two forwards.",
+      "repetitionFlag": "Nearby Mexico forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jaime Belmonte / Mexico / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-position defender paragraph is coherent, but its goal-side and stepping decisions exceed the broad physical-duel source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Billy Bingham / Northern Ireland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post running guide is plausible, but it repeats the movements assigned to Simpson and Trainor.",
+      "repetitionFlag": "Nearby Northern Ireland forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Billy Simpson / Northern Ireland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback stays modest, but its pull-wide action blurs into Bingham, Cush and the wider attack.",
+      "repetitionFlag": "Nearby Northern Ireland forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bobby Trainor / Northern Ireland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed near-post guide is plausible, but it provides no meaningful distinction from Bingham and McParland.",
+      "repetitionFlag": "Nearby Northern Ireland forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Danny Blanchflower / Northern Ireland / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Scanning, side-on receiving and remaining the defensive outlet coherently express the exact half-back control described in his Best XI case.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Harry Gregg / Northern Ireland / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic angle-control card displaces the exact 1958 identity of brave starting position and reflex saving stored in the Best XI rationale.",
+      "repetitionFlag": "His goalkeeper mechanics overlap role guides while ignoring the strongest exact-edition evidence.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Norman Uprichard / Northern Ireland / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The depth-and-angle paragraph is useful, but its personalized decisions outrun the broad shot-stopping source.",
+      "repetitionFlag": "Northern Ireland's goalkeeper cards use closely related angle mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Peter McParland / Northern Ireland / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The five-goal scorer is reduced to the same near-post and pull-wide template as three teammates, leaving his defining tournament identity absent.",
+      "repetitionFlag": "Nearby Northern Ireland forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilbur Cush / Northern Ireland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but its early and pull-wide actions repeat Simpson and the wider team cluster.",
+      "repetitionFlag": "Nearby Northern Ireland forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cayetano Ré / Paraguay / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side role guide remains modest, but its delayed and near-post cues repeat the complete Paraguay attack.",
+      "repetitionFlag": "All five Paraguay forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Florencio Amarilla / Paraguay / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A two-goal tournament is represented by the same pull-wide and delayed-run template as four teammates, leaving his individual role absent.",
+      "repetitionFlag": "All five Paraguay forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jorge Lino Romero / Paraguay / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal scorer receives generic near-post and pull-wide cues indistinguishable from Paraguay's other forwards.",
+      "repetitionFlag": "All five Paraguay forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Parodi / Paraguay / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal scorer is reduced to the same delayed and near-post template as Ré and the wider attack.",
+      "repetitionFlag": "All five Paraguay forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Juan Bautista Agüero / Paraguay / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A two-goal contribution receives the same delayed-run and pull-wide card as nearby teammates, so the primary identity remains unestablished.",
+      "repetitionFlag": "All five Paraguay forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alex Scott / Scotland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early near-post runner guide is plausible, but it repeats Scotland's complete forward cluster.",
+      "repetitionFlag": "All six Scotland cards share the same small forward movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Archie Robertson / Scotland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback stays modest, but its early and pull-wide actions are nearly interchangeable with the surrounding cards.",
+      "repetitionFlag": "All six Scotland cards share the same small forward movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bobby Collins / Scotland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed channel guide is plausible, but it provides no identity separation from Robertson and Murray.",
+      "repetitionFlag": "All six Scotland cards share the same small forward movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jackie Mudie / Scotland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback is evidence-honest, but its delayed and pull-wide sequence repeats the wider Scotland attack.",
+      "repetitionFlag": "All six Scotland cards share the same small forward movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jimmy Murray / Scotland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide remains modest, but its pull-wide and delayed-run cues duplicate Collins and Robertson.",
+      "repetitionFlag": "All six Scotland cards share the same small forward movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sammy Baird / Scotland / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side role guide is plausible, but its pull-wide and near-post actions complete an undifferentiated Scotland set.",
+      "repetitionFlag": "All six Scotland cards share the same small forward movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aleksandr Ivanov / Soviet Union / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its delayed and pull-wide actions repeat Simonyan and the wider attack.",
+      "repetitionFlag": "Nearby Soviet forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Anatoli Ilyin / Soviet Union / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal scorer receives the same delayed and near-post runner card as teammates, leaving his 1958 identity absent.",
+      "repetitionFlag": "Nearby Soviet forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gennadi Gusarov / Soviet Union / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide stays modest, but it nearly duplicates 1962 and repeats the nearby attacking vocabulary.",
+      "repetitionFlag": "The 1962 card and nearby Soviet forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lev Yashin / Soviet Union / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic angle-and-reset portrait is reused through 1958, 1962 and 1966, suppressing a separate first-World-Cup decision for Yashin.",
+      "repetitionFlag": "The visible goalkeeper portrait recurs nearly unchanged across three editions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nikita Simonyan / Soviet Union / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its pull-wide and delayed-run sequence repeats Ivanov and the wider team cluster.",
+      "repetitionFlag": "Nearby Soviet forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Valentin Ivanov / Soviet Union / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1958 and 1962 inside-channel portraits suppress the difference between Ivanov's one-goal and four-goal tournaments.",
+      "repetitionFlag": "The 1962 card is nearly identical.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Vladimir Belyayev / Soviet Union / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-set goalkeeper paragraph is coherent, but its individualized mechanics exceed the broad shot-stopping source.",
+      "repetitionFlag": "The angle and set-position family overlaps Yashin's nearby card.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Yuri Voynov / Soviet Union / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Carrying forward after recovery and using a pause when the route closes directly express the exact honourable-mention evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Agne Simonsson / Sweden / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Attacking newly opened space matches the exact rationale, but the generic pull-wide action underuses his four-goal role in the finalist attack.",
+      "repetitionFlag": "Sweden's role-level forward cards repeat the pull-wide cue.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arne Selmosson / Sweden / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback stays modest, but its pull-wide and delayed-run cues overlap Simonsson and the edition-level formula.",
+      "repetitionFlag": "Nearby Sweden forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bengt Gustavsson / Sweden / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Aerial first contact and workable distance from his partner directly express the exact-edition central defensive role.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gunnar Gren / Sweden / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Finding pockets behind midfield fits the Best XI case, but the half-turn and late-box mechanics need confirmation against the stored 1958 evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ingemar Haraldsson / Sweden / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork-and-centre goalkeeper explanation is coherent, but its specific set and angle mechanics outrun the broad shot-stopping source.",
+      "repetitionFlag": "Sweden's three goalkeeper cards use closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kalle Svensson / Sweden / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Calm handling, safe parry direction and defensive instruction form a coherent exact-edition portrait of the finalist goalkeeper.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kurt Hamrin / Sweden / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The far-post winger paragraph reads well, but far-post timing and head-up carrying are more specific than the stored right-wing outlet evidence.",
+      "repetitionFlag": "Nearby Sweden wide-player cards share arrival and width language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Lennart Skoglund / Sweden / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Touchline width directly matches the exact rationale, but the generic far-post second action weakens an otherwise accurate left-sided identity.",
+      "repetitionFlag": "Nearby Sweden wide-player cards share far-post arrival language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nils Liedholm / Sweden / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Tempo control and continued support after passing form a concise portrait aligned with his exact captain-and-rhythm evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Orvar Bergmark / Sweden / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Recovery discipline is accurate, but the defensive-only note underuses the exact evidence that he also supported Hamrin on Sweden's right.",
+      "repetitionFlag": "Nearby Sweden full-back cards share recovery language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sven Axbom / Sweden / 1958",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Outside-lane cover tied to inside protection coherently expresses the exact balancing role behind Skoglund.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tore Svensson / Sweden / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced set-and-reset goalkeeper paragraph is useful, but its specific mechanics outrun the broad source and overlap Haraldsson.",
+      "repetitionFlag": "Sweden's three goalkeeper cards use closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Cliff Jones / Wales / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed near-post runner guide is plausible, but it overlaps Webster, Medwin and Allchurch.",
+      "repetitionFlag": "Nearby Wales forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Colin Webster / Wales / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback stays modest, but its pull-wide action repeats the complete Wales forward cluster.",
+      "repetitionFlag": "Nearby Wales forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Graham Vearncombe / Wales / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork paragraph is coherent, but set-and-reset mechanics are personalized beyond the broad shot-stopping source.",
+      "repetitionFlag": "Wales's three goalkeeper cards use closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ivor Allchurch / Wales / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal forward is reduced to generic blind-side, pull-wide and near-post cues, leaving his primary 1958 identity absent.",
+      "repetitionFlag": "Nearby Wales forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jack Kelsey / Wales / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape and reset goalkeeper card works, but its precise reading mechanics exceed the broad stored source.",
+      "repetitionFlag": "Wales's three goalkeeper cards use closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "John Charles / Wales / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic channel-forward template does not establish his main tournament role or distinguish him from the surrounding Wales attack.",
+      "repetitionFlag": "Nearby Wales forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ken Jones / Wales / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper explanation is coherent, but forcing the finish and recovering for the next touch outrun the broad source.",
+      "repetitionFlag": "Wales's three goalkeeper cards use closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Terry Medwin / Wales / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback is plausible, but its delayed and pull-wide sequence repeats Webster and the wider Wales cluster.",
+      "repetitionFlag": "Nearby Wales forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alfred Kelbassa / West Germany / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post running guide stays modest, but it overlaps Klodt and the wider West Germany attack.",
+      "repetitionFlag": "Nearby West Germany forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernhard Klodt / West Germany / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1954 runner card does not distinguish Klodt's different 1958 tournament contribution.",
+      "repetitionFlag": "The 1954 card and nearby West Germany forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Fritz Herkenrath / West Germany / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced goalkeeper paragraph is useful, but its set-position and body-reading mechanics exceed the broad shot-stopping source.",
+      "repetitionFlag": "West Germany's two goalkeeper cards use closely related mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Günter Sawitzki / West Germany / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper explanation is coherent, but its forced-angle and reset claims outrun the broad source and recur in 1962.",
+      "repetitionFlag": "The 1962 card and nearby goalkeeper mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hans Cieslarczyk / West Germany / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback stays evidence-honest, but its early and pull-wide movements repeat nearby teammates.",
+      "repetitionFlag": "Nearby West Germany forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hans Schäfer / West Germany / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1954 and 1962 winger cards suppress Schäfer's separate three-goal 1958 contribution.",
+      "repetitionFlag": "The visible wide-attacker portrait recurs nearly unchanged across three editions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Helmut Rahn / West Germany / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A near-copy of his 1954 far-post card suppresses a separate decision for the six-goal 1958 tournament.",
+      "repetitionFlag": "The visible far-post portrait is nearly identical to 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Uwe Seeler / West Germany / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same link-and-near-post card is reused across four editions, so the young two-goal 1958 Seeler never receives an edition-specific identity.",
+      "repetitionFlag": "The visible striker portrait recurs nearly unchanged across four editions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aleksandar Petaković / Yugoslavia / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim scoreless 1954 card suppresses Petaković's separate two-goal 1958 contribution.",
+      "repetitionFlag": "The 1954 card is nearly identical and nearby Yugoslavia forward mechanics overlap.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dražan Jerković / Yugoslavia / 1958",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1958 and 1962 channel portraits suppress Jerković's materially different tournament contributions.",
+      "repetitionFlag": "The 1962 card and nearby Yugoslavia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ilijas Pašić / Yugoslavia / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback remains modest, but its pull-wide and near-post actions repeat the wider team attack.",
+      "repetitionFlag": "Nearby Yugoslavia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Radivoje Ognjanović / Yugoslavia / 1958",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide stays evidence-honest, but its pull-wide and delayed-run sequence duplicates Jerković.",
+      "repetitionFlag": "Nearby Yugoslavia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Todor Veselinović / Yugoslavia / 1958",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The three-goal scorer is reduced to the same delayed-run and pull-wide template as teammates, leaving his main identity absent.",
+      "repetitionFlag": "Nearby Yugoslavia forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zdravko Rajkov / Yugoslavia / 1958",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-setting paragraph is coherent and distinct nearby, but its pause-and-support mechanics outrun the broad stored source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    }
+  ]
+}

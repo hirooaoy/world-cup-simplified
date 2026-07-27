@@ -66,25 +66,22 @@ function currentSide({ team, opponent, teamId, opponentId, formation, opponentFo
     stage: { id: "group", year: 2030 },
     slots: {
       identity: {
-        variant: "record-and-layout",
+        variant: "structure-and-players",
         formation,
-        prior: record(),
         namedStarters: [own, plan[0]],
-        claimClass: "official-layout-and-prior-context",
-        evidenceRefs: ["priorTournamentMatches", "officialStartingXI", "officialTacticalLayout"],
-        surfaceTemplateId: "identity-record-and-layout"
+        claimClass: "official-starting-structure",
+        evidenceRefs: ["officialStartingXI", "officialTacticalLayout"],
+        surfaceTemplateId: "identity-structure-and-players"
       },
       matchup: {
         variant: "central-lanes",
         lane: "central",
         opponentFormation,
-        opponentPrior: record({ wins: 2, draws: 0 }),
-        stakes: { kind: "group-points", teamPoints: 4, opponentPoints: 6 },
         ownStarter: own,
         opposingStarter: opposing,
-        claimClass: "official-layout-and-stage-context",
-        evidenceRefs: ["stage", "officialStartingXI", "officialTacticalLayout", "priorTournamentMatches"],
-        surfaceTemplateId: "matchup-central-lanes-group-points"
+        claimClass: "official-starting-structure",
+        evidenceRefs: ["officialStartingXI", "officialTacticalLayout"],
+        surfaceTemplateId: "matchup-central-lanes"
       },
       plan: {
         key: "central",
@@ -140,9 +137,9 @@ const metadata = {
   narrativeMoment: "team-entrance",
   outcomeCutoff: "kickoff",
   generatedBy: "synthetic-2030-evidence-generator",
-  evidenceInputs: ["teams", "stage", "officialStartingXI", "officialTacticalLayout", "priorTournamentMatches"],
+  evidenceInputs: ["teams", "officialStartingXI", "officialTacticalLayout"],
   excludedInputs: [...EXCLUDED_CURRENT_MATCH_INPUTS],
-  researchSourceIds: ["synthetic-layout-2030", "synthetic-results-2030"],
+  researchSourceIds: ["synthetic-layout-2030"],
   layoutEvidence: {
     sourceIds: ["synthetic-layout-2030"],
     publishedAt: "2030-06-14T19:00:00.000Z",
@@ -167,8 +164,8 @@ const currentFixture = {
   status: "SCHEDULED",
   keyInformation: {
     ...metadata,
-    home: "Aurora are entering Group A with four points from two matches, using an official 4-3-3 that includes Mira Sol and June Lake. Against Borealis, Aurora's central starter Mira Sol meets Asha Glenn in the opponent's 4-2-3-1, with the two teams on four and six points. The layout also places June Lake centrally and Talia Reed on the left. Borealis show Imani Frost and Nora Vale on separate central lines near Aurora's last line.",
-    away: "Borealis are entering Group A with six points from two matches, using an official 4-2-3-1 that includes Nora Vale and Imani Frost. Against Aurora, Borealis' central starter Nora Vale meets Ada North in the opponent's 4-3-3, with the two teams on six and four points. The layout also places Imani Frost centrally and Asha Glenn on the right. Aurora show Talia Reed and Mira Sol on separate lines around Borealis' central lane.",
+    home: "Aurora line up in a 4-3-3, with a back four behind a three-player midfield and a front three. Their starting structure places June Lake centrally and Talia Reed on the left. Mira Sol occupies Aurora's central lane opposite Asha Glenn in Borealis' starting shape. Borealis place Nora Vale deeper than Imani Frost through the middle.",
+    away: "Borealis line up in a 4-2-3-1, with a back four, two deeper midfielders, three attacking midfielders, and one striker. Their starting structure places Imani Frost centrally and Asha Glenn on the right. Nora Vale occupies Borealis' central lane opposite Ada North in Aurora's starting shape. Aurora place Mira Sol deeper than Talia Reed through the middle.",
     localeModel: currentModel
   }
 };
@@ -176,14 +173,14 @@ const currentFixture = {
 const currentCollection = {
   name: "synthetic-future-edition",
   fixtures: [currentFixture],
-  minWords: 60,
-  maxWords: 85,
+  minWords: 50,
+  maxWords: 72,
   lineupInput: "officialStartingXI",
   modelKind: "current-lineup",
   requiresLayoutEvidence: true,
-  requiredInputs: ["officialTacticalLayout", "priorTournamentMatches"],
-  requiredResearchSourceIds: ["synthetic-results-2030"],
-  validResearchSourceIds: new Set(["synthetic-layout-2030", "synthetic-results-2030"]),
+  requiresStageEvidence: false,
+  requiredInputs: ["officialStartingXI", "officialTacticalLayout"],
+  validResearchSourceIds: new Set(["synthetic-layout-2030"]),
   getYear: (fixture) => fixture.tournamentYear,
   getTeamId: (fixture, side) => fixture[`${side}TeamId`],
   getTeamName: (_fixture, side) => side === "home" ? "Aurora" : "Borealis",
@@ -276,13 +273,13 @@ function expectFailure(mutator, expectedText) {
 
 expectFailure((fixture) => { fixture.keyInformation.layoutEvidence.timing = "post-kickoff"; }, "timing must be derived");
 expectFailure((fixture) => { fixture.keyInformation.excludedInputs.pop(); }, "excludedInputs must exactly equal");
-expectFailure((fixture) => { fixture.keyInformation.researchSourceIds = ["synthetic-layout-2030"]; }, "must include \"synthetic-results-2030\"");
+expectFailure((fixture) => { fixture.keyInformation.researchSourceIds = []; }, "must be a non-empty array");
 expectFailure((fixture) => { fixture.keyInformation.localeModel.home.slots.plan.evidenceRefs = ["editionTeamProfiles"]; }, "undeclared evidence input");
 expectFailure((fixture) => { fixture.keyInformation.temporalCutoff = "kickoff"; }, "must not retain legacy");
 expectFailure((fixture) => { fixture.keyInformation.localeModel.home.team.id = "BOR"; }, ".team.id must match");
 expectFailure((fixture) => { fixture.keyInformation.localeModel.home.slots.plan.starters[0].name = "Nora Vale"; }, "outside the Aurora confirmed starting XI");
-expectFailure((fixture) => { fixture.keyInformation.home = fixture.keyInformation.home.replace("Aurora are", "Aurora is"); }, "agreement plural");
-expectFailure((fixture) => { fixture.keyInformation.home = fixture.keyInformation.home.replace("Aurora are", "Aurora are a side that won 2-1 and"); }, "result or event leakage");
+expectFailure((fixture) => { fixture.keyInformation.home = fixture.keyInformation.home.replace("Aurora line up", "Aurora is lined up"); }, "agreement plural");
+expectFailure((fixture) => { fixture.keyInformation.home = fixture.keyInformation.home.replace("Aurora line up", "Aurora won 2-1 and line up"); }, "result or event leakage");
 
 const historyLineup = {
   home: { formation: "4-3-3", starters: ["Mira Sol", "Talia Reed", "Ada North", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"] },

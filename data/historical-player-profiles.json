@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-23T01:25:04.612Z",
+  "updatedAt": "2026-07-27T17:31:15.258Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -59546,11 +59546,11 @@
         "Defensive control",
         "Historical lens"
       ],
-      "styleNote": "Brito stands out for using contact without losing his defensive position. One cue is how he stays goal-side until support is close enough for him to engage. Another is how he intercepts from the front once the pass exposes the receiver.",
+      "styleNote": "Brito is the pure defender beside Piazza, tall and strong in the air while the converted midfielder handles more of the first pass. He rarely crosses halfway; within Brazil’s four-man line, his job is to delay the attack until an interception or tackle is available.",
       "note": "Brazil's 1970 World Cup defender. Appears in 1 featured match.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "Brito的突出特点是身体对抗时不丢失防守位置。一个表现是：他会保持在球门一侧，等支援靠近后再上前对抗。同一特点还体现在下一项动作中：他会在传球让接球队员暴露时才从身前截球。",
+      "styleNoteZh": "布里托是皮亚扎身边更纯粹的防守者：他身材高大、擅长空中对抗，而由中场改踢中卫的皮亚扎更多承担后场第一脚出球。布里托很少越过中线；在巴西队的四人防线中，他的任务是先延缓对手推进，等到可以截球或下脚抢断时再出手。",
       "noteZh": "他在1970年世界杯代表巴西，位置是后卫。本站收录了他1场重点比赛。",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A9rcules_de_Brito_Ruas.jpg?width=160",
       "imageSource": "wikimedia-commons",
@@ -59584,48 +59584,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "centre-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-10",
-        "roleGuidePreferredVariant": "role-guide-10",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-position",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-goal-side",
-          "cb-front-foot"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Physical duels"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "cb-position",
-              "cb-goal-side"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Physical duels",
-            "semanticIds": [
-              "cb-front-foot"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "one-another"
+        "structureId": "authored-prose"
       }
     },
     "Carlos Alberto / Brazil / 1970": {
@@ -59653,7 +59627,7 @@
         "Historical lens",
         "Full-back"
       ],
-      "styleNote": "For Alberto, start with choosing the overlap only after the space behind him is protected. Watch how he starts the forward run after a teammate can cover the space he leaves. Separately, he scans the far post before the opposite winger receives the ball.",
+      "styleNote": "Carlos Alberto chooses the overlap only after Brazil can protect the space behind him. In the final, Jairzinho moves left and Facchetti follows; Pelé then releases the captain’s run into the open right flank for the fourth goal.",
       "note": "Brazil's 1970 World Cup defender. Credited with 1 World Cup goal.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Carlos_alberto_cosmos.jpg/330px-Carlos_alberto_cosmos.jpg",
@@ -59662,7 +59636,7 @@
       "imagePageTitle": "Carlos Alberto Torres",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Carlos_Alberto_Torres",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "对Carlos Alberto来说，确认身后空间受保护后再选择套边是比赛基础。留意他会等队友能够保护他留下的空间后才开始前插。在比赛的另一部分，他会在对侧边锋接球前先观察后点。",
+      "styleNoteZh": "卡洛斯·阿尔贝托只有在巴西能够保护好他身后空间时，才会选择套边前插。决赛中，雅伊尔津尼奥移向左侧，法切蒂随之跟防；贝利随后把球送进空出的右路，让前插的队长攻入第四球。",
       "noteZh": "他在1970年世界杯代表巴西，位置是后卫。本届打进1球。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -59689,46 +59663,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "full-back",
-        "roleSource": "reviewed-role-override",
-        "roleGuideVariant": "role-guide-8",
-        "roleGuidePreferredVariant": "role-guide-8",
-        "roleGuideCollisionResolved": false,
-        "signature": "fb-overlap",
+        "signature": "authored-evergreen",
         "actions": [
-          "fb-overlap-timing",
-          "fb-back-post-scan"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "fb-overlap",
-              "fb-overlap-timing"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "full-back:role-guide-8",
-            "semanticIds": [
-              "fb-back-post-scan"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "foundation-watch"
+        "structureId": "authored-prose"
       }
     },
     "Clodoaldo / Brazil / 1970": {
@@ -59758,7 +59708,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "What separates Clodoaldo is moving the ball forward without forcing the crowded route. Clodoaldo carries through the open lane if no forward pass is available. Separately, he recycles possession rather than isolating a teammate with a forced forward pass.",
+      "styleNote": "Clodoaldo gives Brazil balance beneath their roaming attackers, protecting the centre and carrying forward when space opens. He arrives in the box to equalise against Uruguay, then escapes a crowd in midfield at the start of Carlos Alberto’s goal in the final.",
       "note": "Brazil's 1970 World Cup midfielder. Credited with 1 World Cup goal. Appears in 1 featured match.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -59769,7 +59719,7 @@
       "imageLicense": "CC BY 2.0",
       "imagePageTitle": "Clodoaldo",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Clodoaldo",
-      "styleNoteZh": "让Clodoaldo显得不同的是不勉强走拥挤线路也能把球向前推进。一处表现是他会在没有向前传球线路时从开放通道带球推进。另外，他会在向前传球可能让队友陷入孤立时重新组织控球。",
+      "styleNoteZh": "克洛多阿尔多在自由游动的攻击手身后维持巴西的平衡，既保护中路，也会在空间出现时持球推进。他在对乌拉圭时前插禁区扳平比分；决赛中卡洛斯·阿尔贝托那粒进球，则始于他在中场摆脱多人围堵。",
       "noteZh": "他在1970年世界杯代表巴西，位置是中场。本届打进1球。本站收录了他1场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -59796,49 +59746,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "central-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-8",
-        "roleGuidePreferredVariant": "role-guide-8",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-progression",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-carry-gap",
-          "mf-simple-reset"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "mf-progression",
-              "mf-carry-gap"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-simple-reset"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "separating-clue"
+        "structureId": "authored-prose"
       }
     },
     "Félix / Brazil / 1970": {
@@ -59868,7 +59791,7 @@
         "Defensive control",
         "Historical lens"
       ],
-      "styleNote": "To follow Félix, begin with protecting the centre of goal before reacting to the final touch. He protects the central lane and forces the attacker toward the harder finish. Beyond that, he reads the striker's body shape before moving toward either post.",
+      "styleNote": "Félix is uneasy when England send high crosses into the goalmouth. In the semi-final, he responds with a point-blank save from Cubilla when Uruguay break through. His tournament reads as that contrast: some aerial uncertainty, but also one decisive reaction save.",
       "note": "Brazil's 1970 World Cup goalkeeper. Appears in 1 featured match.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -59879,7 +59802,7 @@
       "imageLicense": "Public domain",
       "imagePageTitle": "Félix (footballer)",
       "imagePageUrl": "https://en.wikipedia.org/wiki/F%C3%A9lix_(footballer)",
-      "styleNoteZh": "观察Félix的比赛时，重点是先保护球门中央再应对最后一脚。他会守住中路，把更难的射门选择留给对手。在另一部分，他会观察前锋身体姿态，再向任一门柱移动。",
+      "styleNoteZh": "英格兰把高空传中送入门前时，菲利克斯显得不够从容。到了半决赛，乌拉圭打穿防线，菲利克斯却在近距离封出了库维利亚的射门。",
       "noteZh": "他在1970年世界杯代表巴西，位置是门将。本站收录了他1场重点比赛。",
       "clubAtTournament": "Fluminense",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -59891,40 +59814,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "goalkeeper",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-4",
-        "roleGuidePreferredVariant": "role-guide-4",
-        "roleGuideCollisionResolved": false,
-        "signature": "gk-centre",
+        "signature": "authored-evergreen",
         "actions": [
-          "gk-protect-centre",
-          "gk-body-shape"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Shot stopping"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Shot stopping",
-            "semanticIds": [
-              "gk-centre",
-              "gk-protect-centre",
-              "gk-body-shape"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "different-phase"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Gérson / Brazil / 1970": {
@@ -59954,7 +59859,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "For Gérson, the starting point is seeing the next action before receiving under pressure. Notice how he draws pressure toward the ball and releases the runner beyond it. Beyond that, he slows the touch to give teammates time to move ahead of the ball.",
+      "styleNote": "Gérson conducts Brazil from central midfield, joining short combinations and then changing the attack with a longer pass. His influence in the final is just as broad: he scores from the edge of the box, then delivers the free-kick Pelé heads across for Jairzinho.",
       "note": "Brazil's 1970 World Cup midfielder. Credited with 1 World Cup goal. Appears in 1 featured match.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -59963,7 +59868,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/G%C3%A9rson",
       "imagePageTitle": "Gérson",
       "imagePageUrl": "https://en.wikipedia.org/wiki/G%C3%A9rson",
-      "styleNoteZh": "Gérson的比赛特点是受压接球前看清下一步处理。留意他会把压力吸引到球边，再送出越过压力的跑动者。除此之外，他会在队友需要时间前移时放慢触球节奏。",
+      "styleNoteZh": "热尔松在中场中路调度巴西，先串联短传配合，再用更长距离的传球改变进攻线路。决赛中，他先在禁区边缘破门，随后又开出任意球，由贝利头球摆渡给雅伊尔津尼奥得分。",
       "noteZh": "他在1970年世界杯代表巴西，位置是中场。本届打进1球。本站收录了他1场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -59990,41 +59895,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "central-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-3",
-        "roleGuidePreferredVariant": "role-guide-3",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-scan",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-release-runner",
-          "mf-pause"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "mf-scan",
-              "mf-release-runner",
-              "mf-pause"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "build-two-cues"
+        "structureId": "authored-prose"
       }
     },
     "Jairzinho / Brazil / 1970": {
@@ -60054,7 +59940,7 @@
         "Starter",
         "Archive standout"
       ],
-      "styleNote": "What separates Jairzinho is using the touchline to stretch the defence before moving inside. Jairzinho threatens outside before cutting behind midfield. Separately, he moves toward the far post as the attack develops on the opposite side.",
+      "styleNote": "Jairzinho starts on the right and tracks back to help Clodoaldo, but his defining movement is the surge from the flank into central scoring positions. He scores in all six matches; against Uruguay he wins the ball near Brazil’s box and finishes the 73-metre counter 11 seconds later.",
       "note": "Brazil's 1970 World Cup forward. Credited with 7 World Cup goals. Appears in 6 featured matches.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Jairzinho_1970s.jpg/330px-Jairzinho_1970s.jpg",
@@ -60063,7 +59949,7 @@
       "imagePageTitle": "Jairzinho",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Jairzinho",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "让Jairzinho显得不同的是先利用边线拉开防线再向内移动。一处表现是他会先威胁外线，再切入中场身后的空间。另外，他会在进攻从另一侧展开时向后点移动。",
+      "styleNoteZh": "雅伊尔津尼奥从右路起步，也会回撤协助克洛多阿尔多防守；但他最有代表性的跑动，是从边路冲进中路的得分位置。他六战场场破门；对乌拉圭一战，他在本方禁区附近夺回球权，11秒后又在这次推进73米的反击中完成破门。",
       "noteZh": "他在1970年世界杯代表巴西，位置是前锋。本届打进7球。本站收录了他6场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -60090,50 +59976,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "wide-attacker",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-1",
-        "roleGuidePreferredVariant": "role-guide-1",
-        "roleGuideCollisionResolved": false,
-        "signature": "wing-width",
+        "signature": "authored-evergreen",
         "actions": [
-          "wing-outside-inside",
-          "wing-far-post-run"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "wing-width",
-              "wing-far-post-run"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "wing-outside-inside"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "separating-clue"
+        "structureId": "authored-prose"
       }
     },
     "Pelé / Brazil / 1970": {
@@ -60163,7 +60021,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Watch Pelé for moving defenders before choosing the final action. First, notice how he draws defenders toward him before releasing the teammate beyond them. Separately, he waits for the defender to look away before accelerating.",
+      "styleNote": "Watch Pelé for moving defenders before choosing the final action. He drops toward the ball to release runners but still arrives in the box as a scorer; in the final he heads the opener, then supplies Jairzinho and Carlos Alberto for the last two goals.",
       "note": "Brazil's 1970 World Cup forward. Credited with 4 World Cup goals. Appears in 3 featured matches.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Pele_con_brasil_%28cropped%29.jpg/330px-Pele_con_brasil_%28cropped%29.jpg",
@@ -60172,7 +60030,7 @@
       "imagePageTitle": "Pelé",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Pel%C3%A9",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Pelé的比赛，重点是先带动防守者移动，再选择最后处理。一个表现是他会先把防守者吸引到自己身边，再送出其身后的队友。另外，他会等防守者注意力转移后再加速。",
+      "styleNoteZh": "观察贝利时，要看他如何先调动防守者，再选择最后一传或射门。他会回撤接球，为前插队友送球，自己仍能及时进入禁区完成终结；决赛中，他头球首开纪录，随后又助攻雅伊尔津尼奥和卡洛斯·阿尔贝托攻入最后两球。",
       "noteZh": "他在1970年世界杯代表巴西，位置是前锋。本届打进4球。本站收录了他3场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -60199,50 +60057,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "second-striker",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-manipulate",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-draw-release",
-          "fw-delay-run"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "fw-manipulate",
-              "fw-draw-release"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-delay-run"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "two-cues"
+        "structureId": "authored-prose"
       }
     },
     "Rivellino / Brazil / 1970": {
@@ -60272,7 +60102,7 @@
         "Historical lens",
         "Central midfielder"
       ],
-      "styleNote": "Rivellino's signature is starting from the left and narrowing enough to keep the midfield connected. Watch how he opens the far side with his passing before pressure can close it. The same quality appears when he sets the ball outside the crowd so his shot can travel through the gap.",
+      "styleNote": "Rivellino's signature is starting from the left and narrowing enough to keep the midfield connected. His left foot adds direct threat: his three goals come from around the edge of the box or farther out, and his cross creates Pelé's opener in the final.",
       "note": "Brazil's 1970 World Cup midfielder. Credited with 3 World Cup goals. Appears in 3 featured matches.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -60281,7 +60111,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Rivellino",
       "imagePageTitle": "Rivellino",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Rivellino",
-      "styleNoteZh": "Rivellino的鲜明标志是从左侧起步并适度内收，让中场保持连接。观察他如何在压力封闭前用传球打开球场远侧。同一特点也体现在下一项动作中：他会把球调整到人群外侧，让远射穿过空当。",
+      "styleNoteZh": "里维利诺最鲜明的特点，是从左路起步后适度内收，让巴西中场保持连接。他的左脚还能直接制造威胁：三粒进球都来自禁区边缘一带或更远处，决赛中也正是他的传中帮助贝利首开纪录。",
       "noteZh": "他在1970年世界杯代表巴西，位置是中场。本届打进3球。本站收录了他3场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -60308,42 +60138,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "central-midfielder",
-        "roleSource": "reviewed-role-override",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-left-narrow",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-open-pitch-pass",
-          "mf-distance-shot"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "reviewed-best-xi-rationale",
-            "source": "1970 Best XI rationale: left-sided start, expansive passing, shooting and inward balance",
-            "semanticIds": [
-              "mf-left-narrow",
-              "mf-open-pitch-pass",
-              "mf-distance-shot"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "paired-observation"
+        "structureId": "authored-prose"
       }
     },
     "Tostão / Brazil / 1970": {
@@ -60373,7 +60183,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "The key to Tostão is organising the attack by moving away from a fixed centre-forward position. He draws defenders toward him before releasing the teammate beyond them. Separately, he waits for the defender to look away before accelerating.",
+      "styleNote": "Tostão is Brazil’s centre-forward, but his task is to organise rather than wait in the box. He drops to combine and releases runners: his dribble starts the winner against England, and his pass sends Jairzinho away from inside Brazil’s half against Uruguay.",
       "note": "Brazil's 1970 World Cup forward. Credited with 2 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 1970 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Brazil.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -60382,7 +60192,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Tost%C3%A3o",
       "imagePageTitle": "Tostão",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Tost%C3%A3o",
-      "styleNoteZh": "理解Tostão的关键是离开固定中锋位置，通过移动组织进攻。留意他会先把防守者吸引到自己身边，再送出其身后的队友。另外，他会等防守者注意力转移后再加速。",
+      "styleNoteZh": "托斯唐担任巴西中锋，但他的任务不是守在禁区里等球，而是组织进攻。他回撤参与配合，再为前插队友送球：对英格兰的制胜球从他的盘带开始；对乌拉圭时，他又在本方半场送出传球，让雅伊尔津尼奥就此向前奔袭。",
       "noteZh": "他在1970年世界杯代表巴西，位置是前锋。本届打进2球。本站收录了他2场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -60409,42 +60219,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "second-striker",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-2",
-        "roleGuidePreferredVariant": "role-guide-2",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-organise-movement",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-draw-release",
-          "fw-delay-run"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "fw-organise-movement",
-              "fw-draw-release",
-              "fw-delay-run"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "different-phase"
+        "structureId": "authored-prose"
       }
     },
     "Asparuh Nikodimov / Bulgaria / 1970": {
@@ -107516,7 +107306,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Watch Borghi for moving between centre-back and full-back without being tracked. One detail is how he waits for the defender to look away before accelerating. The idea carries into how he moves wide of the centre-backs to open the middle for a teammate.",
+      "styleNote": "Borghi’s brief 1986 role is as a young forward dropping toward Maradona and Valdano to combine. He starts against Italy and Bulgaria, but does not feature once the knockout rounds begin.",
       "note": "Argentina's 1986 World Cup forward. Appears in 1 featured match.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -107527,7 +107317,7 @@
       "imageLicense": "Public domain",
       "imagePageTitle": "Claudio Borghi (footballer)",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Claudio_Borghi_(footballer)",
-      "styleNoteZh": "观察Claudio Borghi的比赛时，可以留意在中后卫与边后卫之间移动且不易被跟踪。一处细节是：他会等防守者注意力转移后再加速。这一特点也能从下一项动作看出：他会在队友需要中路通道时主动离开中后卫身边。",
+      "styleNoteZh": "1986年世界杯期间，博尔吉以年轻前锋身份短暂登场，主要回撤到马拉多纳和巴尔达诺身边参与配合。他在对阵意大利和保加利亚的比赛中首发，进入淘汰赛后再未出场。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是前锋。本站收录了他1场重点比赛。",
       "clubAtTournament": "Argentinos Juniors",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -107539,40 +107329,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-2",
-        "roleGuidePreferredVariant": "role-guide-2",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-channel",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-delay-run",
-          "fw-pull-wide"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-channel",
-              "fw-delay-run",
-              "fw-pull-wide"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-cues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Diego Maradona / Argentina / 1986": {
@@ -107602,7 +107374,7 @@
         "Starter",
         "Archive standout"
       ],
-      "styleNote": "Maradona's signature is moving the ball forward without forcing the crowded route. Watch how he carries through the open lane if no forward pass is available. Separately, he uses a short pass to bring a third teammate into the move.",
+      "styleNote": "Maradona plays free between Argentina’s midfield and forwards, receiving where defenders must leave their line to meet him. He carries until several opponents commit, then either continues toward goal himself or releases Valdano and Burruchaga into the space they have left.",
       "note": "Argentina's 1986 World Cup midfielder. Credited with 5 World Cup goals. Appears in 3 featured matches.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Argentina_celebrando_copa_%28cropped%29.jpg/330px-Argentina_celebrando_copa_%28cropped%29.jpg",
@@ -107611,7 +107383,7 @@
       "imagePageTitle": "Diego Maradona",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Diego_Maradona",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "Diego Maradona的鲜明标志是不勉强走拥挤线路也能把球向前推进。观察他如何在没有向前传球线路时从开放通道带球推进。另外，他会用短传让第三名队友加入进攻。",
+      "styleNoteZh": "马拉多纳在阿根廷中场与锋线之间自由游弋。他总在一个让防守者为难的位置接球：想上抢，就得离开原有防线。他带球吸引多名对手后，要么自己继续杀向球门，要么把巴尔达诺或布鲁查加送进对手身后留下的空当。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是中场。本届打进5球。本站收录了他3场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -107640,50 +107412,22 @@
       "leagueAtTournamentSeason": 1985,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "attacking-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-10",
-        "roleGuidePreferredVariant": "role-guide-10",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-progression",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-carry-gap",
-          "mf-third-player"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1986 Best XI rationale",
-            "semanticIds": [
-              "mf-progression",
-              "mf-carry-gap"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-third-player"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "paired-observation"
+        "structureId": "authored-prose"
       }
     },
     "Héctor Enrique / Argentina / 1986": {
@@ -107712,7 +107456,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "In Enrique's position, start with shaping the pace of the game from midfield. One sign is how he slows the touch to give teammates time to move ahead of the ball. The same idea appears as he changes his angle before switching play away from pressure.",
+      "styleNote": "Enrique enters the starting XI when Argentina add a midfielder for the last three matches, balancing the centre beside Batista. He keeps the short passing moving, and his simple ball near halfway begins Maradona’s run against England.",
       "note": "Argentina's 1986 World Cup midfielder. Appears in 1 featured match.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -107723,7 +107467,7 @@
       "imageLicense": "Public domain",
       "imagePageTitle": "Héctor Enrique",
       "imagePageUrl": "https://en.wikipedia.org/wiki/H%C3%A9ctor_Enrique",
-      "styleNoteZh": "Héctor Enrique的场上位置需要从中场塑造比赛节奏。观察他如何在队友需要时间前移时放慢触球节奏。另一项动作也延续了同一思路：他会在把球转移出压力前先改变自己的接应角度。",
+      "styleNoteZh": "阿根廷在最后三场改为在中场多放一人，恩里克因此进入首发，与巴蒂斯塔一道稳住中路。他用简洁的短传把配合串联起来；对英格兰一战，正是他在中线附近一脚看似简单的传球，开启了马拉多纳的长途奔袭。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是中场。本站收录了他1场重点比赛。",
       "clubAtTournament": "River Plate",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -107735,40 +107479,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "midfielder",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-2",
-        "roleGuidePreferredVariant": "role-guide-2",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-tempo",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-pause",
-          "mf-switch-angle"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-tempo",
-              "mf-pause",
-              "mf-switch-angle"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "key-another"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Jorge Burruchaga / Argentina / 1986": {
@@ -107798,7 +107524,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Burruchaga is defined by joining the attack from a position defenders cannot watch continuously. One sign is how he arrives near the box after the first line of markers has followed the ball. Separately, he slows the touch to give teammates time to move ahead of the ball.",
+      "styleNote": "From the left of midfield, Burruchaga covers ground in both directions and bursts beyond the ball when a lane opens. He arrives at the far post to score against Bulgaria, then runs diagonally into the right channel onto Maradona’s pass for the winner in the final.",
       "note": "Argentina's 1986 World Cup midfielder. Credited with 2 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -107807,7 +107533,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Jorge_Burruchaga",
       "imagePageTitle": "Jorge Burruchaga",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Jorge_Burruchaga",
-      "styleNoteZh": "从防守者无法持续观察的位置加入进攻决定了Jorge Burruchaga的比赛方式。这体现在他会等第一层盯防者跟随球移动后再到达禁区附近。在比赛的另一部分，他会在队友需要时间前移时放慢触球节奏。",
+      "styleNoteZh": "布鲁查加在中场左侧活动，在攻防两端大范围跑动；向前通道一出现，他便从球后高速前插。对保加利亚，他包抄后点破门；到了决赛，又斜插右侧通道，接马拉多纳的传球打进制胜球。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是中场。本届打进2球。本站收录了他2场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -107836,50 +107562,22 @@
       "leagueAtTournamentSeason": 1985,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "attacking-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-8",
-        "roleGuidePreferredVariant": "role-guide-8",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-late-run",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-late-box",
-          "mf-pause"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1986 Best XI rationale",
-            "semanticIds": [
-              "mf-late-run",
-              "mf-late-box"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-pause"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "quality-defines-game"
+        "structureId": "authored-prose"
       }
     },
     "Jorge Valdano / Argentina / 1986": {
@@ -107909,7 +107607,7 @@
         "Starter",
         "Archive standout"
       ],
-      "styleNote": "Valdano's edge comes from attacking the space behind defenders before it fully opens. One sign is how he starts his run while the back line is still watching the ball. The same edge returns as he attacks the near-post lane before the marker can turn.",
+      "styleNote": "Valdano's edge comes from attacking the space behind defenders before it fully opens. One sign is how he starts his run while the back line is still watching the ball. That timing takes him into the left channel for Argentina’s second goal in the final.",
       "note": "Argentina's 1986 World Cup forward. Credited with 4 World Cup goals. Appears in 5 featured matches.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -107918,7 +107616,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Jorge_Valdano",
       "imagePageTitle": "Jorge Valdano",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Jorge_Valdano",
-      "styleNoteZh": "Jorge Valdano的优势来自防线身后空当完全出现前就发起冲击。观察他如何趁后防线仍盯着球时提前启动。同一特点还体现在下一项动作中：他会在盯防者转身前攻击前点线路。",
+      "styleNoteZh": "巴尔达诺最难防之处，是在防线身后的空当尚未真正打开时就发起冲击。他会趁后防线的注意力仍在球上时提前启动。决赛中，正是这样一次启动让他切入左侧通道，为阿根廷打进第二球。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是前锋。本届打进4球。本站收录了他5场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -107947,50 +107645,22 @@
       "leagueAtTournamentSeason": 1985,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "striker",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-run",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-start-run",
-          "fw-near-post"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1986 Best XI rationale",
-            "semanticIds": [
-              "fw-run",
-              "fw-start-run"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-near-post"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "repeated-evidence"
+        "structureId": "authored-prose"
       }
     },
     "José Luis Brown / Argentina / 1986": {
@@ -108020,7 +107690,7 @@
         "Starter",
         "Defensive control"
       ],
-      "styleNote": "From Brown's position, first look for keeping the back line connected as the attack changes sides. He holds the dangerous lane until a teammate can pressure the ball. Separately, he steps toward the receiver only after the covering defender is set.",
+      "styleNote": "Brown plays as the sweeper behind Ruggeri and Cuciuffo, moving across to double up when either stopper engages. In the final, he attacks Burruchaga’s free-kick to head the opening goal, then stays on after seriously injuring his shoulder.",
       "note": "Argentina's 1986 World Cup defender. Credited with 1 World Cup goal. Appears in 3 featured matches.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -108029,7 +107699,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Jos%C3%A9_Luis_Brown",
       "imagePageTitle": "José Luis Brown",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Jos%C3%A9_Luis_Brown",
-      "styleNoteZh": "进攻转移侧面时保持后防线连接是观察José Luis Brown的一个切入点。他会守住危险线路，直到队友能向持球人施压。另一项任务是确认补位后卫站稳后才前压接球队员。",
+      "styleNoteZh": "布朗站在鲁杰里和库休福身后担任清道夫；任何一名盯人中卫上抢，他都会横移补防，形成合围。决赛中，他冲向布鲁查加任意球的落点，头球首开纪录；此后即使肩部严重受伤，仍坚持留在场上。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是后卫。本届打进1球。本站收录了他3场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -108056,56 +107726,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "centre-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-6",
-        "roleGuidePreferredVariant": "role-guide-6",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-line",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-hold-lane",
-          "cb-step"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Defensive control",
-          "Physical duels"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1986 Best XI rationale",
-            "semanticIds": [
-              "cb-line"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Defensive control",
-            "semanticIds": [
-              "cb-hold-lane"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Physical duels",
-            "semanticIds": [
-              "cb-step"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "starter",
-          "role-inference",
-          "editorial-headline-context"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "quality-defines"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Nery Pumpido / Argentina / 1986": {
@@ -108135,7 +107771,7 @@
         "Defensive control",
         "Historical lens"
       ],
-      "styleNote": "Pumpido's edge comes from keeping his decisions calm when the penalty area becomes crowded. You can see it when he catches cleanly where possible and pushes uncertain balls away from traffic. Beyond that, he protects the central lane and forces the attacker toward the harder finish.",
+      "styleNote": "Pumpido brings steadiness rather than spectacle to Argentina’s goal. Well protected by the defence, he stays involved by organising the line and launching breaks with long throws; a late stop to deny Rubén Paz protects the lead against Uruguay.",
       "note": "Argentina's 1986 World Cup goalkeeper. Appears in 3 featured matches.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -108144,7 +107780,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Nery_Pumpido",
       "imagePageTitle": "Nery Pumpido",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Nery_Pumpido",
-      "styleNoteZh": "Nery Pumpido的优势来自禁区拥挤时仍保持判断冷静。观察他如何判断能否稳稳接住，并在无法控制时把球击离人群。除此之外，他会守住中路，把更难的射门选择留给对手。",
+      "styleNoteZh": "蓬皮多带给阿根廷球门的是稳定，而不是抢镜。防线保护周全时，他会指挥后防站位，并用长距离手抛球迅速发动反击；对乌拉圭一战，终场前封出鲁本·帕斯的射门，替球队守住领先。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是门将。本站收录了他3场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -108171,48 +107807,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "goalkeeper",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-4",
-        "roleGuidePreferredVariant": "role-guide-4",
-        "roleGuideCollisionResolved": false,
-        "signature": "gk-calm",
+        "signature": "authored-evergreen",
         "actions": [
-          "gk-catch-or-parry",
-          "gk-protect-centre"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Shot stopping"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1986 Best XI rationale",
-            "semanticIds": [
-              "gk-calm",
-              "gk-catch-or-parry"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Shot stopping",
-            "semanticIds": [
-              "gk-protect-centre"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "repeated-evidence"
+        "structureId": "authored-prose"
       }
     },
     "Oscar Ruggeri / Argentina / 1986": {
@@ -108344,7 +107954,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "With Pasculli in this position, look first for attacking the space behind defenders before it fully opens. He waits for the defender to look away before accelerating. The same thread shows in how he attacks the near-post lane before the marker can turn.",
+      "styleNote": "Pasculli’s 1986 role was brief but decisive: he partnered Valdano in the opener, then returned against Uruguay. He finished the only goal of the round-of-16 tie after Burruchaga’s cross broke loose in the area.",
       "note": "Argentina's 1986 World Cup forward. Credited with 1 World Cup goal. Appears in 2 featured matches.",
       "summary": "Historical 1986 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Argentina.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -108355,7 +107965,7 @@
       "imageLicense": "CC BY-SA 3.0",
       "imagePageTitle": "Pedro Pasculli",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Pedro_Pasculli",
-      "styleNoteZh": "当Pedro Pasculli出现在这个位置时，重点是防线身后空当完全出现前就发起冲击。他会等防守者注意力转移后再加速。同一要求也能从另一项动作看出：他会在盯防者转身前攻击前点线路。",
+      "styleNoteZh": "帕斯库利在1986年世界杯出场不多，却起到决定性作用：阿根廷首战，他与巴尔达诺搭档锋线；对乌拉圭时又回到阵中。布鲁查加的传中在禁区内形成乱球，他抓住机会打进这场八分之一决赛的唯一进球。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是前锋。本届打进1球。本站收录了他2场重点比赛。",
       "clubAtTournament": "Lecce",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -108369,41 +107979,22 @@
       "leagueAtTournamentSeason": 1985,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-run",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-delay-run",
-          "fw-near-post"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-run",
-              "fw-delay-run",
-              "fw-near-post"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "foundation-watch"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Daniel Veyt / Belgium / 1986": {
@@ -145927,7 +145518,7 @@
         "origin": "generated",
         "version": "historical-style-v10",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
+        "roleSource": "profile-position",
         "roleGuideVariant": "role-guide-8",
         "roleGuidePreferredVariant": "role-guide-8",
         "roleGuideCollisionResolved": false,
@@ -146083,7 +145674,7 @@
         "origin": "generated",
         "version": "historical-style-v10",
         "role": "midfielder",
-        "roleSource": "profile-position",
+        "roleSource": "fixture-key-player-position",
         "roleGuideVariant": "role-guide-2",
         "roleGuidePreferredVariant": "role-guide-2",
         "roleGuideCollisionResolved": false,
@@ -159946,7 +159537,7 @@
         "Starter",
         "Defensive control"
       ],
-      "styleNote": "Watch Lizarazu for covering the outside lane without losing the route back to goal. First, notice how he drops back into the defensive line once possession is lost. Beyond that, Lizarazu angles his body to show the winger toward the less dangerous route.",
+      "styleNote": "Lizarazu gives France width from left-back, combining on the flank before running beyond the player ahead of him to cross. Against Saudi Arabia, he sets up Henry after a one-two with Zidane and later continues into the box to score France's fourth.",
       "note": "France's 1998 World Cup defender. Credited with 1 World Cup goal. Appears in 2 featured matches.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -159957,7 +159548,7 @@
       "imageLicense": "CC BY-SA 2.0",
       "imagePageTitle": "Bixente Lizarazu",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Bixente_Lizarazu",
-      "styleNoteZh": "观察Bixente Lizarazu时要注意覆盖外侧通道时不失去回防球门的路线。一个表现是他会在球队失去稳定控球后立即回到防线。除此之外，他会调整身体角度，把边锋引向威胁较小的路线。",
+      "styleNoteZh": "利扎拉祖从左后卫位置为法国拉开进攻宽度，先在边路参与配合，再从身前队友身旁套上送出传中。对沙特阿拉伯，他与齐达内打出撞墙配合后助攻亨利，随后继续插入禁区，攻入法国第四球。",
       "noteZh": "他在1998年世界杯代表法国，位置是后卫。本届打进1球。本站收录了他2场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -159986,41 +159577,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "full-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-4",
-        "roleGuidePreferredVariant": "role-guide-4",
-        "roleGuideCollisionResolved": false,
-        "signature": "fb-two-way",
+        "signature": "authored-evergreen",
         "actions": [
-          "fb-reset-line",
-          "fb-show-line"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1998 Best XI rationale",
-            "semanticIds": [
-              "fb-two-way",
-              "fb-reset-line",
-              "fb-show-line"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "two-clues"
+        "structureId": "authored-prose"
       }
     },
     "Christophe Dugarry / France / 1998": {
@@ -160050,7 +159622,7 @@
         "Impact sub",
         "Historical lens"
       ],
-      "styleNote": "To follow Dugarry, begin with moving between centre-back and full-back without being tracked. He moves wide of the centre-backs to open the middle for a teammate. The same thread continues in another phase when he waits for the defender to look away before accelerating.",
+      "styleNote": "Dugarry gives France a central alternative to Guivarc'h, but injury makes his 1998 tournament intermittent. Nine minutes after coming on against South Africa he heads the opener; from the bench in the final, he carries out of his own box to start the move for Petit's third goal.",
       "note": "France's 1998 World Cup forward. Credited with 1 World Cup goal. Appears in 1 featured match.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160061,7 +159633,7 @@
       "imageLicense": "CC BY 4.0",
       "imagePageTitle": "Christophe Dugarry",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Christophe_Dugarry",
-      "styleNoteZh": "观察Christophe Dugarry的比赛时，重点是在中后卫与边后卫之间移动且不易被跟踪。他会在队友需要中路通道时主动离开中后卫身边。换一个阶段，同样可以看到他会等防守者注意力转移后再加速。",
+      "styleNoteZh": "杜加里是吉瓦什之外的中锋选择，但伤病令他在1998年世界杯的出场断断续续。对南非，他替补登场九分钟后便头球首开纪录；决赛中，他替补登场后带球冲出本方禁区，发起了最终由佩蒂攻入第三球的进攻。",
       "noteZh": "他在1998年世界杯代表法国，位置是前锋。本届打进1球。本站收录了他1场重点比赛。",
       "clubAtTournament": "Marseille",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -160075,41 +159647,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-6",
-        "roleGuidePreferredVariant": "role-guide-6",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-channel",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-pull-wide",
-          "fw-delay-run"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-channel",
-              "fw-pull-wide",
-              "fw-delay-run"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "impact-sub",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "different-phase"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "David Trezeguet / France / 1998": {
@@ -160139,7 +159692,7 @@
         "Penalty pressure",
         "Starter"
       ],
-      "styleNote": "Watch Trezeguet for moving between centre-back and full-back without being tracked. One detail is how he starts his run while the back line is still watching the ball. The idea carries into how he moves wide of the centre-backs to open the middle for a teammate.",
+      "styleNote": "Trezeguet is France's young penalty-area alternative to Guivarc'h, ready to start centrally or refresh the role from the bench. He heads in against Saudi Arabia and, against Paraguay, redirects Pirès's cross toward Blanc for the golden goal.",
       "note": "France's 1998 World Cup forward. Credited with 1 World Cup goal. Appears in 3 featured matches.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160150,7 +159703,7 @@
       "imageLicense": "CC BY 2.0",
       "imagePageTitle": "David Trezeguet",
       "imagePageUrl": "https://en.wikipedia.org/wiki/David_Trezeguet",
-      "styleNoteZh": "观察David Trezeguet的比赛时，可以留意在中后卫与边后卫之间移动且不易被跟踪。一处细节是：他会趁后防线仍盯着球时提前启动。这一特点也能从下一项动作看出：他会在队友需要中路通道时主动离开中后卫身边。",
+      "styleNoteZh": "特雷泽盖是法国在吉瓦什之外的年轻禁区中锋，既能在中路首发，也可替补登场为这一位置注入活力。对沙特阿拉伯，他头球破门；对巴拉圭，他将皮雷的传中顺势摆向布兰科，由后者攻入金球。",
       "noteZh": "他在1998年世界杯代表法国，位置是前锋。本届打进1球。本站收录了他3场重点比赛。",
       "clubAtTournament": "Monaco",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -160164,41 +159717,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-5",
-        "roleGuidePreferredVariant": "role-guide-5",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-channel",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-start-run",
-          "fw-pull-wide"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-channel",
-              "fw-start-run",
-              "fw-pull-wide"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-cues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Emmanuel Petit / France / 1998": {
@@ -160228,7 +159762,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Watch Petit for keeping the team balanced while other midfielders move forward. First, notice how he slides across early as a full-back moves beyond the ball. Separately, he uses one touch to secure the ball and the next to release it.",
+      "styleNote": "Petit is the two-way left-sided midfielder, helping Deschamps protect the defence while still making forward runs. In the final, his corner supplies Zidane's opener and his late burst beyond Brazil's midfield produces the third goal.",
       "note": "France's 1998 World Cup midfielder. Credited with 2 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160239,7 +159773,7 @@
       "imageLicense": "CC BY-SA 3.0",
       "imagePageTitle": "Emmanuel Petit",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Emmanuel_Petit",
-      "styleNoteZh": "观察Emmanuel Petit的比赛，重点是其他中场前移时维持球队平衡。一个表现是他会在边后卫越过球前插时提前横移补位。另外，他会第一脚稳住球，第二脚把球送出。",
+      "styleNoteZh": "佩蒂是左侧能攻能守的中场，既协助德尚保护防线，也会不断前插。决赛中，他开出的角球助攻齐达内首开纪录；比赛尾声，他冲到巴西中场身后，攻入法国第三球。",
       "noteZh": "他在1998年世界杯代表法国，位置是中场。本届打进2球。本站收录了他2场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -160268,50 +159802,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "defensive-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-8",
-        "roleGuidePreferredVariant": "role-guide-8",
-        "roleGuideCollisionResolved": false,
-        "signature": "dm-balance",
+        "signature": "authored-evergreen",
         "actions": [
-          "dm-cover-fullback",
-          "dm-two-touch"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1998 Best XI rationale",
-            "semanticIds": [
-              "dm-balance",
-              "dm-cover-fullback"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "dm-two-touch"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "two-cues"
+        "structureId": "authored-prose"
       }
     },
     "Fabien Barthez / France / 1998": {
@@ -160341,7 +159847,7 @@
         "Defensive control",
         "Historical lens"
       ],
-      "styleNote": "The key to Barthez is judging when to take charge of the space around goal. He steps toward a through ball only after checking the runner's advantage. Separately, he recovers his stance quickly enough to face the next touch.",
+      "styleNote": "Barthez takes charge of the space behind France's back four and can turn possession directly into attack. Against Saudi Arabia, his long clearance launches Henry's second goal; in the final, he races out to beat Ronaldo to a long pass and later blocks him at close range.",
       "note": "France's 1998 World Cup goalkeeper. Appears in 3 featured matches.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160350,7 +159856,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Fabien_Barthez",
       "imagePageTitle": "Fabien Barthez",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Fabien_Barthez",
-      "styleNoteZh": "理解Fabien Barthez的关键是判断何时接管门前空间。留意他会确认跑动者的优势后才上前处理直塞球。另外，他会迅速恢复准备姿势，应对下一次触球。",
+      "styleNoteZh": "巴特兹掌控着法国四后卫身后的空间，拿到球权后也能直接发动进攻。对沙特阿拉伯，他的一脚大脚解围直接策动亨利的第二个进球；决赛中，他迅速出击，抢在罗纳尔多之前处理掉一记长传，随后又在近距离封出罗纳尔多的射门。",
       "noteZh": "他在1998年世界杯代表法国，位置是门将。本站收录了他3场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -160379,40 +159885,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "goalkeeper",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-10",
-        "roleGuidePreferredVariant": "role-guide-10",
-        "roleGuideCollisionResolved": false,
-        "signature": "gk-box",
+        "signature": "authored-evergreen",
         "actions": [
-          "gk-through-ball",
-          "gk-reset"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "reviewed-best-xi-rationale",
-            "source": "1998 Best XI rationale: high starting position and speed beyond the line",
-            "semanticIds": [
-              "gk-box",
-              "gk-through-ball",
-              "gk-reset"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "starter",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "different-phase"
+        "structureId": "authored-prose"
       }
     },
     "Laurent Blanc / France / 1998": {
@@ -160442,7 +159930,7 @@
         "Penalty pressure",
         "Starter"
       ],
-      "styleNote": "In Blanc's position, start with using contact without losing his defensive position. One sign is how he stays goal-side until support is close enough for him to engage. The same idea appears as he steps toward the receiver only after the covering defender is set.",
+      "styleNote": "Blanc gives France a ball-playing centre-back who can step forward with possession and join attacks. Against Paraguay, that freedom takes him to the right side of the six-yard box, where he volleys Trezeguet's knockdown for the golden goal.",
       "note": "France's 1998 World Cup defender. Credited with 1 World Cup goal. Appears in 3 featured matches.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160451,7 +159939,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Laurent_Blanc",
       "imagePageTitle": "Laurent Blanc",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Laurent_Blanc",
-      "styleNoteZh": "Laurent Blanc的场上位置需要身体对抗时不丢失防守位置。观察他如何保持在球门一侧，等支援靠近后再上前对抗。另一项动作也延续了同一思路：他会确认补位后卫站稳后才前压接球队员。",
+      "styleNoteZh": "布兰科是法国后场的出球型中卫，能够带球压上，也会直接加入进攻。对巴拉圭，正是这种前插自由让他来到小禁区右侧，将特雷泽盖做下的球凌空打进金球。",
       "noteZh": "他在1998年世界杯代表法国，位置是后卫。本届打进1球。本站收录了他3场重点比赛。",
       "clubAtTournament": "Marseille",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -160465,41 +159953,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "defender",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-1",
-        "roleGuidePreferredVariant": "role-guide-1",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-position",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-goal-side",
-          "cb-step"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Physical duels"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Physical duels",
-            "semanticIds": [
-              "cb-position",
-              "cb-goal-side",
-              "cb-step"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "key-another"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Lilian Thuram / France / 1998": {
@@ -160529,7 +159998,7 @@
         "Starter",
         "Defensive control"
       ],
-      "styleNote": "For Thuram, start with controlling the wide duel before attempting to win the ball. One detail is how he angles his body to show the winger toward the less dangerous route. The same idea returns as he uses the touchline as cover before committing to the tackle.",
+      "styleNote": "Thuram is a natural centre-back playing at right-back, combining one-on-one defending with surging runs that add width. In the semi-final, he responds to his error on Croatia's opener by exchanging passes with Djorkaeff for the equaliser, then curls the winner left-footed after advancing again.",
       "note": "France's 1998 World Cup defender. Credited with 2 World Cup goals. Appears in 1 featured match.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160538,7 +160007,7 @@
       "imageSourceUrl": "https://en.wikipedia.org/wiki/Lilian_Thuram",
       "imagePageTitle": "Lilian Thuram",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Lilian_Thuram",
-      "styleNoteZh": "要理解Lilian Thuram的场上任务，可以观察先控制边路对抗再尝试夺球。第一项动作中，他会调整身体角度，把边锋引向威胁较小的路线。另一项动作也体现了这一点：他会在下脚抢断前利用边线充当额外保护。",
+      "styleNoteZh": "图拉姆本职是中卫，在右后卫位置上则把一对一防守与强势前插结合起来，为进攻拉开宽度。半决赛中，克罗地亚的首球源自他的失误，他随即与德约卡夫打出撞墙配合扳平比分；再次前插时，他又用左脚兜射攻入制胜球。",
       "noteZh": "他在1998年世界杯代表法国，位置是后卫。本届打进2球。本站收录了他1场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -160565,43 +160034,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "full-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-1",
-        "roleGuidePreferredVariant": "role-guide-1",
-        "roleGuideCollisionResolved": false,
-        "signature": "fb-duel",
+        "signature": "authored-evergreen",
         "actions": [
-          "fb-show-line",
-          "fb-touchline-trap"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Physical duels"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Physical duels",
-            "semanticIds": [
-              "fb-duel",
-              "fb-show-line",
-              "fb-touchline-trap"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "quality-defines-game"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Stéphane Guivarc'h / France / 1998": {
@@ -160630,7 +160078,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "To follow Guivarc'h, begin with attacking the space behind defenders before it fully opens. He attacks the near-post lane before the marker can turn. Beyond that, he moves wide of the centre-backs to open the middle for a teammate.",
+      "styleNote": "Guivarc'h is the lone centre-forward ahead of Zidane and Djorkaeff, with a job built as much on pressure as finishing. Jacquet asks him to press at full intensity, then often brings on Dugarry or Trezeguet after about an hour to refresh the role.",
       "note": "France's 1998 World Cup forward. Appears in 1 featured match.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160641,7 +160089,7 @@
       "imageLicense": "CC0",
       "imagePageTitle": "Stéphane Guivarc'h",
       "imagePageUrl": "https://en.wikipedia.org/wiki/St%C3%A9phane_Guivarc'h",
-      "styleNoteZh": "观察Stéphane Guivarc'h的比赛时，重点是防线身后空当完全出现前就发起冲击。他会在盯防者转身前攻击前点线路。在另一部分，他会在队友需要中路通道时主动离开中后卫身边。",
+      "styleNoteZh": "吉瓦什担任齐达内和德约卡夫身前的单箭头，他的任务中，压迫对手与门前终结同样重要。雅凯要求他全力逼抢，并常在比赛约一小时后换上杜加里或特雷泽盖，让生力军接过这一角色。",
       "noteZh": "他在1998年世界杯代表法国，位置是前锋。本站收录了他1场重点比赛。",
       "clubAtTournament": "Auxerre",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -160655,40 +160103,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-7",
-        "roleGuidePreferredVariant": "role-guide-6",
-        "roleGuideCollisionResolved": true,
-        "signature": "fw-run",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-near-post",
-          "fw-pull-wide"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-run",
-              "fw-near-post",
-              "fw-pull-wide"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "different-phase"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Thierry Henry / France / 1998": {
@@ -160719,7 +160149,7 @@
         "Historical lens",
         "Winger"
       ],
-      "styleNote": "To assess Henry, start with finding the inside channel without crowding the central attacker. He leaves the touchline as a central passing lane appears. A different clue is how he carries with his head up to see the second defender.",
+      "styleNote": "Henry starts on the right in France's 4-3-3 but attacks the box like a scorer. He scores three times in the group stage and ends his first World Cup as France's leading scorer, even though Guivarc'h remains the preferred lone striker in the knockouts.",
       "note": "France's 1998 World Cup forward. Credited with 3 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Thierry_Henry_%2851649035951%29_%28cropped%29.jpg/330px-Thierry_Henry_%2851649035951%29_%28cropped%29.jpg",
@@ -160728,7 +160158,7 @@
       "imagePageTitle": "Thierry Henry",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Thierry_Henry",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Thierry Henry的场上工作，重点是不挤占中锋空间地进入内侧通道。一个线索是：他会在中路传球线路出现时离开边线进入内侧。不同的线索来自另一项动作：他会抬头带球，及时看见第二名防守者。",
+      "styleNoteZh": "亨利在法国4-3-3阵型中从右路首发，却像射手一样不断冲击禁区。小组赛他攻入三球，第一次世界杯之旅便成为法国队内头号射手，尽管淘汰赛阶段的单箭头首选仍是吉瓦什。",
       "noteZh": "他在1998年世界杯代表法国，位置是前锋。本届打进3球。本站收录了他2场重点比赛。",
       "clubAtTournament": "Monaco",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -160742,42 +160172,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "wide-attacker",
-        "roleSource": "reviewed-role-override",
-        "roleGuideVariant": "role-guide-4",
-        "roleGuidePreferredVariant": "role-guide-4",
-        "roleGuideCollisionResolved": false,
-        "signature": "wing-inside",
+        "signature": "authored-evergreen",
         "actions": [
-          "wing-halfspace",
-          "wing-carry-head-up"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "wing-inside",
-              "wing-halfspace",
-              "wing-carry-head-up"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-clues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Youri Djorkaeff / France / 1998": {
@@ -160807,7 +160217,7 @@
         "Penalty pressure",
         "Starter"
       ],
-      "styleNote": "Watch Djorkaeff for staying connected to the move after releasing the ball. One detail is how he moves after passing so the receiver still has close support. The idea carries into how he uses a short pass to bring a third teammate into the move.",
+      "styleNote": "Djorkaeff shifts between attacking midfield and support striker, linking Zidane to the lone forward rather than holding one lane. His return pass releases Thuram for the semi-final equaliser, and his corner supplies Zidane's second goal in the final.",
       "note": "France's 1998 World Cup midfielder. Credited with 1 World Cup goal. Appears in 1 featured match.",
       "summary": "Historical 1998 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -160818,7 +160228,7 @@
       "imageLicense": "CC BY-SA 3.0",
       "imagePageTitle": "Youri Djorkaeff",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Youri_Djorkaeff",
-      "styleNoteZh": "观察Youri Djorkaeff的比赛时，可以留意出球后继续与进攻保持连接。一处细节是：他会在传球后继续移动，让接球队友仍有近距离支援。这一特点也能从下一项动作看出：他会用短传让第三名队友加入进攻。",
+      "styleNoteZh": "德约卡夫在前腰与影锋之间游走，不固守一条线路，而是在齐达内和单箭头之间串联。半决赛中，他的回做让图拉姆插上扳平比分；决赛里，他开出的角球助攻齐达内攻入第二球。",
       "noteZh": "他在1998年世界杯代表法国，位置是中场。本届打进1球。本站收录了他1场重点比赛。",
       "clubAtTournament": "Inter Milan",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -160830,42 +160240,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "midfielder",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-4",
-        "roleGuidePreferredVariant": "role-guide-4",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-support",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-move-after",
-          "mf-third-player"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-support",
-              "mf-move-after",
-              "mf-third-player"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "penalty-goal",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-cues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Zinedine Zidane / France / 1998": {
@@ -178014,7 +177404,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Watch Dugarry for moving between centre-back and full-back without being tracked. One detail is how he moves wide of the centre-backs to open the middle for a teammate. The idea carries into how he waits for the defender to look away before accelerating.",
+      "styleNote": "To follow Dugarry, begin with moving between centre-back and full-back without being tracked. He moves wide of the centre-backs to open the middle for a teammate. The same thread continues in another phase when he waits for the defender to look away before accelerating.",
       "note": "France's 2002 World Cup forward. Appears in 1 featured match.",
       "summary": "Historical 2002 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: France.",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
@@ -178025,7 +177415,7 @@
       "imageLicense": "CC BY 4.0",
       "imagePageTitle": "Christophe Dugarry",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Christophe_Dugarry",
-      "styleNoteZh": "观察Christophe Dugarry的比赛时，可以留意在中后卫与边后卫之间移动且不易被跟踪。一处细节是：他会在队友需要中路通道时主动离开中后卫身边。这一特点也能从下一项动作看出：他会等防守者注意力转移后再加速。",
+      "styleNoteZh": "观察Christophe Dugarry的比赛时，重点是在中后卫与边后卫之间移动且不易被跟踪。他会在队友需要中路通道时主动离开中后卫身边。换一个阶段，同样可以看到他会等防守者注意力转移后再加速。",
       "noteZh": "他在2002年世界杯代表法国，位置是前锋。本站收录了他1场重点比赛。",
       "clubAtTournament": "Bordeaux",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -178072,7 +177462,7 @@
         ],
         "evidenceScope": "role-level",
         "confidence": "role-level",
-        "structureId": "two-cues"
+        "structureId": "different-phase"
       }
     },
     "David Trezeguet / France / 2002": {
@@ -233125,7 +232515,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Watch the details around Silva: moving between centre-back and full-back without being tracked. He starts his run while the back line is still watching the ball. The same idea matters when he moves wide of the centre-backs to open the middle for a teammate.",
+      "styleNote": "Silva's 2010 World Cup is brief: he starts the opener on the right, roams across the edge of the box to combine with Ramos and Iniesta, and finds Villa between the lines. His only other appearance is a four-minute semi-final cameo.",
       "note": "Spain's 2010 World Cup forward. Appears in 1 featured match.",
       "summary": "Historical 2010 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Spain.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/35518-1683269363.jpg?lm=1",
@@ -233136,7 +232526,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/david-silva/profil/spieler/35518",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察David Silva时有三个细节：在中后卫与边后卫之间移动且不易被跟踪。一处表现是：他会趁后防线仍盯着球时提前启动。同样值得注意的是，他会在队友需要中路通道时主动离开中后卫身边。",
+      "styleNoteZh": "席尔瓦在2010年世界杯的出场很有限：首战他从右路首发，在禁区前沿横向游动，与拉莫斯和伊涅斯塔配合，也会把球送给两线之间的比利亚。此后他唯一一次登场，是半决赛替补出场四分钟。",
       "noteZh": "他在2010年世界杯代表西班牙，位置是前锋。本站收录了他1场重点比赛。",
       "clubAtTournament": "Valencia",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -233150,40 +232540,22 @@
       "leagueAtTournamentSeason": 2009,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-5",
-        "roleGuidePreferredVariant": "role-guide-5",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-channel",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-start-run",
-          "fw-pull-wide"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-channel",
-              "fw-start-run",
-              "fw-pull-wide"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "repeated-evidence"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "David Villa / Spain / 2010": {
@@ -233329,7 +232701,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "To assess Torres, start with attacking the space behind defenders before it fully opens. He waits for the defender to look away before accelerating. The same idea appears when he attacks the near-post lane before the marker can turn.",
+      "styleNote": "Torres gives Spain a central striker who occupies the centre-backs and opens room for Villa to attack from the left. Still below full fitness after two knee operations, he ends the tournament without scoring, and Pedro takes his starting place for the semi-final and final.",
       "note": "Spain's 2010 World Cup forward. Appears in 1 featured match.",
       "summary": "Historical 2010 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Spain.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/7767-1683642827.jpg?lm=1",
@@ -233340,7 +232712,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/fernando-torres/profil/spieler/7767",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Fernando Torres的场上工作，重点是防线身后空当完全出现前就发起冲击。一个线索是：他会等防守者注意力转移后再加速。他会在盯防者转身前攻击前点线路，也是同一思路的表现。",
+      "styleNoteZh": "托雷斯在中路牵制对方中卫，为比利亚从左侧发起冲击腾出空间。经历两次膝部手术后，他的身体状态仍未完全恢复，最终整届赛事没有进球；到了半决赛和决赛，佩德罗取代了他的首发位置。",
       "noteZh": "他在2010年世界杯代表西班牙，位置是前锋。本站收录了他1场重点比赛。",
       "clubAtTournament": "Liverpool",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -233354,40 +232726,22 @@
       "leagueAtTournamentSeason": 2009,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-run",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-delay-run",
-          "fw-near-post"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-run",
-              "fw-delay-run",
-              "fw-near-post"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-clues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Gerard Piqué / Spain / 2010": {
@@ -246102,7 +245456,7 @@
         "Impact sub",
         "Historical lens"
       ],
-      "styleNote": "To follow Schürrle, begin with staying connected to the move after releasing the ball. He uses a short pass to bring a third teammate into the move. The same thread continues in another phase when he moves after passing so the receiver still has close support.",
+      "styleNote": "Schürrle changes matches by attacking space at full speed from the left. Off the bench he improvises the extra-time opener against Algeria, scores twice against Brazil and drives past his man to cross for Götze's winner in the final.",
       "note": "Germany's 2014 World Cup midfielder. Credited with 3 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/58205-1471509802.jpg?lm=1",
@@ -246113,7 +245467,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/andre-schurrle/profil/spieler/58205",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察André Schürrle的比赛时，重点是出球后继续与进攻保持连接。他会用短传让第三名队友加入进攻。换一个阶段，同样可以看到他会在传球后继续移动，让接球队友仍有近距离支援。",
+      "styleNoteZh": "许尔勒从左侧全速冲击空当，总能改变比赛走势。作为替补，他对阿尔及利亚时用一次即兴触球在加时赛打破僵局，对巴西梅开二度，又在决赛突破防守者后送出传中，助攻格策打进制胜球。",
       "noteZh": "他在2014年世界杯代表德国，位置是中场。本届打进3球。本站收录了他2场重点比赛。",
       "clubAtTournament": "Chelsea",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -246127,42 +245481,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "midfielder",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-support",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-third-player",
-          "mf-move-after"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-support",
-              "mf-third-player",
-              "mf-move-after"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "multi-goal",
-          "impact-sub",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "different-phase"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Benedikt Höwedes / Germany / 2014": {
@@ -246192,7 +245526,7 @@
         "Defensive control",
         "Historical lens"
       ],
-      "styleNote": "The first thing to track with Höwedes is waiting for the loose touch before committing to the challenge. Notice how he slows the attack long enough for the defensive shape to recover. Beyond that, he stays goal-side until support is close enough for him to engage.",
+      "styleNote": "Höwedes is a centre-back used at left-back for every minute of Germany's title run. He stays narrower and more defensive than a conventional overlapping full-back, yet remains an aerial target at corners and hits the post with a header in the final.",
       "note": "Germany's 2014 World Cup defender. Appears in 3 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/39020-1567785438.png?lm=1",
@@ -246203,7 +245537,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/benedikt-howedes/profil/spieler/39020",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Benedikt Höwedes的比赛时，可以留意等对手触球变大后再投入抢断。一处细节是：他会拖慢进攻，为防守阵型回位争取时间。另外，他会保持在球门一侧，等支援靠近后再上前对抗。",
+      "styleNoteZh": "赫韦德斯本职是中卫，却在德国整个夺冠征程的每一分钟都出任左后卫。他比传统套边型边后卫站得更靠内、职责也更偏防守；不过在角球进攻中仍会成为争顶目标，决赛的一次头球击中门柱。",
       "noteZh": "他在2014年世界杯代表德国，位置是后卫。本站收录了他3场重点比赛。",
       "clubAtTournament": "Schalke 04",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -246217,40 +245551,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "defender",
-        "roleSource": "profile-position",
-        "roleGuideVariant": "role-guide-9",
-        "roleGuidePreferredVariant": "role-guide-9",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-patience",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-delay",
-          "cb-goal-side"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Physical duels"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Physical duels",
-            "semanticIds": [
-              "cb-patience",
-              "cb-delay",
-              "cb-goal-side"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-cues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Manuel Neuer / Germany / 2014": {
@@ -246385,7 +245701,7 @@
         "Starter",
         "Impact sub"
       ],
-      "styleNote": "Watch the details around Götze: attacking the space behind defenders before it fully opens. He waits for the defender to look away before accelerating. Separately, he moves wide of the centre-backs to open the middle for a teammate.",
+      "styleNote": "Götze gives Germany a mobile attacking option, dropping toward the ball and combining in tight spaces rather than staying fixed as a striker. In the final, after replacing Klose, he finds separation in the box, cushions Schürrle's cross on his chest and volleys the title-winning goal.",
       "note": "Germany's 2014 World Cup forward. Credited with 2 World Cup goals. Appears in 3 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/74842-1663065102.jpg?lm=1",
@@ -246396,7 +245712,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/mario-gotze/profil/spieler/74842",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Mario Götze时要看防线身后空当完全出现前就发起冲击。接着，他会等防守者注意力转移后再加速。除此之外，他会在队友需要中路通道时主动离开中后卫身边。",
+      "styleNoteZh": "格策让德国在前场多了一个能够游动的选择：他不会固定在中锋线上，而是回撤接球，并在狭小空间里参与配合。决赛替下克洛泽后，他在禁区内拉开接球空间，胸部卸下许尔勒的传中，随即凌空射入夺冠制胜球。",
       "noteZh": "他在2014年世界杯代表德国，位置是前锋。本届打进2球。本站收录了他3场重点比赛。",
       "clubAtTournament": "Bayern Munich",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -246410,43 +245726,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-10",
-        "roleGuidePreferredVariant": "role-guide-10",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-run",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-delay-run",
-          "fw-pull-wide"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-run",
-              "fw-delay-run",
-              "fw-pull-wide"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "impact-sub",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "repeated-evidence"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Mats Hummels / Germany / 2014": {
@@ -246476,7 +245771,7 @@
         "Starter",
         "Defensive control"
       ],
-      "styleNote": "For Hummels, start with using contact without losing his defensive position. One detail is how he stays goal-side until support is close enough for him to engage. The same idea returns as he steps toward the receiver only after the covering defender is set.",
+      "styleNote": "Hummels attacks the first ball in both penalty areas. Against France, he beats Varane to Kroos's free-kick for the quarter-final winner, then blocks Benzema's rebound as Germany protect the lead.",
       "note": "Germany's 2014 World Cup defender. Credited with 2 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/39728-1709560545.jpg?lm=1",
@@ -246487,7 +245782,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/mats-hummels/profil/spieler/39728",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "要理解Mats Hummels的场上任务，可以观察身体对抗时不丢失防守位置。第一项动作中，他会保持在球门一侧，等支援靠近后再上前对抗。另一项动作也体现了这一点：他会确认补位后卫站稳后才前压接球队员。",
+      "styleNoteZh": "胡梅尔斯在双方禁区里都主动争抢第一落点。对法国，他抢在瓦拉内之前顶进克罗斯的任意球，打入八强战制胜球；此后又封堵本泽马的补射，帮助德国守住领先。",
       "noteZh": "他在2014年世界杯代表德国，位置是后卫。本届打进2球。本站收录了他2场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -246518,43 +245813,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "centre-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-2",
-        "roleGuidePreferredVariant": "role-guide-2",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-position",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-goal-side",
-          "cb-step"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Physical duels"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Physical duels",
-            "semanticIds": [
-              "cb-position",
-              "cb-goal-side",
-              "cb-step"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "quality-defines-game"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Mesut Özil / Germany / 2014": {
@@ -246584,7 +245858,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "To assess Özil, start with moving between centre-back and full-back without being tracked. He starts his run while the back line is still watching the ball. The same idea appears when he moves wide of the centre-backs to open the middle for a teammate.",
+      "styleNote": "Özil is Germany's central creator starting from the left in their flexible front line, tucking inside to add a passing option rather than staying as a fixed winger. When Kramer's injury forces a reshuffle in the final, he moves centrally and twice cuts the ball back for Kroos arriving from deeper positions.",
       "note": "Germany's 2014 World Cup forward. Credited with 1 World Cup goal. Appears in 2 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/35664-1483519286.jpg?lm=1",
@@ -246595,7 +245869,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/mesut-ozil/profil/spieler/35664",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Mesut Özil的场上工作，重点是在中后卫与边后卫之间移动且不易被跟踪。一个线索是：他会趁后防线仍盯着球时提前启动。他会在队友需要中路通道时主动离开中后卫身边，也是同一思路的表现。",
+      "styleNoteZh": "厄齐尔在德国灵活的前场体系中从左侧出发，却仍承担中路创造职责；他不固定守在边线，而是内收，为持球者增加一个传球点。决赛中克拉默受伤迫使球队重排中前场，他转到中路，两次倒三角回传都找到后插上的克罗斯。",
       "noteZh": "他在2014年世界杯代表德国，位置是前锋。本届打进1球。本站收录了他2场重点比赛。",
       "clubAtTournament": "Arsenal",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -246609,41 +245883,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "forward",
-        "roleSource": "fixture-key-player-position",
-        "roleGuideVariant": "role-guide-5",
-        "roleGuidePreferredVariant": "role-guide-5",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-channel",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-start-run",
-          "fw-pull-wide"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-channel",
-              "fw-start-run",
-              "fw-pull-wide"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "starter",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-clues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Miroslav Klose / Germany / 2014": {
@@ -246673,7 +245928,7 @@
         "Starter",
         "Impact sub"
       ],
-      "styleNote": "A useful starting point with Klose is bringing a teammate into the attack with minimal extra touches. Notice how he uses his body to protect the ball and returns it into a teammate's path. Elsewhere, he waits for the defender to look away before accelerating.",
+      "styleNote": "When Klose leads the line, Germany gain a reference centre-forward who occupies the centre-backs, gives Müller and Özil room to move around him and offers a target in the box. He comes off the bench to poach the equaliser against Ghana, then scores against Brazil to become the World Cup's outright leading goalscorer.",
       "note": "Germany's 2014 World Cup forward. Credited with 2 World Cup goals. Appears in 2 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/2016209185719_2016-07-27_Champions_for_Charity_-_Sven_-_1D_X_-_0149_-_DV3P4742_mod.jpg/330px-2016209185719_2016-07-27_Champions_for_Charity_-_Sven_-_1D_X_-_0149_-_DV3P4742_mod.jpg",
@@ -246686,7 +245941,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/miroslav-klose/profil/spieler/10",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "理解Miroslav Klose的场上工作，重点是用尽量少的多余触球让队友加入进攻。观察他如何用身体护住球，再把球回做给队友。还要看他会等防守者注意力转移后再加速。",
+      "styleNoteZh": "克洛泽领衔锋线时，德国便有了明确的中锋支点：他牵制对方中卫，为穆勒和厄齐尔的游动腾出空间，同时在禁区内提供传中目标。他替补登场，在对加纳时门前抢点扳平比分；随后面对巴西再度破门，独占世界杯历史射手榜首。",
       "noteZh": "他在2014年世界杯代表德国，位置是前锋。本届打进2球。本站收录了他2场重点比赛。",
       "clubAtTournament": "Lazio",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -246700,52 +245955,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "striker",
-        "roleSource": "recurring:best-xi-position",
-        "roleGuideVariant": "role-guide-8",
-        "roleGuidePreferredVariant": "role-guide-8",
-        "roleGuideCollisionResolved": false,
-        "signature": "fw-link",
+        "signature": "authored-evergreen",
         "actions": [
-          "fw-body-return",
-          "fw-delay-run"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Runs in behind"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "recurring-best-xi-rationale",
-            "source": "2006 same-player Best XI rationale",
-            "semanticIds": [
-              "fw-link",
-              "fw-body-return"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Runs in behind",
-            "semanticIds": [
-              "fw-delay-run"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "editorial-recurring-role",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "impact-sub",
-          "role-inference",
-          "recurring-cross-edition-context"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "recurring-cross-edition",
-        "confidence": "role-level",
-        "structureId": "build-two-cues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Sami Khedira / Germany / 2014": {
@@ -246773,7 +245998,7 @@
         "Historical lens",
         "Midfielder"
       ],
-      "styleNote": "With Khedira in this position, look first for creating a better angle before the next pass is needed. He receives side-on so the next pass can travel forward. The same thread shows in how he moves after passing so the receiver still has close support.",
+      "styleNote": "Khedira supplies the forward-running power in Germany's central midfield, pressuring opposing midfielders and continuing beyond the pass to join attacks around the area. Against Brazil, he caps one of those combinations by exchanging passes with Özil and scoring the fifth.",
       "note": "Germany's 2014 World Cup midfielder. Credited with 1 World Cup goal. Appears in 2 featured matches.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/29401-1595418857.jpg?lm=1",
@@ -246784,7 +246009,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/sami-khedira/profil/spieler/29401",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "当Sami Khedira出现在这个位置时，重点是下一脚传球到来前创造更好的角度。他会侧身接球，让下一脚传球可以向前。同一要求也能从另一项动作看出：他会在传球后继续移动，让接球队友仍有近距离支援。",
+      "styleNoteZh": "赫迪拉为德国中场提供向前冲击力：他会上压对方中场，出球后也不停下脚步，而是继续前插到禁区周围接应。对巴西，他与厄齐尔完成撞墙配合，为其中一次中路推进收尾，攻入德国第五球。",
       "noteZh": "他在2014年世界杯代表德国，位置是中场。本届打进1球。本站收录了他2场重点比赛。",
       "clubAtTournament": "Real Madrid",
       "clubAtTournamentSource": "fjelstul-worldcup-wikipedia-squad-pages-35a8667",
@@ -246798,38 +246023,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "midfielder",
-        "roleSource": "reviewed-role-override",
-        "roleGuideVariant": "role-guide-1",
-        "roleGuidePreferredVariant": "role-guide-1",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-angle",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-side-on",
-          "mf-move-after"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "role-default",
-            "source": "midfielder:role-guide-1",
-            "semanticIds": [
-              "mf-angle",
-              "mf-side-on",
-              "mf-move-after"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "goal-scorer",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "foundation-watch"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Thomas Müller / Germany / 2014": {
@@ -246969,7 +246178,7 @@
         "Starter",
         "Historical lens"
       ],
-      "styleNote": "Watch the details around Kroos: finding usable space between the opponent's midfield lines. He checks behind him before receiving on the half-turn. Separately, he recycles possession rather than isolating a teammate with a forced forward pass.",
+      "styleNote": "Kroos sets Germany's rhythm from left of centre, changing the point of attack with diagonal passes and following the move to the edge of the box. Against Brazil, he arrives behind Müller's run to finish first time; moments later he wins the ball from Fernandinho and completes a one-two with Khedira for his second.",
       "note": "Germany's 2014 World Cup midfielder. Credited with 2 World Cup goals. Appears in 1 featured match.",
       "summary": "Historical 2014 World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: Germany.",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/31909-1700638741.jpg?lm=1",
@@ -246980,7 +246189,7 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/toni-kroos/profil/spieler/31909",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Toni Kroos时要看在对方中场线之间寻找可用空间。接着，他会在半转身接球前先观察身后。除此之外，他会在向前传球可能让队友陷入孤立时重新组织控球。",
+      "styleNoteZh": "克罗斯在中场偏左位置为德国定下节奏：他用斜传改变进攻方向，也会顺着攻势跟进到禁区前沿。对巴西，他从穆勒身后跟进，迎球直接破门；片刻后又从费尔南迪尼奥脚下断球，与赫迪拉打出撞墙配合，攻入个人第二球。",
       "noteZh": "他在2014年世界杯代表德国，位置是中场。本届打进2球。本站收录了他1场重点比赛。",
       "bestXiSelection": true,
       "bestXiSelectionKinds": [
@@ -247011,56 +246220,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "central-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-3",
-        "roleGuidePreferredVariant": "role-guide-3",
-        "roleGuideCollisionResolved": false,
-        "signature": "mf-space",
+        "signature": "authored-evergreen",
         "actions": [
-          "mf-half-turn",
-          "mf-simple-reset"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Tempo control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "2014 Best XI rationale",
-            "semanticIds": [
-              "mf-space"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "central-midfielder:role-guide-3",
-            "semanticIds": [
-              "mf-half-turn"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Tempo control",
-            "semanticIds": [
-              "mf-simple-reset"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "goal-scorer",
-          "multi-goal",
-          "starter",
-          "role-inference",
-          "editorial-headline-context"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "repeated-evidence"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Abdul Majeed Waris / Ghana / 2014": {
@@ -310578,9 +309753,9 @@
       "imagePageTitle": "Everaldo (footballer, born 1944)",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Everaldo_(footballer,_born_1944)",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "覆盖外侧通道时不失去回防球门的路线塑造了Everaldo的比赛方式。观察他如何在球队失去稳定控球后立即回到防线。同一特点也体现在下一项动作中：他会足够早地转向自家球门，跟上第一次回防跑动。",
+      "styleNoteZh": "埃韦拉尔多是巴西两名边后卫中较少压上的一位；当另一侧的卡洛斯·阿尔贝托前插时，他会内收到布里托和皮亚扎身旁。这种不对称站位让右后卫参与进攻的同时，也在攻势身后保留三人防线。",
       "noteZh": "他在1970年世界杯代表巴西，位置是后卫。",
-      "styleNote": "Covering the outside lane without losing the route back to goal defines the way Everaldo plays. Look for how he drops back into the defensive line once possession is lost. The same quality appears when he turns toward his own goal early enough to match the first recovery run.",
+      "styleNote": "Everaldo is Brazil’s less attacking full-back, narrowing beside Brito and Piazza when Carlos Alberto advances on the opposite side. That asymmetry leaves a back three behind the attack while the right-back joins forward.",
       "note": "Brazil's 1970 World Cup defender.",
       "birthDate": "1944-09-11",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
@@ -310603,47 +309778,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "full-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-6",
-        "roleGuidePreferredVariant": "role-guide-6",
-        "roleGuideCollisionResolved": false,
-        "signature": "fb-two-way",
+        "signature": "authored-evergreen",
         "actions": [
-          "fb-reset-line",
-          "fb-recovery-run"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Defensive control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "fb-two-way",
-              "fb-reset-line"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Defensive control",
-            "semanticIds": [
-              "fb-recovery-run"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "quality-defines"
+        "structureId": "authored-prose"
       }
     },
     "Wilson Piazza / Brazil / 1970": {
@@ -310684,9 +309834,9 @@
       "imagePageTitle": "Wilson Piazza",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Wilson_Piazza",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "观察Wilson Piazza的场上工作，重点是越过第一道压力后改变进攻方向。一个线索是：他会在夺回球后打开身体，让第一脚传球摆脱压力。不同的线索来自另一项动作：他会守住危险线路，直到队友能向持球人施压。",
+      "styleNoteZh": "从中场改踢中卫后，皮亚扎让巴西后场多了一名不只负责解围、还能发起下一轮进攻的后卫。他通过传球串联克洛多阿尔多与两侧边后卫，为前场攻击手相互换位打下基础。",
       "noteZh": "他在1970年世界杯代表巴西，位置是后卫。",
-      "styleNote": "To assess Piazza, start with stepping beyond the first pressure to change the point of attack. He opens his body after the recovery so the first pass can escape pressure. A different clue is how he holds the dangerous lane until a teammate can pressure the ball.",
+      "styleNote": "Moved from midfield to centre-back, Piazza gives Brazil a defender who can start the next attack instead of only clearing danger. His passing connects the build-up through Clodoaldo and the full-backs, providing the base from which Brazil’s attackers interchange.",
       "note": "Brazil's 1970 World Cup defender.",
       "birthDate": "1943-02-25",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
@@ -310709,53 +309859,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "centre-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-1",
-        "roleGuidePreferredVariant": "role-guide-1",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-libero-progress",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-open-pass",
-          "cb-hold-lane"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Defensive control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1970 Best XI rationale",
-            "semanticIds": [
-              "cb-libero-progress"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "centre-back:role-guide-6",
-            "semanticIds": [
-              "cb-open-pass"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Defensive control",
-            "semanticIds": [
-              "cb-hold-lane"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "role-inference",
-          "editorial-headline-context"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "two-clues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Bobby Charlton / England / 1970": {
@@ -312533,9 +311652,9 @@
       "imagePageTitle": "Sergio Batista",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Sergio_Batista",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "Sergio Batista的场上位置需要跟随球移动前先保护通向中路的路线。观察他如何守住中路区域，直到队友回到球后。另一项要求是确认身后空间后才转身摆脱压力。",
+      "styleNoteZh": "巴蒂斯塔守在阿根廷防线身前，既负责拦截，也是夺回球权后的第一出球点。队友向前压上时，他留在中路稳住位置，再判断下一步该用短传衔接，还是用长球寻找前方空当。",
       "noteZh": "他在1986年世界杯代表阿根廷，位置是中场。",
-      "styleNote": "In Batista's position, start with protecting the route into the centre before following the ball. One action to notice is how he holds the centre until a teammate recovers behind the ball. Separately, he turns out of pressure only after checking the space behind him.",
+      "styleNote": "Batista is the interceptor in front of Argentina’s defence and the first passer when possession is won. He holds the central space as teammates advance, then decides whether the next move needs a short pass or a longer ball into space.",
       "note": "Argentina's 1986 World Cup midfielder.",
       "birthDate": "1962-11-09",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
@@ -312558,51 +311677,22 @@
       "leagueAtTournamentSource": "historical-league-association-era-rules-2026-07-21",
       "leagueAtTournamentSourceUrl": "https://en.wikipedia.org/wiki/FIFA_World_Cup_squads",
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "defensive-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-8",
-        "roleGuidePreferredVariant": "role-guide-8",
-        "roleGuideCollisionResolved": false,
         "signature": "dm-screen",
         "actions": [
           "dm-hold-zone",
-          "dm-safe-turn"
+          "dm-break-line"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1986 Best XI rationale",
-            "semanticIds": [
-              "dm-screen"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "defensive-midfielder:role-guide-1",
-            "semanticIds": [
-              "dm-hold-zone"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "defensive-midfielder:role-guide-8",
-            "semanticIds": [
-              "dm-safe-turn"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "role-inference",
-          "editorial-headline-context"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "key-another"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Jean-Marie Pfaff / Belgium / 1986": {
@@ -314718,9 +313808,9 @@
       "imagePageTitle": "Didier Deschamps",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Didier_Deschamps",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "理解Didier Deschamps的场上工作，重点是跟随球移动前先保护通向中路的路线。观察他如何在延缓反击时不放弃球门前的关键空间。还要看他会在压力集中到一侧时转移进攻。",
+      "styleNoteZh": "德尚坐镇法国四后卫身前，封锁中路，并与佩蒂一道维持中场的防守秩序。他的传球选择简洁稳妥，让前方的齐达内和德约卡夫可以更大胆地处理球。",
       "noteZh": "他在1998年世界杯代表法国，位置是中场。",
-      "styleNote": "A useful starting point with Deschamps is protecting the route into the centre before following the ball. Notice how he delays the counterattack without abandoning the space in front of goal. Elsewhere, he switches play after pressure gathers on one side.",
+      "styleNote": "Deschamps anchors France in front of the back four, protecting the central route and organising the defensive side of midfield with Petit. His passing stays economical, letting Zidane and Djorkaeff take greater risks ahead of him.",
       "note": "France's 1998 World Cup midfielder.",
       "birthDate": "1968-10-15",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
@@ -314745,51 +313835,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "defensive-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-5",
-        "roleGuidePreferredVariant": "role-guide-5",
-        "roleGuideCollisionResolved": false,
         "signature": "dm-screen",
         "actions": [
-          "dm-delay-counter",
-          "dm-switch"
+          "dm-hold-zone",
+          "dm-lane-block"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1998 Best XI rationale",
-            "semanticIds": [
-              "dm-screen"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "defensive-midfielder:role-guide-6",
-            "semanticIds": [
-              "dm-delay-counter"
-            ]
-          },
-          {
-            "kind": "role-default",
-            "source": "defensive-midfielder:role-guide-5",
-            "semanticIds": [
-              "dm-switch"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "role-inference",
-          "editorial-headline-context"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "build-two-cues"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Frank Leboeuf / France / 1998": {
@@ -314830,9 +313891,9 @@
       "imagePageTitle": "Frank Leboeuf",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Frank_Leboeuf",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "要理解Frank Leboeuf的场上任务，可以观察进攻转移侧面时保持后防线连接。第一项动作中，他会守住危险线路，直到队友能向持球人施压。另一项动作也体现了这一点：他会在球进入禁区时与搭档保持可协防的距离。",
+      "styleNoteZh": "勒伯夫在决赛顶替停赛的布兰科，进入法国惯用的四后卫阵型，并没有专盯罗纳尔多的固定任务。他面对这名前锋完成了一次时机恰到好处的铲断，后来称那是自己职业生涯最佳的一次铲抢。",
       "noteZh": "他在1998年世界杯代表法国，位置是后卫。",
-      "styleNote": "For Leboeuf, start with keeping the back line connected as the attack changes sides. One detail is how he holds the dangerous lane until a teammate can pressure the ball. The same idea returns as he keeps a workable distance from his partner as the ball enters the box.",
+      "styleNote": "Leboeuf replaces suspended Blanc in France's usual back four for the final, with no fixed instruction to follow Ronaldo. His perfectly timed tackle on the striker becomes the challenge he later calls the best of his career.",
       "note": "France's 1998 World Cup defender.",
       "birthDate": "1968-01-22",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
@@ -314857,40 +313918,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "centre-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-6",
-        "roleGuidePreferredVariant": "role-guide-6",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-line",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-hold-lane",
-          "cb-box-distance"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Defensive control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "profile-source",
-            "source": "Defensive control",
-            "semanticIds": [
-              "cb-line",
-              "cb-hold-lane",
-              "cb-box-distance"
-            ]
-          }
-        ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "quality-defines-game"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Marcel Desailly / France / 1998": {
@@ -314931,9 +313974,9 @@
       "imagePageTitle": "Marcel Desailly",
       "imagePageUrl": "https://en.wikipedia.org/wiki/Marcel_Desailly",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "优先保护下一处危险而不是追逐第一次移动决定了Marcel Desailly的比赛方式。这体现在他会提前转身，跟住进入肋部通道的跑动。在比赛的另一部分，他会在最后一传到来前回头确认跑动者的位置。",
+      "styleNoteZh": "德塞利在法国双中卫组合中负责补位，保护布兰科压上后留下的空间；对方前锋背身接球时，他则会抢到身前断球。无论争顶还是地面对抗，他都十分强势，是法国整届赛事仅失两球的后防核心。",
       "noteZh": "他在1998年世界杯代表法国，位置是后卫。",
-      "styleNote": "Desailly is defined by covering the next danger rather than chasing the first movement. One sign is how he turns early enough to stay connected with a run into the channel. Separately, he checks the runner over his shoulder before the final pass arrives.",
+      "styleNote": "Desailly is the recovery defender in France's central pairing, protecting the space behind Blanc's advances and stepping in front when a striker receives with his back to goal. Strong in the air and on the ground, he is the leading figure in a defence that concedes only twice.",
       "note": "France's 1998 World Cup defender.",
       "birthDate": "1968-09-07",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
@@ -314958,47 +314001,22 @@
       "leagueAtTournamentSeason": 1997,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "centre-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-3",
-        "roleGuidePreferredVariant": "role-guide-3",
-        "roleGuideCollisionResolved": false,
-        "signature": "cb-cover",
+        "signature": "authored-evergreen",
         "actions": [
-          "cb-track-channel",
-          "cb-check-runner"
+          "authored-observation",
+          "authored-observation"
         ],
         "sources": [
-          "Defensive control"
+          "editorial-spotlight"
         ],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "1998 Best XI rationale",
-            "semanticIds": [
-              "cb-cover",
-              "cb-track-channel"
-            ]
-          },
-          {
-            "kind": "profile-source",
-            "source": "Defensive control",
-            "semanticIds": [
-              "cb-check-runner"
-            ]
-          }
-        ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "quality-defines-game"
+        "structureId": "authored-prose"
       }
     },
     "Cafu / Brazil / 2002": {
@@ -316622,9 +315640,9 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/sergio-ramos/profil/spieler/25557",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "让Sergio Ramos显得不同的是提供进攻宽度又不过早到位。一处表现是他会等队友能够保护他留下的空间后才开始前插。另外，他会足够早地转向自家球门，跟上第一次回防跑动。",
+      "styleNoteZh": "拉莫斯是西班牙右路的重要进攻出口，他从边后卫位置带球向前，越过第一道压迫。他的前插为进攻拉开宽度，布斯克茨和哈维·阿隆索则在身后形成保护。",
       "noteZh": "他在2010年世界杯代表西班牙，位置是后卫。",
-      "styleNote": "What separates Ramos is giving the team width without arriving too early. Ramos starts the forward run after a teammate can cover the space he leaves. Separately, he turns toward his own goal early enough to match the first recovery run.",
+      "styleNote": "Ramos is Spain's attacking outlet on the right, driving forward from full-back and carrying beyond pressure. His advances give the attack width, with Busquets and Alonso screening behind him.",
       "note": "Spain's 2010 World Cup defender.",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
       "birthDateSourceUrl": "https://github.com/jfjelstul/worldcup/blob/master/data-json/worldcup.json",
@@ -316651,39 +315669,22 @@
       "leagueAtTournamentSeason": 2009,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "full-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-7",
-        "roleGuidePreferredVariant": "role-guide-7",
-        "roleGuideCollisionResolved": false,
-        "signature": "fb-width",
+        "signature": "authored-evergreen",
         "actions": [
-          "fb-overlap-timing",
-          "fb-recovery-run"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "2010 Best XI rationale",
-            "semanticIds": [
-              "fb-width",
-              "fb-overlap-timing",
-              "fb-recovery-run"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "separating-clue"
+        "structureId": "authored-prose"
       }
     },
     "Xabi Alonso / Spain / 2010": {
@@ -317133,9 +316134,9 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/bastian-schweinsteiger/profil/spieler/2514",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "看Bastian Schweinsteiger的比赛，重点是让夺回球后的第一脚传球比抢断更简单。一处表现是：他会第一脚稳住球，第二脚把球送出。他会在直接线路拥挤时回传并改变接应角度，这种处理延续了下来。",
+      "styleNoteZh": "小组赛期间，施魏因施泰格的出场时间逐步增加，他也渐入状态；球队为八强战变阵后，他成为位置更深的中场控制者。他立足中场底部，以站位保护中路，并用出球方向调节比赛节奏。",
       "noteZh": "他在2014年世界杯代表德国，位置是中场。",
-      "styleNote": "For Schweinsteiger, start with making the first pass after a recovery easier than the tackle. Look for how he uses one touch to secure the ball and the next to release it. That pattern continues when he returns the ball and changes angle with the direct route crowded.",
+      "styleNote": "Schweinsteiger grows into the tournament after being eased through the group stage, then becomes the deeper controller when Germany reshape for the quarter-final. From the base of midfield, his positioning protects the centre and the direction of his passing sets the pace.",
       "note": "Germany's 2014 World Cup midfielder.",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
       "birthDateSourceUrl": "https://github.com/jfjelstul/worldcup/blob/master/data-json/worldcup.json",
@@ -317162,38 +316163,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "defensive-midfielder",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-4",
-        "roleGuidePreferredVariant": "role-guide-4",
-        "roleGuideCollisionResolved": false,
-        "signature": "dm-first-pass",
+        "signature": "authored-evergreen",
         "actions": [
-          "dm-two-touch",
-          "dm-reset"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "role-default",
-            "source": "defensive-midfielder:role-guide-4",
-            "semanticIds": [
-              "dm-first-pass",
-              "dm-two-touch",
-              "dm-reset"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "reinforces-headline",
         "evidence": [
-          "editorial-best-xi",
-          "role-inference"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "role-level",
-        "confidence": "role-level",
-        "structureId": "one-another"
+        "confidence": "editorial",
+        "structureId": "authored-prose"
       }
     },
     "Philipp Lahm / Germany / 2014": {
@@ -317236,9 +316221,9 @@
       "peakMarketValueSource": "transfermarkt-market-values-2026-06-23",
       "peakMarketValueSourceUrl": "https://www.transfermarkt.co.uk/philipp-lahm/profil/spieler/2219",
       "sourceUrl": "https://github.com/jfjelstul/worldcup",
-      "styleNoteZh": "理解Philipp Lahm的关键是确认身后空间受保护后再选择套边。一个表现是他会等队友能够保护他留下的空间后才开始前插。除此之外，他会足够早地转向自家球门，跟上第一次回防跑动。",
+      "styleNoteZh": "德国前四场比赛，拉姆都在中场中路首发，为中路推进增加一个接应点。到了八强战，他回归右后卫，既能沿边套上，也能内收参与组织，仍不失对球权的掌控。",
       "noteZh": "他在2014年世界杯代表德国，位置是后卫。",
-      "styleNote": "The key to Lahm is choosing the overlap only after the space behind him is protected. He starts the forward run after a teammate can cover the space he leaves. Beyond that, he turns toward his own goal early enough to match the first recovery run.",
+      "styleNote": "Lahm starts Germany's first four matches in central midfield, offering an extra passing option through the centre. From the quarter-final he returns to right-back, where he can overlap or step inside without losing that control of possession.",
       "note": "Germany's 2014 World Cup defender.",
       "birthDateSource": "fjelstul-worldcup-json-2026-06-23",
       "birthDateSourceUrl": "https://github.com/jfjelstul/worldcup/blob/master/data-json/worldcup.json",
@@ -317265,39 +316250,22 @@
       "leagueAtTournamentSeason": 2013,
       "leagueAtTournamentTier": 1,
       "styleNoteMeta": {
-        "origin": "generated",
-        "version": "historical-style-v10",
+        "origin": "authored",
+        "version": "historical-style-authored-v1",
         "role": "full-back",
-        "roleSource": "best-xi-position",
-        "roleGuideVariant": "role-guide-3",
-        "roleGuidePreferredVariant": "role-guide-3",
-        "roleGuideCollisionResolved": false,
-        "signature": "fb-overlap",
+        "signature": "authored-evergreen",
         "actions": [
-          "fb-overlap-timing",
-          "fb-recovery-run"
+          "authored-observation",
+          "authored-observation"
         ],
-        "sources": [],
-        "semanticSources": [
-          {
-            "kind": "best-xi-rationale",
-            "source": "2014 Best XI rationale",
-            "semanticIds": [
-              "fb-overlap",
-              "fb-overlap-timing",
-              "fb-recovery-run"
-            ]
-          }
+        "sources": [
+          "editorial-spotlight"
         ],
-        "supportRelation": "additional-trait",
         "evidence": [
-          "editorial-best-xi",
-          "editorial-hint-match",
-          "editorial-action-match"
+          "editorial-spotlight"
         ],
-        "evidenceScope": "exact-edition",
         "confidence": "editorial",
-        "structureId": "key-another"
+        "structureId": "authored-prose"
       }
     },
     "Toby Alderweireld / Belgium / 2018": {

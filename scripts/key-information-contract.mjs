@@ -312,7 +312,11 @@ function validateMetadata(keyInformation, fixture, collection, hasLineup, hasFor
   }
   const requiredInputs = isCanceled
     ? ["teams", "stage", "registeredSquadContext"]
-    : ["teams", "stage", ...(collection.requiredInputs || [])];
+    : [
+        "teams",
+        ...(collection.requiresStageEvidence === false ? [] : ["stage"]),
+        ...(collection.requiredInputs || [])
+      ];
   for (const input of requiredInputs) {
     if (!inputSet.has(input)) {
       issues.push(`${label}.evidenceInputs must include "${input}"`);
@@ -395,13 +399,13 @@ function collectModelPlayers(model) {
   };
 
   if (model?.kind === "current-lineup") {
-    add(own, slots.identity?.namedStarters);
     add(own, slots.matchup?.ownStarter);
     add(opponent, [slots.matchup?.opposingStarter, slots.matchup?.opponentReference]);
     add(own, slots.plan?.starters);
     add(opponent, slots.risk?.starters);
   } else if (model?.kind === "historical-evidence") {
-    add(own, slots.identity?.confirmedStarters);
+    add(own, [slots.identity?.confirmedStarters, slots.identity?.confirmedStarterFacts]);
+    add(opponent, slots.risk?.opponentConfirmedStarterFacts);
   }
   return { own: [...new Set(own)], opponent: [...new Set(opponent)] };
 }
@@ -439,8 +443,8 @@ function validateCurrentModel({ model, collection, fixture, side, lineup, eviden
   if (model.slots.matchup?.opponentFormation !== opponentLineup.formation) {
     issues.push(`${label}.slots.matchup.opponentFormation must match the opponent tactical layout`);
   }
-  if (model.slots.identity?.variant !== "record-and-layout") {
-    issues.push(`${label}.slots.identity.variant must be record-and-layout`);
+  if (model.slots.identity?.variant !== "structure-and-players") {
+    issues.push(`${label}.slots.identity.variant must be structure-and-players`);
   }
   if (Object.hasOwn(model.slots.identity || {}, "profileId")) {
     issues.push(`${label}.slots.identity.profileId must not carry an unsourced editorial profile`);
@@ -451,10 +455,15 @@ function validateCurrentModel({ model, collection, fixture, side, lineup, eviden
   if (!["left", "right", "central"].includes(model.slots.matchup?.lane)) {
     issues.push(`${label}.slots.matchup.lane must be left, right, or central`);
   }
-  validateRecord(model.slots.identity?.prior, `${label}.slots.identity.prior`, issues);
-  validateRecord(model.slots.matchup?.opponentPrior, `${label}.slots.matchup.opponentPrior`, issues);
   if (!Array.isArray(model.slots.identity?.namedStarters) || model.slots.identity.namedStarters.length !== 2) {
     issues.push(`${label}.slots.identity.namedStarters must contain two starting-layout references`);
+  } else {
+    const ownStarterNames = new Set(ownLineup.starters.map(normalizeSearchText));
+    for (const starter of model.slots.identity.namedStarters) {
+      if (!ownStarterNames.has(normalizeSearchText(starter?.name))) {
+        issues.push(`${label}.slots.identity.namedStarters references ${starter?.name || "an unnamed player"} outside the confirmed starting XI`);
+      }
+    }
   }
   for (const slotName of ["identity", "matchup", "plan", "risk"]) {
     validateEvidenceSlot(model.slots[slotName], `${label}.slots.${slotName}`, evidenceInputs, issues);
@@ -476,6 +485,7 @@ function validateHistoricalModel({ model, collection, fixture, hasLineup, eviden
     issues.push(`${label}.stage.group must match the fixture group`);
   }
   const identity = model.slots.identity;
+  const isLineupComparison = identity?.displayMode === "lineup-comparison";
   if (!Array.isArray(identity?.managers) || identity.managers.some((name) => !normalizeWhitespace(name))) {
     issues.push(`${label}.slots.identity.managers must preserve all non-empty manager records`);
   }
@@ -485,6 +495,38 @@ function validateHistoricalModel({ model, collection, fixture, hasLineup, eviden
     (hasLineup ? starterCount < 1 || starterCount > 3 : starterCount !== 0)
   ) {
     issues.push(`${label}.slots.identity.confirmedStarters must contain ${hasLineup ? "one to three" : "zero"} selected starters`);
+  }
+  if (isLineupComparison) {
+    if (!hasLineup) {
+      issues.push(`${label}.slots.identity.displayMode lineup-comparison requires two confirmed starting XIs`);
+    }
+    for (const [factsLabel, facts] of [
+      ["identity.confirmedStarterFacts", identity?.confirmedStarterFacts],
+      ["risk.opponentConfirmedStarterFacts", model.slots.risk?.opponentConfirmedStarterFacts]
+    ]) {
+      if (!Array.isArray(facts) || facts.length < 1 || facts.length > 3) {
+        issues.push(`${label}.slots.${factsLabel} must contain one to three named starting-role facts`);
+        continue;
+      }
+      for (const fact of facts) {
+        if (!normalizeWhitespace(fact?.name) || !["goalkeeper", "defender", "midfielder", "forward", "player"].includes(fact?.position)) {
+          issues.push(`${label}.slots.${factsLabel} contains an invalid named starting-role fact`);
+        }
+      }
+    }
+    for (const [countsLabel, counts] of [
+      ["identity.roleCounts", identity?.roleCounts],
+      ["risk.opponentRoleCounts", model.slots.risk?.opponentRoleCounts]
+    ]) {
+      const total = ["goalkeeper", "defender", "midfielder", "forward", "player"]
+        .reduce((sum, role) => sum + (Number.isInteger(counts?.[role]) ? counts[role] : 0), 0);
+      if (counts?.goalkeeper !== 1 || total !== 11) {
+        issues.push(`${label}.slots.${countsLabel} must describe exactly 11 starters with one goalkeeper`);
+      }
+    }
+    if (!Array.isArray(model.slots.risk?.opponentManagers) || model.slots.risk.opponentManagers.some((name) => !normalizeWhitespace(name))) {
+      issues.push(`${label}.slots.risk.opponentManagers must preserve all non-empty opponent manager records`);
+    }
   }
   validateRecord(identity?.prior, `${label}.slots.identity.prior`, issues, { requireCleanSheets: true });
   validateRecord(model.slots.plan?.prior, `${label}.slots.plan.prior`, issues, { requireCleanSheets: true });
@@ -599,8 +641,16 @@ function validateLocaleModel({ collection, fixture, side, keyInformation, teamNa
 function validateCopy({ collection, fixture, side, copy, teamName, opponentName, lineup, playerRecords, model, fingerprints, issues }) {
   const label = `${formatFixtureLabel(collection, fixture)} keyInformation.${side}`;
   const isCanceled = fixture.status === "CANCELLED";
-  const minWords = isCanceled ? 35 : collection.minWords ?? 50;
-  const maxWords = collection.maxWords ?? 90;
+  const isHistoricalLineupComparison =
+    model?.kind === "historical-evidence" && model.slots.identity?.displayMode === "lineup-comparison";
+  const minWords = isCanceled
+    ? 35
+    : isHistoricalLineupComparison
+      ? collection.lineupComparisonMinWords ?? 40
+      : collection.minWords ?? 50;
+  const maxWords = isHistoricalLineupComparison
+    ? collection.lineupComparisonMaxWords ?? 80
+    : collection.maxWords ?? 90;
   const count = wordCount(copy);
   if (!copy) {
     issues.push(`${label} is missing`);
@@ -610,7 +660,20 @@ function validateCopy({ collection, fixture, side, copy, teamName, opponentName,
   const sentences = sentenceList(copy);
   if (sentences.length !== 4) issues.push(`${label} must contain exactly four sentences; found ${sentences.length}`);
   if (!includesSearchPhrase(sentences[0], teamName)) issues.push(`${label} sentence 1 must identify ${teamName}`);
-  if (!isCanceled && !includesSearchPhrase(sentences[1], opponentName)) issues.push(`${label} sentence 2 must identify ${opponentName}`);
+  if (
+    !isCanceled &&
+    model?.kind !== "current-lineup" &&
+    !isHistoricalLineupComparison &&
+    !includesSearchPhrase(sentences[1], opponentName)
+  ) {
+    issues.push(`${label} sentence 2 must identify ${opponentName}`);
+  }
+  if (model?.kind === "current-lineup" && !includesSearchPhrase(sentences.slice(2).join(" "), opponentName)) {
+    issues.push(`${label} sentences 3-4 must identify ${opponentName}`);
+  }
+  if (isHistoricalLineupComparison && !includesSearchPhrase(sentences[2], opponentName)) {
+    issues.push(`${label} sentence 3 must identify ${opponentName}`);
+  }
   if (isCanceled && !includesSearchPhrase(copy, opponentName)) issues.push(`${label} must identify canceled opponent ${opponentName}`);
   if (isCanceled && !/\bcancell?ed\b/iu.test(copy)) issues.push(`${label} must explicitly say the fixture is canceled`);
   if (RESULT_LEAK_PATTERN.test(copy)) issues.push(`${label} contains current-match result or event leakage`);
@@ -629,7 +692,11 @@ function validateCopy({ collection, fixture, side, copy, teamName, opponentName,
   const hasLineup = lineupSide(lineup, "home").starters.length > 0 && lineupSide(lineup, "away").starters.length > 0;
   if (hasLineup) {
     const managerNames = new Set(
-      (model?.kind === "historical-evidence" ? model.slots.identity?.managers || [] : []).map(normalizeSearchText)
+      (
+        model?.kind === "historical-evidence"
+          ? [...(model.slots.identity?.managers || []), ...(model.slots.risk?.opponentManagers || [])]
+          : []
+      ).map(normalizeSearchText)
     );
     for (const mention of detectPlayerMentions(copy, playerRecords)) {
       if (managerNames.has(mention.normalizedName)) continue;
@@ -644,6 +711,11 @@ function validateCopy({ collection, fixture, side, copy, teamName, opponentName,
   if (model?.kind === "historical-evidence") {
     for (const manager of model.slots.identity?.managers || []) {
       if (!includesSearchPhrase(copy, manager)) issues.push(`${label} omits documented manager ${manager}`);
+    }
+    if (isHistoricalLineupComparison) {
+      for (const manager of model.slots.risk?.opponentManagers || []) {
+        if (!includesSearchPhrase(copy, manager)) issues.push(`${label} omits documented opponent manager ${manager}`);
+      }
     }
   }
 

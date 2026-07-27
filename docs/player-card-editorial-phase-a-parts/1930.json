@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1930,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Adolfo Zumelzú / Argentina / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His exact two-goal record can support an edition portrait, but the angle, switch and reset mechanics are still generic midfield inference.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alejandro Scopelli / Argentina / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A scorer appearing across three featured matches warrants an edition identity, while every visible movement remains a generic forward default.",
+      "repetitionFlag": "Part of Argentina's run-behind and pull-wide forward cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ángel Bossio / Argentina / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balance and footwork explanation reads well, but the stored shot-stopping tag does not confirm those personalized mechanics.",
+      "repetitionFlag": "Shares the set-feet and reset action pair with Juan Botasso.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Peucelle / Argentina / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His width is supported by the exact Best XI rationale, but the outside-in and far-post mechanics still come from a broad running tag.",
+      "repetitionFlag": "His width-first recipe overlaps nearby Mario Evaristo.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Paternoster / Argentina / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Depth protection and channel cover are supported, but the appended runner-check cue is generic and makes the second sentence cumbersome.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Francisco Varallo / Argentina / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact scoring record can anchor an edition-specific role guide, but the current run, near-post and pull-wide identity is wholly role-inferred.",
+      "repetitionFlag": "Part of Argentina's generic run-behind and pull-wide forward cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Guillermo Stábile / Argentina / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The direct central-forward portrait is concise, distinctive and reinforced by his eight goals and exact Best XI account of relentless blind-side running.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Botasso / Argentina / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork guide is coherent, but it repeats Bossio's unsupported set-feet and reset sequence almost action for action.",
+      "repetitionFlag": "Shares the set-feet and reset action pair with Ángel Bossio.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Evaristo / Argentina / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Generic transition and carrying cues displace the stored right-half identity of feeding Peucelle and recovering outside Monti.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Monti / Argentina / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The central screen fits his exact tournament identity, but the hold-zone and switching mechanics need confirmation before approval.",
+      "repetitionFlag": "The centre-holding sentence recurs in 1934, although the surrounding edition identities differ.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Manuel Ferreira / Argentina / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Scanning, drawing pressure and releasing runners form a natural playmaking lens directly supported by the exact-edition rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mario Evaristo / Argentina / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The width-first identity matches his stored final role, but the cutting and inside-lane mechanics remain inferred rather than edition-proven.",
+      "repetitionFlag": "His width-first recipe overlaps nearby Carlos Peucelle.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pedro Suárez / Argentina / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Late attacking runs conflict with the stored honourable-mention identity of defensive running that balanced Monti and Argentina's front five.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "André Saeys / Belgium / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A modest forward guide is appropriate, but its blind-side, pull-wide and near-post sequence barely distinguishes him from Belgium's other forwards.",
+      "repetitionFlag": "Shares the same small movement vocabulary with Voorhoof and Adams.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernard Voorhoof / Belgium / 1930",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim reuse in 1934 and 1938 leaves no recognizable 1930 identity for this recurring World Cup player.",
+      "repetitionFlag": "Near-verbatim across his 1930, 1934 and 1938 cards and similar to Belgium's other forward guides.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ferdinand Adams / Belgium / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide is plausible at this evidence level, but its pull-wide and delayed-run cues add little squad-level distinction.",
+      "repetitionFlag": "Shares the same small movement vocabulary with Saeys and Voorhoof.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eduardo Reyes Ortiz / Bolivia / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role guide is coherent, but delayed running and pulling wide make him nearly interchangeable with Bolivia's two other forwards.",
+      "repetitionFlag": "Near-duplicate run-behind guide across all three Bolivia cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gumercindo Gómez / Bolivia / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A modest forward guide is honest, but its delayed run and near-post details create false distinction inside an otherwise repeated squad recipe.",
+      "repetitionFlag": "Near-duplicate run-behind guide across all three Bolivia cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Bustamante / Bolivia / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The central running identity is plausible, but the same start-run and pull-wide formula already dominates Bolivia's tiny card set.",
+      "repetitionFlag": "Near-duplicate run-behind guide across all three Bolivia cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Araken / Brazil / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide stays within role-level evidence, but it is almost indistinguishable from Benedicto beside him.",
+      "repetitionFlag": "Near-duplicate channel, start-run and pull-wide recipe with Benedicto.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Benedicto / Brazil / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is readable, but its delayed run and pull-wide cues do not establish a separate identity from Araken.",
+      "repetitionFlag": "Near-duplicate channel and pull-wide recipe with Araken.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Joel / Brazil / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "This is an honest goalkeeper guide, but its first two sentences repeat centre protection and the reset cue remains unsupported.",
+      "repetitionFlag": "Within-card repetition of the centre-protection headline.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Moderato / Brazil / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two exact-edition goals can support an individualized portrait, but the blind-side, pull-wide and near-post mechanics are generic role inference.",
+      "repetitionFlag": "Uses the same pull-wide and near-post recipe as several 1930 forward cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Preguinho / Brazil / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Three goals across two matches demand a clearer tournament identity than the current generic near-post and early-run template.",
+      "repetitionFlag": "Uses the same near-post and start-run recipe as several 1930 forward cards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Schneeberger / Chile / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The forward guide is plausible, but delayed running and near-post movement repeat the same unsupported formula used around him.",
+      "repetitionFlag": "Overlaps the run-behind and near-post language of Vidal and other Chile forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Vidal / Chile / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal tournament contribution can support a portrait, while the current near-post and early-run mechanics remain generic.",
+      "repetitionFlag": "Overlaps Schneeberger's run-behind and near-post guide.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "César Espinoza / Chile / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork, reset and body-reading explanation works as prose, but those mechanics outrun the stored shot-stopping evidence.",
+      "repetitionFlag": "The reset action also appears on Roberto Cortés's card.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Guillermo Subiabre / Chile / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Goals in two separate matches offer an edition-specific foundation, but the visible blind-side and near-post identity is wholly role-inferred.",
+      "repetitionFlag": "Uses the same pull-wide and near-post recipe common to the edition's generated forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto Cortés / Chile / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goalkeeper role guide is adequate, but its first two sentences duplicate centre protection before adding Espinoza's reset cue.",
+      "repetitionFlag": "Within-card centre-protection repetition and a shared reset action with César Espinoza.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "André Maschinot / France / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two exact goals can support an edition portrait, but the current delayed-run and pull-wide identity is a generic forward recipe.",
+      "repetitionFlag": "Part of France's repeated channel and pull-wide forward cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Émile Veinante / France / 1930",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim reuse in 1938 makes this a portable career-role template rather than a recognizable account of Veinante in 1930.",
+      "repetitionFlag": "Near-verbatim 1938 card and similar to France's other channel-forward guides.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernest Libérati / France / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A role guide is the honest current ceiling, but delayed running and near-post movement repeat France's generic forward vocabulary.",
+      "repetitionFlag": "Overlaps Maschinot and Langiller's generated forward actions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lucien Laurent / France / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The authored gap-finding and quick-shot portrait is natural, but its mechanics need confirmation beyond the exact record of his one goal.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Marcel Langiller / France / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact scoring event can anchor an individualized role guide, but the current channel, pull-wide and delayed-run actions are generic and squad-repetitive.",
+      "repetitionFlag": "Near-duplicate channel and pull-wide recipe with Veinante and France's other forwards.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dionisio Mejía / Mexico / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The running guide is coherent, but the start-run and pull-wide combination makes him interchangeable with Mexico's surrounding forwards.",
+      "repetitionFlag": "Part of Mexico's repeated run-behind, near-post and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Felipe Olivares / Mexico / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A modest role guide is appropriate, but its near-post and early-run sequence supplies wording variety rather than a distinct identity.",
+      "repetitionFlag": "Part of Mexico's repeated run-behind, near-post and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hilario López / Mexico / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The forward guide is usable, but its near-post and pull-wide cues repeat the same unsupported movement pool used for his teammates.",
+      "repetitionFlag": "Part of Mexico's repeated run-behind, near-post and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Carreño / Mexico / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal provides an edition-specific foothold, but the channel, delayed-run and pull-wide identity remains generic.",
+      "repetitionFlag": "Overlaps Roberto Gayón and Mexico's other generated forward guides.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Manuel Rosas / Mexico / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A defender with two goals, a penalty and an own goal has a distinctive tournament story that the generic patience-and-interception card entirely misses.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto Gayón / Mexico / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal can support an individualized account, while the blind-side, pull-wide and near-post identity is only generic role inference.",
+      "repetitionFlag": "Overlaps Juan Carreño and Mexico's other generated forward guides.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Amadeo Ortega / Paraguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The forward guide is plausible, but delayed running and near-post movement give him almost the same card as González.",
+      "repetitionFlag": "Near-duplicate delayed-run and near-post recipe with Aurelio González.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aurelio González / Paraguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A modest blind-side guide is acceptable, but its final two actions nearly duplicate Ortega without additional support.",
+      "repetitionFlag": "Near-duplicate delayed-run and near-post recipe with Amadeo Ortega.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernabé Rivera / Paraguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The start-run and pull-wide guide stays modest, but it adds no meaningful differentiation inside Paraguay's forward cluster.",
+      "repetitionFlag": "Shares the edition-wide run-behind and pull-wide generator recipe.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Vargas Peña / Paraguay / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Paraguay's only exact scorer in the stored cards warrants an edition-specific role guide, while the visible delayed-run and pull-wide mechanics are generic.",
+      "repetitionFlag": "Shares Paraguay's generic run-behind and pull-wide recipe.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Modesto Denis / Paraguay / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control explanation is clear and useful, but its depth and centre-protection mechanics are not confirmed by the stored evidence.",
+      "repetitionFlag": "Centre protection also anchors Pedro Benítez's card.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Pedro Benítez / Paraguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goalkeeper guide is plausible, but its first two sentences repeat centre protection and it overlaps Denis beside him.",
+      "repetitionFlag": "Within-card centre-protection repetition and semantic overlap with Modesto Denis.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alejandro Villanueva / Peru / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide is readable, but it is almost action-for-action identical to Neyra and cannot distinguish their roles.",
+      "repetitionFlag": "Near-duplicate channel, delayed-run and pull-wide card with Demetrio Neyra.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Demetrio Neyra / Peru / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-level description is coherent, but reversing Villanueva's last two actions does not create a separate football identity.",
+      "repetitionFlag": "Near-duplicate channel, pull-wide and delayed-run card with Alejandro Villanueva.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jorge Góngora / Peru / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A blind-side guide is an honest ceiling, but its pull-wide and near-post cues still come from the same tiny squad movement pool.",
+      "repetitionFlag": "Overlaps the generic movements assigned to Villanueva, Neyra and Ferreira.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Souza Ferreira / Peru / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal can support an edition-specific role guide, but the current near-post and early-run mechanics are generic and squad-repetitive.",
+      "repetitionFlag": "Overlaps the generic forward movements assigned to all three Peru teammates.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Adalbert Deşu / Romania / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "An exact goal and two featured matches support an individualized role guide, while the near-post and pull-wide mechanics remain generic.",
+      "repetitionFlag": "Part of Romania's repeated forward movement cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Constantin Stanciu / Romania / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact scoring event warrants an edition identity, but the channel, delayed-run and pull-wide actions are role defaults.",
+      "repetitionFlag": "Part of Romania's repeated channel and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ilie Subăşeanu / Romania / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide is plausible, but start-run and pull-wide cues make it nearly interchangeable with Stanciu.",
+      "repetitionFlag": "Part of Romania's repeated channel and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miklós Kovács / Romania / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal provides a tournament-specific foundation, but the blind-side, pull-wide and near-post identity is generic.",
+      "repetitionFlag": "Part of Romania's repeated forward movement cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alexander Wood / United States / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-with-position explanation reads naturally, but goal-side patience and cover timing outrun the broad physical-duels evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Arnie Oliver / United States / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide is plausible, but its delayed-run and near-post cues repeat the same movement vocabulary used around him.",
+      "repetitionFlag": "Overlaps the United States' generated forward cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bart McGhee / United States / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal and two featured matches can support an individualized role guide, but the channel, early-run and pull-wide identity is generic.",
+      "repetitionFlag": "Near-duplicate channel and pull-wide recipe with Jim Brown.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bert Patenaude / United States / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The concise penalty-area striker portrait is natural and reinforced by four goals, the first World Cup hat-trick and his exact honourable-mention case.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jim Brown / United States / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His semi-final goal can anchor an edition identity, while the current channel, delayed-run and pull-wide sequence is generic.",
+      "repetitionFlag": "Near-duplicate channel and pull-wide recipe with Bart McGhee.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jimmy Douglas / United States / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork and centre-protection explanation is readable, but those personalized mechanics exceed the stored shot-stopping evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tom Florie / United States / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal can support a tournament-specific role guide, but the near-post and early-run identity remains a generic forward template.",
+      "repetitionFlag": "Overlaps Arnie Oliver and the squad's generated forward movement cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Álvaro Gestido / Uruguay / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic progression profile misses his documented left-half width and space-protection identity and makes him sound like Andrade.",
+      "repetitionFlag": "Shares the carry-through-an-open-lane progression recipe with José Leandro Andrade.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Enrique Ballesteros / Uruguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role guide is coherent, but its first two sentences repeat the same centre-protection point without individualized support.",
+      "repetitionFlag": "Near-duplicate centre-protection goalkeeper recipe with Miguel Capuccini.",
+      "dataIssue": "Possible alias duplicate of Enrique Ballestrero / Uruguay / 1930.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Enrique Ballestrero / Uruguay / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Calmness is supported by his Best XI rationale and three-goal concession record, but the catching, parrying and set-feet mechanics need proof.",
+      "repetitionFlag": "",
+      "dataIssue": "Possible alias duplicate of Enrique Ballesteros / Uruguay / 1930.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ernesto Mascheroni / Uruguay / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Covering, channel recovery and lane protection align with the exact-edition HM evidence and form a clear defender watch-lens.",
+      "repetitionFlag": "The lane-holding sentence is identical to one on José Nasazzi's card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Héctor Castro / Uruguay / 1930",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The compact target-forward portrait reads naturally, but the edition evidence confirms box attacks and goals rather than the specific hold-up and second-ball mechanics.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Héctor Scarone / Uruguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Between-lines link play matches the Best XI evidence, but the repeated opening and unsourced side-on-reception sentence need a small repair.",
+      "repetitionFlag": "The second sentence largely restates the between-lines headline.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Leandro Andrade / Uruguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His progression through pressure is supported, but the pause cue and shared Gestido recipe underplay his defining two-way cover and athletic rhythm.",
+      "repetitionFlag": "Shares the carry-through-an-open-lane progression recipe with Álvaro Gestido.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Nasazzi / Uruguay / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Front-foot interception and organised cover capture the captain's exact-edition identity in natural, useful prose.",
+      "repetitionFlag": "The lane-holding sentence is identical to one on Ernesto Mascheroni's card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lorenzo Fernández / Uruguay / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The central-screening description cleanly translates his documented centre-half anchoring role without adding unsupported spectacle.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miguel Capuccini / Uruguay / 1930",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "This is an honest goalkeeper role guide, but the centre-protection headline is immediately restated and is not distinct from Ballesteros.",
+      "repetitionFlag": "Near-duplicate centre-protection goalkeeper recipe with Enrique Ballesteros.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pablo Dorado / Uruguay / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Exact scoring evidence gives him a distinct edition story, while the current inside-channel and outside-to-inside mechanics come only from a generic runs-in-behind tag.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pedro Cea / Uruguay / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The concise late-arriving inside-forward identity is natural and directly reinforced by his exact-edition Best XI rationale and five goals.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Peregrino Anselmo / Uruguay / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His three goals across two matches support an edition portrait, but every visible movement claim is still role-inferred and generic.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Santos Iriarte / Uruguay / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His four appearances and decisive semi-final and final scoring support a strong edition identity, but the far-post and carrying mechanics are unsupported.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aleksandar Tirnanić / Yugoslavia / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His exact goal and two featured matches can support an individualized role guide, but delayed running and near-post movement remain generic.",
+      "repetitionFlag": "Part of Yugoslavia's repeated run-behind forward cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Blagoje Marjanović / Yugoslavia / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A goal across three featured matches warrants an edition identity, while the start-run and pull-wide sequence is wholly role-inferred.",
+      "repetitionFlag": "Part of Yugoslavia's repeated run-behind and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Đorđe Vujadinović / Yugoslavia / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Goals in two different matches provide exact-edition material, but the blind-side and near-post identity remains generic.",
+      "repetitionFlag": "Part of Yugoslavia's repeated delayed-run and near-post cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ivan Bek / Yugoslavia / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Three goals across two matches demand a clearer tournament identity than the current delayed-run and pull-wide template.",
+      "repetitionFlag": "Part of Yugoslavia's repeated run-behind and pull-wide cluster.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Milovan Jakšić / Yugoslavia / 1930",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The stored honourable-mention evidence identifies his saves in the Brazil upset, while the current card remains a generic centre-protection goalkeeper guide.",
+      "repetitionFlag": "Its first two sentences repeat centre protection.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Milutin Ivković / Yugoslavia / 1930",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Early danger recognition, channel cover and runner awareness form a useful defensive lens aligned with his exact Best XI rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

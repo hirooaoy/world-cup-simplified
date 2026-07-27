@@ -229,7 +229,7 @@ function countContentBeats(note) {
   for (const sentence of splitSentences(note)) {
     if (countWords(sentence) < 4) continue;
     beats += 1;
-    const connectors = sentence.match(/(?:,\s*|\s+)(?:and|or|but|then|while|before|after)\b/gi) || [];
+    const connectors = sentence.match(/(?:,\s*|\s+)(?:and|or|but|then|while|before|after|later)\b/gi) || [];
     beats += Math.min(2, connectors.length);
   }
   return beats;

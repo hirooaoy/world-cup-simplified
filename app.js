@@ -3154,6 +3154,7 @@ const calendarPrevMonth = document.querySelector("#calendar-prev-month");
 const calendarNextMonth = document.querySelector("#calendar-next-month");
 
 const INITIAL_SKELETON_DELAY_MS = 180;
+const FINAL_CELEBRATION_DEFERRED_DATA_DELAY_MS = 1100;
 let isInitialPageEntrancePending = document.body.classList.contains("is-initial-page-load");
 let hasInitialScheduleContentPainted = !isInitialPageEntrancePending;
 const initialSkeletonRevealTimer = window.setTimeout(() => {
@@ -8345,6 +8346,44 @@ function loadHistoricalPlayerProfiles() {
   return historicalPlayerProfilesLoadPromise;
 }
 
+function getActiveDeferredHistoricalProfileInteraction() {
+  if (
+    !activePlayerHover?.isConnected ||
+    activePlayerHover.dataset.historicalProfileLoad !== "interaction"
+  ) {
+    return null;
+  }
+
+  const trigger = activePlayerHover.querySelector(".player-link[data-player-card-trigger]");
+  const label = trigger?.textContent.trim() || "";
+  return label ? { label, restoreFocus: document.activeElement === trigger } : null;
+}
+
+function restoreDeferredHistoricalProfileInteraction(interaction) {
+  if (!interaction) {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    const nextPlayerHover = [...document.querySelectorAll(
+      '.final-celebration-banner .player-hover[data-historical-profile-load="interaction"]'
+    )].find(
+      (playerHover) =>
+        playerHover.querySelector(".player-link[data-player-card-trigger]")?.textContent.trim() ===
+        interaction.label
+    );
+    const nextTrigger = nextPlayerHover?.querySelector(".player-link[data-player-card-trigger]");
+    if (!nextPlayerHover || !nextTrigger) {
+      return;
+    }
+
+    if (interaction.restoreFocus) {
+      nextTrigger.focus({ preventScroll: true });
+    }
+    openPlayerHoverCard(nextPlayerHover);
+  });
+}
+
 function scheduleHistoricalPlayerProfilesLoad() {
   if (hasLoadedHistoricalPlayerProfiles || historicalPlayerProfilesLoadPromise) {
     return;
@@ -8353,7 +8392,9 @@ function scheduleHistoricalPlayerProfilesLoad() {
   loadHistoricalPlayerProfiles()
     .then(() => {
       if (!isInitialDataLoading) {
+        const interaction = getActiveDeferredHistoricalProfileInteraction();
         renderLoadedApp({ syncActiveView: true });
+        restoreDeferredHistoricalProfileInteraction(interaction);
       }
     })
     .catch((error) => {
@@ -23055,14 +23096,14 @@ function getPlayerTeamId(player) {
   return String(player?.teamId || player?.team?.id || "").trim().toUpperCase();
 }
 
-function getHistoricalPlayerProfile(player) {
+function getHistoricalPlayerProfile(player, options = {}) {
   if (!isHistoricalPlayerCard(player)) {
     return null;
   }
 
   const fallbackProfile = player.historicalProfile || null;
 
-  if (!hasLoadedHistoricalPlayerProfiles) {
+  if (!hasLoadedHistoricalPlayerProfiles && !options.deferHistoricalProfileLoad) {
     scheduleHistoricalPlayerProfilesLoad();
   }
 
@@ -24031,7 +24072,7 @@ function getPlayerMentionEntries(players) {
     .sort((a, b) => b.alias.length - a.alias.length);
 }
 
-function getPlayerMentionEntriesForText(players) {
+function getPlayerMentionEntriesForText(players, options = {}) {
   const entries = getPlayerMentionEntries(players);
 
   if (currentLanguage !== "en") {
@@ -24069,7 +24110,7 @@ function getPlayerMentionEntriesForText(players) {
     }
 
     for (const player of players) {
-      const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
+      const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player, options);
       const aliases = [
         getLocalizedPlayerDisplayName(player, profile),
         localizeDisplayText(getPlayerName(player)),
@@ -24254,7 +24295,7 @@ function renderPlayerCardFlag(player, profile) {
 }
 
 function renderPlayerMention(label, player, options = {}) {
-  const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
+  const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player, options);
   const isProfileLoading = isHistoricalPlayerProfilePending(player, profile);
   const loadingLabel = getHistoricalPlayerProfileLoadingLabel();
   const displayName = getLocalizedPlayerDisplayName(player, profile);
@@ -24287,6 +24328,10 @@ function renderPlayerMention(label, player, options = {}) {
         : label
   );
   const wrapperClass = ["player-hover", options.wrapperClass].filter(Boolean).join(" ");
+  const historicalProfileLoadMode =
+    isHistoricalPlayerCard(player) && options.deferHistoricalProfileLoad
+      ? ` data-historical-profile-load="interaction"`
+      : "";
   const triggerClass = ["player-link", options.triggerClass].filter(Boolean).join(" ");
   const beforeTriggerMarkup = options.beforeTriggerMarkup || "";
   const afterTriggerMarkup = options.afterTriggerMarkup || "";
@@ -24329,7 +24374,7 @@ function renderPlayerMention(label, player, options = {}) {
     : "";
 
   return [
-    `<span class="${escapeHtml(wrapperClass)}">`,
+    `<span class="${escapeHtml(wrapperClass)}"${historicalProfileLoadMode}>`,
     beforeTriggerMarkup,
     trigger,
     afterTriggerMarkup,
@@ -24488,6 +24533,10 @@ function showFloatingPlayerCard(playerHover, cardWidth) {
   if (isJuggleRunActive()) {
     hideFloatingPlayerCard();
     return;
+  }
+
+  if (playerHover?.dataset.historicalProfileLoad === "interaction") {
+    scheduleHistoricalPlayerProfilesLoad();
   }
 
   const sourceCard = playerHover?.querySelector(".player-card");
@@ -24786,8 +24835,8 @@ function openPlayerHoverCard(playerHover) {
   positionPlayerCard(playerHover);
 }
 
-function renderPlayerLinkedText(text, players = []) {
-  const entries = getPlayerMentionEntriesForText(players);
+function renderPlayerLinkedText(text, players = [], options = {}) {
+  const entries = getPlayerMentionEntriesForText(players, options);
   if (!entries.length) {
     return renderFootballInlineHtml(text, escapeHtml);
   }
@@ -24812,7 +24861,7 @@ function renderPlayerLinkedText(text, players = []) {
     }
 
     html += renderFootballInlineHtml(text.slice(cursor, start), escapeHtml);
-    html += renderPlayerMention(`${alias}${possessive}`, player);
+    html += renderPlayerMention(`${alias}${possessive}`, player, options);
     cursor = end;
   }
 
@@ -30139,7 +30188,6 @@ function renderFinalCelebration() {
     Boolean(completedFinal) &&
     !isInitialDataLoading &&
     !isInitialLiveDataLoading &&
-    !isDeferredDataLoading &&
     hasInitialScheduleContentPainted;
   let banner = document.querySelector("#final-celebration-banner");
   let reveal = document.querySelector("#final-celebration-reveal");
@@ -30166,7 +30214,12 @@ function renderFinalCelebration() {
   const descriptionMarkup = reviewContent
     ? `<ul class="final-celebration-bullets">
         ${reviewContent.bullets
-          .map((bullet) => `<li>${renderPlayerLinkedText(bullet, reviewContent.mentionPlayers)}</li>`)
+          .map(
+            (bullet) =>
+              `<li>${renderPlayerLinkedText(bullet, reviewContent.mentionPlayers, {
+                deferHistoricalProfileLoad: true
+              })}</li>`
+          )
           .join("")}
       </ul>`
     : `<span class="final-celebration-summary">${escapeHtml(body)}</span>`;
@@ -32234,6 +32287,30 @@ async function loadDeferredData() {
   renderLoadedApp({ syncActiveView: true });
 }
 
+function loadDeferredDataSafely() {
+  loadDeferredData().catch((error) => {
+    console.warn("Unable to load optional history, lineup, or profile enrichment", error);
+  });
+}
+
+function scheduleInitialDeferredDataLoad() {
+  const initialCelebration = getFinalCelebrationMatchForDay(selectedDayKey);
+  const shouldDelayForCelebrationEntrance =
+    activeView === "matches" &&
+    Boolean(initialCelebration) &&
+    getWorldCupEditionYear(initialCelebration) === CURRENT_STANDINGS_YEAR;
+
+  if (!shouldDelayForCelebrationEntrance) {
+    loadDeferredDataSafely();
+    return;
+  }
+
+  window.setTimeout(
+    loadDeferredDataSafely,
+    FINAL_CELEBRATION_DEFERRED_DATA_DELAY_MS
+  );
+}
+
 async function loadReleaseNotes() {
   isReleaseNotesLoading = true;
   renderReleaseTooltipLoadingState();
@@ -32430,9 +32507,7 @@ async function boot() {
       liveDataRefreshIntervalId = setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
       loadInitialLiveData();
     }
-    loadDeferredData().catch((error) => {
-      console.warn("Unable to load optional history, lineup, or profile enrichment", error);
-    });
+    scheduleInitialDeferredDataLoad();
   } catch (error) {
     renderAppError(error);
   }

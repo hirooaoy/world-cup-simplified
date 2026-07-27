@@ -1,0 +1,2213 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 2014,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Abdelmoumene Djabou / Algeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current support-midfield guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carl Medjani / Algeria / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Carl Medjani-specific 2014 identity.",
+      "repetitionFlag": "Algeria has 2 cards built from the same support-and-angle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hillal Soudani / Algeria / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Hillal Soudani-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Islam Slimani / Algeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current blind-side runner guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rafik Halliche / Algeria / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The cover-defending guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sofiane Feghouli / Algeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic channel-runner guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Yacine Brahimi / Algeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-and-angle guide.",
+      "repetitionFlag": "Algeria has 2 cards built from the same support-and-angle pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ángel Di María / Argentina / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The supported card makes his open-grass carrying, head-up scan and far-post movement a coherent 2014 portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Enzo Pérez / Argentina / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The striker-shaped card follows incorrect role metadata and does not establish Pérez’s actual midfield function in Argentina’s final run.",
+      "repetitionFlag": "",
+      "dataIssue": "The stored Forward position produces striker mechanics for a midfielder.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ezequiel Garay / Argentina / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic contact-and-delay card does not express the stored Best XI rationale about box control across Argentina’s run to the final.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ezequiel Lavezzi / Argentina / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Ezequiel Lavezzi-specific 2014 identity.",
+      "repetitionFlag": "Argentina has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gonzalo Higuaín / Argentina / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (4 goals), 2014 (1 goal), 2018 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Gonzalo Higuaín 2010, Gonzalo Higuaín 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Javier Mascherano / Argentina / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact-edition card turns his runner tracking and goal-side recovery tackle into a vivid account of his 2014 defensive identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lionel Messi / Argentina / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The authored card is unmistakably 2014: it locates his role behind the striker and anchors it in the Iran and Switzerland actions.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marcos Rojo / Argentina / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic full-back duel guide misses the freedom, aggression and scoring contribution identified by the stored Best XI rationale.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pablo Zabaleta / Argentina / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The supported overlap timing and inside-channel protection form a clear, useful full-back portrait without filler.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sergio Agüero / Argentina / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (0 goals), 2018 (2 goals) flatten materially different scoring contributions into one reusable blind-side runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Sergio Agüero 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sergio Romero / Argentina / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010, 2014 substitute one reusable angle-control goalkeeper guide for an edition-specific 2014 account.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Sergio Romero 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Adam Taggart / Australia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Adam Taggart-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mathew Leckie / Australia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The far-post winger guide is plausible and appropriately modest, but its exact action sequence provides little Mathew Leckie-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mile Jedinak / Australia / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (2 goals) flatten materially different scoring contributions into one reusable tempo-control guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Mile Jedinak 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tim Cahill / Australia / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2010 (1 goal), 2014 (2 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Tim Cahill 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tommy Oar / Australia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Tommy Oar-specific 2014 identity.",
+      "repetitionFlag": "Australia has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Anthony Vanden Borre / Belgium / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Daniel Van Buyten / Belgium / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Belgium has 2 cards built from the same contact-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Divock Origi / Belgium / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dries Mertens / Belgium / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Dries Mertens-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eden Hazard / Belgium / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The card relies on role or Best XI context inherited from another World Cup, so it does not establish Eden Hazard’s specific 2014 contribution.",
+      "repetitionFlag": "The role or editorial context is explicitly inherited from another stored World Cup.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jan Vertonghen / Belgium / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic contact-and-step guide.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kevin De Bruyne / Belgium / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014, 2018 substitute one reusable scan-and-release guide for an edition-specific 2014 account.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Kevin De Bruyne 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kevin Mirallas / Belgium / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Kevin Mirallas-specific 2014 identity.",
+      "repetitionFlag": "Belgium has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marouane Fellaini / Belgium / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-and-angle guide.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Romelu Lukaku / Belgium / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (4 goals) flatten materially different scoring contributions into one reusable blind-side runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Romelu Lukaku 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Thibaut Courtois / Belgium / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Avdija Vršajević / Bosnia-Herzegovina / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Edin Džeko / Bosnia-Herzegovina / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "Bosnia-Herzegovina has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Izet Hajrović / Bosnia-Herzegovina / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Izet Hajrović-specific 2014 identity.",
+      "repetitionFlag": "Bosnia-Herzegovina has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miralem Pjanić / Bosnia-Herzegovina / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "Bosnia-Herzegovina has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "The stored Forward position produces striker mechanics for a midfielder.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sead Kolašinac / Bosnia-Herzegovina / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The back-post full-back guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Senad Lulić / Bosnia-Herzegovina / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Senad Lulić-specific 2014 identity.",
+      "repetitionFlag": "Bosnia-Herzegovina has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Vedad Ibišević / Bosnia-Herzegovina / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic blind-side runner guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bernard / Brazil / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Bernard-specific 2014 identity.",
+      "repetitionFlag": "Brazil has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dani Alves / Brazil / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The distance-control full-back guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "David Luiz / Brazil / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current delay-and-step guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernandinho / Brazil / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (0 goals) flatten materially different scoring contributions into one reusable support-midfield guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Fernandinho 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fred / Brazil / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "Near-verbatim recurrence in 2006, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jô / Brazil / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Jô-specific 2014 identity.",
+      "repetitionFlag": "Brazil has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Júlio César / Brazil / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010, 2014 substitute one reusable set-feet goalkeeper guide for an edition-specific 2014 account.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Júlio César 2010.",
+      "dataIssue": "The display name collides with a different Brazil player named Júlio César in 1986, so same-name recurrence is unsafe.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marcelo / Brazil / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic touchline-duel guide does not address his attacking full-back role or the own-goal event that opened Brazil’s tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Neymar / Brazil / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The carrying and far-post observations give the four-goal tournament a strong football identity and remain more useful than a generic scoring summary.",
+      "repetitionFlag": "The same mechanics recur in 2018; this 2014 control is preserved and the other edition should carry the split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oscar / Brazil / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two goals and a central creative role warrant a 2014 portrait beyond a generic tempo paragraph; identity handling must remain separate from Brazil’s earlier namesake.",
+      "repetitionFlag": "",
+      "dataIssue": "The display name collides with a different Brazil player named Oscar in 1978 and 1982, so same-name recurrence is unsafe.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ramires / Brazil / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The striker-shaped card follows incorrect role metadata and does not establish Ramires’s actual midfield role.",
+      "repetitionFlag": "Brazil has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "The stored Forward position produces striker mechanics for a midfielder.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Thiago Silva / Brazil / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact-edition card clearly connects line control, runner checks and channel coverage.",
+      "repetitionFlag": "The same mechanics recur in 2018; this 2014 control is preserved and the other edition should carry the split.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Willian / Brazil / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Willian-specific 2014 identity.",
+      "repetitionFlag": "Brazil has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alex Song / Cameroon / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic tempo card does not yet account for Song’s screening role or the tournament-specific limits of his contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Benjamin Moukandjo / Cameroon / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Benjamin Moukandjo-specific 2014 identity.",
+      "repetitionFlag": "Cameroon has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eric Maxim Choupo-Moting / Cameroon / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (0 goals), 2022 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Eric Maxim Choupo-Moting 2010, Eric Maxim Choupo-Moting 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Joël Matip / Cameroon / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-orientation defending guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Samuel Eto'o / Cameroon / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2002 (1 goal), 2010 (2 goals), 2014 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Samuel Eto'o 2002, Samuel Eto'o 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alexis Sánchez / Chile / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two goals and the stored honorable-mention evidence warrant a Chile-specific 2014 portrait beyond the role-level transition guide.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Charles Aránguiz / Chile / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-and-angle guide.",
+      "repetitionFlag": "Chile has 2 cards built from the same support-and-angle pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Claudio Bravo / Chile / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Eduardo Vargas / Chile / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "Chile has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jean Beausejour / Chile / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-and-angle guide.",
+      "repetitionFlag": "Chile has 2 cards built from the same support-and-angle pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jorge Valdivia / Chile / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "Chile has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Marcelo Díaz / Chile / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic support-midfield guide does not yet establish Marcelo Díaz’s actual 2014 role or tournament contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Sánchez / Colombia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-midfield guide is plausible and appropriately modest, but its exact action sequence provides little Carlos Sánchez-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cristián Zapata / Colombia / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "David Ospina / Colombia / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jackson Martínez / Colombia / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current channel-runner guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "James Rodríguez / Colombia / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The authored description captures his high starting position, left-footed creation and movement into the box without reducing the six-goal tournament to statistics.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Cuadrado / Colombia / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic forward-runner card misses Cuadrado’s wide creation and one-goal contribution in Colombia’s run.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Fernando Quintero / Colombia / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-and-angle guide.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Pablo Armero / Colombia / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The central-defender mechanics obscure Armero’s full-back role and scoring contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "The broad Defender position produces centre-back mechanics for a full-back.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Teófilo Gutiérrez / Colombia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Teófilo Gutiérrez-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bryan Ruiz / Costa Rica / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2014 (2 goals), 2018 (0 goals) flatten materially different scoring contributions into one reusable blind-side runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Bryan Ruiz 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Celso Borges / Costa Rica / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Celso Borges-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Christian Bolaños / Costa Rica / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Christian Bolaños-specific 2014 identity.",
+      "repetitionFlag": "Costa Rica has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cristian Gamboa / Costa Rica / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-orientation defending guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giancarlo González / Costa Rica / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Costa Rica has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Joel Campbell / Costa Rica / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2022 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Joel Campbell 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Keylor Navas / Costa Rica / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic angle guide does not express the goalkeeping impact behind Costa Rica’s quarter-final run or the stored honorable mention.",
+      "repetitionFlag": "Near-verbatim recurrence in 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marco Ureña / Costa Rica / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Marco Ureña 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Óscar Duarte / Costa Rica / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Costa Rica has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Cheick Tioté / Côte d'Ivoire / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Cheick Tioté-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Didier Drogba / Côte d'Ivoire / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2006 (1 goal), 2010 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable channel-runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Didier Drogba 2006, Didier Drogba 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gervinho / Côte d'Ivoire / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current channel-runner guide materially under-informative for this edition.",
+      "repetitionFlag": "Côte d'Ivoire has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Max Gradel / Côte d'Ivoire / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Max Gradel-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilfried Bony / Côte d'Ivoire / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current space-attacking guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ivan Perišić / Croatia / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current inside-winger guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ivica Olić / Croatia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Ivica Olić-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2002, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mario Mandžukić / Croatia / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2014 (2 goals), 2018 (3 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Mario Mandžukić 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nikica Jelavić / Croatia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Nikica Jelavić-specific 2014 identity.",
+      "repetitionFlag": "Croatia has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alexander Domínguez / Ecuador / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Antonio Valencia / Ecuador / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The stock support-midfield paragraph does not establish Valencia’s wide role or his tournament-specific contribution.",
+      "repetitionFlag": "Near-verbatim recurrence in 2006, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Enner Valencia / Ecuador / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His three-goal contribution makes the current inside-winger guide materially under-informative for this edition.",
+      "repetitionFlag": "Near-verbatim recurrence in 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Felipe Caicedo / Ecuador / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Felipe Caicedo-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Frickson Erazo / Ecuador / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Ecuador has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jorge Guagua / Ecuador / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Ecuador has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ben Foster / England / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Chris Smalling / England / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Daniel Sturridge / England / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic blind-side runner guide.",
+      "repetitionFlag": "England has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Danny Welbeck / England / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Danny Welbeck-specific 2014 identity.",
+      "repetitionFlag": "England has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gary Cahill / England / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Wayne Rooney / England / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Wayne Rooney 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antoine Griezmann / France / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The card relies on role or Best XI context inherited from another World Cup, so it does not establish Antoine Griezmann’s specific 2014 contribution.",
+      "repetitionFlag": "The role or editorial context is explicitly inherited from another stored World Cup.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bacary Sagna / France / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-back-shaped mechanics obscure Sagna’s actual full-back role in this edition.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "The broad Defender position produces centre-back mechanics for a full-back.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Blaise Matuidi / France / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic midfield support guide does not identify Matuidi’s left-sided running, balance or one-goal contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hugo Lloris / France / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010, 2014, 2018, 2022 substitute one reusable angle-control goalkeeper guide for an edition-specific 2014 account.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Hugo Lloris 2010, Hugo Lloris 2018, Hugo Lloris 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karim Benzema / France / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The supported body-to-return link play and delayed acceleration make a distinctive three-goal 2014 portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Laurent Koscielny / France / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mamadou Sakho / France / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mathieu Valbuena / France / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic channel-runner guide.",
+      "repetitionFlag": "France has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Moussa Sissoko / France / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic tempo-control guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Olivier Giroud / France / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2022 (4 goals) flatten materially different scoring contributions into one reusable blind-side runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Olivier Giroud 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paul Pogba / France / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The supported scan, pressure-drawing release and safe reset give him a natural, specific midfield identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "André Schürrle / Germany / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Three goals make the generic support-midfield sequence materially under-informative for his impact-sub role in Germany’s 2014 run.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bastian Schweinsteiger / Germany / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The first-pass guide is coherent, but its two-touch and reset mechanics need exact-edition confirmation before they can carry his 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Benedikt Höwedes / Germany / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic central-defending sequence does not establish his left-sided role across Germany’s title run.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Manuel Neuer / Germany / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact-edition card captures the high starting position and through-ball judgement central to his 2014 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mario Götze / Germany / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two goals, including the tournament’s decisive final contribution, require an edition-specific portrait beyond a stock forward-runner guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mats Hummels / Germany / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two goals and the stored Best XI rationale warrant a portrait that joins his defensive authority to his tournament impact.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mesut Özil / Germany / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The stock channel-running card does not establish Özil’s creative role or the meaning of his one-goal 2014 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miroslav Klose / Germany / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The card imports link-play mechanics from the 2006 Best XI rationale instead of distinguishing his two-goal 2014 contribution.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Miroslav Klose 2006, Miroslav Klose 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Philipp Lahm / Germany / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact-edition overlap and recovery sequence is strong, but its relation to Lahm’s changing midfield and right-back use should be verified before KEEP.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sami Khedira / Germany / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic receiving-angle guide does not establish Khedira’s midfield role or one-goal contribution in this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Thomas Müller / Germany / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact-edition card makes his movement away from expected zones and arrival in decisive ones vivid and distinctive.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Toni Kroos / Germany / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same half-turn and reset card appears in 2018, while 2014 requires its own account of his two goals and stored Best XI impact.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Toni Kroos 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdul Majeed Waris / Ghana / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Abdul Majeed Waris-specific 2014 identity.",
+      "repetitionFlag": "Ghana has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "André Ayew / Ghana / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (2 goals), 2022 (1 goal) flatten materially different scoring contributions into one reusable channel-runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with André Ayew 2010, André Ayew 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Asamoah Gyan / Ghana / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2006 (1 goal), 2010 (3 goals), 2014 (2 goals) flatten materially different scoring contributions into one reusable blind-side runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Asamoah Gyan 2006, Asamoah Gyan 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Christian Atsu / Ghana / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Christian Atsu-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "John Boye / Ghana / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Mohammed Rabiu / Ghana / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Mohammed Rabiu-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andreas Samaris / Greece / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-midfield guide is plausible and appropriately modest, but its exact action sequence provides little Andreas Samaris-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dimitris Salpingidis / Greece / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Dimitris Salpingidis 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Georgios Samaras / Greece / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Georgios Samaras 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Holebas / Greece / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kostas Manolas / Greece / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Greece has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Lazaros Christodoulopoulos / Greece / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Lazaros Christodoulopoulos-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Orestis Karnezis / Greece / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sokratis Papastathopoulos / Greece / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Greece has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Theofanis Gekas / Greece / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Theofanis Gekas-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andy Najar / Honduras / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its exact action sequence provides little Andy Najar-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Boniek García / Honduras / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Boniek García-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlo Costly / Honduras / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic penalty-box forward guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jerry Bengtson / Honduras / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Jerry Bengtson-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Noel Valladares / Honduras / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The calm goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Roger Espinoza / Honduras / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Roger Espinoza-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilson Palacios / Honduras / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-midfield guide is plausible and appropriately modest, but its exact action sequence provides little Wilson Palacios-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alireza Haghighi / Iran / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Amir Hossein Sadeghi / Iran / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andranik Teymourian / Iran / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Andranik Teymourian-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2006, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ashkan Dejagah / Iran / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Repeated featured-match involvement warrants exact-edition review beyond the generic space-attacking guide.",
+      "repetitionFlag": "Iran has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ehsan Hajsafi / Iran / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic blind-side runner guide does not yet establish Ehsan Hajsafi’s actual 2014 role or tournament contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jalal Hosseini / Iran / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-orientation defending guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Reza Ghoochannejhad / Iran / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic space-attacking guide.",
+      "repetitionFlag": "Iran has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andrea Pirlo / Italy / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2006 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable transition-midfield guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Andrea Pirlo 2006.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Antonio Candreva / Italy / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic blind-side runner guide does not yet establish Antonio Candreva’s actual 2014 role or tournament contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Claudio Marchisio / Italy / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable support-midfield guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Claudio Marchisio 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mario Balotelli / Italy / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic channel-runner guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Atsuto Uchida / Japan / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Japan has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Eiji Kawashima / Japan / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-control goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Keisuke Honda / Japan / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic support-midfield guide does not capture Honda’s attacking responsibility or his goal in Japan’s opening match.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Maya Yoshida / Japan / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Shinji Kagawa / Japan / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The stock tempo paragraph does not establish Kagawa’s attacking-midfield role or the limits of his 2014 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Shinji Okazaki / Japan / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Shinji Okazaki-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Yoshito Ōkubo / Japan / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Yoshito Ōkubo-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andrés Guardado / Mexico / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (1 goal), 2018 (0 goals), 2022 (0 goals) flatten materially different scoring contributions into one reusable support-and-angle guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Andrés Guardado 2010, Andrés Guardado 2018, Andrés Guardado 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Francisco Javier Rodríguez / Mexico / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Mexico has 3 cards built from the same contact-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giovani dos Santos / Mexico / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Giovani dos Santos 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Guillermo Ochoa / Mexico / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic set-feet guide omits the exact tournament performances needed for an individualized 2014 goalkeeper account.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Héctor Moreno / Mexico / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2022, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Javier Hernández / Mexico / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (2 goals), 2014 (1 goal), 2018 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Javier Hernández 2010, Javier Hernández 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oribe Peralta / Mexico / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Oribe Peralta-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rafael Márquez / Mexico / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2002 (0 goals), 2006 (1 goal), 2014 (1 goal) flatten materially different scoring contributions into one reusable contact-and-step guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Rafael Márquez 2002, Rafael Márquez 2006.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Arjen Robben / Netherlands / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The exact-edition card clearly explains how direct carrying, defender retreat and a change of gear shaped his tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Daley Blind / Netherlands / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-level transition guide does not yet explain the wing-back passing and recovery contribution behind his stored honorable mention.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dirk Kuyt / Netherlands / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The distance-control full-back guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Georginio Wijnaldum / Netherlands / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Georginio Wijnaldum-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jasper Cillessen / Netherlands / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Klaas-Jan Huntelaar / Netherlands / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Klaas-Jan Huntelaar-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Leroy Fer / Netherlands / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its exact action sequence provides little Leroy Fer-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Memphis Depay / Netherlands / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current support-midfield guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Robin van Persie / Netherlands / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His four-goal contribution makes the current channel-runner guide materially under-informative for this edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ron Vlaar / Netherlands / 2014",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The supported aerial reading and early channel tracking form a coherent 2014 centre-back portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Stefan de Vrij / Netherlands / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Wesley Sneijder / Netherlands / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (5 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable scan-and-release guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Wesley Sneijder 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ahmed Musa / Nigeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current blind-side runner guide materially under-informative for this edition.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Efe Ambrose / Nigeria / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Nigeria has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Emmanuel Emenike / Nigeria / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Emmanuel Emenike-specific 2014 identity.",
+      "repetitionFlag": "Nigeria has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Godfrey Oboabona / Nigeria / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-step guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Nigeria has 2 cards built from the same delay-and-step pattern.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "John Obi Mikel / Nigeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic tempo guide does not establish Mikel’s deeper midfield responsibility for Nigeria.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Joseph Yobo / Nigeria / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The aerial-defending guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Michael Babatunde / Nigeria / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Michael Babatunde-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Peter Odemwingie / Nigeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-and-angle guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Vincent Enyeama / Nigeria / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic goalkeeper guide omits the exact-edition performances needed to distinguish his run to the round of 16.",
+      "repetitionFlag": "Near-verbatim recurrence in 2002, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cristiano Ronaldo / Portugal / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The role-level far-post guide does not explain his constrained one-goal 2014 tournament or its contrast with his other editions.",
+      "repetitionFlag": "Near-verbatim recurrence in 2006, 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eder / Portugal / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Eder-specific 2014 identity.",
+      "repetitionFlag": "Portugal has 2 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hugo Almeida / Portugal / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Hugo Almeida 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nani / Portugal / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic blind-side runner guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Silvestre Varela / Portugal / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic midfield-angle card misses his impact-sub role and late equalising goal against the United States.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Aleksandr Kerzhakov / Russia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Aleksandr Kerzhakov-specific 2014 identity.",
+      "repetitionFlag": "Russia has 3 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aleksandr Kokorin / Russia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Aleksandr Kokorin-specific 2014 identity.",
+      "repetitionFlag": "Russia has 3 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aleksandr Samedov / Russia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Aleksandr Samedov-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oleg Shatov / Russia / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Oleg Shatov-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Chu-young Park / South Korea / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2006 (0 goals), 2010 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable channel-runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Chu-young Park 2006, Chu-young Park 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Chung-yong Lee / South Korea / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (2 goals), 2014 (0 goals) flatten materially different scoring contributions into one reusable channel-runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Chung-yong Lee 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Heung-min Son / South Korea / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (2 goals), 2022 (0 goals) flatten materially different scoring contributions into one reusable far-post winger guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Heung-min Son 2018, Heung-min Son 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ja-cheol Koo / South Korea / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (0 goals) flatten materially different scoring contributions into one reusable tempo-control guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Ja-cheol Koo 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Keun-ho Lee / South Korea / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Keun-ho Lee-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Shin-wook Kim / South Korea / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Shin-wook Kim-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andrés Iniesta / Spain / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014, 2018 substitute one reusable inside-winger guide for an edition-specific 2014 account.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Andrés Iniesta 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "David Silva / Spain / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little David Silva-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "David Villa / Spain / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (5 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable inside-winger guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with David Villa 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Diego Costa / Spain / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (0 goals), 2018 (3 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Diego Costa 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Torres / Spain / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2006 (3 goals), 2010 (0 goals), 2014 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Fernando Torres 2006, Fernando Torres 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Mata / Spain / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-angle guide is plausible and appropriately modest, but its exact action sequence provides little Juan Mata-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pedro / Spain / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Pedro-specific 2014 identity.",
+      "repetitionFlag": "Spain has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Xabi Alonso / Spain / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2006, 2014 substitute one reusable cover-midfield guide for an edition-specific 2014 account.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Xabi Alonso 2006.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Admir Mehmedi / Switzerland / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Admir Mehmedi-specific 2014 identity.",
+      "repetitionFlag": "Switzerland has 3 cards built from the same space-attacking pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Blerim Džemaili / Switzerland / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-midfield guide is plausible and appropriately modest, but its exact action sequence provides little Blerim Džemaili-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Diego Benaglio / Switzerland / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Fabian Schär / Switzerland / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-orientation defending guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Granit Xhaka / Switzerland / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The screening-midfield guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Haris Seferovic / Switzerland / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (1 goal), 2018 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Haris Seferovic 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Josip Drmić / Switzerland / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2014 (0 goals), 2018 (1 goal) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Josip Drmić 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Xherdan Shaqiri / Switzerland / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2014 (3 goals), 2018 (1 goal), 2022 (1 goal) flatten materially different scoring contributions into one reusable blind-side runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Xherdan Shaqiri 2018, Xherdan Shaqiri 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Álvaro González / Uruguay / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-midfield guide is plausible and appropriately modest, but its exact action sequence provides little Álvaro González-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Álvaro Pereira / Uruguay / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable delay-and-step guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Álvaro Pereira 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cristian Rodríguez / Uruguay / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-control guide is plausible and appropriately modest, but its exact action sequence provides little Cristian Rodríguez-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Diego Forlán / Uruguay / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2002 (1 goal), 2010 (5 goals), 2014 (0 goals) flatten materially different scoring contributions into one reusable separation-forward guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Diego Forlán 2002, Diego Forlán 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Diego Godín / Uruguay / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (0 goals), 2014 (1 goal), 2018 (0 goals), 2022 (0 goals) flatten materially different scoring contributions into one reusable contact-and-step guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Diego Godín 2010, Diego Godín 2018, Diego Godín 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Edinson Cavani / Uruguay / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (1 goal), 2014 (1 goal), 2018 (3 goals), 2022 (0 goals) flatten materially different scoring contributions into one reusable space-attacking guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Edinson Cavani 2010, Edinson Cavani 2018, Edinson Cavani 2022.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Muslera / Uruguay / 2014",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The footwork goalkeeper guide is coherent, but its precise player-level actions require exact-edition confirmation.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, 2018, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luis Suárez / Uruguay / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim cards across 2010 (3 goals), 2014 (2 goals), 2018 (2 goals) flatten materially different scoring contributions into one reusable channel-runner guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Luis Suárez 2010, Luis Suárez 2018.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Maxi Pereira / Uruguay / 2014",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 2010 (1 goal), 2014 (0 goals) flatten materially different scoring contributions into one reusable delay-and-step guide.",
+      "repetitionFlag": "Near-verbatim cross-edition reuse with Maxi Pereira 2010.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alejandro Bedoya / USA / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Alejandro Bedoya-specific 2014 identity.",
+      "repetitionFlag": "USA has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Brad Davis / USA / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The space-attacking guide is plausible and appropriately modest, but its exact action sequence provides little Brad Davis-specific 2014 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Clint Dempsey / USA / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "His two-goal contribution makes the current blind-side runner guide materially under-informative for this edition.",
+      "repetitionFlag": "USA has 2 cards built from the same blind-side runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Graham Zusi / USA / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is plausible and appropriately modest, but its exact action sequence provides little Graham Zusi-specific 2014 identity.",
+      "repetitionFlag": "USA has 2 cards built from the same channel-runner pattern.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jermaine Jones / USA / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic tempo guide misses his two-way midfield role and goal against Portugal.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "John Brooks / USA / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic defender guide misses his impact-sub role and winning goal against Ghana.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jozy Altidore / USA / 2014",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible and appropriately modest, but its exact action sequence provides little Jozy Altidore-specific 2014 identity.",
+      "repetitionFlag": "Near-verbatim recurrence in 2010, without enough stored evidence to assign the split to 2014.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Julian Green / USA / 2014",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "His scoring contribution provides an exact-edition anchor absent from the generic support-midfield guide.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    }
+  ]
+}

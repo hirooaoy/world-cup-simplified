@@ -1,0 +1,782 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1950,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Benedicto Godoy Véizaga / Bolivia / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Benigno Gutiérrez, Benjamin Maldonado in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Benigno Gutiérrez / Bolivia / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Benedicto Godoy Véizaga in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Benjamin Maldonado / Bolivia / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Benedicto Godoy Véizaga in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Adãozinho / Brazil / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Ademir, Alfredo, Baltazar, Friaça and 1 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ademir / Brazil / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The run-behind headline is relevant, but a stock pull-wide action displaces the nine-goal acceleration and finishing identity already documented for this edition.",
+      "repetitionFlag": "Shares generated action cues with Adãozinho, Alfredo, Baltazar in this team-edition.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alfredo / Brazil / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Baltazar, Adãozinho, Ademir, Friaça and 1 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Baltazar / Brazil / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim reuse in another edition makes this a portable career-level forward guide rather than a distinct 1950 portrait.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Barbosa / Brazil / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic footwork-and-reset guide cannot carry the goalkeeper's defining 1950 context, which is already central to the stored tournament account.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bauer / Brazil / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Scanning and releasing a runner sound plausible, but the card misses the ball-winning and vertical distribution that define his stored exact-edition case.",
+      "repetitionFlag": "Shares generated action cues with Bigode in this team-edition.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bigode / Brazil / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic late-box-arrival profile does not explain his documented left-half running, support of Brazil's overloads or decisive duel with Ghiggia.",
+      "repetitionFlag": "Shares generated action cues with Bauer in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Chico / Brazil / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The direct left-sided inside movement reads naturally and fits his stored 1950 role, but the exact outside-to-inside mechanics still need confirmation.",
+      "repetitionFlag": "Shares generated action cues with Jair in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Danilo Alvim / Brazil / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The security-versus-progression headline is adequate, but the reset details underplay the ball-winning and early passing in his stored 1950 rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Friaça / Brazil / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The portable runner formula misses his exact-edition role and the opening goal in the decisive match that the archive already records.",
+      "repetitionFlag": "Shares generated action cues with Maneca, Adãozinho, Alfredo, Baltazar in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jair / Brazil / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The inside-left carrying lens fits his stored combination role, but carrying with his head up to read a second defender needs exact support.",
+      "repetitionFlag": "Shares generated action cues with Chico in this team-edition.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Maneca / Brazil / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Friaça, Adãozinho, Alfredo, Baltazar in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zizinho / Brazil / 1950",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Tempo control and a pressure-escaping first touch give a clear, natural lens that matches his stored role as Brazil's between-lines technical centre.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andrés Prieto / Chile / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Atilio Cremaschi, Carlos Ibáñez, Fernando Riera in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Atilio Cremaschi / Chile / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Fernando Riera, Andrés Prieto in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Ibáñez / Chile / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Andrés Prieto in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Fernando Riera / Chile / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Atilio Cremaschi, Andrés Prieto in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "George Robledo / Chile / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The striker identity reads naturally, but its individualized mechanics outrun the stored evidence and need exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bert Williams / England / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goalkeeper identity reads naturally, but its individualized mechanics outrun the stored evidence and need exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Eddie Baily / England / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Jackie Milburn, Jimmy Mullen, Stan Mortensen, Wilf Mannion in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jackie Milburn / England / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current forward formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "Shares generated action cues with Stan Mortensen, Eddie Baily, Jimmy Mullen, Wilf Mannion in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jimmy Mullen / England / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim reuse in another edition makes this a portable career-level forward guide rather than a distinct 1950 portrait.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Stan Mortensen / England / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current forward formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "Shares generated action cues with Jackie Milburn, Eddie Baily, Jimmy Mullen, Wilf Mannion in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Wilf Mannion / England / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current forward formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "Shares generated action cues with Eddie Baily, Jackie Milburn, Stan Mortensen in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Aldo Campatelli / Italy / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Riccardo Carapellese, Egisto Pandolfini in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Egisto Pandolfini / Italy / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Aldo Campatelli, Ermes Muccinelli, Riccardo Carapellese in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ermes Muccinelli / Italy / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Egisto Pandolfini in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giuseppe Casari / Italy / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goalkeeper identity reads naturally, but its individualized mechanics outrun the stored evidence and need exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Riccardo Carapellese / Italy / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Aldo Campatelli, Egisto Pandolfini in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Septién / Mexico / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with José Luis Borbolla in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Héctor Ortiz / Mexico / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current midfielder formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Horacio Casarín / Mexico / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with José Luis Borbolla in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Luis Borbolla / Mexico / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Carlos Septién, Horacio Casarín in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ángel Berni / Paraguay / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Atilio López, César López Fretes in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Atilio López / Paraguay / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Ángel Berni in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "César López Fretes / Paraguay / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Ángel Berni in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Agustín Gaínza / Spain / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current forward formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "Shares generated action cues with César, Silvestre Igoa, Telmo Zarra in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Antoni Ramallets / Spain / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Calm command gives Spain a useful goalkeeper identity, but the organizing and central-lane mechanics need confirmation beyond the stored secure-last-line rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "César / Spain / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Agustín Gaínza, Silvestre Igoa, Telmo Zarra in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Estanislau Basora / Spain / 1950",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Touchline width, movement inside and far-post arrival form a distinctive portrait directly supported by the stored four-goal 1950 rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ignacio Eizaguirre / Spain / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest goalkeeper guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Parra / Spain / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Generic line management underplays the organizer, box defender and clean counter-starter described in his stored 1950 Best XI case.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Silvestre Igoa / Spain / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Agustín Gaínza, César in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Telmo Zarra / Spain / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The central-target identity fits his stored four-goal 1950 case, but the specific dropping and early-run mechanics still need confirmation.",
+      "repetitionFlag": "Shares generated action cues with Agustín Gaínza, César in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Börje Tapper / Sweden / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Bror Mellberg, Karl-Erik Palmér, Stig Sundqvist in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bror Mellberg / Sweden / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Stig Sundqvist, Börje Tapper, Hasse Jeppson in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Erik Nilsson / Sweden / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic centre-back formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hasse Jeppson / Sweden / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Bror Mellberg, Karl-Erik Palmér, Stig Sundqvist in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Karl-Erik Palmér / Sweden / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Börje Tapper, Hasse Jeppson in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Nils Liedholm / Sweden / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Calm possession under pressure is a useful 1950 identity, but the body-protection and first-touch mechanics extend beyond the stored rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Stig Sundqvist / Sweden / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Bror Mellberg, Börje Tapper, Hasse Jeppson in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sune Andersson / Sweden / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic passing-angle portrait displaces the two-way running and two goals emphasized in his stored 1950 rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alfred Bickel / Switzerland / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Charles Antenen, René Bader in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Charles Antenen / Switzerland / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim reuse in another edition makes this a portable career-level forward guide rather than a distinct 1950 portrait.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954, 1962.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gerhard Lusenti / Switzerland / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Jacques Fatton, Charles Antenen, René Bader in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jacques Fatton / Switzerland / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim reuse in another edition makes this a portable career-level forward guide rather than a distinct 1950 portrait.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "René Bader / Switzerland / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Alfred Bickel, Charles Antenen, Gerhard Lusenti, Jacques Fatton in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Adam Wolanin / United States / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Frank Wallace, Gino Pariani in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ed Souza / United States / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Joe Gaetjens, Frank Wallace, Gino Pariani in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Frank Borghi / United States / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The footwork guide is generic beside the stored account of his resistance in the victory over England, leaving the edition's main goalkeeping identity absent.",
+      "repetitionFlag": "Shares generated action cues with Gino Gardassanich in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Frank Wallace / United States / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Gino Pariani, Adam Wolanin, Ed Souza, Joe Gaetjens in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gino Gardassanich / United States / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest goalkeeper guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Frank Borghi in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gino Pariani / United States / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Frank Wallace, Adam Wolanin, Ed Souza, Joe Gaetjens in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Joe Gaetjens / United States / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic channel-runner card omits the defining movement and finish behind the stored upset of England, so his exact 1950 identity needs research.",
+      "repetitionFlag": "Shares generated action cues with Ed Souza, Frank Wallace, Gino Pariani in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Joe Maca / United States / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The defender identity reads naturally, but its individualized mechanics outrun the stored evidence and need exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alcides Ghiggia / Uruguay / 1950",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The isolation, first-touch and head-up carrying lens is distinctive, natural and directly supported by his decisive right-wing match-up in the stored 1950 evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Romero / Uruguay / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Juan Alberto Schiaffino, Oscar Míguez in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ernesto Vidal / Uruguay / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The forward identity reads naturally, but its individualized mechanics outrun the stored evidence and need exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Eusebio Tejera / Uruguay / 1950",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Connected-line and aerial-box work are natural, useful and aligned with the stored account of his central defensive role during Uruguay's run.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Alberto Schiaffino / Uruguay / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A near-verbatim 1954 separation-and-run portrait suppresses his deeper linking and decisive equalizer in the stored 1950 account.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Julio Pérez / Uruguay / 1950",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The forward identity reads naturally, but its individualized mechanics outrun the stored evidence and need exact-edition confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Matías González / Uruguay / 1950",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Inside-first positioning and recovery to the line naturally express the narrow full-back balance described in his stored exact-edition rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Obdulio Varela / Uruguay / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The security-and-switching card is too generic for the tactical and psychological control that defines his stored 1950 tournament account.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Oscar Míguez / Uruguay / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1954 target-forward portrait fails to distinguish his five goals, late Sweden winner and relationship with Schiaffino in 1950.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roque Máspoli / Uruguay / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Centre protection and organization are plausible, but they miss the patience and recovery across the final round described in his stored Best XI case.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Víctor Rodríguez Andrade / Uruguay / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The portable pass-and-support guide misses his right-half work closing Zizinho and supporting Ghiggia in the stored exact-edition account.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bernard Vukas / Yugoslavia / 1950",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim reuse in another edition makes this a portable career-level forward guide rather than a distinct 1950 portrait.",
+      "repetitionFlag": "Near-verbatim or materially portable cross-edition portrait with 1954.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kosta Tomašević / Yugoslavia / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Stjepan Bobek, Prvoslav Mihajlović, Rajko Mitić, Tihomir Ognjanov and 1 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Prvoslav Mihajlović / Yugoslavia / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Tihomir Ognjanov, Bernard Vukas, Kosta Tomašević, Rajko Mitić and 2 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Rajko Mitić / Yugoslavia / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current forward formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "Shares generated action cues with Bernard Vukas, Kosta Tomašević, Prvoslav Mihajlović, Stjepan Bobek and 1 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Stjepan Bobek / Yugoslavia / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The current forward formula is too generic or role-uncertain to establish the player's most important 1950 identity.",
+      "repetitionFlag": "Shares generated action cues with Kosta Tomašević, Prvoslav Mihajlović, Rajko Mitić, Tihomir Ognjanov and 1 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tihomir Ognjanov / Yugoslavia / 1950",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The modest forward guide is an honest evidence-level endpoint, but nearby action repetition needs a small squad-aware wording repair.",
+      "repetitionFlag": "Shares generated action cues with Prvoslav Mihajlović, Bernard Vukas, Kosta Tomašević, Rajko Mitić and 2 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Željko Čajkovski / Yugoslavia / 1950",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Stored exact-edition impact supports a real portrait, but the current generic forward formula does not establish what distinguished this 1950 tournament.",
+      "repetitionFlag": "Shares generated action cues with Bernard Vukas, Kosta Tomašević, Prvoslav Mihajlović, Stjepan Bobek and 1 more in this team-edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    }
+  ]
+}

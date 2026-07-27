@@ -761,12 +761,12 @@ function buildPlanSentence(players, formation, variantSeed) {
   }
 
   if (leftWingBack && rightWingBack && striker) {
-    const starters = [leftWingBack, rightWingBack, controller, striker];
+    const starters = [leftWingBack, rightWingBack, controller];
     return {
       texts: [
-        `${leftWingBack.name} and ${rightWingBack.name} occupy the wing-back slots, with ${controller.name} central and ${striker.name} at striker.`,
-        `The official XI places ${leftWingBack.name} at left wing-back, ${rightWingBack.name} at right wing-back, ${controller.name} centrally, and ${striker.name} at striker.`,
-        `${leftWingBack.name} and ${rightWingBack.name} take the wing-back slots around ${controller.name}, with ${striker.name} at striker.`
+        `${leftWingBack.name} and ${rightWingBack.name} occupy the wing-back positions, with ${controller.name} central.`,
+        `The starting XI places ${leftWingBack.name} at left wing-back, ${rightWingBack.name} at right wing-back, and ${controller.name} centrally.`,
+        `${leftWingBack.name} and ${rightWingBack.name} take the wing-back positions around ${controller.name}.`
       ],
       key: "wing-backs",
       starters: starters.map(starterFact)
@@ -953,7 +953,9 @@ function buildCurrentLocaleModel({
   plan,
   risk
 }) {
-  const includeGroupPoints = stage === "group";
+  const loneStriker = Number(String(lineup.formation || "").split("-").at(-1)) === 1
+    ? getFirstAt(lineup.players, ["ST"])
+    : null;
   const planModel = {
     key: plan.key,
     starters: plan.starters,
@@ -977,19 +979,13 @@ function buildCurrentLocaleModel({
     stage: { id: stage, year: editionYear },
     slots: {
       identity: {
-        variant: "record-and-layout",
+        variant: "structure-and-players",
         formation: lineup.formation,
-        layoutPerspective: layoutEvidence.perspective,
-        layoutTiming: layoutEvidence.timing,
-        prior: copyPrior(prior, includeGroupPoints),
+        ...(loneStriker ? { loneStriker: starterFact(loneStriker) } : {}),
         namedStarters: [controller, headlineAttacker].map(starterFact),
-        claimClass: "official-layout-and-prior-context",
-        evidenceRefs: [
-          "priorTournamentMatches",
-          "officialStartingXI",
-          "officialTacticalLayout"
-        ],
-        surfaceTemplateId: "identity-record-and-layout"
+        claimClass: "official-starting-structure",
+        evidenceRefs: ["officialStartingXI", "officialTacticalLayout"],
+        surfaceTemplateId: "identity-structure-and-players"
       },
       matchup: {
         variant: matchup.variant,
@@ -997,13 +993,11 @@ function buildCurrentLocaleModel({
         opponentLane: matchup.opponentLane,
         selectionBasis: matchup.selectionBasis,
         opponentFormation: opponentLineup.formation,
-        opponentPrior: copyPrior(opponentPrior, includeGroupPoints),
-        stakes: buildStakes(stage, prior, opponentPrior),
         ownStarter: starterFact(matchup.ownStarter),
         opposingStarter: starterFact(matchup.opposingStarter),
-        claimClass: "official-layout-and-stage-context",
-        evidenceRefs: ["stage", "officialStartingXI", "officialTacticalLayout", "priorTournamentMatches"],
-        surfaceTemplateId: `matchup-${matchup.variant}-${buildStakes(stage, prior, opponentPrior).kind}`
+        claimClass: "official-starting-structure",
+        evidenceRefs: ["officialStartingXI", "officialTacticalLayout"],
+        surfaceTemplateId: `matchup-${matchup.variant}`
       },
       plan: planModel,
       risk: riskModel
@@ -1041,84 +1035,52 @@ function getMatchupLead(stage, team, opponent, prior, opponentPrior) {
   );
 }
 
-function buildMatchupSentences({
-  team,
-  opponent,
-  lineup,
-  opponentLineup,
-  stage,
-  prior,
-  opponentPrior,
-  matchup
-}) {
-  const lead = getMatchupLead(stage, team, opponent, prior, opponentPrior);
-  const stageClause = getStageClause(stage);
-  const directStageClause = stage === "group"
-    ? `in the group stage on ${prior.groupPoints} and ${opponentPrior.groupPoints} points respectively`
-    : stageClause;
-  const shapeContrast = `${possessive(team.name)} ${lineup.formation} meets ${possessive(opponent.name)} ${opponentLineup.formation}`;
+function buildMatchupSentences({ team, opponent, matchup }) {
   if (matchup.variant === "wide-lanes") {
     const ownLane = `${possessive(team.name)} ${matchup.lane}`;
     const opposingLane = `${possessive(opponent.name)} ${matchup.opponentLane}`;
     return [
-      `${lead}, ${shapeContrast}; ${matchup.ownStarter.name} starts on ${ownLane}, opposite ${matchup.opposingStarter.name} on ${opposingLane}.`,
-      `${team.name} meet ${opponent.name} ${directStageClause}, as a ${lineup.formation} faces a ${opponentLineup.formation}; ${matchup.ownStarter.name} lines up on ${ownLane} across from ${matchup.opposingStarter.name} on ${opposingLane}.`,
-      `${lead}, the shape contrast places ${matchup.ownStarter.name} at ${positionLabel(matchup.ownStarter)} on ${ownLane} and ${matchup.opposingStarter.name} at ${positionLabel(matchup.opposingStarter)} on ${opposingLane}.`,
-      ...(stage === "group"
-        ? [`Group points stand at ${prior.groupPoints}–${opponentPrior.groupPoints} as ${shapeContrast}; ${matchup.ownStarter.name} occupies ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`]
-        : [`${shapeContrast} ${stageClause}; ${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`]),
-      ...(stage === "group"
-        ? [`With group points at ${prior.groupPoints}–${opponentPrior.groupPoints}, ${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`]
-        : [`${lead}, ${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`])
+      `${matchup.ownStarter.name} starts on ${ownLane} opposite ${matchup.opposingStarter.name} on ${opposingLane}.`,
+      `${matchup.ownStarter.name} occupies ${ownLane}, across from ${matchup.opposingStarter.name} on ${opposingLane}.`,
+      `On the same flank, ${matchup.ownStarter.name} starts on ${ownLane} and ${matchup.opposingStarter.name} on ${opposingLane}.`
     ];
   }
   return [
-    `${lead}, ${shapeContrast}, placing ${matchup.ownStarter.name} at ${positionLabel(matchup.ownStarter)} and ${matchup.opposingStarter.name} at ${positionLabel(matchup.opposingStarter)} in the central lane.`,
-    `${team.name} meet ${opponent.name} ${directStageClause}, as a ${lineup.formation} faces a ${opponentLineup.formation} with ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} as central references.`,
-    `${lead}, the central shape contrast places ${matchup.ownStarter.name} at ${positionLabel(matchup.ownStarter)} against ${matchup.opposingStarter.name} at ${positionLabel(matchup.opposingStarter)} in ${possessive(opponent.name)} ${opponentLineup.formation}.`,
-    ...(stage === "group"
-      ? [`Group points stand at ${prior.groupPoints}–${opponentPrior.groupPoints} as ${shapeContrast}, placing ${matchup.ownStarter.name} opposite ${matchup.opposingStarter.name} centrally.`]
-      : [`${possessive(team.name)} ${lineup.formation} meets ${possessive(opponent.name)} ${opponentLineup.formation} ${stageClause}, with ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} as central references.`]),
-    ...(stage === "group"
-      ? [`With group points at ${prior.groupPoints}–${opponentPrior.groupPoints}, ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} occupy opposing central lines.`]
-      : [`${lead}, ${matchup.ownStarter.name} and ${matchup.opposingStarter.name} occupy opposing central lines.`])
+    `${matchup.ownStarter.name} and ${matchup.opposingStarter.name} occupy opposing central lines for ${team.name} and ${opponent.name}.`,
+    `Centrally, ${matchup.ownStarter.name} starts for ${team.name} opposite ${matchup.opposingStarter.name} for ${opponent.name}.`,
+    `${matchup.ownStarter.name} is ${possessive(team.name)} central reference opposite ${possessive(opponent.name)} ${matchup.opposingStarter.name}.`
   ];
 }
 
-function getLayoutDescription(layoutEvidence) {
-  const timing = layoutEvidence.timing === "post-kickoff" ? "after" : "before";
-  const base = `FIFA's ${layoutEvidence.perspective} layout`;
-  return {
-    subject: `${base}, published ${timing} kickoff,`,
-    object: `${base}, published ${timing} kickoff`
+function formationStructurePhrase(formation, players) {
+  const loneStriker = getFirstAt(players, ["ST"]);
+  const loneForward = loneStriker ? `${loneStriker.name} alone up front` : "one striker up front";
+  const descriptions = {
+    "5-4-1": `a back five behind a four-player midfield and ${loneForward}`,
+    "4-4-2": "a back four, a four-player midfield, and a front two",
+    "4-1-2-3": "a back four, one defensive-midfield position, two central midfield places, and a front three",
+    "4-2-3-1": "a back four, two deeper midfield positions, three attacking positions, and a lone striker",
+    "4-3-3": "a back four, a three-player midfield, and a front three",
+    "3-4-3": "a back three, a four-player midfield, and a front three",
+    "5-2-3": "a back five, two central midfield positions, and a front three",
+    "5-3-2": "a back five, a three-player midfield, and a front two",
+    "3-5-2": "a back three, a five-player midfield, and a front two",
+    "3-4-1-2": "a back three, a four-player midfield, one attacking-midfield position, and a front two",
+    "4-1-3-2": "a back four, one deeper midfield position, three positions ahead of it, and a front two",
+    "4-2-1-3": "a back four, two central midfield positions, one attacking-midfield position, and a front three",
+    "4-1-4-1": `a back four, one defensive-midfield position, a four-player line ahead of it, and ${loneForward}`
   };
+  const description = descriptions[formation];
+  if (!description) throw new Error(`Unsupported structural formation description: ${formation}`);
+  return description;
 }
 
-function buildOpeningSentences({
-  team,
-  lineup,
-  stage,
-  prior,
-  layoutEvidence,
-  controller,
-  headlineAttacker
-}) {
-  const layoutDescription = getLayoutDescription(layoutEvidence);
-  if (!prior.matches) {
-    return [
-      `${team.name} are entering their tournament opener; ${layoutDescription.subject} lists ${controller.name} at ${positionLabel(controller)} and ${headlineAttacker.name} at ${positionLabel(headlineAttacker)} in a ${lineup.formation}.`,
-      `${team.name} are in their tournament opener with ${controller.name} and ${headlineAttacker.name} in a ${lineup.formation}, as shown by ${layoutDescription.object}.`,
-      `${team.name} are beginning their tournament in a ${lineup.formation}; ${layoutDescription.subject} includes ${controller.name} and ${headlineAttacker.name}.`
-    ];
-  }
-  const record = `${prior.wins}-${prior.draws}-${prior.losses}`;
-  const goalBalance = `${prior.goalsFor}–${prior.goalsAgainst}`;
-  const stageReference = getOpeningStageReference(stage);
+function buildOpeningSentences({ team, lineup }) {
+  const structure = formationStructurePhrase(lineup.formation, lineup.players);
   return [
-    `${team.name} are ${record} with a goal balance of ${goalBalance} ${stageReference}; ${layoutDescription.subject} lists ${controller.name} at ${positionLabel(controller)} and ${headlineAttacker.name} at ${positionLabel(headlineAttacker)} in a ${lineup.formation}.`,
-    `${team.name} are carrying a ${record} record and a goal balance of ${goalBalance} ${stageReference}; ${layoutDescription.subject} shows ${controller.name} and ${headlineAttacker.name} in a ${lineup.formation}.`,
-    `${team.name} are ${record} with a goal balance of ${goalBalance} ${stageReference}; in ${layoutDescription.object}, ${controller.name} and ${headlineAttacker.name} start in a ${lineup.formation}.`,
-    `${team.name} are ${record}, having scored ${prior.goalsFor} and conceded ${prior.goalsAgainst} ${stageReference}; ${layoutDescription.subject} places ${controller.name} and ${headlineAttacker.name} in a ${lineup.formation}.`
+    `${team.name} line up in a ${lineup.formation}, with ${structure}.`,
+    `${possessive(team.name)} ${lineup.formation} is arranged with ${structure}.`,
+    `In a ${lineup.formation}, ${team.name} start with ${structure}.`
   ];
 }
 
@@ -1136,16 +1098,16 @@ function selectCopyCombination(optionGroups, variantSeed) {
   const candidates = combinations
     .map((candidate) => ({ ...candidate, copy: candidate.sentences.join(" ") }))
     .map((candidate) => ({ ...candidate, words: countWords(candidate.copy) }))
-    .filter((candidate) => candidate.words >= 76 && candidate.words <= 85)
+    .filter((candidate) => candidate.words >= 50 && candidate.words <= 72)
     .sort((left, right) => {
-      const distance = Math.abs(left.words - 81) - Math.abs(right.words - 81);
+      const distance = Math.abs(left.words - 61) - Math.abs(right.words - 61);
       return left.preference - right.preference || distance || left.copy.localeCompare(right.copy);
     });
   if (!candidates.length) {
     const measured = combinations
       .map((candidate) => ({ copy: candidate.sentences.join(" "), words: countWords(candidate.sentences.join(" ")) }))
       .sort((left, right) => left.words - right.words);
-    throw new Error(`No 76-85-word Key information combination; available range ${measured[0].words}-${measured.at(-1).words}; shortest: ${measured[0].copy}`);
+    throw new Error(`No 50-72-word Key information combination; available range ${measured[0].words}-${measured.at(-1).words}; shortest: ${measured[0].copy}`);
   }
   return candidates[0].copy;
 }
@@ -1179,15 +1141,10 @@ function buildSideCopy({
       [
         buildOpeningSentences({
           team,
-          lineup,
-          stage,
-          prior,
-          layoutEvidence,
-          controller,
-          headlineAttacker
+          lineup
         }),
-        buildMatchupSentences({ team, opponent, lineup, opponentLineup, stage, prior, opponentPrior, matchup }),
         plan.texts,
+        buildMatchupSentences({ team, opponent, matchup }),
         risk.texts
       ],
       variantSeed
@@ -1197,8 +1154,8 @@ function buildSideCopy({
   }
 
   const wordCount = countWords(copy);
-  if (wordCount < 76 || wordCount > 85) {
-    throw new Error(`${team.id} vs ${opponent.id} Key information is ${wordCount} words; expected 76-85`);
+  if (wordCount < 50 || wordCount > 72) {
+    throw new Error(`${team.id} vs ${opponent.id} Key information is ${wordCount} words; expected 50-72`);
   }
 
   return {
@@ -1394,13 +1351,11 @@ export function generateCurrentKeyInformationForFixture({
     generatedBy: "scripts/populate-matchup-key-information.mjs",
     evidenceInputs: [
       "teams",
-      "stage",
       "officialStartingXI",
-      "officialTacticalLayout",
-      "priorTournamentMatches"
+      "officialTacticalLayout"
     ],
     excludedInputs: ["score", "winner", "currentMatchEvents", "cards", "substitutions", "shootout"],
-    researchSourceIds: [...new Set([...lineupSourceIds, priorResultsSourceId])],
+    researchSourceIds: [...new Set(lineupSourceIds)],
     layoutEvidence,
     home: homeContent.copy,
     away: awayContent.copy,

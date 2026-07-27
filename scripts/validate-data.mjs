@@ -4434,15 +4434,19 @@ for (const fixture of historyData.fixtures || []) {
       const sentences = [...historicalKeyInformationSentenceSegmenter.segment(copy || "")]
         .map(({ segment }) => segment.trim())
         .filter(Boolean);
+      const isLineupComparison =
+        fixture.keyInformation?.localeModel?.[side]?.slots?.identity?.displayMode === "lineup-comparison";
+      const minimumWords = isLineupComparison ? 40 : 50;
+      const maximumWords = isLineupComparison ? 80 : 85;
       assert(
-        wordCount(copy) >= 50 && wordCount(copy) <= 85,
-        `Historical fixture "${fixture.id}" keyInformation.${side} must contain 50-85 words`
+        wordCount(copy) >= minimumWords && wordCount(copy) <= maximumWords,
+        `Historical fixture "${fixture.id}" keyInformation.${side} must contain ${minimumWords}-${maximumWords} words`
       );
       assert(
         sentences.length === 4 &&
           normalizePlayerName(sentences[0]).includes(normalizePlayerName(teamName)) &&
-          normalizePlayerName(sentences[1]).includes(normalizePlayerName(opponentName)),
-        `Historical fixture "${fixture.id}" keyInformation.${side} must use four present-tense semantic sentences with team, matchup, plan, and risk`
+          normalizePlayerName(sentences.slice(1).join(" ")).includes(normalizePlayerName(opponentName)),
+        `Historical fixture "${fixture.id}" keyInformation.${side} must use four present-tense semantic sentences with team, personnel, matchup, and opponent`
       );
     }
   }

@@ -628,10 +628,10 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Alberto Suppici",
         teamName: "Uruguay",
-        reason: { en: "Suppici balanced Uruguay's veteran Olympic core with enough front-line freedom to turn a 2–1 half-time deficit into four second-half goals in the final." }
+        reason: { en: "Suppici balanced Uruguay's veteran Olympic core with enough front-line freedom to turn a 2–1 half-time deficit into 4 second-half goals in the final." }
       },
       rows: [
-        [player("Enrique Ballestrero", "Uruguay", "GK", "Calm rather than spectacular, Ballestrero gave Uruguay a secure last line and conceded only three times across the tournament.", ["Milovan Jakšić", "Yugoslavia"])],
+        [player("Enrique Ballestrero", "Uruguay", "GK", "Calm rather than spectacular, Ballestrero gave Uruguay a secure last line and conceded only 3 times across the tournament.", ["Milovan Jakšić", "Yugoslavia"])],
         [
           player("José Nasazzi", "Uruguay", "CB", "The captain defended forward: he attacked loose balls, organized the cover behind Andrade and never let the final's early chaos become panic.", ["Fernando Paternoster", "Argentina"]),
           player("Milutin Ivković", "Yugoslavia", "CB", "Ivković was the outstanding defender of Yugoslavia's run, reading danger early enough for an adventurous side to keep stepping into midfield.", ["Ernesto Mascheroni", "Uruguay"])
@@ -642,11 +642,11 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Álvaro Gestido", "Uruguay", "CM", "Gestido's left-half work was the quiet structure of the champions—shuttling wide to protect space, then giving Cea a clean lane to attack.", ["Pedro Suárez", "Argentina"])
         ],
         [
-          player("Carlos Peucelle", "Argentina", "RW", "Peucelle scored three for the finalists, including the equalizer in the final, and supplied the natural outside-right width this 2-3-5 requires.", ["Pablo Dorado", "Uruguay"]),
-          player("Héctor Scarone", "Uruguay", "AM", "Scarone did not need to dominate the scoring chart; his disguised passes and movement between lines made Uruguay's five-man front coherent.", ["Manuel Ferreira", "Argentina"]),
-          player("Guillermo Stábile", "Argentina", "ST", "Eight goals in four games after starting outside the first XI: Stábile attacked the blind side relentlessly and scored in every match he played.", ["Bert Patenaude", "United States"]),
+          player("Carlos Peucelle", "Argentina", "RW", "Peucelle scored 3 for the finalists, including the equalizer in the final, and supplied the natural outside-right width this 2-3-5 requires.", ["Pablo Dorado", "Uruguay"]),
+          player("Héctor Scarone", "Uruguay", "AM", "Scarone did not need to dominate the scoring chart; his disguised passes and movement between lines made Uruguay's 5-man front coherent.", ["Manuel Ferreira", "Argentina"]),
+          player("Guillermo Stábile", "Argentina", "ST", "8 goals in 4 games after starting outside the first XI: Stábile attacked the blind side relentlessly and scored in every match he played.", ["Bert Patenaude", "United States"]),
           player("Pedro Cea", "Uruguay", "SS", "Cea was the decisive second runner—hat-trick in the semi-final, equalizer in the final, and constant late movement beyond Argentina's occupied defenders.", ["Héctor Castro", "Uruguay", "ST"]),
-          player("Santos Iriarte", "Uruguay", "LW", "Iriarte played all four Uruguay matches and scored in both the semi-final and final, including the 3–2 goal that turned the decider for good.", ["Mario Evaristo", "Argentina"])
+          player("Santos Iriarte", "Uruguay", "LW", "Iriarte played all 4 Uruguay matches and scored in both the semi-final and final, including the 3–2 goal that turned the decider for good.", ["Mario Evaristo", "Argentina"])
         ]
       ],
       highlights: [
@@ -665,24 +665,24 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Vittorio Pozzo",
         teamName: "Italy",
-        reason: { en: "Pozzo's Metodo gave Italy an extra midfield grip without emptying the forward line, and his changes helped them survive two matches in two days against Spain before turning the final." }
+        reason: { en: "Pozzo's Metodo gave Italy an extra midfield grip without emptying the forward line, and his changes helped them survive 2 matches in 2 days against Spain before turning the final." }
       },
       rows: [
         [player("Ricardo Zamora", "Spain", "GK", "Zamora's positioning and authority drove Spain past Brazil and through the first, brutal draw with Italy; injury, not form, ended his tournament.", ["František Plánička", "Czechoslovakia"])],
         [
-          player("Eraldo Monzeglio", "Italy", "CB", "Monzeglio was Pozzo's covering defender, quick enough to defend the space Italy's midfield pressure left behind and composed across four knockout tests.", ["Karl Sesta", "Austria"]),
+          player("Eraldo Monzeglio", "Italy", "CB", "Monzeglio was Pozzo's covering defender, quick enough to defend the space Italy's midfield pressure left behind and composed across 4 knockout tests.", ["Karl Sesta", "Austria"]),
           player("Jacinto Quincoces", "Spain", "CB", "Quincoces was dominant in the air and unusually clean stepping out with the ball; Italy needed a replay and an exhausted Spanish side to get past him.", ["Josef Čtyřoký", "Czechoslovakia"])
         ],
         [
-          player("Luis Monti", "Italy", "DM", "Four years after losing a final for Argentina, Monti controlled Italy's central duels, broke counters at source and supplied the platform for Meazza to roam.", ["György Sárosi", "Hungary"]),
+          player("Luis Monti", "Italy", "DM", "4 years after losing a final for Argentina, Monti controlled Italy's central duels, broke counters at source and supplied the platform for Meazza to roam.", ["György Sárosi", "Hungary"]),
           player("Attilio Ferraris", "Italy", "CM", "Ferraris was the final's tactical correction: restored to the side, he matched the Czechoslovak midfield's running and helped Italy own extra time.", ["Mario Pizziolo", "Italy"]),
-          player("Leonardo Cilaurren", "Spain", "CM", "Cilaurren's range and recovery work made Spain the one side able to meet Italy physically without losing its passing connections.", ["Josef Košťálek", "Czechoslovakia"])
+          player("Leonardo Cilaurren", "Spain", "CM", "Cilaurren's range and recovery work made Spain the only side able to meet Italy physically without losing its passing connections.", ["Josef Košťálek", "Czechoslovakia"])
         ],
         [
           player("Enrique Guaita", "Italy", "RW", "Guaita attacked the inside-right channel rather than waiting wide, scoring the semi-final winner and repeatedly arriving beyond Meazza's combinations.", ["Karl Zischek", "Austria"]),
           player("Giuseppe Meazza", "Italy", "AM", "Meazza was the tournament's best problem-solver and initiated the extra-time winner with the pass that released Guaita, whose final ball found Schiavio.", ["Matthias Sindelar", "Austria"]),
           player("Angelo Schiavio", "Italy", "ST", "Schiavio opened with a hat-trick and still had the legs and clarity to score the extra-time goal that won the final.", ["Edmund Conen", "Germany"]),
-          player("Oldřich Nejedlý", "Czechoslovakia", "SS", "Nejedlý's five goals came through smart penalty-box positioning rather than volume shooting; his semi-final hat-trick carried Czechoslovakia to Rome.", ["Luis Regueiro", "Spain", "SS"]),
+          player("Oldřich Nejedlý", "Czechoslovakia", "SS", "Nejedlý's 5 goals came through smart penalty-box positioning rather than volume shooting; his semi-final hat-trick carried Czechoslovakia to Rome.", ["Luis Regueiro", "Spain", "SS"]),
           player("Raimundo Orsi", "Italy", "LW", "Orsi stretched the left, dribbled inside when the lane appeared and produced the disguised, bending equalizer that rescued Italy in the final.", ["Antonín Puč", "Czechoslovakia"])
         ]
       ],
@@ -702,7 +702,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Vittorio Pozzo",
         teamName: "Italy",
-        reason: { en: "Pozzo rebuilt a champion rather than preserving one, keeping only the right spine from 1934 and making a faster, cleaner counter-attacking team around Piola and Colaussi." }
+        reason: { en: "Pozzo rebuilt a champion rather than preserving the previous side, keeping only the right spine from 1934 and making a faster, cleaner counter-attacking team around Piola and Colaussi." }
       },
       rows: [
         [player("František Plánička", "Czechoslovakia", "GK", "Plánička remained technically immaculate under heavy pressure and finished the extra-time epic against Brazil despite a serious arm injury.", ["Aldo Olivieri", "Italy"])],
@@ -716,13 +716,13 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Ugo Locatelli", "Italy", "CM", "Locatelli covered enormous ground between Andreolo and the forwards, the connector who made Italy's rapid transitions repeatable rather than improvised.", ["Gyula Lázár", "Hungary"])
         ],
         [
-          player("Gino Colaussi", "Italy", "LM", "Colaussi's four goals included two in the final; his far-post runs punished teams that collapsed around Piola and Meazza.", ["Pál Titkos", "Hungary", "LW"]),
-          player("Giuseppe Meazza", "Italy", "AM", "Now captain and supplier, Meazza managed rhythm between the lines and created two final goals without needing to dominate the scoring himself.", ["György Sárosi", "Hungary", "ST"]),
-          player("Gyula Zsengellér", "Hungary", "SS", "Zsengellér's pace and five goals powered Hungary through the bracket; his inside-left runs were the sharpest complement to Sárosi's linking.", ["Arne Nyberg", "Sweden", "LW"])
+          player("Gino Colaussi", "Italy", "LM", "Colaussi's 4 goals included 2 in the final; his far-post runs punished teams that collapsed around Piola and Meazza.", ["Pál Titkos", "Hungary", "LW"]),
+          player("Giuseppe Meazza", "Italy", "AM", "Now captain and supplier, Meazza managed rhythm between the lines and created 2 final goals without needing to dominate the scoring himself.", ["György Sárosi", "Hungary", "ST"]),
+          player("Gyula Zsengellér", "Hungary", "SS", "Zsengellér's pace and 5 goals powered Hungary through the bracket; his inside-left runs were the sharpest complement to Sárosi's linking.", ["Arne Nyberg", "Sweden", "LW"])
         ],
         [
           player("Silvio Piola", "Italy", "ST", "Piola scored twice against hosts France and twice in the final, then won the penalty that separated Italy from Brazil in the semi-final.", ["Ernest Wilimowski", "Poland"]),
-          player("Leônidas", "Brazil", "ST", "Seven goals, elastic improvisation and a decisive extra-time double against Poland: Leônidas was the tournament's most destabilizing attacker.", ["Amedeo Biavati", "Italy", "RW"])
+          player("Leônidas", "Brazil", "ST", "7 goals, elastic improvisation and a decisive extra-time double against Poland: Leônidas was the tournament's most destabilizing attacker.", ["Amedeo Biavati", "Italy", "RW"])
         ]
       ],
       highlights: [
@@ -752,12 +752,12 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Víctor Rodríguez Andrade", "Uruguay", "CM", "Rodríguez Andrade played every Uruguay match at right-half, closed Zizinho's inside lane in the decider and still supported Ghiggia on the break.", ["Sune Andersson", "Sweden"]),
           player("Obdulio Varela", "Uruguay", "DM", "Varela's greatness was tactical and psychological: he delayed Brazil's restart after Friaça's goal, reset Uruguay's shape and kept demanding the next pass.", ["Danilo Alvim", "Brazil"]),
-          player("Bauer", "Brazil", "CM", "Bauer drove the hosts' midfield with ball-winning and vertical distribution, the platform beneath a side that scored 13 goals in its first two final-round matches.", ["Bigode", "Brazil"])
+          player("Bauer", "Brazil", "CM", "Bauer drove the hosts' midfield with ball-winning and vertical distribution, the platform beneath a side that scored 13 goals in its first 2 final-round matches.", ["Bigode", "Brazil"])
         ],
         [
           player("Alcides Ghiggia", "Uruguay", "RW", "Ghiggia isolated Bigode, created Schiaffino's equalizer and scored the winner from the same right-hand corridor—the clearest match-up victory in World Cup history.", ["Estanislau Basora", "Spain"]),
-          player("Zizinho", "Brazil", "AM", "Zizinho was Brazil's technical centre—receiving between lines, changing tempo with one touch and supplying attacks even when the final denied him the crowning moment.", ["Nils Liedholm", "Sweden"]),
-          player("Ademir", "Brazil", "ST", "Nine goals, violent acceleration across the centre-back and a constant threat before the final; no other forward bent the tournament around his movement so often.", ["Óscar Míguez", "Uruguay"]),
+          player("Zizinho", "Brazil", "AM", "Zizinho was Brazil's technical centre—receiving between lines, changing tempo with one-touch play and supplying attacks even when the final denied him the crowning moment.", ["Nils Liedholm", "Sweden"]),
+          player("Ademir", "Brazil", "ST", "9 goals, violent acceleration across the centre-back and a constant threat before the final; no other forward bent the tournament around his movement so often.", ["Óscar Míguez", "Uruguay"]),
           player("Juan Alberto Schiaffino", "Uruguay", "SS", "Schiaffino drifted off the front to give Uruguay a pass under pressure, then arrived perfectly to finish Ghiggia's cut-back in the decider.", ["Telmo Zarra", "Spain", "ST"]),
           player("Jair", "Brazil", "LW", "Jair's left-footed combinations and shooting helped create Brazil's avalanche; his relationship with Zizinho made the inside-left lane almost impossible to close.", ["Chico", "Brazil"])
         ]
@@ -783,7 +783,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       rows: [
         [player("Gyula Grosics", "Hungary", "GK", "The prototype sweeper-keeper: Grosics started attacks outside his box and gave Hungary the courage to hold a high line throughout its 27-goal run.", ["Toni Turek", "West Germany"])],
         [
-          player("Djalma Santos", "Brazil", "RB", "Djalma made his tournament debut in Brazil's last match, the quarter-final against Hungary, and one complete display of duel strength and clean progression earned this place.", ["Josef Posipal", "West Germany"]),
+          player("Djalma Santos", "Brazil", "RB", "Djalma made his tournament debut in Brazil's last match, the quarter-final against Hungary, and earned this place with a complete display of duel strength and clean progression.", ["Josef Posipal", "West Germany"]),
           player("José Santamaría", "Uruguay", "CB", "Santamaría was Uruguay's defensive reference, dominant across the box and composed enough to carry the holders through a draining quarter-final.", ["Werner Liebrich", "West Germany"]),
           player("Werner Kohlmeyer", "West Germany", "LB", "Kohlmeyer defended the champions' left side through every knockout match and made vital goal-line interventions as the final turned after 2–0.", ["Mihály Lantos", "Hungary"])
         ],
@@ -793,11 +793,11 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         ],
         [
           player("Fritz Walter", "West Germany", "AM", "Walter made the final playable for Germany: protecting possession on the wet surface, delivering the corner for 2–2 and deciding when to accelerate.", ["Ferenc Puskás", "Hungary"]),
-          player("Nándor Hidegkuti", "Hungary", "AM", "His withdrawal from centre-forward kept pulling stoppers into midfield, opening lanes for Kocsis and Puskás while he still scored four himself.", ["Juan Hohberg", "Uruguay", "SS"])
+          player("Nándor Hidegkuti", "Hungary", "AM", "His withdrawal from centre-forward kept pulling stoppers into midfield, opening lanes for Kocsis and Puskás while he still scored 4 himself.", ["Juan Hohberg", "Uruguay", "SS"])
         ],
         [
-          player("Helmut Rahn", "West Germany", "RW", "Rahn's power off either foot made him Germany's escape route; two final goals, including the left-footed winner, rewarded his repeated attacks on the weak side.", ["Tom Finney", "England"]),
-          player("Sándor Kocsis", "Hungary", "ST", "Eleven goals in five games, with headers that were about timing as much as height; his extra-time brace against Uruguay was the tournament's great centre-forward intervention.", ["Max Morlock", "West Germany"]),
+          player("Helmut Rahn", "West Germany", "RW", "Rahn's power off either foot made him Germany's escape route; 2 final goals, including the left-footed winner, rewarded his repeated attacks on the weak side.", ["Tom Finney", "England"]),
+          player("Sándor Kocsis", "Hungary", "ST", "11 goals in 5 games, with headers that were about timing as much as height; his extra-time brace against Uruguay was the tournament's great centre-forward intervention.", ["Max Morlock", "West Germany"]),
           player("Zoltán Czibor", "Hungary", "LW", "Czibor supplied width without becoming predictable, pressing the ball, darting inside and scoring Hungary's second in the final.", ["Hans Schäfer", "West Germany"])
         ]
       ],
@@ -832,10 +832,10 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Gunnar Gren", "Sweden", "CM", "At 37, Gren still found pockets behind midfield and supplied the pauses that let Hamrin and Skoglund attack around Liedholm.", ["Nils Liedholm", "Sweden"])
         ],
         [
-          player("Garrincha", "Brazil", "RW", "Garrincha's first three minutes against the Soviet Union changed Brazil's tournament; he repeatedly fixed two defenders and still delivered the cut-back.", ["Kurt Hamrin", "Sweden"]),
-          player("Pelé", "Brazil", "SS", "Six knockout goals at 17, but the detail was the variety: chest control, volleys, headers, combinations and the audacity to lift the ball over a defender in the final.", ["Vavá", "Brazil", "ST"]),
-          player("Just Fontaine", "France", "ST", "Thirteen goals from every type of finish set a new World Cup record, powered by Kopa's supply but also Fontaine's constant first movement across the near centre-back.", ["Agne Simonsson", "Sweden"]),
-          player("Raymond Kopa", "France", "LW", "Kopa was the tournament's most elusive creator, starting wide, drifting inside and feeding Fontaine while adding three goals of his own.", ["Lennart Skoglund", "Sweden"])
+          player("Garrincha", "Brazil", "RW", "Garrincha's first 3 minutes against the Soviet Union changed Brazil's tournament; he repeatedly fixed 2 defenders and still delivered the cut-back.", ["Kurt Hamrin", "Sweden"]),
+          player("Pelé", "Brazil", "SS", "6 knockout goals at 17, but the detail was the variety: chest control, volleys, headers, combinations and the audacity to lift the ball over a defender in the final.", ["Vavá", "Brazil", "ST"]),
+          player("Just Fontaine", "France", "ST", "13 goals from every type of finish set a new World Cup record, powered by Kopa's supply but also Fontaine's constant first movement across the near centre-back.", ["Agne Simonsson", "Sweden"]),
+          player("Raymond Kopa", "France", "LW", "Kopa was the tournament's most elusive creator, starting wide, drifting inside and feeding Fontaine while adding 3 goals of his own.", ["Lennart Skoglund", "Sweden"])
         ]
       ],
       highlights: [
@@ -865,14 +865,14 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Karl-Heinz Schnellinger", "West Germany", "LB", "Schnellinger defended both flanks with recovery pace and carried forward cleanly, one of the few Germans to retain his level in the quarter-final loss.", ["Nílton Santos", "Brazil"])
         ],
         [
-          player("Zito", "Brazil", "CM", "Zito supplied the balance behind a less fluid front four, then made the decisive box-to-box run to head Brazil in front in the final.", ["Didi", "Brazil"]),
-          player("Josef Masopust", "Czechoslovakia", "CM", "Masopust carried a defensive side up the pitch with elegant surges, scored the opening goal in the final and remained its one reliable tempo-changer.", ["Valery Voronin", "Soviet Union"])
+          player("Zito", "Brazil", "CM", "Zito supplied the balance behind a less fluid front 4, then made the decisive box-to-box run to head Brazil in front in the final.", ["Didi", "Brazil"]),
+          player("Josef Masopust", "Czechoslovakia", "CM", "Masopust carried a defensive side up the pitch with elegant surges, scored the opening goal in the final and remained its only reliable tempo-changer.", ["Valery Voronin", "Soviet Union"])
         ],
         [
-          player("Garrincha", "Brazil", "RW", "With Pelé out, Garrincha became creator and scorer: four knockout goals, two against England and two against Chile, without surrendering his chance-making.", ["Valentin Ivanov", "Soviet Union"]),
-          player("Vavá", "Brazil", "ST", "Vavá's four goals were all useful, including the final's clincher; his near-post movement gave Garrincha and Zagallo a constant target.", ["Flórián Albert", "Hungary"]),
+          player("Garrincha", "Brazil", "RW", "With Pelé out, Garrincha became creator and scorer: 4 knockout goals, 2 against England and 2 against Chile, without surrendering his chance-making.", ["Valentin Ivanov", "Soviet Union"]),
+          player("Vavá", "Brazil", "ST", "Vavá's 4 goals were all useful, including the final's clincher; his near-post movement gave Garrincha and Zagallo a constant target.", ["Flórián Albert", "Hungary"]),
           player("Amarildo", "Brazil", "ST", "Replacing Pelé was the tournament's hardest assignment. Amarildo scored twice in the must-win group match with Spain and the equalizer in the final.", ["Dražan Jerković", "Yugoslavia"]),
-          player("Leonel Sánchez", "Chile", "LW", "Sánchez carried the hosts with a vicious left foot, four goals and the emotional control to keep creating amid an extremely physical tournament.", ["Mário Zagallo", "Brazil"])
+          player("Leonel Sánchez", "Chile", "LW", "Sánchez carried the hosts with a vicious left foot, 4 goals and the emotional control to keep creating amid an extremely physical tournament.", ["Mário Zagallo", "Brazil"])
         ]
       ],
       highlights: [
@@ -891,24 +891,24 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Alf Ramsey",
         teamName: "England",
-        reason: { en: "Ramsey's 'wingless wonders' were a genuine tournament solution: four midfielders could protect the centre, press second balls and still release Charlton beyond the first line." }
+        reason: { en: "Ramsey's 'wingless wonders' were a genuine tournament solution: 4 midfielders could protect the centre, press second balls and still release Charlton beyond the first line." }
       },
       rows: [
         [player("Gordon Banks", "England", "GK", "Banks conceded only once before the final, controlling his box so cleanly that England could defend narrow without fearing every cross.", ["Lev Yashin", "Soviet Union"])],
         [
           player("George Cohen", "England", "RB", "Cohen supplied the width Ramsey removed from midfield, choosing his overlaps carefully and recovering quickly enough to keep England's rest-defence intact.", ["Vicente Lucas", "Portugal"]),
           player("Bobby Moore", "England", "CB", "Moore defended by arriving early, not violently, then turned recoveries into attacks—the clipped pass for Hurst's fourth was the final's coldest decision.", ["Willi Schulz", "West Germany"]),
-          player("Jack Charlton", "England", "CB", "Charlton attacked the first ball and protected Moore's freedom to read behind him; the partnership conceded three goals in six matches before extra time.", ["Roberto Perfumo", "Argentina"]),
+          player("Jack Charlton", "England", "CB", "Charlton attacked the first ball and protected Moore's freedom to read behind him; the partnership conceded 3 goals in 6 matches before extra time.", ["Roberto Perfumo", "Argentina"]),
           player("Silvio Marzolini", "Argentina", "LB", "Marzolini was Argentina's cleanest outlet and best one-on-one defender, advancing with control even in the quarter-final's hostile rhythm.", ["Ray Wilson", "England"])
         ],
         [
-          player("Franz Beckenbauer", "West Germany", "CM", "At 20, Beckenbauer drove from midfield and scored four before taking the demanding tactical assignment of tracking Bobby Charlton in the final.", ["Valery Voronin", "Soviet Union", "DM"]),
+          player("Franz Beckenbauer", "West Germany", "CM", "At 20, Beckenbauer drove from midfield and scored 4 before taking the demanding tactical assignment of tracking Bobby Charlton in the final.", ["Valery Voronin", "Soviet Union", "DM"]),
           player("Mário Coluna", "Portugal", "CM", "Coluna gave Portugal structure beneath Eusébio, receiving under pressure and covering the inside channels when both wingers attacked.", ["Nobby Stiles", "England", "DM"]),
-          player("Bobby Charlton", "England", "CM", "Charlton's long-stride carries and shooting broke compact games; his two goals against Portugal were the difference in England's hardest match.", ["Helmut Haller", "West Germany", "AM"])
+          player("Bobby Charlton", "England", "CM", "Charlton's long-stride carries and shooting broke compact games; his 2 goals against Portugal were the difference in England's hardest match.", ["Helmut Haller", "West Germany", "AM"])
         ],
         [player("Flórián Albert", "Hungary", "AM", "Albert glided away from markers and led the combination play that eliminated holders Brazil, a performance more complete than his goal total suggests.", ["Igor Chislenko", "Soviet Union", "RW"])],
         [
-          player("Eusébio", "Portugal", "ST", "Nine goals, including four to reverse a 3–0 deficit against North Korea; his power was obvious, but the early movement across defenders made it possible.", ["Geoff Hurst", "England"]),
+          player("Eusébio", "Portugal", "ST", "9 goals, including 4 to reverse a 3–0 deficit against North Korea; his power was obvious, but the early movement across defenders made it possible.", ["Geoff Hurst", "England"]),
           player("Uwe Seeler", "West Germany", "ST", "Seeler linked play selflessly, won aerial balls against larger defenders and produced the improvised back-header that rescued the quarter-final against Uruguay.", ["Ferenc Bene", "Hungary"])
         ]
       ],
@@ -928,7 +928,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Mário Zagallo",
         teamName: "Brazil",
-        reason: { en: "Zagallo solved the problem of fitting Pelé, Jairzinho, Tostão, Rivellino and Gérson into one team by assigning clear starting zones and demanding coordinated recovery behind their freedom." }
+        reason: { en: "Zagallo solved the problem of fitting Pelé, Jairzinho, Tostão, Rivellino and Gérson into the same team by assigning clear starting zones and demanding coordinated recovery behind their freedom." }
       },
       rows: [
         [player("Ladislao Mazurkiewicz", "Uruguay", "GK", "Mazurkiewicz's footwork and restraint carried Uruguay to the semi-finals; even Pelé's famous dummy is remembered partly because the keeper forced such invention.", ["Gordon Banks", "England"])],
@@ -941,12 +941,12 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Franz Beckenbauer", "West Germany", "CM", "Beckenbauer controlled games from midfield and played through a dislocated shoulder in the semi-final, still carrying West Germany forward.", ["Bobby Charlton", "England"]),
           player("Gérson", "Brazil", "CM", "Gérson chose when Brazil played fast and when everyone breathed; his final goal and long diagonal before Carlos Alberto's strike showed both sides of his control.", ["Clodoaldo", "Brazil"]),
-          player("Rivellino", "Brazil", "CM", "Starting from the left, Rivellino opened the pitch with his passing and punishing shot while narrowing enough to keep Brazil from becoming a five-forward gamble.", ["Teófilo Cubillas", "Peru", "AM"])
+          player("Rivellino", "Brazil", "CM", "Starting from the left, Rivellino opened the pitch with his passing and punishing shot while narrowing enough to keep Brazil from becoming a 5-forward gamble.", ["Teófilo Cubillas", "Peru", "AM"])
         ],
         [
-          player("Jairzinho", "Brazil", "RW", "Seven goals in six matches, one in every round; he attacked the far post like a striker but began wide enough to create the lane himself.", ["Jürgen Grabowski", "West Germany"]),
-          player("Pelé", "Brazil", "F9", "Pelé's four goals only partly describe it: he manipulated defenders, created six more, and made the final's opening header and closing assist look inevitable.", ["Tostão", "Brazil", "F9"]),
-          player("Gerd Müller", "West Germany", "ST", "Müller scored ten, including consecutive group-stage hat-tricks and the 108th-minute winner against England; his two-goal extra-time burst came against Italy.", ["Gigi Riva", "Italy"])
+          player("Jairzinho", "Brazil", "RW", "7 goals in 6 matches, 1 in every round; he attacked the far post like a striker but began wide enough to create the lane himself.", ["Jürgen Grabowski", "West Germany"]),
+          player("Pelé", "Brazil", "F9", "Pelé's 4 goals only partly describe it: he manipulated defenders, created 6 more, and made the final's opening header and closing assist look inevitable.", ["Tostão", "Brazil", "F9"]),
+          player("Gerd Müller", "West Germany", "ST", "Müller scored 10, including consecutive group-stage hat-tricks and the 108th-minute winner against England; his 2-goal extra-time burst came against Italy.", ["Gigi Riva", "Italy"])
         ]
       ],
       highlights: [
@@ -976,12 +976,12 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Ruud Krol", "Netherlands", "LB", "Krol was the ideal Total Football defender—comfortable covering centrally, advancing outside and delivering the diagonal that began attacks before opponents had settled.", ["Paul Breitner", "West Germany"])
         ],
         [
-          player("Johan Neeskens", "Netherlands", "CM", "Neeskens pressed like a forward, recovered like a holder and arrived like a striker; five goals included the final penalty after only 90 seconds.", ["Rivellino", "Brazil", "AM"]),
-          player("Kazimierz Deyna", "Poland", "CM", "Deyna controlled Poland's direct speed with clipped passes and late runs, scoring three while letting Lato and Gadocha attack before the block formed.", ["Rainer Bonhof", "West Germany"]),
+          player("Johan Neeskens", "Netherlands", "CM", "Neeskens pressed like a forward, recovered like a holder and arrived like a striker; 5 goals included the final penalty after only 90 seconds.", ["Rivellino", "Brazil", "AM"]),
+          player("Kazimierz Deyna", "Poland", "CM", "Deyna controlled Poland's direct speed with clipped passes and late runs, scoring 3 while letting Lato and Gadocha attack before the block formed.", ["Rainer Bonhof", "West Germany"]),
           player("Wolfgang Overath", "West Germany", "CM", "Overath won the internal midfield choice on form, giving Germany a left-footed controller who could slow matches and then release Breitner or Hölzenbein.", ["Wim van Hanegem", "Netherlands"])
         ],
         [
-          player("Grzegorz Lato", "Poland", "RW", "Seven goals came from brutal transition timing: Lato waited on the shoulder, then attacked the channel the instant Deyna or Gadocha looked forward.", ["Johnny Rep", "Netherlands"]),
+          player("Grzegorz Lato", "Poland", "RW", "7 goals came from brutal transition timing: Lato waited on the shoulder, then attacked the channel the instant Deyna or Gadocha looked forward.", ["Johnny Rep", "Netherlands"]),
           player("Johan Cruyff", "Netherlands", "F9", "Cruyff was not a fixed striker but the tournament's organising force, moving to create overloads and making defenders choose between following him or losing the ball-side press.", ["Gerd Müller", "West Germany", "ST"]),
           player("Rob Rensenbrink", "Netherlands", "LW", "Rensenbrink gave the rotating Dutch attack a genuine left-sided dribbler, stretching the pitch when everyone else wanted to arrive centrally.", ["Robert Gadocha", "Poland"])
         ]
@@ -1014,13 +1014,13 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         ],
         [
           player("Osvaldo Ardiles", "Argentina", "CM", "Ardiles kept offering the next short pass under pressure, allowing Argentina to play through midfield instead of turning every recovery into a fight ball.", ["Toninho Cerezo", "Brazil"]),
-          player("Teófilo Cubillas", "Peru", "AM", "Cubillas scored five with technique rather than repetition—the outside-of-the-foot free-kick against Scotland captured a playmaker operating at full confidence.", ["Arie Haan", "Netherlands", "CM"]),
+          player("Teófilo Cubillas", "Peru", "AM", "Cubillas scored 5 with technique rather than repetition—the outside-of-the-foot free-kick against Scotland captured a playmaker operating at full confidence.", ["Arie Haan", "Netherlands", "CM"]),
           player("Dirceu", "Brazil", "CM", "Dirceu carried Brazil's left-sided creation, changed games from range and gave an unbeaten side the invention it lacked elsewhere.", ["Américo Gallego", "Argentina", "DM"])
         ],
-        [player("Mario Kempes", "Argentina", "AM", "Menotti dropped him off the front line and unlocked the tournament. Kempes scored six in the second phase onward, including two surging finishes in the final.", ["Roberto Bettega", "Italy", "SS"])],
+        [player("Mario Kempes", "Argentina", "AM", "Menotti dropped him off the front line and unlocked the tournament. Kempes scored 6 in the second phase onward, including 2 surging finishes in the final.", ["Roberto Bettega", "Italy", "SS"])],
         [
-          player("Paolo Rossi", "Italy", "ST", "Rossi's three goals mattered, but his diagonal runs were the bigger story: they opened Italy's combinations and made him the attack's sharpest forward.", ["Roberto Dinamite", "Brazil"]),
-          player("Rob Rensenbrink", "Netherlands", "SS", "Five goals and constant left-sided threat; one late final shot hit the post, centimetres from turning a brilliant tournament into a title.", ["Leopoldo Luque", "Argentina", "ST"])
+          player("Paolo Rossi", "Italy", "ST", "Rossi's 3 goals mattered, but his diagonal runs were the bigger story: they opened Italy's combinations and made him the attack's sharpest forward.", ["Roberto Dinamite", "Brazil"]),
+          player("Rob Rensenbrink", "Netherlands", "SS", "5 goals and constant left-sided threat; 1 late final shot hit the post, centimetres from turning a brilliant tournament into a title.", ["Leopoldo Luque", "Argentina", "ST"])
         ]
       ],
       highlights: [
@@ -1052,11 +1052,11 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Marco Tardelli", "Italy", "CM", "Tardelli made Italy's midfield a two-way contest, pressed forward without abandoning the centre and scored against Argentina before his unforgettable final strike.", ["Alain Giresse", "France"]),
           player("Falcão", "Brazil", "CM", "Falcão was Brazil's balancing midfielder and its late-arriving scorer, changing the angle of attacks before drilling the 2–2 goal against Italy.", ["Sócrates", "Brazil"]),
-          player("Zico", "Brazil", "AM", "Zico combined at a speed few teams could live with, scoring four and repeatedly releasing runners through the smallest central gaps.", ["Michel Platini", "France"])
+          player("Zico", "Brazil", "AM", "Zico combined at a speed few teams could live with, scoring 4 and repeatedly releasing runners through the smallest central gaps.", ["Michel Platini", "France"])
         ],
         [
           player("Bruno Conti", "Italy", "RW", "Conti was Italy's genuine right-sided creator, carrying counters away from pressure and repeatedly unsettling West Germany before winning the final's opening penalty.", ["Pierre Littbarski", "West Germany"]),
-          player("Paolo Rossi", "Italy", "ST", "Rossi stayed alive between centre-backs even when the ball did not arrive; once it did, six goals in the last three matches decided the tournament.", ["Karl-Heinz Rummenigge", "West Germany"]),
+          player("Paolo Rossi", "Italy", "ST", "Rossi stayed alive between centre-backs even when the ball did not arrive; once it did, 6 goals in the last 3 matches decided the tournament.", ["Karl-Heinz Rummenigge", "West Germany"]),
           player("Zbigniew Boniek", "Poland", "LW", "Boniek's hat-trick against Belgium displayed the full range—timed run, header and transition finish—and drove Poland to the semi-finals before suspension ruled him out.", ["Éder", "Brazil"])
         ]
       ],
@@ -1076,24 +1076,24 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Carlos Bilardo",
         teamName: "Argentina",
-        reason: { en: "Bilardo built the tournament's clearest bespoke system: a 3-5-2 that spared Maradona unnecessary defensive work, gave him two running targets and still had enough width to escape pressure." }
+        reason: { en: "Bilardo built the tournament's clearest bespoke system: a 3-5-2 that spared Maradona unnecessary defensive work, gave him 2 running targets and still had enough width to escape pressure." }
       },
       rows: [
-        [player("Jean-Marie Pfaff", "Belgium", "GK", "Pfaff's explosive shot-stopping and willingness to sweep behind a loose defence gave Belgium the margin to survive two extra-time knockout matches.", ["Nery Pumpido", "Argentina"])],
+        [player("Jean-Marie Pfaff", "Belgium", "GK", "Pfaff's explosive shot-stopping and willingness to sweep behind a loose defence gave Belgium the margin to survive 2 extra-time knockout matches.", ["Nery Pumpido", "Argentina"])],
         [
-          player("Manuel Amoros", "France", "RB", "Amoros attacked from full-back with midfielder-level technique and still recovered for one-versus-one duels throughout France's demanding route.", ["Josimar", "Brazil"]),
+          player("Manuel Amoros", "France", "RB", "Amoros attacked from full-back with midfielder-level technique and still recovered for 1-versus-1 duels throughout France's demanding route.", ["Josimar", "Brazil"]),
           player("José Luis Brown", "Argentina", "CB", "Brown directed the champions' back line, played through a shoulder injury in the final and headed Argentina in front from Burruchaga's free-kick.", ["Oscar Ruggeri", "Argentina"]),
           player("Júlio César", "Brazil", "CB", "Júlio César defended huge spaces with pace and composure, then struck the post in the shootout that ended an otherwise elite tournament.", ["Karlheinz Förster", "West Germany"]),
-          player("Julio Olarticoechea", "Argentina", "LB", "Olarticoechea played as the left wing-back outside Argentina's back three, securing the flank with disciplined positioning and vital far-post cover.", ["Hans-Peter Briegel", "West Germany"])
+          player("Julio Olarticoechea", "Argentina", "LB", "Olarticoechea played as the left wing-back outside Argentina's back 3, securing the flank with disciplined positioning and vital far-post cover.", ["Hans-Peter Briegel", "West Germany"])
         ],
         [
-          player("Jean Tigana", "France", "CM", "Tigana's carrying broke lines opponents had set for Platini, and his recovery work let France keep three creative midfielders on the pitch.", ["Sergio Batista", "Argentina"]),
-          player("Jan Ceulemans", "Belgium", "CM", "Ceulemans gave Belgium a direct route through pressure and scored in three knockout matches—against the Soviet Union, Spain and France—on their run to fourth.", ["Lothar Matthäus", "West Germany"]),
+          player("Jean Tigana", "France", "CM", "Tigana's carrying broke lines opponents had set for Platini, and his recovery work let France keep 3 creative midfielders on the pitch.", ["Sergio Batista", "Argentina"]),
+          player("Jan Ceulemans", "Belgium", "CM", "Ceulemans gave Belgium a direct route through pressure and scored in 3 knockout matches—against the Soviet Union, Spain and France—on their run to fourth.", ["Lothar Matthäus", "West Germany"]),
           player("Michel Platini", "France", "CM", "Below his 1984 peak but still decisive, Platini connected France's midfield diamond and scored the equalizer in the classic against Brazil.", ["Enzo Scifo", "Belgium"])
         ],
-        [player("Diego Maradona", "Argentina", "AM", "Five goals and five assists only begin it: Maradona carried the ball through pressure, fixed entire defensive lines and made Burruchaga's final winner with the pass of the tournament.", ["Jorge Burruchaga", "Argentina"])],
+        [player("Diego Maradona", "Argentina", "AM", "5 goals and 5 assists only begin it: Maradona carried the ball through pressure, fixed entire defensive lines and made Burruchaga's final winner with the pass of the tournament.", ["Jorge Burruchaga", "Argentina"])],
         [
-          player("Gary Lineker", "England", "ST", "Six goals despite arriving after a broken wrist, Lineker lived on the edge of the six-yard box and attacked crosses before defenders could reset their feet.", ["Emilio Butragueño", "Spain"]),
+          player("Gary Lineker", "England", "ST", "6 goals despite arriving after a broken wrist, Lineker lived on the edge of the 6-yard box and attacked crosses before defenders could reset their feet.", ["Emilio Butragueño", "Spain"]),
           player("Preben Elkjær", "Denmark", "ST", "Elkjær's running power made Denmark's group-stage football so dangerous; his hat-trick against Uruguay came from attacking the back line again and again.", ["Jorge Valdano", "Argentina"])
         ]
       ],
@@ -1116,22 +1116,22 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         reason: { en: "Beckenbauer gave Germany width from wing-backs, a free defender behind the press and Matthäus the licence to carry through midfield—the most complete structure in a cagey tournament." }
       },
       rows: [
-        [player("Sergio Goycochea", "Argentina", "GK", "A reserve until Pumpido's injury, Goycochea saved four shootout penalties and carried a depleted Argentina through two ties it could not control.", ["Luis Gabelo Conejo", "Costa Rica"])],
+        [player("Sergio Goycochea", "Argentina", "GK", "A reserve until Pumpido's injury, Goycochea saved 4 shootout penalties and carried a depleted Argentina through 2 ties it could not control.", ["Luis Gabelo Conejo", "Costa Rica"])],
         [
           player("Franco Baresi", "Italy", "CB", "Baresi held Italy's line with immaculate timing; the hosts did not concede until the semi-final and rarely needed a last-ditch action.", ["Klaus Augenthaler", "West Germany"]),
           player("Jürgen Kohler", "West Germany", "CB", "Kohler's aggressive front-foot defending and recovery pace anchored the champions through the knockouts, including clean sheets against Czechoslovakia and Argentina.", ["Guido Buchwald", "West Germany"]),
           player("Paolo Maldini", "Italy", "CB", "Maldini erased his side of the pitch with recovery pace and precise body shape, allowing Italy's midfield to commit numbers forward.", ["Giuseppe Bergomi", "Italy"])
         ],
         [
-          player("Thomas Berthold", "West Germany", "RB", "Berthold gave Germany disciplined right-sided width across seven starts, switching between defender and wing-back while carrying difficult marking work in the knockout rounds.", ["Paul Parker", "England"]),
-          player("Lothar Matthäus", "West Germany", "CM", "Matthäus drove through midfield, scored four and dictated transition speed; even without taking the final penalty, he was the champion's competitive centre.", ["Dunga", "Brazil"]),
+          player("Thomas Berthold", "West Germany", "RB", "Berthold gave Germany disciplined right-sided width across 7 starts, switching between defender and wing-back while carrying difficult marking work in the knockout rounds.", ["Paul Parker", "England"]),
+          player("Lothar Matthäus", "West Germany", "CM", "Matthäus drove through midfield, scored 4 and dictated transition speed; even without taking the final penalty, he was the champion's competitive centre.", ["Dunga", "Brazil"]),
           player("Paul Gascoigne", "England", "CM", "Gascoigne's turns and carries gave England invention between rigid lines, while his tears after the semi-final booking revealed how much responsibility he had taken.", ["David Platt", "England"]),
-          player("Andreas Brehme", "West Germany", "LB", "Brehme was Germany's two-footed left wing-back and chief wide creator, adding three goals and three assists before scoring the final penalty with his right foot.", ["Stuart Pearce", "England"])
+          player("Andreas Brehme", "West Germany", "LB", "Brehme was Germany's two-footed left wing-back and chief wide creator, adding 3 goals and 3 assists before scoring the final penalty with his right foot.", ["Stuart Pearce", "England"])
         ],
         [player("Dragan Stojković", "Yugoslavia", "AM", "Stojković manipulated pressure with either foot and scored twice against Spain, including a feint that sat the defence down before his finish.", ["Diego Maradona", "Argentina"])],
         [
-          player("Salvatore Schillaci", "Italy", "ST", "Started the tournament on the bench and scored six, attacking rebounds and broken lines with the nervous energy that came to define the host run.", ["Gary Lineker", "England"]),
-          player("Jürgen Klinsmann", "West Germany", "ST", "Klinsmann pressed from the front, attacked both channels and scored three, giving Germany vertical threat whenever their possession became too comfortable.", ["Roger Milla", "Cameroon"])
+          player("Salvatore Schillaci", "Italy", "ST", "Started the tournament on the bench and scored 6, attacking rebounds and broken lines with the nervous energy that came to define the host run.", ["Gary Lineker", "England"]),
+          player("Jürgen Klinsmann", "West Germany", "ST", "Klinsmann pressed from the front, attacked both channels and scored 3, giving Germany vertical threat whenever their possession became too comfortable.", ["Roger Milla", "Cameroon"])
         ]
       ],
       highlights: [
@@ -1162,13 +1162,13 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Dunga", "Brazil", "DM", "Dunga won the ugly second ball, switched play early and set the emotional limit for a side determined never to become stretched.", ["Mauro Silva", "Brazil"]),
           player("Krasimir Balakov", "Bulgaria", "CM", "Balakov was Bulgaria's understated connector, carrying out of pressure and feeding Stoichkov and Letchkov before defensive blocks could settle.", ["Fernando Redondo", "Argentina"]),
-          player("Gheorghe Hagi", "Romania", "AM", "Hagi played the tournament at his preferred speed, seeing switches and shots before defenders; three goals and four assists drove Romania to within one shootout of the semi-finals.", ["Yordan Letchkov", "Bulgaria"]),
+          player("Gheorghe Hagi", "Romania", "AM", "Hagi played the tournament at his preferred speed, seeing switches and shots before defenders; 3 goals and 4 assists drove Romania to a shootout for a place in the semi-finals.", ["Yordan Letchkov", "Bulgaria"]),
           player("Tomas Brolin", "Sweden", "AM", "Brolin drifted from the right into pockets, linked every transition and scored the rehearsed corner that beat Romania in the quarter-final.", ["José Luis Caminero", "Spain"])
         ],
         [
-          player("Roberto Baggio", "Italy", "SS", "Quiet and physically strained early, Baggio then scored five knockout goals and repeatedly solved games Italy had not controlled.", ["Bebeto", "Brazil"]),
-          player("Romário", "Brazil", "ST", "Romário needed almost no backlift or space; five goals and the semi-final header against Sweden made him the tournament's best converter of tiny openings.", ["Kennet Andersson", "Sweden"]),
-          player("Hristo Stoichkov", "Bulgaria", "LW", "Stoichkov's left foot produced six goals, but his aggression without the ball and willingness to carry transitions made Bulgaria's semi-final run sustainable.", ["Marc Overmars", "Netherlands"])
+          player("Roberto Baggio", "Italy", "SS", "Quiet and physically strained early, Baggio then scored 5 knockout goals and repeatedly solved games Italy had not controlled.", ["Bebeto", "Brazil"]),
+          player("Romário", "Brazil", "ST", "Romário needed almost no backlift or space; 5 goals and the semi-final header against Sweden made him the tournament's best converter of tiny openings.", ["Kennet Andersson", "Sweden"]),
+          player("Hristo Stoichkov", "Bulgaria", "LW", "Stoichkov's left foot produced 6 goals, but his aggression without the ball and willingness to carry transitions made Bulgaria's semi-final run sustainable.", ["Marc Overmars", "Netherlands"])
         ]
       ],
       highlights: [
@@ -1194,7 +1194,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Lilian Thuram", "France", "RB", "Thuram erased France's right side for most of the tournament, then scored twice to reverse the semi-final and send the hosts into their first World Cup final.", ["Cafu", "Brazil"]),
           player("Marcel Desailly", "France", "CB", "Desailly dominated the space in front of Barthez and covered Leboeuf in the final, his red card the only blemish on a commanding tournament.", ["Frank de Boer", "Netherlands"]),
-          player("Carlos Gamarra", "Paraguay", "CB", "Gamarra completed every tackle without committing a foul, anchoring a side that conceded twice in four matches and took France to a golden goal.", ["Frank Leboeuf", "France"]),
+          player("Carlos Gamarra", "Paraguay", "CB", "Gamarra completed every tackle without committing a foul, anchoring a side that conceded twice in 4 matches and took France to a golden goal.", ["Frank Leboeuf", "France"]),
           player("Roberto Carlos", "Brazil", "LB", "His recovery pace allowed Brazil to play asymmetrically around Cafu; the crossing and set-piece threat remained a constant route even when the centre stalled.", ["Bixente Lizarazu", "France"])
         ],
         [
@@ -1202,12 +1202,12 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Edgar Davids", "Netherlands", "CM", "Recalled after an earlier dispute, Davids gave the Dutch midfield ball-winning and forward thrust, including the late winner against Yugoslavia.", ["Didier Deschamps", "France"])
         ],
         [
-          player("Zinedine Zidane", "France", "AM", "Suspension interrupted Zidane's tournament, but he remained France's creative reference and produced his defining display in the final. His two headers secured the hosts' first World Cup title.", ["Rivaldo", "Brazil"]),
+          player("Zinedine Zidane", "France", "AM", "Suspension interrupted Zidane's tournament, but he remained France's creative reference and produced his defining display in the final. His 2 headers secured the hosts' first World Cup title.", ["Rivaldo", "Brazil"]),
           player("Dennis Bergkamp", "Netherlands", "AM", "Bergkamp made every reception between the lines purposeful; his control, cut and finish against Argentina was the tournament's most technically complete decisive goal.", ["Michael Laudrup", "Denmark"])
         ],
         [
-          player("Ronaldo", "Brazil", "ST", "Four goals and three assists before the troubled final, Ronaldo terrified back lines by receiving to feet and still winning the race behind them.", ["Christian Vieri", "Italy"]),
-          player("Davor Šuker", "Croatia", "ST", "Šuker's six goals powered debutants Croatia to third place; he drifted away from centre-backs and finished early, before goalkeepers could set.", ["Brian Laudrup", "Denmark"])
+          player("Ronaldo", "Brazil", "ST", "4 goals and 3 assists before the troubled final, Ronaldo terrified back lines by receiving to feet and still winning the race behind them.", ["Christian Vieri", "Italy"]),
+          player("Davor Šuker", "Croatia", "ST", "Šuker's 6 goals powered debutants Croatia to third place; he drifted away from centre-backs and finished early, before goalkeepers could set.", ["Brian Laudrup", "Denmark"])
         ]
       ],
       highlights: [
@@ -1226,25 +1226,25 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Luiz Felipe Scolari",
         teamName: "Brazil",
-        reason: { en: "Scolari traded Brazil's qualifying uncertainty for role clarity: three centre-backs, two high wing-backs, Gilberto as the screen and complete attacking freedom for Rivaldo, Ronaldinho and Ronaldo." }
+        reason: { en: "Scolari traded Brazil's qualifying uncertainty for role clarity: 3 centre-backs, 2 high wing-backs, Gilberto as the screen and complete attacking freedom for Rivaldo, Ronaldinho and Ronaldo." }
       },
       rows: [
-        [player("Oliver Kahn", "Germany", "GK", "Kahn was Germany's route to the final, conceding once in six matches and making difficult saves look routine until the one spill Ronaldo punished.", ["Rüştü Reçber", "Turkey"])],
+        [player("Oliver Kahn", "Germany", "GK", "Kahn was Germany's route to the final, conceding once in 6 matches and making difficult saves look routine until Ronaldo punished his only spill.", ["Rüştü Reçber", "Turkey"])],
         [
           player("Alpay Özalan", "Turkey", "CB", "Alpay defended forward and distributed cleanly, giving Turkey the courage to keep its block higher during an extraordinary run to third.", ["Lúcio", "Brazil"]),
           player("Hong Myung-bo", "South Korea", "CB", "Hong organized the hosts' aggressive back line, stepped into midfield to support the press and stayed composed through the golden-goal win over Italy and the shootout against Spain.", ["Rio Ferdinand", "England"]),
           player("Sol Campbell", "England", "CB", "Campbell dominated aerially, scored in the opener and defended huge transition spaces behind England's reactive midfield.", ["Edmílson", "Brazil"])
         ],
         [
-          player("Cafu", "Brazil", "RB", "Cafu's third straight final came with endless right-sided running; the back three let him press high without leaving Brazil structurally naked.", ["Ümit Davala", "Turkey"]),
-          player("Gilberto Silva", "Brazil", "DM", "Gilberto played every minute and quietly solved the whole system, screening beneath four adventurous teammates and moving the ball before pressure arrived.", ["Claudio Reyna", "USA"]),
+          player("Cafu", "Brazil", "RB", "Cafu's third straight final came with endless right-sided running; the back 3 let him press high without leaving Brazil structurally naked.", ["Ümit Davala", "Turkey"]),
+          player("Gilberto Silva", "Brazil", "DM", "Gilberto played every minute and quietly solved the whole system, screening beneath 4 adventurous teammates and moving the ball before pressure arrived.", ["Claudio Reyna", "USA"]),
           player("Michael Ballack", "Germany", "CM", "Ballack drove Germany through the knockout rounds, scoring both 1–0 winners before a tactical yellow card suspended him from the final.", ["Yoo Sang-chul", "South Korea"]),
           player("Roberto Carlos", "Brazil", "LB", "Roberto Carlos supplied the left-sided width and long-range threat, but his recovery speed was just as important to Scolari's high wing-back plan.", ["Lee Young-pyo", "South Korea"])
         ],
-        [player("Ronaldinho", "Brazil", "AM", "Ronaldinho linked the midfield to the front two, then transformed the quarter-final against England with a carry, assist and audacious free-kick.", ["Hasan Şaş", "Turkey"])],
+        [player("Ronaldinho", "Brazil", "AM", "Ronaldinho linked the midfield to the front 2, then transformed the quarter-final against England with a carry, assist and audacious free-kick.", ["Hasan Şaş", "Turkey"])],
         [
-          player("Rivaldo", "Brazil", "ST", "Rivaldo scored in the first five matches and constantly drifted left to create the separation Ronaldo needed through the centre.", ["El Hadji Diouf", "Senegal"]),
-          player("Ronaldo", "Brazil", "ST", "Eight goals after years of knee trauma, including both in the final; his first-step movement returned before defenders were ready to believe it had.", ["Miroslav Klose", "Germany"])
+          player("Rivaldo", "Brazil", "ST", "Rivaldo scored in the first 5 matches and constantly drifted left to create the separation Ronaldo needed through the centre.", ["El Hadji Diouf", "Senegal"]),
+          player("Ronaldo", "Brazil", "ST", "8 goals after years of knee trauma, including both in the final; his first-step movement returned before defenders were ready to believe it had.", ["Miroslav Klose", "Germany"])
         ]
       ],
       highlights: [
@@ -1280,8 +1280,8 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         ],
         [player("Zinedine Zidane", "France", "AM", "Zidane controlled the knockouts with body feints and passing angles, producing a masterclass against Brazil before the final ended in brilliance and self-destruction.", ["Juan Román Riquelme", "Argentina"])],
         [
-          player("Thierry Henry", "France", "ST", "Henry stretched every back line, finished the one chance against Brazil and gave Zidane the depth required to receive between midfield and defence.", ["Luca Toni", "Italy"]),
-          player("Miroslav Klose", "Germany", "ST", "Five goals won the Golden Boot, but Klose's improved link play made Germany's 4-4-2 more fluid than a simple crossing team.", ["David Villa", "Spain"])
+          player("Thierry Henry", "France", "ST", "Henry stretched every back line, finished his only chance against Brazil and gave Zidane the depth required to receive between midfield and defence.", ["Luca Toni", "Italy"]),
+          player("Miroslav Klose", "Germany", "ST", "5 goals won the Golden Boot, but Klose's improved link play made Germany's 4-4-2 more fluid than a simple crossing team.", ["David Villa", "Spain"])
         ]
       ],
       highlights: [
@@ -1300,10 +1300,10 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
       coach: {
         name: "Vicente del Bosque",
         teamName: "Spain",
-        reason: { en: "Del Bosque responded to the opening loss without abandoning the idea, using Busquets and Xabi Alonso to secure possession as Spain navigated five one-goal wins, with Villa and Iniesta providing most of the decisive attacking moments." }
+        reason: { en: "Del Bosque responded to the opening loss without abandoning the idea, using Busquets and Xabi Alonso to secure possession as Spain navigated 5 1-goal wins, with Villa and Iniesta providing most of the decisive attacking moments." }
       },
       rows: [
-        [player("Iker Casillas", "Spain", "GK", "Casillas recovered from a nervous opening match to keep four straight knockout clean sheets, saving Cardozo's penalty and denying Robben one-on-one in the final.", ["Manuel Neuer", "Germany"])],
+        [player("Iker Casillas", "Spain", "GK", "Casillas recovered from a nervous opening match to keep 4 straight knockout clean sheets, saving Cardozo's penalty and denying Robben one-on-one in the final.", ["Manuel Neuer", "Germany"])],
         [
           player("Maicon", "Brazil", "RB", "Maicon gave Brazil its most forceful attacking width, including the impossible-angle goal against North Korea and constant underlapping power.", ["Sergio Ramos", "Spain"]),
           player("Gerard Piqué", "Spain", "CB", "Piqué stepped into midfield to keep Spain's attacks alive and defended the wide transition spaces created by their long possessions.", ["Diego Lugano", "Uruguay"]),
@@ -1315,11 +1315,11 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Bastian Schweinsteiger", "Germany", "CM", "Recast as a central controller, Schweinsteiger dismantled Argentina with switches and carries before Spain denied him the same open transition field.", ["Mark van Bommel", "Netherlands"])
         ],
         [
-          player("Thomas Müller", "Germany", "RW", "Five goals and three assists came from elite interpretation rather than fixed positioning; his suspension exposed how much Germany relied on those blind-side runs.", ["Arjen Robben", "Netherlands"]),
-          player("Wesley Sneijder", "Netherlands", "AM", "Sneijder's early vertical passing and five goals gave a pragmatic Dutch side its incision, from the Brazil comeback to the semi-final against Uruguay.", ["Xavi", "Spain"]),
-          player("David Villa", "Spain", "LW", "Villa scored five of Spain's eight goals, drifting in from the left to find room and repeatedly turning low-event matches with one precise finish.", ["Andrés Iniesta", "Spain"])
+          player("Thomas Müller", "Germany", "RW", "5 goals and 3 assists came from elite interpretation rather than fixed positioning; his suspension exposed how much Germany relied on those blind-side runs.", ["Arjen Robben", "Netherlands"]),
+          player("Wesley Sneijder", "Netherlands", "AM", "Sneijder's early vertical passing and 5 goals gave a pragmatic Dutch side its incision, from the Brazil comeback to the semi-final against Uruguay.", ["Xavi", "Spain"]),
+          player("David Villa", "Spain", "LW", "Villa scored 5 of Spain's 8 goals, drifting in from the left to find room and repeatedly turning low-event matches with a precise finish.", ["Andrés Iniesta", "Spain"])
         ],
-        [player("Diego Forlán", "Uruguay", "ST", "Forlán dropped away from centre-backs, struck the Jabulani cleaner than anyone and scored five distinct goals while carrying Uruguay's creative burden.", ["Luis Suárez", "Uruguay"])],
+        [player("Diego Forlán", "Uruguay", "ST", "Forlán dropped away from centre-backs, struck the Jabulani cleaner than anyone and scored 5 distinct goals while carrying Uruguay's creative burden.", ["Luis Suárez", "Uruguay"])],
       ],
       highlights: [
         { title: "New Zealand left unbeaten", body: "The 78th-ranked team drew all three matches, including one with defending champions Italy. Their compact 3-4-3 gave up territory without giving up the tournament." },
@@ -1350,12 +1350,12 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         [
           player("Javier Mascherano", "Argentina", "DM", "Mascherano was Argentina's emergency brake and emotional centre, most memorably tracking Robben into the box and timing the semi-final's defining recovery tackle.", ["Bastian Schweinsteiger", "Germany"]),
           player("Toni Kroos", "Germany", "CM", "Kroos controlled Germany's left half-space, delivered set pieces and scored twice in 69 seconds during the semi-final demolition.", ["Paul Pogba", "France"]),
-          player("James Rodríguez", "Colombia", "AM", "Six goals in five games without losing his playmaking: James received between lines, turned early and produced the tournament's cleanest strike against Uruguay.", ["Lionel Messi", "Argentina"])
+          player("James Rodríguez", "Colombia", "AM", "6 goals in 5 games without losing his playmaking: James received between lines, turned early and produced the tournament's cleanest strike against Uruguay.", ["Lionel Messi", "Argentina"])
         ],
         [
           player("Arjen Robben", "Netherlands", "RW", "Robben carried the Dutch attack through changing shapes, isolating defenders and turning every transition into a retreat toward their own goal.", ["Ángel Di María", "Argentina"]),
-          player("Thomas Müller", "Germany", "ST", "Müller added five more goals through the same difficult-to-teach habit: leaving the obvious zone before arriving in the decisive one.", ["Karim Benzema", "France"]),
-          player("Neymar", "Brazil", "LW", "Before injury ended his tournament, Neymar carried Brazil's scoring and progression burden; four goals masked how little creation existed around him.", ["Alexis Sánchez", "Chile"])
+          player("Thomas Müller", "Germany", "ST", "Müller added 5 more goals through the same difficult-to-teach habit: leaving the obvious zone before arriving in the decisive one.", ["Karim Benzema", "France"]),
+          player("Neymar", "Brazil", "LW", "Before injury ended his tournament, Neymar carried Brazil's scoring and progression burden; 4 goals masked how little creation existed around him.", ["Alexis Sánchez", "Chile"])
         ]
       ],
       highlights: [
@@ -1377,21 +1377,21 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         reason: { en: "Deschamps made restraint a strength, accepting a lopsided shape around Mbappé and Matuidi so France could protect the centre, dominate transitions and adapt to every game state." }
       },
       rows: [
-        [player("Thibaut Courtois", "Belgium", "GK", "Courtois' reach and patience were decisive against Brazil and England; he conceded six, but repeatedly saved chances created after Belgium's ambitious shape broke.", ["Hugo Lloris", "France"])],
+        [player("Thibaut Courtois", "Belgium", "GK", "Courtois' reach and patience were decisive against Brazil and England; he conceded 6, but repeatedly saved chances created after Belgium's ambitious shape broke.", ["Hugo Lloris", "France"])],
         [
           player("Kieran Trippier", "England", "RB", "As a wing-back, Trippier was England's primary chance creator through early crosses and set pieces, including the semi-final free-kick.", ["Benjamin Pavard", "France"]),
           player("Raphaël Varane", "France", "CB", "Varane defended space rather than chasing duels, dominated Uruguay in the air and gave France a clean first pass throughout the knockout rounds.", ["Toby Alderweireld", "Belgium"]),
-          player("Diego Godín", "Uruguay", "CB", "Godín controlled the box and pushed Uruguay's line forward, the defensive authority behind three wins and only one goal conceded before the quarter-final.", ["Samuel Umtiti", "France"]),
+          player("Diego Godín", "Uruguay", "CB", "Godín controlled the box and pushed Uruguay's line forward, the defensive authority behind 3 wins and only 1 goal conceded before the quarter-final.", ["Samuel Umtiti", "France"]),
           player("Lucas Hernández", "France", "LB", "Hernández accepted the conservative side of France's asymmetry, winning duels and choosing exactly when an overlap would not expose the transition.", ["Ivan Strinić", "Croatia"])
         ],
         [
           player("N'Golo Kanté", "France", "DM", "Kanté closed the spaces behind Pogba and Mbappé, often winning the ball early enough that France's transition began before opponents knew possession had changed.", ["Marcelo Brozović", "Croatia"]),
-          player("Luka Modrić", "Croatia", "CM", "Modrić carried Croatia through three extra-time ties, escaping pressure with body position and continuing to demand the ball when fatigue should have ended the idea.", ["Ivan Rakitić", "Croatia"]),
-          player("Kevin De Bruyne", "Belgium", "CM", "Used deeper and then as a false nine, De Bruyne's early passing tore through Brazil and made Belgium's changing shapes feel coherent.", ["Paul Pogba", "France"])
+          player("Luka Modrić", "Croatia", "CM", "Modrić carried Croatia through 3 extra-time ties, escaping pressure with body position and continuing to demand the ball when fatigue should have ended the idea.", ["Ivan Rakitić", "Croatia"]),
+          player("Kevin De Bruyne", "Belgium", "CM", "Used deeper and then as a false 9, De Bruyne's early passing tore through Brazil and made Belgium's changing shapes feel coherent.", ["Paul Pogba", "France"])
         ],
         [
-          player("Kylian Mbappé", "France", "RW", "Mbappé's speed changed opponents' starting positions before kickoff; his two goals against Argentina and calm final strike made the threat concrete.", ["Ante Rebić", "Croatia"]),
-          player("Antoine Griezmann", "France", "ST", "Griezmann dropped into midfield to connect France's cautious shape, created from set pieces and still finished with four goals and two assists.", ["Harry Kane", "England"]),
+          player("Kylian Mbappé", "France", "RW", "Mbappé's speed changed opponents' starting positions before kickoff; his 2 goals against Argentina and calm final strike made the threat concrete.", ["Ante Rebić", "Croatia"]),
+          player("Antoine Griezmann", "France", "ST", "Griezmann dropped into midfield to connect France's cautious shape, created from set pieces and still finished with 4 goals and 2 assists.", ["Harry Kane", "England"]),
           player("Eden Hazard", "Belgium", "LW", "Hazard beat the first defender almost at will, carried Belgium out of pressure and controlled transitions instead of simply rushing them.", ["Ivan Perišić", "Croatia"])
         ]
       ],
@@ -1414,7 +1414,7 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
         reason: { en: "Scaloni never confused continuity with rigidity: he changed personnel and shape after the opening loss, used a 4-4-2 to close the Netherlands, then surprised France with Di María on the left." }
       },
       rows: [
-        [player("Emiliano Martínez", "Argentina", "GK", "Martínez owned the tournament's highest-leverage moments: two shootouts and the spread save from Kolo Muani in the 123rd minute of the final.", ["Yassine Bounou", "Morocco"])],
+        [player("Emiliano Martínez", "Argentina", "GK", "Martínez owned the tournament's highest-leverage moments: 2 shootouts and the spread save from Kolo Muani in the 123rd minute of the final.", ["Yassine Bounou", "Morocco"])],
         [
           player("Achraf Hakimi", "Morocco", "RB", "Hakimi carried Morocco out of pressure, recovered at elite speed and still overlapped often enough to stop their low block becoming passive.", ["Nahuel Molina", "Argentina"]),
           player("Nicolás Otamendi", "Argentina", "CB", "Otamendi defended forward throughout Argentina's recovery, winning first balls and allowing the midfield to stay close enough to Messi.", ["Raphaël Varane", "France"]),
@@ -1427,9 +1427,9 @@ export const HISTORICAL_HIGHLIGHTS = Object.freeze({
           player("Antoine Griezmann", "France", "CM", "Griezmann operated as France's free right-sided midfielder, leading the tournament in chances created before Argentina crowded him out of the final.", ["Luka Modrić", "Croatia"])
         ],
         [
-          player("Lionel Messi", "Argentina", "RW", "Messi scored seven, assisted three and solved every knockout round differently—from the disguised pass against the Netherlands to the carry that undid Gvardiol.", ["Bukayo Saka", "England"]),
-          player("Julián Álvarez", "Argentina", "ST", "Álvarez won the centre-forward place after two substitute appearances, scored four and stretched knockout defences so Messi could receive between the lines.", ["Olivier Giroud", "France"]),
-          player("Kylian Mbappé", "France", "LW", "Mbappé was the tournament's outstanding left-sided wide forward, scoring eight and repeatedly attacking from the flank before moving centrally as the final changed.", ["Vinícius Júnior", "Brazil"])
+          player("Lionel Messi", "Argentina", "RW", "Messi scored 7, assisted 3 and solved every knockout round differently—from the disguised pass against the Netherlands to the carry that undid Gvardiol.", ["Bukayo Saka", "England"]),
+          player("Julián Álvarez", "Argentina", "ST", "Álvarez won the centre-forward place after 2 substitute appearances, scored 4 and stretched knockout defences so Messi could receive between the lines.", ["Olivier Giroud", "France"]),
+          player("Kylian Mbappé", "France", "LW", "Mbappé was the tournament's outstanding left-sided wide forward, scoring 8 and repeatedly attacking from the flank before moving centrally as the final changed.", ["Vinícius Júnior", "Brazil"])
         ]
       ],
       highlights: [

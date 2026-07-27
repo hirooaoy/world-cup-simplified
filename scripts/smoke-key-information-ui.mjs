@@ -76,35 +76,33 @@ try {
     fixtureId: "match-104-final-2026-07-19"
   });
   assert.equal(finalCopy.length, 2);
-  assert.match(finalCopy[0], /Spain are 6-1-0 with a goal balance of 13–1/);
-  assert.match(finalCopy[0], /FIFA's revised layout, published after kickoff.*4-1-2-3/);
+  assert.match(finalCopy[0], /(?:Spain line up|Spain start|In a) (?:in )?a? ?4-1-2-3/);
   assert.match(finalCopy[0], /Lamine Yamal starts on Spain's right opposite Nicolas Tagliafico on Argentina's left/);
   assert.match(finalCopy[0], /Rodri/);
   assert.match(finalCopy[0], /Lamine Yamal/);
+  assert.match(finalCopy[0], /Argentina's starting XI pairs Lionel Messi and Julian Alvarez/);
   assert.doesNotMatch(finalCopy[0], /\b(?:Pedri|Nico Williams)\b/);
   assert.match(finalCopy[1], /Argentina/);
+  assert.doesNotMatch(finalCopy.join(" "), /goal balance|published (?:before|after) kickoff|group points?|place at stake|before this (?:round|quarter-final|semi-final|final)/i);
   assert.doesNotMatch(finalCopy.join(" "), /must test|contest central space|tracks .*runs|connect the phases/i);
-  assert((await desktop.locator("#match-info .key-info-team .player-link").count()) >= 10);
+  assert((await desktop.locator("#match-info .key-info-team .player-link").count()) >= 6);
 
   const italyBrazil = await openFixture(desktop, {
     date: "1982-07-05",
     fixtureId: "wc-1982-1982-07-05-matchday-6-italy-brazil"
   });
-  assert(
-    italyBrazil.some((copy) => /Italy must (?:win|beat Brazil).*reach the semi-finals/i.test(copy)),
-    `Rendered Italy-Brazil copy must preserve Italy's win requirement: ${JSON.stringify(italyBrazil)}`
-  );
-  assert(
-    italyBrazil.some((copy) => /Brazil need only a draw .*reach the semi-finals/i.test(copy)),
-    `Rendered Italy-Brazil copy must preserve Brazil's draw requirement: ${JSON.stringify(italyBrazil)}`
-  );
+  assert(italyBrazil.some((copy) => /Italy's confirmed XI|Italy start Francesco Graziani/i.test(copy)));
+  assert(italyBrazil.some((copy) => /Brazil's confirmed XI|Brazil start Serginho and Éder/i.test(copy)));
+  assert.match(italyBrazil.join(" "), /Enzo Bearzot/);
+  assert.match(italyBrazil.join(" "), /Telê Santana/);
+  assert.doesNotMatch(italyBrazil.join(" "), /semi-final|must win|need only a draw|points?|goal balance/i);
   assert(italyBrazil.every((copy) => copy.split(/(?<=[.!?])\s+/u).filter(Boolean).length === 4));
   assert.doesNotMatch(italyBrazil.join(" "), /Briegel.*Maradona|Kohler.*Maradona|tracks .*runs/i);
 
   const reviewed2002Checks = {
-    es: [/Suecia llega con 4 puntos tras 2 partidos/, /ganar o empatar garantiza los octavos de final/, /Argentina llega con 3 puntos tras 2 partidos/, /empatar exige que Nigeria venza a Inglaterra/],
-    ko: [/스웨덴.*2경기 4점/, /승리하거나 비기면 16강 진출이 확정/, /아르헨티나.*2경기 3점/, /나이지리아의 잉글랜드전 승리/],
-    zh: [/瑞典2场4分/, /胜或平即可确保十六强席位/, /阿根廷2场3分/, /尼日利亚击败英格兰/]
+    es: [/Suecia/, /once confirmado/, /Lars Lagerbäck/, /Marcelo Bielsa/],
+    ko: [/스웨덴/, /선발 명단/, /Lars Lagerbäck/, /Marcelo Bielsa/],
+    zh: [/瑞典/, /首发名单/, /Lars Lagerbäck/, /Marcelo Bielsa/]
   };
   for (const [language, patterns] of Object.entries(reviewed2002Checks)) {
     const copy = (await openFixture(desktop, {
@@ -113,8 +111,9 @@ try {
       language
     })).join(" ");
     for (const pattern of patterns) {
-      assert.match(copy, pattern, `${language} must preserve the reviewed Sweden-Argentina 2002 qualification scenario`);
+      assert.match(copy, pattern, `${language} must preserve the Sweden-Argentina 2002 lineup comparison`);
     }
+    assert.doesNotMatch(copy, /puntos?|octavos|승점|16강|积分|十六强/u);
   }
 
   const scotland = await openFixture(desktop, {
@@ -132,9 +131,10 @@ try {
     fixtureId: "match-104-final-2026-07-19",
     language: "zh"
   });
-  assert(localizedFinal.some((copy) => copy.includes("西班牙") && copy.includes("开球后发布的修订版官方战术站位显示4-1-2-3阵型")));
-  assert(localizedFinal.some((copy) => copy.includes("面对阿根廷")));
-  assert(localizedFinal.every((copy) => copy.includes("阵型对照") && copy.includes("官方首发布置") && copy.includes("首发结构")));
+  assert(localizedFinal.some((copy) => copy.includes("西班牙") && copy.includes("4-1-2-3阵型")));
+  assert(localizedFinal.some((copy) => copy.includes("阿根廷") && copy.includes("首发结构")));
+  assert(localizedFinal.every((copy) => copy.includes("首发布置") && copy.includes("首发结构")));
+  assert.doesNotMatch(localizedFinal.join(" "), /开球前发布|开球后发布|积分|晋级名额/);
   assert.doesNotMatch(localizedFinal.join(" "), /结构性风险/);
   assert.doesNotMatch(localizedFinal.join(" "), /Against |They want|The risk is/);
 
@@ -168,7 +168,7 @@ try {
 
   await desktop.close();
   await mobile.close();
-  console.log("Key information UI smoke passed for the 2026 final, reviewed 2002 ES/KO/ZH stakes, historical stakes, manager-link safety, Chinese v2 rendering, unknown-version fallback, and mobile layout.");
+  console.log("Key information UI smoke passed for the 2026 final, 2002 ES/KO/ZH lineup comparison, historical lineup evidence, manager-link safety, Chinese v2 rendering, unknown-version fallback, and mobile layout.");
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));

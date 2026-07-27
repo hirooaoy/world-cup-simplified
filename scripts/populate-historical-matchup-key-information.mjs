@@ -1346,6 +1346,78 @@ function copyWordCount(value) {
   return String(value).trim().split(/\s+/).filter(Boolean).length;
 }
 
+function historicalRoleCounts(starters) {
+  const counts = { goalkeeper: 0, defender: 0, midfielder: 0, forward: 0, player: 0 };
+  for (const starter of starters || []) {
+    const role = Object.hasOwn(counts, starter.position) ? starter.position : "player";
+    counts[role] += 1;
+  }
+  return counts;
+}
+
+function historicalRoleBalancePhrase(counts) {
+  const roles = [
+    counts.defender ? countWord(counts.defender, "defender") : "",
+    counts.midfielder ? countWord(counts.midfielder, "midfielder") : "",
+    counts.forward ? countWord(counts.forward, "forward") : "",
+    counts.player ? countWord(counts.player, "other starter", "other starters") : ""
+  ].filter(Boolean);
+  const outfield = nameSeries(roles);
+  if (counts.goalkeeper === 1) return `${outfield} in front of the goalkeeper`;
+  if (counts.goalkeeper > 1) return `${outfield}, with ${countWord(counts.goalkeeper, "goalkeeper")}`;
+  return outfield;
+}
+
+function teamXiLabel(teamName) {
+  const value = String(teamName || "").trim();
+  if (/^(?:the\s+)?(?:Netherlands|Soviet Union|United States)\b/i.test(value)) {
+    return `the ${value.replace(/^the\s+/i, "")} XI`;
+  }
+  const article = /^(?:United|Uruguay|USA)\b/i.test(value) ? "a" : /^[AEIOU]/i.test(value) ? "an" : "a";
+  return `${article} ${value} XI`;
+}
+
+function historicalLineupRoleSentence(teamName, managers, roleCounts, variant = 0) {
+  const roles = historicalRoleBalancePhrase(roleCounts);
+  const leadership = managers.length ? nameSeries(managers) : "";
+  const options = leadership
+    ? [
+        `Under ${leadership}, ${possessive(teamName)} confirmed XI lists ${roles}.`,
+        `${leadership} ${managers.length === 1 ? "selects" : "select"} ${teamXiLabel(teamName)} with ${roles}.`,
+        `${possessive(teamName)} confirmed XI contains ${roles}, with ${leadership} in charge.`
+      ]
+    : [
+        `${possessive(teamName)} confirmed XI lists ${roles}.`,
+        `${teamName} name a starting XI with ${roles}.`,
+        `${possessive(teamName)} starting side contains ${roles}.`
+      ];
+  return options[variant % options.length];
+}
+
+function historicalPlayerRolePhrases(players) {
+  const labels = {
+    forward: "in attack",
+    midfielder: "in midfield",
+    defender: "in defence",
+    goalkeeper: "in goal",
+    player: "in the starting side"
+  };
+  return ["forward", "midfielder", "defender", "goalkeeper", "player"]
+    .map((position) => {
+      const names = players.filter((player) => player.position === position).map((player) => player.name);
+      return names.length ? `${nameSeries(names)} ${labels[position]}` : "";
+    })
+    .filter(Boolean);
+}
+
+function historicalPlayerLineupSentence(teamName, players) {
+  const phrases = historicalPlayerRolePhrases(players);
+  if (!phrases.length) return `${teamName} have no named starting roles available.`;
+  if (phrases.length === 1) return `${teamName} start ${phrases[0]}.`;
+  if (phrases.length === 2) return `${teamName} start ${phrases[0]}, with ${phrases[1]}.`;
+  return `${teamName} start ${nameSeries(phrases)}.`;
+}
+
 export function buildHistoricalEvidenceContent({
   fixture,
   sourceMatch,
@@ -1358,8 +1430,10 @@ export function buildHistoricalEvidenceContent({
   tableEvidence,
   hostTeams,
   copyPlayers = [],
+  allStarters = [],
   opponentManagers = [],
-  opponentCopyPlayers = []
+  opponentCopyPlayers = [],
+  opponentAllStarters = []
 }) {
   const teamName = side === "home" ? fixture.homeSlot : fixture.awaySlot;
   const opponentName = side === "home" ? fixture.awaySlot : fixture.homeSlot;
@@ -1381,6 +1455,66 @@ export function buildHistoricalEvidenceContent({
   const variant = stableVariant(`${fixture.id}|${side}`, 6);
   const availableStarters = copyPlayers.map((player) => player.name);
   const availableOpponentStarters = opponentCopyPlayers.map((player) => player.name);
+  const confirmedStarterFacts = copyPlayers.map(({ name, position }) => ({ name, position }));
+  const opponentConfirmedStarterFacts = opponentCopyPlayers.map(({ name, position }) => ({ name, position }));
+  const roleCounts = historicalRoleCounts(allStarters);
+  const opponentRoleCounts = historicalRoleCounts(opponentAllStarters);
+  const hasLineupComparison = allStarters.length === 11 && opponentAllStarters.length === 11;
+  if (hasLineupComparison) {
+    if (roleCounts.goalkeeper !== 1 || opponentRoleCounts.goalkeeper !== 1) {
+      throw new Error(`${fixture.id} ${side} historical lineup comparison needs exactly one goalkeeper per side`);
+    }
+    const copy = naturalizeEnglishTeamArticles([
+      historicalLineupRoleSentence(teamName, managers, roleCounts, variant),
+      historicalPlayerLineupSentence(teamName, confirmedStarterFacts),
+      historicalLineupRoleSentence(opponentName, opponentManagers, opponentRoleCounts, (variant + 1) % 3),
+      historicalPlayerLineupSentence(opponentName, opponentConfirmedStarterFacts)
+    ].join(" "));
+    const words = copyWordCount(copy);
+    if (words < 40 || words > 80) {
+      throw new Error(`${fixture.id} ${side} historical lineup comparison expected 40-80 words, found ${words}: ${copy}`);
+    }
+    return {
+      copy,
+      wordCount: words,
+      localeModel: {
+        version: localeModelVersion,
+        kind: "historical-evidence",
+        team: { name: teamName },
+        opponent: { name: opponentName },
+        stage: historicalStageModel(fixture, sourceMatch),
+        slots: {
+          identity: {
+            displayMode: "lineup-comparison",
+            isHost,
+            managers,
+            confirmedStarters: availableStarters,
+            confirmedStarterFacts,
+            roleCounts,
+            prior: recordSnapshot(context, fixture.tournamentYear, {
+              pointsApplicable: phase === "group-stage" && hasGroupStagePoints(fixture.tournamentYear),
+              scope: "tournament"
+            }),
+            phasePrior: recordSnapshot(stageContext, fixture.tournamentYear, {
+              pointsApplicable: phaseUsesStandings(phase),
+              scope: "current-phase"
+            }),
+            scope: phaseStartsNewStandings(phase) ? "current-phase" : "tournament",
+            claimClass: "documented-starting-lineup",
+            evidenceRefs: ["fjelstul:manager-appearances", "fjelstul:player-appearances"]
+          },
+          matchup: task.model,
+          plan: planModel(context, stageContext, fixture.tournamentYear, phase),
+          risk: {
+            ...riskModel(opponentContext, opponentStageContext, fixture.tournamentYear, phase),
+            opponentManagers,
+            opponentConfirmedStarterFacts,
+            opponentRoleCounts
+          }
+        }
+      }
+    };
+  }
   const sharedTournamentOpening = context.matches === 0 && opponentContext.matches === 0;
   const starterCounts = availableStarters.length
     ? [Math.min(3, availableStarters.length), Math.min(2, availableStarters.length), 1]
@@ -1926,15 +2060,9 @@ for (const fixture of sortedFixtures) {
     historicalCoverage = "confirmed-starting-lineup-evidence";
   }
 
-  const keyInformationInputs = [
-    "teams",
-    "stage",
-    "manager",
-    "hostStatus",
-    "priorTournamentMatches",
-    "tournamentFormatRules",
-    ...(hasConfirmedStartingXI ? ["confirmedStartingXI"] : [])
-  ];
+  const keyInformationInputs = hasConfirmedStartingXI
+    ? ["teams", "stage", "manager", "confirmedStartingXI", "priorTournamentMatches", "tournamentFormatRules"]
+    : ["teams", "stage", "manager", "hostStatus", "priorTournamentMatches", "tournamentFormatRules"];
   const homeContent = buildHistoricalEvidenceContent({
     fixture,
     sourceMatch,
@@ -1947,8 +2075,10 @@ for (const fixture of sortedFixtures) {
     tableEvidence: preMatchTableEvidenceByFixtureId.get(fixture.id),
     hostTeams,
     copyPlayers: homeCopyPlayers,
+    allStarters: homeStarters,
     opponentManagers: awayManagers,
-    opponentCopyPlayers: awayCopyPlayers
+    opponentCopyPlayers: awayCopyPlayers,
+    opponentAllStarters: awayStarters
   });
   const awayContent = buildHistoricalEvidenceContent({
     fixture,
@@ -1962,8 +2092,10 @@ for (const fixture of sortedFixtures) {
     tableEvidence: preMatchTableEvidenceByFixtureId.get(fixture.id),
     hostTeams,
     copyPlayers: awayCopyPlayers,
+    allStarters: awayStarters,
     opponentManagers: homeManagers,
-    opponentCopyPlayers: homeCopyPlayers
+    opponentCopyPlayers: homeCopyPlayers,
+    opponentAllStarters: homeStarters
   });
   const keyInformation = {
     ...commonMetadata(keyInformationInputs),
@@ -2046,9 +2178,11 @@ for (const fixture of fixtures) {
     }
     if (fixture.status !== "CANCELLED") {
       const words = copyWordCount(copy);
-      const minimumWords = 50;
-      if (words < minimumWords || words > 85) {
-        throw new Error(`${fixture.id} ${side} expected ${minimumWords}-85 words, found ${words}: ${copy}`);
+      const displayMode = fixture.keyInformation?.localeModel?.[side]?.slots?.identity?.displayMode;
+      const minimumWords = displayMode === "lineup-comparison" ? 40 : 50;
+      const maximumWords = displayMode === "lineup-comparison" ? 80 : 85;
+      if (words < minimumWords || words > maximumWords) {
+        throw new Error(`${fixture.id} ${side} expected ${minimumWords}-${maximumWords} words, found ${words}: ${copy}`);
       }
       if (forbiddenTacticalClaims.test(copy)) {
         throw new Error(`${fixture.id} ${side} contains an inferred player-duty claim: ${copy}`);
@@ -2065,6 +2199,9 @@ for (const fixture of fixtures) {
       if (databaseLikeTemplate.test(copy) || malformedScoringTemplate.test(copy)) {
         throw new Error(`${fixture.id} ${side} contains database-like or malformed prose: ${copy}`);
       }
+      if (/\b(?:a the (?:Netherlands|Soviet Union|United States)|an USA) XI\b/i.test(copy)) {
+        throw new Error(`${fixture.id} ${side} contains a malformed team article: ${copy}`);
+      }
       if (/\bearlier matches have produced\b|\b\d+ goals? across 1 match\b|\bacross 1 matches\b|\b1 times\b|\bas the host side as\b|\bhave no goals conceded\b/i.test(copy)) {
         throw new Error(`${fixture.id} ${side} contains a known number-agreement or zero-conceded wording defect: ${copy}`);
       }
@@ -2077,6 +2214,12 @@ for (const fixture of fixtures) {
       const model = fixture.keyInformation?.localeModel?.[side];
       if (phaseUsesStandings(model?.stage?.phase) && sentences.slice(2).some((sentence) => /\bpoints?\b/i.test(sentence))) {
         throw new Error(`${fixture.id} ${side} repeats table points after the matchup sentence: ${copy}`);
+      }
+      if (
+        displayMode === "lineup-comparison" &&
+        /\b(?:goal balance|before this|at stake|group points?|published (?:before|after) kickoff|round-of-|quarter-final|semi-final|world title|\d+W-\d+D-\d+L)\b/i.test(copy)
+      ) {
+        throw new Error(`${fixture.id} ${side} lineup comparison contains removed match administration: ${copy}`);
       }
       if (Number(fixture.tournamentYear) >= 1970) {
         const selectedStarters = model?.slots?.identity?.confirmedStarters || [];
@@ -2095,8 +2238,8 @@ const belgiumRussia2002 = fixtures.find((fixture) => sameHistoricalMatch(fixture
 if (!belgiumRussia2002) throw new Error("Historical copy regression: missing Belgium-Russia 2002");
 const belgiumSide = normalizeTeamName(belgiumRussia2002.homeSlot) === "belgium" ? "home" : "away";
 const belgiumCopy = belgiumRussia2002.keyInformation[belgiumSide];
-if (!belgiumCopy.includes("only a win guarantees progress") || /a draw eliminates them,? and defeat eliminates them/i.test(belgiumCopy)) {
-  throw new Error(`Belgium-Russia 2002 must state the final-day scenario once and concisely: ${belgiumCopy}`);
+if (/\b(?:progress|qualif|eliminat|points?|at stake)\b/i.test(belgiumCopy)) {
+  throw new Error(`Belgium-Russia 2002 lineup comparison must omit match administration: ${belgiumCopy}`);
 }
 
 for (const fixture of fixtures.filter((candidate) => Number(candidate.tournamentYear) === 1958 && [candidate.homeSlot, candidate.awaySlot].includes("Scotland"))) {

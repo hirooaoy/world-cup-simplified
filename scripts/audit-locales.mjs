@@ -1759,18 +1759,30 @@ function auditPlayerNoteTemplates(
 
   const currentProfiles = Object.values(playerProfiles?.profiles || {});
   const historicalProfiles = Object.values(historicalPlayerProfiles?.profiles || {});
+  const historicalGeneratedProfiles = historicalProfiles.filter(
+    (profile) => profile.styleNoteMeta?.origin === "generated"
+  );
+  const historicalAuthoredProfiles = historicalProfiles.filter(
+    (profile) => profile.styleNoteMeta?.origin === "authored"
+  );
   const currentTemplated = currentProfiles.filter((profile) =>
     isGeneratedPlayerCardCopy(profile.note, {
       copyMeta: profile.noteMeta,
       localizedName: profile.displayName || profile.name
     })
   );
-  const historicalStyleTemplated = historicalProfiles.filter((profile) =>
+  const historicalStyleTemplated = historicalGeneratedProfiles.filter((profile) =>
     isGeneratedPlayerCardCopy(profile.styleNote, {
       historical: true,
       copyMeta: profile.styleNoteMeta,
       localizedName: profile.displayName || profile.name
     })
+  );
+  const historicalGeneratedMisses = historicalGeneratedProfiles.filter(
+    (profile) => !historicalStyleTemplated.includes(profile)
+  );
+  const historicalAuthoredOverlayMisses = historicalAuthoredProfiles.filter(
+    (profile) => !requiredSourceSets.archive.has(profile.styleNote)
   );
   const historicalNoteMisses = historicalProfiles.filter(
     (profile) => !parseGeneratedHistoricalPlayerNote(profile.note)
@@ -1787,9 +1799,19 @@ function auditPlayerNoteTemplates(
   );
   check(
     "player-note templates",
-    historicalStyleTemplated.length >= historicalProfiles.length * 0.98,
-    `${language} recognizes only ${historicalStyleTemplated.length}/${historicalProfiles.length} generated historical style notes`,
-    "Keep authored spotlights on the reviewed overlay path and template the repeatable archive prose."
+    historicalGeneratedMisses.length === 0,
+    `${language} cannot recognize generated historical style notes: ${formatSamples(
+      historicalGeneratedMisses.map((profile) => profile.profileKey)
+    )}`,
+    "Every profile marked as generated must remain on the shared semantic template path."
+  );
+  check(
+    "player-note authored overlays",
+    historicalAuthoredOverlayMisses.length === 0,
+    `${language} authored historical notes are missing from the archive overlay path: ${formatSamples(
+      historicalAuthoredOverlayMisses.map((profile) => profile.profileKey)
+    )}`,
+    "Route every authored historical portrait through an exact reviewed locale overlay."
   );
   check(
     "player-note templates",
@@ -2331,7 +2353,9 @@ function auditPlayerNoteTemplates(
 
   metric(
     `${language} player-note templates`,
-    `${currentTemplated.length}/${currentProfiles.length} current and ${historicalStyleTemplated.length}/${historicalProfiles.length} historical style notes templated`
+    `${currentTemplated.length}/${currentProfiles.length} current; `
+      + `${historicalStyleTemplated.length}/${historicalGeneratedProfiles.length} generated historical; `
+      + `${historicalAuthoredProfiles.length - historicalAuthoredOverlayMisses.length}/${historicalAuthoredProfiles.length} authored overlays`
   );
 }
 
@@ -3069,6 +3093,50 @@ function getResolvedPlayerNames(language, entries) {
   return resolved;
 }
 
+function getContextFreeAmbiguousPlayerAliases(entries) {
+  const fullNameIdentitiesByFinalToken = new Map();
+  const normalizeToken = (value) =>
+    String(value || "")
+      .normalize("NFKD")
+      .replace(/\p{Mark}/gu, "")
+      .toLocaleLowerCase("en-US")
+      .replace(/[^\p{Letter}\p{Number}]/gu, "");
+
+  for (const [sourceName, entry] of Object.entries(entries || {})) {
+    const canonicalName = String(entry?.canonicalName || sourceName).trim();
+    const canonicalIdentity = normalizeToken(canonicalName);
+    for (const candidateName of [sourceName, canonicalName]) {
+      const parts = String(candidateName || "").trim().split(/\s+/u).filter(Boolean);
+      if (parts.length < 2) continue;
+      const finalToken = normalizeToken(parts.at(-1));
+      if (!finalToken) continue;
+      if (!fullNameIdentitiesByFinalToken.has(finalToken)) {
+        fullNameIdentitiesByFinalToken.set(finalToken, new Set());
+      }
+      fullNameIdentitiesByFinalToken.get(finalToken).add(canonicalIdentity);
+    }
+  }
+
+  const ambiguousAliases = new Set();
+  for (const [sourceName, entry] of Object.entries(entries || {})) {
+    const canonicalName = String(entry?.canonicalName || sourceName).trim();
+    const canonicalIdentity = normalizeToken(canonicalName);
+    for (const alias of [sourceName, canonicalName]) {
+      const trimmedAlias = String(alias || "").trim();
+      if (!trimmedAlias || /\s/u.test(trimmedAlias)) continue;
+      const finalToken = normalizeToken(trimmedAlias);
+      const otherIdentities = fullNameIdentitiesByFinalToken.get(finalToken);
+      if (
+        otherIdentities
+        && [...otherIdentities].some((identity) => identity !== canonicalIdentity)
+      ) {
+        ambiguousAliases.add(trimmedAlias);
+      }
+    }
+  }
+  return ambiguousAliases;
+}
+
 function getExpectedPlayerNameModule(language, entries, scopeNames) {
   return Object.fromEntries(
     Object.entries(getResolvedPlayerNames(language, entries))
@@ -3312,6 +3380,8 @@ function getContentEntityFidelityIssues(
 ) {
   const issues = [];
   const resolvedPlayerNames = getResolvedPlayerNames(language, provenanceEntries);
+  const contextFreeAmbiguousPlayerAliases =
+    getContextFreeAmbiguousPlayerAliases(provenanceEntries);
   const playerAliases = [...new Set(
     Object.entries(provenanceEntries || {}).flatMap(([sourceName, entry]) => [
       String(sourceName || "").trim(),
@@ -3385,7 +3455,9 @@ function getContentEntityFidelityIssues(
     const playerMentions = protectedPlayerMentions
       .map((mention) => ({
         ...mention,
-        expected: resolvedPlayerNames[mention.sourceName]
+        expected: contextFreeAmbiguousPlayerAliases.has(mention.sourceName)
+          ? ""
+          : resolvedPlayerNames[mention.sourceName]
       }))
       .filter((mention) => mention.expected);
     const teamMentions = getNonOverlappingEntityMentions(

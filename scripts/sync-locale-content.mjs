@@ -398,11 +398,15 @@ function collectFixtureCopy(target, fixture) {
 function collectProfileCopy(target, profiles, options = {}) {
   for (const profile of Object.values(profiles || {})) {
     if (options.historical) {
-      if (!isGeneratedPlayerCardCopy(profile.styleNote, {
-        historical: true,
-        copyMeta: profile.styleNoteMeta,
-        localizedName: profile.displayName || profile.name
-      })) {
+      const hasAuthoredStyleNote = profile.styleNoteMeta?.origin === "authored";
+      if (
+        hasAuthoredStyleNote ||
+        !isGeneratedPlayerCardCopy(profile.styleNote, {
+          historical: true,
+          copyMeta: profile.styleNoteMeta,
+          localizedName: profile.displayName || profile.name
+        })
+      ) {
         addString(target, profile.styleNote);
       }
     }

@@ -56,7 +56,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Notas de la versión: Fichas de jugadores más completas en todos los Mundiales",
+    latestReleaseTitle: "Notas de la versión: Fichas históricas y resúmenes de partido más claros",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -127,7 +127,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "릴리스 노트: 모든 월드컵의 선수 카드를 더 풍부하게",
+    latestReleaseTitle: "릴리스 노트: 더 선명해진 역대 선수 카드와 경기 브리프",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:

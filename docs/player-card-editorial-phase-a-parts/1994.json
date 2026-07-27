@@ -1,0 +1,1610 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1994,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Abel Balbo / Argentina / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1990 runner card does not distinguish Balbo's scoring 1994 edition from his earlier scoreless tournament.",
+      "repetitionFlag": "The 1990 card reuses the same near-post and start-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ariel Ortega / Argentina / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same tempo paragraph recurs in 1998 and suppresses the difference between Ortega's scoreless 1994 role and his later two-goal edition.",
+      "repetitionFlag": "The 1998 card reuses the same pause and switch-angle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Claudio Caniggia / Argentina / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim 1990 and 1994 runner cards flatten two materially different two-goal Caniggia tournaments into one career guide.",
+      "repetitionFlag": "The 1990 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Diego Maradona / Argentina / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic tempo-and-third-player paragraph does not explain Maradona's one-goal 1994 edition or establish the exact identity of his final World Cup.",
+      "repetitionFlag": "Argentina's midfield copy uses archive-wide tempo language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Redondo / Argentina / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Drawing pressure, releasing the runner and carrying through the open lane form a coherent exact-edition portrait of Redondo's midfield progression.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gabriel Batistuta / Argentina / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same generic runner card recurs in 1998 and 2002 and does not isolate Batistuta's four-goal 1994 tournament.",
+      "repetitionFlag": "The 1998 and 2002 cards reuse the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Islas / Argentina / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The set-feet and centre-protection goalkeeper guide is coherent, but both precise decisions outrun the broad shot-stopping source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Danny Boffin / Belgium / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause paragraph is a plausible role guide, but it provides no Boffin-specific 1994 distinction.",
+      "repetitionFlag": "Belgium's midfielder cards share broad tempo-and-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Enzo Scifo / Belgium / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1994 card borrows Scifo's supported 1986 progression portrait without establishing his separate scoreless edition.",
+      "repetitionFlag": "The 1986 source portrait and the 1990 and 1998 cards reuse the same carry-and-switch mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Georges Grün / Belgium / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph reads coherently, but engagement and delay timing need exact-edition support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Josip Weber / Belgium / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner fallback is honest, but generic delay and near-post cues give Weber no individual identity.",
+      "repetitionFlag": "Belgium's forward cards use archive-wide runner language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Marc Degryse / Belgium / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible, but its near-verbatim 1990 mechanics and generic pull-wide ending provide little edition separation.",
+      "repetitionFlag": "The 1990 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Michel Preud'homme / Belgium / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The balanced-goalkeeper paragraph repeats 1990 instead of expressing Preud'homme's distinct 1994 Best XI shot-stopping tournament.",
+      "repetitionFlag": "The 1990 card reuses the same set-feet and body-shape mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Philippe Albert / Belgium / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic goal-side defender guide does not explain Albert's unusual two-goal contribution in 1994.",
+      "repetitionFlag": "Belgium's defender card uses archive-wide contact-and-cover language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Borja / Bolivia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-support midfielder guide is plausible, but it offers no Bolivia-specific or Borja-specific observation.",
+      "repetitionFlag": "Bolivia's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Trucco / Bolivia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The set-feet and centre-first goalkeeper paragraph is coherent, but its exact angle decisions need evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Erwin Sánchez / Bolivia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is modest, but it does not distinguish the scorer of Bolivia's only tournament goal.",
+      "repetitionFlag": "Bolivia's midfielder copy uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gustavo Quinteros / Bolivia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot defender paragraph is coherent, but interception and cover-step timing outrun the broad source.",
+      "repetitionFlag": "Bolivia's defenders share patient front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luis Cristaldo / Bolivia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-goal-side guide reads naturally, but both precise decisions require edition support.",
+      "repetitionFlag": "Bolivia's defenders share delay and goal-side language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "William Ramallo / Bolivia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it remains interchangeable with many scoreless forwards in the archive.",
+      "repetitionFlag": "The start-run and pull-wide shell recurs widely across the edition.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Aldair / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Channel cover followed by a calm first pass forms a coherent exact-edition portrait of Aldair protecting space behind Brazil's advanced full-backs.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bebeto / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Protecting the ball, returning it into a teammate's path and then accelerating away form a distinctive exact-edition portrait of Bebeto's partnership play.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Branco / Brazil / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1986 generic defender paragraph is reused in 1994 and does not explain Branco's separate scoring contribution for the champions.",
+      "repetitionFlag": "The 1986 card reuses the same goal-side and delay mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cláudio Taffarel / Brazil / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The balanced-goalkeeper card repeats 1990 instead of distinguishing Taffarel's champion edition and final-shootout contribution.",
+      "repetitionFlag": "The 1990 card reuses the same set-feet and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dunga / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Second-ball anticipation followed by an early switch clearly expresses the exact midfield order Dunga supplied to the champions.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jorginho / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Recovery into the line and early delivery form a concise, useful portrait aligned with Jorginho's exact balance of progression and defensive cover.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Márcio Santos / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Early channel cover followed by delaying the attack forms a coherent exact-edition portrait of the defender protecting Brazil's wide spaces.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mauro Silva / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Holding the centre and arriving beneath the next duel directly express Mauro Silva's exact balancing role beside Dunga.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Raí / Brazil / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause guide is plausible, but it says little about Raí's specific one-goal 1994 role.",
+      "repetitionFlag": "Brazil's midfield copy uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Romário / Brazil / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The approved authored portrait is exact, natural and distinctive: separation, almost no finishing setup, combination with Bebeto and far-post movement all belong to Romário's 1994 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Borislav Mihaylov / Bulgaria / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper paragraph is coherent, but its set-feet and body-reading mechanics need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Daniel Borimirov / Bulgaria / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible, but it provides no Borimirov-specific distinction beyond his recorded goal.",
+      "repetitionFlag": "Bulgaria's midfield cards share generic move-after language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Emil Kostadinov / Bulgaria / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim 1994 and 1998 forward cards suppress the difference between Kostadinov's scoreless semi-final run and his later scoring edition.",
+      "repetitionFlag": "The 1998 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hristo Stoichkov / Bulgaria / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same winger paragraph recurs in 1998 and cannot distinguish Stoichkov's six-goal Golden Boot tournament from his later scoreless edition.",
+      "repetitionFlag": "The 1998 card reuses the same far-post and outside-inside mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Krasimir Balakov / Bulgaria / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Carrying through the open lane and remaining available after the pass form a coherent exact-edition portrait of Bulgaria's connector.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nasko Sirakov / Bulgaria / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-reset paragraph is plausible, but it repeats 1986 without establishing a meaningful difference between the two one-goal editions.",
+      "repetitionFlag": "The 1986 card reuses the same move-after and recycle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Trifon Ivanov / Bulgaria / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Front-foot interception and workable box distance form a coherent defender portrait, but the exact mechanics still need confirmation against his 1994 evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Yordan Letchkov / Bulgaria / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-pause midfielder card does not explain Letchkov's two-goal impact in Bulgaria's run to the semi-finals.",
+      "repetitionFlag": "Bulgaria's midfield cards share archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "David Embé / Cameroon / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide and near-post fallback is plausible, but it provides no Embé-specific identity beyond his goal.",
+      "repetitionFlag": "Cameroon's forward cards repeat pull-wide and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "François Omam-Biyik / Cameroon / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same blind-side runner card spans 1990, 1994 and 1998 despite materially different scoring contributions in those editions.",
+      "repetitionFlag": "The 1990 and 1998 cards reuse the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Louis-Paul M'Fédé / Cameroon / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner guide is honest, but it is nearly interchangeable with the team's other forward cards.",
+      "repetitionFlag": "Cameroon's forward cards repeat pull-wide and delay-run language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roger Milla / Cameroon / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic runner card reused from 1982 and 1990 cannot distinguish Milla's one-goal 1994 farewell from his four-goal 1990 tournament.",
+      "repetitionFlag": "The 1982 and 1990 cards reuse the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Adolfo Valencia / Colombia / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic early-run template does not explain Valencia's own two-goal role at the point of Colombia's 1994 attack.",
+      "repetitionFlag": "Colombia's forward cards repeat start-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andrés Escobar / Colombia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide is coherent, but engagement and cover-step timing need exact 1994 support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Antony de Ávila / Colombia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scoreless 1994 and 1998 cards repeat the same runner mechanics, but the archive does not establish a material role difference that warrants an edition split.",
+      "repetitionFlag": "The 1998 card reuses the same pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Valderrama / Colombia / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "Near-verbatim cards across 1990, 1994 and 1998 suppress the difference between Valderrama's scoring earlier tournament and later scoreless editions.",
+      "repetitionFlag": "The 1990 and 1998 cards reuse the same switch-and-recycle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Faustino Asprilla / Colombia / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The portable scoreless runner card repeats in 1998 but does not establish Asprilla's exact role in either tournament.",
+      "repetitionFlag": "The 1998 card reuses the same near-post and start-run mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hermán Gaviria / Colombia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible, but it remains generic and does not distinguish Gaviria's goal.",
+      "repetitionFlag": "Colombia's midfield cards share move-after and recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "John Harold Lozano / Colombia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support paragraph is usable, but it provides little individual identity beyond Lozano's recorded goal.",
+      "repetitionFlag": "Colombia's midfield cards share generic short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Óscar Córdoba / Colombia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-reading and reset goalkeeper guide is coherent, but both exact decisions outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andreas Brehme / Germany / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph is coherent, but its delay and support-timing mechanics need exact 1994 evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Andreas Möller / Germany / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same tempo paragraph recurs in 1998 and does not distinguish Möller's scoreless 1994 edition from his later scoring tournament.",
+      "repetitionFlag": "The 1998 card reuses the same pause and switch-angle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bodo Illgner / Germany / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The depth-and-centre goalkeeper guide reads naturally, but its exact angle control needs evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jürgen Klinsmann / Germany / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Near-verbatim 1994 and 1998 forward cards flatten distinct five-goal and three-goal tournaments into one generic portrait.",
+      "repetitionFlag": "The 1998 card reuses the same pull-wide and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karl-Heinz Riedle / Germany / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is plausible, but it overlaps Germany's other forwards and does not distinguish Riedle's goal.",
+      "repetitionFlag": "Germany's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Lothar Matthäus / Germany / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic support-and-recycle midfielder card does not establish Matthäus's exact 1994 role or explain his one-goal contribution.",
+      "repetitionFlag": "Germany's midfield cards use archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Matthias Sammer / Germany / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is plausible, but it gives Sammer little individual identity inside Germany's midfield.",
+      "repetitionFlag": "Germany's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Rudi Völler / Germany / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic near-post runner template does not explain Völler's separate two-goal contribution in 1994.",
+      "repetitionFlag": "Germany's forward cards repeat near-post and start-run vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alexis Alexandris / Greece / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle midfielder fallback is honest, but it provides no individual or team-specific observation.",
+      "repetitionFlag": "Greece's midfield cards repeat move-after and recycle language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alexis Alexoudis / Greece / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide and near-post runner guide is plausible, but it is interchangeable with Greece's adjacent forwards.",
+      "repetitionFlag": "Greece's forward cards repeat pull-wide and near-post cues.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dimitris Saravakos / Greece / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is honest, but it offers no Saravakos-specific distinction.",
+      "repetitionFlag": "Greece's forward cards repeat pull-wide and delay-run language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Minas Hantzidis / Greece / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is plausible, but it is archive-generic and overlaps Greece's other midfielders.",
+      "repetitionFlag": "Greece's midfield cards repeat switch and recycle vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nikos Machlas / Greece / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner card is usable, but its delay and pull-wide mechanics provide no individual 1994 identity.",
+      "repetitionFlag": "Greece's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Nikos Nioplias / Greece / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-support paragraph is plausible, but it blends into Greece's midfield group.",
+      "repetitionFlag": "Greece's midfield cards repeat pause and move-after mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andy Townsend / Ireland / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-and-support paragraph is coherent, but its repeated pause and movement mechanics still need exact-edition confirmation.",
+      "repetitionFlag": "The 1990 card uses the same pause and move-after mechanics without an established role difference.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Denis Irwin / Ireland / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads naturally, but engagement and interception decisions need exact support.",
+      "repetitionFlag": "Ireland's defenders share goal-side and front-foot language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gary Kelly / Ireland / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-delay defender paragraph is coherent, but both precise decisions outrun the broad source.",
+      "repetitionFlag": "Ireland's defenders share goal-side and delay vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "John Aldridge / Ireland / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1990 runner card does not distinguish Aldridge's scoring 1994 edition from his earlier scoreless tournament.",
+      "repetitionFlag": "The 1990 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "John Sheridan / Ireland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfielder guide is plausible, but it offers no Sheridan-specific identity.",
+      "repetitionFlag": "Ireland's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Pat Bonner / Ireland / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-reading and reset goalkeeper guide is coherent, but the same unsupported mechanics recur from 1990 and need confirmation.",
+      "repetitionFlag": "The 1990 card reuses the same body-shape and reset mechanics without an established role difference.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Paul McGrath / Ireland / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot and delay defender paragraph is coherent, but its exact decisions need 1994 evidence.",
+      "repetitionFlag": "Ireland's defenders share interception and delay vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ray Houghton / Ireland / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The repeated 1990 midfielder paragraph does not distinguish Houghton's scoring 1994 edition from his earlier scoreless role.",
+      "repetitionFlag": "The 1990 card reuses the same move-after and pause mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tommy Coyne / Ireland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner fallback is plausible, but it is generic and offers no Coyne-specific cue.",
+      "repetitionFlag": "Ireland's forward cards use archive-wide delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alberigo Evani / Italy / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is plausible, but it provides no individual distinction inside Italy's midfield.",
+      "repetitionFlag": "Italy's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alessandro Costacurta / Italy / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph is coherent, but its repeated 1998 mechanics require exact support before approval.",
+      "repetitionFlag": "The scoreless 1998 card reuses the same goal-side and delay mechanics without an established role difference.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Daniele Massaro / Italy / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner guide is plausible, but it overlaps Italy's forwards and does not distinguish Massaro's goal.",
+      "repetitionFlag": "Italy's forward cards repeat near-post and start-run vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Demetrio Albertini / Italy / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause guide is usable, but it remains generic and provides little Albertini-specific identity.",
+      "repetitionFlag": "Italy's midfield cards share move-after and pause language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dino Baggio / Italy / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic pause-and-support midfielder card does not explain Dino Baggio's two-goal knockout contribution.",
+      "repetitionFlag": "Italy's midfield cards use archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Franco Baresi / Italy / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The 1990 defender paragraph is reused for Baresi's 1994 finalist edition and suppresses the distinct context of the two tournaments.",
+      "repetitionFlag": "The 1990 card reuses the same goal-side and delay mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gianluca Pagliuca / Italy / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper guide is coherent, but its repeated 1998 set-and-reset mechanics need exact evidence.",
+      "repetitionFlag": "The scoreless 1998 card reuses the same set-feet and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giuseppe Signori / Italy / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is plausible, but generic movement cues provide no Signori-specific 1994 identity.",
+      "repetitionFlag": "Italy's forward cards share start-run and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Paolo Maldini / Italy / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Narrowing from left-back into centre-back while preserving the line's distances precisely captures Maldini's exact multi-role 1994 tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pierluigi Casiraghi / Italy / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is honest, but it overlaps Italy's other forwards and provides no individual cue.",
+      "repetitionFlag": "Italy's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roberto Baggio / Italy / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The approved authored portrait clearly captures Baggio connecting Italy's attack and then becoming the decisive knockout finisher.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alberto García Aspe / Mexico / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-third-player guide is plausible, but its near-verbatim 1998 reuse does not establish an edition difference between two one-goal tournaments.",
+      "repetitionFlag": "The 1998 card reuses the same move-after and third-player mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Carlos Hermosillo / Mexico / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post and pull-wide fallback is honest, but it blends into Mexico's surrounding forward cards.",
+      "repetitionFlag": "Mexico's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Claudio Suárez / Mexico / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads coherently, but engagement and delay timing need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hugo Sánchez / Mexico / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic near-post runner portrait spans 1978, 1986 and 1994 despite materially different scoring contributions and roles.",
+      "repetitionFlag": "The 1978 and 1986 cards reuse the same near-post and start-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ignacio Ambríz / Mexico / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfielder guide is plausible, but it provides no Ambríz-specific identity.",
+      "repetitionFlag": "Mexico's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jorge Rodríguez / Mexico / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause paragraph is usable, but it is archive-generic and overlaps Mexico's other midfielders.",
+      "repetitionFlag": "Mexico's midfield cards repeat move-after and pause mechanics.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Luis García Postigo / Mexico / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-pause midfielder paragraph does not explain García Postigo's two-goal attacking contribution.",
+      "repetitionFlag": "Mexico's midfield cards share broad support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Marcelino Bernal / Mexico / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible, but it gives Bernal little identity beyond the goal.",
+      "repetitionFlag": "Mexico's midfield cards repeat move-after and recycle vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Zague / Mexico / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it remains interchangeable with many scoreless forwards.",
+      "repetitionFlag": "Mexico's forward cards use generic start-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdelmajid Bouyboud / Morocco / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner guide is plausible, but it is nearly identical to Bahja beside it.",
+      "repetitionFlag": "Morocco's forward cards repeat delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ahmed Bahja / Morocco / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-near-post fallback is honest, but it duplicates Bouyboud and cannot identify Bahja on its own.",
+      "repetitionFlag": "Morocco's forward cards repeat delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "El Arbi Hababi / Morocco / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfielder guide is plausible, but it offers no Hababi-specific distinction.",
+      "repetitionFlag": "Morocco's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hassan Nader / Morocco / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is usable, but it overlaps Morocco's forwards and adds little beyond Nader's goal.",
+      "repetitionFlag": "Morocco's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mohammed Chaouch / Morocco / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is plausible, but it provides no individual cue beyond Chaouch's goal.",
+      "repetitionFlag": "Morocco's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mustafa El Haddaoui / Morocco / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support paragraph is a modest fallback, but it remains generic and offers little individual identity.",
+      "repetitionFlag": "Morocco's midfield cards use archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Aron Winter / Netherlands / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle midfielder guide is plausible, but it provides no Winter-specific distinction beyond the goal.",
+      "repetitionFlag": "Netherlands midfield cards share generic support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Bryan Roy / Netherlands / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch paragraph is usable, but it remains an archive-generic midfield description.",
+      "repetitionFlag": "Netherlands midfield cards share broad tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dennis Bergkamp / Netherlands / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic near-post runner template misses Bergkamp's deeper receiving, creation and three-goal attacking identity in 1994.",
+      "repetitionFlag": "Netherlands forward cards use generic runner language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ed de Goey / Netherlands / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper paragraph is coherent, but set position and reset timing need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Frank Rijkaard / Netherlands / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic switch-and-recycle card does not establish Rijkaard's exact midfield role in his final World Cup.",
+      "repetitionFlag": "Netherlands midfield cards share archive-wide tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gaston Taument / Netherlands / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is plausible, but it gives Taument little individual identity beyond the goal.",
+      "repetitionFlag": "Netherlands midfield cards repeat move-after and short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Marc Overmars / Netherlands / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Taking the first touch away from the full-back and carrying with his head up form a distinctive exact-edition wide-creator portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Peter van Vossen / Netherlands / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner fallback is plausible, but generic near-post mechanics provide no individual 1994 cue.",
+      "repetitionFlag": "Netherlands forward cards repeat delay-run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wim Jonk / Netherlands / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-pause midfielder paragraph does not explain Jonk's two-goal contribution.",
+      "repetitionFlag": "Netherlands midfield cards use archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Daniel Amokachi / Nigeria / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic early-run template does not explain Amokachi's two-goal role in Nigeria's first World Cup run.",
+      "repetitionFlag": "Nigeria's forward cards use broad runner language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Emmanuel Amunike / Nigeria / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic third-player support paragraph does not explain Amunike's own two-goal attacking contribution.",
+      "repetitionFlag": "Nigeria's midfield cards share archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Finidi George / Nigeria / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same support-and-recycle paragraph recurs in 1998 and does not distinguish George's scoring 1994 edition from his later scoreless tournament.",
+      "repetitionFlag": "The 1998 card reuses the same move-after and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Peter Rufai / Nigeria / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper guide is coherent, but the same unsupported body-reading mechanics recur in scoreless 1998.",
+      "repetitionFlag": "The 1998 card reuses the same centre-protection and body-shape mechanics without an established role difference.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Rashidi Yekini / Nigeria / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The repeated 1998 blind-side card does not distinguish Yekini's scoring 1994 tournament from his later scoreless edition.",
+      "repetitionFlag": "The 1998 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Samson Siasia / Nigeria / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause midfielder guide is plausible, but it gives Siasia little identity beyond the goal.",
+      "repetitionFlag": "Nigeria's midfield cards share generic support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alf-Inge Håland / Norway / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph is coherent, but engagement and interception decisions need exact 1994 support.",
+      "repetitionFlag": "Norway's defenders share goal-side and front-foot vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Erik Mykland / Norway / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scoreless 1994 and 1998 cards repeat the same support-and-pause mechanics without establishing a material role difference.",
+      "repetitionFlag": "The 1998 card reuses the same move-after and pause mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Erik Thorstvedt / Norway / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper guide reads naturally, but its exact set and reset decisions outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Erland Johnsen / Norway / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side and delay defender paragraph is coherent, but both precise decisions need evidence.",
+      "repetitionFlag": "Norway's defenders share goal-side and delay vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Henning Berg / Norway / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The cover-step defender guide is coherent, but its exact engagement timing requires support.",
+      "repetitionFlag": "Norway's defenders share goal-side and stepping vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jan Åge Fjørtoft / Norway / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run fallback is honest, but it remains interchangeable with many scoreless forwards.",
+      "repetitionFlag": "Norway's forward card uses generic start-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jostein Flo / Norway / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfielder guide is plausible, but it offers no Flo-specific identity.",
+      "repetitionFlag": "Norway's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kjetil Rekdal / Norway / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1998 switch-and-recycle card does not establish a material difference between Rekdal's two one-goal editions.",
+      "repetitionFlag": "The 1998 card reuses the same switch-angle and recycle mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dan Petrescu / Romania / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The defensive wide-duel paragraph displaces Petrescu's more important attacking full-back contribution in Romania's 1994 run.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Daniel Prodan / Romania / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-intercept defender guide is coherent, but both exact decisions require edition evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dorinel Munteanu / Romania / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfielder guide is plausible, but it provides no Munteanu-specific identity.",
+      "repetitionFlag": "Romania's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Florin Prunea / Romania / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The set-feet and centre-protection goalkeeper paragraph reads coherently, but its exact decisions need support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Florin Răducioiu / Romania / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1990 generic runner card is reused for Răducioiu's four-goal 1994 tournament and fails to distinguish the editions.",
+      "repetitionFlag": "The 1990 card reuses the same pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gheorghe Hagi / Romania / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same tempo paragraph recurs from 1990 and suppresses Hagi's distinct three-goal, four-assist 1994 Best XI tournament.",
+      "repetitionFlag": "The 1990 card reuses the same pause and third-player mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ilie Dumitrescu / Romania / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The repeated 1998 blind-side card does not distinguish Dumitrescu's two-goal 1994 tournament from his later scoreless edition.",
+      "repetitionFlag": "The 1998 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andrey Pyatnitsky / Russia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is plausible, but it remains generic and offers no individual 1994 identity.",
+      "repetitionFlag": "Russia's midfield card uses archive-wide support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Dmitri Radchenko / Russia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner fallback is honest, but it overlaps Russia's forwards and adds little beyond Radchenko's goal.",
+      "repetitionFlag": "Russia's forward cards repeat pull-wide and delay-run vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Igor Korneev / Russia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide is plausible, but it is nearly interchangeable with Salenko's generic card.",
+      "repetitionFlag": "Russia's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Oleg Salenko / Russia / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic early-run template does not explain the six-goal tournament or record five-goal match that defines Salenko's 1994 identity.",
+      "repetitionFlag": "Russia's forward cards repeat start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sergei Gorlukovich / Russia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide reads coherently, but engagement and delay timing need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Sergei Yuran / Russia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is honest, but it blends into Russia's forward cluster and offers no individual cue.",
+      "repetitionFlag": "Russia's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Abdullah Sulaiman Zubromawi / Saudi Arabia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delay-and-goal-side defender paragraph is coherent, but its exact timing decisions need support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Fahad Al-Bishi / Saudi Arabia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but it is interchangeable with Saudi Arabia's surrounding forwards.",
+      "repetitionFlag": "Saudi Arabia's forward cards repeat pull-wide and delay-run language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fahad Al-Ghesheyan / Saudi Arabia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner guide is usable, but it offers little individual identity beyond the goal.",
+      "repetitionFlag": "Saudi Arabia's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fuad Anwar / Saudi Arabia / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same switch-and-recycle paragraph recurs in 1998 and does not distinguish Anwar's two-goal 1994 tournament from his later scoreless role.",
+      "repetitionFlag": "The 1998 card reuses the same switch-angle and reset mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hamzah Idris / Saudi Arabia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side runner fallback is honest, but it nearly duplicates Majed Abdullah beside it.",
+      "repetitionFlag": "Saudi Arabia's forward cards repeat delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Majed Abdullah / Saudi Arabia / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner guide is plausible, but it duplicates Idris and does not establish Abdullah's exact scoreless 1994 role.",
+      "repetitionFlag": "Saudi Arabia's forward cards repeat delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mohamed Al-Deayea / Saudi Arabia / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper paragraph reads coherently, but its exact angle and body-reading mechanics require evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic runner card recurs in 1998 and suppresses the defining solo-goal identity of Al-Owairan's 1994 tournament.",
+      "repetitionFlag": "The 1998 card reuses the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sami Al-Jaber / Saudi Arabia / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "One generic runner portrait is reused across four World Cups and cannot distinguish Al-Jaber's separate scoring contributions.",
+      "repetitionFlag": "The 1998, 2002 and 2006 cards reuse the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "In-young Choi / South Korea / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced-goalkeeper guide is coherent, but set position and body-reading decisions need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jeong-woon Ko / South Korea / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is plausible, but it offers no Ko-specific identity.",
+      "repetitionFlag": "South Korea's forward cards repeat near-post and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jung-bae Park / South Korea / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The cover-step and interception defender paragraph is coherent, but both precise decisions need evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jung-won Seo / South Korea / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The repeated 1998 early-run card does not distinguish Seo's scoring 1994 edition from his later scoreless tournament.",
+      "repetitionFlag": "The 1998 card reuses the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Myung-bo Hong / South Korea / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The 1994 card borrows Hong's supported 2002 line-control portrait and does not explain his separate two-goal edition.",
+      "repetitionFlag": "The current mechanics come from the 2002 Best XI rationale rather than exact 1994 evidence.",
+      "dataIssue": "The same player is stored as Hong Myung-bo in 2002; normalize the reversed display order before cross-edition matching.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sun-hong Hwang / South Korea / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same early-run card spans 1990, 1994 and 2002 and does not isolate Hwang's separate scoring editions.",
+      "repetitionFlag": "The 1990 and 2002 cards reuse the same start-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andoni Goikoetxea / Spain / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic support-and-recycle midfielder card does not explain Goikoetxea's two-goal 1994 contribution.",
+      "repetitionFlag": "",
+      "dataIssue": "Spain's 1986 defender Andoni Goikoetxea is a different player from the 1994 Barcelona midfielder; do not merge them.",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Hierro / Spain / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same goal-side defender portrait recurs in 2002 and cannot distinguish Hierro's one-goal 1994 role from his later two-goal edition.",
+      "repetitionFlag": "The 2002 card reuses the same goal-side and front-foot mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José Luis Caminero / Spain / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Carrying through an open lane and switching away from pressure form a coherent exact-edition portrait of Caminero's three-goal midfield tournament.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "José María Bakero / Spain / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support paragraph is plausible, but it offers no Bakero-specific 1994 identity.",
+      "repetitionFlag": "Spain's midfield cards share generic short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Josep Guardiola / Spain / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is usable, but it provides little Guardiola-specific identity beyond the goal.",
+      "repetitionFlag": "Spain's midfield cards share archive-wide tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Julio Salinas / Spain / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The runner portrait recurs across 1986, 1990 and 1994, but the stored one-goal editions do not establish a material role change that warrants a split.",
+      "repetitionFlag": "The 1986 and 1990 cards reuse the same pull-wide and delay-run mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Enrique / Spain / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide may reasonably persist in 1998, but its unsupported mechanics need a modest evidence-aware repair.",
+      "repetitionFlag": "Near-verbatim one-goal 1998 card without a stored material role change.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Miguel Ángel Nadal / Spain / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender guide is coherent, but engagement and delay timing require exact evidence.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Txiki Begiristain / Spain / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pause-and-switch midfielder paragraph is plausible, but it gives Begiristain little identity beyond the goal.",
+      "repetitionFlag": "Spain's midfield cards share generic tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Håkan Mild / Sweden / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is plausible, but it offers no Mild-specific identity beyond the goal.",
+      "repetitionFlag": "Sweden's midfield cards share archive-wide tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Henrik Larsson / Sweden / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic runner card recurs in 2002 and 2006 and cannot distinguish Larsson's separate scoring contributions across three editions.",
+      "repetitionFlag": "The 2002 and 2006 cards reuse the same delay-run and pull-wide mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jonas Thern / Sweden / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is plausible, but it remains generic and provides little Thern-specific identity.",
+      "repetitionFlag": "Sweden's midfield cards share short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Kennet Andersson / Sweden / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Dropping to receive facing goal and then attacking the near-post lane form a distinctive exact-edition portrait of Sweden's five-goal reference point.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Klas Ingesson / Sweden / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is usable, but it provides no Ingesson-specific distinction.",
+      "repetitionFlag": "Sweden's midfield cards repeat move-after and reset vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Martin Dahlin / Sweden / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic channel-runner paragraph does not explain Dahlin's four-goal partnership role in Sweden's semi-final run.",
+      "repetitionFlag": "Sweden's forward cards use broad delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Roger Ljung / Sweden / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The front-foot stepping defender guide is coherent, but its exact interception timing needs support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tomas Brolin / Sweden / 1994",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Between-lines positioning and arriving after markers follow the ball form a concise portrait aligned with Brolin's exact 1994 Best XI role.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Adrian Knup / Switzerland / 1994",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The generic near-post runner template does not explain Knup's two-goal contribution.",
+      "repetitionFlag": "Switzerland's forward cards use broad runner language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alain Sutter / Switzerland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-third-player guide is plausible, but it offers little individual identity beyond Sutter's goal.",
+      "repetitionFlag": "Switzerland's midfield cards share short-support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Christophe Ohrel / Switzerland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-runner fallback is honest, but it is interchangeable with Switzerland's other forward cards.",
+      "repetitionFlag": "Switzerland's forward cards repeat delay-run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ciriaco Sforza / Switzerland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle midfielder paragraph is plausible, but it provides no Sforza-specific identity.",
+      "repetitionFlag": "Switzerland's midfield cards share generic support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Georges Bregy / Switzerland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support guide is usable, but it offers little identity beyond Bregy's goal.",
+      "repetitionFlag": "Switzerland's midfield cards repeat short-support vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Stéphane Chapuisat / Switzerland / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide runner guide is plausible, but it remains generic and adds little beyond Chapuisat's goal.",
+      "repetitionFlag": "Switzerland's forward cards repeat pull-wide and delay-run language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Cobi Jones / USA / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle midfielder guide is plausible, but it provides no Jones-specific 1994 identity.",
+      "repetitionFlag": "USA midfield cards share archive-wide tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Earnie Stewart / USA / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The pull-wide and near-post guide is usable, but it offers little distinction beyond Stewart's goal.",
+      "repetitionFlag": "USA forward cards repeat pull-wide and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Eric Wynalda / USA / 1994",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The repeated 1998 blind-side runner card does not distinguish Wynalda's scoring 1994 edition from his later scoreless tournament.",
+      "repetitionFlag": "The 1998 card reuses the same delay-run and near-post mechanics.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Fernando Clavijo / USA / 1994",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The goal-side defender paragraph reads coherently, but engagement and interception decisions need exact support.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "John Harkes / USA / 1994",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle guide is plausible, but it provides no Harkes-specific identity and overlaps Jones.",
+      "repetitionFlag": "USA midfield cards repeat switch and recycle vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

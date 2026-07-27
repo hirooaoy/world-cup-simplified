@@ -161,7 +161,7 @@ function hasSupportedKeyInformationPattern(value, teamName, opponentName) {
   return (
     sentences.length === 4 &&
     normalizeText(sentences[0]).includes(normalizeText(teamName)) &&
-    normalizeText(sentences[1]).includes(normalizeText(opponentName)) &&
+    normalizeText(sentences.slice(1).join(" ")).includes(normalizeText(opponentName)) &&
     !new RegExp(`\\b${escapeRegExp(teamName)}\\s+(?:is|was|has|needs|wants|plays|uses|enters)\\b`, "i").test(text) &&
     !/\bthey\s+(?:is|was|has|needs|wants|plays|uses|enters)\b/i.test(text) &&
     !/\b(?:must test|contest(?:s|ed)? (?:the )?central space|tracks? .{0,60} runs?|connect(?:s|ing)? the phases|runs? beyond)\b/i.test(text)
@@ -683,7 +683,7 @@ for (const fixture of fixturesData.fixtures || []) {
     if (!sourceIds.has(fixture.keyInformation?.sourceId)) {
       issues.push(issue("unknown keyInformation source", fixture.keyInformation?.sourceId || "none"));
     }
-    if (paragraphWords < 60 || paragraphWords > 85) {
+    if (paragraphWords < 50 || paragraphWords > 72) {
       issues.push(issue("word count outside target", String(paragraphWords)));
     }
     const semicolonHeavySentence = keyInformationSentences(text).find(
@@ -755,7 +755,11 @@ for (const fixture of historyData.fixtures || []) {
     if (!sourceIds.has(fixture.keyInformation?.sourceId)) {
       issues.push(issue("unknown keyInformation source", fixture.keyInformation?.sourceId || "none"));
     }
-    if (fixture.status !== "CANCELLED" && (paragraphWords < 50 || paragraphWords > 85)) {
+    const isLineupComparison =
+      fixture.keyInformation?.localeModel?.[side]?.slots?.identity?.displayMode === "lineup-comparison";
+    const minimumWords = isLineupComparison ? 40 : 50;
+    const maximumWords = isLineupComparison ? 80 : 85;
+    if (fixture.status !== "CANCELLED" && (paragraphWords < minimumWords || paragraphWords > maximumWords)) {
       issues.push(issue("word count outside target", String(paragraphWords)));
     }
     if (fixture.status !== "CANCELLED" && !hasSupportedKeyInformationPattern(text, team, opponent)) {

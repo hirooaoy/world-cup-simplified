@@ -130,13 +130,13 @@ const collections = [
   {
     name: "rich-edition",
     fixtures: richFixtures,
-    minWords: 60,
-    maxWords: 85,
+    minWords: 50,
+    maxWords: 72,
     lineupInput: "officialStartingXI",
     modelKind: "current-lineup",
     requiresLayoutEvidence: true,
-    requiredInputs: ["officialTacticalLayout", "priorTournamentMatches"],
-    requiredResearchSourceIds: ["fifa-official-results-sync-2026-07-20"],
+    requiresStageEvidence: false,
+    requiredInputs: ["officialStartingXI", "officialTacticalLayout"],
     validResearchSourceIds: tournamentResearchSourceIds,
     getYear: richFixtureYear,
     getTeamId: (fixture, side) => fixture?.[`${side}TeamId`] || "",
@@ -148,10 +148,11 @@ const collections = [
     fixtures: historicalFixtures,
     minWords: 50,
     maxWords: 85,
+    lineupComparisonMinWords: 40,
+    lineupComparisonMaxWords: 80,
     noPlayerNamesBeforeYear: 1970,
     lineupInput: "confirmedStartingXI",
     modelKind: "historical-evidence",
-    requiredInputs: ["priorTournamentMatches", "manager", "hostStatus", "tournamentFormatRules"],
     validResearchSourceIds: historicalResearchSourceIds,
     getYear: (fixture) => Number(fixture?.tournamentYear) || undefined,
     getTeamName: (fixture, side) => fixture?.[`${side}Slot`] || "",
@@ -216,6 +217,11 @@ const currentLocaleEvidenceMarkers = Object.freeze({
     rankedRisk: /(?:主要|最大|首要)风险/u
   }
 });
+const removedAdministrativeLocalePatterns = Object.freeze({
+  es: /\b(?:victorias?|empates?|derrotas?|goles? a favor|goles? en contra|puntos?|antes de (?:estos?|esta)|plaza (?:en|de)|publicad[oa] (?:antes|después) del inicio)\b/iu,
+  ko: /\d+승\s*\d+무\s*\d+패|\d+득점\s*\d+실점|승점|진출권|킥오프 (?:전|후)에 공개/u,
+  zh: /\d+胜\d+平\d+负|打进\d+球|失\d+球|积分|晋级名额|开球[前后]发布/u
+});
 function collectModelPlayerNames(model) {
   const names = [];
   const add = (value) => {
@@ -224,7 +230,6 @@ function collectModelPlayerNames(model) {
     else if (value && typeof value === "object" && typeof value.name === "string") names.push(value.name.trim());
   };
   if (model?.kind === "current-lineup") {
-    add(model.slots.identity?.namedStarters);
     add([
       model.slots.matchup?.ownStarter,
       model.slots.matchup?.opposingStarter,
@@ -235,7 +240,9 @@ function collectModelPlayerNames(model) {
   } else if (model?.kind === "historical-evidence") {
     add([
       model.slots.identity?.confirmedStarters,
-      model.slots.risk?.opponentConfirmedStarters
+      model.slots.identity?.confirmedStarterFacts,
+      model.slots.risk?.opponentConfirmedStarters,
+      model.slots.risk?.opponentConfirmedStarterFacts
     ]);
   }
   return [...new Set(names.filter(Boolean))];
@@ -268,7 +275,42 @@ function auditLocaleModels(fixtures) {
         if (model?.kind === "historical-evidence" && historicalPlanIntentPatterns[language].test(sentences[2])) {
           issues.push(`${fixture.id} ${side} ${language} historical evidence slot invents team intent`);
         }
-        if (model?.kind === "historical-evidence") {
+        const isHistoricalLineupComparison =
+          model?.kind === "historical-evidence" && model.slots.identity?.displayMode === "lineup-comparison";
+        if (isHistoricalLineupComparison) {
+          const identity = model.slots.identity;
+          const risk = model.slots.risk;
+          if (!sentences[0].includes(model.team.name)) {
+            issues.push(`${fixture.id} ${side} ${language} lineup identity omits ${model.team.name}`);
+          }
+          if (!sentences[2].includes(model.opponent.name)) {
+            issues.push(`${fixture.id} ${side} ${language} opponent lineup identity omits ${model.opponent.name}`);
+          }
+          for (const name of identity.managers || []) {
+            if (name && !sentences[0].includes(name)) {
+              issues.push(`${fixture.id} ${side} ${language} lineup identity omits manager ${name}`);
+            }
+          }
+          for (const fact of identity.confirmedStarterFacts || []) {
+            if (fact?.name && !sentences[1].includes(fact.name)) {
+              issues.push(`${fixture.id} ${side} ${language} lineup roles omit ${fact.name}`);
+            }
+          }
+          for (const name of risk.opponentManagers || []) {
+            if (name && !sentences[2].includes(name)) {
+              issues.push(`${fixture.id} ${side} ${language} opponent lineup identity omits manager ${name}`);
+            }
+          }
+          for (const fact of risk.opponentConfirmedStarterFacts || []) {
+            if (fact?.name && !sentences[3].includes(fact.name)) {
+              issues.push(`${fixture.id} ${side} ${language} opponent lineup roles omit ${fact.name}`);
+            }
+          }
+          if (removedAdministrativeLocalePatterns[language].test(text)) {
+            issues.push(`${fixture.id} ${side} ${language} lineup comparison repeats record, points, stakes, or publication timing`);
+          }
+        }
+        if (model?.kind === "historical-evidence" && !isHistoricalLineupComparison) {
           const markers = historicalLocaleEvidenceMarkers[language];
           const identity = model.slots.identity;
           const plan = model.slots.plan;
@@ -353,21 +395,19 @@ function auditLocaleModels(fixtures) {
           const markers = currentLocaleEvidenceMarkers[language];
           const identity = model.slots.identity;
           const matchup = model.slots.matchup;
-          const timingMarker = markers.timing[identity.layoutTiming];
-          const perspectiveMarker = markers.perspective[identity.layoutPerspective];
-          if (timingMarker && !timingMarker.test(sentences[0])) {
-            issues.push(`${fixture.id} ${side} ${language} omits ${identity.layoutTiming} layout timing`);
-          }
-          if (perspectiveMarker && !perspectiveMarker.test(sentences[0])) {
-            issues.push(`${fixture.id} ${side} ${language} omits ${identity.layoutPerspective} layout perspective`);
+          if (!sentences[0].includes(identity.formation)) {
+            issues.push(`${fixture.id} ${side} ${language} omits starting formation ${identity.formation}`);
           }
           if (matchup.variant === "wide-lanes" && matchup.opponentLane) {
             for (const lane of new Set([matchup.lane, matchup.opponentLane])) {
               const laneMarker = markers.lane[lane];
-              if (laneMarker && !laneMarker.test(sentences[1])) {
+              if (laneMarker && !laneMarker.test(sentences[2])) {
                 issues.push(`${fixture.id} ${side} ${language} omits mirrored ${lane} lane`);
               }
             }
+          }
+          if (removedAdministrativeLocalePatterns[language].test(text)) {
+            issues.push(`${fixture.id} ${side} ${language} current copy repeats record, points, stakes, or publication timing`);
           }
           if (markers.rankedRisk.test(sentences[3])) {
             issues.push(`${fixture.id} ${side} ${language} ranks the documented opponent shape as a main risk`);
@@ -375,9 +415,6 @@ function auditLocaleModels(fixtures) {
         }
         for (const name of collectModelPlayerNames(model)) {
           if (!text.includes(name)) issues.push(`${fixture.id} ${side} ${language} omits model player ${name}`);
-        }
-        if (model?.kind === "current-lineup" && !text.includes(model.slots.matchup.opponentFormation)) {
-          issues.push(`${fixture.id} ${side} ${language} omits opponent formation ${model.slots.matchup.opponentFormation}`);
         }
       }
       renderedSides += 1;
@@ -404,34 +441,24 @@ function auditSyntheticLocaleEvidenceDisclosure() {
     issues.push("Synthetic locale disclosure audit requires one current wide-lane model");
   } else {
     const opponentLane = currentBase.slots.matchup.lane === "left" ? "right" : "left";
-    for (const [layoutTiming, layoutPerspective] of [
-      ["pre-kickoff", "nominal"],
-      ["post-kickoff", "observed"],
-      ["post-kickoff", "revised"]
-    ]) {
-      const model = structuredClone(currentBase);
-      Object.assign(model.slots.identity, { layoutTiming, layoutPerspective });
-      Object.assign(model.slots.matchup, {
-        opponentLane,
-        selectionBasis: "strongest-complete-wide-lane-geometry"
-      });
-      for (const [language, formatter] of Object.entries(localeFormatters)) {
-        const sentences = formatter(model);
-        const markers = currentLocaleEvidenceMarkers[language];
-        if (!markers.timing[layoutTiming].test(sentences[0])) {
-          issues.push(`Synthetic ${language} current copy omits ${layoutTiming} layout timing`);
+    const model = structuredClone(currentBase);
+    Object.assign(model.slots.matchup, {
+      opponentLane,
+      selectionBasis: "strongest-complete-wide-lane-geometry"
+    });
+    for (const [language, formatter] of Object.entries(localeFormatters)) {
+      const sentences = formatter(model);
+      const markers = currentLocaleEvidenceMarkers[language];
+      for (const lane of new Set([model.slots.matchup.lane, opponentLane])) {
+        if (!markers.lane[lane].test(sentences[2])) {
+          issues.push(`Synthetic ${language} current copy omits mirrored ${lane} lane`);
         }
-        if (!markers.perspective[layoutPerspective].test(sentences[0])) {
-          issues.push(`Synthetic ${language} current copy omits ${layoutPerspective} layout perspective`);
-        }
-        for (const lane of new Set([model.slots.matchup.lane, opponentLane])) {
-          if (!markers.lane[lane].test(sentences[1])) {
-            issues.push(`Synthetic ${language} current copy omits mirrored ${lane} lane`);
-          }
-        }
-        if (markers.rankedRisk.test(sentences[3])) {
-          issues.push(`Synthetic ${language} current copy ranks opponent shape as a main risk`);
-        }
+      }
+      if (removedAdministrativeLocalePatterns[language].test(sentences.join(" "))) {
+        issues.push(`Synthetic ${language} current copy exposes administrative context`);
+      }
+      if (markers.rankedRisk.test(sentences[3])) {
+        issues.push(`Synthetic ${language} current copy ranks opponent shape as a main risk`);
       }
     }
   }
@@ -507,6 +534,7 @@ function auditReviewedScenarioLocaleBranches() {
     }
     for (const [side, key] of [["home", homeKey], ["away", awayKey]]) {
       const model = structuredClone(fixture.keyInformation.localeModel[side]);
+      if (model.slots.identity?.displayMode === "lineup-comparison") continue;
       Object.assign(model.slots.matchup, {
         key,
         scenarioKey: key,
@@ -561,8 +589,8 @@ function auditFocusedEvidence() {
     issues.push("2026 final Spain copy must not promote substitute Pedri or Nico Williams into the starting plan");
   }
   const finalSpainModel = final.keyInformation.localeModel.home;
-  if (finalSpainModel.slots.identity.variant !== "record-and-layout" || final.keyInformation.evidenceInputs.includes("editionTeamProfiles")) {
-    issues.push("2026 Spain identity must use only the evidence-backed record-and-layout model");
+  if (finalSpainModel.slots.identity.variant !== "structure-and-players" || final.keyInformation.evidenceInputs.includes("editionTeamProfiles")) {
+    issues.push("2026 Spain identity must use only the evidence-backed structure-and-players model");
   }
   if (Object.hasOwn(finalSpainModel.slots.identity, "profileId") || Object.hasOwn(finalSpainModel.slots.matchup, "opponentProfileId")) {
     issues.push("2026 Spain model must not retain unsourced editorial profile ids");
@@ -659,6 +687,22 @@ function auditCorpusWriting(fixtures) {
   const staleHistoricalScaffold = historicalFixtures.flatMap((fixture) => [fixture.keyInformation?.home || "", fixture.keyInformation?.away || ""])
     .filter((copy) => /The risk is uncertainty|under the edition's rules|kept 0 clean sheets|playing for more points and a stronger final position/iu.test(copy));
   if (staleHistoricalScaffold.length) issues.push(`${staleHistoricalScaffold.length} historical sides retain a retired generic scaffold`);
+  const removedAdministrativePattern =
+    /\bgoal balance\b|\bbefore this (?:round|quarter-final|semi-final|final)\b|\bwith (?:a|the) .{0,40}place at stake\b|\bgroup points?\b|\bpublished (?:before|after) kickoff\b/iu;
+  const currentAdministrative = richFixtures
+    .flatMap((fixture) => [fixture.keyInformation?.home || "", fixture.keyInformation?.away || ""])
+    .filter((copy) => removedAdministrativePattern.test(copy));
+  if (currentAdministrative.length) {
+    issues.push(`${currentAdministrative.length} current sides expose record, stage, stakes, points, or publication timing`);
+  }
+  const historicalLineupAdministrative = historicalFixtures.flatMap((fixture) =>
+    ["home", "away"]
+      .filter((side) => fixture.keyInformation?.localeModel?.[side]?.slots?.identity?.displayMode === "lineup-comparison")
+      .map((side) => fixture.keyInformation?.[side] || "")
+  ).filter((copy) => removedAdministrativePattern.test(copy));
+  if (historicalLineupAdministrative.length) {
+    issues.push(`${historicalLineupAdministrative.length} lineup-backed historical sides expose record, stage, stakes, points, or publication timing`);
+  }
 
   const terminalScenarioSides = historicalFixtures.reduce((count, fixture) => count + ["home", "away"].filter(
     (side) => fixture.keyInformation?.localeModel?.[side]?.slots?.matchup?.terminalScenario

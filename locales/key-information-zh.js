@@ -406,23 +406,30 @@ function formatV2CurrentPlan(slot, options) {
     "front-three": "在中场身前设置三个锋线位置",
     "number-ten": "占据从中场到中锋的三条中路层次",
     "front-pair": "在中场身前设置双前锋",
-    "wing-backs": "覆盖两个翼卫位置、中路和中锋位置",
+    "wing-backs": "覆盖两个翼卫位置和中路位置",
     central: "构成首发的中轴线"
   };
-  return `官方首发布置使用${v2PlayersWithPositions(slot.starters, options)}，${descriptions[slot.key] || "形成初始结构"}。`;
+  return `首发布置使用${v2PlayersWithPositions(slot.starters, options)}，${descriptions[slot.key] || "形成中路结构"}。`;
 }
 
-function v2CurrentLayoutLabel(identity) {
-  const perspective = {
-    nominal: "名义版",
-    observed: "观察版",
-    revised: "修订版"
-  }[identity.layoutPerspective];
-  const timing = {
-    "pre-kickoff": "开球前发布的",
-    "post-kickoff": "开球后发布的"
-  }[identity.layoutTiming];
-  return [timing, perspective, "官方战术站位"].filter(Boolean).join("");
+function v2CurrentFormationStructure(identity, options) {
+  const loneStriker = identity.loneStriker ? player(identity.loneStriker, options) : "一名前锋";
+  const descriptions = {
+    "5-4-1": `五人后防位于四人中场身后，${loneStriker}单独顶在最前`,
+    "4-4-2": "四人后防、四人中场和双前锋组成三条线",
+    "4-1-2-3": "四人后防身前设一个防守型中场位置和两个中路位置，最前方是三人锋线",
+    "4-2-3-1": "四人后防身前设两个较深的中场位置和三个进攻位置，最前方是单前锋",
+    "4-3-3": "四人后防、三人中场和三人锋线组成三条线",
+    "3-4-3": "三人后防、四人中场和三人锋线组成三条线",
+    "5-2-3": "五人后防身前设两个中路位置，最前方是三人锋线",
+    "5-3-2": "五人后防、三人中场和双前锋组成三条线",
+    "3-5-2": "三人后防、五人中场和双前锋组成三条线",
+    "3-4-1-2": "三人后防身前设四人中场和一个攻击型中场位置，最前方是双前锋",
+    "4-1-3-2": "四人后防身前设一个较深的中场位置和三个靠前位置，最前方是双前锋",
+    "4-2-1-3": "四人后防身前设两个中路位置和一个攻击型中场位置，最前方是三人锋线",
+    "4-1-4-1": `四人后防身前设一个防守型中场位置和四人中场线，${loneStriker}单独顶在最前`
+  };
+  return descriptions[identity.formation] || `${identity.formation}阵型对应的首发结构`;
 }
 
 function v2CurrentLaneLabel(lane, team) {
@@ -459,12 +466,12 @@ function formatV2Current(model, options) {
   const matchup = model.slots.matchup;
   const opponentLane = matchup.opponentLane || (matchup.lane === "left" ? "right" : matchup.lane === "right" ? "left" : "central");
   const laneContrast = matchup.variant === "wide-lanes"
-    ? `${v2PlayerWithPosition(matchup.ownStarter, options)}位于${v2CurrentLaneLabel(matchup.lane, team)}，${v2PlayerWithPosition(matchup.opposingStarter, options)}位于${v2CurrentLaneLabel(opponentLane, opponent)}，两者处在同一条边路的相对位置`
-    : `${v2PlayerWithPosition(matchup.ownStarter, options)}和${v2PlayerWithPosition(matchup.opposingStarter, options)}分处相对的中路层次`;
+    ? `${v2PlayerWithPosition(matchup.ownStarter, options)}位于${v2CurrentLaneLabel(matchup.lane, team)}，与位于${v2CurrentLaneLabel(opponentLane, opponent)}的${v2PlayerWithPosition(matchup.opposingStarter, options)}相对`
+    : `${v2PlayerWithPosition(matchup.ownStarter, options)}和${v2PlayerWithPosition(matchup.opposingStarter, options)}分别占据${team}与${opponent}相对的中路层次`;
   return [
-    `${team}${v2Record(identity.prior)}；${v2CurrentLayoutLabel(identity)}显示${identity.formation}阵型，${v2PlayersWithPositions(identity.namedStarters, options)}列入首发。`,
-    `面对${opponent}，${v2CurrentStakes(matchup.stakes, team, opponent)}；${team}的${identity.formation}与${opponent}的${matchup.opponentFormation}形成阵型对照，${laneContrast}。`,
+    `${team}采用${identity.formation}阵型：${v2CurrentFormationStructure(identity, options)}。`,
     formatV2CurrentPlan(model.slots.plan, options),
+    `${laneContrast}。`,
     formatV2CurrentRisk(model.slots.risk, model, options)
   ];
 }
@@ -623,9 +630,61 @@ function formatV2HistoricalRisk(slot, model, options) {
   throw new Error(`Unsupported Chinese historical Key information risk: ${slot.key}`);
 }
 
+function v2HistoricalRoleBalance(counts = {}) {
+  return [
+    counts.goalkeeper ? `${counts.goalkeeper}名门将` : "",
+    counts.defender ? `${counts.defender}名后卫` : "",
+    counts.midfielder ? `${counts.midfielder}名中场` : "",
+    counts.forward ? `${counts.forward}名前锋` : "",
+    counts.player ? `${counts.player}名其他位置首发` : ""
+  ].filter(Boolean).join("、");
+}
+
+function v2HistoricalPlayerRolePhrases(facts, options) {
+  const labels = {
+    forward: "锋线",
+    midfielder: "中场",
+    defender: "后防",
+    goalkeeper: "门将位置",
+    player: "首发阵容"
+  };
+  return ["forward", "midfielder", "defender", "goalkeeper", "player"]
+    .map((position) => {
+      const names = (facts || [])
+        .filter((fact) => fact.position === position)
+        .map((fact) => player(fact, options));
+      return names.length ? `${labels[position]}由${list(names)}首发` : "";
+    })
+    .filter(Boolean);
+}
+
+function v2HistoricalPlayerLineupSentence(team, facts, options) {
+  return `${team}的关键首发位置为：${v2HistoricalPlayerRolePhrases(facts, options).join("，")}。`;
+}
+
+function formatV2HistoricalLineupComparison(model, options) {
+  const team = resolveKeyInformationTeam(model, "team", options);
+  const opponent = resolveKeyInformationTeam(model, "opponent", options);
+  const identity = model.slots.identity;
+  const risk = model.slots.risk;
+  const managers = (identity.managers || []).filter(Boolean);
+  const opponentManagers = (risk.opponentManagers || []).filter(Boolean);
+  const managerLead = managers.length ? `由${list(managers)}带队的` : "";
+  const opponentManagerLead = opponentManagers.length ? `由${list(opponentManagers)}带队的` : "";
+  return [
+    `${managerLead}${team}首发名单由${v2HistoricalRoleBalance(identity.roleCounts)}组成。`,
+    v2HistoricalPlayerLineupSentence(team, identity.confirmedStarterFacts, options),
+    `${opponentManagerLead}${opponent}首发名单由${v2HistoricalRoleBalance(risk.opponentRoleCounts)}组成。`,
+    v2HistoricalPlayerLineupSentence(opponent, risk.opponentConfirmedStarterFacts, options)
+  ];
+}
+
 function formatV2Historical(model, options) {
   const team = resolveKeyInformationTeam(model, "team", options);
   const identity = model.slots.identity;
+  if (identity.displayMode === "lineup-comparison") {
+    return formatV2HistoricalLineupComparison(model, options);
+  }
   const host = identity.isHost ? "以东道主身份" : "";
   const managers = (identity.managers || []).filter(Boolean);
   const manager = managers.length ? `，由${list(managers)}${managers.length > 1 ? "共同" : ""}带队` : "";

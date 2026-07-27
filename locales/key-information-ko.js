@@ -429,27 +429,34 @@ function v2CurrentStakes(slot, team, opponent) {
 
 function formatV2CurrentPlan(slot, options) {
   const descriptions = {
-    "single-pivot-width": "수비형 미드필더와 두 중앙 자리, 한쪽 측면 자리를 나눠 둔다",
-    "front-three": "중원 위에 세 개의 공격 자리를 배치한다",
-    "number-ten": "중원부터 공격수까지 세 개의 중앙 높이를 둔다",
-    "front-pair": "중원 위에 두 공격수 자리를 둔다",
-    "wing-backs": "두 윙백 자리와 중앙, 공격수 자리를 함께 둔다",
+    "single-pivot-width": "수비형 미드필더, 두 중앙 자리, 한쪽 측면 자리를 차지한다",
+    "front-three": "중원 위의 세 공격 자리를 차지한다",
+    "number-ten": "중원부터 공격수까지 세 개의 중앙 높이를 차지한다",
+    "front-pair": "중원 위의 두 공격수 자리를 차지한다",
+    "wing-backs": "두 윙백 자리와 중앙 자리를 차지한다",
     central: "선발의 중앙축을 이룬다"
   };
-  return `공식 선발 배치에서는 ${subject(v2PlayersWithPositions(slot.starters, options))} ${descriptions[slot.key] || "초기 구조를 이룬다"}.`;
+  return `선발 배치에서는 ${subject(v2PlayersWithPositions(slot.starters, options))} ${descriptions[slot.key] || "중앙 구조를 이룬다"}.`;
 }
 
-function v2CurrentLayoutLabel(identity) {
-  const perspective = {
-    nominal: "명목상",
-    observed: "관찰 기반",
-    revised: "수정된"
-  }[identity.layoutPerspective];
-  const timing = {
-    "pre-kickoff": "킥오프 전에 공개된",
-    "post-kickoff": "킥오프 후 공개된"
-  }[identity.layoutTiming];
-  return [timing, perspective, "공식 전술 배치"].filter(Boolean).join(" ");
+function v2CurrentFormationStructure(identity, options) {
+  const loneStriker = identity.loneStriker ? player(identity.loneStriker, options) : "한 명의 공격수";
+  const descriptions = {
+    "5-4-1": `5명의 수비 뒤에 4명의 미드필더를 두고 ${object(loneStriker)} 최전방 원톱으로 배치한다`,
+    "4-4-2": "4명의 수비, 4명의 미드필더, 2명의 공격수로 세 줄을 이룬다",
+    "4-1-2-3": "4명의 수비 앞에 수비형 미드필더 한 자리와 두 중앙 자리를 두고 스리톱을 배치한다",
+    "4-2-3-1": "4명의 수비 앞에 두 개의 후방 중원 자리와 세 개의 공격 자리를 두고 원톱을 배치한다",
+    "4-3-3": "4명의 수비, 3명의 미드필더, 스리톱으로 세 줄을 이룬다",
+    "3-4-3": "3명의 수비, 4명의 미드필더, 스리톱으로 세 줄을 이룬다",
+    "5-2-3": "5명의 수비 앞에 두 중앙 자리를 두고 스리톱을 배치한다",
+    "5-3-2": "5명의 수비, 3명의 미드필더, 투톱으로 세 줄을 이룬다",
+    "3-5-2": "3명의 수비, 5명의 미드필더, 투톱으로 세 줄을 이룬다",
+    "3-4-1-2": "3명의 수비 앞에 4명의 미드필더와 공격형 미드필더 한 자리를 두고 투톱을 배치한다",
+    "4-1-3-2": "4명의 수비 앞에 한 개의 후방 중원 자리와 세 자리를 두고 투톱을 배치한다",
+    "4-2-1-3": "4명의 수비 앞에 두 중앙 자리와 공격형 미드필더 한 자리를 두고 스리톱을 배치한다",
+    "4-1-4-1": `4명의 수비 앞에 수비형 미드필더 한 자리와 네 명의 중원 라인을 두고 ${object(loneStriker)} 원톱으로 배치한다`
+  };
+  return descriptions[identity.formation] || `${identity.formation}의 선발 구조를 이룬다`;
 }
 
 function v2CurrentLaneLabel(lane, team) {
@@ -486,12 +493,12 @@ function formatV2Current(model, options) {
   const matchup = model.slots.matchup;
   const opponentLane = matchup.opponentLane || (matchup.lane === "left" ? "right" : matchup.lane === "right" ? "left" : "central");
   const laneContrast = matchup.variant === "wide-lanes"
-    ? `${v2PlayerWithPosition(matchup.ownStarter, options)}의 위치는 ${v2CurrentLaneLabel(matchup.lane, team)}이고 ${v2PlayerWithPosition(matchup.opposingStarter, options)}의 위치는 ${v2CurrentLaneLabel(opponentLane, opponent)}라서, 두 자리는 같은 측면에서 서로 마주 본다`
-    : `${v2PlayerWithPosition(matchup.ownStarter, options)}의 위치와 ${v2PlayerWithPosition(matchup.opposingStarter, options)}의 위치는 서로 마주 보는 중앙 선에 놓인다`;
+    ? `${topic(v2PlayerWithPosition(matchup.ownStarter, options))} ${v2CurrentLaneLabel(matchup.lane, team)}에 서고, ${topic(v2PlayerWithPosition(matchup.opposingStarter, options))} ${v2CurrentLaneLabel(opponentLane, opponent)}에서 마주 선다`
+    : `${v2PlayerWithPosition(matchup.ownStarter, options)}와 ${subject(v2PlayerWithPosition(matchup.opposingStarter, options))} ${team}과 ${opponent}의 서로 마주 보는 중앙 선에 선다`;
   return [
-    `${topic(team)} ${v2Record(identity.prior)}이며, ${v2CurrentLayoutLabel(identity)}에는 ${identity.formation} 형태가 나타나고 ${v2PlayersWithPositions(identity.namedStarters, options)}도 선발 명단에 포함된다.`,
-    `${opponent}전은 ${v2CurrentStakes(matchup.stakes, team, opponent)}이며, ${team}의 ${identity.formation} 대 ${opponent}의 ${matchup.opponentFormation} 구도에서 ${laneContrast}.`,
+    `${topic(team)} ${identity.formation}로 나서며, ${v2CurrentFormationStructure(identity, options)}.`,
     formatV2CurrentPlan(model.slots.plan, options),
+    `${laneContrast}.`,
     formatV2CurrentRisk(model.slots.risk, model, options)
   ];
 }
@@ -660,9 +667,62 @@ function formatV2HistoricalRisk(slot, model, options) {
   throw new Error(`Unsupported Korean historical Key information risk: ${slot.key}`);
 }
 
+function v2HistoricalRoleBalance(counts = {}) {
+  return [
+    counts.goalkeeper ? `골키퍼 ${counts.goalkeeper}명` : "",
+    counts.defender ? `수비수 ${counts.defender}명` : "",
+    counts.midfielder ? `미드필더 ${counts.midfielder}명` : "",
+    counts.forward ? `공격수 ${counts.forward}명` : "",
+    counts.player ? `기타 선발 ${counts.player}명` : ""
+  ].filter(Boolean).join(", ");
+}
+
+function v2HistoricalPlayerRolePhrases(facts, options) {
+  const labels = {
+    forward: "공격에",
+    midfielder: "중원에",
+    defender: "수비에",
+    goalkeeper: "골문에",
+    player: "선발에"
+  };
+  return ["forward", "midfielder", "defender", "goalkeeper", "player"]
+    .map((position) => {
+      const names = (facts || [])
+        .filter((fact) => fact.position === position)
+        .map((fact) => player(fact, options));
+      return names.length ? `${labels[position]} ${object(list(names))}` : "";
+    })
+    .filter(Boolean);
+}
+
+function v2HistoricalPlayerLineupSentence(team, facts, options) {
+  const phrases = v2HistoricalPlayerRolePhrases(facts, options);
+  return `${topic(team)} ${phrases.join(", ")} 선발로 배치한다.`;
+}
+
+function formatV2HistoricalLineupComparison(model, options) {
+  const team = resolveKeyInformationTeam(model, "team", options);
+  const opponent = resolveKeyInformationTeam(model, "opponent", options);
+  const identity = model.slots.identity;
+  const risk = model.slots.risk;
+  const managers = (identity.managers || []).filter(Boolean);
+  const opponentManagers = (risk.opponentManagers || []).filter(Boolean);
+  const managerLead = managers.length ? `${list(managers)} 감독이 이끄는 ` : "";
+  const opponentManagerLead = opponentManagers.length ? `${list(opponentManagers)} 감독이 이끄는 ` : "";
+  return [
+    `${managerLead}${team}의 선발 명단은 ${v2HistoricalRoleBalance(identity.roleCounts)}으로 구성된다.`,
+    v2HistoricalPlayerLineupSentence(team, identity.confirmedStarterFacts, options),
+    `${opponentManagerLead}${opponent}의 선발 명단은 ${v2HistoricalRoleBalance(risk.opponentRoleCounts)}으로 구성된다.`,
+    v2HistoricalPlayerLineupSentence(opponent, risk.opponentConfirmedStarterFacts, options)
+  ];
+}
+
 function formatV2Historical(model, options) {
   const team = resolveKeyInformationTeam(model, "team", options);
   const identity = model.slots.identity;
+  if (identity.displayMode === "lineup-comparison") {
+    return formatV2HistoricalLineupComparison(model, options);
+  }
   const managers = (identity.managers || []).filter(Boolean);
   const starters = players(identity.confirmedStarters, options);
   const contexts = [

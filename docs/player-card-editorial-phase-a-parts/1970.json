@@ -1,0 +1,1115 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "707a46f5",
+  "edition": 1970,
+  "status": "triage",
+  "profiles": [
+    {
+      "profileKey": "Christian Piot / Belgium / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper paragraph is coherent, but forcing the finish and reading body shape outrun the broad shot-stopping source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Léon Jeck / Belgium / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-recycle guide is plausible, but it overlaps Van Moer's midfield card and uses familiar role-level scaffolding.",
+      "repetitionFlag": "Belgium's two midfielder cards share support and recycle language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Odilon Polleunis / Belgium / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side fallback stays modest, but its delayed and near-post cues almost duplicate Lambert.",
+      "repetitionFlag": "Belgium's forward cards share the same run and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Raoul Lambert / Belgium / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Belgium's two-goal scorer receives the same blind-side runner template as Polleunis, leaving his individual tournament identity absent.",
+      "repetitionFlag": "Belgium's forward cards share the same run and near-post vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Wilfried Puis / Belgium / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide is plausible, but its early and pull-wide actions add little separation inside Belgium's attack.",
+      "repetitionFlag": "Belgium's forward cards share the same run and channel vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilfried Van Moer / Belgium / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal midfielder is reduced to a generic angle-and-recycle card that overlaps Jeck and does not explain his own 1970 contribution.",
+      "repetitionFlag": "Belgium's two midfielder cards share support and recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Brito / Brazil / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The dedicated-stopper identity fits the exact rationale, but goal-side patience and front-foot interception still need confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Carlos Alberto / Brazil / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The overlap-timing headline is exact, but far-post scanning underplays the decisive delayed run that distinguishes his final.",
+      "repetitionFlag": "Brazil's full-back cards share recovery and cover language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Clodoaldo / Brazil / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Progression and safe recycling are plausible, but the note underuses his exact ground coverage and decisive semi-final and final actions.",
+      "repetitionFlag": "Brazil's central-midfield cards share progression and tempo language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Everaldo / Brazil / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Selective outside-lane cover and early recovery clearly express the exact balancing role behind Rivellino.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Félix / Brazil / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper guide is usable, but its body-reading finish is generic and needs a more modest Brazil-specific emphasis.",
+      "repetitionFlag": "The centre-first goalkeeper shell recurs widely in the edition.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gérson / Brazil / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Scanning, drawing pressure and controlling the pause form a coherent portrait of Brazil's exact midfield conductor.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jairzinho / Brazil / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1974 winger card suppresses the far greater 1970 identity of seven goals in six matches and diagonal scoring runs.",
+      "repetitionFlag": "The visible wide-and-far-post portrait is nearly identical to 1974.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pelé / Brazil / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The manipulation headline is sound, but generic acceleration and duplicated Tostão actions underplay Pelé's exact creation and finishing range.",
+      "repetitionFlag": "Two visible sentences materially overlap Tostão's nearby card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rivellino / Brazil / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Narrowing from the left, opening the far side and creating a shooting lane form a distinctive exact-edition portrait.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tostão / Brazil / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The false-centre-forward opening is exact, but both follow-up actions duplicate Pelé instead of explaining Tostão's connecting movement.",
+      "repetitionFlag": "Two visible sentences materially overlap Pelé's nearby card.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wilson Piazza / Brazil / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The converted defender's progression identity works, but body opening and lane-holding mechanics need confirmation before approval.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Asparuh Nikodimov / Bulgaria / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1974 support card does not distinguish Nikodimov's scoring 1970 contribution from his scoreless later edition.",
+      "repetitionFlag": "The visible midfielder portrait is nearly identical to 1974.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dimitar Marashliev / Bulgaria / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side forward fallback is plausible, but its pull-wide and near-post actions overlap Bulgaria's full attacking cluster.",
+      "repetitionFlag": "Nearby Bulgaria forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dinko Dermendzhiev / Bulgaria / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim scoreless 1962 runner card does not distinguish Dermendzhiev's scoring 1970 contribution.",
+      "repetitionFlag": "The visible runner portrait closely repeats 1962.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dobromir Zhechev / Bulgaria / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional defender paragraph is coherent, but front-foot interception and delay mechanics exceed the broad physical-duel source.",
+      "repetitionFlag": "Bulgaria's two defender cards share delay and positioning language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Georgi Asparuhov / Bulgaria / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic channel-forward card recurs across 1962, 1966 and 1970 without distinguishing three different tournament contributions.",
+      "repetitionFlag": "The visible channel portrait recurs nearly unchanged across three editions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Georgi Popov / Bulgaria / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post running guide stays modest, but it is almost interchangeable with Mitkov and the wider Bulgaria attack.",
+      "repetitionFlag": "Nearby Bulgaria forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hristo Bonev / Bulgaria / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-support midfield paragraph is coherent, but its individualized tempo mechanics outrun the broad stored source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Todor Kolev / Bulgaria / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender guide reads well, but its delay and goal-side decisions are more specific than the stored physical-duel evidence.",
+      "repetitionFlag": "Bulgaria's two defender cards share delay and positioning language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Vasil Mitkov / Bulgaria / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early near-post runner fallback is plausible, but it provides no identity separation from Popov and Dermendzhiev.",
+      "repetitionFlag": "Nearby Bulgaria forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Andrej Kvašňák / Czechoslovakia / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The short-support midfield card is coherent and distinct from his 1962 role, but its third-player mechanics outrun the broad tempo source.",
+      "repetitionFlag": "Nearby Czechoslovakia midfielder cards share support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "František Veselý / Czechoslovakia / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle tempo guide works, but both personalized passing decisions exceed the broad stored source.",
+      "repetitionFlag": "Nearby Czechoslovakia midfielder cards share tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jozef Adamec / Czechoslovakia / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post running fallback is plausible, but it overlaps Jokl and the edition's dominant forward template.",
+      "repetitionFlag": "Czechoslovakia's two forward cards share the same run vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Karol Jokl / Czechoslovakia / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side guide stays modest, but delayed and near-post cues blur into Adamec and the wider archive formula.",
+      "repetitionFlag": "Czechoslovakia's two forward cards share the same run vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ladislav Petráš / Czechoslovakia / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal midfielder receives a generic angle-and-recycle card that overlaps teammates and leaves his individual contribution unexplained.",
+      "repetitionFlag": "Nearby Czechoslovakia midfielder cards share support and recycle language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ernesto Aparicio / El Salvador / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its delayed and pull-wide actions repeat the complete El Salvador attack.",
+      "repetitionFlag": "El Salvador's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jaime Portillo / El Salvador / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo guide remains modest, but it nearly duplicates Vásquez and personalizes generic midfield actions.",
+      "repetitionFlag": "El Salvador's two midfielder cards share pause and support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Jorge Vásquez / El Salvador / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-pause fallback is plausible, but it is nearly interchangeable with Portillo beside it.",
+      "repetitionFlag": "El Salvador's two midfielder cards share pause and support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Ramón Martínez / El Salvador / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side forward guide stays evidence-honest, but its pull-wide and near-post actions repeat the squad cluster.",
+      "repetitionFlag": "El Salvador's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mauricio Rodríguez / El Salvador / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed runner fallback is plausible, but it provides no separation from Méndez and Martínez.",
+      "repetitionFlag": "El Salvador's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sergio Méndez / El Salvador / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide stays modest, but its pull-wide action completes an undifferentiated El Salvador attack.",
+      "repetitionFlag": "El Salvador's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alan Ball / England / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The generic short-support paragraph does not establish Ball's main 1970 function or distinguish him from England's other midfielders.",
+      "repetitionFlag": "England's midfielder cards share support and tempo language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Alan Mullery / England / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo guide is plausible, but its pause-and-support sequence overlaps Peters and Charlton without explaining Mullery's own role.",
+      "repetitionFlag": "England's midfielder cards share support and tempo language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Allan Clarke / England / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running fallback is plausible, but its delayed and pull-wide actions repeat Lee and Hurst.",
+      "repetitionFlag": "England's forward cards share the same channel and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bobby Charlton / England / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Tempo control followed by carrying into the open lane coherently expresses the exact attacking-rhythm evidence from his final World Cup.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bobby Moore / England / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic contact-and-delay defender card displaces the passing and anticipation identity visible in Moore's recurring record.",
+      "repetitionFlag": "The nearby England defender material and his 1966 card use materially different identities.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Francis Lee / England / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback stays modest, but its early and pull-wide actions overlap Clarke and Hurst.",
+      "repetitionFlag": "England's forward cards share the same channel and pull-wide vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Geoff Hurst / England / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim four-goal 1966 runner card does not distinguish Hurst's smaller one-goal 1970 role.",
+      "repetitionFlag": "The visible striker portrait is nearly identical to 1966.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gordon Banks / England / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The recovery-save mechanism is exact, unmistakably 1970 and coherent without turning the generic card into a statistical rationale.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Martin Peters / England / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim 1966 tempo card suppresses the distinct tournament identity of both Peters editions.",
+      "repetitionFlag": "The visible midfielder portrait is nearly identical to 1966.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "David Primo / Israel / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph is coherent, but front-foot interception and cover timing exceed the broad physical-duel source.",
+      "repetitionFlag": "Israel's defender cards share goal-side and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Giora Spiegel / Israel / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side forward fallback is plausible, but its pull-wide and near-post cues repeat the full Israel attack.",
+      "repetitionFlag": "Israel's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mordechai Spiegler / Israel / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scoring forward's channel guide stays modest, but it is nearly interchangeable with Feigenbaum and the wider attack.",
+      "repetitionFlag": "Israel's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Rachamim Talbi / Israel / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed near-post runner guide is plausible, but it overlaps Spiegel and the edition-level template.",
+      "repetitionFlag": "Israel's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Shmuel Rosenthal / Israel / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-shape defender paragraph reads well, but goal-side and front-foot decisions outrun the broad source.",
+      "repetitionFlag": "Israel's defender cards share goal-side and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Yehoshua Feigenbaum / Israel / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early channel-running fallback stays evidence-honest, but it duplicates Spiegler's pull-wide pattern.",
+      "repetitionFlag": "Israel's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Yitzchak Vissoker / Israel / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The centre-first goalkeeper explanation is coherent, but forcing the angle and reading body shape are more specific than the stored source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Angelo Domenghini / Italy / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed runner guide is plausible, but its pull-wide action overlaps Italy's forward cards and the edition-level template.",
+      "repetitionFlag": "Italy's forward cards share run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Comunardo Niccolai / Italy / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph works, but front-foot interception and cover timing outrun the broad physical-duel source.",
+      "repetitionFlag": "Italy's defender cards share patience and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Enrico Albertosi / Italy / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The same generic angle-and-set goalkeeper card recurs across 1962, 1966 and 1970 without distinguishing the finalist edition.",
+      "repetitionFlag": "The visible goalkeeper portrait recurs nearly unchanged across three editions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Giacinto Facchetti / Italy / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Recovery speed is exactly supported, but the defensive-only emphasis underuses his forward surges during Italy's route to the final.",
+      "repetitionFlag": "Italy's full-back and defender cards concentrate on recovery language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gianni Rivera / Italy / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim 1974 support card suppresses Rivera's separate two-goal 1970 impact, including his decisive semi-final role.",
+      "repetitionFlag": "The visible support portrait is nearly identical to 1974.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gigi Riva / Italy / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The near-verbatim scoreless 1974 reference card suppresses Riva's three knockout goals and left-footed 1970 penalty-box identity.",
+      "repetitionFlag": "The visible striker portrait is nearly identical to 1974.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Pierluigi Cera / Italy / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender guide is coherent, but delay and front-foot interception mechanics exceed the broad physical-duel source.",
+      "repetitionFlag": "Italy's defender cards share patience and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Roberto Boninsegna / Italy / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal forward receives a generic early-run and pull-wide card that does not explain his own role in Italy's run to the final.",
+      "repetitionFlag": "Italy's forward cards share run and pull-wide language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Roberto Rosato / Italy / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Front-foot interception and goal-side recovery form a coherent portrait aligned with his exact stopping role through the knockout run.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Tarcisio Burgnich / Italy / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-position paragraph is useful, but its goal-side and interception decisions outrun the broad physical-duel source.",
+      "repetitionFlag": "Italy's defender cards share goal-side and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Aarón Padilla / Mexico / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim generic runner cards in 1966 and 1970 suppress the distinct tournament identity of both editions.",
+      "repetitionFlag": "The 1966 card and nearby Mexico forward mechanics overlap materially.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gustavo Peña / Mexico / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-position defender paragraph is coherent, but goal-side and stepping decisions exceed the broad physical-duel source.",
+      "repetitionFlag": "Mexico's defender cards share patience and positioning language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Ignacio Calderón / Mexico / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-reading goalkeeper explanation works, but its exact angle and reset mechanics outrun the broad source and recur in 1966.",
+      "repetitionFlag": "The visible goalkeeper portrait is nearly identical to 1966.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Javier Fragoso / Mexico / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is plausible, but it overlaps Padilla and Valdivia without a distinct identity.",
+      "repetitionFlag": "Mexico's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Javier Guzmán / Mexico / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph is coherent, but delay and front-foot interception mechanics exceed the broad source.",
+      "repetitionFlag": "Mexico's defender cards share patience and positioning language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Javier Valdivia / Mexico / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Mexico's two-goal scorer receives generic blind-side and near-post cues that do not distinguish him from the surrounding attack.",
+      "repetitionFlag": "Mexico's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "José Luis González / Mexico / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-pause midfield guide is plausible, but it nearly duplicates Basaguren beside it.",
+      "repetitionFlag": "Mexico's two midfielder cards share pause and support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Juan Ignacio Basaguren / Mexico / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The short-support fallback stays modest, but its second action duplicates González's tempo cue.",
+      "repetitionFlag": "Mexico's two midfielder cards share pause and support language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ahmed Alaoui / Morocco / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward guide is plausible, but its pull-wide and delayed-run actions overlap Jarir and Ghazouani.",
+      "repetitionFlag": "Morocco's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Driss Bamous / Morocco / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-recycle midfield paragraph is coherent, but its personalized support decisions outrun the broad tempo source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Houmane Jarir / Morocco / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scoring forward's channel fallback stays modest, but it nearly duplicates Alaoui's delayed and pull-wide pattern.",
+      "repetitionFlag": "Morocco's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Maouhoub Ghazouani / Morocco / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed near-post runner guide is plausible, but it completes an undifferentiated Morocco attack.",
+      "repetitionFlag": "Morocco's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alberto Gallardo / Peru / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The two-goal forward is reduced to generic channel and pull-wide movements, leaving his individual quarter-finalist identity absent.",
+      "repetitionFlag": "Peru's forward cards share run and channel language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Héctor Chumpitaz / Peru / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional defender paragraph is coherent, but front-foot interception and delay mechanics exceed the broad physical-duel source.",
+      "repetitionFlag": "The visible defender portrait nearly recurs in 1978.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Hugo Sotil / Peru / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side forward fallback is plausible, but its delayed and near-post cues repeat Peru's nearby attack.",
+      "repetitionFlag": "Peru's forward cards share run and near-post language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Julio Baylón / Peru / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early-run guide stays modest, but its pull-wide action provides little separation from Gallardo and Sotil.",
+      "repetitionFlag": "Peru's forward cards share run and channel language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Rubiños / Peru / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-set goalkeeper paragraph is useful, but forcing the finish and exact footwork outrun the broad shot-stopping source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Roberto Challe / Peru / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The third-player support paragraph is coherent, but its specific short-passing decisions exceed the broad tempo source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Teófilo Cubillas / Peru / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The between-lines opening is plausible, but body protection displaces the exact 1970 identity of fearless shooting and left-sided combinations.",
+      "repetitionFlag": "The nearby Peru midfield and forward cards use generic connection language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Alexandru Neagu / Romania / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The support-and-pause midfield paragraph works, but its individualized decisions outrun the broad tempo source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Emerich Dembrovschi / Romania / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback is plausible, but its early and pull-wide actions overlap Romania's full attacking set.",
+      "repetitionFlag": "Romania's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Florea Dumitrache / Romania / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Romania's two-goal scorer receives the same early-run and pull-wide card as teammates, leaving his own identity absent.",
+      "repetitionFlag": "Romania's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gheorghe Tătaru / Romania / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed blind-side guide stays modest, but it overlaps Lucescu and the wider Romania attack.",
+      "repetitionFlag": "Romania's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Mircea Lucescu / Romania / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "A generic near-post runner card does not establish Lucescu's primary 1970 function or separate him from Romania's other forwards.",
+      "repetitionFlag": "Romania's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "low"
+    },
+    {
+      "profileKey": "Albert Shesternyov / Soviet Union / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The patient defender paragraph is coherent, but cover timing and front-foot interception exceed the broad physical-duel source.",
+      "repetitionFlag": "Soviet defender cards share patience and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Anatoliy Byshovets / Soviet Union / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The four-goal scorer is reduced to generic delayed and pull-wide runs, leaving the most important individual identity absent.",
+      "repetitionFlag": "Soviet forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Anzor Kavazashvili / Soviet Union / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-reading goalkeeper card works, but its exact angle and reset mechanics outrun the broad source and nearly repeat 1966.",
+      "repetitionFlag": "The visible goalkeeper portrait is nearly identical to 1966.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Evgeny Lovchev / Soviet Union / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-delay defender paragraph is coherent, but its specific interception mechanics exceed the broad source.",
+      "repetitionFlag": "Soviet defender cards share patience and interception language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Gennady Yevriuzhikin / Soviet Union / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-forward fallback stays modest, but its early and pull-wide actions overlap Byshovets and Khmelnitsky.",
+      "repetitionFlag": "Soviet forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Kakhi Asatiani / Soviet Union / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The switch-and-recycle midfield guide is coherent, but both personalized passing decisions outrun the broad tempo source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Vitaly Khmelnitsky / Soviet Union / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early near-post runner card is plausible, but it overlaps Yevriuzhikin and the edition-level template.",
+      "repetitionFlag": "Soviet forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Björn Nordqvist / Sweden / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The positional defender paragraph is coherent, but goal-side patience and cover timing exceed the broad source and recur in 1974.",
+      "repetitionFlag": "The visible defender portrait nearly repeats 1974.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Leif Eriksson / Sweden / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed near-post runner fallback is plausible, but it overlaps Sweden's complete attacking set.",
+      "repetitionFlag": "Sweden's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Örjan Persson / Sweden / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The channel-running guide stays modest, but its delayed and pull-wide cues repeat the entire Sweden attack.",
+      "repetitionFlag": "Sweden's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ove Grahn / Sweden / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The scoring forward's delayed near-post guide is plausible, but it is nearly interchangeable with Eriksson.",
+      "repetitionFlag": "Sweden's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ove Kindvall / Sweden / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The run-behind fallback stays evidence-honest, but its delay-and-pull-wide sequence adds no local distinction.",
+      "repetitionFlag": "Sweden's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sven-Gunnar Larsson / Sweden / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-reading goalkeeper paragraph is coherent, but its exact angle and reset decisions outrun the broad source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Tom Turesson / Sweden / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner guide is plausible, but its pull-wide action overlaps Grahn and the wider Sweden cluster.",
+      "repetitionFlag": "Sweden's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Atilio Ancheta / Uruguay / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Aerial first contact followed by early channel cover directly expresses the exact-edition defensive authority in his Best XI case.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Dagoberto Fontes / Uruguay / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed near-post runner fallback is plausible, but it repeats Uruguay's large forward cluster.",
+      "repetitionFlag": "Uruguay's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ildo Maneiro / Uruguay / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The tempo-and-support midfield paragraph is coherent, but its pause and movement mechanics exceed the broad stored source.",
+      "repetitionFlag": "Uruguay's midfielder cards share tempo and support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Juan Mujica / Uruguay / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The contact-and-position defender card works, but goal-side and stepping decisions outrun the broad physical-duel source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Julio Losada / Uruguay / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The blind-side forward guide stays modest, but its pull-wide and near-post actions repeat the wider Uruguay attack.",
+      "repetitionFlag": "Uruguay's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Julio Morales / Uruguay / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early near-post runner fallback is plausible, but it overlaps Fontes and Zubia without a distinct identity.",
+      "repetitionFlag": "Uruguay's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Ladislao Mazurkiewicz / Uruguay / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Small footwork adjustments, set position and recovery form a coherent portrait directly supported by the exact semi-finalist rationale.",
+      "repetitionFlag": "The core footwork portrait also appears in 1966, but exact 1970 evidence supports it.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Luis Cubilla / Uruguay / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The angle-and-pause midfield explanation is coherent and distinct from 1962, but its personalized decisions outrun the broad source.",
+      "repetitionFlag": "Uruguay's midfielder cards share tempo and support language.",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Oscar Zubia / Uruguay / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The delayed blind-side guide remains modest, but it repeats Fontes and the edition-level forward template.",
+      "repetitionFlag": "Uruguay's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Víctor Espárrago / Uruguay / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early channel-forward fallback is plausible, but its pull-wide action overlaps Uruguay's surrounding attack.",
+      "repetitionFlag": "Uruguay's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Bernd Patzke / West Germany / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The body-position defender paragraph is coherent, but goal-side and delay mechanics exceed the broad physical-duel source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Berti Vogts / West Germany / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "Two-way recovery is plausible, but far-post scanning underuses the exact evidence about aggressive defending and comeback support.",
+      "repetitionFlag": "West Germany's full-back cards share recovery language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Franz Beckenbauer / West Germany / 1970",
+      "decision": "RESEARCH",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "A generic short-support card displaces the exact 1970 identity of midfield control, forward carrying and playing through a dislocated shoulder.",
+      "repetitionFlag": "West Germany's midfielder cards share generic support and tempo language.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Gerd Müller / West Germany / 1970",
+      "decision": "KEEP",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The authored box-movement portrait remains specific, natural and fully suited to the exact ten-goal 1970 edition.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Hannes Löhr / West Germany / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-post runner fallback is plausible, but its pull-wide action overlaps Held and Libuda.",
+      "repetitionFlag": "West Germany's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Horst Wolter / West Germany / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The balanced goalkeeper explanation reads well, but its set-position and body-reading mechanics outrun the broad shot-stopping source.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Jürgen Grabowski / West Germany / 1970",
+      "decision": "PROVE",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The direct-width identity matches the exact honourable-mention case, but early delivery and overlap release still need confirmation.",
+      "repetitionFlag": "",
+      "dataIssue": "",
+      "confidence": "medium"
+    },
+    {
+      "profileKey": "Karl-Heinz Schnellinger / West Germany / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim scoreless 1962 recovery card does not distinguish Schnellinger's scoring 1970 contribution.",
+      "repetitionFlag": "The visible full-back portrait closely repeats 1962.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Reinhard Libuda / West Germany / 1970",
+      "decision": "TWEAK",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The early runner guide stays modest, but its pull-wide action repeats Löhr and Held rather than distinguishing Libuda.",
+      "repetitionFlag": "West Germany's forward cards share the same small movement vocabulary.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Sigfried Held / West Germany / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim scoring 1966 runner card does not distinguish Held's scoreless 1970 tournament.",
+      "repetitionFlag": "The visible runner portrait is nearly identical to 1966.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Uwe Seeler / West Germany / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "PORTRAIT",
+      "reason": "The same link-and-near-post card recurs across four World Cups, suppressing Seeler's separate three-goal 1970 contribution.",
+      "repetitionFlag": "The visible striker portrait recurs nearly unchanged across four editions.",
+      "dataIssue": "",
+      "confidence": "high"
+    },
+    {
+      "profileKey": "Wolfgang Overath / West Germany / 1970",
+      "decision": "EDITION_SPLIT",
+      "evidenceCeiling": "ROLE_GUIDE",
+      "reason": "The near-verbatim two-goal 1974 midfield card does not distinguish Overath's different one-goal 1970 tournament.",
+      "repetitionFlag": "The visible midfield portrait is nearly identical to 1974.",
+      "dataIssue": "",
+      "confidence": "high"
+    }
+  ]
+}

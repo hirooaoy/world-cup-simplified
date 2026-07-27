@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "88d7daaf082dacb023eae010012a6e1a1f834b63768ac7f1481bd20435f955d1"
+  "sourceFingerprint": "2d7b94a437128c5a8e3b8b46b9c6299bff4fa168cc376fb9db2e2ab7956f4cba"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "All four languages share stricter checks and a fresh cache version, so returning visitors receive the new copy.": "Los cuatro idiomas comparten controles más estrictos y una nueva versión de caché para que quienes regresen reciban los nuevos textos.",
-  "Current and historical cards now use longer, more varied profiles, with evidence-backed traits or honest fallbacks.": "Las fichas actuales e históricas ahora ofrecen perfiles más extensos y variados, con rasgos respaldados por pruebas o alternativas honestas.",
-  "Generic profiles stay separate from Best XI and Honourable Mention rationales, so each card tells the right story.": "Los perfiles generales se mantienen separados de las razones del Mejor XI y las Menciones de Honor, para que cada ficha cuente la historia adecuada.",
-  "Richer player cards across every World Cup": "Fichas de jugadores más completas en todos los Mundiales"
+  "Audit and smoke coverage now guards the refreshed player-card and key-information contracts.": "Las auditorías y pruebas smoke ahora protegen los contratos actualizados de fichas de jugadores e información clave.",
+  "Historical Key information briefs now use confirmed lineups and current structured localization.": "Los resúmenes históricos de Información clave ahora usan alineaciones confirmadas y la localización estructurada actual.",
+  "Historical player cards now carry more specific tournament-time style notes across the archive.": "Las fichas históricas ahora incorporan notas de estilo más específicas de cada torneo en todo el archivo.",
+  "Sharper historical player cards and match briefs": "Fichas históricas y resúmenes de partido más claros"
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

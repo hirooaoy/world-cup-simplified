@@ -28,6 +28,10 @@ const numberWords = [
   "ten",
   "eleven"
 ];
+const writtenStatQuantityPattern = new RegExp(
+  `\\b(?:${numberWords.join("|")})\\s+(?:goals?|assists?|appearances?|starts?|matches?|minutes?|saves?|clean sheets?|chances?|tackles?|passes?|crosses?|duels?|penalties?|wins?)\\b`,
+  "i"
+);
 
 const tournamentEvidencePattern = new RegExp(
   `\\b(?:\\d+(?:\\.\\d+)?|${numberWords.join("|")}|golden ball|golden glove|champions?|final|semifinal|quarterfinal|knockout|tournament|title|record)\\b`,
@@ -216,6 +220,10 @@ for (const slot of selection.slots) {
     assertLocalizedShape({ displayed, label, reason: player.reason });
 
     const english = compact(flattenReason(player.reason.en));
+    assert(
+      !writtenStatQuantityPattern.test(english),
+      `${label} writes a statistical quantity as a word; use digits instead.`
+    );
     assert(tournamentEvidencePattern.test(english), `${label} lacks a tournament-specific selection case.`);
     assert(mechanismPatterns[roleGroup(player.position)].test(english), `${label} lacks an observable ${roleGroup(player.position)} mechanism.`);
     assert(vagueHeadlinePatterns.every((pattern) => !pattern.test(english)), `${label} falls back to generic headline copy.`);
