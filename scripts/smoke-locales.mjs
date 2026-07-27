@@ -1402,7 +1402,26 @@ async function assertHighlightsLocales(browser) {
       const valueBox = await valueHelp.boundingBox();
       assert(valueBox, "Best XI Value help geometry should be measurable.");
       await page.mouse.move(valueBox.x + valueBox.width / 2, valueBox.y + valueBox.height / 2, { steps: 6 });
-      await page.waitForTimeout(160);
+      await valueHelp.focus();
+      try {
+        await page.waitForFunction(
+          () => {
+            const card = document.querySelector("#best-xi-player-card");
+            const value = card?.querySelector(".player-card-value-help");
+            const tooltip = value ? getComputedStyle(value, "::after") : null;
+            return (
+              card?.classList.contains("is-visible") &&
+              card.getAttribute("aria-hidden") === "false" &&
+              Number.parseFloat(tooltip?.opacity || "0") >= 0.99 &&
+              tooltip?.visibility === "visible"
+            );
+          },
+          null,
+          { timeout: 1000 }
+        );
+      } catch {
+        // Fall through to the measured assertion below for the detailed failure message.
+      }
       const bestXiHoverState = await bestXiCard.evaluate((card) => {
         const value = card.querySelector(".player-card-value-help");
         const tooltip = value ? getComputedStyle(value, "::after") : null;

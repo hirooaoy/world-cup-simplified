@@ -5566,6 +5566,7 @@ try {
     releaseProgressiveCelebrationHistory = resolve;
   });
   const progressiveCelebrationHistoricalProfileRequests = [];
+  const progressiveCelebrationHistoryRequests = [];
   const progressiveCelebrationCheck = await openPageAtTime(
     "2026-07-20T19:30:00Z",
     "/?view=matches&tz=America%2FLos_Angeles",
@@ -5578,6 +5579,7 @@ try {
           }
         });
         await context.route("**/data/history.json*", async (route) => {
+          progressiveCelebrationHistoryRequests.push(route.request().url());
           await progressiveCelebrationHistoryGate;
           await route.continue();
         });
@@ -5599,44 +5601,21 @@ try {
   assert(
     progressiveCelebrationInitialState.hasCelebration &&
       progressiveCelebrationInitialState.headline === "Spain are 2026 world champions" &&
-      progressiveCelebrationInitialState.bulletCount === 2 &&
-      progressiveCelebrationHistoricalProfileRequests.length === 0,
-    `The championship cover should render its essential content without waiting for deferred history or historical player profiles. Measured ${JSON.stringify({
+      progressiveCelebrationInitialState.bulletCount === 3 &&
+      progressiveCelebrationHistoricalProfileRequests.length === 0 &&
+      progressiveCelebrationHistoryRequests.length === 0,
+    `The championship cover should render its essential content without waiting for full archive history or historical player profiles. Measured ${JSON.stringify({
       ...progressiveCelebrationInitialState,
+      historyRequests: progressiveCelebrationHistoryRequests.length,
       historicalProfileRequests: progressiveCelebrationHistoricalProfileRequests.length
     })}.`
   );
 
   releaseProgressiveCelebrationHistory();
-  await progressiveCelebrationCheck.page.waitForFunction(() =>
-    document.querySelectorAll("#final-celebration-banner .final-celebration-bullets li").length === 3 &&
-    document.querySelector(
-      '.final-celebration-banner .player-hover[data-historical-profile-load="interaction"]'
-    )
-  );
   assert(
-    progressiveCelebrationHistoricalProfileRequests.length === 0,
-    "Enhancing the championship cover with title history should not preload the full historical player profile dataset."
-  );
-
-  const progressiveCelebrationPlayer = progressiveCelebrationCheck.page
-    .locator(
-      '.final-celebration-banner .player-hover[data-historical-profile-load="interaction"] .player-link'
-    )
-    .first();
-  await progressiveCelebrationPlayer.hover();
-  await progressiveCelebrationCheck.page.waitForFunction(() => {
-    const card = document.querySelector(".player-card-floating.is-visible");
-    return Boolean(
-      card &&
-      !card.classList.contains("is-profile-loading") &&
-      card.querySelector(".player-card-position")?.textContent.trim() &&
-      card.querySelector(".player-card-club")?.textContent.trim()
-    );
-  });
-  assert(
-    progressiveCelebrationHistoricalProfileRequests.length === 1,
-    "Opening a historical player from the championship cover should hydrate the shared profile dataset exactly once."
+    progressiveCelebrationHistoricalProfileRequests.length === 0 &&
+      progressiveCelebrationHistoryRequests.length === 0,
+    "The passive championship cover should not load aggregate archive history or historical player profiles."
   );
   await progressiveCelebrationCheck.context.close();
 

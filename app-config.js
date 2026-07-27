@@ -2,7 +2,9 @@ export const DATA_VERSION = "2026-07-22-player-card-copy-1";
 
 export const DATA_URLS = Object.freeze({
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
+  archiveCalendar: `data/archive-calendar.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
+  titleHistory: `data/world-cup-title-history.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
   historicalRankings: `data/historical-rankings.json?v=${DATA_VERSION}`,
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,

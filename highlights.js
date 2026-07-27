@@ -1261,6 +1261,10 @@ async function loadJson(url) {
   return response.json();
 }
 
+function getHistoricalEditionDataUrl(kind, year) {
+  return `data/${kind}/${year}.json?v=${DATA_VERSION}`;
+}
+
 function normalizeHistoricalName(value) {
   return String(value || "")
     .normalize("NFD")
@@ -4184,8 +4188,8 @@ async function initialize() {
         coachData,
         structuredGlossary
       ] = await Promise.all([
-        loadJson(`data/history.json?v=${DATA_VERSION}`),
-        loadJson(`data/historical-player-profiles.json?v=${DATA_VERSION}`),
+        loadJson(getHistoricalEditionDataUrl("history", activeEdition)),
+        loadJson(getHistoricalEditionDataUrl("historical-player-profiles", activeEdition)),
         loadJson(`data/world-cup-awards.json?v=${DATA_VERSION}`),
         loadJson(`data/historical-rankings.json?v=${DATA_VERSION}`),
         loadJson(`data/coach-profiles.json?v=${DATA_VERSION}`),

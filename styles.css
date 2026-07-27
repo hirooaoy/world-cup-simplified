@@ -7108,6 +7108,7 @@ html.is-calendar-scene-transition #matches-view .match-list {
 }
 
 .player-card-value-help:hover::after,
+.player-card-value-help:focus::after,
 .player-card-value-help:focus-visible::after {
   opacity: 1;
   transform: translate(-50%, 0);

@@ -3899,6 +3899,8 @@ const tournamentBoardPointers = new Map();
 let tournamentBoardSuppressClickUntil = 0;
 let tournamentConnectorFrameId = 0;
 let tournamentConnectorRetryTimeoutId = 0;
+let tournamentConnectorResizeObserver = null;
+let tournamentConnectorSettledTimeoutIds = [];
 let tournamentRoundHeaderFrameId = 0;
 let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
@@ -3917,6 +3919,8 @@ let activeFixturesData = { fixtures: [] };
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
 let historicalRankings = { editions: {} };
+let archiveCalendarData = { days: {} };
+let titleHistoryData = { titles: [] };
 let playerTournamentStatsByKey = null;
 const historicalProjectionCache = new Map();
 const thirdPlaceAdvancementEstimateCache = new Map();
@@ -3928,6 +3932,9 @@ let historicalPlayerProfilesByName = new Map();
 let historicalPlayerProfilesByVersion = new Map();
 let historicalPlayerProfilesLoadPromise = null;
 let hasLoadedHistoricalPlayerProfiles = false;
+let archiveDataLoadPromise = null;
+let hasLoadedArchiveData = false;
+let isArchiveDataLoading = false;
 let coachProfilesByName = new Map();
 let coachProfilesByTeamAndName = new Map();
 let playerProfilesByName = new Map();
@@ -8841,6 +8848,12 @@ function getAvailableStandingsYears() {
     }
   }
 
+  for (const title of titleHistoryData.titles || []) {
+    if (Number.isInteger(title.year)) {
+      years.add(title.year);
+    }
+  }
+
   for (const fixture of historicalFixtures) {
     if (Number.isInteger(fixture.tournamentYear)) {
       years.add(fixture.tournamentYear);
@@ -8949,6 +8962,10 @@ function getAvailableStandingsModes(year = selectedStandingsYear) {
     return ["tournament", "groups", "third-place"];
   }
 
+  if (!hasLoadedArchiveData && getAvailableStandingsYears().includes(Number(year))) {
+    return ["tournament", "groups"];
+  }
+
   const availableModes = [];
   if (hasHistoricalTournamentFixtures(year)) {
     availableModes.push("tournament");
@@ -8963,6 +8980,10 @@ function getAvailableStandingsModes(year = selectedStandingsYear) {
 function getDefaultStandingsModeForYear(year = selectedStandingsYear) {
   if (year === CURRENT_STANDINGS_YEAR) {
     return DEFAULT_CURRENT_STANDINGS_MODE;
+  }
+
+  if (!hasLoadedArchiveData && getAvailableStandingsYears().includes(Number(year))) {
+    return "tournament";
   }
 
   return hasHistoricalTournamentFixtures(year) ? "tournament" : "groups";
@@ -9093,9 +9114,18 @@ function getCalendarDayMatchCounts() {
   }
 
   calendarDayMatchCounts = new Map();
-  for (const fixture of getCalendarFixtures()) {
+  const calendarFixtures = historicalFixtures.length ? getCalendarFixtures() : fixtures;
+  for (const fixture of calendarFixtures) {
     const dayKey = getFixtureDayKey(fixture);
     calendarDayMatchCounts.set(dayKey, (calendarDayMatchCounts.get(dayKey) || 0) + 1);
+  }
+  if (!historicalFixtures.length && archiveCalendarData?.days) {
+    for (const [dayKey, count] of Object.entries(archiveCalendarData.days)) {
+      const number = Number(count);
+      if (isDayKey(dayKey) && Number.isFinite(number) && number > 0) {
+        calendarDayMatchCounts.set(dayKey, number);
+      }
+    }
   }
   return calendarDayMatchCounts;
 }
@@ -17046,7 +17076,28 @@ function clearScheduledTournamentConnectorUpdate() {
   }
 }
 
-function scheduleTournamentConnectorUpdate(retries = 6) {
+function observeTournamentConnectorLayout(root = standingsGrid) {
+  tournamentConnectorResizeObserver?.disconnect();
+  tournamentConnectorResizeObserver = null;
+
+  if (typeof ResizeObserver !== "function") {
+    return;
+  }
+
+  const { progression, rounds, surface } = getTournamentProgressionElements(root);
+  if (!progression || !rounds || !surface) {
+    return;
+  }
+
+  tournamentConnectorResizeObserver = new ResizeObserver(() => {
+    scheduleTournamentConnectorUpdate();
+  });
+  tournamentConnectorResizeObserver.observe(progression);
+  tournamentConnectorResizeObserver.observe(rounds);
+  tournamentConnectorResizeObserver.observe(surface);
+}
+
+function scheduleTournamentConnectorUpdate(retries = 36) {
   clearScheduledTournamentConnectorUpdate();
   tournamentConnectorFrameId = window.requestAnimationFrame(() => {
     tournamentConnectorFrameId = 0;
@@ -17056,8 +17107,26 @@ function scheduleTournamentConnectorUpdate(retries = 6) {
       tournamentConnectorRetryTimeoutId = window.setTimeout(() => {
         tournamentConnectorRetryTimeoutId = 0;
         scheduleTournamentConnectorUpdate(retries - 1);
-      }, 60);
+      }, 40);
     }
+  });
+}
+
+function scheduleSettledTournamentConnectorUpdates(root = standingsGrid) {
+  tournamentConnectorSettledTimeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
+  tournamentConnectorSettledTimeoutIds = [];
+  scheduleTournamentConnectorUpdate();
+
+  [160, 480, 960].forEach((delay) => {
+    const timeoutId = window.setTimeout(() => {
+      tournamentConnectorSettledTimeoutIds = tournamentConnectorSettledTimeoutIds.filter(
+        (candidate) => candidate !== timeoutId
+      );
+      if (root?.querySelector(".tournament-progression")?.isConnected) {
+        scheduleTournamentConnectorUpdate();
+      }
+    }, delay);
+    tournamentConnectorSettledTimeoutIds.push(timeoutId);
   });
 }
 
@@ -17119,14 +17188,17 @@ function updateTournamentConnectors() {
   }
 
   const columnCount = getComputedStyle(rounds).gridTemplateColumns.split(" ").filter(Boolean).length;
-  svg.replaceChildren();
   svg.removeAttribute("width");
   svg.removeAttribute("height");
   svg.style.width = "";
   svg.style.height = "";
 
   if (columnCount <= 1) {
-    return true;
+    if (isTournamentMobileLayout()) {
+      svg.replaceChildren();
+      return true;
+    }
+    return false;
   }
 
   const width = Math.ceil(rounds.offsetWidth);
@@ -17154,6 +17226,7 @@ function updateTournamentConnectors() {
     y: (rect.top + rect.height / 2 - svgRect.top) * scaleY
   });
   const roundPoint = (value) => Math.round(value * 2) / 2;
+  const connectorFragment = document.createDocumentFragment();
 
   function shouldSkipMobileConnector(source, target) {
     if (!isTournamentMobileLayout()) {
@@ -17229,7 +17302,7 @@ function updateTournamentConnectors() {
         ? `M ${sourceX} ${sourceY} H ${targetX}`
         : [`M ${sourceX} ${sourceY}`, `H ${joinX}`, `V ${targetY}`, `H ${targetX}`].join(" ")
     );
-    svg.append(path);
+    connectorFragment.append(path);
     return true;
   }
 
@@ -17319,7 +17392,7 @@ function updateTournamentConnectors() {
         `M ${railX} ${roundPoint(bronzeTargetPoint.y)} H ${roundPoint(bronzeTargetPoint.x)}`
       ].join(" ")
     );
-    svg.append(path);
+    connectorFragment.append(path);
     return true;
   }
 
@@ -17348,7 +17421,12 @@ function updateTournamentConnectors() {
     }
   });
 
-  return renderedConnectorCount > 0;
+  if (renderedConnectorCount > 0) {
+    svg.replaceChildren(connectorFragment);
+    return true;
+  }
+
+  return false;
 }
 
 function renderCurrentStandingsCards() {
@@ -17532,6 +17610,7 @@ function renderStandingsLoadingState() {
   }
 
   standingsGrid.innerHTML = standingsLoadingMarkup;
+  observeTournamentConnectorLayout();
   updateTournamentBoardLayout();
 }
 
@@ -17542,6 +17621,12 @@ function renderStandingsView() {
   }
 
   const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
+  if (!isCurrentYear && !hasLoadedArchiveData) {
+    loadArchiveDataSafely();
+    renderStandingsLoadingState();
+    return;
+  }
+
   const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
   const isTournamentMode = selectedStandingsMode === "tournament";
 
@@ -17569,10 +17654,17 @@ function renderStandingsView() {
     : isTournamentMode
       ? renderHistoricalTournamentView(selectedStandingsYear)
       : renderHistoricalStandingsCards(selectedStandingsYear);
+  observeTournamentConnectorLayout();
   updateStandingNameTooltips(standingsGrid);
   updateTooltipBounds(standingsGrid);
   updateTournamentBoardLayout();
-  window.requestAnimationFrame(updateTournamentConnectors);
+  if (isTournamentMode) {
+    scheduleSettledTournamentConnectorUpdates();
+  } else {
+    tournamentConnectorSettledTimeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
+    tournamentConnectorSettledTimeoutIds = [];
+    clearScheduledTournamentConnectorUpdate();
+  }
 }
 
 function renderPredictionBar(label, value, options = {}) {
@@ -29155,8 +29247,12 @@ function createOlderWorldCupsToggle(hiddenCount, isExpanded, options = {}) {
     updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded);
   };
 
-  updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded);
+  updateOlderWorldCupsToggle(button, hiddenCount, isArchiveExpanded, Boolean(options.loading));
   button.addEventListener("click", async () => {
+    if (options.loading) {
+      return;
+    }
+
     if (button.dataset.localeLoading === "true") {
       return;
     }
@@ -29218,6 +29314,10 @@ function renderTeamSearchEmptyState(options = {}) {
 }
 
 function renderTeamSearchResults(options = {}) {
+  if (!hasLoadedArchiveData && !archiveDataLoadPromise) {
+    loadArchiveDataSafely();
+  }
+
   const query = getTeamSearchQuery();
   const currentTime = Date.now();
   const searchMatches = getTeamSearchMatches(query);
@@ -29258,6 +29358,17 @@ function renderTeamSearchResults(options = {}) {
 
   if (previousCurrentMatches.length) {
     nodes.push(createTeamSearchSection("Previous matches", previousCurrentMatches, stateForMatch, { currentTime }));
+  }
+
+  if (!hasLoadedArchiveData) {
+    nodes.push(
+      createOlderWorldCupsToggle(0, false, {
+        currentTime,
+        loading: true,
+        items: [],
+        stateForMatch
+      })
+    );
   }
 
   if (olderWorldCupMatches.length) {
@@ -29943,6 +30054,24 @@ function getWorldCupTitleHistory(teamName, throughYear) {
   const teamKey = getFinalCelebrationTeamKey(teamName);
   const titlesByYear = new Map();
 
+  for (const title of titleHistoryData.titles || []) {
+    const year = Number(title?.year);
+    if (
+      Number.isInteger(year) &&
+      year <= throughYear &&
+      getFinalCelebrationTeamKey(title?.winner) === teamKey &&
+      !titlesByYear.has(year)
+    ) {
+      titlesByYear.set(year, {
+        teamKey,
+        winner: { name: title.winner },
+        winnerSide: "",
+        year,
+        mentionPlayers: []
+      });
+    }
+  }
+
   for (const fixture of getCalendarFixtures()) {
     const result = getWorldCupTitleResult(fixture);
     if (
@@ -29961,6 +30090,10 @@ function getWorldCupTitleHistory(teamName, throughYear) {
 function getFinalCelebrationTitlePlayers(titleResult) {
   if (!titleResult) {
     return [];
+  }
+
+  if (Array.isArray(titleResult.mentionPlayers)) {
+    return titleResult.mentionPlayers;
   }
 
   const { fixture, teamKey, winnerSide } = titleResult;
@@ -29989,18 +30122,39 @@ function getFinalCelebrationEditionMentionPlayers(winner, editionYear) {
     return [];
   }
 
-  const editionPlayers = getCalendarFixtures()
-    .filter((fixture) => {
-      if (Number(fixture?.tournamentYear) !== editionYear) {
-        return false;
-      }
+  const editionPlayers = getCalendarFixtures().flatMap((fixture) => {
+    const match = fixture.homeTeam && fixture.awayTeam ? fixture : hydrateFixture(fixture);
+    if (getWorldCupEditionYear(match) !== editionYear) {
+      return [];
+    }
 
-      return [
-        getHistoricalMatchTeamName(fixture, "home"),
-        getHistoricalMatchTeamName(fixture, "away")
-      ].some((teamName) => getFinalCelebrationTeamKey(teamName) === winnerTeamKey);
-    })
-    .flatMap((fixture) => getHistoricalMentionPlayers(fixture));
+    const matchedSides = ["home", "away"].filter((side) => {
+      const team = match[`${side}Team`];
+      const teamName = team?.name || getHistoricalMatchTeamName(match, side);
+      return getFinalCelebrationTeamKey(teamName) === winnerTeamKey;
+    });
+    if (!matchedSides.length) {
+      return [];
+    }
+
+    if (match.isHistorical) {
+      return getHistoricalMentionPlayers(match);
+    }
+
+    return matchedSides.flatMap((side) => {
+      const team = match[`${side}Team`];
+      return getUniqueMentionPlayers([
+        ...(match.keyPlayers?.[side] || []).map((player) =>
+          withPlayerTeamContext(player, team)
+        ),
+        ...getMatchGoalPlayers(match),
+        ...getMatchLineupMentionPlayers(match)
+      ]).filter((player) => {
+        const playerTeamName = player.historicalTeamName || player.team?.name || "";
+        return getFinalCelebrationTeamKey(playerTeamName) === winnerTeamKey;
+      });
+    });
+  });
   const authoredPlayers =
     FINAL_CELEBRATION_STYLE_PLAYER_OVERRIDES[`${editionYear}-${winnerTeamKey}`] || [];
 
@@ -30161,7 +30315,7 @@ function getFinalCelebrationReviewContent(finalMatch, fallbackBody) {
   }
 
   const titleHistory =
-    !isDeferredDataLoading && historicalFixtures.length > 0
+    (editionYear === CURRENT_STANDINGS_YEAR || (hasLoadedArchiveData && historicalFixtures.length > 0))
       ? getFinalCelebrationTitleHistoryBullet(finalMatch, winner, editionYear)
       : null;
   const bullets = [
@@ -31398,6 +31552,10 @@ function scheduleTeamSearchRender(options = {}) {
       return;
     }
 
+    if (!hasLoadedArchiveData && !archiveDataLoadPromise) {
+      loadArchiveDataSafely();
+    }
+
     setYesterdayLayoutOffset(false);
     renderTeamSearchResults({ ...options, debounceUrl: true });
   });
@@ -31542,6 +31700,22 @@ function renderSchedule(options = {}) {
     return;
   }
 
+  if (
+    activeView === "matches" &&
+    selectedDayKey.slice(0, 4) !== String(CURRENT_STANDINGS_YEAR) &&
+    !hasLoadedArchiveData
+  ) {
+    loadArchiveDataSafely();
+    renderFinalCelebration();
+    setYesterdayLayoutOffset(false);
+    setLiveTodayMatchFocus(false);
+    updateDateControls();
+    updateTeamSearchControls();
+    renderMatchLoadingState();
+    updateUrlState(options);
+    return;
+  }
+
   matchList.removeAttribute("aria-busy");
   renderFinalCelebration();
 
@@ -31649,6 +31823,9 @@ function setActiveView(view, options = {}) {
   updateTooltipBounds(viewPanels.matches);
   updateTooltipBounds(standingsGrid);
   if (activeView === "standings") {
+    if (selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
+      loadArchiveDataSafely();
+    }
     scheduleTournamentConnectorUpdate();
   }
   updateUrlState(options);
@@ -31659,7 +31836,11 @@ function shouldPreserveDeferredStandingsState(requestedYear) {
     return false;
   }
   const year = Number(requestedYear);
-  return isDeferredDataLoading && Number.isInteger(year) && year !== CURRENT_STANDINGS_YEAR;
+  return (
+    (isDeferredDataLoading || isArchiveDataLoading || !hasLoadedArchiveData) &&
+    Number.isInteger(year) &&
+    year !== CURRENT_STANDINGS_YEAR
+  );
 }
 
 function readInitialChromeState() {
@@ -32182,8 +32363,6 @@ function applyLiveDataSnapshot(liveData) {
 }
 
 function applyDeferredDataSnapshot({
-  historyData,
-  historicalRankingsData,
   lineupsData,
   coachProfilesData,
   playerProfilesData
@@ -32197,21 +32376,13 @@ function applyDeferredDataSnapshot({
   playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
   playerProfilesByTeamAndName = buildTeamPlayerProfileLookup(playerProfilesData.profiles);
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
-  history = historyData;
-  historicalRankings = isPlainObject(historicalRankingsData)
-    ? historicalRankingsData
-    : { editions: {} };
-  historicalFixtures = historyData.fixtures || [];
   clearPlayerTournamentStatsCache();
   clearCalendarFixtureCaches();
-  historicalProjectionCache.clear();
   siteUpdatedAt =
     liveDataCheckedAt ||
     getLatestUpdatedAt([
       { updatedAt: siteUpdatedAt },
       fixturesWithLineups,
-      historyData,
-      historicalRankings,
       lineupData,
       coachProfilesData,
       playerProfilesData
@@ -32219,22 +32390,50 @@ function applyDeferredDataSnapshot({
   buildTeamSearchIndex();
 }
 
+function applyArchiveDataSnapshot({
+  historyData,
+  historicalRankingsData
+}) {
+  history = isPlainObject(historyData)
+    ? historyData
+    : { coverage: {}, fixtures: [], source: null, tournaments: [] };
+  historicalRankings = isPlainObject(historicalRankingsData)
+    ? historicalRankingsData
+    : { editions: {} };
+  historicalFixtures = Array.isArray(history.fixtures) ? history.fixtures : [];
+  hasLoadedArchiveData = true;
+  clearCalendarFixtureCaches();
+  historicalProjectionCache.clear();
+  siteUpdatedAt =
+    liveDataCheckedAt ||
+    getLatestUpdatedAt([
+      { updatedAt: siteUpdatedAt },
+      history,
+      historicalRankings
+    ]);
+  buildTeamSearchIndex();
+}
+
 async function loadStaticData() {
   const [
     adminMessageData,
+    archiveCalendarFileData,
     editionLifecycleData,
     fixturesData,
     expectedLineupsFileData,
     playerAvailabilityFileData,
+    titleHistoryFileData,
     teamsData,
     standingsData,
     tournamentData
   ] = await Promise.all([
     loadOptionalJson(DATA_URLS.adminMessage, { messages: [] }),
+    loadOptionalJson(DATA_URLS.archiveCalendar, { days: {} }),
     loadJson(DATA_URLS.editionLifecycle),
     loadJson(DATA_URLS.fixtures),
     loadOptionalJson(DATA_URLS.expectedLineups, { fixtures: [] }),
     loadOptionalJson(DATA_URLS.playerAvailability, { teams: {} }),
+    loadOptionalJson(DATA_URLS.titleHistory, { titles: [] }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
     loadJson(DATA_URLS.tournament)
@@ -32244,6 +32443,14 @@ async function loadStaticData() {
     adminMessageData && typeof adminMessageData === "object" && !Array.isArray(adminMessageData)
       ? adminMessageData
       : { messages: [] };
+  archiveCalendarData =
+    archiveCalendarFileData && typeof archiveCalendarFileData === "object" && !Array.isArray(archiveCalendarFileData)
+      ? archiveCalendarFileData
+      : { days: {} };
+  titleHistoryData =
+    titleHistoryFileData && typeof titleHistoryFileData === "object" && !Array.isArray(titleHistoryFileData)
+      ? titleHistoryFileData
+      : { titles: [] };
   applyDataSnapshot({
     fixturesData,
     editionLifecycleData,
@@ -32263,22 +32470,16 @@ async function loadStaticData() {
 
 async function loadDeferredData() {
   const [
-    historyData,
-    historicalRankingsData,
     lineupsData,
     coachProfilesData,
     playerProfilesData
   ] = await Promise.all([
-    loadOptionalJson(DATA_URLS.history, { coverage: {}, fixtures: [], source: null, tournaments: [] }),
-    loadOptionalJson(DATA_URLS.historicalRankings, { editions: {} }),
     loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
     loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} })
   ]);
 
   applyDeferredDataSnapshot({
-    historyData,
-    historicalRankingsData,
     lineupsData,
     coachProfilesData,
     playerProfilesData
@@ -32289,8 +32490,60 @@ async function loadDeferredData() {
 
 function loadDeferredDataSafely() {
   loadDeferredData().catch((error) => {
-    console.warn("Unable to load optional history, lineup, or profile enrichment", error);
+    console.warn("Unable to load optional lineup or profile enrichment", error);
   });
+}
+
+function shouldLoadArchiveDataForCurrentState() {
+  return (
+    (activeView === "standings" && selectedStandingsYear !== CURRENT_STANDINGS_YEAR) ||
+    (
+      activeView === "matches" &&
+      (hasTeamSearchQuery() || selectedDayKey.slice(0, 4) !== String(CURRENT_STANDINGS_YEAR))
+    )
+  );
+}
+
+function loadArchiveData() {
+  if (hasLoadedArchiveData) {
+    return Promise.resolve(null);
+  }
+
+  if (!archiveDataLoadPromise) {
+    isArchiveDataLoading = true;
+    archiveDataLoadPromise = Promise.all([
+      loadOptionalJson(DATA_URLS.history, { coverage: {}, fixtures: [], source: null, tournaments: [] }),
+      loadOptionalJson(DATA_URLS.historicalRankings, { editions: {} })
+    ])
+      .then(([historyData, historicalRankingsData]) => {
+        applyArchiveDataSnapshot({ historyData, historicalRankingsData });
+        return historyData;
+      })
+      .finally(() => {
+        isArchiveDataLoading = false;
+      });
+  }
+
+  return archiveDataLoadPromise;
+}
+
+function loadArchiveDataSafely(options = {}) {
+  if (hasLoadedArchiveData || archiveDataLoadPromise) {
+    return archiveDataLoadPromise || Promise.resolve(null);
+  }
+
+  const promise = loadArchiveData()
+    .then(() => {
+      if (options.render !== false) {
+        renderLoadedApp({ syncActiveView: true });
+      }
+    })
+    .catch((error) => {
+      archiveDataLoadPromise = null;
+      console.warn("Unable to load historical archive data", error);
+    });
+
+  return promise;
 }
 
 function scheduleInitialDeferredDataLoad() {
@@ -32342,7 +32595,7 @@ function renderLoadedApp(options = {}) {
   withLanguageObserverPaused(() => {
     document.body.dataset.editionState = editionLifecycle.state === "archived" ? "review" : editionLifecycle.state;
     clearTransientInteractionState();
-    if (!(isDeferredDataLoading && selectedDayKey.slice(0, 4) !== "2026")) {
+    if (!((isDeferredDataLoading || !hasLoadedArchiveData) && selectedDayKey.slice(0, 4) !== "2026")) {
       ensureSelectableSelectedDay();
     }
     if (!shouldPreserveDeferredStandingsState(selectedStandingsYear)) {
@@ -32508,6 +32761,9 @@ async function boot() {
       loadInitialLiveData();
     }
     scheduleInitialDeferredDataLoad();
+    if (shouldLoadArchiveDataForCurrentState()) {
+      loadArchiveDataSafely();
+    }
   } catch (error) {
     renderAppError(error);
   }
