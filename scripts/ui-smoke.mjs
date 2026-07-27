@@ -8234,6 +8234,9 @@ try {
               circular: radius === "50%" || parseFloat(radius) >= Math.min(bounds.width, bounds.height) / 2 - 1
             };
           }),
+          avatarTexts: [...block.querySelectorAll(".lineup-coach-avatar")].map((avatar) =>
+            avatar.textContent.replace(/\s+/g, " ").trim()
+          ),
           cardPhotoRadii: [...block.querySelectorAll(".lineup-coach-card-photo")].map(
             (photo) => getComputedStyle(photo).borderTopLeftRadius
           ),
@@ -8251,9 +8254,12 @@ try {
       coachState.hrefs.length === 2 &&
       coachState.hrefs.every((href) => href === "") &&
       coachState.imageUrls.length === 2 &&
-      (coachCase.source === "fifa"
-        ? coachState.imageUrls.every((url) => url.startsWith("https://digitalhub.fifa.com/transform/"))
-        : coachState.imageUrls.every((url) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/"))) &&
+      (coachState.imageUrls.every((url) =>
+        coachCase.source === "fifa"
+          ? url.startsWith("https://digitalhub.fifa.com/transform/")
+          : url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/")
+      ) ||
+        (coachState.avatarTexts.length === 2 && coachState.avatarTexts.every(Boolean))) &&
       coachState.cardPhotoRadii.length === 2 &&
       coachState.cardPhotoRadii.every((radius) => radius === "13px") &&
       coachState.avatarCircleStates.length === 2 &&
