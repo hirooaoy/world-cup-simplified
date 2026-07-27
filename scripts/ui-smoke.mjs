@@ -11991,6 +11991,29 @@ try {
       .filter(Boolean)
       .join(" ")
   );
+  await compactSourceFooterCheck.page.evaluate(() => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  });
+  await compactSourceFooterCheck.page.mouse.move(0, 0);
+  await compactSourceFooterCheck.page.waitForFunction(() => {
+    const sourceTooltip = document.querySelector("#source-note .source-tooltip");
+    const releaseTooltip = document.querySelector("#source-note .release-tooltip");
+    if (!sourceTooltip || !releaseTooltip) {
+      return false;
+    }
+    const sourceStyles = getComputedStyle(sourceTooltip);
+    const releaseStyles = getComputedStyle(releaseTooltip);
+    return (
+      sourceStyles.opacity === "0" &&
+      sourceStyles.pointerEvents === "none" &&
+      sourceStyles.visibility === "hidden" &&
+      releaseStyles.opacity === "0" &&
+      releaseStyles.pointerEvents === "none" &&
+      releaseStyles.visibility === "hidden"
+    );
+  });
   const sourceTooltipStateBeforeHover = await sourceNote.locator(".source-tooltip").evaluate((tooltip) => {
     const styles = getComputedStyle(tooltip);
     return {
