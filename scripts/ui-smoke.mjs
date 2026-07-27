@@ -8219,6 +8219,51 @@ try {
     await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
       state: "attached"
     });
+    await lineupCoachCoverageCheck.page.waitForFunction(
+      (expectedCoaches) => {
+        const normalizeCoachName = (name) =>
+          (name || "")
+            .normalize("NFD")
+            .replace(/\p{Diacritic}/gu, "")
+            .replace(/\./g, "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .toLowerCase();
+        const canonicalCoachNames = (name) => {
+          const tokens = normalizeCoachName(name)
+            .split(/\s+/)
+            .map((part) => part.trim())
+            .filter(Boolean);
+          if (tokens.length === 0) {
+            return new Set([]);
+          }
+          const canonical = new Set([tokens.join(" ")]);
+          if (tokens.length >= 2) {
+            canonical.add(`${tokens[0][0]} ${tokens[tokens.length - 1]}`);
+            canonical.add(tokens[tokens.length - 1]);
+          }
+          return canonical;
+        };
+        const coachNameMatches = (actual, expected) => {
+          const actualNames = canonicalCoachNames(actual);
+          for (const name of actualNames) {
+            if (canonicalCoachNames(expected).has(name)) {
+              return true;
+            }
+          }
+          return false;
+        };
+        const names = [...document.querySelectorAll("#match-info .lineup-coach-icon-trigger")].map((trigger) =>
+          (trigger.getAttribute("aria-label") || "").split(":")[0].trim()
+        );
+        return (
+          names.length === expectedCoaches.length &&
+          names.every((name, index) => coachNameMatches(name, expectedCoaches[index]))
+        );
+      },
+      coachCase.coaches,
+      { timeout: 10_000 }
+    );
     const coachState = await lineupCoachCoverageCheck.page
       .locator("#match-info .lineup-preview-block")
       .evaluate((block) => {
