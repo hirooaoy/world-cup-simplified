@@ -11925,8 +11925,30 @@ try {
     "Chinese knockout catch-up should localize generated story and advancement standouts without leftover English result grammar."
   );
   await latestKnockoutChineseCheck.page.locator('[data-match-id="match-74-round-of-32-2026-06-29"]').click();
+  await latestKnockoutChineseCheck.page.waitForFunction(
+    () => {
+      const text = document.querySelector("#match-info")?.innerText || "";
+      return (
+        /巴拉圭\s*在\s*1-1\s*战平后通过点球击败\s*德国。/.test(text) &&
+        text.includes("恩西索接加拉尔萨传中头球破门让巴拉圭领先")
+      );
+    },
+    null,
+    { timeout: 10_000 }
+  );
   const paraguayGermanyChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
   await latestKnockoutChineseCheck.page.locator('[data-match-id="match-75-round-of-32-2026-06-29"]').click();
+  await latestKnockoutChineseCheck.page.waitForFunction(
+    () => {
+      const text = document.querySelector("#match-info")?.innerText || "";
+      return (
+        /摩洛哥\s*在\s*1-1\s*战平后通过点球击败\s*荷兰。/.test(text) &&
+        text.includes("加克波第72分钟打破僵局")
+      );
+    },
+    null,
+    { timeout: 10_000 }
+  );
   const moroccoNetherlandsChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
   const knockoutChineseDetailText = `${paraguayGermanyChineseDetail} ${moroccoNetherlandsChineseDetail}`.replace(/\s+/g, " ");
   assert(
