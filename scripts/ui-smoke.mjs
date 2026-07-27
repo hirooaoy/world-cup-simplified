@@ -3883,6 +3883,14 @@ try {
   );
 
   await page.locator('[data-match-id="match-100-quarter-final-2026-07-11"]').click();
+  await page.waitForFunction(() => {
+    const row = document.querySelector('[data-match-id="match-100-quarter-final-2026-07-11"]');
+    const stories = [...document.querySelectorAll("#match-info .result-story-highlights li")]
+      .map((item) => item.innerText.replace(/\s+/g, " ").trim());
+
+    return row?.classList.contains("is-selected") &&
+      stories[0] === "麦卡利斯特开场阶段接梅西角球头球破门，阿根廷取得控制权，但瑞士随后把四分之一决赛拖进硬仗。";
+  });
   const argentinaSwitzerlandRenderedStories = await page
     .locator("#match-info .result-story-highlights li")
     .evaluateAll((items) => items.map((item) => item.innerText.replace(/\s+/g, " ").trim()));
@@ -17351,6 +17359,18 @@ try {
   await ballBoyInput.fill("Tell me about Haaland");
   await ballBoySend.click();
   await touchPage.getByRole("heading", { name: "Erling Haaland" }).waitFor({ state: "visible" });
+  await touchPage.waitForFunction(async () => {
+    const conversation = document.querySelector("#scout-conversation");
+    if (!conversation) return false;
+    const positions = [];
+    for (let index = 0; index < 4; index += 1) {
+      positions.push(conversation.scrollTop);
+      await new Promise((resolve) => window.requestAnimationFrame(resolve));
+    }
+    return positions.every((position, index) =>
+      index === 0 ? true : Math.abs(position - positions[index - 1]) < 0.5
+    );
+  });
   const haalandBallBoyMetrics = await touchPage.evaluate((birthDate) => {
     const conversation = document.querySelector("#scout-conversation");
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
