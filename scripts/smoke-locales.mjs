@@ -345,24 +345,32 @@ const historical2022TimelineContracts = Object.freeze({
   en: {
     heading: "See you next time",
     lead: "Canada, Mexico, and the United States will stage the first 48-team World Cup and the first hosted by three countries.",
+    metaTitle: "2022 World Cup awards and highlights | World Cup Simplified",
+    ogTitle: "2022 World Cup awards and highlights",
     dates: ["13 Jun 2018", "5 Dec 2025", "11 Jun 2026"],
     titles: ["Three hosts have their places", "The groups are drawn", "The 2026 World Cup begins"]
   },
   zh: {
     heading: "下次见",
     lead: "加拿大、墨西哥和美国将共同举办首届48队世界杯，也是首次由三个国家共同主办。",
+    metaTitle: "2022年世界杯奖项与亮点 | 世界杯简明指南",
+    ogTitle: "2022年世界杯奖项与亮点",
     dates: ["2018年6月13日", "2025年12月5日", "2026年6月11日"],
     titles: ["三个东道主已锁定席位", "小组抽签", "2026年世界杯开幕"]
   },
   es: {
     heading: "Nos vemos la próxima vez",
     lead: "Canadá, México y Estados Unidos albergarán el primer Mundial de 48 selecciones y el primero organizado por tres países.",
+    metaTitle: "Premios y momentos destacados del Mundial 2022 | Mundial simplificado",
+    ogTitle: "Premios y momentos destacados del Mundial 2022",
     dates: ["13 jun 2018", "5 dic 2025", "11 jun 2026"],
     titles: ["Tres anfitriones tienen su lugar", "Se sortean los grupos", "Comienza el Mundial de 2026"]
   },
   ko: {
     heading: "다음에 또 만나요",
     lead: "캐나다·멕시코·미국이 사상 첫 48개 팀 월드컵이자 세 나라가 공동 개최하는 첫 대회를 연다.",
+    metaTitle: "2022 월드컵 수상 및 하이라이트 | 월드컵 한눈에",
+    ogTitle: "2022 월드컵 수상 및 하이라이트",
     dates: ["2018년 6월 13일", "2025년 12월 5일", "2026년 6월 11일"],
     titles: ["세 개최국은 이미 본선에 진출했다", "조 추첨이 열린다", "2026 월드컵 개막"]
   }
@@ -1661,6 +1669,9 @@ async function assertHighlightsLocales(browser) {
       markerLabels: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-marker i"), (node) =>
         node.textContent.trim()
       ),
+      metaTitle: document.title,
+      ogTitle: document.querySelector('meta[property="og:title"]')?.content || "",
+      twitterTitle: document.querySelector('meta[name="twitter:title"]')?.content || "",
       stateClasses: Array.from(document.querySelectorAll(".next-world-cup-timeline .timeline-item"), (item) =>
         ["is-complete", "is-pending", "is-scheduled", "is-final"].filter((className) => item.classList.contains(className))
       ),
@@ -1673,10 +1684,13 @@ async function assertHighlightsLocales(browser) {
         historicalTimeline.lead === historicalTimelineContract.lead &&
         JSON.stringify(historicalTimeline.dates) === JSON.stringify(historicalTimelineContract.dates) &&
         JSON.stringify(historicalTimeline.titles) === JSON.stringify(historicalTimelineContract.titles) &&
+        historicalTimeline.metaTitle === historicalTimelineContract.metaTitle &&
+        historicalTimeline.ogTitle === historicalTimelineContract.ogTitle &&
+        historicalTimeline.twitterTitle === historicalTimelineContract.ogTitle &&
         JSON.stringify(historicalTimeline.stateClasses) === JSON.stringify([["is-complete"], ["is-complete"], ["is-complete"]]) &&
         JSON.stringify(historicalTimeline.markerLabels) === JSON.stringify(["✓", "✓", "✓"]) &&
         !historicalTimeline.hasArchivedNextLink,
-      `${locale.code}: the 2022 highlights page should show the researched, localized 2026 preview with three completed milestones. Measured ${JSON.stringify(historicalTimeline)}.`
+      `${locale.code}: the 2022 highlights page should show the researched, localized 2026 preview and metadata with three completed milestones. Measured ${JSON.stringify(historicalTimeline)}.`
     );
     const historicalStorySurface = await page.evaluate(async ({ language, expectedTitle }) => {
       const sourcePath = language === "en"

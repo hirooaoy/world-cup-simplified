@@ -3269,19 +3269,25 @@ function auditPlayerNames(
     providerCoverage,
     transliterations: playerNameTransliterations
   });
+  const expectedCurrentPlayerNameModule = {
+    ...getExpectedPlayerNameModule(language, entries, currentScopeNames),
+    ...providerTranslations
+  };
+  const expectedArchivePlayerNameModule = getExpectedPlayerNameModule(language, entries, archiveScopeNames);
+  const expectedTrimmedArchivePlayerNameModule = Object.fromEntries(
+    Object.entries(expectedArchivePlayerNameModule)
+      .filter(([name, translation]) => expectedCurrentPlayerNameModule[name] !== translation)
+  );
   auditGeneratedPlayerNameModule(
     language,
     "current",
-    {
-      ...getExpectedPlayerNameModule(language, entries, currentScopeNames),
-      ...providerTranslations
-    },
+    expectedCurrentPlayerNameModule,
     nameTranslations.current
   );
   auditGeneratedPlayerNameModule(
     language,
     "archive",
-    getExpectedPlayerNameModule(language, entries, archiveScopeNames),
+    expectedTrimmedArchivePlayerNameModule,
     nameTranslations.archive
   );
 

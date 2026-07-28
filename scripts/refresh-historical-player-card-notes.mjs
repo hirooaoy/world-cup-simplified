@@ -466,6 +466,80 @@ function chooseZhVariant(profile, bucket, variants) {
   return variants[stableHash(seed) % variants.length]();
 }
 
+const FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS = new Set([
+  "Grzegorz Lato / Poland / 1974",
+  "Hristo Stoichkov / Bulgaria / 1994",
+  "Leônidas / Brazil / 1938",
+  "Gary Lineker / England / 1986",
+  "Karl-Heinz Rummenigge / West Germany / 1982",
+  "Johan Neeskens / Netherlands / 1974",
+  "Teófilo Cubillas / Peru / 1970",
+  "Max Morlock / West Germany / 1954",
+  "Dražan Jerković / Yugoslavia / 1962",
+  "Telmo Zarra / Spain / 1950",
+  "Olivier Giroud / France / 2022",
+  "Gary Lineker / England / 1990",
+  "Emilio Butragueño / Spain / 1986",
+  "Leopoldo Luque / Argentina / 1978",
+  "Rob Rensenbrink / Netherlands / 1978",
+  "Agne Simonsson / Sweden / 1958",
+  "Vavá / Brazil / 1958",
+  "Silvio Piola / Italy / 1938",
+  "Oldřich Nejedlý / Czechoslovakia / 1934",
+  "Gheorghe Hagi / Romania / 1994",
+  "Tomas Brolin / Sweden / 1994",
+  "Teófilo Cubillas / Peru / 1978",
+  "Leonel Sánchez / Chile / 1962",
+  "Valentin Ivanov / Soviet Union / 1962",
+  "Kurt Hamrin / Sweden / 1958",
+  "Hans Schäfer / West Germany / 1954",
+  "Nándor Hidegkuti / Hungary / 1954",
+  "Neymar / Brazil / 2014",
+  "Dennis Bergkamp / Netherlands / 1998",
+  "Andreas Brehme / West Germany / 1990",
+  "Jan Ceulemans / Belgium / 1986",
+  "Falcão / Brazil / 1982",
+  "Rivellino / Brazil / 1974",
+  "Amarildo / Brazil / 1962",
+  "Flórián Albert / Hungary / 1962",
+  "Oscar Míguez / Uruguay / 1950",
+  "Angelo Schiavio / Italy / 1934",
+  "Luis Suárez / Uruguay / 2010",
+  "Michael Ballack / Germany / 2002",
+  "Brian Laudrup / Denmark / 1998"
+]);
+
+function buildFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
+  if (!FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.has(profile.profileKey)) return null;
+
+  const name = profile.displayName || profile.name;
+  const edition = profile.tournamentYear || "this tournament";
+  const variantIndex = stableHash(profile.profileKey) % 3;
+  const english = supportRelation === "reinforces-headline"
+    ? [
+        `For ${name} in ${edition}, start with ${primary.en}. ${name} ${first.en}. The same idea appears when he ${second.en}.`,
+        `To follow ${name} in ${edition}, begin with ${primary.en}. He ${first.en}. The same thread continues in another phase when he ${second.en}.`,
+        `Watch the ${edition} details around ${name}: ${primary.en}. He ${first.en}. The same idea matters when he ${second.en}.`
+      ][variantIndex]
+    : [
+        `For ${name} in ${edition}, start with ${primary.en}. Notice how he ${first.en}. Separately, he ${second.en}.`,
+        `The first thing to track with ${name} in ${edition} is ${primary.en}. Notice how he ${first.en}. Beyond that, he ${second.en}.`,
+        `To follow ${name} in ${edition}, start with ${primary.en}. Look at how he ${first.en}. Also note how he ${second.en}.`
+      ][variantIndex];
+  const chinese = supportRelation === "reinforces-headline"
+    ? [
+        `${edition}年的${name}，观察重点是${primary.zh}。观察他如何${first.zh}。这一特点也能从下一项动作看出：他会${second.zh}。`,
+        `观察${edition}年的${name}时，重点是${primary.zh}。他会${first.zh}。换一个阶段，同样可以看到他会${second.zh}。`,
+        `理解${edition}年的${name}的场上工作，重点是${primary.zh}。观察他如何${first.zh}。同样可以看到他会${second.zh}。`
+      ][variantIndex]
+    : [
+        `${edition}年的${name}，观察重点是${primary.zh}。观察他如何${first.zh}。另外，他会${second.zh}。`,
+        `观察${edition}年的${name}时，可以留意${primary.zh}。一处细节是：他会${first.zh}。除此之外，他会${second.zh}。`,
+        `要理解${edition}年的${name}的场上任务，可以观察${primary.zh}。第一处动作是：他会${first.zh}。另一项责任是${second.zh}。`
+      ][variantIndex];
+  return { english, chinese };
+}
+
 const GENERIC_ROLE_SKILL_REPLACEMENTS = new Map([
   ["Goalkeeper", "Shot stopping"],
   ["Defender", "Physical duels"],
@@ -3801,8 +3875,15 @@ function buildEvergreenStyleCopy(profile, fact, { reservedPlayerStructures, rese
     throw new Error(`Unable to find a unique Chinese historical style-note shape for ${profile.profileKey}`);
   }
   const variantIndex = selectedZhIndex % variants.length;
-  const note = variants[variantIndex];
-  const styleNoteZh = introducePlayerInChineseStyle(variantsZh[selectedZhIndex], profile);
+  const polishedCopy = buildFocusedHistoricalStylePolish(
+    profile,
+    primary,
+    first,
+    second,
+    semantics.supportRelation
+  );
+  const note = polishedCopy?.english || variants[variantIndex];
+  const styleNoteZh = polishedCopy?.chinese || introducePlayerInChineseStyle(variantsZh[selectedZhIndex], profile);
   reservedZhNotes?.add(cleanNoteZh(styleNoteZh));
   usedPlayerStructures?.add([
     primary.id,

@@ -935,16 +935,43 @@ function getBestXiEditionTitle() {
   })[currentLanguage] || `Best XI of ${activeEdition}`;
 }
 
+function getHistoricalMetadataText(historicalEdition) {
+  const championName = localizeEntity("teams", historicalEdition.champion) || historicalEdition.champion;
+  const spanishChampionNoun = SPANISH_FEMININE_CHAMPION_TEAMS.has(historicalEdition.champion)
+    ? "título"
+    : "campeonato";
+  const title = ({
+    en: `${activeEdition} World Cup awards and highlights | World Cup Simplified`,
+    es: `Premios y momentos destacados del Mundial ${activeEdition} | Mundial simplificado`,
+    ko: `${activeEdition} 월드컵 수상 및 하이라이트 | 월드컵 한눈에`,
+    zh: `${activeEdition}年世界杯奖项与亮点 | 世界杯简明指南`
+  })[currentLanguage] || `${activeEdition} World Cup awards and highlights | World Cup Simplified`;
+  const shortTitle = ({
+    en: `${activeEdition} World Cup awards and highlights`,
+    es: `Premios y momentos destacados del Mundial ${activeEdition}`,
+    ko: `${activeEdition} 월드컵 수상 및 하이라이트`,
+    zh: `${activeEdition}年世界杯奖项与亮点`
+  })[currentLanguage] || `${activeEdition} World Cup awards and highlights`;
+  const description = ({
+    en: `${historicalEdition.champion}'s ${activeEdition} title, our researched editorial Best XI, the official awards, and three tournament stories worth remembering.`,
+    es: `El ${spanishChampionNoun} de ${championName} en ${activeEdition}, nuestro Mejor XI editorial investigado, los premios oficiales y tres historias del torneo para recordar.`,
+    ko: `${championName}의 ${activeEdition}년 우승, 리서치 기반 편집 베스트 11, 공식 수상과 기억할 만한 세 가지 대회 이야기를 정리했습니다.`,
+    zh: `回顾${championName}的${activeEdition}年世界杯冠军、编辑部研究评选的最佳阵容、官方奖项和三段值得记住的赛事故事。`
+  })[currentLanguage] || `${historicalEdition.champion}'s ${activeEdition} title, our researched editorial Best XI, the official awards, and three tournament stories worth remembering.`;
+  return { description, shortTitle, title };
+}
+
 function updateMetadata() {
   if (activeEdition !== 2026) {
     const historicalEdition = HISTORICAL_HIGHLIGHTS.editions[activeEdition];
-    const title = `${activeEdition} World Cup awards and highlights | World Cup Simplified`;
-    const description = `${historicalEdition.champion}'s ${activeEdition} title, our researched editorial Best XI, the official awards, and three tournament stories worth remembering.`;
+    const metadata = getHistoricalMetadataText(historicalEdition);
+    const title = metadata.title;
+    const description = metadata.description;
     document.title = title;
     getElement("meta-description")?.setAttribute("content", description);
-    getElement("og-title")?.setAttribute("content", `${activeEdition} World Cup awards and highlights`);
+    getElement("og-title")?.setAttribute("content", metadata.shortTitle);
     getElement("og-description")?.setAttribute("content", description);
-    getElement("twitter-title")?.setAttribute("content", `${activeEdition} World Cup awards and highlights`);
+    getElement("twitter-title")?.setAttribute("content", metadata.shortTitle);
     getElement("twitter-description")?.setAttribute("content", description);
     return;
   }

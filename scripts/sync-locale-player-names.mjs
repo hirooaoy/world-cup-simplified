@@ -440,12 +440,20 @@ for (const language of ["es", "ko"]) {
     providerCoverage,
     transliterations
   });
+  let currentScopedTranslations = {};
   for (const scope of ["current", "archive"]) {
     const scopedTranslations = Object.fromEntries(
       Object.entries(translations[language]).filter(([name]) => scopeNames[scope].has(name))
     );
     if (scope === "current") {
       Object.assign(scopedTranslations, providerTranslations);
+      currentScopedTranslations = scopedTranslations;
+    } else {
+      for (const [name, translation] of Object.entries(scopedTranslations)) {
+        if (currentScopedTranslations[name] === translation) {
+          delete scopedTranslations[name];
+        }
+      }
     }
     writeOrCheck(
       outputPaths[language][scope],

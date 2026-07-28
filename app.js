@@ -4660,20 +4660,51 @@ function normalizeEnglishOutcomeTerminology(value) {
     .replace(/\btight draw\b/g, "tight tie");
 }
 
+const localizedEntityMatcherCache = new WeakMap();
+
+function getLocalizedEntityMatcher(translationMap) {
+  if (!translationMap || typeof translationMap !== "object") {
+    return null;
+  }
+
+  const cached = localizedEntityMatcherCache.get(translationMap);
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  const entries = Object.entries(translationMap)
+    .filter(([source, translation]) => source && translation)
+    .sort((a, b) => b[0].length - a[0].length);
+  if (!entries.length) {
+    localizedEntityMatcherCache.set(translationMap, null);
+    return null;
+  }
+
+  const matcher = {
+    pattern: new RegExp(entries.map(([source]) => escapeRegExp(source)).join("|"), "g"),
+    translationsBySource: new Map(entries)
+  };
+  localizedEntityMatcherCache.set(translationMap, matcher);
+  return matcher;
+}
+
 function replaceKnownLocalizedEntities(value, translationMap) {
   const text = String(value ?? "");
 
-  if (currentLanguage !== "zh" || !text) {
+  if (currentLanguage !== "zh" || !text || !/\p{Script=Latin}/u.test(text)) {
     return text;
   }
 
-  return Object.entries(translationMap)
-    .sort((a, b) => b[0].length - a[0].length)
-    .reduce(
-      (output, [source, translation]) =>
-        output.replace(new RegExp(escapeRegExp(source), "g"), translation),
-      text
-	    );
+  const matcher = getLocalizedEntityMatcher(translationMap);
+  if (!matcher) {
+    return text;
+  }
+
+  matcher.pattern.lastIndex = 0;
+  return text.replace(
+    matcher.pattern,
+    (source) => matcher.translationsBySource.get(source) || source
+  );
 }
 
 let zhInlineEntityTranslations = null;
