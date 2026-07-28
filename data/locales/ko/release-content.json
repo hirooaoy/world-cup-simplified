@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "809890bdfad71b2ca328fd11d72ee0f52c5eeeb6e1333690d8d6bfe7dcf5261c",
+  "sourceFingerprint": "f228181a999017f0f6f9c1f6d0b3172df15ab231018d256f1190a16e913b3525",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Faster historical archive loading": "더 빨라진 역사 아카이브 로딩",
-    "Historical Highlights now loads one edition at a time instead of every World Cup at once.": "역대 하이라이트는 이제 모든 월드컵을 한 번에 받지 않고 한 대회씩 불러옵니다.",
-    "Home now avoids downloading the full historical archive until an archive view needs it.": "홈은 이제 아카이브 화면이 필요할 때까지 전체 역사 아카이브를 다운로드하지 않습니다.",
-    "New budget, writing, and smoke checks guard loading speed and player-card quality.": "새 예산, 문안, 스모크 검사가 로딩 속도와 선수 카드 품질을 지킵니다."
+    "Chinese home loading avoids repeated entity matching, cutting the profiled long task from about 430 ms to about 124 ms.": "중국어 홈 로딩은 반복적인 엔티티 매칭을 피해 측정된 긴 작업을 약 430ms에서 약 124ms로 줄였습니다.",
+    "Forty high-attention historical player cards now have edition-specific style notes.": "주목도가 높은 역사 선수 카드 40장에 이제 해당 대회에 맞춘 스타일 노트가 들어갑니다.",
+    "Historical Highlights now uses localized browser and sharing titles across supported languages.": "역대 하이라이트는 이제 지원 언어에서 브라우저 제목과 공유 제목을 현지화해 표시합니다.",
+    "Smoother historical highlights and player cards": "더 매끄러워진 역사 하이라이트와 선수 카드"
   }
 }

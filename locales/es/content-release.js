@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "809890bdfad71b2ca328fd11d72ee0f52c5eeeb6e1333690d8d6bfe7dcf5261c"
+  "sourceFingerprint": "f228181a999017f0f6f9c1f6d0b3172df15ab231018d256f1190a16e913b3525"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Faster historical archive loading": "Carga más rápida del archivo histórico",
-  "Historical Highlights now loads one edition at a time instead of every World Cup at once.": "Los Highlights históricos ahora cargan una edición a la vez, no todos los Mundiales de golpe.",
-  "Home now avoids downloading the full historical archive until an archive view needs it.": "El inicio ya no descarga todo el archivo histórico hasta que una vista de archivo lo necesita.",
-  "New budget, writing, and smoke checks guard loading speed and player-card quality.": "Nuevas comprobaciones de presupuesto, redacción y smoke protegen la velocidad y la calidad de las fichas."
+  "Chinese home loading avoids repeated entity matching, cutting the profiled long task from about 430 ms to about 124 ms.": "La carga del inicio en chino evita repetir el emparejamiento de entidades y reduce la tarea larga medida de unos 430 ms a unos 124 ms.",
+  "Forty high-attention historical player cards now have edition-specific style notes.": "Cuarenta fichas históricas de alta atención ahora tienen notas de estilo específicas de su edición.",
+  "Historical Highlights now uses localized browser and sharing titles across supported languages.": "Highlights históricos ahora usa títulos de navegador y de compartir localizados en los idiomas admitidos.",
+  "Smoother historical highlights and player cards": "Highlights históricos y fichas de jugador más fluidos"
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

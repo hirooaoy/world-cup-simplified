@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-27T16:35:00-07:00",
+  "updatedAt": "2026-07-28T09:35:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-28",
+      "title": "Smoother historical highlights and player cards",
+      "titleZh": "历史亮点与球员卡更顺畅",
+      "highlights": [
+        "Historical Highlights now uses localized browser and sharing titles across supported languages.",
+        "Chinese home loading avoids repeated entity matching, cutting the profiled long task from about 430 ms to about 124 ms.",
+        "Forty high-attention historical player cards now have edition-specific style notes."
+      ],
+      "highlightsZh": [
+        "历史亮点页现在会在支持的语言中使用本地化的浏览器标题与分享标题。",
+        "中文首页加载现在会避免重复的实体匹配，实测长任务从约430毫秒降至约124毫秒。",
+        "40张高关注度历史球员卡现加入贴合当届赛事的风格说明。"
+      ]
+    },
     {
       "date": "2026-07-27",
       "title": "Faster historical archive loading",
