@@ -466,7 +466,7 @@ function chooseZhVariant(profile, bucket, variants) {
   return variants[stableHash(seed) % variants.length]();
 }
 
-const FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS = new Set([
+const FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS = new Set([
   "Grzegorz Lato / Poland / 1974",
   "Hristo Stoichkov / Bulgaria / 1994",
   "Leônidas / Brazil / 1938",
@@ -509,8 +509,60 @@ const FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS = new Set([
   "Brian Laudrup / Denmark / 1998"
 ]);
 
-function buildFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
-  if (!FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.has(profile.profileKey)) return null;
+const SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS = new Set([
+  "Pelé / Brazil / 1962",
+  "Diego Maradona / Argentina / 1994",
+  "Cristiano Ronaldo / Portugal / 2006",
+  "Cristiano Ronaldo / Portugal / 2010",
+  "Cristiano Ronaldo / Portugal / 2014",
+  "Miroslav Klose / Germany / 2010",
+  "Roberto Baggio / Italy / 1990",
+  "Roberto Baggio / Italy / 1998",
+  "Franz Beckenbauer / West Germany / 1970",
+  "Jairzinho / Brazil / 1974",
+  "Mario Kempes / Argentina / 1974",
+  "Sócrates / Brazil / 1986",
+  "Michel Platini / France / 1978",
+  "Michel Platini / France / 1982",
+  "Lothar Matthäus / West Germany / 1986",
+  "Lothar Matthäus / Germany / 1994",
+  "Roger Milla / Cameroon / 1982",
+  "Roger Milla / Cameroon / 1990",
+  "Roger Milla / Cameroon / 1994",
+  "Davor Šuker / Croatia / 2002",
+  "Xavi / Spain / 2002",
+  "Andrés Iniesta / Spain / 2014",
+  "Andrés Iniesta / Spain / 2018",
+  "David Villa / Spain / 2014",
+  "Wesley Sneijder / Netherlands / 2014",
+  "Thomas Müller / Germany / 2018",
+  "Antoine Griezmann / France / 2014",
+  "Antoine Griezmann / France / 2022",
+  "Bobby Charlton / England / 1958",
+  "Bobby Charlton / England / 1962",
+  "Geoff Hurst / England / 1970",
+  "Garrincha / Brazil / 1966",
+  "Zico / Brazil / 1978",
+  "Careca / Brazil / 1986",
+  "Careca / Brazil / 1990",
+  "Gabriel Batistuta / Argentina / 1994",
+  "Gabriel Batistuta / Argentina / 1998",
+  "Gabriel Batistuta / Argentina / 2002",
+  "Jürgen Klinsmann / Germany / 1994",
+  "Jürgen Klinsmann / Germany / 1998"
+]);
+
+const FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS = new Set([
+  ...FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS,
+  ...SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS
+]);
+
+if (SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.size !== 40) {
+  throw new Error("Second focused historical style polish batch must contain exactly 40 player cards.");
+}
+
+function buildFirstFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
+  if (!FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.has(profile.profileKey)) return null;
 
   const name = profile.displayName || profile.name;
   const edition = profile.tournamentYear || "this tournament";
@@ -538,6 +590,64 @@ function buildFocusedHistoricalStylePolish(profile, primary, first, second, supp
         `要理解${edition}年的${name}的场上任务，可以观察${primary.zh}。第一处动作是：他会${first.zh}。另一项责任是${second.zh}。`
       ][variantIndex];
   return { english, chinese };
+}
+
+function buildSecondFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
+  if (!SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.has(profile.profileKey)) return null;
+
+  const name = profile.displayName || profile.name;
+  const short = shortName(profile);
+  const sentenceName = upperFirst(short);
+  const edition = profile.tournamentYear || "this tournament";
+  const variantIndex = stableHash(`${profile.profileKey}:focused-style-batch-2`) % 8;
+  const english = supportRelation === "reinforces-headline"
+    ? [
+        `${possessive(name)} ${edition} profile is built around ${primary.en}. ${sentenceName} ${first.en}. The same thread continues when he ${second.en}.`,
+        `For ${name} in ${edition}, the cue is ${primary.en}. One clue is how he ${first.en}. Another clue is how he ${second.en}.`,
+        `${name} in ${edition} is easiest to follow through ${primary.en}. He ${first.en}. That pattern returns when he ${second.en}.`,
+        `The practical lens for ${name} in ${edition} is ${primary.en}. Track how he ${first.en}. The same reading returns when he ${second.en}.`,
+        `${possessive(name)} ${edition} role is built around ${primary.en}. One marker is how he ${first.en}. The same quality appears when he ${second.en}.`,
+        `For this ${edition} version of ${name}, ${primary.en} is the thread. ${sentenceName} ${first.en}. The same thread continues when he ${second.en}.`,
+        `Watch ${name} in ${edition} for ${primary.en}. One clue is how he ${first.en}. Another appears when he ${second.en}.`,
+        `${name} gives this ${edition} profile its shape through ${primary.en}. One clue is how he ${first.en}. Another clue is how he ${second.en}.`
+      ][variantIndex]
+    : [
+        `${possessive(name)} ${edition} profile is built around ${primary.en}. ${sentenceName} ${first.en}. Separately, he ${second.en}.`,
+        `For ${name} in ${edition}, first look at ${primary.en}. One detail is how he ${first.en}. A separate responsibility is how he ${second.en}.`,
+        `${name} in ${edition} is useful to watch for ${primary.en}. He ${first.en}. In a separate phase, he ${second.en}.`,
+        `The practical lens for ${name} in ${edition} is ${primary.en}. Track how he ${first.en}. Beyond that, he ${second.en}.`,
+        `${possessive(name)} ${edition} role starts from ${primary.en}. One marker is how he ${first.en}. A different clue is how he ${second.en}.`,
+        `For this ${edition} version of ${name}, look for ${primary.en}. ${sentenceName} ${first.en}. Separately, he ${second.en}.`,
+        `Watch ${name} in ${edition} for ${primary.en}. One detail is how he ${first.en}. Another responsibility is how he ${second.en}.`,
+        `${name} gives this ${edition} profile its shape through ${primary.en}. One detail is how he ${first.en}. Beyond that, he ${second.en}.`
+      ][variantIndex];
+  const chinese = supportRelation === "reinforces-headline"
+    ? [
+        `${edition}年的${name}，先看${primary.zh}。他会${first.zh}。同一特点也能从另一项动作看出：他会${second.zh}。`,
+        `理解${name}在${edition}年的这张卡，先看${primary.zh}。第一处线索是他会${first.zh}。相同线索也来自他会${second.zh}。`,
+        `${edition}年的${name}，重点可以落在${primary.zh}。他会${first.zh}。同一思路也延续到另一项动作：他会${second.zh}。`,
+        `看${name}在${edition}年的场上工作，实用切入点是${primary.zh}。可以追踪他如何${first.zh}。同一特点也体现在另一项动作中：他会${second.zh}。`,
+        `${name}在${edition}年的角色围绕${primary.zh}展开。一个标记是他会${first.zh}。同样可以看到他会${second.zh}。`,
+        `这个${edition}年的${name}，主线是${primary.zh}。他会${first.zh}。这一特点也延续到他会${second.zh}。`,
+        `进入${name}在${edition}年的场上任务，最清楚的方式是看${primary.zh}。观察他如何${first.zh}。同一特点也体现在他会${second.zh}。`,
+        `${name}让这张${edition}年的卡围绕${primary.zh}展开。一个线索是他会${first.zh}。相同线索是他会${second.zh}。`
+      ][variantIndex]
+    : [
+        `${edition}年的${name}，清楚的任务是${primary.zh}。他会${first.zh}。另外，他会${second.zh}。`,
+        `理解${name}在${edition}年的这张卡，可以留意${primary.zh}。一处细节是他会${first.zh}。另外，他会${second.zh}。`,
+        `${edition}年的${name}，适合观察${primary.zh}。他会${first.zh}。在另一部分，他会${second.zh}。`,
+        `看${name}在${edition}年的实用切入点是${primary.zh}。可以追踪他如何${first.zh}。除此之外，他会${second.zh}。`,
+        `${name}在${edition}年的角色先看${primary.zh}。一个标记是他会${first.zh}。另一项责任是${second.zh}。`,
+        `这个${edition}年的${name}，可以留意${primary.zh}。他会${first.zh}。另外，他会${second.zh}。`,
+        `进入${name}在${edition}年的场上任务，第一步是看${primary.zh}。观察他如何${first.zh}。另一项责任是${second.zh}。`,
+        `${name}让这张${edition}年的卡围绕${primary.zh}展开。一个线索是他会${first.zh}。另一处表现是他会${second.zh}。`
+      ][variantIndex];
+  return { english, chinese };
+}
+
+function buildFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
+  return buildFirstFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation)
+    || buildSecondFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation);
 }
 
 const GENERIC_ROLE_SKILL_REPLACEMENTS = new Map([
