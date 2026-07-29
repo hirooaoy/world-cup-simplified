@@ -54664,6 +54664,8 @@
       "club": "Barcelona",
       "league": "La Liga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ferran%20Torres%20Garc%C3%ADa.png?width=160",
+      "imageObjectPosition": "center 0%",
+      "imageScale": 1.18,
       "skills": [
         "Penalty-box timing",
         "Wide-to-inside runs",

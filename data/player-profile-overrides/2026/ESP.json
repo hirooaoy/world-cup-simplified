@@ -485,6 +485,8 @@
     },
     "Ferran Torres": {
       "transfermarktPlayerCode": "ferran-torres",
+      "imageObjectPosition": "center 0%",
+      "imageScale": 1.18,
       "skills": [
         "Penalty-box timing",
         "Wide-to-inside runs",

@@ -75,8 +75,9 @@ import {
   formatPlayerTournamentStatsLine,
   formatPlayerPosition as formatSharedPlayerPosition,
   getPlayerCardWorldCupReferenceDate,
-  getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-21-hide-zero-tournament-stats-1";
+  getPlayerCardUniformNumber,
+  getPlayerPhotoStyle
+} from "./player-card-ui.js?v=2026-07-28-player-photo-crop-1";
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_CONFIGS = Object.freeze(
   Object.fromEntries(getSupportedLanguages().map((config) => [config.code, config]))
@@ -24274,11 +24275,13 @@ function renderPlayerPhoto(player, profile, options = {}) {
 
   if (profile?.imageUrl) {
     const fallbackImageUrl = getWikimediaPlayerImageFallbackUrl(profile.imageUrl);
+    const imageStyle = getPlayerPhotoStyle(profile);
     return `
       <span class="player-photo-fallback" aria-hidden="true">${escapeHtml(initials)}</span>
       <img
         src="${escapeHtml(profile.imageUrl)}"
         alt=""
+        ${imageStyle ? `style="${escapeHtml(imageStyle)}"` : ""}
         data-player-initials="${escapeHtml(initials)}"
         data-player-image-original-url="${escapeHtml(profile.imageUrl)}"
         ${fallbackImageUrl ? `data-player-image-fallback-url="${escapeHtml(fallbackImageUrl)}"` : ""}

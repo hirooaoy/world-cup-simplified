@@ -17228,7 +17228,7 @@ try {
   assert(
     JSON.stringify(initialBallBoyPrompts) === JSON.stringify([
       "Explain offside",
-      "Who won the 2026 World Cup?",
+      "Who won?",
       "How does Argentina play?",
       "Report issue"
     ]) &&
@@ -18151,6 +18151,31 @@ try {
     `Ball Boy's World Cup history answers should keep useful, non-repeated follow-ups without overflowing. Measured ${JSON.stringify(worldCupHistoryMetrics)}.`
   );
 
+  for (const [question, expected] of [
+    ["When is the next World Cup?", ["2030", "Morocco", "Portugal", "Spain", "Argentina", "Paraguay", "Uruguay", "8-9 June 2030"]],
+    ["Where is the next World Cup?", ["2030", "Morocco", "Portugal", "Spain", "Argentina", "Paraguay", "Uruguay"]]
+  ]) {
+    await touchPage.locator("#scout-reset").click();
+    await ballBoyInput.fill(question);
+    await ballBoySend.click();
+    await touchPage.locator(".scout-answer.is-world-cup-history").waitFor({ state: "visible" });
+    const nextWorldCupMetrics = await touchPage.evaluate(() => {
+      const answer = [...document.querySelectorAll(".scout-answer.is-world-cup-history")].at(-1);
+      return {
+        followUps: answer.querySelectorAll(".scout-followup").length,
+        overflow: answer.scrollWidth - answer.clientWidth,
+        text: answer.querySelector(".scout-answer-lead")?.textContent.trim() || ""
+      };
+    });
+    assert(
+      expected.every((piece) => nextWorldCupMetrics.text.includes(piece)) &&
+        nextWorldCupMetrics.followUps >= 2 &&
+        nextWorldCupMetrics.followUps <= 3 &&
+        nextWorldCupMetrics.overflow <= 1,
+      `Ball Boy should answer "${question}" with the next World Cup timing and host countries. Measured ${JSON.stringify(nextWorldCupMetrics)}.`
+    );
+  }
+
   for (const question of ["Who won the previous World Cup?"]) {
     await touchPage.locator("#scout-reset").click();
     await ballBoyInput.fill(question);
@@ -18188,7 +18213,7 @@ try {
   }
 
   for (const [question, expected] of [
-    ["who won this year", { lead: "Spain won the 2026 World Cup, beating Argentina 1-0 in the final.", score: "1–0", stage: "2026 World Cup final", teams: ["Spain", "Argentina"] }],
+    ["Who won?", { lead: "Spain won the 2026 World Cup, beating Argentina 1-0 in the final.", score: "1–0", stage: "2026 World Cup final", teams: ["Spain", "Argentina"] }],
     ["Who won the last World Cup?", { lead: "Argentina won the 2022 World Cup, beating France 4-2 on penalties after a 3-3 draw.", score: "3–3", stage: "2022 World Cup final", teams: ["Argentina", "France"] }],
     ["Who won the 2018 World Cup?", { lead: "France won the 2018 World Cup, beating Croatia 4-2 in the final.", score: "4–2", stage: "2018 World Cup final", teams: ["France", "Croatia"] }]
   ]) {
@@ -18421,7 +18446,7 @@ try {
       zhBallBoyShell.sendAria === "发送问题" &&
       JSON.stringify(zhBallBoyShell.prompts) === JSON.stringify([
         "解释越位",
-        "2026年世界杯谁赢了？",
+        "谁赢了？",
         "阿根廷怎么踢？",
         "报告问题"
       ]) &&

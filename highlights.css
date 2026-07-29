@@ -523,7 +523,7 @@ html:not([data-theme="dark"]) .best-xi-pitch .lineup-pitch-line.is-spot {
 }
 
 .best-xi-player-card .player-photo img {
-  object-position: center 12%;
+  object-position: var(--player-photo-object-position, center 12%);
 }
 
 .best-xi-player-card[aria-hidden="true"] {

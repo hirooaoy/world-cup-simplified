@@ -64,6 +64,41 @@ export function getPlayerCardUniformNumber(player, profile) {
   return Number.isInteger(number) && number > 0 ? number : null;
 }
 
+export function getPlayerPhotoStyle(profile) {
+  const styleParts = [];
+  const objectPosition = normalizePlayerPhotoObjectPosition(profile?.imageObjectPosition);
+  const scale = normalizePlayerPhotoScale(profile?.imageScale);
+  if (objectPosition) {
+    styleParts.push(`--player-photo-object-position: ${objectPosition}`);
+  }
+  if (scale) {
+    styleParts.push(`--player-photo-scale: ${scale}`);
+  }
+  return styleParts.join("; ");
+}
+
+function normalizePlayerPhotoObjectPosition(value) {
+  const position = String(value || "").trim().replace(/\s+/g, " ");
+  if (!position) {
+    return "";
+  }
+
+  const validToken = /^(?:left|right|top|bottom|center|(?:100|[1-9]?\d)(?:\.\d+)?%)$/;
+  const tokens = position.split(" ");
+  if (tokens.length > 2 || tokens.some((token) => !validToken.test(token))) {
+    return "";
+  }
+  return position;
+}
+
+function normalizePlayerPhotoScale(value) {
+  const scale = Number(value);
+  if (!Number.isFinite(scale) || scale <= 1 || scale > 1.8) {
+    return "";
+  }
+  return String(Math.round(scale * 1000) / 1000);
+}
+
 export function formatPlayerCardWorldCupContext({ year, language = "en" } = {}) {
   const edition = Number(year);
   if (!Number.isInteger(edition) || edition < 1930) {

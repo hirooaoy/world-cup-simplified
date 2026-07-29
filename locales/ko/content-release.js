@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "f228181a999017f0f6f9c1f6d0b3172df15ab231018d256f1190a16e913b3525"
+  "sourceFingerprint": "61574e5182e60b48192f554a89db28f8743cddf2f5c14389149ceda6876dc252"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Chinese home loading avoids repeated entity matching, cutting the profiled long task from about 430 ms to about 124 ms.": "중국어 홈 로딩은 반복적인 엔티티 매칭을 피해 측정된 긴 작업을 약 430ms에서 약 124ms로 줄였습니다.",
-  "Forty high-attention historical player cards now have edition-specific style notes.": "주목도가 높은 역사 선수 카드 40장에 이제 해당 대회에 맞춘 스타일 노트가 들어갑니다.",
-  "Historical Highlights now uses localized browser and sharing titles across supported languages.": "역대 하이라이트는 이제 지원 언어에서 브라우저 제목과 공유 제목을 현지화해 표시합니다.",
-  "Smoother historical highlights and player cards": "더 매끄러워진 역사 하이라이트와 선수 카드"
+  "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.": "Ball Boy는 이제 다음 남자 월드컵이 언제, 어디서 열리는지 답하며 2030년 개최국과 센테너리 경기도 함께 안내합니다.",
+  "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.": "Ball Boy의 첫 추천 질문은 이제 더 짧은 “누가 우승했어?”로 바뀌었고, 여전히 올바른 월드컵 답변으로 연결됩니다.",
+  "Cleaner Ball Boy prompts and player-card surfaces": "더 깔끔해진 Ball Boy 질문과 선수 카드 표면",
+  "Ferran Torres' photo is cropped tighter, and light-mode pills/cards now let a little background color through.": "페란 토레스의 사진은 더 타이트하게 크롭되고, 라이트 모드의 필/선수 카드는 이제 배경색이 조금 비치도록 표시됩니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

@@ -20,8 +20,9 @@ import {
   formatPlayerTournamentStatsLine,
   formatPlayerPosition,
   getPlayerCardWorldCupReferenceDate,
-  getPlayerCardUniformNumber
-} from "./player-card-ui.js?v=2026-07-21-hide-zero-tournament-stats-1";
+  getPlayerCardUniformNumber,
+  getPlayerPhotoStyle
+} from "./player-card-ui.js?v=2026-07-28-player-photo-crop-1";
 import {
   getLanguageConfig,
   getLocaleShellMessages,
@@ -2661,6 +2662,7 @@ function createHighlightPlayerMention(playerName, triggerText = "") {
       <img
         src="${escapeHtml(profile.imageUrl)}"
         alt=""
+        ${getHighlightPlayerPhotoStyleAttribute(profile)}
         loading="lazy"
         decoding="async"
         referrerpolicy="no-referrer"
@@ -2705,6 +2707,11 @@ function createHighlightPlayerMention(playerName, triggerText = "") {
   wrapper.append(trigger, card);
   activateBestXiImages(wrapper);
   return wrapper;
+}
+
+function getHighlightPlayerPhotoStyleAttribute(profile) {
+  const imageStyle = getPlayerPhotoStyle(profile);
+  return imageStyle ? `style="${escapeHtml(imageStyle)}"` : "";
 }
 
 function appendHistoricalIntroCopy(element, copy, introPlayers = []) {
@@ -3829,6 +3836,7 @@ function renderBestXiPlayerCard(playerElement) {
       <img
         src="${escapeHtml(profile.imageUrl)}"
         alt=""
+        ${getHighlightPlayerPhotoStyleAttribute(profile)}
         loading="eager"
         decoding="async"
         referrerpolicy="no-referrer"

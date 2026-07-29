@@ -1399,6 +1399,7 @@ function canonicalizeLocalizedQuestion(value, locale = "en") {
     [/金球奖/g, " golden ball "], [/金靴奖/g, " golden boot "], [/金手套奖/g, " golden glove "],
     [/最佳年轻球员/g, " young player "], [/公平竞赛奖/g, " fair play "],
     [/总结(?:一下)?世界杯|世界杯总结|世界杯回顾/g, " summarize world cup "],
+    [/下一届世界杯(?:在)?(?:哪里|哪儿|什么时候|何时)|(?:哪里|哪儿|什么时候|何时)(?:举办|举行)?下一届世界杯/g, " when where next world cup "],
     [/走了多远|止步哪一轮|最终成绩如何/g, " how far did go "],
     [/谁赢得世界杯最多|谁获得世界杯冠军最多|夺冠次数最多|赢得最多|冠军最多/g, " who won most world cups "],
     [/上届世界杯|上一届世界杯|上一届/g, " previous world cup "],
@@ -4947,6 +4948,28 @@ function getWorldCupHistoryFollowUps(locale = "en") {
   return ["Who won the previous World Cup?", "Who has won the most World Cups?", "When did Brazil last win?"];
 }
 
+function isNextWorldCupInfoQuestion(question) {
+  return /\b(?:when|where|host|hosts|hosting|hosted|take place|held|played)\b/.test(question) &&
+    /\b(?:next world cup|world cup 2030|2030 world cup)\b/.test(question);
+}
+
+function buildNextWorldCupInfoReply(locale = "en") {
+  const localeCode = normalizeBallBoyLocale(locale);
+  const text = isZhLocale(locale)
+    ? "下一届男足世界杯是2030年世界杯。摩洛哥、葡萄牙和西班牙将共同主办，阿根廷、巴拉圭和乌拉圭各承办一场百年纪念赛。FIFA目前的赛程说明把百年纪念赛首场安排在2030年6月8日至9日。"
+    : localeCode === "es"
+      ? "El próximo Mundial masculino es el de 2030. Lo coorganizan Marruecos, Portugal y España, con un partido del centenario en Argentina, Paraguay y Uruguay. El esquema actual de FIFA sitúa esos primeros partidos del 8 al 9 de junio de 2030."
+      : localeCode === "ko"
+        ? "다음 남자 월드컵은 2030 월드컵입니다. 모로코, 포르투갈, 스페인이 공동 개최하고, 아르헨티나, 파라과이, 우루과이가 각각 센테너리 기념 경기 한 경기를 엽니다. FIFA의 현재 일정 개요는 첫 기념 경기를 2030년 6월 8-9일로 안내합니다."
+        : "The next men's World Cup is in 2030. Morocco, Portugal, and Spain will co-host it, with one centenary match each in Argentina, Paraguay, and Uruguay. FIFA's current outline has those first centenary matches on 8-9 June 2030.";
+  return {
+    eye: "double-blink",
+    followUps: getWorldCupHistoryFollowUps(locale),
+    kind: "world-cup-history",
+    text
+  };
+}
+
 async function buildWorldCupHistoryReply(question, core, requestedTeam = null, locale = "en") {
   const intent = getWorldCupHistoryIntent(question, requestedTeam);
   if (!intent) return null;
@@ -5580,6 +5603,9 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
 
   const core = await loadCoreData();
   let teams = findTeamsInQuestion(question);
+  if (isNextWorldCupInfoQuestion(question)) {
+    return buildNextWorldCupInfoReply(locale);
+  }
   const tournamentPostEventReply = await buildTournamentPostEventReply(question, core, teams[0] || null, locale);
   if (tournamentPostEventReply) {
     return tournamentPostEventReply;

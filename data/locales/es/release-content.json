@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "f228181a999017f0f6f9c1f6d0b3172df15ab231018d256f1190a16e913b3525",
+  "sourceFingerprint": "61574e5182e60b48192f554a89db28f8743cddf2f5c14389149ceda6876dc252",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Chinese home loading avoids repeated entity matching, cutting the profiled long task from about 430 ms to about 124 ms.": "La carga del inicio en chino evita repetir el emparejamiento de entidades y reduce la tarea larga medida de unos 430 ms a unos 124 ms.",
-    "Forty high-attention historical player cards now have edition-specific style notes.": "Cuarenta fichas históricas de alta atención ahora tienen notas de estilo específicas de su edición.",
-    "Historical Highlights now uses localized browser and sharing titles across supported languages.": "Highlights históricos ahora usa títulos de navegador y de compartir localizados en los idiomas admitidos.",
-    "Smoother historical highlights and player cards": "Highlights históricos y fichas de jugador más fluidos"
+    "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.": "Ball Boy ahora responde cuándo o dónde es el próximo Mundial masculino, incluidos los anfitriones de 2030 y los partidos del centenario.",
+    "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.": "La primera pregunta sugerida de Ball Boy ahora es el más corto «¿Quién ganó?», pero sigue resolviendo la respuesta correcta del Mundial.",
+    "Cleaner Ball Boy prompts and player-card surfaces": "Prompts de Ball Boy y superficies de fichas más limpias",
+    "Ferran Torres' photo is cropped tighter, and light-mode pills/cards now let a little background color through.": "La foto de Ferran Torres queda más cerrada, y las etiquetas/fichas en modo claro ahora dejan pasar un poco del color de fondo."
   }
 }

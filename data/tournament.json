@@ -3151,10 +3151,10 @@
     {
       "id": "world-cup-2026-final-archive",
       "label": "World Cup 2026 final official snapshot",
-      "url": "data/archives/world-cup-2026-final-2026-07-23T04-22-54-714Z.json",
+      "url": "data/archives/world-cup-2026-final-2026-07-28T18-19-56-355Z.json",
       "type": "official-archive",
-      "checkedAt": "2026-07-23T04:22:54.714Z",
-      "note": "Immutable 104-match archive 2026-final-2026-07-23T04-22-54-714Z; SHA-256 b2c3d91c08580daa7e83c37cefdc12ed1c6625e1d41b376429ea8adb2af7b3c5."
+      "checkedAt": "2026-07-28T18:19:56.355Z",
+      "note": "Immutable 104-match archive 2026-final-2026-07-28T18-19-56-355Z; SHA-256 009983959636ca1c000615b2c0233b2e2ef730db0ca3a8c238027ce356b21340."
     }
   ],
   "groups": [

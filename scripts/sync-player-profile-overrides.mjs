@@ -81,7 +81,7 @@ const dryRun = hasArg("dry-run");
 const rewriteSubstantive = hasArg("rewrite-substantive");
 
 const teamIds = parseList(getArgValue("teams")).map((teamId) => teamId.toUpperCase());
-const fields = parseList(getArgValue("fields") || "skills,note,noteZh,noteMeta");
+const fields = parseList(getArgValue("fields") || "skills,note,noteZh,noteMeta,imageObjectPosition,imageScale");
 
 if (!teamIds.length) {
   console.error(

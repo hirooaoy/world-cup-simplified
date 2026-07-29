@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "edition": 2026,
-  "latestArchiveVersion": "2026-final-2026-07-23T04-22-54-714Z",
-  "updatedAt": "2026-07-23T04:22:54.714Z",
+  "latestArchiveVersion": "2026-final-2026-07-28T18-19-56-355Z",
+  "updatedAt": "2026-07-28T18:19:56.355Z",
   "entries": [
     {
       "archiveVersion": "2026-final-2026-07-20T23-37-05-227Z",
@@ -58,6 +58,14 @@
       "sha256": "b2c3d91c08580daa7e83c37cefdc12ed1c6625e1d41b376429ea8adb2af7b3c5",
       "lateCorrection": true,
       "supersedes": "2026-final-2026-07-21T21-43-20-201Z"
+    },
+    {
+      "archiveVersion": "2026-final-2026-07-28T18-19-56-355Z",
+      "archivedAt": "2026-07-28T18:19:56.355Z",
+      "file": "data/archives/world-cup-2026-final-2026-07-28T18-19-56-355Z.json",
+      "sha256": "009983959636ca1c000615b2c0233b2e2ef730db0ca3a8c238027ce356b21340",
+      "lateCorrection": true,
+      "supersedes": "2026-final-2026-07-23T04-22-54-714Z"
     }
   ]
 }
