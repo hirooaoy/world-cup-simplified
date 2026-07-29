@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-historical-player-copy-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-historical-backlog-copy-1";
 import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
@@ -6,7 +6,7 @@ import {
 } from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
 import { requestLiveDataForActiveEdition } from "./edition-runtime.js?v=2026-07-20-final-cutover-1";
 
-const BALL_BOY_DATA_VERSION = "2026-07-29-historical-player-copy-1";
+const BALL_BOY_DATA_VERSION = "2026-07-29-historical-backlog-copy-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,

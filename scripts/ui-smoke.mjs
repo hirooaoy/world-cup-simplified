@@ -6095,10 +6095,10 @@ try {
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Fenerbahçe") &&
       historicalScorerCardText.includes(
-        "With Valencia, start with finding the inside channel without crowding the central attacker."
+        "Valencia's 2022 role is best kept broad: Ecuador forward, as the later chapter."
       ) &&
       historicalScorerCardText.includes(
-        "He threatens outside before cutting behind midfield."
+        "The record supports a clear 3-goal scoring return, and the safer focus is front-line scoring responsibility."
       ) &&
       historicalScorerCardText.includes("2022 World Cup: 3 goals") &&
       historicalScorerCardText.includes("Age 33") &&
