@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-historical-player-copy-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-manifest-historical-copy-1";
 import { renderFootballInlineHtml } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   HISTORICAL_TEAM_COUNTRY_CODES,
@@ -13,7 +13,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
+} from "./locales/locale-runtime.js?v=2026-07-29-manifest-historical-copy-1";
 import { formatKeyInformation as formatZhKeyInformation } from "./locales/key-information-zh.js?v=2026-07-22-key-information-schema-4";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
@@ -54,7 +54,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-22-player-card-copy-1";
+} from "./app-config.js?v=2026-07-29-manifest-historical-copy-1";
 import {
   isEditionLiveSyncActive,
   requestLiveDataForActiveEdition
@@ -4024,12 +4024,12 @@ const localeContentLoaders = Object.freeze({
   es: Object.freeze({
     current: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
     archive: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-    release: () => import("./locales/es/content-release.js?v=2026-07-21-date-transitions-2")
+    release: () => import("./locales/es/content-release.js?v=2026-07-29-manifest-historical-copy-1")
   }),
   ko: Object.freeze({
     current: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`),
     archive: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-    release: () => import("./locales/ko/content-release.js?v=2026-07-21-date-transitions-2")
+    release: () => import("./locales/ko/content-release.js?v=2026-07-29-manifest-historical-copy-1")
   })
 });
 const localeContentLoadCache = new Map();

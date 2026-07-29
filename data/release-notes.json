@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-28T23:33:01-07:00",
+  "updatedAt": "2026-07-29T13:55:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-29",
+      "title": "Historical player cards reviewed through the manifest",
+      "titleZh": "历史球员卡完成清单式审校",
+      "highlights": [
+        "The remaining 713 high-attention historical player cards now use explicit reviewed English and Chinese copy.",
+        "Recurring players are tracked through a card-level manifest with rationale, evidence fields, and risk flags.",
+        "Spanish and Korean archive overlays now cover the reviewed historical player-card text."
+      ],
+      "highlightsZh": [
+        "剩余713张高关注度历史球员卡现已使用逐卡审校后的英文与中文文案。",
+        "多届参赛球员通过逐卡清单记录审校理由、证据字段与风险标记。",
+        "西班牙语和韩语存档覆盖现已包含这些审校后的历史球员卡文本。"
+      ]
+    },
     {
       "date": "2026-07-28",
       "title": "Cleaner Ball Boy prompts, player cards, and bracket rails",

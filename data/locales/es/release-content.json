@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "cc231a7b4bd78a709184989700faeea72194d95cbef69f1ce0248f6de797836c",
+  "sourceFingerprint": "799947450df8fe53dcb063b87245298bda93600917cd09f2b95d505ddd035e73",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.": "Ball Boy ahora responde cuándo o dónde es el próximo Mundial masculino, incluidos los anfitriones de 2030 y los partidos del centenario.",
-    "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.": "La primera pregunta sugerida de Ball Boy ahora es el más corto «¿Quién ganó?», pero sigue resolviendo la respuesta correcta del Mundial.",
-    "Cleaner Ball Boy prompts, player cards, and bracket rails": "Prompts de Ball Boy, fichas y líneas del cuadro más limpios",
-    "Ferran Torres' tighter crop, glassier light-mode cards, and direct Tournament connector rails now land immediately.": "El recorte más cerrado de Ferran Torres, las fichas más translúcidas en modo claro y las líneas directas del Torneo ya cargan al instante."
+    "Historical player cards reviewed through the manifest": "Fichas históricas revisadas con el manifiesto",
+    "Recurring players are tracked through a card-level manifest with rationale, evidence fields, and risk flags.": "Los jugadores con varias ediciones se controlan con un manifiesto por ficha que incluye rationale, campos de evidencia y flags de riesgo.",
+    "Spanish and Korean archive overlays now cover the reviewed historical player-card text.": "Las capas de archivo en español y coreano ahora cubren el texto revisado de las fichas históricas.",
+    "The remaining 713 high-attention historical player cards now use explicit reviewed English and Chinese copy.": "Las 713 fichas históricas de alta atención restantes ahora usan texto explícitamente revisado en inglés y chino."
   }
 }

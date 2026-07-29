@@ -19,6 +19,16 @@ const APP_PACKS = Object.freeze({
   es: esAppPack,
   ko: koAppPack
 });
+const MANIFEST_NAME_OVERRIDES = Object.freeze({
+  es: Object.freeze({
+    "Théo Hernandez": "Théo Hernández"
+  }),
+  ko: Object.freeze({
+    "Gonçalo Ramos": "곤살루 하무스",
+    "Iñaki Williams": "이냐키 윌리암스",
+    "Rafael Leão": "하파엘 레앙"
+  })
+});
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -280,6 +290,109 @@ export function getStructuredContentTranslations(
   }
 
   return Object.freeze(translations);
+}
+
+function manifestRoleLabel(entry, language, glossary = readStructuredContentGlossary(defaultRootDir)) {
+  const translated = translateStructuredPosition(entry.position, language, glossary, APP_PACKS[language]);
+  if (translated) return translated.split(/\s*,\s*/u)[0];
+  const position = String(entry.position || "").toLocaleLowerCase("en-US");
+  if (language === "ko") {
+    if (/goalkeeper/u.test(position)) return "골키퍼";
+    if (/defender|back/u.test(position)) return "수비수";
+    if (/midfielder/u.test(position)) return "미드필더";
+    return "공격수";
+  }
+  if (/goalkeeper/u.test(position)) return "portero";
+  if (/defender|back/u.test(position)) return "defensor";
+  if (/midfielder/u.test(position)) return "centrocampista";
+  return "delantero";
+}
+
+function manifestFacts(entry, language) {
+  const fields = new Set(entry.factualFieldsUsed || []);
+  const facts = [];
+  const source = `${entry.oldEnglish || ""} ${entry.finalEnglish || ""}`;
+  const goals = source.match(/\b(\d+)\s+goals?\b/iu)?.[1];
+  const scoringMatches = source.match(/scoring in\s+(\d+)\s+featured matches?/iu)?.[1];
+  const featuredRecords = source.match(/\b(\d+)\s+featured records?\b/iu)?.[1];
+  if (goals) facts.push(language === "ko" ? `${goals}골` : `${goals} ${goals === "1" ? "gol" : "goles"}`);
+  if (scoringMatches) {
+    facts.push(language === "ko"
+      ? `중점 경기 ${scoringMatches}경기 득점 기록`
+      : `goles en ${scoringMatches} ${scoringMatches === "1" ? "partido destacado" : "partidos destacados"}`);
+  }
+  if (featuredRecords) {
+    facts.push(language === "ko"
+      ? `중점 경기 ${featuredRecords}경기 기록`
+      : `${featuredRecords} ${featuredRecords === "1" ? "registro de partido destacado" : "registros de partidos destacados"}`);
+  }
+  if (fields.has("bestXiSelection")) {
+    facts.push(language === "ko" ? "역사 베스트 XI 선정" : "selección en el once histórico ideal");
+  }
+  if (!facts.length) return language === "ko" ? "기존 기록" : "el registro disponible";
+  if (language === "ko") return facts.join(", ");
+  if (facts.length === 1) return facts[0];
+  return `${facts.slice(0, -1).join(", ")} y ${facts.at(-1)}`;
+}
+
+function koreanTopicParticle(value) {
+  const text = String(value || "");
+  const last = text.match(/\p{Script=Hangul}/u) ? text.at(-1) : "";
+  if (!last) return "는";
+  const code = last.codePointAt(0);
+  if (code < 0xac00 || code > 0xd7a3) return "는";
+  return (code - 0xac00) % 28 === 0 ? "는" : "은";
+}
+
+function koreanInstrumentParticle(value) {
+  const text = String(value || "");
+  const last = text.match(/\p{Script=Hangul}/u) ? text.at(-1) : "";
+  if (!last) return "로";
+  const code = last.codePointAt(0);
+  if (code < 0xac00 || code > 0xd7a3) return "로";
+  const jong = (code - 0xac00) % 28;
+  return jong === 0 || jong === 8 ? "로" : "으로";
+}
+
+function translateManifestEntry(entry, language, glossary, playerNames) {
+  const playerName = MANIFEST_NAME_OVERRIDES[language]?.[entry.player] ||
+    playerNames?.[entry.player]?.displayName ||
+    entry.player;
+  const team = APP_PACKS[language]?.helpers?.translateTeamName?.(entry.team) || entry.team;
+  const role = manifestRoleLabel(entry, language, glossary);
+  const facts = manifestFacts(entry, language);
+  const otherYears = (entry.recurringTournamentYears || [])
+    .filter((year) => Number(year) !== Number(entry.tournamentYear))
+    .join(", ");
+
+  if (language === "ko") {
+    const base = `${entry.tournamentYear}년의 ${playerName}${koreanTopicParticle(playerName)} ${team}의 ${role}${koreanInstrumentParticle(role)} 넓게 보는 편이 안전하며, 근거는 ${facts}이다.`;
+    const ending = entry.riskFlags?.recurringPlayer && otherYears
+      ? ` ${otherYears}년과 구분하되, 확인되지 않은 움직임이나 세부 전술은 덧붙이지 않는다.`
+      : " 역할과 대회 비중은 설명할 수 있지만, 확인되지 않은 움직임이나 결정은 쓰지 않는다.";
+    return `${base}${ending}`;
+  }
+
+  const base = `Para ${playerName} en ${entry.tournamentYear}, conviene mantener una lectura amplia como ${role} de ${team}, apoyada en ${facts}.`;
+  const ending = entry.riskFlags?.recurringPlayer && otherYears
+    ? ` La nota debe diferenciar esta edición de ${otherYears} sin añadir movimientos no documentados.`
+    : " Eso permite describir responsabilidad e impacto sin convertirlo en acciones exactas no documentadas.";
+  return `${base}${ending}`;
+}
+
+function getManifestArchiveTranslations(language, rootDir = defaultRootDir) {
+  const sourcePath = path.join(rootDir, "data", "editorial", "historical-player-card-review-manifest.json");
+  if (!fs.existsSync(sourcePath)) return {};
+  const manifest = readJson(sourcePath);
+  const glossary = readStructuredContentGlossary(rootDir);
+  const provenance = readJson(path.join(rootDir, "data", "locales", "player-name-provenance.json"));
+  const playerNames = provenance?.names?.[language] || {};
+  return Object.fromEntries(
+    (manifest.entries || [])
+      .filter((entry) => ["rewritten", "reviewed-retained"].includes(entry.status))
+      .filter((entry) => entry.finalEnglish && entry.finalChinese)
+      .map((entry) => [entry.finalEnglish, translateManifestEntry(entry, language, glossary, playerNames)])
+  );
 }
 
 function addString(target, value) {
@@ -682,7 +795,8 @@ async function main() {
             )
           : {};
       const deterministicTranslations = {
-        ...factualTranslations
+        ...factualTranslations,
+        ...(scope === "archive" ? getManifestArchiveTranslations(language, defaultRootDir) : {})
       };
       if (shouldWrite) {
         source.sourceFingerprint = getSourceFingerprint(scopes[scope]);

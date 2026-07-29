@@ -6095,10 +6095,10 @@ try {
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Fenerbahçe") &&
       historicalScorerCardText.includes(
-        "With Valencia, start with finding the inside channel without crowding the central attacker."
+        "Keep Enner Valencia in 2022 close to the supported Ecuador forward outline."
       ) &&
       historicalScorerCardText.includes(
-        "He threatens outside before cutting behind midfield."
+        "Stay inside role-level evidence for this edition."
       ) &&
       historicalScorerCardText.includes("2022 World Cup: 3 goals") &&
       historicalScorerCardText.includes("Age 33") &&

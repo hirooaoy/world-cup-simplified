@@ -4439,6 +4439,7 @@ const BASELINE_ONE_LINE_STYLE_NOTE_ZH_PATTERNS = [
   /(?:世界杯阵容中的|世界杯名单里包括这名|属于.+世界杯阵容的一员)/u,
   /(?:档案视角|比赛视角|阵容背景)/u
 ];
+const HISTORICAL_EDITORIAL_MANIFEST_ORIGIN = "editorial-manifest";
 
 function isClearlyBaselineOneLineStyleNote(value, fallbackValue, language) {
   const note = String(value || "").replace(/\s+/g, " ").trim();
@@ -4461,9 +4462,14 @@ function isAuthoredStyleProfile(profile) {
   return EVERGREEN_SPOTLIGHTS.has(profile.profileKey) || profile.styleNoteMeta?.origin === "authored";
 }
 
+function isManifestReviewedStyleProfile(profile) {
+  return profile.styleNoteMeta?.origin === HISTORICAL_EDITORIAL_MANIFEST_ORIGIN;
+}
+
 function styleNoteCanBeUpgraded(profile, language, { missingOnly, rewriteSubstantive }) {
   const note = String(language === "zh" ? profile.styleNoteZh : profile.styleNote || "").trim();
   if (!note) return true;
+  if (isManifestReviewedStyleProfile(profile)) return false;
   if (isAuthoredStyleProfile(profile)) {
     const canonical = language === "zh"
       ? EVERGREEN_SPOTLIGHTS_ZH.get(profile.profileKey)
@@ -4483,6 +4489,7 @@ export function historicalGeneratedStyleUpdatePlan(
 ) {
   const computedMeta = copy?.meta || copy;
   const generatedSemanticDrift = !authored
+    && !isManifestReviewedStyleProfile(profile)
     && (
       JSON.stringify(profile.styleNoteMeta || null) !== JSON.stringify(computedMeta || null)
       || (copy?.styleNote !== undefined && cleanNote(profile.styleNote) !== cleanNote(copy.styleNote))
@@ -4606,6 +4613,9 @@ export async function refreshHistoricalPlayerCardNotes() {
     if (isAuthoredStyleProfile(profile)) {
       const authoredZh = cleanNoteZh(buildAuthoredStyleCopy(profile).styleNoteZh);
       if (authoredZh) reservedZhNotes.add(authoredZh);
+    } else if (isManifestReviewedStyleProfile(profile)) {
+      const existingZh = cleanNoteZh(profile.styleNoteZh);
+      if (existingZh) reservedZhNotes.add(existingZh);
     } else if (!targetYears.has(Number(profile.tournamentYear))) {
       const existingZh = cleanNoteZh(profile.styleNoteZh);
       if (existingZh) reservedZhNotes.add(existingZh);
@@ -4639,7 +4649,14 @@ export async function refreshHistoricalPlayerCardNotes() {
     const profile = fact.profile;
     const hasReviewedVisibleCorrection = visiblyCorrectedProfileKeys.has(profile.profileKey);
     const authored = isAuthoredStyleProfile(profile);
-    const copy = authored
+    const manifestReviewed = isManifestReviewedStyleProfile(profile);
+    const copy = manifestReviewed
+      ? {
+          styleNote: profile.styleNote,
+          styleNoteZh: profile.styleNoteZh,
+          meta: profile.styleNoteMeta
+        }
+      : authored
       ? buildAuthoredStyleCopy(profile)
       : buildEvergreenStyleCopy(profile, fact, { reservedPlayerStructures, reservedZhNotes });
     const hasText = (value) => Boolean(String(value || "").trim());

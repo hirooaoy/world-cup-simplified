@@ -1,4 +1,4 @@
-export const DATA_VERSION = "2026-07-22-player-card-copy-1";
+export const DATA_VERSION = "2026-07-29-manifest-historical-copy-1";
 
 export const DATA_URLS = Object.freeze({
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
@@ -15,7 +15,7 @@ export const DATA_URLS = Object.freeze({
   playerAvailability: `data/player-availability.json?v=${DATA_VERSION}`,
   liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
-  releaseNotes: "data/release-notes.json?v=2026-07-21-date-transitions-2",
+  releaseNotes: "data/release-notes.json?v=2026-07-29-manifest-historical-copy-1",
   standings: `data/standings.json?v=${DATA_VERSION}`,
   teams: `data/teams.json?v=${DATA_VERSION}`,
   tournament: `data/tournament.json?v=${DATA_VERSION}`

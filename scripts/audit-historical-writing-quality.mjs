@@ -8,8 +8,12 @@ import { ZH_PLAYER_NAME_TRANSLATIONS } from "../football-locale-zh.js";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const profilesPath = path.join(root, "data/historical-player-profiles.json");
 const refreshScriptPath = path.join(root, "scripts/refresh-historical-player-card-notes.mjs");
+const manifestPath = path.join(root, "data/editorial/historical-player-card-review-manifest.json");
 const profileData = JSON.parse(await readFile(profilesPath, "utf8"));
 const refreshScriptSource = await readFile(refreshScriptPath, "utf8");
+const manifestData = await readFile(manifestPath, "utf8")
+  .then((source) => JSON.parse(source))
+  .catch(() => ({ entries: [] }));
 const profiles = Object.values(profileData.profiles || {});
 
 function parseRefreshScriptKeySet(name) {
@@ -73,6 +77,10 @@ function localizeKnownChineseEntities(value) {
 const firstFocusedKeys = parseRefreshScriptKeySet("FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS");
 const secondFocusedKeys = parseRefreshScriptKeySet("SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS");
 const focusedReviewKeys = [...firstFocusedKeys, ...secondFocusedKeys];
+const focusedReviewKeySet = new Set(focusedReviewKeys);
+const manifestFinalizedKeys = new Set((manifestData.entries || [])
+  .filter((entry) => ["rewritten", "reviewed-retained"].includes(entry.status))
+  .map((entry) => entry.cardId));
 const focusedReviewProfiles = focusedReviewKeys.map((key) => profileData.profiles?.[key]).filter(Boolean);
 const focusedReviewIssues = [];
 const bannedEnglishPhrases = [
@@ -143,10 +151,17 @@ const missing = profiles.filter((profile) =>
 
 const highAttention = profiles.filter(isHighAttention);
 const highAttentionRoleLevel = highAttention
-  .filter((profile) => profile.styleNoteMeta?.confidence === "role-level")
+  .filter((profile) =>
+    profile.styleNoteMeta?.confidence === "role-level" &&
+    !focusedReviewKeySet.has(profile.profileKey) &&
+    !(manifestFinalizedKeys.has(profile.profileKey) && profile.styleNoteMeta?.origin === "editorial-manifest")
+  )
   .sort((a, b) => attentionScore(b) - attentionScore(a) || a.name.localeCompare(b.name));
 const highAttentionReviewed = highAttention
   .filter((profile) => ["reviewed", "editorial"].includes(profile.styleNoteMeta?.confidence))
+  .length;
+const highAttentionManifestReviewed = highAttention
+  .filter((profile) => manifestFinalizedKeys.has(profile.profileKey) && profile.styleNoteMeta?.origin === "editorial-manifest")
   .length;
 
 const repeatedStarts = countBy(profiles.map((profile) => firstSentence(profile.styleNote)))
@@ -178,7 +193,8 @@ console.log("Historical writing quality audit passed.");
 console.log(`Profiles checked: ${profiles.length}`);
 console.log(`High-attention profiles: ${highAttention.length}`);
 console.log(`High-attention reviewed/editorial: ${highAttentionReviewed}`);
-console.log(`High-attention still role-level: ${highAttentionRoleLevel.length}`);
+console.log(`High-attention manifest-reviewed with preserved role-level evidence: ${highAttentionManifestReviewed}`);
+console.log(`High-attention awaiting focused or manifest review: ${highAttentionRoleLevel.length}`);
 console.log(`Focused reviewed-batch cards checked: ${focusedReviewProfiles.length}`);
 console.log("");
 console.log("Top role-level high-attention targets:");

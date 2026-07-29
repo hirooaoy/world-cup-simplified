@@ -54,6 +54,8 @@ const STRUCTURE_WARNING_SHARE = 0.08;
 const MIN_STRUCTURE_DIVERSITY_SHARE = 0.1;
 const nestedWhenJoinPattern =
   /\bwhen\s+(?:he|they|He|They|[\p{Lu}][\p{L}'’-]*(?:\s+[\p{Lu}][\p{L}'’-]*){0,2})\s+[^,.;!?]{0,140}\bwhen\b/u;
+const HISTORICAL_EDITORIAL_MANIFEST_ORIGIN = "editorial-manifest";
+const HISTORICAL_EDITORIAL_MANIFEST_VERSION = "historical-card-editorial-manifest-v1";
 
 const forbiddenPhrases = [
   {
@@ -664,6 +666,24 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
     }
     return;
   }
+  if (meta.origin === HISTORICAL_EDITORIAL_MANIFEST_ORIGIN) {
+    if (meta.version !== HISTORICAL_EDITORIAL_MANIFEST_VERSION) {
+      addIssue(issues, profileKey, "manifest-provenance", `expected ${HISTORICAL_EDITORIAL_MANIFEST_VERSION}, found ${meta.version || "none"}`);
+    }
+    if (!meta.previousOrigin || !meta.previousVersion) {
+      addIssue(issues, profileKey, "manifest-provenance", "manifest-reviewed copy must retain previous generator provenance");
+    }
+    if (!meta.editorialManifest?.reviewedAt || !meta.editorialManifest?.status) {
+      addIssue(issues, profileKey, "manifest-provenance", "manifest-reviewed copy must link to a reviewed manifest decision");
+    }
+    if (!["exact-edition", "recurring-cross-edition", "role-level"].includes(meta.evidenceScope) || !meta.confidence) {
+      addIssue(issues, profileKey, "manifest-provenance", "manifest-reviewed copy must preserve evidence scope and confidence");
+    }
+    if (!Array.isArray(meta.evidence) || !meta.evidence.length) {
+      addIssue(issues, profileKey, "manifest-provenance", "manifest-reviewed copy must retain evidence tags");
+    }
+    return;
+  }
   if (meta.origin !== "generated") {
     addIssue(issues, profileKey, "generated-provenance", "non-spotlight historical copy must identify its generated origin");
     return;
@@ -1141,10 +1161,12 @@ function auditSemanticConcentration(issues, profiles) {
   let editorialWithBothActionsRoleDefault = 0;
   let partialExactEditionContext = 0;
   let authoredCount = 0;
+  let manifestCount = 0;
   for (const [profileKey, profile] of profiles) {
     const meta = profile.styleNoteMeta;
     if (meta?.origin !== "generated") {
       if (meta?.origin === "authored") authoredCount += 1;
+      if (meta?.origin === HISTORICAL_EDITORIAL_MANIFEST_ORIGIN) manifestCount += 1;
       continue;
     }
     increment(confidenceCounts, meta.confidence || "missing");
@@ -1238,7 +1260,7 @@ function auditSemanticConcentration(issues, profiles) {
     });
   console.log(`Historical source-limited full triples: ${roleTripleLimits.join("; ")}.`);
   console.log(
-    `Historical provenance baseline: authored:${authoredCount}; generated confidence ${[...confidenceCounts.entries()]
+    `Historical provenance baseline: authored:${authoredCount}; manifest:${manifestCount}; generated confidence ${[...confidenceCounts.entries()]
       .sort((left, right) => left[0].localeCompare(right[0]))
       .map(([label, count]) => `${label}:${count}`)
       .join(", ")}.`
@@ -2219,6 +2241,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
   const note = String(profile.note || "").trim();
   const noteZh = String(profile.noteZh || "").trim();
   const isAuthoredSpotlight = profile.styleNoteMeta?.origin === "authored";
+  const isManifestReviewed = profile.styleNoteMeta?.origin === HISTORICAL_EDITORIAL_MANIFEST_ORIGIN;
   const isFocusedCorrection = FOCUSED_CORRECTION_KEYS.has(profileKey);
   const visibleNameTokens = String(profile.displayName || profile.name || "")
     .split(/\s+/u)
@@ -2338,6 +2361,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
   for (const check of forbiddenPhrases) {
     if (isAuthoredSpotlight && check.generatedOnly) continue;
     if (isFocusedCorrection && check.generatedOnly) continue;
+    if (isManifestReviewed && check.generatedOnly) continue;
     if (check.pattern.test(styleNote)) {
       addIssue(issues, profileKey, "generic-voice", check.message);
     }

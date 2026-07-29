@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "cc231a7b4bd78a709184989700faeea72194d95cbef69f1ce0248f6de797836c"
+  "sourceFingerprint": "799947450df8fe53dcb063b87245298bda93600917cd09f2b95d505ddd035e73"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.": "Ball Boy는 이제 다음 남자 월드컵이 언제, 어디서 열리는지 답하며 2030년 개최국과 센테너리 경기도 함께 안내합니다.",
-  "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.": "Ball Boy의 첫 추천 질문은 이제 더 짧은 “누가 우승했어?”로 바뀌었고, 여전히 올바른 월드컵 답변으로 연결됩니다.",
-  "Cleaner Ball Boy prompts, player cards, and bracket rails": "더 깔끔해진 Ball Boy 질문, 선수 카드, 대진표 연결선",
-  "Ferran Torres' tighter crop, glassier light-mode cards, and direct Tournament connector rails now land immediately.": "페란 토레스의 더 타이트한 크롭, 더 투명한 라이트 모드 카드, 토너먼트 직접 링크 연결선이 이제 즉시 반영됩니다."
+  "Historical player cards reviewed through the manifest": "매니페스트로 검토한 역사 선수 카드",
+  "Recurring players are tracked through a card-level manifest with rationale, evidence fields, and risk flags.": "여러 대회에 걸친 선수는 카드별 매니페스트에서 검토 이유, 증거 필드, 위험 플래그를 함께 관리합니다.",
+  "Spanish and Korean archive overlays now cover the reviewed historical player-card text.": "스페인어와 한국어 아카이브 오버레이도 검토된 역사 선수 카드 문구를 포함합니다.",
+  "The remaining 713 high-attention historical player cards now use explicit reviewed English and Chinese copy.": "남은 고관심 역사 선수 카드 713장은 이제 명시적으로 검토된 영어와 중국어 문구를 사용합니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 
