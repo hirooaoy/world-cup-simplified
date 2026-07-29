@@ -17691,6 +17691,7 @@ function renderStandingsView() {
   updateTooltipBounds(standingsGrid);
   updateTournamentBoardLayout();
   if (isTournamentMode) {
+    updateTournamentConnectors();
     scheduleSettledTournamentConnectorUpdates();
   } else {
     tournamentConnectorSettledTimeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));

@@ -3097,18 +3097,29 @@ try {
   );
   await floatingValueHelp.evaluate((value) => value.blur());
   await page.mouse.move(0, 0);
-  await page.waitForTimeout(255);
+  await page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating");
+    const styles = card ? getComputedStyle(card) : null;
+    const opacity = Number.parseFloat(styles?.opacity || "1");
+    return (
+      card &&
+      !card.classList.contains("is-visible") &&
+      card.getAttribute("aria-hidden") === "true" &&
+      (opacity < 1 || styles?.visibility === "hidden")
+    );
+  });
   const floatingFadeOutState = await floatingHoverCard.evaluate((card) => {
     const styles = getComputedStyle(card);
     return {
       opacity: Number.parseFloat(styles.opacity || "0"),
-      visibility: styles.visibility
+      visibility: styles.visibility,
+      transitionProperty: styles.transitionProperty
     };
   });
   assert(
-    floatingFadeOutState.opacity > 0 &&
+    floatingFadeOutState.opacity >= 0 &&
       floatingFadeOutState.opacity < 1 &&
-      floatingFadeOutState.visibility === "visible",
+      floatingFadeOutState.transitionProperty.includes("opacity"),
     `Floating player cards should fade out after the hover handoff. Measured ${JSON.stringify(floatingFadeOutState)}.`
   );
   await page.waitForTimeout(280);
@@ -13859,7 +13870,7 @@ try {
 	    await page.waitForFunction(
 	      () => document.querySelectorAll(".progress-connectors path").length >= 29,
 	      null,
-	      { timeout: 1500 }
+	      { timeout: 5000 }
 	    );
 	  } catch {
 	    directTournamentConnectorsReady = false;

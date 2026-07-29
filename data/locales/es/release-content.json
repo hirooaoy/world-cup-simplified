@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "61574e5182e60b48192f554a89db28f8743cddf2f5c14389149ceda6876dc252",
+  "sourceFingerprint": "cc231a7b4bd78a709184989700faeea72194d95cbef69f1ce0248f6de797836c",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
     "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.": "Ball Boy ahora responde cuándo o dónde es el próximo Mundial masculino, incluidos los anfitriones de 2030 y los partidos del centenario.",
     "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.": "La primera pregunta sugerida de Ball Boy ahora es el más corto «¿Quién ganó?», pero sigue resolviendo la respuesta correcta del Mundial.",
-    "Cleaner Ball Boy prompts and player-card surfaces": "Prompts de Ball Boy y superficies de fichas más limpias",
-    "Ferran Torres' photo is cropped tighter, and light-mode pills/cards now let a little background color through.": "La foto de Ferran Torres queda más cerrada, y las etiquetas/fichas en modo claro ahora dejan pasar un poco del color de fondo."
+    "Cleaner Ball Boy prompts, player cards, and bracket rails": "Prompts de Ball Boy, fichas y líneas del cuadro más limpios",
+    "Ferran Torres' tighter crop, glassier light-mode cards, and direct Tournament connector rails now land immediately.": "El recorte más cerrado de Ferran Torres, las fichas más translúcidas en modo claro y las líneas directas del Torneo ya cargan al instante."
   }
 }

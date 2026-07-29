@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "61574e5182e60b48192f554a89db28f8743cddf2f5c14389149ceda6876dc252"
+  "sourceFingerprint": "cc231a7b4bd78a709184989700faeea72194d95cbef69f1ce0248f6de797836c"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
   "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.": "Ball Boy는 이제 다음 남자 월드컵이 언제, 어디서 열리는지 답하며 2030년 개최국과 센테너리 경기도 함께 안내합니다.",
   "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.": "Ball Boy의 첫 추천 질문은 이제 더 짧은 “누가 우승했어?”로 바뀌었고, 여전히 올바른 월드컵 답변으로 연결됩니다.",
-  "Cleaner Ball Boy prompts and player-card surfaces": "더 깔끔해진 Ball Boy 질문과 선수 카드 표면",
-  "Ferran Torres' photo is cropped tighter, and light-mode pills/cards now let a little background color through.": "페란 토레스의 사진은 더 타이트하게 크롭되고, 라이트 모드의 필/선수 카드는 이제 배경색이 조금 비치도록 표시됩니다."
+  "Cleaner Ball Boy prompts, player cards, and bracket rails": "더 깔끔해진 Ball Boy 질문, 선수 카드, 대진표 연결선",
+  "Ferran Torres' tighter crop, glassier light-mode cards, and direct Tournament connector rails now land immediately.": "페란 토레스의 더 타이트한 크롭, 더 투명한 라이트 모드 카드, 토너먼트 직접 링크 연결선이 이제 즉시 반영됩니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

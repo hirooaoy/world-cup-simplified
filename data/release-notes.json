@@ -3,17 +3,17 @@
   "releases": [
     {
       "date": "2026-07-28",
-      "title": "Cleaner Ball Boy prompts and player-card surfaces",
-      "titleZh": "更清爽的 Ball Boy 提示与球员卡表面",
+      "title": "Cleaner Ball Boy prompts, player cards, and bracket rails",
+      "titleZh": "更清爽的 Ball Boy 提示、球员卡与晋级线",
       "highlights": [
         "Ball Boy's first suggested question is now the shorter “Who won?” while still resolving to the right World Cup answer.",
         "Ball Boy now answers when or where the next men's World Cup is, including the 2030 hosts and centenary matches.",
-        "Ferran Torres' photo is cropped tighter, and light-mode pills/cards now let a little background color through."
+        "Ferran Torres' tighter crop, glassier light-mode cards, and direct Tournament connector rails now land immediately."
       ],
       "highlightsZh": [
         "Ball Boy 的首个推荐问题现改为更短的“谁赢了？”，同时仍会解析到正确的世界杯答案。",
         "Ball Boy 现会回答下一届男足世界杯的时间与地点，包括2030年东道主及百年纪念赛安排。",
-        "费兰·托雷斯的照片现裁切得更紧；浅色模式下的标签与球员卡也会透出少量背景色彩。"
+        "费兰·托雷斯照片裁切更紧，浅色模式球员卡更通透；直接打开赛事晋级图时，连接线也会立即绘出。"
       ]
     },
     {
