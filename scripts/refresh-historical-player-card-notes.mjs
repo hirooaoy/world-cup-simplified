@@ -4,7 +4,6 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { getGeneratedPlayerCardCopy } from "../locales/player-note-templates.js";
 import { HISTORICAL_HIGHLIGHTS } from "../data/highlights-history.js";
-import { ZH_PLAYER_NAME_TRANSLATIONS } from "../football-locale-zh.js";
 import {
   historicalIdentityNameKey,
   isKoreanNationalTeam
@@ -892,325 +891,6 @@ if (FOCUSED_HISTORICAL_CORRECTION_COPY.size !== FOCUSED_HISTORICAL_STYLE_POLISH_
 export const FOCUSED_HISTORICAL_CORRECTION_PROFILE_KEYS = Object.freeze([
   ...FOCUSED_HISTORICAL_CORRECTION_COPY.keys()
 ]);
-
-export const HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION = "historical-high-attention-review-v1";
-
-let highAttentionReviewContextByKey = new Map();
-
-function attentionScore(profile) {
-  return (
-    (profile.bestXiSelection ? 8 : 0) +
-    Math.min(8, Number(profile.goals || 0)) +
-    Math.min(5, Number(profile.scorerMatchCount || 0)) +
-    Math.min(5, Number(profile.keyMatchCount || 0)) +
-    (profile.imageUrl ? 1 : 0)
-  );
-}
-
-export function isHighAttentionHistoricalProfile(profile) {
-  return Boolean(profile?.bestXiSelection) ||
-    Number(profile?.goals || 0) >= 3 ||
-    Number(profile?.scorerMatchCount || 0) >= 2 ||
-    Number(profile?.keyMatchCount || 0) >= 3;
-}
-
-function highAttentionReviewCovered(profile) {
-  return FOCUSED_HISTORICAL_CORRECTION_COPY.has(profile?.profileKey) ||
-    profile?.styleNoteMeta?.copyReview === HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION ||
-    ["reviewed", "editorial"].includes(profile?.styleNoteMeta?.confidence);
-}
-
-function shouldUseHighAttentionReviewedStyleCopy(profile) {
-  return isHighAttentionHistoricalProfile(profile) &&
-    profile?.styleNoteMeta?.confidence === "role-level" &&
-    !FOCUSED_HISTORICAL_CORRECTION_COPY.has(profile?.profileKey);
-}
-
-function isHighAttentionReviewCandidate(profile) {
-  return shouldUseHighAttentionReviewedStyleCopy(profile) &&
-    !highAttentionReviewCovered(profile);
-}
-
-function buildHighAttentionReviewContext(profiles) {
-  const groups = new Map();
-  for (const profile of Object.values(profiles || {})) {
-    if (!isHighAttentionHistoricalProfile(profile)) continue;
-    const groupKey = [
-      historicalIdentityNameKey(profile.name, profile.teamName),
-      normalizeTeamName(profile.teamName)
-    ].join("|");
-    if (!groups.has(groupKey)) groups.set(groupKey, []);
-    groups.get(groupKey).push(profile);
-  }
-
-  const context = new Map();
-  for (const group of groups.values()) {
-    const sorted = [...group].sort((left, right) => (
-      Number(left.tournamentYear || 0) - Number(right.tournamentYear || 0)
-    ));
-    const peakGoals = Math.max(...sorted.map((profile) => Number(profile.goals || 0)));
-    sorted.forEach((profile, index) => {
-      context.set(profile.profileKey, {
-        groupSize: sorted.length,
-        index,
-        peakGoals,
-        years: sorted.map((item) => Number(item.tournamentYear)).filter(Number.isInteger)
-      });
-    });
-  }
-  return context;
-}
-
-function rolePhrase(profile) {
-  const position = String(profile?.position || "");
-  if (/goalkeeper/i.test(position)) return "goalkeeper";
-  if (/full.?back/i.test(position)) return "full-back";
-  if (/centre.?back|center.?back/i.test(position)) return "centre-back";
-  if (/defensive midfielder/i.test(position)) return "defensive-midfield";
-  if (/attacking midfielder/i.test(position)) return "attacking-midfield";
-  if (/central midfielder/i.test(position)) return "central-midfield";
-  if (/midfielder/i.test(position)) return "midfield";
-  if (/wide|winger/i.test(position)) return "wide-forward";
-  if (/striker/i.test(position)) return "striker";
-  if (/forward/i.test(position)) return "forward";
-  return "squad";
-}
-
-function rolePhraseZh(profile) {
-  const position = String(profile?.position || "");
-  if (/goalkeeper/i.test(position)) return "门将";
-  if (/full.?back/i.test(position)) return "边后卫";
-  if (/centre.?back|center.?back/i.test(position)) return "中卫";
-  if (/defensive midfielder/i.test(position)) return "防守型中场";
-  if (/attacking midfielder/i.test(position)) return "攻击型中场";
-  if (/central midfielder/i.test(position)) return "中前卫";
-  if (/midfielder/i.test(position)) return "中场";
-  if (/wide|winger/i.test(position)) return "边路攻击手";
-  if (/striker/i.test(position)) return "中锋";
-  if (/forward/i.test(position)) return "前锋";
-  return "球员";
-}
-
-function roleFunction(profile) {
-  const role = rolePhrase(profile);
-  if (role === "goalkeeper") return "goalkeeping stability";
-  if (role === "full-back") return "wide defending and selective support";
-  if (role === "centre-back") return "central defensive presence";
-  if (role === "defensive-midfield") return "screening and simple connection";
-  if (role === "attacking-midfield") return "linking midfield to attack";
-  if (role === "central-midfield" || role === "midfield") return "midfield connection and tempo";
-  if (role === "wide-forward") return "wide threat and scoring support";
-  if (role === "striker") return "central presence and finishing";
-  if (role === "forward") return "front-line scoring responsibility";
-  return "his tournament-squad place";
-}
-
-function roleFunctionZh(profile) {
-  const role = rolePhrase(profile);
-  if (role === "goalkeeper") return "门将稳定性以及禁区周围的记录";
-  if (role === "full-back") return "边路防守工作和适度的持球支援";
-  if (role === "centre-back") return "中路防守存在感和门前危险控制";
-  if (role === "defensive-midfield") return "中场屏障作用和简洁衔接";
-  if (role === "attacking-midfield") return "把中场与进攻连接起来，但不强行写成具体动作";
-  if (role === "central-midfield" || role === "midfield") return "中场连接、节奏和支援";
-  if (role === "wide-forward") return "边路威胁以及转化为得分点的可能";
-  if (role === "striker") return "中路存在感和终结责任";
-  if (role === "forward") return "锋线角色和得分责任";
-  return "他在这届阵容中的位置";
-}
-
-function highAttentionImpact(profile) {
-  const goals = Number(profile.goals || 0);
-  const keyMatches = Number(profile.keyMatchCount || 0);
-  const scorerMatches = Number(profile.scorerMatchCount || 0);
-  if (profile.bestXiSelection && goals >= 3) {
-    return `Best XI status and a ${goals}-goal return`;
-  }
-  if (profile.bestXiSelection) {
-    return "Best XI status";
-  }
-  if (goals >= 5) {
-    return `a major ${goals}-goal scoring return`;
-  }
-  if (goals >= 3) {
-    return `a clear ${goals}-goal scoring return`;
-  }
-  if (scorerMatches >= 2) {
-    return "goals across multiple matches";
-  }
-  if (keyMatches >= 3) {
-    return "repeated featured-match appearances";
-  }
-  return "archive importance without fine technical detail";
-}
-
-function highAttentionImpactZh(profile) {
-  const goals = Number(profile.goals || 0);
-  const keyMatches = Number(profile.keyMatchCount || 0);
-  const scorerMatches = Number(profile.scorerMatchCount || 0);
-  if (profile.bestXiSelection && goals >= 3) {
-    return `最佳阵容背景和${goals}球产出足以说明他的重要性`;
-  }
-  if (profile.bestXiSelection) {
-    return "最佳阵容背景足以说明他的重要性，但动作细节仍要写得宽一些";
-  }
-  if (goals >= 5) {
-    return `${goals}球产出说明他是重要得分点`;
-  }
-  if (goals >= 3) {
-    return `${goals}球产出说明他有明确得分影响`;
-  }
-  if (scorerMatches >= 2) {
-    return "多场比赛中的进球记录支持他的进攻影响";
-  }
-  if (keyMatches >= 3) {
-    return "多次进入重点比赛记录，说明他在档案中有足够存在感";
-  }
-  return "档案记录支持他的重要性，但不足以证明细小技术细节";
-}
-
-function highAttentionSampleCaveat(profile) {
-  const appearances = Number(profile.tournamentAppearances);
-  const starts = Number(profile.tournamentStarts);
-  if (Number.isFinite(appearances) && appearances === 0) {
-    return "Do not describe a normal performance without appearances.";
-  }
-  if (Number.isFinite(appearances) && appearances === 1) {
-    return "Keep the one-appearance sample clear.";
-  }
-  if (Number.isFinite(appearances) && appearances <= 2) {
-    return "Keep the limited sample clear.";
-  }
-  if (Number.isFinite(appearances) && appearances > 0 && Number.isFinite(starts) && starts === 0) {
-    return "Frame the bench role as selected-moment impact.";
-  }
-  return "";
-}
-
-function highAttentionSampleCaveatZh(profile) {
-  const appearances = Number(profile.tournamentAppearances);
-  const starts = Number(profile.tournamentStarts);
-  if (Number.isFinite(appearances) && appearances === 0) {
-    return "如果没有出场样本，就不能写成正常赛事表现。";
-  }
-  if (Number.isFinite(appearances) && appearances === 1) {
-    return "样本只有一次出场，因此表述要格外谨慎。";
-  }
-  if (Number.isFinite(appearances) && appearances <= 2) {
-    return "出场样本有限，因此不要写成整届赛事都反复出现的模式。";
-  }
-  if (Number.isFinite(appearances) && appearances > 0 && Number.isFinite(starts) && starts === 0) {
-    return "如果主要来自替补身份，重点应是特定时段的影响。";
-  }
-  return "";
-}
-
-function recurringChapter(profile, context) {
-  if (!context || context.groupSize < 2) return "";
-  if (context.index === 0) return "as the opening chapter";
-  if (context.index === context.groupSize - 1) return "as the later chapter";
-  if (Number(profile.goals || 0) === context.peakGoals && context.peakGoals > 0) {
-    return "as the scoring-heavy chapter";
-  }
-  return "as a middle chapter";
-}
-
-function recurringChapterZh(profile, context) {
-  if (!context || context.groupSize < 2) return "";
-  if (context.index === 0) return "这更像是他世界杯经历的开端";
-  if (context.index === context.groupSize - 1) return "这更像是他世界杯经历的后期章节";
-  if (Number(profile.goals || 0) === context.peakGoals && context.peakGoals > 0) {
-    return "这更像是他世界杯经历中得分最突出的章节";
-  }
-  return "这更像是他世界杯经历中的中段章节";
-}
-
-function highAttentionOpening(profile, context) {
-  const referenceName = shortName(profile);
-  const name = /^\p{Lowercase_Letter}/u.test(referenceName)
-    ? String(profile.displayName || profile.name || referenceName)
-    : referenceName;
-  const year = profile.tournamentYear;
-  const team = profile.teamName;
-  const role = rolePhrase(profile);
-  const variants = [
-    `${name}'s ${year} role is best kept broad: ${team} ${role}`,
-    `For ${name} in ${year}, the safest frame is ${team} ${role} responsibility`,
-    `In ${year}, ${name} is safest described through ${team} ${role} responsibility`,
-    `${name}'s ${year} tournament is clearest through ${team} ${role} responsibility`
-  ];
-  const chapter = recurringChapter(profile, context);
-  const base = variants[stableHash(profile.profileKey) % variants.length];
-  return `${base}${chapter ? `, ${chapter}` : ""}.`;
-}
-
-function highAttentionMiddle(profile) {
-  return `The record supports ${highAttentionImpact(profile)}, and the safer focus is ${roleFunction(profile)}.`;
-}
-
-function highAttentionClosing(profile) {
-  const caveat = highAttentionSampleCaveat(profile);
-  const endings = [
-    "Do not turn that into exact movement without match-specific evidence.",
-    "That keeps the edition useful without inventing verified movements.",
-    "The point is tournament weight, not a step-by-step technical claim.",
-    "Keep the claim broad enough for the available evidence."
-  ];
-  const ending = endings[stableHash(`${profile.profileKey}:ending`) % endings.length];
-  return caveat ? `${caveat} ${ending}` : ending;
-}
-
-function highAttentionOpeningZh(profile, context) {
-  const year = profile.tournamentYear;
-  const team = teamZh(profile.teamName);
-  const role = rolePhraseZh(profile);
-  const localizedName = ZH_PLAYER_NAME_TRANSLATIONS[profile.displayName] ||
-    ZH_PLAYER_NAME_TRANSLATIONS[profile.name] ||
-    "";
-  const subject = localizedName || `${team}${role}`;
-  const variants = [
-    `理解${year}年的${subject}角色，首先要保留证据边界。`,
-    `${year}年的${subject}说明，应该写成谨慎的角色判断。`,
-    `${year}年这一届可以从${subject}的职责来理解，但不能写成动作记录。`,
-    `对于${year}年的${subject}，重点是整体价值，而不是细节复盘。`
-  ];
-  const chapter = recurringChapterZh(profile, context);
-  const base = variants[stableHash(`${profile.profileKey}:zh-opening`) % variants.length];
-  return chapter ? `${base}${chapter}。` : base;
-}
-
-function highAttentionMiddleZh(profile) {
-  return `较稳妥的重点是：${highAttentionImpactZh(profile)}，同时体现${roleFunctionZh(profile)}。`;
-}
-
-function highAttentionClosingZh(profile) {
-  const caveat = highAttentionSampleCaveatZh(profile);
-  const endings = [
-    "除非有具体比赛资料支持，否则不要写成精确跑动或固定决策。",
-    "这样能让这一届更清楚，也不会把推断说成事实。",
-    "读者应看到角色和赛事分量，而不是未经证明的逐步动作。",
-    "这种写法足够有用，同时保住现有资料的边界。"
-  ];
-  const ending = endings[stableHash(`${profile.profileKey}:zh-ending`) % endings.length];
-  return caveat ? `${caveat}${ending}` : ending;
-}
-
-function buildHighAttentionReviewedStyleCopy(profile) {
-  if (!shouldUseHighAttentionReviewedStyleCopy(profile)) return null;
-  const context = highAttentionReviewContextByKey.get(profile.profileKey);
-  return {
-    english: [
-      highAttentionOpening(profile, context),
-      highAttentionMiddle(profile),
-      highAttentionClosing(profile)
-    ].join(" "),
-    chinese: [
-      highAttentionOpeningZh(profile, context),
-      highAttentionMiddleZh(profile),
-      highAttentionClosingZh(profile)
-    ].join("")
-  };
-}
 
 function buildFirstFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
   if (!FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.has(profile.profileKey)) return null;
@@ -4651,9 +4331,8 @@ function buildEvergreenStyleCopy(profile, fact, { reservedPlayerStructures, rese
     second,
     semantics.supportRelation
   );
-  const highAttentionCopy = polishedCopy ? null : buildHighAttentionReviewedStyleCopy(profile);
-  const note = polishedCopy?.english || highAttentionCopy?.english || variants[variantIndex];
-  const styleNoteZh = polishedCopy?.chinese || highAttentionCopy?.chinese || introducePlayerInChineseStyle(variantsZh[selectedZhIndex], profile);
+  const note = polishedCopy?.english || variants[variantIndex];
+  const styleNoteZh = polishedCopy?.chinese || introducePlayerInChineseStyle(variantsZh[selectedZhIndex], profile);
   reservedZhNotes?.add(cleanNoteZh(styleNoteZh));
   usedPlayerStructures?.add([
     primary.id,
@@ -4679,9 +4358,6 @@ function buildEvergreenStyleCopy(profile, fact, { reservedPlayerStructures, rese
     confidence: semantics.confidence,
     structureId: HISTORICAL_STYLE_SHAPES[variantIndex]
   };
-  if (highAttentionCopy) {
-    meta.copyReview = HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION;
-  }
   if (!getGeneratedPlayerCardCopy(note, {
     historical: true,
     copyMeta: meta,
@@ -4923,7 +4599,6 @@ export async function refreshHistoricalPlayerCardNotes() {
   const targetYears = new Set(requestedYears.length ? requestedYears : historicalYears(profiles));
   const visiblyCorrectedProfileKeys = applyReviewedVisibleProfileCorrections(profiles, targetYears);
   configureHistoricalRoleEvidence(profiles, historyData, { currentProfiles, teams });
-  highAttentionReviewContextByKey = buildHighAttentionReviewContext(profiles);
   const facts = createFactIndex(profiles, targetYears);
   const reservedZhNotes = new Set();
   const reservedPlayerStructures = new Map();

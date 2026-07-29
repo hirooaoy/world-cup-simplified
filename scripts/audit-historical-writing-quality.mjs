@@ -4,10 +4,6 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ZH_PLAYER_NAME_TRANSLATIONS } from "../football-locale-zh.js";
-import {
-  HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION,
-  isHighAttentionHistoricalProfile
-} from "./refresh-historical-player-card-notes.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const profilesPath = path.join(root, "data/historical-player-profiles.json");
@@ -47,6 +43,13 @@ function attentionScore(profile) {
   );
 }
 
+function isHighAttention(profile) {
+  return profile.bestXiSelection ||
+    Number(profile.goals || 0) >= 3 ||
+    Number(profile.scorerMatchCount || 0) >= 2 ||
+    Number(profile.keyMatchCount || 0) >= 3;
+}
+
 function normalizeReviewText(value) {
   return String(value || "")
     .normalize("NFKD")
@@ -70,7 +73,6 @@ function localizeKnownChineseEntities(value) {
 const firstFocusedKeys = parseRefreshScriptKeySet("FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS");
 const secondFocusedKeys = parseRefreshScriptKeySet("SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS");
 const focusedReviewKeys = [...firstFocusedKeys, ...secondFocusedKeys];
-const focusedReviewKeySet = new Set(focusedReviewKeys);
 const focusedReviewProfiles = focusedReviewKeys.map((key) => profileData.profiles?.[key]).filter(Boolean);
 const focusedReviewIssues = [];
 const bannedEnglishPhrases = [
@@ -79,10 +81,7 @@ const bannedEnglishPhrases = [
   /\bthis profile\b/iu,
   /\bthis version\b/iu,
   /\bone marker\b/iu,
-  /\banother responsibility\b/iu,
-  /\bfootball read\b/iu,
-  /\bimproving the card\b/iu,
-  /\bcautious (?!way to read\b)[^.]{0,96} read\b/iu
+  /\banother responsibility\b/iu
 ];
 const bannedChinesePhrases = [
   /这张卡/u,
@@ -95,12 +94,6 @@ const bannedChinesePhrases = [
 
 if (focusedReviewKeys.length !== 80 || focusedReviewProfiles.length !== 80) {
   focusedReviewIssues.push(`focused review key coverage expected 80, found ${focusedReviewKeys.length}/${focusedReviewProfiles.length}`);
-}
-
-function hasHighAttentionCopyReview(profile) {
-  return focusedReviewKeySet.has(profile.profileKey) ||
-    profile.styleNoteMeta?.copyReview === HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION ||
-    ["reviewed", "editorial"].includes(profile.styleNoteMeta?.confidence);
 }
 
 for (const profile of focusedReviewProfiles) {
@@ -120,29 +113,6 @@ for (const profile of focusedReviewProfiles) {
   }
 }
 
-const highAttention = profiles.filter(isHighAttentionHistoricalProfile);
-const highAttentionReviewProfiles = highAttention.filter((profile) => (
-  focusedReviewKeySet.has(profile.profileKey) ||
-  profile.styleNoteMeta?.copyReview === HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION
-));
-
-for (const profile of highAttentionReviewProfiles) {
-  const key = profile.profileKey;
-  const english = String(profile.styleNote || "");
-  const renderedChinese = localizeKnownChineseEntities(profile.styleNoteZh || "");
-  const englishPhrase = bannedEnglishPhrases.find((pattern) => pattern.test(english));
-  const chinesePhrase = bannedChinesePhrases.find((pattern) => pattern.test(renderedChinese));
-  if (englishPhrase) {
-    focusedReviewIssues.push(`${key}: reviewed high-attention English keeps mechanical phrase ${englishPhrase}`);
-  }
-  if (chinesePhrase) {
-    focusedReviewIssues.push(`${key}: reviewed high-attention Chinese keeps mechanical phrase ${chinesePhrase}`);
-  }
-  if (/\p{Script=Latin}/u.test(renderedChinese)) {
-    focusedReviewIssues.push(`${key}: reviewed high-attention Chinese still contains Latin-script fragments`);
-  }
-}
-
 const recurringFocusedGroups = new Map();
 for (const profile of focusedReviewProfiles) {
   const groupKey = `${profile.name} / ${profile.teamName}`;
@@ -154,20 +124,6 @@ for (const [groupKey, group] of recurringFocusedGroups) {
   const normalizedNotes = new Set(group.map((profile) => normalizeReviewText(profile.styleNote)));
   if (normalizedNotes.size !== group.length) {
     focusedReviewIssues.push(`${groupKey}: recurring editions still have interchangeable English notes`);
-  }
-}
-
-const recurringHighAttentionGroups = new Map();
-for (const profile of highAttentionReviewProfiles) {
-  const groupKey = `${profile.name} / ${profile.teamName}`;
-  if (!recurringHighAttentionGroups.has(groupKey)) recurringHighAttentionGroups.set(groupKey, []);
-  recurringHighAttentionGroups.get(groupKey).push(profile);
-}
-for (const [groupKey, group] of recurringHighAttentionGroups) {
-  if (group.length < 2) continue;
-  const normalizedNotes = new Set(group.map((profile) => normalizeReviewText(profile.styleNote)));
-  if (normalizedNotes.size !== group.length) {
-    focusedReviewIssues.push(`${groupKey}: reviewed high-attention recurring editions still have interchangeable English notes`);
   }
 }
 
@@ -185,20 +141,12 @@ const missing = profiles.filter((profile) =>
   !profile.styleNoteMeta
 );
 
-const highAttentionUnreviewed = highAttention
-  .filter((profile) => profile.styleNoteMeta?.confidence === "role-level" && !hasHighAttentionCopyReview(profile))
+const highAttention = profiles.filter(isHighAttention);
+const highAttentionRoleLevel = highAttention
+  .filter((profile) => profile.styleNoteMeta?.confidence === "role-level")
   .sort((a, b) => attentionScore(b) - attentionScore(a) || a.name.localeCompare(b.name));
 const highAttentionReviewed = highAttention
   .filter((profile) => ["reviewed", "editorial"].includes(profile.styleNoteMeta?.confidence))
-  .length;
-const highAttentionCopyReviewed = highAttention
-  .filter((profile) => (
-    profile.styleNoteMeta?.confidence === "role-level" &&
-    (
-      focusedReviewKeySet.has(profile.profileKey) ||
-      profile.styleNoteMeta?.copyReview === HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION
-    )
-  ))
   .length;
 
 const repeatedStarts = countBy(profiles.map((profile) => firstSentence(profile.styleNote)))
@@ -226,28 +174,15 @@ if (focusedReviewIssues.length) {
   process.exit(1);
 }
 
-if (highAttentionUnreviewed.length) {
-  console.error("Historical writing quality audit failed.");
-  console.error(`Unreviewed high-attention role-level cards: ${highAttentionUnreviewed.length}`);
-  for (const profile of highAttentionUnreviewed.slice(0, 40)) {
-    console.error(
-      `- ${profile.name} / ${profile.teamName} / ${profile.tournamentYear} ` +
-      `(score ${attentionScore(profile)}, ${profile.styleNoteMeta?.signature || "no signature"})`
-    );
-  }
-  process.exit(1);
-}
-
 console.log("Historical writing quality audit passed.");
 console.log(`Profiles checked: ${profiles.length}`);
 console.log(`High-attention profiles: ${highAttention.length}`);
 console.log(`High-attention reviewed/editorial: ${highAttentionReviewed}`);
-console.log(`High-attention copy-reviewed with preserved evidence level: ${highAttentionCopyReviewed}`);
-console.log(`High-attention unreviewed role-level: ${highAttentionUnreviewed.length}`);
+console.log(`High-attention still role-level: ${highAttentionRoleLevel.length}`);
 console.log(`Focused reviewed-batch cards checked: ${focusedReviewProfiles.length}`);
 console.log("");
-console.log("Top unreviewed role-level high-attention targets:");
-for (const profile of highAttentionUnreviewed.slice(0, 20)) {
+console.log("Top role-level high-attention targets:");
+for (const profile of highAttentionRoleLevel.slice(0, 20)) {
   console.log(
     `- ${profile.name} / ${profile.teamName} / ${profile.tournamentYear} ` +
     `(score ${attentionScore(profile)}, ${profile.styleNoteMeta?.signature || "no signature"})`

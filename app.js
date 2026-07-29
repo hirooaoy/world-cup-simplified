@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-historical-backlog-copy-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-historical-player-copy-1";
 import { renderFootballInlineHtml } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   HISTORICAL_TEAM_COUNTRY_CODES,
@@ -54,7 +54,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-29-historical-backlog-copy-1";
+} from "./app-config.js?v=2026-07-22-player-card-copy-1";
 import {
   isEditionLiveSyncActive,
   requestLiveDataForActiveEdition

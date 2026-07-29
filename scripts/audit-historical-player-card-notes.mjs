@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 import {
   AUTHORED_HISTORICAL_STYLE_KEYS,
   FOCUSED_HISTORICAL_CORRECTION_PROFILE_KEYS,
-  HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION,
   HISTORICAL_EDITORIAL_STYLE_PHRASES,
   HISTORICAL_PROFILE_SOURCE_SEMANTICS,
   HISTORICAL_REVIEWED_ROLE_OVERRIDES,
@@ -112,18 +111,6 @@ const forbiddenPhrases = [
   {
     pattern: /\buse .{0,96}\bas a guide to .{0,48}\brole\b/i,
     message: "state the role demand directly instead of using a guide frame"
-  },
-  {
-    pattern: /\bfootball read\b/i,
-    message: "football read sounds like internal review language"
-  },
-  {
-    pattern: /\bimproving the card\b/i,
-    message: "improving the card sounds like internal review language"
-  },
-  {
-    pattern: /\bcautious (?!way to read\b)[^.]{0,96} read\b/i,
-    message: "state the cautious role frame directly instead of calling it a read"
   },
   {
     pattern: /\bMatchday\s+\d+\b/i,
@@ -603,11 +590,6 @@ const REVIEWED_ACTION_SOURCE_REQUIREMENTS = Object.freeze({
 });
 const AUTHORED_KEYS = new Set(AUTHORED_HISTORICAL_STYLE_KEYS);
 const FOCUSED_CORRECTION_KEYS = new Set(FOCUSED_HISTORICAL_CORRECTION_PROFILE_KEYS);
-
-function isReviewedNonTemplateCopy(profileKey, profile) {
-  return FOCUSED_CORRECTION_KEYS.has(profileKey) ||
-    profile?.styleNoteMeta?.copyReview === HISTORICAL_HIGH_ATTENTION_REVIEW_VERSION;
-}
 let authoredLocaleTranslations = { es: {}, ko: {} };
 
 function semanticSourceKindsForAction(meta, actionId) {
@@ -891,8 +873,8 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
       );
     }
   }
-  const isReviewedNonTemplate = isReviewedNonTemplateCopy(profileKey, profile);
-  if (!isReviewedNonTemplate) {
+  const isFocusedCorrection = FOCUSED_CORRECTION_KEYS.has(profileKey);
+  if (!isFocusedCorrection) {
     const parsedEnglishRelation = parseSupportRelationFromCopy(profile.styleNote, "en");
     const parsedChineseRelation = parseSupportRelationFromCopy(profile.styleNoteZh, "zh");
     if (parsedEnglishRelation !== meta.supportRelation) {
@@ -1122,7 +1104,7 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
     addIssue(issues, profileKey, "penalty-skill", "miss-only shootout participation must not retain the Penalty pressure skill");
   }
 
-  if (signature && !isReviewedNonTemplate) {
+  if (signature && !FOCUSED_CORRECTION_KEYS.has(profileKey)) {
     if (!normalizeCopyText(profile.styleNote).includes(normalizeCopyText(signature.en))) {
       addIssue(issues, profileKey, "semantic-en", `English copy is missing signature phrase ${meta.signature}`);
     }
@@ -1130,7 +1112,7 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
       addIssue(issues, profileKey, "semantic-zh", `Chinese copy is missing signature phrase ${meta.signature}`);
     }
   }
-  for (const action of isReviewedNonTemplate ? [] : actionPhrases.filter(Boolean)) {
+  for (const action of FOCUSED_CORRECTION_KEYS.has(profileKey) ? [] : actionPhrases.filter(Boolean)) {
     if (!normalizeCopyText(profile.styleNote).includes(normalizeCopyText(action.en))) {
       addIssue(issues, profileKey, "semantic-en", `English copy is missing action phrase ${action.id}`);
     }
@@ -2237,7 +2219,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
   const note = String(profile.note || "").trim();
   const noteZh = String(profile.noteZh || "").trim();
   const isAuthoredSpotlight = profile.styleNoteMeta?.origin === "authored";
-  const isReviewedNonTemplate = isReviewedNonTemplateCopy(profileKey, profile);
+  const isFocusedCorrection = FOCUSED_CORRECTION_KEYS.has(profileKey);
   const visibleNameTokens = String(profile.displayName || profile.name || "")
     .split(/\s+/u)
     .map((token) => normalizeCopyText(token))
@@ -2355,7 +2337,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
 
   for (const check of forbiddenPhrases) {
     if (isAuthoredSpotlight && check.generatedOnly) continue;
-    if (isReviewedNonTemplate && check.generatedOnly) continue;
+    if (isFocusedCorrection && check.generatedOnly) continue;
     if (check.pattern.test(styleNote)) {
       addIssue(issues, profileKey, "generic-voice", check.message);
     }
@@ -2371,7 +2353,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
       );
     }
     const chinesePlayerName = String(profile.displayName || profile.name || "").replace(/\s+/gu, " ").trim();
-    if (!isReviewedNonTemplate && chinesePlayerName && !styleNoteZh.includes(chinesePlayerName)) {
+    if (chinesePlayerName && !styleNoteZh.includes(chinesePlayerName)) {
       addIssue(
         issues,
         profileKey,
