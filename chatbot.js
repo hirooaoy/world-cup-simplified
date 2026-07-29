@@ -3,7 +3,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-22-player-card-copy-1";
+} from "./chatbot-knowledge.js?v=2026-07-29-historical-player-copy-1";
 import {
   appendFootballInlineText,
   renderFootballInlineHtml

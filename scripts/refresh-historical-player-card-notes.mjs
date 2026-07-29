@@ -561,6 +561,337 @@ if (SECOND_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.size !== 40) {
   throw new Error("Second focused historical style polish batch must contain exactly 40 player cards.");
 }
 
+const FOCUSED_HISTORICAL_CORRECTION_COPY = new Map([
+  ["Grzegorz Lato / Poland / 1974", {
+    english: "A cautious way to read Lato's 1974 role is as Poland's main runner from the wing into scoring space. He is most useful when attacks develop away from him and the far-post lane opens. The profile supports his goal threat more than any one repeated micro-action.",
+    chinese: "观察1974年的Grzegorz Lato，可以把重点放在他从边路进入得分空间的作用上。当进攻从另一侧展开、后点通道打开时，他最值得留意。这里应保持角色层面的判断：现有资料支持他的进球威胁，但不足以证明某个固定细节反复出现。"
+  }],
+  ["Hristo Stoichkov / Bulgaria / 1994", {
+    english: "Stoichkov's 1994 note should read through left-sided threat rather than generic forward running. He starts where he can face the defence, then turns possession into a shot or sharper pass inside. The safer claim is about that attacking profile, not a verified repeated movement.",
+    chinese: "1994年的Hristo Stoichkov，更适合从左侧进攻威胁来理解，而不是只写成普通前锋跑动。他会出现在能够正面面对防线的位置，再把球权变成射门或向内的关键传球。更稳妥的说法是描述这种攻击轮廓，而不是断言某个动作被反复验证。"
+  }],
+  ["Leônidas / Brazil / 1938", {
+    english: "For Leônidas in 1938, keep the lens broad: Brazil's attack revolves around a forward who turns loose attacking moments into goals. The note can point to penalty-area instinct and scoring range without inventing modern off-ball cues. His goals show importance, not exact movement detail.",
+    chinese: "写1938年的Leônidas时，视角要放宽：巴西进攻围绕一名前锋展开，他能把松散的进攻机会变成进球。卡片可以强调禁区嗅觉和得分范围，但不应编出很现代的无球细节。他的七个进球是证据，具体跑动要写得克制。"
+  }],
+  ["Gary Lineker / England / 1986", {
+    english: "Lineker's 1986 profile is clearest as a penalty-area scorer built on volume and timing in front of goal. Rather than describe hidden movement as observed fact, frame him around arriving ready when England create the next chance. That keeps it distinct from his later, penalty-heavy 1990 note.",
+    chinese: "1986年的Gary Lineker，最清楚的身份是禁区终结者；这届赛事的重点在于门前机会数量和把握时机。不要把隐蔽跑动写成已观察到的事实，而应写成英格兰制造下一次机会时，他已经准备好完成终结。这样也能与1990年更偏点球和经验的一届区分开。"
+  }],
+  ["Karl-Heinz Rummenigge / West Germany / 1982", {
+    english: "Rummenigge's 1982 note works best as a careful forward-role summary. He gives West Germany a senior scoring presence who can threaten the line and still connect with nearby support. Because the evidence is role-level, avoid exact triggers and describe the danger his profile adds.",
+    chinese: "1982年的Karl-Heinz Rummenigge，适合写成谨慎的前锋角色说明。他为西德提供成熟的得分威胁，既能冲击防线，也能与身边队友衔接。由于证据仍是角色层面，不要断言具体触发动作；重点写他为进攻带来的威胁类型。"
+  }],
+  ["Johan Neeskens / Netherlands / 1974", {
+    english: "Neeskens should not sound passive here. A better lens is the two-way midfielder in a Dutch side that asks midfielders to join attacks and still keep pressure around the ball. The card can mention tempo, but the main idea should be forward support, penalty threat and work after possession changes.",
+    chinese: "1974年的Johan Neeskens不该显得被动。更好的观察重点，是荷兰体系中的双向中场：他要参与进攻，也要在球权转换后继续围住持球区域。卡片可以提到节奏，但主线应是前插支援、点球威胁和转换后的工作。"
+  }],
+  ["Teófilo Cubillas / Peru / 1970", {
+    english: "Cubillas's 1970 note can stay close to the current idea: read him as an attacking midfielder finding pockets between midfield and defence. That position connects Peru's build-up to shots around the box. This already feels coherent and mainly needs the evidence level made explicit.",
+    chinese: "1970年的Teófilo Cubillas可以保留现有方向：把他看作在中场与后防之间寻找空间的攻击型中场。关键在于这个位置如何把秘鲁的推进连接到禁区附近的射门。这个卡片本来就比较连贯，主要需要把证据层级说得更清楚。"
+  }],
+  ["Max Morlock / West Germany / 1954", {
+    english: "Morlock's 1954 role is safest as a central forward profile inside West Germany's attack. He offers goal threat and a reference point near the centre, but the card should not pretend to know a repeated blindside pattern. Keep the focus on his scorer's presence rather than modern movement language.",
+    chinese: "1954年的Max Morlock，最稳妥的写法是西德进攻中的中路前锋。他提供进球威胁和中路支点，但卡片不应假装掌握了反复出现的盲侧跑动模式。重点应放在他的射手存在感，而不是现代化的跑动术语。"
+  }],
+  ["Dražan Jerković / Yugoslavia / 1962", {
+    english: "Jerković's 1962 note should be a restrained scorer profile. He can be read as a forward who finds central and channel spaces for finishes, but the evidence supports outcome and role more than precise movements. That makes the card cleaner and avoids overclaiming from limited historical material.",
+    chinese: "1962年的Dražan Jerković，应写成克制的射手角色。他可以被理解为会在中路和肋部寻找终结空间的前锋，但现有证据更支持结果和角色，而不是精确跑动。这样写更干净，也避免从有限历史资料中过度推断。"
+  }],
+  ["Telmo Zarra / Spain / 1950", {
+    english: "Zarra's 1950 card has a useful central-forward spine: he gives Spain a target, faces goal quickly and keeps the attack direct. Keep that sequence, but phrase it as a role lens rather than verified step-by-step behavior. The value is that the reader understands why he mattered near goal.",
+    chinese: "1950年的Telmo Zarra已经有清楚的中锋主线：他为西班牙提供支点，快速面向球门，让进攻保持直接。可以保留这条顺序，但应写成角色视角，而不是逐步验证过的动作。它的价值在于让读者理解他为什么在门前重要。"
+  }],
+  ["Olivier Giroud / France / 2022", {
+    english: "Giroud's 2022 role is best framed around France needing a central reference for crosses, layoffs and box attacks. He does not need an invented defender-glance cue. The safer card: watch how his presence fixes centre-backs and gives Mbappé, Griezmann and wide service a clear target.",
+    chinese: "2022年的Olivier Giroud，最好从法国需要中路支点来写：他接应传中、做球，也攻击禁区。这里不需要编出防守者转头之类的细节。更稳妥的卡片应强调他的存在如何牵制中卫，并给姆巴佩、格列兹曼和边路传中一个明确目标。"
+  }],
+  ["Gary Lineker / England / 1990", {
+    english: "Lineker's 1990 card should not repeat 1986. Here the safer difference is an experienced scorer in tighter matches, with penalty pressure part of the profile. Read him as England's reliable finisher when the chance is clear, rather than as the same open-play poacher described four years earlier.",
+    chinese: "1990年的Gary Lineker不应重复1986年的写法。这里更稳妥的区别，是他作为经验更足的射手，在更胶着的比赛中承担得分责任，点球压力也是角色的一部分。应把他写成机会明确时英格兰可靠的终结者，而不是四年前同一套运动战抢点模板。"
+  }],
+  ["Emilio Butragueño / Spain / 1986", {
+    english: "Butragueño's 1986 role can centre on finishing before defenders recover. The card should keep the idea of quick preparation in the box, but soften the certainty around exact movement. The useful reader takeaway is a forward who turns small openings into shots before the defence resets.",
+    chinese: "1986年的Emilio Butragueño，可以围绕防守回位前完成终结来写。卡片可以保留禁区内快速准备射门的想法，但要降低对具体跑动的确定性。读者应带走的重点是：他能在防线重新站稳前，把小空当变成射门。"
+  }],
+  ["Leopoldo Luque / Argentina / 1978", {
+    english: "Luque's 1978 card should read as a scorer in Argentina's forward line, not as another generic near-post runner. He gives the attack a direct penalty-area threat and a central outlet. Keep the movement language broad unless a match-specific source supports more.",
+    chinese: "1978年的Leopoldo Luque，应写成阿根廷锋线中的射手，而不是又一个普通前点跑动者。他给进攻带来直接的禁区威胁和中路出口。除非有具体比赛资料支持，否则跑动语言要保持宽泛。"
+  }],
+  ["Rob Rensenbrink / Netherlands / 1978", {
+    english: "Rensenbrink's 1978 note works better through left-sided penalty-area threat and composure than through a stock blindside template. The role-level evidence supports a forward who can arrive from wider areas and finish. Keep the claim about attacking value, not exact repeated cues.",
+    chinese: "1978年的Rob Rensenbrink，与其套用盲侧跑动模板，不如写成左侧进入禁区的威胁和冷静终结。角色层面的证据支持他能从较宽位置进入得分区域，也能承担点球。重点应是进攻价值，而不是精确重复动作。"
+  }],
+  ["Agne Simonsson / Sweden / 1958", {
+    english: "Simonsson's 1958 card should stay simple: Sweden use him as a forward who can give attacks a central finish. The evidence points to scorer impact and role, so the note should avoid precise defender-watching details. A broad penalty-area reading is more trustworthy.",
+    chinese: "1958年的Agne Simonsson应保持简洁：瑞典把他作为能够在中路完成进攻的前锋使用。现有证据指向得分影响和角色，因此不应写具体观察防守者的细节。宽泛的禁区角色说明更可信。"
+  }],
+  ["Vavá / Brazil / 1958", {
+    english: "Vavá's 1958 profile can mention channel work, but the stronger point is his penalty-area finishing inside Brazil's attack. Frame him as the forward who turns supply into goals while Pelé and Garrincha stretch the defence. That is more specific than another generic run-behind card.",
+    chinese: "1958年的Vavá可以提到肋部活动，但更强的重点是他在巴西进攻中的禁区终结。可以把他写成把传球供应转化为进球的前锋，而贝利和加林查负责拉扯防线。这样比普通的身后跑动卡片更具体。"
+  }],
+  ["Silvio Piola / Italy / 1938", {
+    english: "Piola's 1938 note should be historically cautious. He is a prolific central forward in the record, so describe his penalty-area presence and finishing role without assigning modern trigger actions. The goals support importance, not an exact sequence of movement.",
+    chinese: "1938年的Silvio Piola要写得更谨慎。记录中他是高产的中路前锋，因此可以描述他的禁区存在感和终结角色，但不要分配现代化的触发动作。进球能证明重要性，却不能证明具体跑动顺序。"
+  }],
+  ["Oldřich Nejedlý / Czechoslovakia / 1934", {
+    english: "Nejedlý's 1934 card should lean on what is safe: a high-impact scorer in Czechoslovakia's attack. The note can say he gives the team a forward who finds finishing positions, but it should not claim exact near-post or pull-wide behavior. Keep the language broad and evidence-aware.",
+    chinese: "1934年的Oldřich Nejedlý，应依靠最稳妥的内容：他是捷克斯洛伐克进攻中影响很大的射手。卡片可以说他为球队提供能找到终结位置的前锋，但不应断言前点或拉边动作。语言要宽一些，也要体现证据边界。"
+  }],
+  ["Gheorghe Hagi / Romania / 1994", {
+    english: "Hagi's 1994 card needs more personality: read him as Romania's left-footed creator and long-range threat, not a calm recycling midfielder. He shapes attacks by seeing the next pass or shot early. The copy should make him feel expressive while still avoiding unsupported match-by-match claims.",
+    chinese: "1994年的Gheorghe Hagi需要更有个人特征：他应被写成罗马尼亚的左脚创造者和远射威胁，而不是普通控节奏中场。他通过提前看到下一脚传球或射门来塑造进攻。文案要有表现力，同时避免没有依据的逐场断言。"
+  }],
+  ["Tomas Brolin / Sweden / 1994", {
+    english: "Brolin's 1994 card is one of the stronger role-level notes. Keep the central idea: he works between lines, links attacks and arrives near the box rather than staying fixed. The correction is mostly tonal: present it as a useful reading of his role, not a fully observed action log.",
+    chinese: "1994年的Tomas Brolin是较强的角色层面卡片之一。可以保留主线：他在两线之间活动，连接进攻，并来到禁区附近，而不是固定在一个位置。需要修正的主要是语气：把它写成理解角色的有用方式，而不是完整观察记录。"
+  }],
+  ["Teófilo Cubillas / Peru / 1978", {
+    english: "Cubillas's 1978 edition should differ from 1970. Read him as a more experienced attacking midfielder whose set-piece and scoring threat sit alongside tempo control. The role-level prose should say what to look for broadly, not reuse the younger between-lines profile.",
+    chinese: "1978年的Teófilo Cubillas应与1970年区别开来。这里可以把他写成更成熟的攻击型中场：定位球和得分威胁与节奏控制并存。角色层面的文案应宽泛说明观察重点，而不是重复年轻时的两线之间活动。"
+  }],
+  ["Leonel Sánchez / Chile / 1962", {
+    english: "Leonel Sánchez's 1962 note can stay on the left-sided attacker idea. He is best read as a forward who threatens from wider channels and arrives where chances can be finished. Keep the note concise and avoid turning that broad role into a precise repeated route.",
+    chinese: "1962年的Leonel Sánchez可以保留左侧攻击手的方向。他最适合被理解为从较宽通道制造威胁、再进入能够终结机会的位置的前锋。卡片应简洁，不要把这个宽泛角色写成精确重复路线。"
+  }],
+  ["Valentin Ivanov / Soviet Union / 1962", {
+    english: "Ivanov's 1962 card should describe a wide or inside-forward threat in broad terms. He can be read through movement from the flank into central lanes and a scorer's role for the Soviet Union. Avoid making the outside-to-inside pattern sound more exact than the evidence supports.",
+    chinese: "1962年的Valentin Ivanov，应宽泛写成边路或内锋威胁。他可以被理解为从边路进入中路通道，并为苏联承担得分角色。不要把外线到内线的模式写得比证据更精确。"
+  }],
+  ["Kurt Hamrin / Sweden / 1958", {
+    english: "Hamrin's 1958 profile is most useful as a wide scorer's card. He gives Sweden threat from the flank and can arrive away from the ball, but the note should not tack on unrelated carrying details. Keep the far-side scoring idea and let it stand.",
+    chinese: "1958年的Kurt Hamrin，最有用的写法是边路射手。他从侧翼带来威胁，也能在远离球的一侧进入机会区域；但卡片不应硬接不相关的带球细节。保留弱侧得分威胁这个重点即可。"
+  }],
+  ["Hans Schäfer / West Germany / 1954", {
+    english: "Schäfer's 1954 card can focus on width that turns into inside support. He gives West Germany an outside lane and then narrows when the attack needs another body near goal. Phrase this as a role tendency, not as a verified repeated action.",
+    chinese: "1954年的Hans Schäfer，可以聚焦于从宽度转入内侧支援。他为西德提供外线通道，并在进攻需要禁区附近多一人时内收。这个写法应是角色倾向，而不是被验证的重复动作。"
+  }],
+  ["Nándor Hidegkuti / Hungary / 1954", {
+    english: "Hidegkuti's 1954 role should be built around dropping away from centre-forward, not running beyond the line. He sits closer to midfield, draws defenders out and opens lanes for Puskás and Kocsis. That deep-lying forward idea is the historically important lens.",
+    chinese: "1954年的Nándor Hidegkuti，核心应是从中锋位置回撤，而不是冲击防线身后。他更靠近中场接应，把防守者带出原位，并为普斯卡什和柯奇士打开线路。这个回撤中锋视角才是最重要的历史重点。"
+  }],
+  ["Neymar / Brazil / 2014", {
+    english: "Neymar's 2014 note can keep the carrying lens, but make it less mechanical. Brazil's attack asks him to turn receiving moments into forward pressure, either by carrying at the next defender or combining before contact arrives. That is enough without a far-post action that feels unrelated.",
+    chinese: "2014年的Neymar可以保留带球推进的视角，但要少一点机械感。巴西进攻常需要他把接球瞬间变成向前压力：要么带球冲向下一名防守者，要么在对抗到来前完成配合。这样已经足够，不必再硬接后点跑动。"
+  }],
+  ["Dennis Bergkamp / Netherlands / 1998", {
+    english: "Bergkamp's 1998 profile should centre on receiving between lines and making the first touch matter. He links attacks, but the distinctive part is how one touch can create the next angle before pressure settles. Keep it role-level, but let the first-touch identity come through.",
+    chinese: "1998年的Dennis Bergkamp，应围绕两线之间接球以及第一脚触球的价值来写。他能串联进攻，但更有辨识度的是：压力站稳前，他的一脚处理就能创造下一条线路。保持角色层面，同时让第一脚触球的个人特征显出来。"
+  }],
+  ["Andreas Brehme / West Germany / 1990", {
+    english: "Brehme's 1990 note should combine wing-back balance with set-piece and penalty threat. He is not just a recovery runner. His value is that the left side carries both defensive responsibility and decisive attacking moments. Keep exact actions broad unless a match source supports them.",
+    chinese: "1990年的Andreas Brehme，应把翼卫平衡与定位球、点球威胁放在一起写。他不只是回追球员；他的价值在于左路同时承担防守责任和决定性进攻时刻。除非有比赛资料支持，具体动作仍应写得宽泛。"
+  }],
+  ["Jan Ceulemans / Belgium / 1986", {
+    english: "Ceulemans should not read like a quiet controller. A better 1986 lens is a powerful midfielder who gives Belgium forward running and penalty-area presence from deeper positions. Mention tempo only as part of how he joins attacks, not as the whole identity.",
+    chinese: "1986年的Jan Ceulemans不该像安静的控球中场。更好的视角是：他作为有力量的中场，从较深位置为比利时提供前插和禁区存在感。节奏可以提，但只能作为他参与进攻的一部分，而不是全部身份。"
+  }],
+  ["Falcão / Brazil / 1982", {
+    english: "Falcão's 1982 card can stay on central control, but it should feel less like a generated rewrite. He gives Brazil a midfielder who supports after passing, keeps angles open and can still arrive as a goal threat. That mix of rhythm and forward participation is the point.",
+    chinese: "1982年的Falcão可以继续写中场控制，但不应像只是模板改写。他为巴西提供一种中场角色：出球后继续支援，保持接应角度，同时仍能前插形成得分威胁。节奏和向前参与的结合才是重点。"
+  }],
+  ["Rivellino / Brazil / 1974", {
+    english: "Rivellino's 1974 note should make room for his left-footed threat. The safe reading is a midfielder who can connect possession and still change the attack with a pass or shot from range. Keep the phrasing vivid, but avoid pretending every action is edition-specific.",
+    chinese: "1974年的Rivellino，应给他的左脚威胁留出空间。稳妥的理解是：他既能连接控球，也能用传球或远射改变进攻。文案可以更鲜明，但不要假装每个动作都被这届赛事逐一证明。"
+  }],
+  ["Amarildo / Brazil / 1962", {
+    english: "Amarildo's 1962 card needs the tournament circumstance: he becomes important after Pelé's injury. Frame him as the forward who has to keep Brazil's attack direct and supplied near goal. That context is stronger than another generic run-behind note.",
+    chinese: "1962年的Amarildo必须写出赛事处境：贝利受伤后，他变得重要。可以把他写成需要让巴西进攻继续保持直接、并在门前提供终结点的前锋。这个背景比普通身后跑动说明更有价值。"
+  }],
+  ["Flórián Albert / Hungary / 1962", {
+    english: "Albert's 1962 note should not reduce him to a conventional runner. A safer role lens is an intelligent forward who can connect play and move into scoring positions for Hungary. Keep the card broad enough for role-level evidence while giving him more craft than a generic striker.",
+    chinese: "1962年的Flórián Albert不应被简化成普通冲刺型前锋。更稳妥的角色视角是：他是聪明的前锋，既能连接进攻，也能进入匈牙利的得分位置。卡片要符合角色层面证据，同时保留比普通中锋更多的技术感。"
+  }],
+  ["Oscar Míguez / Uruguay / 1950", {
+    english: "Míguez's 1950 profile works as a central target-forward note. He gives Uruguay a presence who can occupy defenders and keep attacks alive near goal. Keep that strong central idea, but avoid overly exact claims about how each defender is moved.",
+    chinese: "1950年的Oscar Míguez，作为中路支点前锋的写法是成立的。他为乌拉圭提供能够牵制防守者、并让门前进攻延续下去的存在。可以保留这个强主线，但不要过度精确地描述每名防守者如何被带动。"
+  }],
+  ["Angelo Schiavio / Italy / 1934", {
+    english: "Schiavio's 1934 card should be more careful than the previous rewrite. The safe note is that he serves as a central Italian scoring reference, with the record supporting his importance near goal. Avoid assigning detailed movement patterns to sparse historical evidence.",
+    chinese: "1934年的Angelo Schiavio要比之前写得更谨慎。稳妥的说明是：他是意大利中路的得分参照，记录能支持他在门前的重要性。不要在历史资料有限时给他安排过细的跑动模式。"
+  }],
+  ["Luis Suárez / Uruguay / 2010", {
+    english: "Suárez's 2010 card should feel sharper than a tidy channel-runner note. Uruguay use him as a restless forward who can attack space, combine with Forlán and turn loose moments into shots. Keep the role-level caution, but let the edge of his game show.",
+    chinese: "2010年的Luis Suárez，应比整齐的肋部跑动卡片更锋利。乌拉圭使用的是一名持续制造压力的前锋：他能冲击空间、与弗兰配合，也能把松散局面变成射门。仍要保持角色层面的谨慎，但他的侵略性应显出来。"
+  }],
+  ["Michael Ballack / Germany / 2002", {
+    english: "Ballack's 2002 card should not sound like a calm possession recycler. He is better read as Germany's forceful midfield driver: arriving beyond the ball, adding goal threat and carrying responsibility in both directions. The role-level wording can stay cautious while making the profile stronger.",
+    chinese: "2002年的Michael Ballack不应像冷静回收球权的中场。他更适合被写成德国有力量的中场推进者：会前插到球前，增加进球威胁，也在攻防两端承担责任。角色层面的语气可以保留，但人物轮廓要更强。"
+  }],
+  ["Brian Laudrup / Denmark / 1998", {
+    english: "Brian Laudrup's 1998 note should lean into carrying and creative progression. A safe lens is a forward who starts from wider or support spaces, drives at defenders and turns that pressure into the next pass or shot. That gives the card more identity than generic second-forward movement.",
+    chinese: "1998年的Brian Laudrup，应更强调带球推进和创造性向前。稳妥的视角是：他从较宽或支援位置起步，带球冲向防守者，并把这种压力变成下一脚传球或射门。这样比普通影锋跑动更有辨识度。"
+  }],
+  ["Pelé / Brazil / 1962", {
+    english: "Pelé's 1962 card needs a sample-size caveat. Treat it as an early-tournament glimpse before injury cut his campaign short: he could still connect attacks quickly and give Brazil a forward reference. Do not present it as a full-tournament pattern.",
+    chinese: "1962年的Pelé必须加上样本限制。这更像是受伤前的早期赛事片段：他仍能快速连接进攻，并为巴西提供前场参照。不要把它写成整届赛事反复出现的完整模式。"
+  }],
+  ["Diego Maradona / Argentina / 1994", {
+    english: "Maradona's 1994 note has to include the abrupt ending. In the matches he did play, Argentina still looked to him for rhythm and the next forward connection, but his tournament stopped after the drug-test case. Read it as a brief, interrupted role, not a settled campaign profile.",
+    chinese: "1994年的Diego Maradona必须写出突然中断的背景。在他出场的比赛里，阿根廷仍依靠他掌控节奏并连接下一次向前推进；但药检事件后，他的世界杯提前结束。这里应写成短暂且被打断的角色，而不是完整稳定的一届赛事。"
+  }],
+  ["Cristiano Ronaldo / Portugal / 2006", {
+    english: "Ronaldo's 2006 edition should read as the young wide attacker. The useful lens is speed, direct one-on-one pressure and service from wide areas, with far-post arriving only a secondary idea. Keep it different from the later cards by making this one about wing threat and development.",
+    chinese: "2006年的Cristiano Ronaldo应写成年轻边路攻击手。观察重点是速度、直接一对一压力和边路传中，后点包抄只能是次要内容。为了区别后来的版本，这里要写成边路威胁和成长阶段。"
+  }],
+  ["Cristiano Ronaldo / Portugal / 2010", {
+    english: "Ronaldo's 2010 card should move away from the 2006 winger template. Portugal use him as a freer attacking star who can begin wide, drift inside and turn possession into his own shot. The safe distinction is greater central responsibility, not the same far-post movement.",
+    chinese: "2010年的Cristiano Ronaldo应离开2006年的纯边锋模板。葡萄牙把他作为更自由的进攻核心使用：他可以从边路起步，向内移动，并把球权转化成自己的射门。稳妥的区别是中路责任更重，而不是重复同样的后点跑动。"
+  }],
+  ["Cristiano Ronaldo / Portugal / 2014", {
+    english: "Ronaldo's 2014 card needs to acknowledge a narrower, more constrained tournament. Read him as Portugal's main finishing reference, often looking for the quickest route to goal rather than constant wing creation. That makes this edition separate from both 2006 and 2010.",
+    chinese: "2014年的Cristiano Ronaldo需要写出更收窄、也更受限制的一届赛事。可以把他看作葡萄牙主要的终结参照，常常寻找最快通向球门的方式，而不是持续的边路创造。这样才能与2006年和2010年区分开。"
+  }],
+  ["Miroslav Klose / Germany / 2010", {
+    english: "Klose's 2010 role can centre on selfless centre-forward work. Germany need him to occupy defenders, connect simple passes and then arrive for finishes when the move continues. The phrasing should describe the role directly, without saying the card or profile has a shape.",
+    chinese: "2010年的Miroslav Klose，可以围绕无私的中锋工作来写。德国需要他牵制防守者、完成简单衔接，并在进攻延续后进入终结位置。文案应直接描述角色，不要说什么卡片或资料如何展开。"
+  }],
+  ["Roberto Baggio / Italy / 1990", {
+    english: "Baggio's 1990 edition should feel like emergence. He can be read as a creative forward who pauses just enough to open a shooting or passing angle, but the note should stay cautious. The point is a glimpse of invention, not the same late-career profile used for 1998.",
+    chinese: "1990年的Roberto Baggio应有初露锋芒的感觉。可以把他理解为创造型前锋：他会稍作停顿，为射门或传球打开角度，但语气仍要谨慎。重点是一种创造力的显现，而不是套用1998年的成熟后期版本。"
+  }],
+  ["Roberto Baggio / Italy / 1998", {
+    english: "Baggio's 1998 note should sound like a veteran attacking option. He is no longer just an emerging creator. The useful lens is economy, timing and making limited attacking moments count. Keep it separate from 1990 by stressing experience and selective impact.",
+    chinese: "1998年的Roberto Baggio应像一名老练的进攻选择。他不再只是初露锋芒的创造者；更有用的视角是处理简洁、时机准确，并让有限的进攻时刻产生效果。通过经验和选择性影响，把它与1990年区分开。"
+  }],
+  ["Franz Beckenbauer / West Germany / 1970", {
+    english: "Beckenbauer's 1970 note should not be bland support-after-passing copy. Read him as the defender-midfielder who can step into possession and keep West Germany connected from behind. The card can stay role-level, but the libero identity needs to come through.",
+    chinese: "1970年的Franz Beckenbauer不应只是平淡的出球后支援。应把他写成能带球进入中场、从后方保持西德连贯性的后卫型组织者。卡片可以保持角色层面，但清道夫式身份必须显出来。"
+  }],
+  ["Jairzinho / Brazil / 1974", {
+    english: "Jairzinho's 1974 card should be cautious because the strongest identity comes from his 1970 peak. Here, read him as a returning wide forward whose value is still direct running and scoring threat, but avoid importing the full 1970 pattern as if it were proven again.",
+    chinese: "1974年的Jairzinho需要谨慎，因为最强的个人标签来自1970年的巅峰表现。这里可以把他写成再次参赛的边路前锋，价值仍在直接冲击和得分威胁，但不要把1970年的完整模式当作这届赛事已被证明的内容。"
+  }],
+  ["Mario Kempes / Argentina / 1974", {
+    english: "Kempes's 1974 note should feel like an early chapter. With no goal return in this edition, avoid writing him as the fully formed 1978 finisher. A safer card says Argentina use him as a forward presence and runner, while the decisive World Cup version comes later.",
+    chinese: "1974年的Mario Kempes应像早期章节。既然这届没有进球，不要把他写成1978年那个成熟终结者。更稳妥的卡片应说阿根廷把他作为前场存在和跑动点使用，而决定性的世界杯版本会在后来出现。"
+  }],
+  ["Sócrates / Brazil / 1986", {
+    english: "Sócrates's 1986 card should read through midfield combinations and late attacking support, not a vague 'clear task.' A cautious lens is how he helps Brazil connect through short passes while still carrying scoring threat from midfield. Keep the claim broad and natural.",
+    chinese: "1986年的Sócrates，应从中场配合和后插上支援来理解，而不是写成含糊的“明确任务”。谨慎的视角是：他通过短传帮助巴西衔接进攻，同时仍从中场带来得分威胁。表述要宽泛、自然。"
+  }],
+  ["Michel Platini / France / 1978", {
+    english: "Platini's 1978 card should be the earlier version: a young French attacking midfielder beginning to connect midfield to the forward line. Keep the between-lines idea, but present it as an emerging role and do not copy the fuller 1982 profile.",
+    chinese: "1978年的Michel Platini应是较早期版本：年轻的法国攻击型中场，开始把中场与锋线连接起来。可以保留两线之间的想法，但要写成逐渐成形的角色，不能复制更完整的1982版本。"
+  }],
+  ["Michel Platini / France / 1982", {
+    english: "Platini's 1982 card needs the stronger central thesis. France's attack runs more clearly through him: he finds space between lines, sets the rhythm and adds scoring threat. Unlike 1978, this should read as the tournament where the playmaking role becomes the main frame.",
+    chinese: "1982年的Michel Platini需要更强的中心论点。法国进攻更明显地围绕他运转：他在两线之间找空间，设定节奏，也带来得分威胁。与1978年不同，这里应读起来像组织核心角色真正成为主框架的一届。"
+  }],
+  ["Lothar Matthäus / West Germany / 1986", {
+    english: "Matthäus's 1986 card should stress energy and two-way support. He can connect after passing, but the better role-level lens is a midfielder who keeps moving between defensive work and forward runs. Avoid making him sound slower or safer than the profile deserves.",
+    chinese: "1986年的Lothar Matthäus应强调活力和双向支援。他可以出球后继续衔接，但更好的角色视角是：他在防守工作和前插之间不断移动。不要把他写得比实际轮廓更慢、更保守。"
+  }],
+  ["Lothar Matthäus / Germany / 1994", {
+    english: "Matthäus's 1994 card should feel older and more managerial. He still supports possession, but the safer distinction is experience: choosing when to recycle, when to hold shape and when to step forward. That separates it from the more mobile 1986 reading.",
+    chinese: "1994年的Lothar Matthäus应有更老练、更像场上管理者的感觉。他仍会支援控球，但更稳妥的区别是经验：什么时候回收，什么时候保持阵型，什么时候向前。这样能与1986年更机动的版本区分开。"
+  }],
+  ["Roger Milla / Cameroon / 1982", {
+    english: "Milla's 1982 card should be the pre-breakout edition. He is part of Cameroon's forward structure, but the note should not borrow the 1990 impact-sub identity or later mythology. Keep it modest: a role-level forward presence before the famous tournament arrives.",
+    chinese: "1982年的Roger Milla应是成名爆发前的版本。他是喀麦隆锋线结构的一部分，但卡片不应借用1990年的超级替补身份或后来传奇。保持克制：这是著名一届到来前的角色层面前锋存在。"
+  }],
+  ["Roger Milla / Cameroon / 1990", {
+    english: "Milla's 1990 card must be shaped by impact-sub status. The useful lens is not a normal starter's run pattern, but a veteran forward changing matches from the bench by attacking unsettled defenders and finishing quickly. That is the edition users expect to feel.",
+    chinese: "1990年的Roger Milla必须围绕超级替补身份来写。观察重点不是普通首发前锋的跑动模式，而是一名老将替补登场，冲击尚未站稳的防守者并快速完成终结。这才是用户期待读到的那一届。"
+  }],
+  ["Roger Milla / Cameroon / 1994", {
+    english: "Milla's 1994 note should be about a brief, late-career impact rather than the same 1990 profile. He remains an impact substitute and scorer, but the card should frame the role as limited and historic. Do not reuse the normal run-behind language.",
+    chinese: "1994年的Roger Milla，应写成职业生涯后期的短暂影响，而不是重复1990年的完整形象。他仍是替补冲击点和进球者，但卡片要把角色写成有限而具有历史意味。不要再使用普通身后跑动语言。"
+  }],
+  ["Davor Šuker / Croatia / 2002", {
+    english: "Šuker's 2002 card should acknowledge that the strongest evidence comes from his 1998 identity. In this edition, keep the claim limited: Croatia still have a striker associated with separation and finishing, but the tournament impact is narrower. That prevents the card from overselling the role.",
+    chinese: "2002年的Davor Šuker应承认最强证据来自他1998年的身份。这一届应限制说法：克罗地亚仍拥有一名以拉开空间和终结著称的前锋，但赛事影响更窄。这样可以避免卡片过度拔高。"
+  }],
+  ["Xavi / Spain / 2002", {
+    english: "Xavi's 2002 card should be an early-career note, not a retroactive 2010 profile. As an impact substitute, the safe lens is a young central midfielder offering control and short passing in limited minutes. Keep the later master-controller identity out of this edition.",
+    chinese: "2002年的Xavi应是早期职业生涯说明，而不是倒套2010年的成熟形象。作为替补影响点，稳妥的视角是：年轻中场在有限时间里提供控球和短传衔接。不要把后来大师级控制者的身份放进这一届。"
+  }],
+  ["Andrés Iniesta / Spain / 2014", {
+    english: "Iniesta's 2014 card should avoid the winger template. Spain still look to him for interior control and combination play, but this is a post-peak tournament rather than the 2010 final role. Read him through midfield connection, not outside-to-inside forward movement.",
+    chinese: "2014年的Andrés Iniesta应避开边锋模板。西班牙仍依靠他在内侧区域控制和配合，但这已经不是2010年决赛那个巅峰角色。应从中场连接来理解他，而不是写成外线内切的前锋跑动。"
+  }],
+  ["Andrés Iniesta / Spain / 2018", {
+    english: "Iniesta's 2018 note should differ from 2014 by stressing reduced, selective influence. He remains a connector when Spain need calm possession, but the role is more limited and late-career. Keep the card about control in chosen moments, not repeated wing movement.",
+    chinese: "2018年的Andrés Iniesta应与2014年不同，强调影响更有限、更有选择性。当西班牙需要冷静控球时，他仍是连接点，但角色已经更偏后期和局部。卡片应写关键时段的控制，而不是重复边路跑动。"
+  }],
+  ["David Villa / Spain / 2014", {
+    english: "Villa's 2014 card should be a late-Spain note. He can still offer finishing instincts from the left or centre, but the tournament role is narrower than his 2010 peak. A cautious framing around limited scoring impact is better than a full recurring-role import.",
+    chinese: "2014年的David Villa应写成西班牙后期角色。他仍能从左路或中路提供终结本能，但这一届的角色比2010年巅峰更窄。围绕有限的得分影响谨慎表述，比完整套用旧角色更好。"
+  }],
+  ["Wesley Sneijder / Netherlands / 2014", {
+    english: "Sneijder's 2014 card is one of the better recurring-context notes. Keep the idea that he scans before receiving and can release runners beyond pressure, but make the wording more natural. The useful distinction is veteran creation from midfield, not generic tempo control.",
+    chinese: "2014年的Wesley Sneijder是较好的跨届背景卡片之一。可以保留接球前观察、把跑动队友送过压力线的想法，但语言要更自然。这里有用的区别是老练的中场创造，而不是普通节奏控制。"
+  }],
+  ["Thomas Müller / Germany / 2018", {
+    english: "Müller's 2018 card should not reuse his best-years movement profile. Germany still use him as an experienced attacking reference, but the tournament is limited and blunt compared with earlier editions. Write it as a role-level, post-peak presence rather than classic Müller space-finding.",
+    chinese: "2018年的Thomas Müller不应重复他巅峰时期的跑位形象。德国仍把他作为有经验的前场参照，但这一届影响有限，也不如早期锋利。应写成角色层面的后巅峰存在，而不是经典穆勒式找空间。"
+  }],
+  ["Antoine Griezmann / France / 2014", {
+    english: "Griezmann's 2014 card should be the young forward version. France use him as a mobile attacker who can find channels around the striker, but the note should not borrow the 2022 midfield identity. Keep it light, role-level and clearly early-career.",
+    chinese: "2014年的Antoine Griezmann应是年轻前锋版本。法国把他作为机动攻击手使用，他能在中锋周围寻找通道，但卡片不应借用2022年的中场身份。保持轻量、角色层面，并明确这是早期阶段。"
+  }],
+  ["Antoine Griezmann / France / 2022", {
+    english: "Griezmann's 2022 role is about switching between playmaking and defensive work from a deeper midfield position. When France lose the ball, he helps close the nearest outlet. When they recover it, he moves into space to connect the next attack. That transition frame replaces the old recovery wording.",
+    chinese: "2022年的Antoine Griezmann，重点是他在更深的中场位置上切换组织和防守工作。法国丢球时，他会帮助封住最近的出球点；重新夺回球权后，他再移动到空当中连接下一次进攻。这个攻防转换视角应取代前后矛盾的“夺回球后”说法。"
+  }],
+  ["Bobby Charlton / England / 1958", {
+    english: "Charlton was selected for England's 1958 World Cup squad but did not play. The note should not describe on-field movement from that tournament. His World Cup playing story begins four years later, when he is an established England attacker in Chile.",
+    chinese: "Bobby Charlton入选了英格兰1958年世界杯名单，但没有出场。这里不应描述他在那届赛事中的场上跑动。他真正的世界杯出场故事，要到四年后的智利才开始，那时他已经是英格兰成熟的进攻球员。"
+  }],
+  ["Bobby Charlton / England / 1962", {
+    english: "Charlton's 1962 card should stand apart from the unused 1958 squad note. Here he is finally part of England's World Cup side on the pitch, bringing forward running and midfield-to-attack connection. Keep the role broad, but make clear this is the playing chapter.",
+    chinese: "1962年的Bobby Charlton应与1958年未出场的名单卡区分开。这里他终于在世界杯赛场上进入英格兰阵容，带来向前跑动以及中场到进攻的连接。角色可以写得宽泛，但必须说明这是实际出场的一章。"
+  }],
+  ["Geoff Hurst / England / 1970", {
+    english: "Hurst's 1970 card should be careful because his strongest World Cup identity comes from 1966. In this edition, read him as England's experienced central striker option, still able to give the attack a box reference. Do not import the whole 1966 final profile.",
+    chinese: "1970年的Geoff Hurst需要谨慎，因为他最强的世界杯身份来自1966年。这一届可以把他写成英格兰有经验的中锋选择，仍能为进攻提供禁区参照。不要把1966年决赛的完整形象搬过来。"
+  }],
+  ["Garrincha / Brazil / 1966", {
+    english: "Garrincha's 1966 card can keep chance creation and scoring threat, but it needs caution. This is a later, less complete edition than his 1958 and 1962 peaks. Read him as a returning wide creator whose reputation and flashes of threat remain, not as the full peak version.",
+    chinese: "1966年的Garrincha可以保留创造机会和得分威胁，但必须谨慎。这已经是晚于1958和1962巅峰的版本，并不完整。应把他写成再次参赛的边路创造者：声望和局部威胁仍在，但不是完整巅峰版本。"
+  }],
+  ["Zico / Brazil / 1978", {
+    english: "Zico's 1978 card should not make him sound like a conventional striker. A safer lens is a creative Brazilian attacker who looks for pockets near midfield and the box, with set-piece and penalty threat part of the profile. Keep him technical, not generic.",
+    chinese: "1978年的Zico不应像普通中锋。更稳妥的视角是：他是巴西的创造型攻击手，会在中场附近和禁区周围寻找空间，定位球和点球威胁也是角色的一部分。要写出技术型特征，而不是普通模板。"
+  }],
+  ["Careca / Brazil / 1986", {
+    english: "Careca's 1986 card should be the sharper scoring version. Brazil use him as a forward who attacks central spaces and turns service into goals. Keep the role-level caution, but let the five-goal tournament separate it from 1990.",
+    chinese: "1986年的Careca应是更锋利的得分版本。巴西把他作为冲击中路空间、把传球转化为进球的前锋使用。保持角色层面的谨慎，但要让五球表现把它与1990年区分开。"
+  }],
+  ["Careca / Brazil / 1990", {
+    english: "Careca's 1990 card should be narrower than 1986. He remains Brazil's central forward and scoring outlet, but the tournament impact is smaller. Write the note as a continuation with reduced output, not as the same five-goal striker profile.",
+    chinese: "1990年的Careca应比1986年更收窄。他仍是巴西的中路前锋和得分出口，但赛事影响更小。卡片应写成延续但产出降低的一届，而不是重复五球射手形象。"
+  }],
+  ["Gabriel Batistuta / Argentina / 1994", {
+    english: "Batistuta's 1994 edition should introduce the World Cup scorer profile. Argentina have a direct centre-forward who can turn service into goals quickly, including under penalty pressure. This is the first chapter, not a copy of the later editions.",
+    chinese: "1994年的Gabriel Batistuta应介绍他的世界杯射手形象。阿根廷拥有一名直接的中锋，能迅速把传球供应转化为进球，也能承担点球压力。这是第一章，而不是后来几届的复制。"
+  }],
+  ["Gabriel Batistuta / Argentina / 1998", {
+    english: "Batistuta's 1998 card should feel like the peak World Cup scoring version. The role is still direct centre-forward play, but the emphasis is repeated finishing impact and ruthless penalty-area work. Keep it distinct from 1994 by making the profile more established.",
+    chinese: "1998年的Gabriel Batistuta应像世界杯得分能力的高峰版本。角色仍是直接中锋，但重点是持续的终结影响和冷酷的禁区工作。通过更成熟、更稳定的射手形象，把它与1994年区分开。"
+  }],
+  ["Gabriel Batistuta / Argentina / 2002", {
+    english: "Batistuta's 2002 card should be a late-career, limited-impact note. Argentina still have his centre-forward presence, but the role is not the same as the explosive 1994 or 1998 versions. The card should acknowledge the reduced tournament return.",
+    chinese: "2002年的Gabriel Batistuta应写成职业后期、影响更有限的一届。阿根廷仍拥有他的中锋存在感，但这已经不是1994或1998年那种爆发版本。卡片应承认赛事回报下降。"
+  }],
+  ["Jürgen Klinsmann / Germany / 1994", {
+    english: "Klinsmann's 1994 note can focus on mobile centre-forward scoring. Germany use him as a runner and finisher who keeps attacking the box through the match. Keep the role-level evidence visible, but let the high goal return shape this edition.",
+    chinese: "1994年的Jürgen Klinsmann，可以围绕机动中锋得分来写。德国把他作为持续冲击禁区的跑动者和终结者使用。保持角色层面证据的边界，但让高进球产出定义这一届。"
+  }],
+  ["Jürgen Klinsmann / Germany / 1998", {
+    english: "Klinsmann's 1998 card should be the veteran version. The forward movement remains, but the better distinction is experience: choosing moments, leading the line and still finding goals late in his international career. Do not reuse the 1994 card with a different opening.",
+    chinese: "1998年的Jürgen Klinsmann应是老将版本。前锋跑动仍在，但更好的区别是经验：选择时机、领衔锋线，并在国家队生涯后期继续取得进球。不要只把1994年的卡片换个开头。"
+  }]
+]);
+
+if (FOCUSED_HISTORICAL_CORRECTION_COPY.size !== FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.size) {
+  throw new Error("Focused historical correction copy must cover exactly the two reviewed 40-card batches.");
+}
+
+export const FOCUSED_HISTORICAL_CORRECTION_PROFILE_KEYS = Object.freeze([
+  ...FOCUSED_HISTORICAL_CORRECTION_COPY.keys()
+]);
+
 function buildFirstFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
   if (!FIRST_FOCUSED_HISTORICAL_STYLE_POLISH_PROFILE_KEYS.has(profile.profileKey)) return null;
 
@@ -587,7 +918,7 @@ function buildFirstFocusedHistoricalStylePolish(profile, primary, first, second,
     : [
         `${edition}年的${name}，观察重点是${primary.zh}。观察他如何${first.zh}。另外，他会${second.zh}。`,
         `观察${edition}年的${name}时，可以留意${primary.zh}。一处细节是：他会${first.zh}。除此之外，他会${second.zh}。`,
-        `要理解${edition}年的${name}的场上任务，可以观察${primary.zh}。第一处动作是：他会${first.zh}。另一项责任是${second.zh}。`
+        `要理解${edition}年的${name}，可以观察${primary.zh}。第一处动作是：他会${first.zh}。另一处表现是${second.zh}。`
       ][variantIndex];
   return { english, chinese };
 }
@@ -605,47 +936,55 @@ function buildSecondFocusedHistoricalStylePolish(profile, primary, first, second
         `${possessive(name)} ${edition} profile is built around ${primary.en}. ${sentenceName} ${first.en}. The same thread continues when he ${second.en}.`,
         `For ${name} in ${edition}, the cue is ${primary.en}. One clue is how he ${first.en}. Another clue is how he ${second.en}.`,
         `${name} in ${edition} is easiest to follow through ${primary.en}. He ${first.en}. That pattern returns when he ${second.en}.`,
-        `The practical lens for ${name} in ${edition} is ${primary.en}. Track how he ${first.en}. The same reading returns when he ${second.en}.`,
-        `${possessive(name)} ${edition} role is built around ${primary.en}. One marker is how he ${first.en}. The same quality appears when he ${second.en}.`,
-        `For this ${edition} version of ${name}, ${primary.en} is the thread. ${sentenceName} ${first.en}. The same thread continues when he ${second.en}.`,
+        `A useful way to read ${name} in ${edition} is ${primary.en}. Track how he ${first.en}. The same reading returns when he ${second.en}.`,
+        `${possessive(name)} ${edition} role is built around ${primary.en}. One useful sign is how he ${first.en}. The same quality appears when he ${second.en}.`,
+        `For ${name} in ${edition}, ${primary.en} is the thread. ${sentenceName} ${first.en}. The same thread continues when he ${second.en}.`,
         `Watch ${name} in ${edition} for ${primary.en}. One clue is how he ${first.en}. Another appears when he ${second.en}.`,
-        `${name} gives this ${edition} profile its shape through ${primary.en}. One clue is how he ${first.en}. Another clue is how he ${second.en}.`
+        `${name} in ${edition} is easiest to understand through ${primary.en}. One clue is how he ${first.en}. Another clue is how he ${second.en}.`
       ][variantIndex]
     : [
         `${possessive(name)} ${edition} profile is built around ${primary.en}. ${sentenceName} ${first.en}. Separately, he ${second.en}.`,
         `For ${name} in ${edition}, first look at ${primary.en}. One detail is how he ${first.en}. A separate responsibility is how he ${second.en}.`,
         `${name} in ${edition} is useful to watch for ${primary.en}. He ${first.en}. In a separate phase, he ${second.en}.`,
-        `The practical lens for ${name} in ${edition} is ${primary.en}. Track how he ${first.en}. Beyond that, he ${second.en}.`,
-        `${possessive(name)} ${edition} role starts from ${primary.en}. One marker is how he ${first.en}. A different clue is how he ${second.en}.`,
-        `For this ${edition} version of ${name}, look for ${primary.en}. ${sentenceName} ${first.en}. Separately, he ${second.en}.`,
-        `Watch ${name} in ${edition} for ${primary.en}. One detail is how he ${first.en}. Another responsibility is how he ${second.en}.`,
-        `${name} gives this ${edition} profile its shape through ${primary.en}. One detail is how he ${first.en}. Beyond that, he ${second.en}.`
+        `A useful way to read ${name} in ${edition} is ${primary.en}. Track how he ${first.en}. Beyond that, he ${second.en}.`,
+        `${possessive(name)} ${edition} role starts from ${primary.en}. One useful sign is how he ${first.en}. A different clue is how he ${second.en}.`,
+        `For ${name} in ${edition}, look for ${primary.en}. ${sentenceName} ${first.en}. Separately, he ${second.en}.`,
+        `Watch ${name} in ${edition} for ${primary.en}. One detail is how he ${first.en}. Another detail is how he ${second.en}.`,
+        `${name} in ${edition} is easiest to understand through ${primary.en}. One detail is how he ${first.en}. Beyond that, he ${second.en}.`
       ][variantIndex];
   const chinese = supportRelation === "reinforces-headline"
     ? [
         `${edition}年的${name}，先看${primary.zh}。他会${first.zh}。同一特点也能从另一项动作看出：他会${second.zh}。`,
-        `理解${name}在${edition}年的这张卡，先看${primary.zh}。第一处线索是他会${first.zh}。相同线索也来自他会${second.zh}。`,
+        `理解${edition}年的${name}，先看${primary.zh}。第一处线索是他会${first.zh}。相同线索也来自他会${second.zh}。`,
         `${edition}年的${name}，重点可以落在${primary.zh}。他会${first.zh}。同一思路也延续到另一项动作：他会${second.zh}。`,
-        `看${name}在${edition}年的场上工作，实用切入点是${primary.zh}。可以追踪他如何${first.zh}。同一特点也体现在另一项动作中：他会${second.zh}。`,
-        `${name}在${edition}年的角色围绕${primary.zh}展开。一个标记是他会${first.zh}。同样可以看到他会${second.zh}。`,
-        `这个${edition}年的${name}，主线是${primary.zh}。他会${first.zh}。这一特点也延续到他会${second.zh}。`,
-        `进入${name}在${edition}年的场上任务，最清楚的方式是看${primary.zh}。观察他如何${first.zh}。同一特点也体现在他会${second.zh}。`,
-        `${name}让这张${edition}年的卡围绕${primary.zh}展开。一个线索是他会${first.zh}。相同线索是他会${second.zh}。`
+        `看${edition}年的${name}，观察重点是${primary.zh}。可以追踪他如何${first.zh}。同一特点也体现在另一项动作中：他会${second.zh}。`,
+        `${edition}年的${name}，角色重点是${primary.zh}。一个明显特点是他会${first.zh}。同样可以看到他会${second.zh}。`,
+        `${edition}年的${name}，主线是${primary.zh}。他会${first.zh}。这一特点也延续到他会${second.zh}。`,
+        `观察${edition}年的${name}，最清楚的方式是看${primary.zh}。留意他如何${first.zh}。同一特点也体现在他会${second.zh}。`,
+        `${edition}年的${name}，可以围绕${primary.zh}来理解。一个线索是他会${first.zh}。相同线索是他会${second.zh}。`
       ][variantIndex]
     : [
         `${edition}年的${name}，清楚的任务是${primary.zh}。他会${first.zh}。另外，他会${second.zh}。`,
-        `理解${name}在${edition}年的这张卡，可以留意${primary.zh}。一处细节是他会${first.zh}。另外，他会${second.zh}。`,
+        `理解${edition}年的${name}，可以留意${primary.zh}。一处细节是他会${first.zh}。另外，他会${second.zh}。`,
         `${edition}年的${name}，适合观察${primary.zh}。他会${first.zh}。在另一部分，他会${second.zh}。`,
-        `看${name}在${edition}年的实用切入点是${primary.zh}。可以追踪他如何${first.zh}。除此之外，他会${second.zh}。`,
-        `${name}在${edition}年的角色先看${primary.zh}。一个标记是他会${first.zh}。另一项责任是${second.zh}。`,
-        `这个${edition}年的${name}，可以留意${primary.zh}。他会${first.zh}。另外，他会${second.zh}。`,
-        `进入${name}在${edition}年的场上任务，第一步是看${primary.zh}。观察他如何${first.zh}。另一项责任是${second.zh}。`,
-        `${name}让这张${edition}年的卡围绕${primary.zh}展开。一个线索是他会${first.zh}。另一处表现是他会${second.zh}。`
+        `看${edition}年的${name}，观察重点是${primary.zh}。可以追踪他如何${first.zh}。除此之外，他会${second.zh}。`,
+        `${edition}年的${name}，角色先看${primary.zh}。一个明显特点是他会${first.zh}。另一处表现是${second.zh}。`,
+        `${edition}年的${name}，可以留意${primary.zh}。他会${first.zh}。另外，他会${second.zh}。`,
+        `观察${edition}年的${name}，第一步是看${primary.zh}。留意他如何${first.zh}。另一处表现是${second.zh}。`,
+        `${edition}年的${name}，可以围绕${primary.zh}来理解。一个线索是他会${first.zh}。另一处表现是他会${second.zh}。`
       ][variantIndex];
   return { english, chinese };
 }
 
 function buildFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation) {
+  const correctionCopy = FOCUSED_HISTORICAL_CORRECTION_COPY.get(profile.profileKey);
+  if (correctionCopy) {
+    return {
+      english: correctionCopy.english,
+      chinese: correctionCopy.chinese
+    };
+  }
+
   return buildFirstFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation)
     || buildSecondFocusedHistoricalStylePolish(profile, primary, first, second, supportRelation);
 }

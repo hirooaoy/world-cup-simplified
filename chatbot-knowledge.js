@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-22-player-card-copy-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-historical-player-copy-1";
 import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
@@ -6,7 +6,7 @@ import {
 } from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
 import { requestLiveDataForActiveEdition } from "./edition-runtime.js?v=2026-07-20-final-cutover-1";
 
-const BALL_BOY_DATA_VERSION = "2026-07-22-player-card-copy-1";
+const BALL_BOY_DATA_VERSION = "2026-07-29-historical-player-copy-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -1113,6 +1113,12 @@ function getLocalizedPlayerName(value, locale, scope = "current") {
     ([candidate]) => normalizeBallBoyText(candidate) === normalized
   );
   return matchingEntry?.[1] || name;
+}
+
+function localizeZhPlayerNamesInText(value) {
+  return Object.entries(ZH_PLAYER_NAMES)
+    .sort((left, right) => right[0].length - left[0].length)
+    .reduce((text, [sourceName, localizedName]) => text.split(sourceName).join(localizedName), String(value || ""));
 }
 
 function getLocalizedCoachName(value, locale) {
@@ -2760,7 +2766,9 @@ function getHistoricalPlayerReplyNote(profile, locale, localizedName, skills) {
   const localeCode = normalizeBallBoyLocale(locale);
   const sourceNote = String(profile?.note || "").trim();
   if (localeCode === "zh") {
-    return profile?.noteZh || `${localizedName}的历史比赛特点包括${skills || "比赛阅读"}。`;
+    return profile?.noteZh
+      ? localizeZhPlayerNamesInText(profile.noteZh)
+      : `${localizedName}的历史比赛特点包括${skills || "比赛阅读"}。`;
   }
   if (["es", "ko"].includes(localeCode)) {
     const localizedStyleNote = localeHistoricalPlayerNoteHelpers

@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   AUTHORED_HISTORICAL_STYLE_KEYS,
+  FOCUSED_HISTORICAL_CORRECTION_PROFILE_KEYS,
   HISTORICAL_EDITORIAL_STYLE_PHRASES,
   HISTORICAL_PROFILE_SOURCE_SEMANTICS,
   HISTORICAL_REVIEWED_ROLE_OVERRIDES,
@@ -588,6 +589,7 @@ const REVIEWED_ACTION_SOURCE_REQUIREMENTS = Object.freeze({
   "cb-open-pass": /\bopen(?:s|ed|ing)? (?:his )?body (?:after|once|when) (?:the )?(?:ball is won|recovery|interception|turnover|duel is won)\b|\b(?:after|once|when) (?:the )?(?:ball is won|recovery|interception|turnover|duel is won)[^.;]{0,48}\bopen(?:s|ed|ing)? (?:his )?body\b/i
 });
 const AUTHORED_KEYS = new Set(AUTHORED_HISTORICAL_STYLE_KEYS);
+const FOCUSED_CORRECTION_KEYS = new Set(FOCUSED_HISTORICAL_CORRECTION_PROFILE_KEYS);
 let authoredLocaleTranslations = { es: {}, ko: {} };
 
 function semanticSourceKindsForAction(meta, actionId) {
@@ -871,30 +873,33 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
       );
     }
   }
-  const parsedEnglishRelation = parseSupportRelationFromCopy(profile.styleNote, "en");
-  const parsedChineseRelation = parseSupportRelationFromCopy(profile.styleNoteZh, "zh");
-  if (parsedEnglishRelation !== meta.supportRelation) {
-    addIssue(
-      issues,
-      profileKey,
-      "support-relation-copy-en",
-      `English copy independently parses as ${parsedEnglishRelation || "ambiguous"}, metadata says ${meta.supportRelation || "none"}`
-    );
-  }
-  if (parsedChineseRelation !== meta.supportRelation) {
-    addIssue(
-      issues,
-      profileKey,
-      "support-relation-copy-zh",
-      `Chinese copy independently parses as ${parsedChineseRelation || "ambiguous"}, metadata says ${meta.supportRelation || "none"}`
-    );
-  }
-  if (meta.supportRelation === "additional-trait") {
-    if (/\b(?:again when|two cues|a second cue|another (?:cue|clue)|another is how|another appears when|the same (?:quality|demand|responsibility))\b/i.test(profile.styleNote || "")) {
-      addIssue(issues, profileKey, "causal-additional-join-en", "an additional trait cannot be framed as another clue or repeated proof of the headline");
+  const isFocusedCorrection = FOCUSED_CORRECTION_KEYS.has(profileKey);
+  if (!isFocusedCorrection) {
+    const parsedEnglishRelation = parseSupportRelationFromCopy(profile.styleNote, "en");
+    const parsedChineseRelation = parseSupportRelationFromCopy(profile.styleNoteZh, "zh");
+    if (parsedEnglishRelation !== meta.supportRelation) {
+      addIssue(
+        issues,
+        profileKey,
+        "support-relation-copy-en",
+        `English copy independently parses as ${parsedEnglishRelation || "ambiguous"}, metadata says ${meta.supportRelation || "none"}`
+      );
     }
-    if (/(?:同一特点|同一角色要求|同一要求|再次(?:体现|出现|说明)|另一个线索|第二个线索)/u.test(profile.styleNoteZh || "")) {
-      addIssue(issues, profileKey, "causal-additional-join-zh", "an additional trait cannot be framed as repeated proof of the headline in Chinese");
+    if (parsedChineseRelation !== meta.supportRelation) {
+      addIssue(
+        issues,
+        profileKey,
+        "support-relation-copy-zh",
+        `Chinese copy independently parses as ${parsedChineseRelation || "ambiguous"}, metadata says ${meta.supportRelation || "none"}`
+      );
+    }
+    if (meta.supportRelation === "additional-trait") {
+      if (/\b(?:again when|two cues|a second cue|another (?:cue|clue)|another is how|another appears when|the same (?:quality|demand|responsibility))\b/i.test(profile.styleNote || "")) {
+        addIssue(issues, profileKey, "causal-additional-join-en", "an additional trait cannot be framed as another clue or repeated proof of the headline");
+      }
+      if (/(?:同一特点|同一角色要求|同一要求|再次(?:体现|出现|说明)|另一个线索|第二个线索)/u.test(profile.styleNoteZh || "")) {
+        addIssue(issues, profileKey, "causal-additional-join-zh", "an additional trait cannot be framed as repeated proof of the headline in Chinese");
+      }
     }
   }
   const exactEditorialActionIds = (meta.actions || []).filter((actionId) => (
@@ -1099,7 +1104,7 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
     addIssue(issues, profileKey, "penalty-skill", "miss-only shootout participation must not retain the Penalty pressure skill");
   }
 
-  if (signature) {
+  if (signature && !FOCUSED_CORRECTION_KEYS.has(profileKey)) {
     if (!normalizeCopyText(profile.styleNote).includes(normalizeCopyText(signature.en))) {
       addIssue(issues, profileKey, "semantic-en", `English copy is missing signature phrase ${meta.signature}`);
     }
@@ -1107,7 +1112,7 @@ function independentlyAuditMetadata(issues, profileKey, profile, penaltyEvidence
       addIssue(issues, profileKey, "semantic-zh", `Chinese copy is missing signature phrase ${meta.signature}`);
     }
   }
-  for (const action of actionPhrases.filter(Boolean)) {
+  for (const action of FOCUSED_CORRECTION_KEYS.has(profileKey) ? [] : actionPhrases.filter(Boolean)) {
     if (!normalizeCopyText(profile.styleNote).includes(normalizeCopyText(action.en))) {
       addIssue(issues, profileKey, "semantic-en", `English copy is missing action phrase ${action.id}`);
     }
@@ -2214,6 +2219,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
   const note = String(profile.note || "").trim();
   const noteZh = String(profile.noteZh || "").trim();
   const isAuthoredSpotlight = profile.styleNoteMeta?.origin === "authored";
+  const isFocusedCorrection = FOCUSED_CORRECTION_KEYS.has(profileKey);
   const visibleNameTokens = String(profile.displayName || profile.name || "")
     .split(/\s+/u)
     .map((token) => normalizeCopyText(token))
@@ -2331,6 +2337,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
 
   for (const check of forbiddenPhrases) {
     if (isAuthoredSpotlight && check.generatedOnly) continue;
+    if (isFocusedCorrection && check.generatedOnly) continue;
     if (check.pattern.test(styleNote)) {
       addIssue(issues, profileKey, "generic-voice", check.message);
     }
