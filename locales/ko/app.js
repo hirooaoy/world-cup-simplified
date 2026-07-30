@@ -1830,6 +1830,32 @@ export function formatAppMessage(type, data = {}) {
       return data.coverageStatus === "complete"
         ? `확인된 남자 A매치 ${data.total}경기: ${data.home} ${data.homeWins}승, ${data.away} ${data.awayWins}승, 무승부 ${data.draws}회.`
         : `데이터셋에서 확인할 수 있는 남자 A매치 ${data.total}경기: ${data.home} ${data.homeWins}승, ${data.away} ${data.awayWins}승, 무승부 ${data.draws}회. 전체 역사가 완전한지는 확인되지 않았습니다.`;
+    case "result-score-summary": {
+      const home = translateTeamName(data.home);
+      const away = translateTeamName(data.away);
+      const winner = translateTeamName(data.winner);
+      const loser = translateTeamName(data.loser);
+      switch (data.variant) {
+        case "unavailable-live":
+          return "경기는 진행 중으로 표시됐지만 검증된 스코어가 아직 없습니다.";
+        case "unavailable-final":
+          return "이 경기의 최종 스코어가 아직 불러와지지 않았습니다.";
+        case "live-draw":
+          return `${withKoreanParticle(home, "과", "와")} ${away}가 ${withKoreanDirectionParticle(data.scoreText)} 맞서고 있습니다.`;
+        case "draw":
+          return `${withKoreanParticle(home, "과", "와")} ${away}가 ${withKoreanDirectionParticle(data.scoreText)} 비겼습니다.`;
+        case "penalties":
+          return `${withKoreanParticle(winner, "이", "가")} ${data.scoreText} 무승부 뒤 승부차기 ${withKoreanDirectionParticle(data.penaltyText)} ${withKoreanParticle(loser, "을", "를")} 꺾었습니다.`;
+        case "advanced-draw":
+          return `${withKoreanParticle(winner, "이", "가")} ${withKoreanParticle(loser, "과", "와")} ${withKoreanDirectionParticle(data.scoreText)} 비긴 뒤 진출했습니다.`;
+        case "live-lead":
+          return `${withKoreanParticle(winner, "이", "가")} ${withKoreanParticle(loser, "을", "를")} 상대로 ${withKoreanDirectionParticle(data.scoreText)} 앞서고 있습니다.`;
+        case "win":
+          return `${withKoreanParticle(winner, "이", "가")} ${withKoreanParticle(loser, "을", "를")} ${withKoreanDirectionParticle(data.scoreText)} 꺾었습니다.`;
+        default:
+          return "";
+      }
+    }
     case "player-note-fallback":
       return `선수 핵심 강점: ${(data.skills || []).join(" · ")}.`;
     case "flag-label":

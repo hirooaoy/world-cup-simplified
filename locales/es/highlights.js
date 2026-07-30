@@ -213,6 +213,182 @@ const highlightsLocale = {
       Uruguay: "Uruguay",
       "United States": "Estados Unidos"
     }
+  },
+  historicalEditions: {
+    1930: {
+      intro: "Uruguay venció 4-2 a Argentina en Montevideo, pero la base del título se construyó antes de la remontada. José Nasazzi ordenó la defensa, José Leandro Andrade llevó el juego por el mediocampo y Pedro Cea siguió llegando por detrás de la primera oleada ofensiva.",
+      introPlayers: [
+        { playerName: "José Nasazzi", triggerText: "José Nasazzi" },
+        { playerName: "José Leandro Andrade", triggerText: "José Leandro Andrade" },
+        { playerName: "Pedro Cea", triggerText: "Pedro Cea" }
+      ]
+    },
+    1934: {
+      intro: "Italia venció 2-1 a Checoslovaquia tras la prórroga. El anfitrión fue menos un equipo de goles libres que un conjunto flexible de torneo: Luis Monti marcó la intensidad, Giuseppe Meazza resolvió espacios estrechos y Raimundo Orsi firmó el empate de la final.",
+      introPlayers: [
+        { playerName: "Luis Monti", triggerText: "Luis Monti" },
+        { playerName: "Giuseppe Meazza", triggerText: "Giuseppe Meazza" },
+        { playerName: "Raimundo Orsi", triggerText: "Raimundo Orsi" }
+      ]
+    },
+    1938: {
+      intro: "Italia venció 4-2 a Hungría y se convirtió en bicampeona mundial. El equipo de Pozzo fue más directo que el de 1934: el mediocampo progresó rápido, Gino Colaussi atacó el lado opuesto y el movimiento de Silvio Piola abrió una y otra vez el centro.",
+      introPlayers: [
+        { playerName: "Gino Colaussi", triggerText: "Gino Colaussi" },
+        { playerName: "Silvio Piola", triggerText: "Silvio Piola" }
+      ]
+    },
+    1950: {
+      intro: "Uruguay venció 2-1 a Brasil en Maracaná y ganó la fase final. Obdulio Varela bajó la temperatura emocional del partido, Juan Schiaffino conectó el mediocampo con el ataque y Alcides Ghiggia siguió encontrando el único pasillo que Brasil dejaba abierto.",
+      introPlayers: [
+        { playerName: "Obdulio Varela", triggerText: "Obdulio Varela" },
+        { playerName: "Juan Alberto Schiaffino", triggerText: "Juan Schiaffino" },
+        { playerName: "Alcides Ghiggia", triggerText: "Alcides Ghiggia" }
+      ]
+    },
+    1954: {
+      intro: "Alemania Occidental remontó dos goles y venció 3-2 a Hungría en el Milagro de Berna. El campeón estrechó el campo, atacó los segundos balones y creyó que Helmut Rahn podía decidir un momento que ni el dominio húngaro podía borrar.",
+      introPlayers: [
+        { playerName: "Helmut Rahn", triggerText: "Helmut Rahn" }
+      ]
+    },
+    1958: {
+      intro: "Brasil venció 5-2 a Suecia y convirtió la libertad individual en un sistema repetible. Didi gobernó el centro, Garrincha abrió la derecha y Pelé apareció entre centrales y laterales antes de que nadie pudiera ajustar la referencia.",
+      introPlayers: [
+        { playerName: "Didi", triggerText: "Didi" },
+        { playerName: "Garrincha", triggerText: "Garrincha" },
+        { playerName: "Pelé", triggerText: "Pelé" }
+      ]
+    },
+    1962: {
+      intro: "Brasil conservó el título al vencer 3-1 a Checoslovaquia pese a que la lesión de Pelé cambió el plan. Garrincha generó las mayores grietas, Amarildo cubrió el vacío goleador y Zito sostuvo las conexiones de un campeón más práctico.",
+      introPlayers: [
+        { playerName: "Pelé", triggerText: "Pelé" },
+        { playerName: "Garrincha", triggerText: "Garrincha" },
+        { playerName: "Amarildo", triggerText: "Amarildo" },
+        { playerName: "Zito", triggerText: "Zito" }
+      ]
+    },
+    1966: {
+      intro: "Inglaterra venció 4-2 a Alemania Occidental tras la prórroga. La estructura sin extremos de Alf Ramsey apretó los espacios centrales decisivos, Bobby Moore pasó a través de la presión y el movimiento de Bobby Charlton creó el espacio que Geoff Hurst terminó aprovechando.",
+      introPlayers: [
+        { playerName: "Bobby Moore", triggerText: "Bobby Moore" },
+        { playerName: "Bobby Charlton", triggerText: "Bobby Charlton" },
+        { playerName: "Geoff Hurst", triggerText: "Geoff Hurst" }
+      ]
+    },
+    1970: {
+      intro: "Brasil venció 4-1 a Italia y completó una campaña perfecta. Gérson controló el ritmo, Pelé fijó defensas sin monopolizar la pelota y Jairzinho atacó el espacio creado por esas miradas para marcar en los seis partidos.",
+      introPlayers: [
+        { playerName: "Gérson", triggerText: "Gérson" },
+        { playerName: "Pelé", triggerText: "Pelé" },
+        { playerName: "Jairzinho", triggerText: "Jairzinho" }
+      ]
+    },
+    1974: {
+      intro: "Alemania Occidental se reajustó tras perder ante Alemania Oriental y venció 2-1 a Países Bajos en la final. Franz Beckenbauer reordenó la salida desde el líbero, Berti Vogts negó los giros limpios de Cruyff y Gerd Müller vivió en el espacio que ni el fútbol total pudo borrar.",
+      introPlayers: [
+        { playerName: "Franz Beckenbauer", triggerText: "Franz Beckenbauer" },
+        { playerName: "Berti Vogts", triggerText: "Berti Vogts" },
+        { playerName: "Johan Cruyff", triggerText: "Cruyff" },
+        { playerName: "Gerd Müller", triggerText: "Gerd Müller" }
+      ]
+    },
+    1978: {
+      intro: "Argentina venció 3-1 a Países Bajos tras la prórroga. El equipo de César Menotti mezcló amplitud con una presión central feroz: Daniel Passarella avanzó hacia el mediocampo, Osvaldo Ardiles unió las fases y Mario Kempes atacó desde zonas profundas que ningún defensor esperaba.",
+      introPlayers: [
+        { playerName: "Daniel Passarella", triggerText: "Daniel Passarella" },
+        { playerName: "Osvaldo Ardiles", triggerText: "Osvaldo Ardiles" },
+        { playerName: "Mario Kempes", triggerText: "Mario Kempes" }
+      ]
+    },
+    1982: {
+      intro: "Italia pasó de tres empates en la fase de grupos a vencer 3-1 a Alemania Occidental en la final. Gaetano Scirea superó la primera presión, Marco Tardelli convirtió el mediocampo en una batalla de ida y vuelta y Paolo Rossi transformó cuatro partidos sin gol en seis tantos en los últimos tres.",
+      introPlayers: [
+        { playerName: "Gaetano Scirea", triggerText: "Gaetano Scirea" },
+        { playerName: "Marco Tardelli", triggerText: "Marco Tardelli" },
+        { playerName: "Paolo Rossi", triggerText: "Paolo Rossi" }
+      ]
+    },
+    1986: {
+      intro: "Argentina venció 3-2 a Alemania Occidental con un equipo diseñado alrededor de Diego Maradona, pero no dependiente solo de sus regates. Tres centrales estabilizaron las transiciones, Jorge Valdano estiró la defensa y Jorge Burruchaga atacó el pasillo que Maradona siguió revelando.",
+      introPlayers: [
+        { playerName: "Diego Maradona", triggerText: "Diego Maradona" },
+        { playerName: "Jorge Valdano", triggerText: "Jorge Valdano" },
+        { playerName: "Jorge Burruchaga", triggerText: "Jorge Burruchaga" }
+      ]
+    },
+    1990: {
+      intro: "Alemania Occidental venció 1-0 a Argentina en una final tensa. El equipo de Franz Beckenbauer dominó el torneo desde la estructura: Andreas Brehme creó por la izquierda, Lothar Matthäus controló las dos áreas y la delantera siguió presionando incluso cuando los cruces se cerraron.",
+      introPlayers: [
+        { playerName: "Andreas Brehme", triggerText: "Andreas Brehme" },
+        { playerName: "Lothar Matthäus", triggerText: "Lothar Matthäus" }
+      ]
+    },
+    1994: {
+      intro: "Brasil venció a Italia por penales tras una final 0-0. Carlos Alberto Parreira quitó exceso romántico sin perder calidad ofensiva: Dunga protegió el centro, Bebeto se movió entre líneas y Romário convirtió pequeñas ventajas en goles decisivos.",
+      introPlayers: [
+        { playerName: "Dunga", triggerText: "Dunga" },
+        { playerName: "Bebeto", triggerText: "Bebeto" },
+        { playerName: "Romário", triggerText: "Romário" }
+      ]
+    },
+    1998: {
+      intro: "Francia venció 3-0 a Brasil y ganó su primer Mundial. El anfitrión conquistó el torneo de atrás hacia delante: Marcel Desailly protegió el espacio, Didier Deschamps y Emmanuel Petit controlaron las transiciones y Zinedine Zidane convirtió por fin su dominio en goles en la noche más grande.",
+      introPlayers: [
+        { playerName: "Marcel Desailly", triggerText: "Marcel Desailly" },
+        { playerName: "Didier Deschamps", triggerText: "Didier Deschamps" },
+        { playerName: "Emmanuel Petit", triggerText: "Emmanuel Petit" },
+        { playerName: "Zinedine Zidane", triggerText: "Zinedine Zidane" }
+      ]
+    },
+    2002: {
+      intro: "Brasil venció 2-0 a Alemania y ganó sus siete partidos. La línea de tres de Luiz Felipe Scolari liberó a Cafu y Roberto Carlos, Gilberto Silva protegió cada transición y los tres R se combinaron con una distancia suficiente para que la improvisación fuera segura dentro de la estructura.",
+      introPlayers: [
+        { playerName: "Cafu", triggerText: "Cafu" },
+        { playerName: "Roberto Carlos", triggerText: "Roberto Carlos" },
+        { playerName: "Gilberto Silva", triggerText: "Gilberto Silva" }
+      ]
+    },
+    2006: {
+      intro: "Italia venció a Francia por penales tras una final 1-1. Marcello Lippi confió más en un plantel completo que en una estrella fija de ataque: Andrea Pirlo escapó de la primera presión, Fabio Cannavaro apagó la siguiente jugada y diez italianos distintos marcaron en el torneo.",
+      introPlayers: [
+        { playerName: "Andrea Pirlo", triggerText: "Andrea Pirlo" },
+        { playerName: "Fabio Cannavaro", triggerText: "Fabio Cannavaro" }
+      ]
+    },
+    2010: {
+      intro: "España venció 1-0 a Países Bajos tras la prórroga. El título nació más del dominio paciente de zonas que de la abundancia de ocasiones: Sergio Busquets protegió cada circulación, Xavi siguió moviendo el bloque y Andrés Iniesta atacó por fin el espacio abierto.",
+      introPlayers: [
+        { playerName: "Sergio Busquets", triggerText: "Sergio Busquets" },
+        { playerName: "Xavi", triggerText: "Xavi" },
+        { playerName: "Andrés Iniesta", triggerText: "Andrés Iniesta" }
+      ]
+    },
+    2014: {
+      intro: "Alemania venció 1-0 a Argentina tras la prórroga. Fue el título de un plantel flexible más que de un once fijo: Philipp Lahm devolvió equilibrio a la derecha, Manuel Neuer defendió fuera del área y Toni Kroos dio a un equipo de ritmo alto los pases para respirar.",
+      introPlayers: [
+        { playerName: "Philipp Lahm", triggerText: "Philipp Lahm" },
+        { playerName: "Manuel Neuer", triggerText: "Manuel Neuer" },
+        { playerName: "Toni Kroos", triggerText: "Toni Kroos" }
+      ]
+    },
+    2018: {
+      intro: "Francia venció 4-2 a Croacia como un equipo cómodo sin monopolizar la pelota. N'Golo Kanté y Paul Pogba controlaron las distancias de transición, Antoine Griezmann bajó al mediocampo para crear un hombre extra y Kylian Mbappé convirtió el espacio abierto en un arma táctica.",
+      introPlayers: [
+        { playerName: "N'Golo Kanté", triggerText: "N'Golo Kanté" },
+        { playerName: "Paul Pogba", triggerText: "Paul Pogba" },
+        { playerName: "Antoine Griezmann", triggerText: "Antoine Griezmann" },
+        { playerName: "Kylian Mbappé", triggerText: "Kylian Mbappé" }
+      ]
+    },
+    2022: {
+      intro: "Argentina se recuperó de la derrota ante Arabia Saudita y venció a Francia por penales tras una final 3-3. Lionel Scaloni reconstruyó el mediocampo según cada rival, Enzo Fernández aceleró el primer pase y Lionel Messi dominó el torneo desde el medio espacio derecho.",
+      introPlayers: [
+        { playerName: "Enzo Fernández", triggerText: "Enzo Fernández" },
+        { playerName: "Lionel Messi", triggerText: "Lionel Messi" }
+      ]
+    }
   }
 };
 

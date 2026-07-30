@@ -1,6 +1,6 @@
 const DEFAULT_LANGUAGE = "en";
 export const LOCALE_SCHEMA_VERSION = 1;
-export const LOCALE_PACK_VERSION = "2026-07-22-player-card-copy-1";
+export const LOCALE_PACK_VERSION = "2026-07-30-locale-leak-cleanup-1";
 
 function deepFreeze(value, seen = new WeakSet()) {
   if ((typeof value !== "object" && typeof value !== "function") || value === null || seen.has(value)) {

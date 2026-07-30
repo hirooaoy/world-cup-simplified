@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "492906f8d48541111cdd06c040af504ba256de33ba92d2dab61db35727deb2b5"
+  "sourceFingerprint": "386666c4b0dc468aa168d42a9a78792aa23ed5da88226af0acd204547e0857da"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Historical matches and older World Cup search results still load archive translations on demand.": "역사 경기와 이전 월드컵 검색 결과는 여전히 필요할 때 아카이브 번역을 불러옵니다.",
-  "Production QA now checks all four locales plus the 2022 Ecuador player-card path.": "프로덕션 QA는 이제 네 언어와 2022년 에콰도르 선수 카드 경로를 함께 확인합니다.",
-  "Spanish and Korean archive packs load later": "스페인어와 한국어 아카이브 팩을 더 늦게 불러옵니다",
-  "Spanish and Korean home loads no longer pull archive locale packs just because the tournament wrap is visible.": "스페인어와 한국어 홈 로드는 이제 대회 마무리 영역이 보인다는 이유만으로 아카이브 언어 팩을 미리 가져오지 않습니다."
+  "Cleaner multilingual highlights copy": "다국어 하이라이트 문구 정리",
+  "Korean match results, historical award names, and archive intros no longer fall back to English.": "한국어 경기 결과, 역사 수상자 이름, 아카이브 도입 문구가 더 이상 영어로 표시되지 않습니다.",
+  "New rendered smoke coverage checks Korean and Chinese archive pages across every historical year.": "새 렌더링 스모크 검사는 모든 역사 연도의 한국어·중국어 아카이브 페이지를 확인합니다.",
+  "Spanish and Chinese historical Highlights now use localized archive intros and venue labels.": "스페인어와 중국어 역사 하이라이트는 이제 현지화된 아카이브 도입 문구와 경기장 표기를 사용합니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

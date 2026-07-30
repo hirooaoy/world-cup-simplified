@@ -17,63 +17,63 @@
   "editions": {
     "1930": {
       "goldenBoot": {
-        "recipientNames": ["Guillermo Stábile"],
+        "recipientNames": ["기예르모 스타빌레"],
         "stat": "4경기 8골.",
         "context": "스타빌레는 멕시코전 해트트릭과 준결승 2골을 포함해 출전한 모든 경기에서 득점했다."
       }
     },
     "1934": {
       "goldenBoot": {
-        "recipientNames": ["Oldřich Nejedlý"],
+        "recipientNames": ["올드르지흐 네예들리"],
         "stat": "4경기 5골.",
         "context": "네예들리는 독일을 3–1로 꺾은 준결승에서 체코슬로바키아의 3골을 모두 넣었다."
       }
     },
     "1938": {
       "goldenBoot": {
-        "recipientNames": ["Leônidas"],
+        "recipientNames": ["레오니다스"],
         "stat": "4경기 7골.",
         "context": "레오니다스는 폴란드전에서 3골을 넣었고, 그중 2골은 연장전 득점이었다. 이어 스웨덴과의 3위 결정전에서도 2골을 보탰다."
       }
     },
     "1950": {
       "goldenBoot": {
-        "recipientNames": ["Ademir de Menezes"],
+        "recipientNames": ["아데미르 지 메네지스"],
         "stat": "6경기 9골.",
         "context": "아데미르는 브라질이 스웨덴을 7–1로 꺾은 경기에서 4골을 넣으며 개최국을 결선리그 최종 우승 결정전까지 이끌었다."
       }
     },
     "1954": {
       "goldenBoot": {
-        "recipientNames": ["Sándor Kocsis"],
+        "recipientNames": ["코치시 샨도르"],
         "stat": "5경기 11골.",
         "context": "코치시는 준결승 연장전에서 디펜딩 챔피언 우루과이에 헤더 2골을 넣어 헝가리를 결승으로 이끌었다."
       }
     },
     "1958": {
       "goldenBoot": {
-        "recipientNames": ["Just Fontaine"],
+        "recipientNames": ["쥐스트 퐁텐"],
         "stat": "6경기 13골.",
         "context": "퐁텐은 서독과의 3위 결정전에서 4골을 넣으며 단일 대회 13골이라는 월드컵 신기록을 세웠다."
       }
     },
     "1962": {
       "goldenBoot": {
-        "recipientNames": ["Flórián Albert", "Garrincha", "Valentin Ivanov", "Dražan Jerković", "Leonel Sánchez", "Vavá"],
+        "recipientNames": ["얼베르트 플로리안", "가린샤", "발렌틴 이바노프", "드라잔 예르코비치", "레오넬 산체스", "바바"],
         "stat": "5개국 6명이 4골씩 기록해 공동 최다 득점.",
         "context": "알베르트와 이바노프는 조별리그에서만 4골을 넣었다. 가린샤와 바바는 우승했고, 산체스의 칠레는 예르코비치의 유고슬라비아를 꺾고 3위에 올랐다."
       }
     },
     "1966": {
       "goldenBoot": {
-        "recipientNames": ["Eusébio"],
+        "recipientNames": ["에우제비우"],
         "stat": "6경기 9골.",
         "context": "에우제비우는 포르투갈이 북한에 0–3으로 뒤지다 5–3으로 역전한 경기에서 4골을 넣었고, 팀의 3위에 힘을 보탰다."
       }
     },
     "1970": {
       "goldenBoot": {
-        "recipientNames": ["Gerd Müller"],
+        "recipientNames": ["게르트 뮐러"],
         "stat": "6경기 10골 · 조별리그 2경기 연속 해트트릭.",
         "context": "뮐러는 잉글랜드전 연장전에서 역전승을 완성한 뒤, 이탈리아에 3–4로 패한 준결승에서도 2골을 넣었다."
       },
@@ -85,7 +85,7 @@
     },
     "1974": {
       "goldenBoot": {
-        "recipientNames": ["Grzegorz Lato"],
+        "recipientNames": ["그제고시 라토"],
         "stat": "7경기 7골.",
         "context": "라토는 디펜딩 챔피언 브라질을 1–0으로 꺾는 결승골을 넣어 폴란드의 3위를 확정했고 득점 선두도 지켰다."
       },
@@ -97,12 +97,12 @@
     },
     "1978": {
       "goldenBall": {
-        "recipientNames": ["Mario Kempes"],
+        "recipientNames": ["마리오 켐페스"],
         "stat": "7경기 · 6골 · 결승 2골.",
         "context": "23세의 켐페스는 중원에서 전진하며 경기를 장악해 아르헨티나에 첫 월드컵 우승을 안겼다."
       },
       "goldenBoot": {
-        "recipientNames": ["Mario Kempes"],
+        "recipientNames": ["마리오 켐페스"],
         "stat": "6골 · 모두 첫 조별리그 이후 기록.",
         "context": "켐페스는 폴란드전 2골, 페루전 2골, 결승 2골을 넣었고, 결승에서는 연장전에 아르헨티나를 앞세우는 골을 터뜨렸다."
       },
@@ -114,12 +114,12 @@
     },
     "1982": {
       "goldenBall": {
-        "recipientNames": ["Paolo Rossi"],
+        "recipientNames": ["파올로 로시"],
         "stat": "7경기 출전 · 6골 · 1도움.",
         "context": "로시는 결승 선제골을 포함해 이탈리아의 마지막 3경기에서 6골을 모두 넣으며 우승팀의 막판 질주를 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Paolo Rossi"],
+        "recipientNames": ["파올로 로시"],
         "stat": "6골.",
         "context": "4경기 연속 무득점 뒤 브라질전 3골, 폴란드전 2골, 서독과의 결승에서 1골을 넣었다."
       },
@@ -131,12 +131,12 @@
     },
     "1986": {
       "goldenBall": {
-        "recipientNames": ["Diego Maradona"],
+        "recipientNames": ["디에고 마라도나"],
         "stat": "7경기 출전 · 5골 · 5도움.",
         "context": "주장 마라도나는 아르헨티나의 14골 중 10골에 관여했고 결승에서 승부를 가른 골을 만들었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Gary Lineker"],
+        "recipientNames": ["게리 리네커"],
         "stat": "5경기 6골.",
         "context": "리네커는 폴란드전 해트트릭으로 잉글랜드의 흐름을 되살린 뒤 파라과이전 2골과 아르헨티나전 1골을 보탰다."
       },
@@ -148,12 +148,12 @@
     },
     "1990": {
       "goldenBall": {
-        "recipientNames": ["Salvatore Schillaci"],
+        "recipientNames": ["살바토레 스킬라치"],
         "stat": "7경기 출전 · 6골 · 1도움.",
         "context": "교체 선수로 대회를 시작한 스킬라치는 선발 출전한 모든 경기에서 득점하며 이탈리아의 3위를 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Salvatore Schillaci"],
+        "recipientNames": ["살바토레 스킬라치"],
         "stat": "6골.",
         "context": "3위 결정전 막판 페널티킥으로 토마시 스쿠흐라비를 제치고 대회 최다 득점을 확정했다."
       },
@@ -165,17 +165,17 @@
     },
     "1994": {
       "goldenBall": {
-        "recipientNames": ["Romário"],
+        "recipientNames": ["호마리우"],
         "stat": "7경기 출전 · 5골 · 2도움.",
         "context": "호마리우는 조별리그 3경기와 8강, 준결승에서 득점하며 브라질의 우승을 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Oleg Salenko", "Hristo Stoichkov"],
+        "recipientNames": ["올레크 살렌코", "흐리스토 스토이치코프"],
         "stat": "각 6골.",
         "context": "살렌코는 카메룬전 5골로 월드컵 단일 경기 기록을 세웠고, 스토이치코프는 5경기 연속 득점하며 불가리아의 4위를 이끌었다."
       },
       "goldenGlove": {
-        "recipientNames": ["Michel Preud’homme"],
+        "recipientNames": ["미셸 프뢰돔"],
         "stat": "4경기 출전 · 2경기 무실점 · 4실점.",
         "context": "프뢰돔은 모로코와 네덜란드를 무득점으로 막으며 벨기에의 16강 진출을 이끌었다."
       },
@@ -187,17 +187,17 @@
     },
     "1998": {
       "goldenBall": {
-        "recipientNames": ["Ronaldo"],
+        "recipientNames": ["호나우두"],
         "stat": "7경기 출전 · 4골 · 3도움.",
         "context": "호나우두는 속도와 결정력, 창의성으로 7골에 관여하며 브라질을 다시 결승으로 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Davor Šuker"],
+        "recipientNames": ["다보르 슈케르"],
         "stat": "7경기 출전 · 6골.",
         "context": "슈케르는 아르헨티나와의 조별리그를 제외한 모든 경기에서 득점했고, 3위를 확정한 결승골도 넣었다."
       },
       "goldenGlove": {
-        "recipientNames": ["Fabien Barthez"],
+        "recipientNames": ["파비앵 바르테즈"],
         "stat": "7경기 출전 · 5경기 무실점 · 2실점.",
         "context": "바르테즈는 결승에서 브라질을 무득점으로 막아 프랑스의 첫 월드컵 우승을 뒷받침했다."
       },
@@ -209,17 +209,17 @@
     },
     "2002": {
       "goldenBall": {
-        "recipientNames": ["Oliver Kahn"],
+        "recipientNames": ["올리버 칸"],
         "stat": "7경기 출전 · 5경기 무실점 · 3실점.",
         "context": "칸은 결승 전까지 단 1골만 내줬고, 골든볼을 받은 첫 골키퍼가 됐다."
       },
       "goldenBoot": {
-        "recipientNames": ["Ronaldo"],
+        "recipientNames": ["호나우두"],
         "stat": "7경기 8골.",
         "context": "호나우두는 8강을 제외하고 출전한 모든 경기에서 득점했고, 결승에서 2골을 넣어 브라질의 통산 5번째 우승을 완성했다."
       },
       "goldenGlove": {
-        "recipientNames": ["Oliver Kahn"],
+        "recipientNames": ["올리버 칸"],
         "stat": "7경기 출전 · 5경기 무실점 · 3실점.",
         "context": "칸은 토너먼트 3경기 연속 무실점으로 독일을 결승에 올려놓았다."
       },
@@ -231,22 +231,22 @@
     },
     "2006": {
       "goldenBall": {
-        "recipientNames": ["Zinédine Zidane"],
+        "recipientNames": ["지네딘 지단"],
         "stat": "6경기 · 3골 · 1도움.",
         "context": "지단은 브라질전과 포르투갈전에서 경기를 지배하며 프랑스를 결승으로 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Miroslav Klose"],
+        "recipientNames": ["미로슬라프 클로제"],
         "stat": "7경기 5골.",
         "context": "클로제의 아르헨티나전 동점골은 개최국 독일의 준결승 진출에 힘을 보탰고, 그는 단독 최다 득점자로 대회를 마쳤다."
       },
       "goldenGlove": {
-        "recipientNames": ["Gianluigi Buffon"],
+        "recipientNames": ["잔루이지 부폰"],
         "stat": "7경기 · 5경기 무실점 · 2실점.",
         "context": "실점은 자책골 1골과 페널티킥 1골뿐이었다. 부폰은 결승 연장전에서 지단의 헤더를 막아 이탈리아의 우승을 도왔다."
       },
       "youngPlayer": {
-        "recipientNames": ["Lukas Podolski"],
+        "recipientNames": ["루카스 포돌스키"],
         "stat": "21세 · 7경기 3골.",
         "context": "포돌스키는 스웨덴과의 16강에서 일찍 2골을 넣어 개최국 독일의 8강 진출과 최종 3위에 힘을 보탰다."
       },
@@ -258,22 +258,22 @@
     },
     "2010": {
       "goldenBall": {
-        "recipientNames": ["Diego Forlán"],
+        "recipientNames": ["디에고 포를란"],
         "stat": "7경기 · 5골 · 1도움.",
         "context": "포를란은 우루과이를 40년 만의 준결승으로 이끌었고, 독일전 발리슛은 대회 최고의 골로 뽑혔다."
       },
       "goldenBoot": {
-        "recipientNames": ["Thomas Müller"],
+        "recipientNames": ["토마스 뮐러"],
         "stat": "5골 · 3도움.",
         "context": "뮐러는 포를란, 비야, 스네이더르와 득점이 같았지만 도움 수에서 앞서 상을 받았다."
       },
       "goldenGlove": {
-        "recipientNames": ["Iker Casillas"],
+        "recipientNames": ["이케르 카시야스"],
         "stat": "7경기 · 5경기 무실점 · 2실점.",
         "context": "카시야스는 8강에서 카르도소의 페널티킥을 막았고, 결승에서는 로번과의 일대일 상황을 2차례 저지했다."
       },
       "youngPlayer": {
-        "recipientNames": ["Thomas Müller"],
+        "recipientNames": ["토마스 뮐러"],
         "stat": "20세 · 6경기 5골 · 3도움.",
         "context": "뮐러는 잉글랜드전과 아르헨티나전에서 득점했고, 징계에서 돌아온 3위 결정전에서도 골을 넣었다."
       },
@@ -285,22 +285,22 @@
     },
     "2014": {
       "goldenBall": {
-        "recipientNames": ["Lionel Messi"],
+        "recipientNames": ["리오넬 메시"],
         "stat": "7경기 · 4골 · 1도움.",
         "context": "메시는 조별리그 모든 경기에서 득점했고, 스위스전 연장 결승골을 만들어 아르헨티나의 결승 진출을 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["James Rodríguez"],
+        "recipientNames": ["하메스 로드리게스"],
         "stat": "5경기 6골.",
         "context": "하메스는 우루과이전 2골을 포함해 콜롬비아의 모든 경기에서 득점했고, 그 경기의 첫 골은 대회 최고의 골로 뽑혔다."
       },
       "goldenGlove": {
-        "recipientNames": ["Manuel Neuer"],
+        "recipientNames": ["마누엘 노이어"],
         "stat": "7경기 · 4경기 무실점 · 4실점.",
         "context": "노이어는 알제리전에서 골문 밖까지 넓게 커버해 역습을 끊었고, 우승팀 독일이 수비 라인을 높게 유지하게 했다."
       },
       "youngPlayer": {
-        "recipientNames": ["Paul Pogba"],
+        "recipientNames": ["폴 포그바"],
         "stat": "21세 · 5경기 1골 · 1도움.",
         "context": "포그바는 나이지리아전 선제골로 균형을 깨고 프랑스의 8강 진출을 도왔다."
       },
@@ -312,22 +312,22 @@
     },
     "2018": {
       "goldenBall": {
-        "recipientNames": ["Luka Modrić"],
+        "recipientNames": ["루카 모드리치"],
         "stat": "7경기 · 2골 · 1도움.",
         "context": "모드리치는 연장전까지 간 토너먼트 3경기에서 크로아티아를 지휘하며 사상 첫 월드컵 결승으로 이끌었다."
       },
       "goldenBoot": {
-        "recipientNames": ["Harry Kane"],
+        "recipientNames": ["해리 케인"],
         "stat": "6경기 6골 · 페널티킥 3골.",
         "context": "케인은 첫 경기에서 2골, 다음 경기에서 해트트릭을 기록한 뒤 콜롬비아전 페널티킥으로 6골을 완성했다."
       },
       "goldenGlove": {
-        "recipientNames": ["Thibaut Courtois"],
+        "recipientNames": ["티보 쿠르투아"],
         "stat": "7경기 · 3경기 무실점 · 6실점.",
         "context": "쿠르투아는 브라질전에서 9차례 선방했고, 마지막 경기를 무실점으로 마쳐 벨기에의 역대 최고 성적을 완성했다."
       },
       "youngPlayer": {
-        "recipientNames": ["Kylian Mbappé"],
+        "recipientNames": ["킬리안 음바페"],
         "stat": "19세 · 7경기 4골.",
         "context": "음바페는 아르헨티나전에서 2골을 넣었고, 펠레 이후 월드컵 결승에서 득점한 첫 10대 선수가 됐다."
       },
@@ -339,22 +339,22 @@
     },
     "2022": {
       "goldenBall": {
-        "recipientNames": ["Lionel Messi"],
+        "recipientNames": ["리오넬 메시"],
         "stat": "7경기 · 7골 · 3도움.",
         "context": "메시는 토너먼트의 모든 단계에서 득점하고 결승에서 2골을 넣으며 남자 월드컵 최초로 골든볼을 2차례 받은 선수가 됐다."
       },
       "goldenBoot": {
-        "recipientNames": ["Kylian Mbappé"],
+        "recipientNames": ["킬리안 음바페"],
         "stat": "7경기 · 8골 · 2도움.",
         "context": "음바페는 결승 해트트릭으로 메시보다 1골 앞서 동률 결정 규정 없이 수상을 확정했다."
       },
       "goldenGlove": {
-        "recipientNames": ["Emiliano Martínez"],
+        "recipientNames": ["에밀리아노 마르티네스"],
         "stat": "3경기 무실점 · 승부차기 페널티킥 3개 선방.",
         "context": "마르티네스는 123분 콜로 무아니의 슛을 막고 승부차기에서 코망의 슛을 선방해 아르헨티나의 우승을 지켰다."
       },
       "youngPlayer": {
-        "recipientNames": ["Enzo Fernández"],
+        "recipientNames": ["엔소 페르난데스"],
         "stat": "21세 · 7경기 1골.",
         "context": "페르난데스는 멕시코전에서 득점한 뒤 남은 모든 경기에 선발로 나서 아르헨티나의 우승을 도왔다."
       },

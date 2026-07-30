@@ -56,7 +56,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:triplete|España (?:gana|ganó) el Mundial)/u,
     sourceNote: "Las fuentes exactas varían según el partido.",
     venue: "Estadio de Atlanta • Atlanta, Georgia, Estados Unidos",
-    latestReleaseTitle: "Notas de la versión: Los paquetes de archivo en español y coreano cargan más tarde",
+    latestReleaseTitle: "Notas de la versión: Texto multilingüe de destacados más limpio",
     adminLabel: "Nota del sitio",
     adminEmphasis: "Ya están definidos los cuartos de final",
     adminMessage:
@@ -127,7 +127,7 @@ const localeCases = [
     catchUpDynamicPattern: /(?:해트트릭|스페인.+(?:월드컵|세계 챔피언))/u,
     sourceNote: "경기별 세부 출처는 다를 수 있습니다.",
     venue: "애틀랜타 스타디움 • 미국 조지아주 애틀랜타",
-    latestReleaseTitle: "릴리스 노트: 스페인어와 한국어 아카이브 팩을 더 늦게 불러옵니다",
+    latestReleaseTitle: "릴리스 노트: 다국어 하이라이트 문구 정리",
     adminLabel: "운영자 알림",
     adminEmphasis: "8강 대진 확정",
     adminMessage:
@@ -383,6 +383,13 @@ const historicalPreviewChain = Object.freeze([
   [1998, 2002], [2002, 2006], [2006, 2010], [2010, 2014], [2014, 2018],
   [2018, 2022], [2022, 2026]
 ]);
+const historicalHighlightYears = Object.freeze(historicalPreviewChain.map(([editionYear]) => editionYear));
+const historicalEnglishLeakPattern =
+  /\b(?:beat|beating|retained|recovered|final|extra time|World Cup by beating|draw in|will set|will face|Stadium|Convention Center|broadcast hall|Exhibition Centre|Royal Garden Hotel|State Palace|Palace of Congresses|Soccer City)\b/iu;
+const historicalLocaleScriptPatterns = Object.freeze({
+  ko: /[가-힣]/u,
+  zh: /[\u3400-\u9fff]/u
+});
 
 function assert(condition, message) {
   if (!condition) {
@@ -1833,6 +1840,67 @@ async function assertHighlightsLocales(browser) {
         localizedHistoricalAwards.captainCardFlagLabel.length > 4,
       `${locale.code}: the historical award cards should use the researched locale pack, correct flags and player cards for every profiled recipient and captain. Measured ${JSON.stringify(localizedHistoricalAwards)}.`
     );
+    if (["ko", "zh"].includes(locale.code)) {
+      const localeScriptPattern = historicalLocaleScriptPatterns[locale.code];
+      const localizedHistoricalSurfaces = [];
+      for (const editionYear of historicalHighlightYears) {
+        await page.goto(getUrl(`/highlights.html?year=${editionYear}&lang=${locale.code}`), { waitUntil: "domcontentloaded" });
+        await page.waitForFunction(
+          ({ expectedEdition, expectedLanguage }) =>
+            !document.body.classList.contains("is-locale-loading") &&
+            !document.body.classList.contains("is-initial-page-load") &&
+            document.documentElement.lang === expectedLanguage &&
+            document.querySelector("#edition-picker-button")?.dataset.edition === String(expectedEdition),
+          { expectedEdition: editionYear, expectedLanguage: locale.htmlLang },
+          { timeout: 30000 }
+        );
+        localizedHistoricalSurfaces.push(await page.evaluate((expectedEdition) => {
+          const normalize = (value) => String(value || "").replace(/\s+/gu, " ").trim();
+          const textWithoutPlayerCards = (node) => {
+            const clone = node?.cloneNode(true);
+            clone?.querySelectorAll(".highlight-player-card, .player-card").forEach((card) => card.remove());
+            return normalize(clone?.textContent);
+          };
+          const awardNames = Array.from(
+            document.querySelectorAll(".award-list [data-award-key]:not([hidden]) .award-player-name"),
+            (node) => textWithoutPlayerCards(node)
+          ).filter(Boolean);
+          return {
+            year: expectedEdition,
+            intro: textWithoutPlayerCards(document.querySelector(".intro-copy")),
+            introCanonicalNames: Array.from(
+              document.querySelectorAll(".intro-copy .highlight-player-hover"),
+              (wrapper) => wrapper.dataset.highlightPlayerName || ""
+            ),
+            timeline: normalize(document.querySelector(".next-world-cup-timeline")?.innerText),
+            awardNames,
+            fallbackInitials: Array.from(
+              document.querySelectorAll(".award-list [data-award-key]:not([hidden]) .player-photo-fallback"),
+              (node) => normalize(node.textContent)
+            ).filter(Boolean)
+          };
+        }, editionYear));
+      }
+      const historicalIntroContracts = Object.fromEntries(
+        Object.entries(HISTORICAL_HIGHLIGHTS.editions).map(([editionYear, edition]) => [
+          editionYear,
+          (edition.introPlayers || []).map((entry) => typeof entry === "string" ? entry : entry.playerName)
+        ])
+      );
+      const leakingHistoricalSurfaces = localizedHistoricalSurfaces.filter((surface) =>
+        !localeScriptPattern.test(surface.intro) ||
+          !localeScriptPattern.test(surface.timeline) ||
+          historicalEnglishLeakPattern.test(surface.intro) ||
+          historicalEnglishLeakPattern.test(surface.timeline) ||
+          surface.awardNames.some((name) => !localeScriptPattern.test(name)) ||
+          surface.fallbackInitials.some((initials) => /^[A-Z]{2}$/u.test(initials)) ||
+          JSON.stringify(surface.introCanonicalNames) !== JSON.stringify(historicalIntroContracts[surface.year])
+      );
+      assert(
+        leakingHistoricalSurfaces.length === 0,
+        `${locale.code}: historical highlights should render localized intro, next-tournament timeline, award names, and initials for every archive year. Measured ${JSON.stringify(leakingHistoricalSurfaces)}.`
+      );
+    }
     await page.locator(
       '[data-best-xi-player-name="Kylian Mbappé"] [data-best-xi-player-trigger]'
     ).click();

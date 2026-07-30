@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "492906f8d48541111cdd06c040af504ba256de33ba92d2dab61db35727deb2b5",
+  "sourceFingerprint": "386666c4b0dc468aa168d42a9a78792aa23ed5da88226af0acd204547e0857da",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
-    "Historical matches and older World Cup search results still load archive translations on demand.": "Los partidos históricos y los resultados de búsqueda de Mundiales anteriores siguen cargando las traducciones de archivo bajo demanda.",
-    "Production QA now checks all four locales plus the 2022 Ecuador player-card path.": "La QA de producción ahora revisa los cuatro idiomas y la ruta de ficha de Ecuador 2022.",
-    "Spanish and Korean archive packs load later": "Los paquetes de archivo en español y coreano cargan más tarde",
-    "Spanish and Korean home loads no longer pull archive locale packs just because the tournament wrap is visible.": "Las cargas de inicio en español y coreano ya no descargan paquetes de archivo solo porque el resumen del torneo esté visible."
+    "Cleaner multilingual highlights copy": "Texto multilingüe de destacados más limpio",
+    "Korean match results, historical award names, and archive intros no longer fall back to English.": "Los resultados de partidos, nombres de premios históricos e introducciones de archivo en coreano ya no vuelven al inglés.",
+    "New rendered smoke coverage checks Korean and Chinese archive pages across every historical year.": "La nueva cobertura de smoke renderizado revisa las páginas de archivo en coreano y chino para cada año histórico.",
+    "Spanish and Chinese historical Highlights now use localized archive intros and venue labels.": "Los destacados históricos en español y chino ahora usan introducciones de archivo y nombres de sedes localizados."
   }
 }

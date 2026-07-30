@@ -4,7 +4,7 @@ import {
   ZH_CLUB_NAME_TRANSLATIONS,
   ZH_LEAGUE_NAME_TRANSLATIONS,
   ZH_PLAYER_NAME_TRANSLATIONS
-} from "./football-locale-zh.js?v=2026-07-22-player-card-copy-1";
+} from "./football-locale-zh.js?v=2026-07-30-locale-leak-cleanup-1";
 import {
   formatLineupShortName,
   renderLineupAvatarFrame,
@@ -29,7 +29,7 @@ import {
   LOCALE_PACK_VERSION,
   loadLocaleDomain,
   normalizeLanguage
-} from "./locales/locale-runtime.js?v=2026-07-22-player-card-copy-1";
+} from "./locales/locale-runtime.js?v=2026-07-30-locale-leak-cleanup-1";
 import { getPlayerSkillCategory } from "./locales/player-note-templates.js?v=2026-07-22-player-card-copy-1";
 import {
   HISTORICAL_AWARD_CONTEXT_PLAYER_LABELS,
@@ -476,6 +476,182 @@ const CHINESE_HIGHLIGHTS_LOCALE = Object.freeze({
       Uruguay: "乌拉圭",
       "United States": "美国"
     })
+  }),
+  historicalEditions: Object.freeze({
+    1930: {
+      intro: "乌拉圭在蒙得维的亚4比2击败阿根廷，但冠军基础早在逆转前就已打好。何塞·纳萨西稳住后防，何塞·莱安德罗·安德拉德把球推进中场，佩德罗·塞亚则不断在第一波攻势之后插上。",
+      introPlayers: [
+        { playerName: "José Nasazzi", triggerText: "何塞·纳萨西" },
+        { playerName: "José Leandro Andrade", triggerText: "何塞·莱安德罗·安德拉德" },
+        { playerName: "Pedro Cea", triggerText: "佩德罗·塞亚" }
+      ]
+    },
+    1934: {
+      intro: "意大利在加时赛后2比1击败捷克斯洛伐克。东道主并不是单纯依靠进球火力，而是一支灵活的锦标赛球队：路易斯·蒙蒂定下强度，朱塞佩·梅阿查破解狭小空间，雷蒙多·奥尔西打进决赛扳平球。",
+      introPlayers: [
+        { playerName: "Luis Monti", triggerText: "路易斯·蒙蒂" },
+        { playerName: "Giuseppe Meazza", triggerText: "朱塞佩·梅阿查" },
+        { playerName: "Raimundo Orsi", triggerText: "雷蒙多·奥尔西" }
+      ]
+    },
+    1938: {
+      intro: "意大利4比2击败匈牙利，完成世界杯卫冕。波佐的球队比1934年更直接：中场快速出球，吉诺·科劳西攻击远端，西尔维奥·皮奥拉的跑动持续打开中路。",
+      introPlayers: [
+        { playerName: "Gino Colaussi", triggerText: "吉诺·科劳西" },
+        { playerName: "Silvio Piola", triggerText: "西尔维奥·皮奥拉" }
+      ]
+    },
+    1950: {
+      intro: "乌拉圭在马拉卡纳2比1击败巴西，赢得最终循环赛。奥布杜利奥·巴雷拉压低比赛情绪，胡安·斯基亚菲诺连接中场和锋线，阿尔西德斯·吉贾则不断找到巴西留下的那一道通道。",
+      introPlayers: [
+        { playerName: "Obdulio Varela", triggerText: "奥布杜利奥·巴雷拉" },
+        { playerName: "Juan Alberto Schiaffino", triggerText: "胡安·斯基亚菲诺" },
+        { playerName: "Alcides Ghiggia", triggerText: "阿尔西德斯·吉贾" }
+      ]
+    },
+    1954: {
+      intro: "西德在伯尔尼奇迹中从两球落后逆转，3比2击败匈牙利。冠军队压缩场地、争抢第二落点，并相信赫尔穆特·拉恩能决定那些匈牙利控球也无法抹去的瞬间。",
+      introPlayers: [
+        { playerName: "Helmut Rahn", triggerText: "赫尔穆特·拉恩" }
+      ]
+    },
+    1958: {
+      intro: "巴西5比2击败瑞典，把个人自由变成可重复的体系。迪迪掌控中路，加林查撕开右路，贝利在任何人能定义他之前就出现在中后卫和边后卫之间。",
+      introPlayers: [
+        { playerName: "Didi", triggerText: "迪迪" },
+        { playerName: "Garrincha", triggerText: "加林查" },
+        { playerName: "Pelé", triggerText: "贝利" }
+      ]
+    },
+    1962: {
+      intro: "贝利受伤改变计划后，巴西仍以3比1击败捷克斯洛伐克并成功卫冕。加林查制造最大裂缝，阿马里尔多填补进球空缺，济托让这支更务实的冠军队保持连接。",
+      introPlayers: [
+        { playerName: "Pelé", triggerText: "贝利" },
+        { playerName: "Garrincha", triggerText: "加林查" },
+        { playerName: "Amarildo", triggerText: "阿马里尔多" },
+        { playerName: "Zito", triggerText: "济托" }
+      ]
+    },
+    1966: {
+      intro: "英格兰在加时赛后4比2击败西德。阿尔夫·拉姆齐的无翼阵型压缩了关键中路空间，博比·穆尔穿过压力传球，博比·查尔顿的移动为杰夫·赫斯特创造了终结空间。",
+      introPlayers: [
+        { playerName: "Bobby Moore", triggerText: "博比·穆尔" },
+        { playerName: "Bobby Charlton", triggerText: "博比·查尔顿" },
+        { playerName: "Geoff Hurst", triggerText: "杰夫·赫斯特" }
+      ]
+    },
+    1970: {
+      intro: "巴西4比1击败意大利，并以全胜夺冠。热尔松控制节奏，贝利不垄断球权却牵制防守，雅伊尔津霍攻击这些注意力制造出的空间，并在六场比赛中场场进球。",
+      introPlayers: [
+        { playerName: "Gérson", triggerText: "热尔松" },
+        { playerName: "Pelé", triggerText: "贝利" },
+        { playerName: "Jairzinho", triggerText: "雅伊尔津霍" }
+      ]
+    },
+    1974: {
+      intro: "西德在输给东德后重新调整，并在决赛2比1击败荷兰。弗朗茨·贝肯鲍尔从自由人位置重组出球，贝尔蒂·福格茨限制克鲁伊夫的干净转身，盖德·穆勒则活在全攻全守也无法轮转抹去的那片空间里。",
+      introPlayers: [
+        { playerName: "Franz Beckenbauer", triggerText: "弗朗茨·贝肯鲍尔" },
+        { playerName: "Berti Vogts", triggerText: "贝尔蒂·福格茨" },
+        { playerName: "Johan Cruyff", triggerText: "克鲁伊夫" },
+        { playerName: "Gerd Müller", triggerText: "盖德·穆勒" }
+      ]
+    },
+    1978: {
+      intro: "阿根廷在加时赛后3比1击败荷兰。塞萨尔·梅诺蒂的球队把宽度和凶狠的中路压迫结合起来：丹尼尔·帕萨雷拉前压到中场，奥斯瓦尔多·阿迪莱斯串联阶段，马里奥·肯佩斯从防守人意想不到的深处发起攻击。",
+      introPlayers: [
+        { playerName: "Daniel Passarella", triggerText: "丹尼尔·帕萨雷拉" },
+        { playerName: "Osvaldo Ardiles", triggerText: "奥斯瓦尔多·阿迪莱斯" },
+        { playerName: "Mario Kempes", triggerText: "马里奥·肯佩斯" }
+      ]
+    },
+    1982: {
+      intro: "意大利从小组赛三连平一路走到决赛，并以3比1击败西德。加埃塔诺·西雷阿穿过第一道压迫，马尔科·塔尔德利把中场变成双向争夺，保罗·罗西则把前四场无球进账变成最后三场六球。",
+      introPlayers: [
+        { playerName: "Gaetano Scirea", triggerText: "加埃塔诺·西雷阿" },
+        { playerName: "Marco Tardelli", triggerText: "马尔科·塔尔德利" },
+        { playerName: "Paolo Rossi", triggerText: "保罗·罗西" }
+      ]
+    },
+    1986: {
+      intro: "阿根廷以迭戈·马拉多纳为核心设计，却并非只依赖他的盘带，最终3比2击败西德。三名中卫稳定转换，豪尔赫·巴尔达诺拉长防线，豪尔赫·布鲁查加攻击马拉多纳不断揭开的通道。",
+      introPlayers: [
+        { playerName: "Diego Maradona", triggerText: "迭戈·马拉多纳" },
+        { playerName: "Jorge Valdano", triggerText: "豪尔赫·巴尔达诺" },
+        { playerName: "Jorge Burruchaga", triggerText: "豪尔赫·布鲁查加" }
+      ]
+    },
+    1990: {
+      intro: "西德在紧张的决赛中1比0击败阿根廷。弗朗茨·贝肯鲍尔的球队用结构掌控整届赛事：安德烈亚斯·布雷默从左路创造机会，洛塔尔·马特乌斯控制两个禁区之间的区域，锋线即使在淘汰赛收紧时也持续压迫。",
+      introPlayers: [
+        { playerName: "Andreas Brehme", triggerText: "安德烈亚斯·布雷默" },
+        { playerName: "Lothar Matthäus", triggerText: "洛塔尔·马特乌斯" }
+      ]
+    },
+    1994: {
+      intro: "巴西在0比0的决赛后通过点球击败意大利。卡洛斯·阿尔贝托·佩雷拉削减了浪漫主义的过量部分，却没有牺牲进攻质量：邓加保护中路，贝贝托游走于线间，罗马里奥把微小优势变成决定性进球。",
+      introPlayers: [
+        { playerName: "Dunga", triggerText: "邓加" },
+        { playerName: "Bebeto", triggerText: "贝贝托" },
+        { playerName: "Romário", triggerText: "罗马里奥" }
+      ]
+    },
+    1998: {
+      intro: "法国3比0击败巴西，赢得队史首冠。东道主从后场一路赢到前场：马塞尔·德塞利保护空间，迪迪埃·德尚和埃马纽埃尔·佩蒂控制转换，齐内丁·齐达内终于在最大的夜晚把统治力变成进球。",
+      introPlayers: [
+        { playerName: "Marcel Desailly", triggerText: "马塞尔·德塞利" },
+        { playerName: "Didier Deschamps", triggerText: "迪迪埃·德尚" },
+        { playerName: "Emmanuel Petit", triggerText: "埃马纽埃尔·佩蒂" },
+        { playerName: "Zinedine Zidane", triggerText: "齐内丁·齐达内" }
+      ]
+    },
+    2002: {
+      intro: "巴西2比0击败德国，并赢下全部七场比赛。路易斯·费利佩·斯科拉里的三中卫释放了卡福和罗伯托·卡洛斯，吉尔伯托·席尔瓦保护每一次转换，三位R以足够间距完成配合，让即兴发挥在结构中变得安全。",
+      introPlayers: [
+        { playerName: "Cafu", triggerText: "卡福" },
+        { playerName: "Roberto Carlos", triggerText: "罗伯托·卡洛斯" },
+        { playerName: "Gilberto Silva", triggerText: "吉尔伯托·席尔瓦" }
+      ]
+    },
+    2006: {
+      intro: "意大利在1比1的决赛后通过点球击败法国。马尔切洛·里皮相信完整阵容，而不是固定的进攻明星：安德烈亚·皮尔洛摆脱第一道压迫，法比奥·卡纳瓦罗处理下一次威胁，十名不同的意大利球员取得进球。",
+      introPlayers: [
+        { playerName: "Andrea Pirlo", triggerText: "安德烈亚·皮尔洛" },
+        { playerName: "Fabio Cannavaro", triggerText: "法比奥·卡纳瓦罗" }
+      ]
+    },
+    2010: {
+      intro: "西班牙在加时赛后1比0击败荷兰。冠军并非来自机会洪流，而是耐心的地域控制：塞尔吉奥·布斯克茨保护每一次传导，哈维不断移动对方阵型，安德烈斯·伊涅斯塔最终攻击到打开的空间。",
+      introPlayers: [
+        { playerName: "Sergio Busquets", triggerText: "塞尔吉奥·布斯克茨" },
+        { playerName: "Xavi", triggerText: "哈维" },
+        { playerName: "Andrés Iniesta", triggerText: "安德烈斯·伊涅斯塔" }
+      ]
+    },
+    2014: {
+      intro: "德国在加时赛后1比0击败阿根廷，这更像是一套灵活阵容的成果，而不是固定首发十一人的作品。菲利普·拉姆恢复了右路平衡，曼努埃尔·诺伊尔防到禁区之外，托尼·克罗斯则给这支高速球队提供了控制呼吸的传球。",
+      introPlayers: [
+        { playerName: "Philipp Lahm", triggerText: "菲利普·拉姆" },
+        { playerName: "Manuel Neuer", triggerText: "曼努埃尔·诺伊尔" },
+        { playerName: "Toni Kroos", triggerText: "托尼·克罗斯" }
+      ]
+    },
+    2018: {
+      intro: "法国4比2击败克罗地亚，他们并不介意让对手持球。恩戈洛·坎特和保罗·博格巴控制转换距离，安托万·格列兹曼回到中场制造人数优势，基利安·姆巴佩则把开阔空间变成战术武器。",
+      introPlayers: [
+        { playerName: "N'Golo Kanté", triggerText: "恩戈洛·坎特" },
+        { playerName: "Paul Pogba", triggerText: "保罗·博格巴" },
+        { playerName: "Antoine Griezmann", triggerText: "安托万·格列兹曼" },
+        { playerName: "Kylian Mbappé", triggerText: "基利安·姆巴佩" }
+      ]
+    },
+    2022: {
+      intro: "阿根廷从输给沙特阿拉伯的开局中恢复过来，并在3比3的决赛后通过点球击败法国。利昂内尔·斯卡洛尼针对每个对手重塑中场，恩佐·费尔南德斯加快第一脚传球，利昂内尔·梅西则从右半空间掌控整届赛事。",
+      introPlayers: [
+        { playerName: "Enzo Fernández", triggerText: "恩佐·费尔南德斯" },
+        { playerName: "Lionel Messi", triggerText: "利昂内尔·梅西" }
+      ]
+    }
   })
 });
 
@@ -934,6 +1110,10 @@ function getBestXiEditionTitle() {
     ko: `${activeEdition}년 베스트 11`,
     zh: `${activeEdition}年最佳阵容`
   })[currentLanguage] || `Best XI of ${activeEdition}`;
+}
+
+function getHistoricalEditionLocaleCopy(year, field) {
+  return activeLocale?.historicalEditions?.[String(year)]?.[field] || null;
 }
 
 function getHistoricalMetadataText(historicalEdition) {
@@ -1637,6 +1817,30 @@ function renderHistoricalAwardPlayerList(elementId, recipients, displayNames) {
   );
 }
 
+function getHistoricalAwardRecipientDisplayName(recipient, copiedName = "") {
+  const playerName = String(recipient?.playerName || "").trim();
+  const copied = String(copiedName || "").trim();
+  if (currentLanguage === "zh") {
+    if (/\p{Script=Han}/u.test(copied)) {
+      return copied;
+    }
+    const localizedName = getHighlightPlayerName(playerName, loadedProfiles?.[playerName]);
+    if (/\p{Script=Han}/u.test(localizedName)) {
+      return localizedName;
+    }
+  }
+  if (currentLanguage === "ko") {
+    if (/\p{Script=Hangul}/u.test(copied)) {
+      return copied;
+    }
+    const localizedName = getHighlightPlayerName(playerName, loadedProfiles?.[playerName]);
+    if (/\p{Script=Hangul}/u.test(localizedName)) {
+      return localizedName;
+    }
+  }
+  return copied || getHighlightPlayerName(playerName, loadedProfiles?.[playerName]) || playerName;
+}
+
 function renderHistoricalFairPlayFlags(teamNames) {
   const container = getElement("fair-play-flag");
   if (!container) {
@@ -1778,9 +1982,12 @@ function renderHistoricalAwards() {
     const recipients = award.recipients || [];
     const first = recipients[0] || {};
     const copy = awardCopy[awardKey];
-    const displayNames = copy?.recipientNames?.length === recipients.length
+    const copiedNames = copy?.recipientNames?.length === recipients.length
       ? copy.recipientNames
-      : recipients.map((recipient) => loadedProfiles?.[recipient.playerName]?.displayName || recipient.playerName);
+      : [];
+    const displayNames = recipients.map((recipient, index) =>
+      getHistoricalAwardRecipientDisplayName(recipient, copiedNames[index])
+    );
     renderHistoricalAwardPlayerList(ids.nameId, recipients, displayNames);
     renderHistoricalAwardTeamList(
       getElement(ids.metaId),
@@ -1874,6 +2081,144 @@ const PREVIEW_DATE_LOCALES = Object.freeze({
   zh: "zh-CN"
 });
 
+const PREVIEW_LOCATION_TRANSLATIONS = Object.freeze({
+  es: Object.freeze({
+    Rome: "Roma",
+    Paris: "París",
+    "Itamaraty Palace, Rio de Janeiro": "Palacio de Itamaraty, Río de Janeiro",
+    Zurich: "Zúrich",
+    Solna: "Solna",
+    "Santiago de Chile": "Santiago de Chile",
+    "Royal Garden Hotel, London": "Hotel Royal Garden, Londres",
+    "Mexico City": "Ciudad de México",
+    "Hessischer Rundfunk broadcast hall, Frankfurt": "sala de transmisiones de Hessischer Rundfunk, Fráncfort",
+    "General San Martín Cultural Centre, Buenos Aires": "Centro Cultural General San Martín, Buenos Aires",
+    "Palace of Congresses, Madrid": "Palacio de Congresos, Madrid",
+    "Televisa San Ángel, Mexico City": "Televisa San Ángel, Ciudad de México",
+    "Palazzo dello Sport, Rome": "Palazzo dello Sport, Roma",
+    "Las Vegas Convention Center": "Centro de Convenciones de Las Vegas",
+    "Stade Vélodrome, Marseille": "Stade Vélodrome, Marsella",
+    "BEXCO Convention Center, Busan": "Centro de Convenciones BEXCO, Busan",
+    "Leipzig Exhibition Centre": "Centro de Exposiciones de Leipzig",
+    "Cape Town International Convention Centre": "Centro Internacional de Convenciones de Ciudad del Cabo",
+    "Costa do Sauípe, Bahia": "Costa do Sauípe, Bahía",
+    "Kremlin State Palace, Moscow": "Palacio Estatal del Kremlin, Moscú",
+    "Doha Exhibition and Convention Center": "Centro de Exposiciones y Convenciones de Doha",
+    "Kennedy Center, Washington, DC": "Kennedy Center, Washington D. C.",
+    "Stadio Nazionale PNF, Rome": "Stadio Nazionale PNF, Roma",
+    "Parc des Princes, Paris": "Parc des Princes, París",
+    "Estádio do Maracanã, Rio de Janeiro": "Maracaná, Río de Janeiro",
+    "Charmilles Stadium, Geneva": "Estadio Charmilles, Ginebra",
+    "Råsunda Stadium, Solna": "Estadio Råsunda, Solna",
+    "Estadio Nacional, Santiago": "Estadio Nacional, Santiago",
+    "Wembley Stadium, London": "Estadio de Wembley, Londres",
+    "Estadio Azteca, Mexico City": "Estadio Azteca, Ciudad de México",
+    "Waldstadion, Frankfurt": "Waldstadion, Fráncfort",
+    "Estadio Monumental, Buenos Aires": "Estadio Monumental, Buenos Aires",
+    "Camp Nou, Barcelona": "Camp Nou, Barcelona",
+    "San Siro, Milan": "San Siro, Milán",
+    "Soldier Field, Chicago": "Soldier Field, Chicago",
+    "Stade de France, Saint-Denis": "Stade de France, Saint-Denis",
+    "Seoul World Cup Stadium, Seoul": "Estadio Mundialista de Seúl",
+    "Allianz Arena, München": "Allianz Arena, Múnich",
+    "Soccer City, Johannesburg": "Estadio Ciudad del Fútbol, Johannesburgo",
+    "Arena de São Paulo, São Paulo": "Arena de São Paulo, São Paulo",
+    "Luzhniki Stadium, Moscow": "Estadio Luzhnikí, Moscú",
+    "Al Bayt Stadium, Al Khor": "Estadio Al Bayt, Al Khor",
+    "Mexico City Stadium, Mexico City": "Estadio Ciudad de México"
+  }),
+  ko: Object.freeze({
+    Rome: "로마",
+    Paris: "파리",
+    "Itamaraty Palace, Rio de Janeiro": "리우데자네이루 이타마라치 궁",
+    Zurich: "취리히",
+    Solna: "솔나",
+    "Santiago de Chile": "산티아고데칠레",
+    "Royal Garden Hotel, London": "런던 로열 가든 호텔",
+    "Mexico City": "멕시코시티",
+    "Hessischer Rundfunk broadcast hall, Frankfurt": "프랑크푸르트 헤센 방송회관",
+    "General San Martín Cultural Centre, Buenos Aires": "부에노스아이레스 산마르틴 문화센터",
+    "Palace of Congresses, Madrid": "마드리드 의회궁",
+    "Televisa San Ángel, Mexico City": "멕시코시티 텔레비사 산앙헬",
+    "Palazzo dello Sport, Rome": "로마 팔라초 델로 스포르트",
+    "Las Vegas Convention Center": "라스베이거스 컨벤션 센터",
+    "Stade Vélodrome, Marseille": "마르세유 스타드 벨로드롬",
+    "BEXCO Convention Center, Busan": "부산 벡스코 컨벤션 센터",
+    "Leipzig Exhibition Centre": "라이프치히 전시장",
+    "Cape Town International Convention Centre": "케이프타운 국제컨벤션센터",
+    "Costa do Sauípe, Bahia": "바이아주 코스타 두 사우이피",
+    "Kremlin State Palace, Moscow": "모스크바 크렘린 국립궁전",
+    "Doha Exhibition and Convention Center": "도하 전시컨벤션센터",
+    "Kennedy Center, Washington, DC": "워싱턴 D.C. 케네디 센터",
+    "Stadio Nazionale PNF, Rome": "로마 스타디오 나치오날레 PNF",
+    "Parc des Princes, Paris": "파리 파르크 데 프랭스",
+    "Estádio do Maracanã, Rio de Janeiro": "리우데자네이루 마라카낭",
+    "Charmilles Stadium, Geneva": "제네바 샤르미유 스타디움",
+    "Råsunda Stadium, Solna": "솔나 로순다 스타디움",
+    "Estadio Nacional, Santiago": "산티아고 에스타디오 나시오날",
+    "Wembley Stadium, London": "런던 웸블리 스타디움",
+    "Estadio Azteca, Mexico City": "멕시코시티 에스타디오 아스테카",
+    "Waldstadion, Frankfurt": "프랑크푸르트 발트슈타디온",
+    "Estadio Monumental, Buenos Aires": "부에노스아이레스 에스타디오 모누멘탈",
+    "Camp Nou, Barcelona": "바르셀로나 캄 노우",
+    "San Siro, Milan": "밀라노 산 시로",
+    "Soldier Field, Chicago": "시카고 솔저 필드",
+    "Stade de France, Saint-Denis": "생드니 스타드 드 프랑스",
+    "Seoul World Cup Stadium, Seoul": "서울월드컵경기장",
+    "Allianz Arena, München": "뮌헨 알리안츠 아레나",
+    "Soccer City, Johannesburg": "요하네스버그 사커 시티",
+    "Arena de São Paulo, São Paulo": "상파울루 아레나 지 상파울루",
+    "Luzhniki Stadium, Moscow": "모스크바 루즈니키 스타디움",
+    "Al Bayt Stadium, Al Khor": "알코르 알바이트 스타디움",
+    "Mexico City Stadium, Mexico City": "멕시코시티 스타디움"
+  }),
+  zh: Object.freeze({
+    Rome: "罗马",
+    Paris: "巴黎",
+    "Itamaraty Palace, Rio de Janeiro": "里约热内卢伊塔马拉蒂宫",
+    Zurich: "苏黎世",
+    Solna: "索尔纳",
+    "Santiago de Chile": "圣地亚哥",
+    "Royal Garden Hotel, London": "伦敦皇家花园酒店",
+    "Mexico City": "墨西哥城",
+    "Hessischer Rundfunk broadcast hall, Frankfurt": "法兰克福黑森广播大厅",
+    "General San Martín Cultural Centre, Buenos Aires": "布宜诺斯艾利斯圣马丁文化中心",
+    "Palace of Congresses, Madrid": "马德里会议宫",
+    "Televisa San Ángel, Mexico City": "墨西哥城特莱维萨圣安赫尔",
+    "Palazzo dello Sport, Rome": "罗马体育宫",
+    "Las Vegas Convention Center": "拉斯维加斯会议中心",
+    "Stade Vélodrome, Marseille": "马赛韦洛德罗姆球场",
+    "BEXCO Convention Center, Busan": "釜山BEXCO会展中心",
+    "Leipzig Exhibition Centre": "莱比锡展览中心",
+    "Cape Town International Convention Centre": "开普敦国际会议中心",
+    "Costa do Sauípe, Bahia": "巴伊亚科斯塔多绍伊佩",
+    "Kremlin State Palace, Moscow": "莫斯科克里姆林宫大会堂",
+    "Doha Exhibition and Convention Center": "多哈会展中心",
+    "Kennedy Center, Washington, DC": "华盛顿肯尼迪中心",
+    "Stadio Nazionale PNF, Rome": "罗马国家PNF体育场",
+    "Parc des Princes, Paris": "巴黎王子公园球场",
+    "Estádio do Maracanã, Rio de Janeiro": "里约热内卢马拉卡纳球场",
+    "Charmilles Stadium, Geneva": "日内瓦沙尔米耶球场",
+    "Råsunda Stadium, Solna": "索尔纳拉松达球场",
+    "Estadio Nacional, Santiago": "圣地亚哥国家体育场",
+    "Wembley Stadium, London": "伦敦温布利球场",
+    "Estadio Azteca, Mexico City": "墨西哥城阿兹特克体育场",
+    "Waldstadion, Frankfurt": "法兰克福森林体育场",
+    "Estadio Monumental, Buenos Aires": "布宜诺斯艾利斯纪念碑球场",
+    "Camp Nou, Barcelona": "巴塞罗那诺坎普",
+    "San Siro, Milan": "米兰圣西罗",
+    "Soldier Field, Chicago": "芝加哥士兵球场",
+    "Stade de France, Saint-Denis": "圣但尼法兰西体育场",
+    "Seoul World Cup Stadium, Seoul": "首尔世界杯体育场",
+    "Allianz Arena, München": "慕尼黑安联球场",
+    "Soccer City, Johannesburg": "约翰内斯堡足球城",
+    "Arena de São Paulo, São Paulo": "圣保罗竞技场",
+    "Luzhniki Stadium, Moscow": "莫斯科卢日尼基体育场",
+    "Al Bayt Stadium, Al Khor": "豪尔海湾球场",
+    "Mexico City Stadium, Mexico City": "墨西哥城体育场"
+  })
+});
+
 const ZH_PREVIEW_TEAM_NAMES = Object.freeze({
   Argentina: "阿根廷",
   Belgium: "比利时",
@@ -1935,6 +2280,10 @@ function localizePreviewTeam(teamName) {
   return localizeEntity("teams", teamName) || teamName;
 }
 
+function localizePreviewLocation(location) {
+  return PREVIEW_LOCATION_TRANSLATIONS[currentLanguage]?.[location] || location;
+}
+
 function formatPreviewTeamList(teamNames) {
   const localizedNames = teamNames.map(localizePreviewTeam);
   return new Intl.ListFormat(PREVIEW_DATE_LOCALES[currentLanguage] || PREVIEW_DATE_LOCALES.en, {
@@ -1970,6 +2319,8 @@ function getPreviewOpening(preview) {
 function getSpanishNextWorldCupPreview(preview, opening) {
   const hosts = formatPreviewTeamList(preview.hosts);
   const holder = localizePreviewTeam(preview.holder);
+  const drawLocation = localizePreviewLocation(preview.drawLocation);
+  const openingVenue = localizePreviewLocation(opening.venue);
   const pluralHosts = preview.hosts.length > 1;
   if (preview.nextYear === 2026) {
     return {
@@ -1999,13 +2350,13 @@ function getSpanishNextWorldCupPreview(preview, opening) {
   }
   const drawTitle = preview.groupCount ? "Se sortean los grupos" : "Se sortea el cuadro eliminatorio";
   const drawBody = preview.groupCount
-    ? `El sorteo final en ${preview.drawLocation} definirá ${preview.groupCount} grupos.`
-    : `El sorteo final en ${preview.drawLocation} definirá el cuadro eliminatorio de 16 selecciones.`;
+    ? `El sorteo final en ${drawLocation} definirá ${preview.groupCount} grupos.`
+    : `El sorteo final en ${drawLocation} definirá el cuadro eliminatorio de 16 selecciones.`;
   const home = localizePreviewTeam(opening.home);
   const away = localizePreviewTeam(opening.away);
   const openingBody = opening.simultaneousMatchCount > 1
-    ? `La jornada inaugural tendrá ${opening.simultaneousMatchCount} partidos. ${home} se enfrentará a ${away} en ${opening.venue}.`
-    : `${home} se enfrentará a ${away} en ${opening.venue}.`;
+    ? `La jornada inaugural tendrá ${opening.simultaneousMatchCount} partidos. ${home} se enfrentará a ${away} en ${openingVenue}.`
+    : `${home} se enfrentará a ${away} en ${openingVenue}.`;
   return {
     lead: `${hosts} ${pluralHosts ? "albergarán" : "albergará"} el Mundial de ${preview.nextYear}.`,
     firstTitle,
@@ -2020,6 +2371,8 @@ function getSpanishNextWorldCupPreview(preview, opening) {
 function getKoreanNextWorldCupPreview(preview, opening) {
   const hosts = formatPreviewTeamList(preview.hosts);
   const holder = localizePreviewTeam(preview.holder);
+  const drawLocation = localizePreviewLocation(preview.drawLocation);
+  const openingVenue = localizePreviewLocation(opening.venue);
   if (preview.nextYear === 2026) {
     return {
       lead: "캐나다·멕시코·미국이 사상 첫 48개 팀 월드컵이자 세 나라가 공동 개최하는 첫 대회를 연다.",
@@ -2048,13 +2401,13 @@ function getKoreanNextWorldCupPreview(preview, opening) {
   }
   const drawTitle = preview.groupCount ? "조 추첨이 열린다" : "토너먼트 대진이 정해진다";
   const drawBody = preview.groupCount
-    ? `${preview.drawLocation}에서 열리는 본선 조 추첨으로 ${preview.groupCount}개 조가 정해진다.`
-    : `${preview.drawLocation}에서 열리는 본선 추첨으로 16강 토너먼트 대진이 정해진다.`;
+    ? `${drawLocation}에서 열리는 본선 조 추첨으로 ${preview.groupCount}개 조가 정해진다.`
+    : `${drawLocation}에서 열리는 본선 추첨으로 16강 토너먼트 대진이 정해진다.`;
   const home = localizePreviewTeam(opening.home);
   const away = localizePreviewTeam(opening.away);
   const openingBody = opening.simultaneousMatchCount > 1
-    ? `개막일에 ${opening.simultaneousMatchCount}경기가 열린다. 그중 ${home}와 ${away}의 경기는 ${opening.venue}에서 열린다.`
-    : `${home}와 ${away}의 경기가 ${opening.venue}에서 열린다.`;
+    ? `개막일에 ${opening.simultaneousMatchCount}경기가 열린다. 그중 ${home}와 ${away}의 경기는 ${openingVenue}에서 열린다.`
+    : `${home}와 ${away}의 경기가 ${openingVenue}에서 열린다.`;
   return {
     lead: `${hosts}에서 ${preview.nextYear}년 월드컵이 열린다.`,
     firstTitle,
@@ -2069,6 +2422,8 @@ function getKoreanNextWorldCupPreview(preview, opening) {
 function getChineseNextWorldCupPreview(preview, opening) {
   const hosts = formatPreviewTeamList(preview.hosts);
   const holder = localizePreviewTeam(preview.holder);
+  const drawLocation = localizePreviewLocation(preview.drawLocation);
+  const openingVenue = localizePreviewLocation(opening.venue);
   if (preview.nextYear === 2026) {
     return {
       lead: "加拿大、墨西哥和美国将共同举办首届48队世界杯，也是首次由三个国家共同主办。",
@@ -2097,13 +2452,13 @@ function getChineseNextWorldCupPreview(preview, opening) {
   }
   const drawTitle = preview.groupCount ? "小组抽签" : "淘汰赛对阵抽签";
   const drawBody = preview.groupCount
-    ? `在${preview.drawLocation}举行的决赛圈抽签将确定${preview.groupCount}个小组。`
-    : `在${preview.drawLocation}举行的决赛圈抽签将确定16队淘汰赛对阵。`;
+    ? `在${drawLocation}举行的决赛圈抽签将确定${preview.groupCount}个小组。`
+    : `在${drawLocation}举行的决赛圈抽签将确定16队淘汰赛对阵。`;
   const home = localizePreviewTeam(opening.home);
   const away = localizePreviewTeam(opening.away);
   const openingBody = opening.simultaneousMatchCount > 1
-    ? `开幕日将进行${opening.simultaneousMatchCount}场比赛，其中${home}与${away}将在${opening.venue}交锋。`
-    : `${home}与${away}将在${opening.venue}交锋。`;
+    ? `开幕日将进行${opening.simultaneousMatchCount}场比赛，其中${home}与${away}将在${openingVenue}交锋。`
+    : `${home}与${away}将在${openingVenue}交锋。`;
   return {
     lead: `${preview.nextYear}年世界杯将在${hosts}举行。`,
     firstTitle,
@@ -2187,7 +2542,11 @@ function renderHistoricalEdition() {
   if (intro) {
     intro.removeAttribute("data-highlight-player-mentions");
     intro.replaceChildren();
-    appendHistoricalIntroCopy(intro, editorialEdition.intro, editorialEdition.introPlayers);
+    appendHistoricalIntroCopy(
+      intro,
+      getHistoricalEditionLocaleCopy(activeEdition, "intro") || editorialEdition.intro,
+      getHistoricalEditionLocaleCopy(activeEdition, "introPlayers") || editorialEdition.introPlayers
+    );
   }
   setText("best-xi-title", getBestXiEditionTitle());
   setText("awards-title", activeLocale.text.officialAwards);

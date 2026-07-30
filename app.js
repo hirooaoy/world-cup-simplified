@@ -1,4 +1,4 @@
-import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-29-manifest-historical-copy-1";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-30-locale-leak-cleanup-1";
 import { renderFootballInlineHtml } from "./football-typography.js?v=2026-07-20-final-cutover-1";
 import {
   HISTORICAL_TEAM_COUNTRY_CODES,
@@ -13,7 +13,7 @@ import {
   getSupportedLanguages,
   loadLocaleDomain,
   normalizeLanguage as normalizeLocaleLanguage
-} from "./locales/locale-runtime.js?v=2026-07-29-manifest-historical-copy-1";
+} from "./locales/locale-runtime.js?v=2026-07-30-locale-leak-cleanup-1";
 import { formatKeyInformation as formatZhKeyInformation } from "./locales/key-information-zh.js?v=2026-07-22-key-information-schema-4";
 import {
   ADMIN_MESSAGE_COLLAPSE_DURATION_MS,
@@ -17951,23 +17951,38 @@ function renderScoreSummary(match, options = {}) {
   const score = getCatchUpScore(match);
 
   if (!score) {
-    const text = options.live
+    const fallback = options.live
       ? "The match is marked live, but no verified score is loaded yet."
       : "Final score is not loaded for this fixture yet.";
+    const text = formatActiveLocaleMessage(
+      "result-score-summary",
+      { variant: options.live ? "unavailable-live" : "unavailable-final" },
+      fallback
+    );
     return `<p class="past-empty result-score-summary">${escapeHtml(localizeText(text))}</p>`;
   }
 
   const winnerSide = getResultWinnerSide(match, score);
+  const scoreText = `${score.home}-${score.away}`;
 
   if (!winnerSide) {
-    const scoreText = `${score.home}-${score.away}`;
-    const text = `${match.homeTeam.name} and ${match.awayTeam.name} ${options.live ? "are level" : "drew"} ${scoreText}.`;
+    const fallback = `${match.homeTeam.name} and ${match.awayTeam.name} ${options.live ? "are level" : "drew"} ${scoreText}.`;
+    const text = formatActiveLocaleMessage(
+      "result-score-summary",
+      {
+        away: match.awayTeam.name,
+        home: match.homeTeam.name,
+        scoreText,
+        variant: options.live ? "live-draw" : "draw"
+      },
+      fallback
+    );
     return `<p class="past-empty result-score-summary">${escapeHtml(localizeText(text))}</p>`;
   }
 
   const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
   const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
-  const scoreText = getResultScorePairForSide(score, winnerSide);
+  const winnerScoreText = getResultScorePairForSide(score, winnerSide);
   const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
   const isTiedKnockoutWinner =
     !options.live &&
@@ -17977,10 +17992,38 @@ function renderScoreSummary(match, options = {}) {
 
   const text =
     penaltyText && !options.live
-      ? `${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
+      ? formatActiveLocaleMessage(
+          "result-score-summary",
+          {
+            loser: loser.name,
+            penaltyText,
+            scoreText,
+            variant: "penalties",
+            winner: winner.name
+          },
+          `${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
+        )
       : isTiedKnockoutWinner
-        ? `${winner.name} advanced after a ${score.home}-${score.away} draw against ${loser.name}.`
-        : `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${scoreText}.`;
+        ? formatActiveLocaleMessage(
+            "result-score-summary",
+            {
+              loser: loser.name,
+              scoreText,
+              variant: "advanced-draw",
+              winner: winner.name
+            },
+            `${winner.name} advanced after a ${score.home}-${score.away} draw against ${loser.name}.`
+          )
+        : formatActiveLocaleMessage(
+            "result-score-summary",
+            {
+              loser: loser.name,
+              scoreText: winnerScoreText,
+              variant: options.live ? "live-lead" : "win",
+              winner: winner.name
+            },
+            `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${winnerScoreText}.`
+          );
   return `<p class="past-empty result-score-summary">${escapeHtml(localizeText(text))}</p>`;
 }
 
@@ -30459,13 +30502,18 @@ function renderFinalCelebration() {
       .map((sentence) => (/[.!?]$/u.test(sentence) ? sentence : `${sentence}.`))
       .join(" ")
   );
+  const tournamentLabel = ({
+    es: `Copa Mundial de la FIFA ${editionYear}`,
+    ko: `${editionYear} FIFA 월드컵`,
+    zh: `FIFA ${editionYear}世界杯`
+  })[currentLanguage] || `FIFA World Cup ${editionYear}`;
   const bannerMarkup = `
     <span class="final-celebration-confetti" aria-hidden="true">
       ${getFinalCelebrationConfettiMarkup()}
     </span>
-    <a class="final-celebration-link" href="${escapeHtml(highlightsHref)}" aria-label="${escapeHtml(`${t("viewRecap")}: FIFA World Cup ${editionYear}`)}"></a>
+    <a class="final-celebration-link" href="${escapeHtml(highlightsHref)}" aria-label="${escapeHtml(`${t("viewRecap")}: ${tournamentLabel}`)}"></a>
     <span class="final-celebration-copy">
-      <span class="final-celebration-kicker"><span class="final-celebration-trophy" aria-hidden="true">🏆</span> FIFA World Cup ${editionYear}</span>
+      <span class="final-celebration-kicker"><span class="final-celebration-trophy" aria-hidden="true">🏆</span> ${escapeHtml(tournamentLabel)}</span>
       <strong class="final-celebration-headline">${escapeHtml(headline)}</strong>
       ${descriptionMarkup}
     </span>

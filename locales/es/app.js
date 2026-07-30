@@ -1900,6 +1900,32 @@ export function formatAppMessage(type, data = {}) {
         ? `${data.total} enfrentamientos verificados entre selecciones absolutas: ${record}.`
         : `${data.total} enfrentamientos seleccionados entre selecciones absolutas disponibles en nuestros datos: ${record}. No se ha confirmado que el registro histórico esté completo.`;
     }
+    case "result-score-summary": {
+      const home = translateTeamName(data.home);
+      const away = translateTeamName(data.away);
+      const winner = translateTeamName(data.winner);
+      const loser = translateTeamName(data.loser);
+      switch (data.variant) {
+        case "unavailable-live":
+          return "El partido figura en vivo, pero aún no hay un marcador verificado.";
+        case "unavailable-final":
+          return "El resultado final de este partido todavía no está disponible.";
+        case "live-draw":
+          return `${home} y ${away} empatan ${data.scoreText}.`;
+        case "draw":
+          return `${home} y ${away} empataron ${data.scoreText}.`;
+        case "penalties":
+          return `${winner} venció a ${loser} en los penales (${data.penaltyText}) tras empatar ${data.scoreText}.`;
+        case "advanced-draw":
+          return `${winner} avanzó tras empatar ${data.scoreText} ante ${loser}.`;
+        case "live-lead":
+          return `${winner} va ganando ${data.scoreText} ante ${loser}.`;
+        case "win":
+          return `${winner} venció ${data.scoreText} a ${loser}.`;
+        default:
+          return "";
+      }
+    }
     case "player-note-fallback":
       return `Claves del jugador: ${(data.skills || []).join(", ")}.`;
     case "flag-label":

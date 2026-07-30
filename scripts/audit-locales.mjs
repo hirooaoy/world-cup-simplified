@@ -59,6 +59,7 @@ import {
 import {
   HISTORICAL_PLAYER_NOTE_SEMANTICS as KO_HISTORICAL_PLAYER_NOTE_SEMANTICS
 } from "../locales/ko/historical-player-note-semantics.js";
+import { HISTORICAL_HIGHLIGHTS } from "../data/highlights-history.js";
 
 const LANGUAGE_CODES = ["en", "zh", "es", "ko"];
 const NEW_LANGUAGE_CODES = ["es", "ko"];
@@ -1584,6 +1585,22 @@ function auditAppPack(language, pack, runtime) {
     `${language} nested historical own-goal copy is ungrammatical: ${benefitedOwnGoal || "(empty)"}`
   );
 
+  const resultScoreSummary = pack.helpers?.formatAppMessage?.("result-score-summary", {
+    loser: "Argentina",
+    scoreText: "1-0",
+    variant: "win",
+    winner: "Spain"
+  });
+  const resultScoreSummaryIsLocalized =
+    language === "es"
+      ? resultScoreSummary === "España venció 1-0 a Argentina."
+      : resultScoreSummary === "스페인이 아르헨티나를 1-0으로 꺾었습니다.";
+  check(
+    "result card summary copy",
+    resultScoreSummaryIsLocalized,
+    `${language} result card summary leaked English or drifted: ${resultScoreSummary || "(empty)"}`
+  );
+
   if (language === "es") {
     const groupWin = pack.helpers?.formatAppMessage?.("catch-up-result", {
       context: "Group I",
@@ -2648,6 +2665,79 @@ function auditHighlightsPack(language, pack, highlightsHtml, highlightsSource) {
       /id=["']language-select["']/u.test(highlightsHtml),
     "The highlights page does not load its locale domain or expose a language selector"
   );
+  const historicalEditionIntroGaps = [];
+  for (const [year, sourceEdition] of Object.entries(HISTORICAL_HIGHLIGHTS.editions)) {
+    const localeEdition = pack.historicalEditions?.[year];
+    const intro = String(localeEdition?.intro || "").trim();
+    const sourcePlayers = (sourceEdition.introPlayers || [])
+      .map((entry) => typeof entry === "string" ? entry : entry.playerName);
+    const localePlayers = Array.isArray(localeEdition?.introPlayers)
+      ? localeEdition.introPlayers.map((entry) => typeof entry === "string" ? entry : entry.playerName)
+      : [];
+    if (
+      !intro ||
+      intro === sourceEdition.intro ||
+      (language === "ko" && !/\p{Script=Hangul}/u.test(intro)) ||
+      JSON.stringify(localePlayers) !== JSON.stringify(sourcePlayers)
+    ) {
+      historicalEditionIntroGaps.push(year);
+    }
+  }
+  check(
+    "historical highlights intro copy",
+    historicalEditionIntroGaps.length === 0,
+    `${language} historical highlights intros are missing, untranslated, or detached from player-card links: ${formatSamples(historicalEditionIntroGaps)}`
+  );
+}
+
+function auditHistoricalAwardLocale(language, pack, englishPack) {
+  if (!pack) {
+    return;
+  }
+  check(
+    "historical award locale schema",
+    pack.schemaVersion === 1 && pack.language === language && pack.domain === "historical-awards",
+    `${language} historical-awards pack metadata is invalid`
+  );
+  const countMismatches = [];
+  const koreanLatinRecipientLeaks = [];
+  for (const [year, awards] of Object.entries(englishPack?.editions || {})) {
+    for (const [awardKey, englishAward] of Object.entries(awards || {})) {
+      const sourceNames = Array.isArray(englishAward?.recipientNames)
+        ? englishAward.recipientNames
+        : [];
+      if (!sourceNames.length) {
+        continue;
+      }
+      const localeNames = pack.editions?.[year]?.[awardKey]?.recipientNames;
+      if (!Array.isArray(localeNames) || localeNames.length !== sourceNames.length) {
+        countMismatches.push(`${year}.${awardKey}`);
+        continue;
+      }
+      if (language !== "ko") {
+        continue;
+      }
+      localeNames.forEach((name, index) => {
+        const visibleName = String(name || "").trim();
+        if (/[A-Za-z]/u.test(visibleName) && !/\p{Script=Hangul}/u.test(visibleName)) {
+          koreanLatinRecipientLeaks.push(`${year}.${awardKey}[${index}]: ${visibleName}`);
+        }
+      });
+    }
+  }
+  check(
+    "historical award locale schema",
+    countMismatches.length === 0,
+    `${language} historical-awards recipient counts differ from English source: ${formatSamples(countMismatches, 8)}`
+  );
+  if (language === "ko") {
+    check(
+      "historical award recipient names",
+      koreanLatinRecipientLeaks.length === 0,
+      `ko historical-awards has Latin-only recipient display names: ${formatSamples(koreanLatinRecipientLeaks, 10)}`,
+      "Translate visible Korean award recipientNames or route them through the historical player-name map before rendering."
+    );
+  }
 }
 
 function auditHighlightsPackParity(esPack, koPack) {
@@ -4583,7 +4673,10 @@ async function main() {
     highlightsSource,
     provenance,
     playerNameOverrides,
-    playerNameTransliterations
+    playerNameTransliterations,
+    englishHistoricalAwards,
+    esHistoricalAwards,
+    koHistoricalAwards
   ] = await Promise.all([
     safeImport("locales/locale-runtime.js", "registry"),
     safeImport("locales/es/app.js", "app pack schema"),
@@ -4612,7 +4705,10 @@ async function main() {
     readText("highlights.js"),
     readJson("data/locales/player-name-provenance.json"),
     readJson("data/locales/player-name-overrides.json"),
-    readJson("data/locales/player-name-transliterations.json")
+    readJson("data/locales/player-name-transliterations.json"),
+    readJson("data/historical-awards.json"),
+    readJson("data/locales/es/historical-awards.json"),
+    readJson("data/locales/ko/historical-awards.json")
   ]);
 
   const runtime = runtimeModule || {};
@@ -4631,6 +4727,10 @@ async function main() {
   const highlightsPacks = {
     es: esHighlightsModule?.default,
     ko: koHighlightsModule?.default
+  };
+  const historicalAwardPacks = {
+    es: esHistoricalAwards,
+    ko: koHistoricalAwards
   };
   const currentContentModules = {
     es: esCurrentContentModule,
@@ -4675,6 +4775,11 @@ async function main() {
       highlightsPacks[language],
       highlightsHtml,
       highlightsSource
+    );
+    auditHistoricalAwardLocale(
+      language,
+      historicalAwardPacks[language],
+      englishHistoricalAwards
     );
     auditBallBoyCurrentEntities(
       language,

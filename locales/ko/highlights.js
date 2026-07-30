@@ -213,6 +213,182 @@ const highlightsLocale = {
       Uruguay: "우루과이",
       "United States": "미국"
     }
+  },
+  historicalEditions: {
+    1930: {
+      intro: "우루과이는 몬테비데오에서 아르헨티나를 4-2로 꺾었지만, 우승의 토대는 역전 이전에 마련됐다. 호세 나사시가 수비 라인을 묶었고, 호세 레안드로 안드라데가 중원을 통해 경기를 운반했으며, 페드로 세아는 첫 공격 물결 뒤로 계속 도착했다.",
+      introPlayers: [
+        { playerName: "José Nasazzi", triggerText: "호세 나사시" },
+        { playerName: "José Leandro Andrade", triggerText: "호세 레안드로 안드라데" },
+        { playerName: "Pedro Cea", triggerText: "페드로 세아" }
+      ]
+    },
+    1934: {
+      intro: "이탈리아는 연장전 끝에 체코슬로바키아를 2-1로 꺾었다. 개최국은 자유롭게 골을 몰아치는 팀이라기보다 유연한 토너먼트 팀에 가까웠다. 루이스 몬티가 강도를 정했고, 주세페 메아차가 좁은 공간을 풀었으며, 라이문도 오르시는 결승 동점골을 제공했다.",
+      introPlayers: [
+        { playerName: "Luis Monti", triggerText: "루이스 몬티" },
+        { playerName: "Giuseppe Meazza", triggerText: "주세페 메아차" },
+        { playerName: "Raimundo Orsi", triggerText: "라이문도 오르시" }
+      ]
+    },
+    1938: {
+      intro: "이탈리아는 헝가리를 4-2로 꺾고 월드컵 2연패를 달성했다. 포초의 팀은 1934년보다 더 직접적이었다. 중원은 빠르게 전개했고, 지노 콜라우시가 반대쪽을 공격했으며, 실비오 피올라의 움직임은 계속 중앙을 열었다.",
+      introPlayers: [
+        { playerName: "Gino Colaussi", triggerText: "지노 콜라우시" },
+        { playerName: "Silvio Piola", triggerText: "실비오 피올라" }
+      ]
+    },
+    1950: {
+      intro: "우루과이는 마라카낭에서 브라질을 2-1로 꺾고 최종 라운드 우승을 차지했다. 옵둘리오 바렐라가 경기의 감정적 온도를 낮췄고, 후안 스키아피노가 중원과 공격을 연결했으며, 알시데스 기지아는 브라질이 열어 둔 단 하나의 통로를 계속 찾아냈다.",
+      introPlayers: [
+        { playerName: "Obdulio Varela", triggerText: "옵둘리오 바렐라" },
+        { playerName: "Juan Alberto Schiaffino", triggerText: "후안 스키아피노" },
+        { playerName: "Alcides Ghiggia", triggerText: "알시데스 기지아" }
+      ]
+    },
+    1954: {
+      intro: "서독은 두 골 차 열세를 뒤집고 베른의 기적에서 헝가리를 3-2로 꺾었다. 우승팀은 피치를 좁히고 세컨드볼을 공격했으며, 헝가리의 장악도 지울 수 없었던 순간을 헬무트 란이 결정하리라 믿었다.",
+      introPlayers: [
+        { playerName: "Helmut Rahn", triggerText: "헬무트 란" }
+      ]
+    },
+    1958: {
+      intro: "브라질은 스웨덴을 5-2로 꺾고 개인의 자유를 반복 가능한 체계로 바꿨다. 디디가 중앙을 다스렸고, 가린샤가 오른쪽을 열어젖혔으며, 펠레는 아무도 기준을 잡기 전에 센터백과 풀백 사이로 도착했다.",
+      introPlayers: [
+        { playerName: "Didi", triggerText: "디디" },
+        { playerName: "Garrincha", triggerText: "가린샤" },
+        { playerName: "Pelé", triggerText: "펠레" }
+      ]
+    },
+    1962: {
+      intro: "브라질은 펠레의 부상으로 계획이 바뀐 뒤에도 체코슬로바키아를 3-1로 꺾고 우승을 지켰다. 가린샤가 가장 큰 균열을 만들었고, 아마릴두가 득점 공백을 메웠으며, 지투는 더 실용적인 챔피언의 연결을 유지했다.",
+      introPlayers: [
+        { playerName: "Pelé", triggerText: "펠레" },
+        { playerName: "Garrincha", triggerText: "가린샤" },
+        { playerName: "Amarildo", triggerText: "아마릴두" },
+        { playerName: "Zito", triggerText: "지투" }
+      ]
+    },
+    1966: {
+      intro: "잉글랜드는 연장전 끝에 서독을 4-2로 꺾었다. 알프 램지의 윙 없는 구조는 결정적인 중앙 공간을 조였고, 보비 무어가 압박을 통과해 패스했으며, 보비 찰턴의 움직임은 제프 허스트가 마무리할 공간을 만들었다.",
+      introPlayers: [
+        { playerName: "Bobby Moore", triggerText: "보비 무어" },
+        { playerName: "Bobby Charlton", triggerText: "보비 찰턴" },
+        { playerName: "Geoff Hurst", triggerText: "제프 허스트" }
+      ]
+    },
+    1970: {
+      intro: "브라질은 이탈리아를 4-1로 꺾고 전승 우승을 완성했다. 제르송이 속도를 조절했고, 펠레는 공을 독점하지 않으면서도 수비수를 붙들었으며, 자이르지뉴는 그 시선이 만든 공간을 공격해 여섯 경기 모두 득점했다.",
+      introPlayers: [
+        { playerName: "Gérson", triggerText: "제르송" },
+        { playerName: "Pelé", triggerText: "펠레" },
+        { playerName: "Jairzinho", triggerText: "자이르지뉴" }
+      ]
+    },
+    1974: {
+      intro: "서독은 동독에 패한 뒤 팀을 추스르고 결승에서 네덜란드를 2-1로 꺾었다. 프란츠 베켄바워가 리베로 위치에서 빌드업을 재정리했고, 베르티 포크츠가 크라위프의 깨끗한 턴을 막았으며, 게르트 뮐러는 토털 풋볼도 지워 내지 못한 한 공간 안에서 살았다.",
+      introPlayers: [
+        { playerName: "Franz Beckenbauer", triggerText: "프란츠 베켄바워" },
+        { playerName: "Berti Vogts", triggerText: "베르티 포크츠" },
+        { playerName: "Johan Cruyff", triggerText: "크라위프" },
+        { playerName: "Gerd Müller", triggerText: "게르트 뮐러" }
+      ]
+    },
+    1978: {
+      intro: "아르헨티나는 연장전 끝에 네덜란드를 3-1로 꺾었다. 세사르 메노티의 팀은 폭과 거센 중앙 압박을 섞었다. 다니엘 파사레야가 중원으로 올라섰고, 오스발도 아르딜레스가 각 단계를 연결했으며, 마리오 켐페스는 어느 수비수도 예상하지 못한 깊은 위치에서 공격했다.",
+      introPlayers: [
+        { playerName: "Daniel Passarella", triggerText: "다니엘 파사레야" },
+        { playerName: "Osvaldo Ardiles", triggerText: "오스발도 아르딜레스" },
+        { playerName: "Mario Kempes", triggerText: "마리오 켐페스" }
+      ]
+    },
+    1982: {
+      intro: "이탈리아는 조별리그 3무에서 출발해 결승에서 서독을 3-1로 꺾었다. 가에타노 시레아가 첫 압박을 통과했고, 마르코 타르델리가 중원을 양방향 싸움으로 만들었으며, 파올로 로시는 네 경기 무득점을 마지막 세 경기 6골로 바꿨다.",
+      introPlayers: [
+        { playerName: "Gaetano Scirea", triggerText: "가에타노 시레아" },
+        { playerName: "Marco Tardelli", triggerText: "마르코 타르델리" },
+        { playerName: "Paolo Rossi", triggerText: "파올로 로시" }
+      ]
+    },
+    1986: {
+      intro: "아르헨티나는 디에고 마라도나를 중심으로 설계됐지만 그의 드리블에만 의존하지 않는 팀으로 서독을 3-2로 꺾었다. 세 명의 센터백이 전환을 안정시켰고, 호르헤 발다노가 수비 라인을 늘렸으며, 호르헤 부루차가는 마라도나가 계속 드러낸 통로를 공격했다.",
+      introPlayers: [
+        { playerName: "Diego Maradona", triggerText: "디에고 마라도나" },
+        { playerName: "Jorge Valdano", triggerText: "호르헤 발다노" },
+        { playerName: "Jorge Burruchaga", triggerText: "호르헤 부루차가" }
+      ]
+    },
+    1990: {
+      intro: "서독은 팽팽한 결승에서 아르헨티나를 1-0으로 꺾었다. 프란츠 베켄바워의 팀은 구조로 대회를 지배했다. 안드레아스 브레메가 왼쪽에서 창의성을 만들었고, 로타어 마테우스는 두 페널티 박스 사이를 오가며 경기를 통제했으며, 공격진은 토너먼트가 조여드는 순간에도 압박을 멈추지 않았다.",
+      introPlayers: [
+        { playerName: "Andreas Brehme", triggerText: "안드레아스 브레메" },
+        { playerName: "Lothar Matthäus", triggerText: "로타어 마테우스" }
+      ]
+    },
+    1994: {
+      intro: "브라질은 0-0 결승 뒤 승부차기로 이탈리아를 꺾었다. 카를루스 아우베르투 파헤이라는 공격의 질을 잃지 않으면서 낭만적 과잉을 덜어냈다. 둥가가 중앙을 보호했고, 베베투가 라인 사이를 움직였으며, 호마리우는 작은 우위를 결정적 골로 바꿨다.",
+      introPlayers: [
+        { playerName: "Dunga", triggerText: "둥가" },
+        { playerName: "Bebeto", triggerText: "베베투" },
+        { playerName: "Romário", triggerText: "호마리우" }
+      ]
+    },
+    1998: {
+      intro: "프랑스는 브라질을 3-0으로 꺾고 첫 우승을 차지했다. 개최국은 뒤에서부터 앞으로 우승했다. 마르셀 드사이가 공간을 보호했고, 디디에 데샹과 에마뉘엘 프티가 전환을 통제했으며, 지네딘 지단은 가장 큰 밤에 지배력을 마침내 골로 바꿨다.",
+      introPlayers: [
+        { playerName: "Marcel Desailly", triggerText: "마르셀 드사이" },
+        { playerName: "Didier Deschamps", triggerText: "디디에 데샹" },
+        { playerName: "Emmanuel Petit", triggerText: "에마뉘엘 프티" },
+        { playerName: "Zinedine Zidane", triggerText: "지네딘 지단" }
+      ]
+    },
+    2002: {
+      intro: "브라질은 독일을 2-0으로 꺾고 일곱 경기를 모두 이겼다. 루이스 펠리피 스콜라리의 백3는 카푸와 호베르투 카를루스를 풀어 줬고, 지우베르투 시우바가 모든 전환을 보호했으며, 세 명의 R은 즉흥성이 구조 안에서 안전해질 만큼 충분한 간격을 두고 결합했다.",
+      introPlayers: [
+        { playerName: "Cafu", triggerText: "카푸" },
+        { playerName: "Roberto Carlos", triggerText: "호베르투 카를루스" },
+        { playerName: "Gilberto Silva", triggerText: "지우베르투 시우바" }
+      ]
+    },
+    2006: {
+      intro: "이탈리아는 1-1 결승 뒤 승부차기로 프랑스를 꺾었다. 마르첼로 리피는 고정된 공격 스타보다 완성도 높은 스쿼드를 믿었다. 안드레아 피를로가 첫 압박을 빠져나왔고, 파비오 칸나바로가 다음 장면을 막았으며, 이탈리아 선수 열 명이 득점했다.",
+      introPlayers: [
+        { playerName: "Andrea Pirlo", triggerText: "안드레아 피를로" },
+        { playerName: "Fabio Cannavaro", triggerText: "파비오 칸나바로" }
+      ]
+    },
+    2010: {
+      intro: "스페인은 연장전 끝에 네덜란드를 1-0으로 꺾었다. 우승은 많은 기회보다 인내심 있는 지역 장악에서 나왔다. 세르히오 부스케츠가 모든 순환을 보호했고, 사비가 블록을 계속 움직였으며, 안드레스 이니에스타는 마침내 열린 공간을 공격했다.",
+      introPlayers: [
+        { playerName: "Sergio Busquets", triggerText: "세르히오 부스케츠" },
+        { playerName: "Xavi", triggerText: "사비" },
+        { playerName: "Andrés Iniesta", triggerText: "안드레스 이니에스타" }
+      ]
+    },
+    2014: {
+      intro: "독일은 연장전 끝에 아르헨티나를 1-0으로 꺾었다. 한 고정 베스트 11보다 유연한 스쿼드가 만든 우승이었다. 필리프 람이 오른쪽을 되살렸고, 마누엘 노이어가 박스 밖까지 수비했으며, 토니 크로스는 빠른 템포의 팀이 숨을 고를 수 있는 패스를 제공했다.",
+      introPlayers: [
+        { playerName: "Philipp Lahm", triggerText: "필리프 람" },
+        { playerName: "Manuel Neuer", triggerText: "마누엘 노이어" },
+        { playerName: "Toni Kroos", triggerText: "토니 크로스" }
+      ]
+    },
+    2018: {
+      intro: "프랑스는 상대에게 공을 내줘도 편안한 팀으로 크로아티아를 4-2로 꺾었다. 은골로 캉테와 폴 포그바가 전환 거리를 통제했고, 앙투안 그리즈만이 중원에 합류해 여분의 선수를 만들었으며, 킬리안 음바페는 열린 공간을 전술적 무기로 바꿨다.",
+      introPlayers: [
+        { playerName: "N'Golo Kanté", triggerText: "은골로 캉테" },
+        { playerName: "Paul Pogba", triggerText: "폴 포그바" },
+        { playerName: "Antoine Griezmann", triggerText: "앙투안 그리즈만" },
+        { playerName: "Kylian Mbappé", triggerText: "킬리안 음바페" }
+      ]
+    },
+    2022: {
+      intro: "아르헨티나는 사우디아라비아전 패배를 딛고 3-3 결승 뒤 승부차기로 프랑스를 꺾었다. 리오넬 스칼로니는 상대마다 중원을 다시 짰고, 엔소 페르난데스가 첫 패스를 빠르게 했으며, 리오넬 메시는 오른쪽 하프스페이스에서 대회를 지배했다.",
+      introPlayers: [
+        { playerName: "Enzo Fernández", triggerText: "엔소 페르난데스" },
+        { playerName: "Lionel Messi", triggerText: "리오넬 메시" }
+      ]
+    }
   }
 };
 

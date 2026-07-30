@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-29T16:35:00-07:00",
+  "updatedAt": "2026-07-30T10:17:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-30",
+      "title": "Cleaner multilingual highlights copy",
+      "titleZh": "多语言亮点文案更完整",
+      "highlights": [
+        "Korean match results, historical award names, and archive intros no longer fall back to English.",
+        "Spanish and Chinese historical Highlights now use localized archive intros and venue labels.",
+        "New rendered smoke coverage checks Korean and Chinese archive pages across every historical year."
+      ],
+      "highlightsZh": [
+        "韩语比赛结果、历史奖项得主姓名和存档导语不再回落到英文。",
+        "西班牙语和中文历史亮点页现使用本地化存档导语与场馆名称。",
+        "新增渲染烟测会逐年检查韩语和中文历史存档页面。"
+      ]
+    },
     {
       "date": "2026-07-29",
       "title": "Spanish and Korean archive packs load later",
