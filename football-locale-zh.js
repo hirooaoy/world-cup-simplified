@@ -668,7 +668,29 @@ export const ZH_PLAYER_NAME_TRANSLATIONS = Object.freeze({
   "Zeno Debast": "泽诺·德巴斯特",
   "Zidane Iqbal": "齐达内·伊克巴尔",
   "Zion Suzuki": "铃木彩艳",
-  "Zizo": "齐佐"
+  "Zizo": "齐佐",
+  "Ahmed Mostafa Mohamed Sayed": "艾哈迈德·穆斯塔法·穆罕默德·赛义德",
+  "Alejandro Sebastián Romero Gamarra": "亚历杭德罗·塞巴斯蒂安·罗梅罗·加马拉",
+  "Carlos Henrique Casimiro": "卡洛斯·恩里克·卡塞米罗",
+  "Danilo Luiz da Silva": "达尼洛·路易斯·达席尔瓦",
+  "Ederson Santana de Moraes": "埃德森·桑塔纳·德莫赖斯",
+  "Edilson Alberto Monteiro Sanches Borges": "埃迪尔森·阿尔贝托·蒙泰罗·桑谢斯·博尔热斯",
+  "Endrick Felipe Moreira de Sousa Pessoa": "恩德里克·费利佩·莫雷拉·德索萨·佩索阿",
+  "Fábio Henrique Tavares": "法比奥·恩里克·塔瓦雷斯",
+  "Gleison Bremer Silva Nascimento": "格莱松·布雷默·席尔瓦·纳西门托",
+  "Ianique dos Santos Tavares": "伊亚尼克·多斯桑托斯·塔瓦雷斯",
+  "Josimar José Évora Dias": "若西马尔·若泽·埃沃拉·迪亚斯",
+  "Mahmoud Ahmed Ibrahim Hassan": "马哈茂德·艾哈迈德·易卜拉欣·哈桑",
+  "Marcos Aoás Corrêa": "马科斯·奥阿斯·科雷亚",
+  "Maurício Magalhães Prado": "毛里西奥·马加良斯·普拉多",
+  "Neymar da Silva Santos Júnior": "内马尔·达席尔瓦·桑托斯·儒尼奥尔",
+  "Pablo Martín Páez Gavira": "巴勃罗·马丁·帕埃斯·加维拉",
+  "Pedro González López": "佩德罗·冈萨雷斯·洛佩斯",
+  "Raphael Dias Belloli": "拉菲尔·迪亚斯·贝洛利",
+  "Rayan Vitor Simplício Rocha": "拉扬·维托尔·辛普利西奥·罗沙",
+  "Rodrigo Hernández Cascante": "罗德里戈·埃尔南德斯·卡斯坎特",
+  "Vítor Machado Ferreira": "维托尔·马沙多·费雷拉",
+  "Weverton Pereira da Silva": "韦弗顿·佩雷拉·达席尔瓦"
 });
 
 export const ZH_CLUB_NAME_TRANSLATIONS = Object.freeze({

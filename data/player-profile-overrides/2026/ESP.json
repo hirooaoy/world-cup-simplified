@@ -534,6 +534,7 @@
       }
     },
     "Gavi": {
+      "displayName": "Pablo Martín Páez Gavira",
       "sourceTitle": "Gavi (footballer)",
       "transfermarktPlayerCode": "gavi",
       "skills": [
@@ -1070,6 +1071,7 @@
       }
     },
     "Pedri": {
+      "displayName": "Pedro González López",
       "sourceTitle": "Pedri",
       "transfermarktPlayerCode": "pedri",
       "skills": [
@@ -1167,6 +1169,7 @@
       }
     },
     "Rodri": {
+      "displayName": "Rodrigo Hernández Cascante",
       "sourceTitle": "Rodri (footballer, born 1996)",
       "transfermarktPlayerCode": "rodri",
       "skills": [

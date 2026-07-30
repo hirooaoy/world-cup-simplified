@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "799947450df8fe53dcb063b87245298bda93600917cd09f2b95d505ddd035e73"
+  "sourceFingerprint": "492906f8d48541111cdd06c040af504ba256de33ba92d2dab61db35727deb2b5"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Historical player cards reviewed through the manifest": "Fichas históricas revisadas con el manifiesto",
-  "Recurring players are tracked through a card-level manifest with rationale, evidence fields, and risk flags.": "Los jugadores con varias ediciones se controlan con un manifiesto por ficha que incluye rationale, campos de evidencia y flags de riesgo.",
-  "Spanish and Korean archive overlays now cover the reviewed historical player-card text.": "Las capas de archivo en español y coreano ahora cubren el texto revisado de las fichas históricas.",
-  "The remaining 713 high-attention historical player cards now use explicit reviewed English and Chinese copy.": "Las 713 fichas históricas de alta atención restantes ahora usan texto explícitamente revisado en inglés y chino."
+  "Historical matches and older World Cup search results still load archive translations on demand.": "Los partidos históricos y los resultados de búsqueda de Mundiales anteriores siguen cargando las traducciones de archivo bajo demanda.",
+  "Production QA now checks all four locales plus the 2022 Ecuador player-card path.": "La QA de producción ahora revisa los cuatro idiomas y la ruta de ficha de Ecuador 2022.",
+  "Spanish and Korean archive packs load later": "Los paquetes de archivo en español y coreano cargan más tarde",
+  "Spanish and Korean home loads no longer pull archive locale packs just because the tournament wrap is visible.": "Las cargas de inicio en español y coreano ya no descargan paquetes de archivo solo porque el resumen del torneo esté visible."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

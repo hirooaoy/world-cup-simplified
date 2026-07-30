@@ -176,6 +176,15 @@ function buildResolvedNameTranslations(language, entries) {
         resolved[alias] = displayName;
       }
     }
+    const profileDisplayName = normalizeDisplayName(entry?.profileDisplayName);
+    const localizedProfileDisplayName = normalizeDisplayName(entry?.localizedProfileDisplayName);
+    if (
+      profileDisplayName &&
+      localizedProfileDisplayName &&
+      localizedProfileDisplayName !== profileDisplayName
+    ) {
+      resolved[profileDisplayName] = localizedProfileDisplayName;
+    }
   }
   return resolved;
 }
@@ -288,6 +297,34 @@ function addScopeNames(scope, profile) {
   });
 }
 
+function getProfileDisplayNameTranslation(language, profile, overrides, transliterations) {
+  const displayName = normalizeDisplayName(profile?.displayName || profile?.name);
+  if (!displayName) {
+    return "";
+  }
+  const override = normalizeDisplayName(overrides?.[language]?.[displayName]);
+  if (override) {
+    return override;
+  }
+  const transliteration =
+    language === "ko" ? normalizeDisplayName(transliterations?.ko?.[displayName]) : "";
+  if (isUsableLocalizedName(language, transliteration)) {
+    return transliteration;
+  }
+  return displayName;
+}
+
+function getRunningCanonicalName(profile) {
+  const name = normalizeDisplayName(profile?.name);
+  const displayName = normalizeDisplayName(profile?.displayName || name);
+  if (!name || !displayName || name === displayName) {
+    return name || displayName;
+  }
+  const nameWords = getNameWords(name);
+  const displayWords = getNameWords(displayName);
+  return displayWords.length <= nameWords.length + 1 ? displayName : name;
+}
+
 Object.values(profileData.profiles || {}).forEach((profile) => addScopeNames("current", profile));
 Object.values(coachProfileData.profiles || {}).forEach((profile) => addScopeNames("current", profile));
 Object.values(historicalProfileData.profiles || {}).forEach((profile) => addScopeNames("archive", profile));
@@ -373,13 +410,14 @@ if (shouldUseCheckedInProvenance) {
 
     for (const language of ["es", "ko"]) {
       const override = normalizeDisplayName(overrides?.[language]?.[profile.name]);
+      const runningCanonicalName = getRunningCanonicalName(profile);
       const rawSourced = normalizeDisplayName(
         getArticleDisplayName(binding, language) ||
         getBindingValue(binding, `${language}Label`)
       );
       const sourced =
         language === "es"
-          ? getSpanishNewsroomName(profile.displayName, rawSourced)
+          ? getSpanishNewsroomName(runningCanonicalName, rawSourced)
           : rawSourced;
       const transliteration =
         language === "ko" ? normalizeDisplayName(transliterations?.ko?.[profile.name]) : "";
@@ -387,7 +425,13 @@ if (shouldUseCheckedInProvenance) {
         override ||
         (isUsableLocalizedName(language, sourced) ? sourced : "") ||
         (isUsableLocalizedName(language, transliteration) ? transliteration : "") ||
-        profile.displayName;
+        profile.name;
+      const localizedProfileDisplayName = getProfileDisplayNameTranslation(
+        language,
+        profile,
+        overrides,
+        transliterations
+      );
       const articleUrl = getBindingValue(binding, `${language}Article`);
       let source = "canonical";
       let sourceUrl = profile.sourceUrl || "";
@@ -406,16 +450,26 @@ if (shouldUseCheckedInProvenance) {
         sourceUrl = "data/locales/player-name-transliterations.json";
       }
 
-      if (localized !== profile.displayName) {
+      if (localized !== profile.name) {
         translations[language][profile.name] = localized;
-        if (profile.displayName !== profile.name) {
-          translations[language][profile.displayName] = localized;
-        }
+      }
+      if (
+        profile.displayName !== profile.name &&
+        localizedProfileDisplayName &&
+        localizedProfileDisplayName !== profile.displayName
+      ) {
+        translations[language][profile.displayName] = localizedProfileDisplayName;
       }
 
       provenance[language][profile.name] = {
-        canonicalName: profile.displayName,
+        canonicalName: runningCanonicalName,
         displayName: localized,
+        ...(profile.displayName !== profile.name
+          ? {
+              profileDisplayName: profile.displayName,
+              localizedProfileDisplayName
+            }
+          : {}),
         source,
         sourceUrl
       };

@@ -5,13 +5,13 @@ export const CONTENT_METADATA = Object.freeze({
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "799947450df8fe53dcb063b87245298bda93600917cd09f2b95d505ddd035e73"
+  "sourceFingerprint": "492906f8d48541111cdd06c040af504ba256de33ba92d2dab61db35727deb2b5"
 });
 export const CONTENT_TRANSLATIONS = Object.freeze({
-  "Historical player cards reviewed through the manifest": "매니페스트로 검토한 역사 선수 카드",
-  "Recurring players are tracked through a card-level manifest with rationale, evidence fields, and risk flags.": "여러 대회에 걸친 선수는 카드별 매니페스트에서 검토 이유, 증거 필드, 위험 플래그를 함께 관리합니다.",
-  "Spanish and Korean archive overlays now cover the reviewed historical player-card text.": "스페인어와 한국어 아카이브 오버레이도 검토된 역사 선수 카드 문구를 포함합니다.",
-  "The remaining 713 high-attention historical player cards now use explicit reviewed English and Chinese copy.": "남은 고관심 역사 선수 카드 713장은 이제 명시적으로 검토된 영어와 중국어 문구를 사용합니다."
+  "Historical matches and older World Cup search results still load archive translations on demand.": "역사 경기와 이전 월드컵 검색 결과는 여전히 필요할 때 아카이브 번역을 불러옵니다.",
+  "Production QA now checks all four locales plus the 2022 Ecuador player-card path.": "프로덕션 QA는 이제 네 언어와 2022년 에콰도르 선수 카드 경로를 함께 확인합니다.",
+  "Spanish and Korean archive packs load later": "스페인어와 한국어 아카이브 팩을 더 늦게 불러옵니다",
+  "Spanish and Korean home loads no longer pull archive locale packs just because the tournament wrap is visible.": "스페인어와 한국어 홈 로드는 이제 대회 마무리 영역이 보인다는 이유만으로 아카이브 언어 팩을 미리 가져오지 않습니다."
 });
 export const CONTENT_ENTITIES = Object.freeze({});
 

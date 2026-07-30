@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-29T13:55:00-07:00",
+  "updatedAt": "2026-07-29T16:35:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-29",
+      "title": "Spanish and Korean archive packs load later",
+      "titleZh": "西班牙语与韩语存档包延后加载",
+      "highlights": [
+        "Spanish and Korean home loads no longer pull archive locale packs just because the tournament wrap is visible.",
+        "Historical matches and older World Cup search results still load archive translations on demand.",
+        "Production QA now checks all four locales plus the 2022 Ecuador player-card path."
+      ],
+      "highlightsZh": [
+        "西班牙语和韩语首页不再因为赛事总结可见就预先拉取存档语言包。",
+        "历史比赛和往届世界杯搜索结果仍会在需要时按需加载存档翻译。",
+        "生产环境 QA 现覆盖四种语言以及2022年厄瓜多尔球员卡路径。"
+      ]
+    },
     {
       "date": "2026-07-29",
       "title": "Historical player cards reviewed through the manifest",

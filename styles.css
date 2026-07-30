@@ -6973,7 +6973,7 @@ html:not([data-theme="dark"]) .player-card {
 .player-card-name-line {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
   min-width: 0;
 }
 

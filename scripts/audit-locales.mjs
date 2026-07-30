@@ -3089,6 +3089,15 @@ function getResolvedPlayerNames(language, entries) {
         resolved[alias] = displayName;
       }
     }
+    const profileDisplayName = String(entry?.profileDisplayName || "").trim();
+    const localizedProfileDisplayName = String(entry?.localizedProfileDisplayName || "").trim();
+    if (
+      profileDisplayName &&
+      localizedProfileDisplayName &&
+      localizedProfileDisplayName !== profileDisplayName
+    ) {
+      resolved[profileDisplayName] = localizedProfileDisplayName;
+    }
   }
   return resolved;
 }

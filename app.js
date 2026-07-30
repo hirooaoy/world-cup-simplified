@@ -54,7 +54,7 @@ import {
   TEAM_SEARCH_URL_UPDATE_DELAY_MS,
   TIMEZONE_MODE_STORAGE_KEY,
   TIMEZONE_STORAGE_KEY
-} from "./app-config.js?v=2026-07-29-manifest-historical-copy-1";
+} from "./app-config.js?v=2026-07-29-locale-archive-deferral-1";
 import {
   isEditionLiveSyncActive,
   requestLiveDataForActiveEdition
@@ -4024,12 +4024,12 @@ const localeContentLoaders = Object.freeze({
   es: Object.freeze({
     current: () => import(`./locales/es/content-current.js?v=${LOCALE_PACK_VERSION}`),
     archive: () => import(`./locales/es/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-    release: () => import("./locales/es/content-release.js?v=2026-07-29-manifest-historical-copy-1")
+    release: () => import("./locales/es/content-release.js?v=2026-07-29-locale-archive-deferral-1")
   }),
   ko: Object.freeze({
     current: () => import(`./locales/ko/content-current.js?v=${LOCALE_PACK_VERSION}`),
     archive: () => import(`./locales/ko/content-archive.js?v=${LOCALE_PACK_VERSION}`),
-    release: () => import("./locales/ko/content-release.js?v=2026-07-29-manifest-historical-copy-1")
+    release: () => import("./locales/ko/content-release.js?v=2026-07-29-locale-archive-deferral-1")
   })
 });
 const localeContentLoadCache = new Map();
@@ -4076,8 +4076,7 @@ function getRequiredLocaleContentScopes() {
   if (
     selectedStandingsYear !== CURRENT_STANDINGS_YEAR ||
     isShowingOlderTeamMatches ||
-    activeFixture?.isHistorical ||
-    getFinalCelebrationMatchForDay(selectedDayKey)
+    activeFixture?.isHistorical
   ) {
     scopes.add("archive");
   }
@@ -22309,7 +22308,16 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     rightEventsMarkup: avatarRightEventMarkup
   });
   const valueMarkup = renderLineupPlayerValueLine(profile);
-  const localizedVisibleLabel = currentLanguage === "zh" ? playerLabel : "";
+  const localizedShortLabel = currentLanguage === "zh"
+    ? ZH_PLAYER_NAME_TRANSLATIONS[lineupPlayer.label] ||
+      ZH_PLAYER_NAME_TRANSLATIONS[lineupPlayer.name] ||
+      localizeDisplayText(lineupPlayer.label)
+    : "";
+  const localizedVisibleLabel = currentLanguage === "zh"
+    ? localizedShortLabel && localizedShortLabel !== lineupPlayer.label
+      ? localizedShortLabel
+      : playerLabel
+    : "";
   const shouldAnimateEntrance = Boolean(options.animateEntrance);
   const markerClasses = [
     isPreviewActive ? "is-substitution-preview" : "",
@@ -23281,8 +23289,8 @@ function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player
 
   const sourceName = getPlayerName(player);
   const exactLocalizedName =
-    ZH_PLAYER_NAME_TRANSLATIONS[sourceName] ||
-    ZH_PLAYER_NAME_TRANSLATIONS[displayName];
+    ZH_PLAYER_NAME_TRANSLATIONS[displayName] ||
+    ZH_PLAYER_NAME_TRANSLATIONS[sourceName];
   if (exactLocalizedName) {
     return exactLocalizedName;
   }

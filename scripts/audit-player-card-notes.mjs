@@ -470,6 +470,43 @@ function expectedShortName(profileName, profile = {}) {
   return parts.slice(start, end).join(" ").replace(/[.,]$/, "");
 }
 
+function getExpectedReferenceCandidates(profileName, profile = {}) {
+  const candidates = new Set();
+  const addCandidate = (value, candidateProfile = profile) => {
+    const name = String(value || "").trim();
+    if (!name) return;
+    candidates.add(name);
+    candidates.add(expectedShortName(name, { ...candidateProfile, displayName: name }));
+    const words = name.split(/\s+/).filter(Boolean);
+    if (words.length === 2) {
+      candidates.add(words[0].replace(/[.,]$/, ""));
+    }
+  };
+
+  addCandidate(profile?.displayName || profile?.name || profileName);
+  addCandidate(profile?.name || profileName, { ...profile, displayName: profile?.name || profileName });
+  if (Array.isArray(profile?.aliases)) {
+    profile.aliases.forEach((alias) => addCandidate(alias, { ...profile, displayName: alias }));
+  }
+
+  return [...candidates].filter(Boolean);
+}
+
+function isSameReference(left, right) {
+  return normalizePlayerName(left) === normalizePlayerName(right);
+}
+
+function normalizeReferenceText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/\p{Mark}/gu, "")
+    .toLocaleLowerCase("en-US");
+}
+
+function noteContainsReference(note, reference) {
+  return normalizeReferenceText(note).includes(normalizeReferenceText(reference));
+}
+
 function increment(map, key) {
   map.set(key, (map.get(key) || 0) + 1);
 }
@@ -1522,13 +1559,13 @@ function auditNoteMeta(profileName, profile, note, issues) {
     ) {
       addIssue(issues, profileName, "unparseable-generated-note", "generated note cannot be resolved into locale-safe semantic beats");
     } else if (parsed) {
-      const expectedReference = expectedShortName(profileName, profile);
-      if (parsed.mention !== expectedReference) {
+      const expectedReferences = getExpectedReferenceCandidates(profileName, profile);
+      if (!expectedReferences.some((reference) => isSameReference(reference, parsed.mention))) {
         addIssue(
           issues,
           profileName,
           "name-reference",
-          `generated note references ${parsed.mention}; expected ${expectedReference}`
+          `generated note references ${parsed.mention}; expected ${expectedReferences.join(" or ")}`
         );
       }
       if (parsed.qualityId !== metadata.signatureId) {
@@ -1545,14 +1582,27 @@ function auditNoteMeta(profileName, profile, note, issues) {
     addIssue(issues, profileName, "note-meta", "authored notes must use an authored or preserved legacy structure marker");
   }
 
-  const shortName = expectedShortName(profileName, profile);
-  if (shortName.split(/\s+/).length > 1 && !note.toLocaleLowerCase("en-US").includes(shortName.toLocaleLowerCase("en-US"))) {
+  const expectedReferences = getExpectedReferenceCandidates(profileName, profile);
+  const compoundReferences = expectedReferences.filter((reference) => reference.split(/\s+/).length > 1);
+  const shortName = compoundReferences[0] || expectedShortName(profileName, profile);
+  if (
+    compoundReferences.length > 0 &&
+    !expectedReferences.some((reference) => noteContainsReference(note, reference))
+  ) {
     addIssue(issues, profileName, "compound-name", `note must keep the compound surname ${shortName} intact`);
   }
 
   const regressionReference = NAME_REFERENCE_REGRESSIONS.get(profileName);
-  if (regressionReference && shortName !== regressionReference) {
-    addIssue(issues, profileName, "name-reference", `reference regression expected ${regressionReference}; received ${shortName}`);
+  if (
+    regressionReference &&
+    !expectedReferences.some((reference) => isSameReference(reference, regressionReference))
+  ) {
+    addIssue(
+      issues,
+      profileName,
+      "name-reference",
+      `reference regression expected ${regressionReference}; received ${expectedReferences.join(" or ")}`
+    );
   }
 }
 

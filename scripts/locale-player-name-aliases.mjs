@@ -27,6 +27,21 @@ function getGermanAsciiName(value) {
     .replace(/ß/gu, "ss");
 }
 
+function getNameWords(value) {
+  return normalizeDisplayName(value).split(/\s+/u).filter(Boolean);
+}
+
+function getRunningCanonicalName(profileName, profile = {}) {
+  const name = normalizeDisplayName(profile?.name || profileName);
+  const displayName = normalizeDisplayName(profile?.displayName || name);
+  if (!name || !displayName || name === displayName) {
+    return name || displayName;
+  }
+  const nameWords = getNameWords(name);
+  const displayWords = getNameWords(displayName);
+  return displayWords.length <= nameWords.length + 1 ? displayName : name;
+}
+
 function addRenderedName(evidence, value, source) {
   const name = normalizeDisplayName(value);
   if (!name) {
@@ -132,7 +147,7 @@ function collectRenderedCurrentPlayerNames({ lineups, fixtures, expectedLineups 
 function buildIdentityPool(profileData) {
   return Object.entries(profileData?.profiles || {}).map(([profileName, profile]) => ({
     profileName,
-    canonicalName: normalizeDisplayName(profile?.displayName || profile?.name || profileName),
+    canonicalName: getRunningCanonicalName(profileName, profile),
     names: [...new Set([
       profileName,
       profile?.name,
