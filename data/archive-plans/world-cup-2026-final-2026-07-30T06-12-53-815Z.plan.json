@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 2,
+  "edition": 2026,
+  "archiveSchemaVersion": 4,
+  "archiveAt": "2026-07-30T06:12:53.815Z",
+  "archiveVersion": "2026-final-2026-07-30T06-12-53-815Z",
+  "archiveFile": "data/archives/world-cup-2026-final-2026-07-30T06-12-53-815Z.json",
+  "archiveSha256": "b0dec62221849657db6e3b2040abae9236d4cab6e9c27c894fed14a141f17beb",
+  "lateCorrection": true,
+  "qualitySummary": {
+    "fixtureCount": 104,
+    "teamCount": 48,
+    "completedFixtureCount": 104,
+    "officialLineupCount": 104,
+    "resultStoryCount": 104,
+    "highlightCount": 104,
+    "explicitHighlightNotFoundCount": 0,
+    "predictionHistoryCount": 9,
+    "standingsGroupCount": 12,
+    "curatedLocaleCount": 2,
+    "championTeamId": "ESP",
+    "awardCount": 5,
+    "playerProfileCount": 1248,
+    "coachProfileCount": 50,
+    "canonicalAwardCount": 5,
+    "availabilityTeamCount": 48,
+    "chatbotH2hPairCount": 1,
+    "teamStyleProfileCount": 48,
+    "reviewedEventCorrectionFixtureCount": 4,
+    "reviewedEventCorrectionCount": 6,
+    "bestXiStarterCount": 11,
+    "bestXiHonourableCount": 15,
+    "bestXiPlayerCount": 26,
+    "bestXiResearchHonourableCount": 23,
+    "bestXiResearchPlayerCount": 34,
+    "bestXiCoachCount": 1,
+    "bestXiLocaleCount": 4,
+    "bestXiSourceCount": 26,
+    "awards": {
+      "goldenBall": {
+        "status": "confirmed",
+        "playerName": "Rodri",
+        "teamId": "ESP",
+        "sourceId": "rfef-world-cup-awards-2026-07-20",
+        "checkedAt": "2026-07-20T01:13:10Z"
+      },
+      "goldenBoot": {
+        "status": "confirmed",
+        "playerName": "Kylian Mbappe",
+        "teamId": "FRA",
+        "goals": 10,
+        "assists": 4,
+        "sourceId": "sky-world-cup-golden-boot-2026-07-19",
+        "checkedAt": "2026-07-20T01:13:10Z"
+      },
+      "goldenGlove": {
+        "status": "confirmed",
+        "playerName": "Unai Simon",
+        "teamId": "ESP",
+        "sourceId": "rfef-world-cup-awards-2026-07-20",
+        "checkedAt": "2026-07-20T01:13:10Z"
+      },
+      "youngPlayer": {
+        "status": "confirmed",
+        "playerName": "Pau Cubarsi",
+        "teamId": "ESP",
+        "sourceId": "rfef-world-cup-awards-2026-07-20",
+        "checkedAt": "2026-07-20T01:13:10Z"
+      },
+      "fairPlay": {
+        "status": "confirmed",
+        "teamName": "Netherlands",
+        "teamId": "NED",
+        "sourceId": "onmanorama-world-cup-awards-2026-07-20",
+        "checkedAt": "2026-07-20T01:13:10Z"
+      }
+    },
+    "goldenBoot": {
+      "playerName": "Kylian Mbappe",
+      "goals": 10,
+      "assists": 4,
+      "sourceId": "sky-world-cup-golden-boot-2026-07-19"
+    }
+  },
+  "inputProvenance": {
+    "archives/world-cup-2026-manifest.json": {
+      "present": true,
+      "bytes": 3137,
+      "sha256": "2047e6bbea817e756815bb45878af88abef8028e7062809def1b92d352178d3e",
+      "canonicalBytes": 3137,
+      "canonicalSha256": "2047e6bbea817e756815bb45878af88abef8028e7062809def1b92d352178d3e"
+    },
+    "chatbot-h2h.json": {
+      "present": true,
+      "bytes": 2364,
+      "sha256": "3473631c699ae43f46e6295af76c25a89018d4d97e701d7508b054ab39461984",
+      "canonicalBytes": 2364,
+      "canonicalSha256": "3473631c699ae43f46e6295af76c25a89018d4d97e701d7508b054ab39461984"
+    },
+    "coach-profiles.json": {
+      "present": true,
+      "bytes": 58429,
+      "sha256": "6ec9efa02f96c68b82400c3f3632d061bdf738051fddd3ac7cf392ae81205d61",
+      "canonicalBytes": 58429,
+      "canonicalSha256": "6ec9efa02f96c68b82400c3f3632d061bdf738051fddd3ac7cf392ae81205d61"
+    },
+    "edition-lifecycle.json": {
+      "present": true,
+      "bytes": 1003,
+      "sha256": "8171736bdbd9e0e960544cb9784b473a60a1c62c83f9c9ddcfd8227f5d9770d4",
+      "canonicalBytes": 1003,
+      "canonicalSha256": "8171736bdbd9e0e960544cb9784b473a60a1c62c83f9c9ddcfd8227f5d9770d4"
+    },
+    "expected-lineups-audit.json": {
+      "present": true,
+      "bytes": 1114,
+      "sha256": "511180c08a83132f4abff0068ba3fff6774658368f4c1f7aee38ca0689045994",
+      "canonicalBytes": 1114,
+      "canonicalSha256": "511180c08a83132f4abff0068ba3fff6774658368f4c1f7aee38ca0689045994"
+    },
+    "expected-lineups.json": {
+      "present": true,
+      "bytes": 8373,
+      "sha256": "e48c0a0961a803cf7330bd09fde398de30f07c57cee0dbbd4dad0a90702a9ff3",
+      "canonicalBytes": 8373,
+      "canonicalSha256": "e48c0a0961a803cf7330bd09fde398de30f07c57cee0dbbd4dad0a90702a9ff3"
+    },
+    "fifa-tactical-lineup-index.json": {
+      "present": true,
+      "bytes": 58050,
+      "sha256": "242fb620d64d1615fb36e1514ea4c496a79b925d032d24b1206bbb2ff86e42b2",
+      "canonicalBytes": 58050,
+      "canonicalSha256": "242fb620d64d1615fb36e1514ea4c496a79b925d032d24b1206bbb2ff86e42b2"
+    },
+    "fixtures.json": {
+      "present": true,
+      "bytes": 1947818,
+      "sha256": "96f8a1589971f9bba230a9c71a69a6751b1a95f0ca7144c077bcffb74bae24a1",
+      "canonicalBytes": 1947818,
+      "canonicalSha256": "96f8a1589971f9bba230a9c71a69a6751b1a95f0ca7144c077bcffb74bae24a1"
+    },
+    "highlights-best-xi.json": {
+      "present": true,
+      "bytes": 74764,
+      "sha256": "da090cbb8eb994df51139e67081b042550b1036e525025bcd9df8b60ec571b05",
+      "canonicalBytes": 74412,
+      "canonicalSha256": "33fb1b43c6480b08c365d37c6a93b9f835312c677524f075980c4a740fcf060d"
+    },
+    "history.json": {
+      "present": true,
+      "bytes": 18402182,
+      "sha256": "b681e0f7d04ecdc0eb1fd9cf3d84449c701430dc368a073bc0d9410bb4ab1b1e",
+      "canonicalBytes": 18402182,
+      "canonicalSha256": "b681e0f7d04ecdc0eb1fd9cf3d84449c701430dc368a073bc0d9410bb4ab1b1e"
+    },
+    "lineup-layout-overrides.json": {
+      "present": true,
+      "bytes": 537106,
+      "sha256": "df3a7f044f6f28846be14808eedcc0584ca5148d66921e5082a9c00d33282171",
+      "canonicalBytes": 537106,
+      "canonicalSha256": "df3a7f044f6f28846be14808eedcc0584ca5148d66921e5082a9c00d33282171"
+    },
+    "lineup-prediction-history.json": {
+      "present": true,
+      "bytes": 1270876,
+      "sha256": "c50286420ab8d9bbdffaad15be66b94a18c3e18b80e7884e4f788075f9f807a3",
+      "canonicalBytes": 1270876,
+      "canonicalSha256": "c50286420ab8d9bbdffaad15be66b94a18c3e18b80e7884e4f788075f9f807a3"
+    },
+    "lineup-prediction-revisions.json": {
+      "present": true,
+      "bytes": 2471393,
+      "sha256": "d4735b7a0c3b94cc904944ceb0a86acd9ddbd6d5a2ec1f4beb8bc50b3e662e8a",
+      "canonicalBytes": 2471393,
+      "canonicalSha256": "d4735b7a0c3b94cc904944ceb0a86acd9ddbd6d5a2ec1f4beb8bc50b3e662e8a"
+    },
+    "lineups.json": {
+      "present": true,
+      "bytes": 1440732,
+      "sha256": "b55951c57ee7bb6cea668aa231ae80f76e1d722a1aa420a78927170f612a1afa",
+      "canonicalBytes": 1440732,
+      "canonicalSha256": "b55951c57ee7bb6cea668aa231ae80f76e1d722a1aa420a78927170f612a1afa"
+    },
+    "locales/es/current-content.json": {
+      "present": true,
+      "bytes": 125419,
+      "sha256": "a371fdd8ad98a7ca5a70ba53f2429f1e1835055665288b98f433bec1d4f71026",
+      "canonicalBytes": 125419,
+      "canonicalSha256": "a371fdd8ad98a7ca5a70ba53f2429f1e1835055665288b98f433bec1d4f71026"
+    },
+    "locales/ko/current-content.json": {
+      "present": true,
+      "bytes": 134509,
+      "sha256": "8d8c1eb40cd5e80a49c7c60063802be627df4184b1f272d62fcaf33d6fce22b4",
+      "canonicalBytes": 134509,
+      "canonicalSha256": "8d8c1eb40cd5e80a49c7c60063802be627df4184b1f272d62fcaf33d6fce22b4"
+    },
+    "official-event-corrections.json": {
+      "present": true,
+      "bytes": 1911,
+      "sha256": "461b039d197055a7a7d5a26557f857aabdf85229febd5559af16dfa5facbe819",
+      "canonicalBytes": 1911,
+      "canonicalSha256": "461b039d197055a7a7d5a26557f857aabdf85229febd5559af16dfa5facbe819"
+    },
+    "player-availability.json": {
+      "present": true,
+      "bytes": 102679,
+      "sha256": "12c93141c945d589096cd49d9204dc169b704cc2968fb4717fb5d05aae0de32a",
+      "canonicalBytes": 102679,
+      "canonicalSha256": "12c93141c945d589096cd49d9204dc169b704cc2968fb4717fb5d05aae0de32a"
+    },
+    "player-profiles.json": {
+      "present": true,
+      "bytes": 3471785,
+      "sha256": "99b9b7fac8040a936f13ac712693b6b258ec8bee1e5c6dec2b6b5feb8e83df13",
+      "canonicalBytes": 3471785,
+      "canonicalSha256": "99b9b7fac8040a936f13ac712693b6b258ec8bee1e5c6dec2b6b5feb8e83df13"
+    },
+    "standings.json": {
+      "present": true,
+      "bytes": 9820,
+      "sha256": "81a25bda88a16a1047f388445f87a9817306e9bd51cd2b504e7a13ac8c9d921c",
+      "canonicalBytes": 9820,
+      "canonicalSha256": "81a25bda88a16a1047f388445f87a9817306e9bd51cd2b504e7a13ac8c9d921c"
+    },
+    "team-style-profiles.json": {
+      "present": true,
+      "bytes": 27087,
+      "sha256": "8cdfab92acd75750d5bd4a51313637363672feb4a3d2ac64d4200d38bc05207e",
+      "canonicalBytes": 27087,
+      "canonicalSha256": "8cdfab92acd75750d5bd4a51313637363672feb4a3d2ac64d4200d38bc05207e"
+    },
+    "teams.json": {
+      "present": true,
+      "bytes": 12328,
+      "sha256": "3c86be7937a04107413943eea2445e7eaf9fe476048f0cd846cc5f03241e1a52",
+      "canonicalBytes": 16380,
+      "canonicalSha256": "0adc0ceb0dbfcd4f2013116085994913cf6d8b222f1c70c62ee2d5fb77e79e80"
+    },
+    "tournament.json": {
+      "present": true,
+      "bytes": 163981,
+      "sha256": "b539afc9cde2fe4bfc570015a584b24f4b894a731cd026c421b091a852f1451b",
+      "canonicalBytes": 163981,
+      "canonicalSha256": "b539afc9cde2fe4bfc570015a584b24f4b894a731cd026c421b091a852f1451b"
+    },
+    "world-cup-awards.json": {
+      "present": true,
+      "bytes": 11585,
+      "sha256": "a4b3303940909493c1b5e52ce8c40e402c8f15cd2988850bda1a6a2415510b27",
+      "canonicalBytes": 17517,
+      "canonicalSha256": "305742de05752802202a71524df2047c4c05e22500ab7e1abe32689e654920d0"
+    }
+  },
+  "surfaceProvenance": {
+    "api/live-data.js": {
+      "bytes": 97550,
+      "sha256": "ec87b851e75b15c4db3e9992fb497a81de65148876ce1e2c0349109051523c01"
+    },
+    "app-config.js": {
+      "bytes": 3947,
+      "sha256": "3dea28769c3e4e536750eb614e77b4b39eb9ab9d59f10f6ada85f145b0bdcf70"
+    },
+    "app.js": {
+      "bytes": 1174345,
+      "sha256": "5c88dff7dad0f360ecdbb649d5dc89e7bcb39e72cc10dea3937b0d2d009177d6"
+    },
+    "chatbot-knowledge.js": {
+      "bytes": 240042,
+      "sha256": "d6120b2477d3a6430a56e3fda9f5a030d87181755afa495bfb1e724767f7bfd6"
+    },
+    "chatbot.js": {
+      "bytes": 152215,
+      "sha256": "9c8b6de84dffad4c22c4d66fa23066e8ca1755cdc2d661f2bf422858e20e32f2"
+    },
+    "data/locales/es/release-content.json": {
+      "bytes": 1208,
+      "sha256": "809755085c525e7f672333416043e2a25310ab6d2abf345aafa27da499c316c2"
+    },
+    "data/locales/ko/release-content.json": {
+      "bytes": 1300,
+      "sha256": "648bbbc807f7a6e2214df4dac03ffd3b58825d7f81f6314f8c421b7d1dafb5eb"
+    },
+    "data/release-notes.json": {
+      "bytes": 177608,
+      "sha256": "6458a77d94adaf17c9544b756257d4555640d0d4ceee651838d72f5dd1843641"
+    },
+    "edition-runtime.js": {
+      "bytes": 1474,
+      "sha256": "3c563cee2e158e02731e6107edc833fd2396037fb913b40beb105f914d7f7940"
+    },
+    "football-typography.js": {
+      "bytes": 6692,
+      "sha256": "37aaccffbfce47ceaca4e45f80783a8ebf5245400f9e4aad33a3423be2c41aaf"
+    },
+    "highlights.css": {
+      "bytes": 22808,
+      "sha256": "cdfda5d2ca6bb297bd0a4e4048257d56e507dcb855c9389ff498feee822f2ec0"
+    },
+    "highlights.html": {
+      "bytes": 25054,
+      "sha256": "66a67446cfa78b38835f37cf59590ec7e0563fce54f8a26e4a0b80dd3b69f1dd"
+    },
+    "highlights.js": {
+      "bytes": 163562,
+      "sha256": "0f3a9f35c7829d197a20009875211ec2f172330c76e1c6a488a2fe673c077d56"
+    },
+    "index.html": {
+      "bytes": 27596,
+      "sha256": "094ad6a5f2db53120f62343a5abf3820b4258d90ef60d6ac62b99b0074c04735"
+    },
+    "lineup-ui.js": {
+      "bytes": 4695,
+      "sha256": "4e316a21cfad66a38c75bb61b549090ea0cdc1053b79e9399346203a80009185"
+    },
+    "locales/es/app.js": {
+      "bytes": 134708,
+      "sha256": "d6025a2aeed05672a00f88ebe067436e20ad0f5201634726927632ad84c72a84"
+    },
+    "locales/es/content-release.js": {
+      "bytes": 1342,
+      "sha256": "1bf0012bba595da4ed5c19fda4ab864476895f52d5a6e28da6895c4a2fa36d9a"
+    },
+    "locales/es/highlights.js": {
+      "bytes": 11333,
+      "sha256": "af1f42c1cff029a28c22c834c4eef8c671517d0c673c6c066721df27beb7e720"
+    },
+    "locales/ko/app.js": {
+      "bytes": 135903,
+      "sha256": "38dcb4a3a4fdb3ef5d5cb5b0f41e925579551dfdb71f9ae3c15ec6340bdf17f4"
+    },
+    "locales/ko/content-release.js": {
+      "bytes": 1385,
+      "sha256": "f430921ca19bb223ee143a3a13389b976c8ffbbc4bc540159e2fd13f4d3d34e2"
+    },
+    "locales/ko/highlights.js": {
+      "bytes": 11830,
+      "sha256": "c533a354869af5081ae5d4dbba183151cfdf288d7c01f6f936fc998df0dbbfc3"
+    },
+    "locales/locale-runtime.js": {
+      "bytes": 14325,
+      "sha256": "5912510fca1d1f29e548b161f3f1d76f0261ed810da9156ac80b6bd2b2c8b718"
+    },
+    "player-card-ui.js": {
+      "bytes": 6160,
+      "sha256": "eb8342160a0316efd03812f6380fa2d77fe87fc336537dd8077b14d7694b3dac"
+    },
+    "report.html": {
+      "bytes": 13220,
+      "sha256": "d57c02fe5375dac86f2d015e380863fad3e1925d60ed41cc9861c30cb173fa7e"
+    },
+    "report.js": {
+      "bytes": 28188,
+      "sha256": "bdd85fbc433091af77fd0cd1be5adba1d4086db24565060be2e3ad693d29f851"
+    },
+    "styles.css": {
+      "bytes": 274621,
+      "sha256": "7ce638622ab7e8e51c2b5fede626fef6a7ffe7ce005949c4612a7a26a21cd453"
+    }
+  },
+  "outputSha256": {
+    "archive": "b0dec62221849657db6e3b2040abae9236d4cab6e9c27c894fed14a141f17beb",
+    "manifest": "4cab1833fe495881cf2b2b96d07b94fc4e03e7518b40b789ff833d97517ea471",
+    "tournament": "2151fd2ab926f779ec59556e36e2e03d37e07e71cf2c02389627d84948449fc1",
+    "lifecycle": "d487619f8c6f4c7f8fc3fd41772523fbf76a648b479707da05859559d0afa0d0"
+  }
+}
