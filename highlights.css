@@ -686,10 +686,6 @@ html[data-theme="dark"] .best-xi-player-card .best-xi-player-reason {
   transform: translateY(-1px);
 }
 
-body[data-language="ko"] .highlight-row :is(h3, p) .rank-pill {
-  margin-right: 1px;
-}
-
 .highlight-row:has(.rank-pill:is(:hover, :focus-visible, .is-touch-tooltip-open)) {
   position: relative;
   z-index: var(--tooltip-host-z-index);

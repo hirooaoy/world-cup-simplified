@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "es",
   "scope": "release",
-  "sourceFingerprint": "386666c4b0dc468aa168d42a9a78792aa23ed5da88226af0acd204547e0857da",
+  "sourceFingerprint": "831d79fd40673329c8f9fcd299fbcdbbb3a5e2c06dc75d56d29fa4ace0346908",
   "methodology": "Machine-assisted NLLB translation with protected numeric facts, football terminology, country names, and checked-in newsroom player-name provenance; curated locale-pack terminology takes precedence at render time.",
   "translations": {
     "Cleaner multilingual highlights copy": "Texto multilingüe de destacados más limpio",
     "Korean match results, historical award names, and archive intros no longer fall back to English.": "Los resultados de partidos, nombres de premios históricos e introducciones de archivo en coreano ya no vuelven al inglés.",
-    "New rendered smoke coverage checks Korean and Chinese archive pages across every historical year.": "La nueva cobertura de smoke renderizado revisa las páginas de archivo en coreano y chino para cada año histórico.",
+    "New rendered smoke coverage checks Spanish, Korean, and Chinese archive pages across every historical year.": "La nueva cobertura de smoke renderizado revisa las páginas de archivo en español, coreano y chino para cada año histórico.",
     "Spanish and Chinese historical Highlights now use localized archive intros and venue labels.": "Los destacados históricos en español y chino ahora usan introducciones de archivo y nombres de sedes localizados."
   }
 }

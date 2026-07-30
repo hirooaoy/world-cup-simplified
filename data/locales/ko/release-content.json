@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ko",
   "scope": "release",
-  "sourceFingerprint": "386666c4b0dc468aa168d42a9a78792aa23ed5da88226af0acd204547e0857da",
+  "sourceFingerprint": "831d79fd40673329c8f9fcd299fbcdbbb3a5e2c06dc75d56d29fa4ace0346908",
   "methodology": "Machine-assisted, language-specialized translation with protected numeric facts, football terminology, country names, checked-in newsroom player-name provenance, and deterministic review templates; curated locale-pack terminology takes precedence at render time.",
   "translations": {
     "Cleaner multilingual highlights copy": "다국어 하이라이트 문구 정리",
     "Korean match results, historical award names, and archive intros no longer fall back to English.": "한국어 경기 결과, 역사 수상자 이름, 아카이브 도입 문구가 더 이상 영어로 표시되지 않습니다.",
-    "New rendered smoke coverage checks Korean and Chinese archive pages across every historical year.": "새 렌더링 스모크 검사는 모든 역사 연도의 한국어·중국어 아카이브 페이지를 확인합니다.",
+    "New rendered smoke coverage checks Spanish, Korean, and Chinese archive pages across every historical year.": "새 렌더링 스모크 검사는 모든 역사 연도의 스페인어·한국어·중국어 아카이브 페이지를 확인합니다.",
     "Spanish and Chinese historical Highlights now use localized archive intros and venue labels.": "스페인어와 중국어 역사 하이라이트는 이제 현지화된 아카이브 도입 문구와 경기장 표기를 사용합니다."
   }
 }

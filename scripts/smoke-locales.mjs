@@ -385,11 +385,22 @@ const historicalPreviewChain = Object.freeze([
 ]);
 const historicalHighlightYears = Object.freeze(historicalPreviewChain.map(([editionYear]) => editionYear));
 const historicalEnglishLeakPattern =
-  /\b(?:beat|beating|retained|recovered|final|extra time|World Cup by beating|draw in|will set|will face|Stadium|Convention Center|broadcast hall|Exhibition Centre|Royal Garden Hotel|State Palace|Palace of Congresses|Soccer City)\b/iu;
+  /\b(?:beat|beating|scored|provided|controlled|pressed|owned the tournament|retained|recovered|extra time|world champions|World Cup by beating|Golden Ball|Golden Boot|Golden Glove|Young Player|Best XI|Stories worth remembering|See you next time|The groups are drawn|World Cup begins|draw in|will host|will set|will face|will stage|will qualify|will begin|Stadium|Convention Center|broadcast hall|Exhibition Centre|Royal Garden Hotel|State Palace|Palace of Congresses|Soccer City)\b/iu;
 const historicalLocaleScriptPatterns = Object.freeze({
   ko: /[가-힣]/u,
   zh: /[\u3400-\u9fff]/u
 });
+const historicalRenderedLeakSelectors = Object.freeze([
+  "#page-title",
+  ".intro-copy",
+  ".award-list",
+  "#best-xi-title",
+  ".best-xi-band",
+  ".best-xi-honourables-panel",
+  "#highlights-title",
+  ".highlight-row",
+  ".next-world-cup-section"
+]);
 
 function assert(condition, message) {
   if (!condition) {
@@ -1840,7 +1851,7 @@ async function assertHighlightsLocales(browser) {
         localizedHistoricalAwards.captainCardFlagLabel.length > 4,
       `${locale.code}: the historical award cards should use the researched locale pack, correct flags and player cards for every profiled recipient and captain. Measured ${JSON.stringify(localizedHistoricalAwards)}.`
     );
-    if (["ko", "zh"].includes(locale.code)) {
+    if (["es", "ko", "zh"].includes(locale.code)) {
       const localeScriptPattern = historicalLocaleScriptPatterns[locale.code];
       const localizedHistoricalSurfaces = [];
       for (const editionYear of historicalHighlightYears) {
@@ -1854,7 +1865,7 @@ async function assertHighlightsLocales(browser) {
           { expectedEdition: editionYear, expectedLanguage: locale.htmlLang },
           { timeout: 30000 }
         );
-        localizedHistoricalSurfaces.push(await page.evaluate((expectedEdition) => {
+        localizedHistoricalSurfaces.push(await page.evaluate(({ expectedEdition, surfaceSelectors }) => {
           const normalize = (value) => String(value || "").replace(/\s+/gu, " ").trim();
           const textWithoutPlayerCards = (node) => {
             const clone = node?.cloneNode(true);
@@ -1865,6 +1876,13 @@ async function assertHighlightsLocales(browser) {
             document.querySelectorAll(".award-list [data-award-key]:not([hidden]) .award-player-name"),
             (node) => textWithoutPlayerCards(node)
           ).filter(Boolean);
+          const surfaces = surfaceSelectors.flatMap((selector) =>
+            Array.from(document.querySelectorAll(selector), (node, index) => ({
+              selector,
+              index,
+              text: textWithoutPlayerCards(node)
+            }))
+          ).filter((surface) => surface.text);
           return {
             year: expectedEdition,
             intro: textWithoutPlayerCards(document.querySelector(".intro-copy")),
@@ -1877,9 +1895,10 @@ async function assertHighlightsLocales(browser) {
             fallbackInitials: Array.from(
               document.querySelectorAll(".award-list [data-award-key]:not([hidden]) .player-photo-fallback"),
               (node) => normalize(node.textContent)
-            ).filter(Boolean)
+            ).filter(Boolean),
+            surfaces
           };
-        }, editionYear));
+        }, { expectedEdition: editionYear, surfaceSelectors: historicalRenderedLeakSelectors }));
       }
       const historicalIntroContracts = Object.fromEntries(
         Object.entries(HISTORICAL_HIGHLIGHTS.editions).map(([editionYear, edition]) => [
@@ -1887,18 +1906,40 @@ async function assertHighlightsLocales(browser) {
           (edition.introPlayers || []).map((entry) => typeof entry === "string" ? entry : entry.playerName)
         ])
       );
-      const leakingHistoricalSurfaces = localizedHistoricalSurfaces.filter((surface) =>
-        !localeScriptPattern.test(surface.intro) ||
-          !localeScriptPattern.test(surface.timeline) ||
-          historicalEnglishLeakPattern.test(surface.intro) ||
-          historicalEnglishLeakPattern.test(surface.timeline) ||
-          surface.awardNames.some((name) => !localeScriptPattern.test(name)) ||
-          surface.fallbackInitials.some((initials) => /^[A-Z]{2}$/u.test(initials)) ||
-          JSON.stringify(surface.introCanonicalNames) !== JSON.stringify(historicalIntroContracts[surface.year])
-      );
+      const leakingHistoricalSurfaces = localizedHistoricalSurfaces.flatMap((surface) => {
+        const issues = [];
+        if (localeScriptPattern && !localeScriptPattern.test(surface.intro)) {
+          issues.push({ field: "intro-script", text: surface.intro });
+        }
+        if (localeScriptPattern && !localeScriptPattern.test(surface.timeline)) {
+          issues.push({ field: "timeline-script", text: surface.timeline });
+        }
+        if (localeScriptPattern && surface.awardNames.some((name) => !localeScriptPattern.test(name))) {
+          issues.push({ field: "award-name-script", awardNames: surface.awardNames });
+        }
+        if (
+          localeScriptPattern &&
+          surface.fallbackInitials.some((initials) => /^[A-Z]{2}$/u.test(initials))
+        ) {
+          issues.push({ field: "fallback-initials", fallbackInitials: surface.fallbackInitials });
+        }
+        if (JSON.stringify(surface.introCanonicalNames) !== JSON.stringify(historicalIntroContracts[surface.year])) {
+          issues.push({
+            field: "intro-canonical-names",
+            actual: surface.introCanonicalNames,
+            expected: historicalIntroContracts[surface.year]
+          });
+        }
+        for (const renderedSurface of surface.surfaces) {
+          if (historicalEnglishLeakPattern.test(renderedSurface.text)) {
+            issues.push({ field: "english-leak", ...renderedSurface });
+          }
+        }
+        return issues.length ? [{ year: surface.year, issues }] : [];
+      });
       assert(
         leakingHistoricalSurfaces.length === 0,
-        `${locale.code}: historical highlights should render localized intro, next-tournament timeline, award names, and initials for every archive year. Measured ${JSON.stringify(leakingHistoricalSurfaces)}.`
+        `${locale.code}: historical highlights should render localized copy without English leak patterns for every archive year. Measured ${JSON.stringify(leakingHistoricalSurfaces)}.`
       );
     }
     await page.locator(
@@ -3130,8 +3171,8 @@ try {
   }
   console.log(
     ballBoyOnly
-      ? "Spanish and Korean Ball Boy locale smoke tests passed."
-      : "Spanish and Korean locale smoke tests passed."
+      ? "Spanish, Korean and Chinese Ball Boy locale smoke tests passed."
+      : "Spanish, Korean and Chinese locale smoke tests passed."
   );
   }
 } finally {
