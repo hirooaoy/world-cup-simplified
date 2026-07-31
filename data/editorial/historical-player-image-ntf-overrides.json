@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T18:35:23.903Z",
+  "generatedAt": "2026-07-31T18:40:56.422Z",
   "source": {
     "id": "national-football-teams-roster-harvest-2026-07-31",
     "name": "National Football Teams roster/player-page harvest",
@@ -5631,6 +5631,60 @@
       "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Keun_Ho_Lee_22840-52370f0b34447.jpeg",
       "imageSourceUrl": "https://www.national-football-teams.com/player/22840/Keun_Ho_Lee.html",
       "imagePageTitle": "Keun-ho Lee · National Football Teams"
+    },
+    {
+      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1994",
+      "player": "Saeed Al-Owairan",
+      "team": "Saudi Arabia",
+      "tournamentYear": 1994,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Said_Al_Owairan_15116-5431299d9a48b.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/15116/Said_Al_Owairan.html",
+      "imagePageTitle": "Said Al-Owairan · National Football Teams"
+    },
+    {
+      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1998",
+      "player": "Saeed Al-Owairan",
+      "team": "Saudi Arabia",
+      "tournamentYear": 1998,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Said_Al_Owairan_15116-5431299d9a48b.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/15116/Said_Al_Owairan.html",
+      "imagePageTitle": "Said Al-Owairan · National Football Teams"
+    },
+    {
+      "profileKey": "Tiago / Portugal / 2010",
+      "player": "Tiago",
+      "team": "Portugal",
+      "tournamentYear": 2010,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Tiago_5300-54806db070104.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/5300/Tiago.html",
+      "imagePageTitle": "Tiago Mendes · National Football Teams"
+    },
+    {
+      "profileKey": "Bakari Koné / Côte d'Ivoire / 2006",
+      "player": "Bakari Koné",
+      "team": "Côte d'Ivoire",
+      "tournamentYear": 2006,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Baky_Kone_1646-51bc8a474759d.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/1646/Baky_Kone.html",
+      "imagePageTitle": "Baky Koné · National Football Teams"
+    },
+    {
+      "profileKey": "Zague / Mexico / 1994",
+      "player": "Zague",
+      "team": "Mexico",
+      "tournamentYear": 1994,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Luis_Zague_Alves_13936-53fb327f15652.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/13936/Luis_Zague_Alves.html",
+      "imagePageTitle": "Luis 'Zague' Alves · National Football Teams"
+    },
+    {
+      "profileKey": "Oscar / Brazil / 1982",
+      "player": "Oscar",
+      "team": "Brazil",
+      "tournamentYear": 1982,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Oscar_3_17935-543fa48b67e8b.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/17935/Oscar_3.html",
+      "imagePageTitle": "Oscar Bernardi · National Football Teams"
     }
   ]
 }

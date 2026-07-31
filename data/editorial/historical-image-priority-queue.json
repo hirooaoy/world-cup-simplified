@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-31T18:35:29.119Z",
-  "sourceProfileUpdatedAt": "2026-07-31T18:35:23.949Z",
+  "generatedAt": "2026-07-31T18:41:01.008Z",
+  "sourceProfileUpdatedAt": "2026-07-31T18:40:56.467Z",
   "coverage": {
     "totalProfiles": 3645,
-    "withImages": 3442,
-    "missingImages": 203
+    "withImages": 3448,
+    "missingImages": 197
   },
   "methodology": {
     "purpose": "Rank remaining historical player image gaps for curated manual source review.",
@@ -23,10 +23,10 @@
     }
   },
   "signalCounts": {
-    "goals": 60,
-    "scoring-matches": 62,
-    "featured-matches": 199,
-    "recurring-player": 19,
+    "goals": 56,
+    "scoring-matches": 58,
+    "featured-matches": 194,
+    "recurring-player": 17,
     "finalist-squad": 8
   },
   "recommendedNextBatchSize": 100,
@@ -157,25 +157,6 @@
       "signals": [
         "goals:3",
         "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1994",
-      "player": "Saeed Al-Owairan",
-      "team": "Saudi Arabia",
-      "tournamentYear": 1994,
-      "position": "Forward",
-      "club": "Al Shabab",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 2,
-      "score": 51,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
         "featured-matches:2"
       ],
       "reviewState": "needs-manual-image-source-verification"
@@ -492,47 +473,12 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1998",
-      "player": "Saeed Al-Owairan",
-      "team": "Saudi Arabia",
-      "tournamentYear": 1998,
-      "position": "Forward",
-      "club": "Al Shabab",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 33,
-      "signals": [
-        "recurring-player",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Bartosz Bosacki / Poland / 2006",
       "player": "Bartosz Bosacki",
       "team": "Poland",
       "tournamentYear": 2006,
       "position": "Defender",
       "club": "Lech Poznań",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 32,
-      "signals": [
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Tiago / Portugal / 2010",
-      "player": "Tiago",
-      "team": "Portugal",
-      "tournamentYear": 2010,
-      "position": "Midfielder",
-      "club": "Atlético Madrid",
       "goals": 2,
       "scorerMatchCount": 1,
       "keyMatchCount": 1,
@@ -851,24 +797,6 @@
       "tournamentYear": 1982,
       "position": "Forward",
       "club": "Platense",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 22,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Bakari Koné / Côte d'Ivoire / 2006",
-      "player": "Bakari Koné",
-      "team": "Côte d'Ivoire",
-      "tournamentYear": 2006,
-      "position": "Right forward",
-      "club": "Nice",
       "goals": 1,
       "scorerMatchCount": 1,
       "keyMatchCount": 1,
@@ -1438,23 +1366,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Oscar / Brazil / 1982",
-      "player": "Oscar",
-      "team": "Brazil",
-      "tournamentYear": 1982,
-      "position": "Centre-back",
-      "club": "São Paulo",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 0,
-      "score": 18,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Sergei Aleinikov / Soviet Union / 1986",
       "player": "Sergei Aleinikov",
       "team": "Soviet Union",
@@ -1680,22 +1591,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Zague / Mexico / 1994",
-      "player": "Zague",
-      "team": "Mexico",
-      "tournamentYear": 1994,
-      "position": "Forward",
-      "club": "América",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 12,
-      "signals": [
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Colin Curran / Australia / 1974",
       "player": "Colin Curran",
       "team": "Australia",
@@ -1775,7 +1670,103 @@
         "featured-matches:2"
       ],
       "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Albert Büche / Switzerland / 1934",
+      "player": "Albert Büche",
+      "team": "Switzerland",
+      "tournamentYear": 1934,
+      "position": "Forward",
+      "club": "Nordstern Basel",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alberto Baeza / Mexico / 1962",
+      "player": "Alberto Baeza",
+      "team": "Mexico",
+      "tournamentYear": 1962,
+      "position": "Forward",
+      "club": "Necaxa",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alessandro Frigerio / Switzerland / 1938",
+      "player": "Alessandro Frigerio",
+      "team": "Switzerland",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "Le Havre AC",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alfredo Hernández / Mexico / 1962",
+      "player": "Alfredo Hernández",
+      "team": "Mexico",
+      "tournamentYear": 1962,
+      "position": "Forward",
+      "club": "CF Monterrey",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "André Saeys / Belgium / 1930",
+      "player": "André Saeys",
+      "team": "Belgium",
+      "tournamentYear": 1930,
+      "position": "Forward",
+      "club": "Royal CS Brugeois",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Armando Segato / Italy / 1954",
+      "player": "Armando Segato",
+      "team": "Italy",
+      "tournamentYear": 1954,
+      "position": "Forward",
+      "club": "Fiorentina",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
     }
   ],
-  "deferredMissingProfileCount": 103
+  "deferredMissingProfileCount": 97
 }

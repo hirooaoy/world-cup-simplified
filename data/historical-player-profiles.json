@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-31T18:35:23.949Z",
+  "updatedAt": "2026-07-31T18:40:56.467Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -20,7 +20,7 @@
     "note": "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs, historical goal records, or an editorial Best XI.",
     "imageStatus": "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
     "imageNote": "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override, and use reviewed official or editorial portraits for profiles with no safe open portrait.",
-    "minimumImageCount": 3442,
+    "minimumImageCount": 3448,
     "finalSemiImageStatus": "targeted-final-and-semi-final-scorers-key-players-and-team-description-mentions",
     "finalSemiImageTargetCount": 294,
     "finalSemiImageCount": 260,
@@ -97269,7 +97269,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "repeated-evidence"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Oscar_3_17935-543fa48b67e8b.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/17935/Oscar_3.html",
+      "imagePageTitle": "Oscar Bernardi · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/17935/Oscar_3.html"
     },
     "Serginho / Brazil / 1982": {
       "profileKey": "Serginho / Brazil / 1982",
@@ -150337,7 +150342,12 @@
           "status": "reviewed-retained",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Luis_Zague_Alves_13936-53fb327f15652.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/13936/Luis_Zague_Alves.html",
+      "imagePageTitle": "Luis 'Zague' Alves · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/13936/Luis_Zague_Alves.html"
     },
     "Abdelmajid Bouyboud / Morocco / 1994": {
       "profileKey": "Abdelmajid Bouyboud / Morocco / 1994",
@@ -154767,7 +154777,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "quality-defines"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Said_Al_Owairan_15116-5431299d9a48b.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/15116/Said_Al_Owairan.html",
+      "imagePageTitle": "Said Al-Owairan · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/15116/Said_Al_Owairan.html"
     },
     "Sami Al-Jaber / Saudi Arabia / 1994": {
       "profileKey": "Sami Al-Jaber / Saudi Arabia / 1994",
@@ -173393,7 +173408,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "one-another"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Said_Al_Owairan_15116-5431299d9a48b.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/15116/Said_Al_Owairan.html",
+      "imagePageTitle": "Said Al-Owairan · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/15116/Said_Al_Owairan.html"
     },
     "Sami Al-Jaber / Saudi Arabia / 1998": {
       "profileKey": "Sami Al-Jaber / Saudi Arabia / 1998",
@@ -201770,7 +201790,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "key-another"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Baky_Kone_1646-51bc8a474759d.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/1646/Baky_Kone.html",
+      "imagePageTitle": "Baky Koné · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/1646/Baky_Kone.html"
     },
     "Bonaventure Kalou / Côte d'Ivoire / 2006": {
       "profileKey": "Bonaventure Kalou / Côte d'Ivoire / 2006",
@@ -236411,7 +236436,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "build-two-cues"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Tiago_5300-54806db070104.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/5300/Tiago.html",
+      "imagePageTitle": "Tiago Mendes · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/5300/Tiago.html"
     },
     "Aleksandar Kolarov / Serbia / 2010": {
       "profileKey": "Aleksandar Kolarov / Serbia / 2010",
