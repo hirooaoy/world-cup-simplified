@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-29T22:09:41.433Z",
+  "updatedAt": "2026-07-30T05:52:09.501Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -13270,7 +13270,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "one-another"
-      }
+      },
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Josef_Ko%C5%A1%C5%A5%C3%A1lek-Mitropa1930.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Josef_Ko%C5%A1%C5%A5%C3%A1lek",
+      "imagePageTitle": "Josef Košťálek",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Josef_Ko%C5%A1%C5%A5%C3%A1lek"
     },
     "Josef Zeman / Czechoslovakia / 1938": {
       "profileKey": "Josef Zeman / Czechoslovakia / 1938",
@@ -29809,7 +29814,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Josef_Huegi_18535-5ef63ac0d43ed.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/18535/Josef_Huegi.html",
+      "imageCredit": "Jorge Mendoza via National Football Teams",
+      "imagePageTitle": "Josef Hügi · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/18535/Josef_Huegi.html"
     },
     "Robert Ballaman / Switzerland / 1954": {
       "profileKey": "Robert Ballaman / Switzerland / 1954",
@@ -34806,7 +34817,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://dsg-images.com/players/150x150/9712.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://globalsportsarchive.com/en/soccer/athlete/zdenek-zikan/9712/overview",
+      "imagePageTitle": "Zdeněk Zikán · Global Sports Archive",
+      "imagePageUrl": "https://globalsportsarchive.com/en/soccer/athlete/zdenek-zikan/9712/overview"
     },
     "Alan A'Court / England / 1958": {
       "profileKey": "Alan A'Court / England / 1958",
@@ -57298,7 +57314,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Jos%C3%A9_Augusto_Torres_%281963%29.jpg/330px-Jos%C3%A9_Augusto_Torres_%281963%29.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Jos%C3%A9_Torres_(footballer,_born_1938)",
+      "imagePageTitle": "José Torres",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Jos%C3%A9_Torres_(footballer,_born_1938)"
     },
     "Anatoliy Banishevskiy / Soviet Union / 1966": {
       "profileKey": "Anatoliy Banishevskiy / Soviet Union / 1966",
@@ -57938,7 +57959,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://fcdynamo.com/img/content/histories/147/post523565-d82ae-content.jpg?fm=jpg&q=80&fit=max&crop=750%2C423%2C0%2C0",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://fcdynamo.com/en/history/valerii-porkuyan",
+      "imageCredit": "FC Dynamo Kyiv official website",
+      "imagePageTitle": "Valeriy Porkuyan · FC Dynamo Kyiv",
+      "imagePageUrl": "https://fcdynamo.com/en/history/valerii-porkuyan"
     },
     "Amancio / Spain / 1966": {
       "profileKey": "Amancio / Spain / 1966",
@@ -87345,7 +87372,12 @@
           "status": "reviewed-retained",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ernie_Brandts_1978c.jpg/330px-Ernie_Brandts_1978c.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Ernie_Brandts",
+      "imagePageTitle": "Ernie Brandts",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Ernie_Brandts"
     },
     "Jan Jongbloed / Netherlands / 1978": {
       "profileKey": "Jan Jongbloed / Netherlands / 1978",
@@ -107927,7 +107959,12 @@
         "evidenceScope": "recurring-cross-edition",
         "confidence": "role-level",
         "structureId": "repeated-evidence"
-      }
+      },
+      "imageUrl": "https://assets.dfb.de/uploads/000/035/915/custom_style_1_Karlheinz_F%C3%B6rster.jpg?1493072688",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://datencenter.dfb.de/datencenter/personen/karlheinz-foerster/spieler",
+      "imagePageTitle": "Karlheinz Förster · DFB Datencenter",
+      "imagePageUrl": "https://datencenter.dfb.de/datencenter/personen/karlheinz-foerster/spieler"
     },
     "Klaus Fischer / West Germany / 1982": {
       "profileKey": "Klaus Fischer / West Germany / 1982",
@@ -149455,7 +149492,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Daniel_Amokachi_13862-61a4386f88d84.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/13862/Daniel_Amokachi.html",
+      "imagePageTitle": "Daniel Amokachi · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/13862/Daniel_Amokachi.html"
     },
     "Emmanuel Amunike / Nigeria / 1994": {
       "profileKey": "Emmanuel Amunike / Nigeria / 1994",
@@ -149800,7 +149842,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/resolve/players_page/uploads/person_photos/Rashidi_Yekini_13866-615040078aa71.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/13866/Rashidi_Yekini.html",
+      "imagePageTitle": "Rashidi Yekini · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/13866/Rashidi_Yekini.html",
+      "imageCredit": "Tsipras via National Football Teams"
     },
     "Samson Siasia / Nigeria / 1994": {
       "profileKey": "Samson Siasia / Nigeria / 1994",
@@ -176240,7 +176288,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "key-another"
-      }
+      },
+      "birthDate": "1973-06-20",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Jen%C3%ADlson_%C3%82ngelo_de_Souza_%28J%C3%BAnior%29_02.jpg/330px-Jen%C3%ADlson_%C3%82ngelo_de_Souza_%28J%C3%BAnior%29_02.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/J%C3%BAnior_(footballer,_born_1973)",
+      "imagePageTitle": "Júnior",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/J%C3%BAnior_(footballer,_born_1973)"
     },
     "Marcos / Brazil / 2002": {
       "profileKey": "Marcos / Brazil / 2002",
@@ -197294,7 +197348,10 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "separating-clue"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/191614-1765458332.png?lm=1",
+      "imageSource": "transfermarkt-datasets",
+      "imageSourceUrl": "https://www.transfermarkt.co.uk/fred/profil/spieler/191614"
     },
     "Gilberto / Brazil / 2006": {
       "profileKey": "Gilberto / Brazil / 2006",
