@@ -990,6 +990,7 @@ const titleDisambiguatorsByTeamKey = new Map(
 
 const curatedPriorityByName = new Map([...curatedTitleOverrides.keys()].map((nameKey, index) => [nameKey, index]));
 const curatedImageLookupCache = new Map();
+const curatedDirectProfileKeyImageOverrides = new Map();
 
 function getProfileImageImportance(profile) {
   return (
@@ -1020,6 +1021,17 @@ function compareProfileLookupPriority(a, b) {
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
+}
+
+async function readOptionalJson(filePath, fallbackValue = null) {
+  try {
+    return await readJson(filePath);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return fallbackValue;
+    }
+    throw error;
+  }
 }
 
 function parseCsv(text) {
@@ -2187,6 +2199,22 @@ const [historicalProfilesData, currentProfilesData, historyData, teamsData] = aw
   readJson(historyPath),
   readJson(teamsPath)
 ]);
+const ntfImageOverridesData = await readOptionalJson(
+  path.join(dataDir, "editorial", "historical-player-image-ntf-overrides.json"),
+  { entries: [] }
+);
+for (const entry of ntfImageOverridesData.entries || []) {
+  if (!entry?.profileKey || !entry?.imageUrl) {
+    continue;
+  }
+  curatedDirectProfileKeyImageOverrides.set(entry.profileKey, {
+    imageUrl: entry.imageUrl,
+    imageSource: curatedWebPortraitSourceId,
+    imageSourceUrl: entry.imageSourceUrl,
+    imagePageTitle: entry.imagePageTitle || `${entry.player || entry.profileKey} · National Football Teams`,
+    imagePageUrl: entry.imageSourceUrl
+  });
+}
 
 const currentImageLookup = createCurrentImageLookup(currentProfilesData, teamsData);
 const transfermarktRecords = await fetchTransfermarktPlayers();
@@ -2226,9 +2254,9 @@ for (const profile of enrichmentProfiles) {
     }
   }
 
-  const curatedDirectImage = curatedDirectImageOverrides.get(
-    `${Number(profile.tournamentYear)}:${normalizePlayerName(profile.name)}`
-  );
+  const curatedDirectImage =
+    curatedDirectProfileKeyImageOverrides.get(profile.profileKey) ||
+    curatedDirectImageOverrides.get(`${Number(profile.tournamentYear)}:${normalizePlayerName(profile.name)}`);
   if (curatedDirectImage?.imageUrl) {
     replaceWithCuratedDirectImageFields(profile, curatedDirectImage);
     curatedDirectImageCount += 1;

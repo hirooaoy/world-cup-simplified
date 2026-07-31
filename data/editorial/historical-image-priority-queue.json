@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-31T17:28:48.623Z",
-  "sourceProfileUpdatedAt": "2026-07-31T17:28:45.288Z",
+  "generatedAt": "2026-07-31T18:09:53.684Z",
+  "sourceProfileUpdatedAt": "2026-07-31T18:09:43.492Z",
   "coverage": {
     "totalProfiles": 3645,
-    "withImages": 2817,
-    "missingImages": 828
+    "withImages": 3436,
+    "missingImages": 209
   },
   "methodology": {
     "purpose": "Rank remaining historical player image gaps for curated manual source review.",
@@ -23,50 +23,14 @@
     }
   },
   "signalCounts": {
-    "goals": 288,
-    "scoring-matches": 300,
-    "featured-matches": 809,
-    "finalist-squad": 24,
-    "recurring-player": 89
+    "goals": 65,
+    "scoring-matches": 67,
+    "featured-matches": 205,
+    "recurring-player": 19,
+    "finalist-squad": 8
   },
   "recommendedNextBatchSize": 100,
   "recommendedNextBatch": [
-    {
-      "profileKey": "Stig Sundqvist / Sweden / 1950",
-      "player": "Stig Sundqvist",
-      "team": "Sweden",
-      "tournamentYear": 1950,
-      "position": "Forward",
-      "club": "IFK Norrköping",
-      "goals": 3,
-      "scorerMatchCount": 3,
-      "keyMatchCount": 3,
-      "score": 66,
-      "signals": [
-        "goals:3",
-        "scoring-matches:3",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Ron Springett / England / 1966",
-      "player": "Ron Springett",
-      "team": "England",
-      "tournamentYear": 1966,
-      "position": "Goalkeeper",
-      "club": "Sheffield Wednesday",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 64,
-      "signals": [
-        "finalist-squad",
-        "recurring-player",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
     {
       "profileKey": "Héctor Socorro / Cuba / 1938",
       "player": "Héctor Socorro",
@@ -86,25 +50,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Jacques Fatton / Switzerland / 1950",
-      "player": "Jacques Fatton",
-      "team": "Switzerland",
-      "tournamentYear": 1950,
-      "position": "Forward",
-      "club": "Servette FC",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 57,
-      "signals": [
-        "recurring-player",
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Sven Jonasson / Sweden / 1934",
       "player": "Sven Jonasson",
       "team": "Sweden",
@@ -118,25 +63,6 @@
       "signals": [
         "recurring-player",
         "goals:2",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Alfred Pfaff / West Germany / 1954",
-      "player": "Alfred Pfaff",
-      "team": "West Germany",
-      "tournamentYear": 1954,
-      "position": "Midfielder",
-      "club": "Eintracht Frankfurt",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 57,
-      "signals": [
-        "finalist-squad",
-        "goals:1",
         "scoring-matches:1",
         "featured-matches:1"
       ],
@@ -181,68 +107,12 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Anatoli Ilyin / Soviet Union / 1958",
-      "player": "Anatoli Ilyin",
-      "team": "Soviet Union",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Spartak Moscow",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 5,
-      "score": 56,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:5"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Charles Antenen / Switzerland / 1950",
       "player": "Charles Antenen",
       "team": "Switzerland",
       "tournamentYear": 1950,
       "position": "Forward",
       "club": "FC La Chaux-de-Fonds",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 3,
-      "score": 55,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "John Robertson / Scotland / 1982",
-      "player": "John Robertson",
-      "team": "Scotland",
-      "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "Nottingham Forest",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 3,
-      "score": 55,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Ziad Jaziri / Tunisia / 2006",
-      "player": "Ziad Jaziri",
-      "team": "Tunisia",
-      "tournamentYear": 2006,
-      "position": "Forward",
-      "club": "Troyes",
       "goals": 1,
       "scorerMatchCount": 1,
       "keyMatchCount": 3,
@@ -292,114 +162,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Suat Mamat / Turkey / 1954",
-      "player": "Suat Mamat",
-      "team": "Turkey",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Galatasaray S.K.",
-      "goals": 3,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 54,
-      "signals": [
-        "goals:3",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Todor Veselinović / Yugoslavia / 1958",
-      "player": "Todor Veselinović",
-      "team": "Yugoslavia",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Vojvodina Novi Sad",
-      "goals": 3,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 54,
-      "signals": [
-        "goals:3",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "József Tóth / Hungary / 1954",
-      "player": "József Tóth",
-      "team": "Hungary",
-      "tournamentYear": 1954,
-      "position": "Winger",
-      "club": "Csepeli Vasas",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 0,
-      "score": 53,
-      "signals": [
-        "finalist-squad",
-        "goals:1",
-        "scoring-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Uwe Bein / West Germany / 1990",
-      "player": "Uwe Bein",
-      "team": "West Germany",
-      "tournamentYear": 1990,
-      "position": "Midfielder",
-      "club": "Eintracht Frankfurt",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 0,
-      "score": 53,
-      "signals": [
-        "finalist-squad",
-        "goals:1",
-        "scoring-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Vilmos Kohut / Hungary / 1938",
-      "player": "Vilmos Kohut",
-      "team": "Hungary",
-      "tournamentYear": 1938,
-      "position": "Striker",
-      "club": "Olympique Marseille",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 0,
-      "score": 53,
-      "signals": [
-        "finalist-squad",
-        "goals:1",
-        "scoring-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Müller / Brazil / 1990",
-      "player": "Müller",
-      "team": "Brazil",
-      "tournamentYear": 1990,
-      "position": "Forward",
-      "club": "Torino",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 4,
-      "score": 52,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:4"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1994",
       "player": "Saeed Al-Owairan",
       "team": "Saudi Arabia",
@@ -433,338 +195,6 @@
         "goals:3",
         "scoring-matches:1",
         "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Abdeljalil Hadda / Morocco / 1998",
-      "player": "Abdeljalil Hadda",
-      "team": "Morocco",
-      "tournamentYear": 1998,
-      "position": "Forward",
-      "club": "Club Africain",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Andoni Goikoetxea / Spain / 1994",
-      "player": "Andoni Goikoetxea",
-      "team": "Spain",
-      "tournamentYear": 1994,
-      "position": "Midfielder",
-      "club": "Barcelona",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Dieter Müller / West Germany / 1978",
-      "player": "Dieter Müller",
-      "team": "West Germany",
-      "tournamentYear": 1978,
-      "position": "Forward",
-      "club": "1. FC Köln",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Emmanuel Sanon / Haiti / 1974",
-      "player": "Emmanuel Sanon",
-      "team": "Haiti",
-      "tournamentYear": 1974,
-      "position": "Forward",
-      "club": "Don Bosco",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Ivica Šurjak / Yugoslavia / 1974",
-      "player": "Ivica Šurjak",
-      "team": "Yugoslavia",
-      "tournamentYear": 1974,
-      "position": "Forward",
-      "club": "Hajduk Split",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Kosta Tomašević / Yugoslavia / 1950",
-      "player": "Kosta Tomašević",
-      "team": "Yugoslavia",
-      "tournamentYear": 1950,
-      "position": "Forward",
-      "club": "Red Star Belgrade",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Maryan Wisnieski / France / 1958",
-      "player": "Maryan Wisnieski",
-      "team": "France",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Lens",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Serginho / Brazil / 1982",
-      "player": "Serginho",
-      "team": "Brazil",
-      "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "São Paulo",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Stanislav Karasi / Yugoslavia / 1974",
-      "player": "Stanislav Karasi",
-      "team": "Yugoslavia",
-      "tournamentYear": 1974,
-      "position": "Forward",
-      "club": "Red Star Belgrade",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Viorel Moldovan / Romania / 1998",
-      "player": "Viorel Moldovan",
-      "team": "Romania",
-      "tournamentYear": 1998,
-      "position": "Forward",
-      "club": "Coventry City",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 48,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Eul-yong Lee / South Korea / 2002",
-      "player": "Eul-yong Lee",
-      "team": "South Korea",
-      "tournamentYear": 2002,
-      "position": "Midfielder",
-      "club": "Bucheon SK",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Fernandinho / Brazil / 2014",
-      "player": "Fernandinho",
-      "team": "Brazil",
-      "tournamentYear": 2014,
-      "position": "Midfielder",
-      "club": "Manchester City",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Finidi George / Nigeria / 1994",
-      "player": "Finidi George",
-      "team": "Nigeria",
-      "tournamentYear": 1994,
-      "position": "Midfielder",
-      "club": "Ajax",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jacques Fatton / Switzerland / 1954",
-      "player": "Jacques Fatton",
-      "team": "Switzerland",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Servette FC",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jimmy Mullen / England / 1954",
-      "player": "Jimmy Mullen",
-      "team": "England",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Wolverhampton Wanderers",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jorge Luis Campos / Paraguay / 2002",
-      "player": "Jorge Luis Campos",
-      "team": "Paraguay",
-      "tournamentYear": 2002,
-      "position": "Midfielder",
-      "club": "Universidad Católica",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jung-won Seo / South Korea / 1994",
-      "player": "Jung-won Seo",
-      "team": "South Korea",
-      "tournamentYear": 1994,
-      "position": "Forward",
-      "club": "Sangmu FC",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Steve Archibald / Scotland / 1982",
-      "player": "Steve Archibald",
-      "team": "Scotland",
-      "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "Tottenham Hotspur",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 47,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -805,40 +235,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "František Schmucker / Czechoslovakia / 1962",
-      "player": "František Schmucker",
-      "team": "Czechoslovakia",
-      "tournamentYear": 1962,
-      "position": "Goalkeeper",
-      "club": "RH Brno",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 47,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Heinz Hornig / West Germany / 1966",
-      "player": "Heinz Hornig",
-      "team": "West Germany",
-      "tournamentYear": 1966,
-      "position": "Forward",
-      "club": "1. FC Köln",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 47,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Ingemar Haraldsson / Sweden / 1958",
       "player": "Ingemar Haraldsson",
       "team": "Sweden",
@@ -856,65 +252,12 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Carlos Juan Oblitas / Peru / 1978",
-      "player": "Carlos Juan Oblitas",
-      "team": "Peru",
-      "tournamentYear": 1978,
-      "position": "Forward",
-      "club": "Sporting Cristal",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 5,
-      "score": 45,
-      "signals": [
-        "recurring-player",
-        "featured-matches:5"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Adolfo Valencia / Colombia / 1994",
-      "player": "Adolfo Valencia",
-      "team": "Colombia",
-      "tournamentYear": 1994,
-      "position": "Forward",
-      "club": "Bayern Munich",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Adriano / Brazil / 2006",
       "player": "Adriano",
       "team": "Brazil",
       "tournamentYear": 2006,
       "position": "Forward",
       "club": "Inter Milan",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Davor Jozić / Yugoslavia / 1990",
-      "player": "Davor Jozić",
-      "team": "Yugoslavia",
-      "tournamentYear": 1990,
-      "position": "Defender",
-      "club": "Cesena",
       "goals": 2,
       "scorerMatchCount": 2,
       "keyMatchCount": 2,
@@ -959,342 +302,6 @@
         "goals:2",
         "scoring-matches:2",
         "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Gábor Pölöskei / Hungary / 1982",
-      "player": "Gábor Pölöskei",
-      "team": "Hungary",
-      "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "Ferencváros",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jaime Ramírez / Chile / 1962",
-      "player": "Jaime Ramírez",
-      "team": "Chile",
-      "tournamentYear": 1962,
-      "position": "Forward",
-      "club": "Universidad de Chile",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jorge Lino Romero / Paraguay / 1958",
-      "player": "Jorge Lino Romero",
-      "team": "Paraguay",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Sol de América",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "José Parodi / Paraguay / 1958",
-      "player": "José Parodi",
-      "team": "Paraguay",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Sportivo Luqueño",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Julinho / Brazil / 1954",
-      "player": "Julinho",
-      "team": "Brazil",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Portuguesa",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Julio César Romero / Paraguay / 1986",
-      "player": "Julio César Romero",
-      "team": "Paraguay",
-      "tournamentYear": 1986,
-      "position": "Midfielder",
-      "club": "Fluminense",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Jung-soo Lee / South Korea / 2010",
-      "player": "Jung-soo Lee",
-      "team": "South Korea",
-      "tournamentYear": 2010,
-      "position": "Defender",
-      "club": "Kashima Antlers",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Seung-zin Pak / North Korea / 1966",
-      "player": "Seung-zin Pak",
-      "team": "North Korea",
-      "tournamentYear": 1966,
-      "position": "Forward",
-      "club": "Moranbong",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Slobodan Komljenović / Yugoslavia / 1998",
-      "player": "Slobodan Komljenović",
-      "team": "Yugoslavia",
-      "tournamentYear": 1998,
-      "position": "Defender",
-      "club": "MSV Duisburg",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Giuseppe Signori / Italy / 1994",
-      "player": "Giuseppe Signori",
-      "team": "Italy",
-      "tournamentYear": 1994,
-      "position": "Forward",
-      "club": "Lazio",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 43,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Gustavo Dezotti / Argentina / 1990",
-      "player": "Gustavo Dezotti",
-      "team": "Argentina",
-      "tournamentYear": 1990,
-      "position": "Forward",
-      "club": "Cremonese",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 43,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Theodor Wagner / Austria / 1954",
-      "player": "Theodor Wagner",
-      "team": "Austria",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Wacker Wien",
-      "goals": 3,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 42,
-      "signals": [
-        "goals:3",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Leão / Brazil / 1978",
-      "player": "Leão",
-      "team": "Brazil",
-      "tournamentYear": 1978,
-      "position": "Goalkeeper",
-      "club": "Palmeiras",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 4,
-      "score": 41,
-      "signals": [
-        "recurring-player",
-        "featured-matches:4"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Adrian Knup / Switzerland / 1994",
-      "player": "Adrian Knup",
-      "team": "Switzerland",
-      "tournamentYear": 1994,
-      "position": "Forward",
-      "club": "VfB Stuttgart",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 3,
-      "score": 40,
-      "signals": [
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Manuel Rosas / Mexico / 1930",
-      "player": "Manuel Rosas",
-      "team": "Mexico",
-      "tournamentYear": 1930,
-      "position": "Defender",
-      "club": "Atlante",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 1,
-      "score": 40,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Milan Dvořák / Czechoslovakia / 1958",
-      "player": "Milan Dvořák",
-      "team": "Czechoslovakia",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Dukla Prague",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 1,
-      "score": 40,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Antal Szabó / Hungary / 1938",
-      "player": "Antal Szabó",
-      "team": "Hungary",
-      "tournamentYear": 1938,
-      "position": "Goalkeeper",
-      "club": "MTK Hungária FC",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Coutinho / Brazil / 1962",
-      "player": "Coutinho",
-      "team": "Brazil",
-      "tournamentYear": 1962,
-      "position": "Forward",
-      "club": "Santos",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Denílson / Brazil / 1998",
-      "player": "Denílson",
-      "team": "Brazil",
-      "tournamentYear": 1998,
-      "position": "Midfielder",
-      "club": "São Paulo",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -1350,74 +357,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Heinz Kubsch / West Germany / 1954",
-      "player": "Heinz Kubsch",
-      "team": "West Germany",
-      "tournamentYear": 1954,
-      "position": "Goalkeeper",
-      "club": "FK Pirmasens",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "José Basualdo / Argentina / 1990",
-      "player": "José Basualdo",
-      "team": "Argentina",
-      "tournamentYear": 1990,
-      "position": "Midfielder",
-      "club": "VfB Stuttgart",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "José Serrizuela / Argentina / 1990",
-      "player": "José Serrizuela",
-      "team": "Argentina",
-      "tournamentYear": 1990,
-      "position": "Defender",
-      "club": "River Plate",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Juan Simón / Argentina / 1990",
-      "player": "Juan Simón",
-      "team": "Argentina",
-      "tournamentYear": 1990,
-      "position": "Defender",
-      "club": "Boca Juniors",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 1,
-      "score": 39,
-      "signals": [
-        "finalist-squad",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Miguel Capuccini / Uruguay / 1930",
       "player": "Miguel Capuccini",
       "team": "Uruguay",
@@ -1431,57 +370,6 @@
       "signals": [
         "finalist-squad",
         "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Adel Sellimi / Tunisia / 1998",
-      "player": "Adel Sellimi",
-      "team": "Tunisia",
-      "tournamentYear": 1998,
-      "position": "Forward",
-      "club": "Real Jaén",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 37,
-      "signals": [
-        "recurring-player",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Alisson / Brazil / 2018",
-      "player": "Alisson",
-      "team": "Brazil",
-      "tournamentYear": 2018,
-      "position": "Goalkeeper",
-      "club": "Roma",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 37,
-      "signals": [
-        "recurring-player",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Antoni Szymanowski / Poland / 1978",
-      "player": "Antoni Szymanowski",
-      "team": "Poland",
-      "tournamentYear": 1978,
-      "position": "Defender",
-      "club": "Wisła Kraków",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 37,
-      "signals": [
-        "recurring-player",
-        "featured-matches:3"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -1537,148 +425,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Leão / Brazil / 1974",
-      "player": "Leão",
-      "team": "Brazil",
-      "tournamentYear": 1974,
-      "position": "Goalkeeper",
-      "club": "Palmeiras",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 37,
-      "signals": [
-        "recurring-player",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Ziad Jaziri / Tunisia / 2002",
-      "player": "Ziad Jaziri",
-      "team": "Tunisia",
-      "tournamentYear": 2002,
-      "position": "Forward",
-      "club": "Étoile du Sahel",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 37,
-      "signals": [
-        "recurring-player",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Abderrazak Khairi / Morocco / 1986",
-      "player": "Abderrazak Khairi",
-      "team": "Morocco",
-      "tournamentYear": 1986,
-      "position": "Forward",
-      "club": "FAR Rabat",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 2,
-      "score": 36,
-      "signals": [
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Archie Gemmill / Scotland / 1978",
-      "player": "Archie Gemmill",
-      "team": "Scotland",
-      "tournamentYear": 1978,
-      "position": "Midfielder",
-      "club": "Nottingham Forest",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 2,
-      "score": 36,
-      "signals": [
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Roberto Cabañas / Paraguay / 1986",
-      "player": "Roberto Cabañas",
-      "team": "Paraguay",
-      "tournamentYear": 1986,
-      "position": "Forward",
-      "club": "América de Cali",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 2,
-      "score": 36,
-      "signals": [
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Shaun Bartlett / South Africa / 1998",
-      "player": "Shaun Bartlett",
-      "team": "South Africa",
-      "tournamentYear": 1998,
-      "position": "Forward",
-      "club": "Cape Town Spurs",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 2,
-      "score": 36,
-      "signals": [
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Anton Schall / Austria / 1934",
-      "player": "Anton Schall",
-      "team": "Austria",
-      "tournamentYear": 1934,
-      "position": "Forward",
-      "club": "Admira Wien",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 4,
-      "score": 34,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:4"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Juanito / Spain / 1982",
-      "player": "Juanito",
-      "team": "Spain",
-      "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "Real Madrid",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 4,
-      "score": 34,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:4"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Martin Hoffmann / East Germany / 1974",
       "player": "Martin Hoffmann",
       "team": "East Germany",
@@ -1693,91 +439,6 @@
         "goals:1",
         "scoring-matches:1",
         "featured-matches:4"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Aarón Padilla / Mexico / 1966",
-      "player": "Aarón Padilla",
-      "team": "Mexico",
-      "tournamentYear": 1966,
-      "position": "Forward",
-      "club": "UNAM",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 33,
-      "signals": [
-        "recurring-player",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Alberto González / Argentina / 1962",
-      "player": "Alberto González",
-      "team": "Argentina",
-      "tournamentYear": 1962,
-      "position": "Forward",
-      "club": "Boca Juniors",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 33,
-      "signals": [
-        "recurring-player",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Alberto González / Argentina / 1966",
-      "player": "Alberto González",
-      "team": "Argentina",
-      "tournamentYear": 1966,
-      "position": "Forward",
-      "club": "Boca Juniors",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 33,
-      "signals": [
-        "recurring-player",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Alisson / Brazil / 2022",
-      "player": "Alisson",
-      "team": "Brazil",
-      "tournamentYear": 2022,
-      "position": "Goalkeeper",
-      "club": "Liverpool",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 33,
-      "signals": [
-        "recurring-player",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "András Törőcsik / Hungary / 1978",
-      "player": "András Törőcsik",
-      "team": "Hungary",
-      "tournamentYear": 1978,
-      "position": "Forward",
-      "club": "Újpesti Dózsa",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 2,
-      "score": 33,
-      "signals": [
-        "recurring-player",
-        "featured-matches:2"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -1799,12 +460,12 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Carlos Juan Oblitas / Peru / 1982",
-      "player": "Carlos Juan Oblitas",
-      "team": "Peru",
+      "profileKey": "Friedrich Koncilia / Austria / 1982",
+      "player": "Friedrich Koncilia",
+      "team": "Austria",
       "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "Seraing",
+      "position": "Goalkeeper",
+      "club": "Austria Wien",
       "goals": 0,
       "scorerMatchCount": 0,
       "keyMatchCount": 2,
@@ -1814,7 +475,1316 @@
         "featured-matches:2"
       ],
       "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Gennadi Gusarov / Soviet Union / 1958",
+      "player": "Gennadi Gusarov",
+      "team": "Soviet Union",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Torpedo Moscow",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 33,
+      "signals": [
+        "recurring-player",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Günter Sawitzki / West Germany / 1962",
+      "player": "Günter Sawitzki",
+      "team": "West Germany",
+      "tournamentYear": 1962,
+      "position": "Goalkeeper",
+      "club": "VfB Stuttgart",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 33,
+      "signals": [
+        "recurring-player",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Pat Bonner / Ireland / 1994",
+      "player": "Pat Bonner",
+      "team": "Ireland",
+      "tournamentYear": 1994,
+      "position": "Goalkeeper",
+      "club": "Celtic",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 33,
+      "signals": [
+        "recurring-player",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Saeed Al-Owairan / Saudi Arabia / 1998",
+      "player": "Saeed Al-Owairan",
+      "team": "Saudi Arabia",
+      "tournamentYear": 1998,
+      "position": "Forward",
+      "club": "Al Shabab",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 33,
+      "signals": [
+        "recurring-player",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Bartosz Bosacki / Poland / 2006",
+      "player": "Bartosz Bosacki",
+      "team": "Poland",
+      "tournamentYear": 2006,
+      "position": "Defender",
+      "club": "Lech Poznań",
+      "goals": 2,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 32,
+      "signals": [
+        "goals:2",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Tiago / Portugal / 2010",
+      "player": "Tiago",
+      "team": "Portugal",
+      "tournamentYear": 2010,
+      "position": "Midfielder",
+      "club": "Atlético Madrid",
+      "goals": 2,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 32,
+      "signals": [
+        "goals:2",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Václav Hovorka / Czechoslovakia / 1958",
+      "player": "Václav Hovorka",
+      "team": "Czechoslovakia",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Dynamo Praha",
+      "goals": 2,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 32,
+      "signals": [
+        "goals:2",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Antonio Rada / Colombia / 1962",
+      "player": "Antonio Rada",
+      "team": "Colombia",
+      "tournamentYear": 1962,
+      "position": "Forward",
+      "club": "Deportivo Pereira",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 3,
+      "score": 30,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Daniel Veyt / Belgium / 1986",
+      "player": "Daniel Veyt",
+      "team": "Belgium",
+      "tournamentYear": 1986,
+      "position": "Forward",
+      "club": "Waregem",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 3,
+      "score": 30,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Faisal Al-Dakhil / Kuwait / 1982",
+      "player": "Faisal Al-Dakhil",
+      "team": "Kuwait",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "Al-Qadsia",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 3,
+      "score": 30,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Antony de Ávila / Colombia / 1994",
+      "player": "Antony de Ávila",
+      "team": "Colombia",
+      "tournamentYear": 1994,
+      "position": "Forward",
+      "club": "América de Cali",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 29,
+      "signals": [
+        "recurring-player",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Antony de Ávila / Colombia / 1998",
+      "player": "Antony de Ávila",
+      "team": "Colombia",
+      "tournamentYear": 1998,
+      "position": "Forward",
+      "club": "Barcelona",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 29,
+      "signals": [
+        "recurring-player",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Byung-joo Byun / South Korea / 1986",
+      "player": "Byung-joo Byun",
+      "team": "South Korea",
+      "tournamentYear": 1986,
+      "position": "Forward",
+      "club": "Daewoo Royals",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 29,
+      "signals": [
+        "recurring-player",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Carlos Blanco / Mexico / 1954",
+      "player": "Carlos Blanco",
+      "team": "Mexico",
+      "tournamentYear": 1954,
+      "position": "Forward",
+      "club": "Necaxa",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 29,
+      "signals": [
+        "recurring-player",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Friedrich Koncilia / Austria / 1978",
+      "player": "Friedrich Koncilia",
+      "team": "Austria",
+      "tournamentYear": 1978,
+      "position": "Goalkeeper",
+      "club": "SSW Innsbruck",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 29,
+      "signals": [
+        "recurring-player",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Pat Bonner / Ireland / 1990",
+      "player": "Pat Bonner",
+      "team": "Ireland",
+      "tournamentYear": 1990,
+      "position": "Goalkeeper",
+      "club": "Celtic",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 29,
+      "signals": [
+        "recurring-player",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Adalbert Deşu / Romania / 1930",
+      "player": "Adalbert Deşu",
+      "team": "Romania",
+      "tournamentYear": 1930,
+      "position": "Forward",
+      "club": "UDR Reşiţa",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 2,
+      "score": 26,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alexandre Czerniatynski / Belgium / 1982",
+      "player": "Alexandre Czerniatynski",
+      "team": "Belgium",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "Antwerp",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 2,
+      "score": 26,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "José Magriñá / Cuba / 1938",
+      "player": "José Magriñá",
+      "team": "Cuba",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "CD Centro Gallego",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 2,
+      "score": 26,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Kwan Hwangbo / South Korea / 1990",
+      "player": "Kwan Hwangbo",
+      "team": "South Korea",
+      "tournamentYear": 1990,
+      "position": "Forward",
+      "club": "Yukong Elephants",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 2,
+      "score": 26,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Reinhard Libuda / West Germany / 1970",
+      "player": "Reinhard Libuda",
+      "team": "West Germany",
+      "tournamentYear": 1970,
+      "position": "Forward",
+      "club": "Schalke 04",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 2,
+      "score": 26,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alain Couriol / France / 1982",
+      "player": "Alain Couriol",
+      "team": "France",
+      "tournamentYear": 1982,
+      "position": "Midfielder",
+      "club": "Monaco",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alfredo / Brazil / 1950",
+      "player": "Alfredo",
+      "team": "Brazil",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "Vasco da Gama",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Andrei Zygmantovich / Soviet Union / 1990",
+      "player": "Andrei Zygmantovich",
+      "team": "Soviet Union",
+      "tournamentYear": 1990,
+      "position": "Midfielder",
+      "club": "Dynamo Minsk",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Antonio Laing / Honduras / 1982",
+      "player": "Antonio Laing",
+      "team": "Honduras",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "Platense",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Bakari Koné / Côte d'Ivoire / 2006",
+      "player": "Bakari Koné",
+      "team": "Côte d'Ivoire",
+      "tournamentYear": 2006,
+      "position": "Right forward",
+      "club": "Nice",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Ernesto Belis / Argentina / 1934",
+      "player": "Ernesto Belis",
+      "team": "Argentina",
+      "tournamentYear": 1934,
+      "position": "Defender",
+      "club": "Defensores de Belgrano",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Fryderyk Scherfke / Poland / 1938",
+      "player": "Fryderyk Scherfke",
+      "team": "Poland",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "Warta Poznań",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Gilberto / Brazil / 2006",
+      "player": "Gilberto",
+      "team": "Brazil",
+      "tournamentYear": 2006,
+      "position": "Defender",
+      "club": "Hertha BSC",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Hassan Roshan / Iran / 1978",
+      "player": "Hassan Roshan",
+      "team": "Iran",
+      "tournamentYear": 1978,
+      "position": "Forward",
+      "club": "Taj",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Héctor Ortiz / Mexico / 1950",
+      "player": "Héctor Ortiz",
+      "team": "Mexico",
+      "tournamentYear": 1950,
+      "position": "Midfielder",
+      "club": "CD Marte",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Hendrik Isemborghs / Belgium / 1938",
+      "player": "Hendrik Isemborghs",
+      "team": "Belgium",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "Royal Beerschot AC",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Isidoro Díaz / Mexico / 1962",
+      "player": "Isidoro Díaz",
+      "team": "Mexico",
+      "tournamentYear": 1962,
+      "position": "Forward",
+      "club": "CD Guadalajara",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Jenő Vincze / Hungary / 1934",
+      "player": "Jenő Vincze",
+      "team": "Hungary",
+      "tournamentYear": 1934,
+      "position": "Forward",
+      "club": "Debreceni Bocskai",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Jerzy Gorgoń / Poland / 1974",
+      "player": "Jerzy Gorgoń",
+      "team": "Poland",
+      "tournamentYear": 1974,
+      "position": "Defender",
+      "club": "Górnik Zabrze",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Jim Brown / United States / 1930",
+      "player": "Jim Brown",
+      "team": "United States",
+      "tournamentYear": 1930,
+      "position": "Forward",
+      "club": "New York Giants",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Jong-boo Kim / South Korea / 1986",
+      "player": "Jong-boo Kim",
+      "team": "South Korea",
+      "tournamentYear": 1986,
+      "position": "Forward",
+      "club": "Korea University",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Josep Guardiola / Spain / 1994",
+      "player": "Josep Guardiola",
+      "team": "Spain",
+      "tournamentYear": 1994,
+      "position": "Midfielder",
+      "club": "Barcelona",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "József Bencsics / Hungary / 1958",
+      "player": "József Bencsics",
+      "team": "Hungary",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Újpesti Dózsa",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "József Varga / Hungary / 1982",
+      "player": "József Varga",
+      "team": "Hungary",
+      "tournamentYear": 1982,
+      "position": "Defender",
+      "club": "Budapest Honvéd",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Keun-ho Lee / South Korea / 2014",
+      "player": "Keun-ho Lee",
+      "team": "South Korea",
+      "tournamentYear": 2014,
+      "position": "Forward",
+      "club": "Sangju Sangmu",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Khalid Ismaïl / United Arab Emirates / 1990",
+      "player": "Khalid Ismaïl",
+      "team": "United Arab Emirates",
+      "tournamentYear": 1990,
+      "position": "Midfielder",
+      "club": "Al-Nasr",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Khoren Hovhannisyan / Soviet Union / 1982",
+      "player": "Khoren Hovhannisyan",
+      "team": "Soviet Union",
+      "tournamentYear": 1982,
+      "position": "Midfielder",
+      "club": "Ararat Yerevan",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Leo Clijsters / Belgium / 1990",
+      "player": "Leo Clijsters",
+      "team": "Belgium",
+      "tournamentYear": 1990,
+      "position": "Midfielder",
+      "club": "Mechelen",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Ludovico Avio / Argentina / 1958",
+      "player": "Ludovico Avio",
+      "team": "Argentina",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Vélez Sarsfield",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Luis Ramírez Zapata / El Salvador / 1982",
+      "player": "Luis Ramírez Zapata",
+      "team": "El Salvador",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "Atlético Marte",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Luis Vargas Peña / Paraguay / 1930",
+      "player": "Luis Vargas Peña",
+      "team": "Paraguay",
+      "tournamentYear": 1930,
+      "position": "Forward",
+      "club": "Olimpia",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Miklós Kovács / Romania / 1930",
+      "player": "Miklós Kovács",
+      "team": "Romania",
+      "tournamentYear": 1930,
+      "position": "Forward",
+      "club": "Banatul Timișoara",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Mokhtar Dhouib / Tunisia / 1978",
+      "player": "Mokhtar Dhouib",
+      "team": "Tunisia",
+      "tournamentYear": 1978,
+      "position": "Defender",
+      "club": "CS Sfaxien",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Mustafa Ertan / Turkey / 1954",
+      "player": "Mustafa Ertan",
+      "team": "Turkey",
+      "tournamentYear": 1954,
+      "position": "Defender",
+      "club": "MKE Ankaragücü SK",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Pál Teleki / Hungary / 1934",
+      "player": "Pál Teleki",
+      "team": "Hungary",
+      "tournamentYear": 1934,
+      "position": "Forward",
+      "club": "Debreceni Bocskai",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "René Bader / Switzerland / 1950",
+      "player": "René Bader",
+      "team": "Switzerland",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "FC Basel",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Sándor Zombori / Hungary / 1978",
+      "player": "Sándor Zombori",
+      "team": "Hungary",
+      "tournamentYear": 1978,
+      "position": "Midfielder",
+      "club": "Vasas",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Stanislaus Kobierski / Germany / 1934",
+      "player": "Stanislaus Kobierski",
+      "team": "Germany",
+      "tournamentYear": 1934,
+      "position": "Forward",
+      "club": "Fortuna Düsseldorf",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Tomás Fernández / Cuba / 1938",
+      "player": "Tomás Fernández",
+      "team": "Cuba",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "CD Centro Gallego",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Vladislav Bogićević / Yugoslavia / 1974",
+      "player": "Vladislav Bogićević",
+      "team": "Yugoslavia",
+      "tournamentYear": 1974,
+      "position": "Defender",
+      "club": "Red Star Belgrade",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Wilbur Cush / Northern Ireland / 1958",
+      "player": "Wilbur Cush",
+      "team": "Northern Ireland",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Leeds United",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Wilhelm Hahnemann / Germany / 1938",
+      "player": "Wilhelm Hahnemann",
+      "team": "Germany",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "Admira Wien",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 22,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "József Tóth / Hungary / 1982",
+      "player": "József Tóth",
+      "team": "Hungary",
+      "tournamentYear": 1982,
+      "position": "Left-back",
+      "club": "Újpest",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 0,
+      "score": 18,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Oscar / Brazil / 1982",
+      "player": "Oscar",
+      "team": "Brazil",
+      "tournamentYear": 1982,
+      "position": "Centre-back",
+      "club": "São Paulo",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 0,
+      "score": 18,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Sergei Aleinikov / Soviet Union / 1986",
+      "player": "Sergei Aleinikov",
+      "team": "Soviet Union",
+      "tournamentYear": 1986,
+      "position": "Midfielder",
+      "club": "Dinamo Minsk",
+      "goals": 1,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 0,
+      "score": 18,
+      "signals": [
+        "goals:1",
+        "scoring-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Abdulaziz Al-Anberi / Kuwait / 1982",
+      "player": "Abdulaziz Al-Anberi",
+      "team": "Kuwait",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "Kuwait SC",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Agustín Gaínza / Spain / 1950",
+      "player": "Agustín Gaínza",
+      "team": "Spain",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "Atlético Bilbao",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alex Scott / Scotland / 1958",
+      "player": "Alex Scott",
+      "team": "Scotland",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Rangers",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Antal Nagy / Hungary / 1966",
+      "player": "Antal Nagy",
+      "team": "Hungary",
+      "tournamentYear": 1966,
+      "position": "Forward",
+      "club": "Budapest Honvéd",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Armando Betancourt / Honduras / 1982",
+      "player": "Armando Betancourt",
+      "team": "Honduras",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "Real España",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Campanal I / Spain / 1934",
+      "player": "Campanal I",
+      "team": "Spain",
+      "tournamentYear": 1934,
+      "position": "Forward",
+      "club": "Sevilla",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Carlos / Brazil / 1986",
+      "player": "Carlos",
+      "team": "Brazil",
+      "tournamentYear": 1986,
+      "position": "Goalkeeper",
+      "club": "Corinthians",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Carlos Calderón de la Barca / Mexico / 1958",
+      "player": "Carlos Calderón de la Barca",
+      "team": "Mexico",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Atlante F.C.",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Carlos Oliveira / Cuba / 1938",
+      "player": "Carlos Oliveira",
+      "team": "Cuba",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "Hispano America",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Carlos Septién / Mexico / 1950",
+      "player": "Carlos Septién",
+      "team": "Mexico",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "Real España",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "César / Spain / 1950",
+      "player": "César",
+      "team": "Spain",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "Barcelona",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Gilbert Rey / Switzerland / 1962",
+      "player": "Gilbert Rey",
+      "team": "Switzerland",
+      "tournamentYear": 1962,
+      "position": "Forward",
+      "club": "Lausanne Sports",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Hércules / Brazil / 1938",
+      "player": "Hércules",
+      "team": "Brazil",
+      "tournamentYear": 1938,
+      "position": "Forward",
+      "club": "Fluminense",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Jorge González / El Salvador / 1982",
+      "player": "Jorge González",
+      "team": "El Salvador",
+      "tournamentYear": 1982,
+      "position": "Forward",
+      "club": "FAS",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
     }
   ],
-  "deferredMissingProfileCount": 728
+  "deferredMissingProfileCount": 109
 }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-31T17:28:45.288Z",
+  "updatedAt": "2026-07-31T18:09:43.492Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -19,8 +19,8 @@
     "status": "complete-men-1930-2022-key-players-scorers-and-best-xi-by-team-year",
     "note": "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs, historical goal records, or an editorial Best XI.",
     "imageStatus": "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
-    "imageNote": "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override, and use reviewed official or editorial portraits for the small set with no safe open portrait.",
-    "minimumImageCount": 2618,
+    "imageNote": "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override, and use reviewed official or editorial portraits for profiles with no safe open portrait.",
+    "minimumImageCount": 3436,
     "finalSemiImageStatus": "targeted-final-and-semi-final-scorers-key-players-and-team-description-mentions",
     "finalSemiImageTargetCount": 294,
     "finalSemiImageCount": 260,
