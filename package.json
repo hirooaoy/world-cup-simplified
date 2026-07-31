@@ -30,6 +30,7 @@
     "import:history": "node scripts/import-world-cup-history.mjs",
     "history:matchups": "node scripts/populate-historical-matchup-key-information.mjs",
     "history:images": "node scripts/populate-historical-player-images.mjs",
+    "history:images:queue": "node scripts/build-historical-image-priority-queue.mjs",
     "history:profiles": "node scripts/populate-historical-player-profiles.mjs",
     "history:clubs": "node scripts/sync-historical-player-clubs.mjs",
     "chatbot:history:index": "node scripts/build-ball-boy-historical-player-index.mjs",
