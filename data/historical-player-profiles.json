@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-31T17:13:08.241Z",
+  "updatedAt": "2026-07-31T17:28:45.288Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -12717,7 +12717,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.palmeiras.com.br/wp-content/uploads/2019/08/ROMEU-PELLICCIARI.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.palmeiras.com.br/craques/romeu-pellicciari/",
+      "imagePageTitle": "Romeu Pellicciari · Palmeiras",
+      "imagePageUrl": "https://www.palmeiras.com.br/craques/romeu-pellicciari/",
+      "imageCredit": "SE Palmeiras archive"
     },
     "Carlos Oliveira / Cuba / 1938": {
       "profileKey": "Carlos Oliveira / Cuba / 1938",
@@ -24576,7 +24582,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Erich_Probst_22113-6984ef956af90.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/22113/Erich_Probst.html",
+      "imagePageTitle": "Erich Probst · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/22113/Erich_Probst.html"
     },
     "Ernst Ocwirk / Austria / 1954": {
       "profileKey": "Ernst Ocwirk / Austria / 1954",
@@ -24778,7 +24789,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Ernst_Stojaspal_20923-5f20e85ec2027.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/20923/Ernst_Stojaspal.html",
+      "imagePageTitle": "Ernst Stojaspal · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/20923/Ernst_Stojaspal.html"
     },
     "Franz Pelikan / Austria / 1954": {
       "profileKey": "Franz Pelikan / Austria / 1954",
@@ -79430,7 +79446,14 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "two-clues"
-      }
+      },
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Heinz_Flohe.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Heinz_Flohe.jpeg",
+      "imagePageTitle": "Heinz Flohe, 1974",
+      "imagePageUrl": "https://commons.wikimedia.org/wiki/File:Heinz_Flohe.jpeg",
+      "imageCredit": "J. Küch",
+      "imageLicense": "CC BY 3.0"
     },
     "Jürgen Grabowski / West Germany / 1974": {
       "profileKey": "Jürgen Grabowski / West Germany / 1974",
@@ -85198,7 +85221,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "one-another"
-      }
+      },
+      "imageUrl": "https://editorial.uefa.com/resources/02a5-209303eed743-284daa6270df-1000/1976-fazekas.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.uefa.com/news-media/news/02a5-209303eed744-cb800130385a-1000--hungarian-football-mourns-laszlo-fazekas/",
+      "imagePageTitle": "László Fazekas · UEFA",
+      "imagePageUrl": "https://www.uefa.com/news-media/news/02a5-209303eed744-cb800130385a-1000--hungarian-football-mourns-laszlo-fazekas/",
+      "imageCredit": "Hungarian Football Federation via UEFA"
     },
     "László Pusztai / Hungary / 1978": {
       "profileKey": "László Pusztai / Hungary / 1978",
@@ -92652,7 +92681,14 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "separating-clue"
-      }
+      },
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Heinz_Flohe.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Heinz_Flohe.jpeg",
+      "imagePageTitle": "Heinz Flohe, 1974",
+      "imagePageUrl": "https://commons.wikimedia.org/wiki/File:Heinz_Flohe.jpeg",
+      "imageCredit": "J. Küch",
+      "imageLicense": "CC BY 3.0"
     },
     "Karl-Heinz Rummenigge / West Germany / 1978": {
       "profileKey": "Karl-Heinz Rummenigge / West Germany / 1978",
@@ -100912,7 +100948,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "quality-defines"
-      }
+      },
+      "imageUrl": "https://editorial.uefa.com/resources/02a5-209303eed743-284daa6270df-1000/1976-fazekas.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.uefa.com/news-media/news/02a5-209303eed744-cb800130385a-1000--hungarian-football-mourns-laszlo-fazekas/",
+      "imagePageTitle": "László Fazekas · UEFA",
+      "imagePageUrl": "https://www.uefa.com/news-media/news/02a5-209303eed744-cb800130385a-1000--hungarian-football-mourns-laszlo-fazekas/",
+      "imageCredit": "Hungarian Football Federation via UEFA"
     },
     "László Kiss / Hungary / 1982": {
       "profileKey": "László Kiss / Hungary / 1982",
@@ -111226,7 +111268,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "different-phase"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/117620-1547817443.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.de/edinho/profil/spieler/117620",
+      "imagePageTitle": "Edinho · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.de/edinho/profil/spieler/117620",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Josimar / Brazil / 1986": {
       "profileKey": "Josimar / Brazil / 1986",
@@ -125198,7 +125246,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "two-cues"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Pedro_Monzon_19308-5e0e681cebe8f.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/19308/Pedro_Monzon.html",
+      "imagePageTitle": "Pedro Monzón · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/19308/Pedro_Monzon.html"
     },
     "Pedro Troglio / Argentina / 1990": {
       "profileKey": "Pedro Troglio / Argentina / 1990",
@@ -127697,7 +127750,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/102614-1554385244.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      "imagePageTitle": "François Omam-Biyik · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Roger Milla / Cameroon / 1990": {
       "profileKey": "Roger Milla / Cameroon / 1990",
@@ -143779,7 +143838,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/102614-1554385244.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      "imagePageTitle": "François Omam-Biyik · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Louis-Paul M'Fédé / Cameroon / 1994": {
       "profileKey": "Louis-Paul M'Fédé / Cameroon / 1994",
@@ -158773,7 +158838,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/102614-1554385244.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      "imagePageTitle": "François Omam-Biyik · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Joseph-Désiré Job / Cameroon / 1998": {
       "profileKey": "Joseph-Désiré Job / Cameroon / 1998",
@@ -181609,7 +181680,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "key-another"
-      }
+      },
+      "imageUrl": "https://assets.dfb.de/uploads/000/035/014/custom_style_1_Marco_Bode.jpg?1493072092",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://datencenter.dfb.de/en/people/marco-bode/player",
+      "imagePageTitle": "Marco Bode · DFB Datencenter",
+      "imagePageUrl": "https://datencenter.dfb.de/en/people/marco-bode/player"
     },
     "Michael Ballack / Germany / 2002": {
       "profileKey": "Michael Ballack / Germany / 2002",
@@ -185954,7 +186030,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "key-another"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/26259-1719160395.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.us/nelson-cuevas/profil/spieler/26259",
+      "imagePageTitle": "Nelson Cuevas · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.us/nelson-cuevas/profil/spieler/26259",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Roberto Acuña / Paraguay / 2002": {
       "profileKey": "Roberto Acuña / Paraguay / 2002",
@@ -198733,7 +198815,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "build-two-cues"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Aruna_Dindane_1651-56a6ceb1b7c98.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/1651/Aruna_Dindane.html",
+      "imagePageTitle": "Aruna Dindane · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/1651/Aruna_Dindane.html"
     },
     "Bakari Koné / Côte d'Ivoire / 2006": {
       "profileKey": "Bakari Koné / Côte d'Ivoire / 2006",
@@ -209008,7 +209095,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "two-clues"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/26259-1719160395.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.us/nelson-cuevas/profil/spieler/26259",
+      "imagePageTitle": "Nelson Cuevas · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.us/nelson-cuevas/profil/spieler/26259",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Nelson Haedo Valdez / Paraguay / 2006": {
       "profileKey": "Nelson Haedo Valdez / Paraguay / 2006",
@@ -221352,7 +221445,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "quality-defines-game"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Aruna_Dindane_1651-56a6ceb1b7c98.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/1651/Aruna_Dindane.html",
+      "imagePageTitle": "Aruna Dindane · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/1651/Aruna_Dindane.html"
     },
     "Boubacar Barry / Côte d'Ivoire / 2010": {
       "profileKey": "Boubacar Barry / Côte d'Ivoire / 2010",

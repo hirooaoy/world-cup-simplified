@@ -507,6 +507,12 @@ const curatedDirectImageOverrides = new Map(
       imageCredit: "Terceiro Tempo archive",
       imagePageTitle: "Martim Silveira · Terceiro Tempo"
     }],
+    [1938, "Romeu", {
+      imageUrl: "https://www.palmeiras.com.br/wp-content/uploads/2019/08/ROMEU-PELLICCIARI.jpg",
+      imageSourceUrl: "https://www.palmeiras.com.br/craques/romeu-pellicciari/",
+      imageCredit: "SE Palmeiras archive",
+      imagePageTitle: "Romeu Pellicciari · Palmeiras"
+    }],
     [1950, "José Parra", {
       imageUrl: "https://hallofameperico.com/wp-content/uploads/2010/09/parra1.jpg",
       imageSourceUrl: "https://hallofameperico.com/2010/09/03/josep-parra-2/",
@@ -566,6 +572,16 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://www.reprezentacija.rs/petakovic-aleksandar/",
       imagePageTitle: "Aleksandar Petaković · reprezentacija.rs"
     }],
+    [1954, "Erich Probst", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Erich_Probst_22113-6984ef956af90.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/22113/Erich_Probst.html",
+      imagePageTitle: "Erich Probst · National Football Teams"
+    }],
+    [1954, "Ernst Stojaspal", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Ernst_Stojaspal_20923-5f20e85ec2027.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/20923/Ernst_Stojaspal.html",
+      imagePageTitle: "Ernst Stojaspal · National Football Teams"
+    }],
     [1958, "Sven Axbom", {
       imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sven%20Axbom%201960%20%28cropped%29.jpg?width=160",
       imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sven_Axbom_1960_(cropped).jpg",
@@ -622,6 +638,26 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://www.thefa.com/news/2018/may/16/ray-wilson-england-1966-world-cup-160518",
       imageCredit: "The Football Association archive",
       imagePageTitle: "Ray Wilson · The Football Association"
+    }],
+    [1974, "Heinz Flohe", {
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/92/Heinz_Flohe.jpeg",
+      imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Heinz_Flohe.jpeg",
+      imageCredit: "J. Küch",
+      imageLicense: "CC BY 3.0",
+      imagePageTitle: "Heinz Flohe, 1974"
+    }],
+    [1978, "Heinz Flohe", {
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/92/Heinz_Flohe.jpeg",
+      imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Heinz_Flohe.jpeg",
+      imageCredit: "J. Küch",
+      imageLicense: "CC BY 3.0",
+      imagePageTitle: "Heinz Flohe, 1974"
+    }],
+    [1978, "László Fazekas", {
+      imageUrl: "https://editorial.uefa.com/resources/02a5-209303eed743-284daa6270df-1000/1976-fazekas.jpeg",
+      imageSourceUrl: "https://www.uefa.com/news-media/news/02a5-209303eed744-cb800130385a-1000--hungarian-football-mourns-laszlo-fazekas/",
+      imageCredit: "Hungarian Football Federation via UEFA",
+      imagePageTitle: "László Fazekas · UEFA"
     }],
     [1978, "Oscar", {
       displayName: "Oscar Bernardi",
@@ -708,6 +744,12 @@ const curatedDirectImageOverrides = new Map(
       imageCredit: "Arkadi via National Football Teams",
       imagePageTitle: "Billy Hamilton · National Football Teams"
     }],
+    [1986, "Edinho", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/117620-1547817443.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.de/edinho/profil/spieler/117620",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Edinho · Transfermarkt"
+    }],
     [1990, "Luis Gabelo Conejo", {
       imageUrl: "https://www.fcrf.cr/wp-content/uploads/2020/06/GABELO-1.png",
       imageSourceUrl: "https://www.fcrf.cr/2020/06/08/gabelo-conejo-ser-titular-en-italia-90-fue-un-premio-a-la-constancia/",
@@ -718,10 +760,27 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://www.fulhamfc.com/news/2020/june/03/the-long-read-paul-parker/",
       imagePageTitle: "Paul Parker · Fulham FC"
     }],
+    [1990, "Pedro Monzón", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Pedro_Monzon_19308-5e0e681cebe8f.png",
+      imageSourceUrl: "https://www.national-football-teams.com/player/19308/Pedro_Monzon.html",
+      imagePageTitle: "Pedro Monzón · National Football Teams"
+    }],
+    [1990, "François Omam-Biyik", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/102614-1554385244.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "François Omam-Biyik · Transfermarkt"
+    }],
     [1994, "Trifon Ivanov", {
       imageUrl: "https://digitalhub.fifa.com/m/7ab497a15847f29b/original/Trifon-Ivanov-lines-up-before-a-Bulgaria-game-at-the-1994-FIFA-World-Cup-USA.jpg",
       imageSourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/articles/wacky-haircuts-hairstyles-photos",
       imagePageTitle: "Trifon Ivanov at the 1994 World Cup · FIFA"
+    }],
+    [1994, "François Omam-Biyik", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/102614-1554385244.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "François Omam-Biyik · Transfermarkt"
     }],
     [1994, "Daniel Amokachi", {
       imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Daniel_Amokachi_13862-61a4386f88d84.jpeg",
@@ -734,10 +793,27 @@ const curatedDirectImageOverrides = new Map(
       imageCredit: "Tsipras via National Football Teams",
       imagePageTitle: "Rashidi Yekini · National Football Teams"
     }],
+    [1998, "François Omam-Biyik", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/102614-1554385244.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.com/francois-omam-biyik/nationalmannschaft/spieler/102614/verein/3434/plus/0",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "François Omam-Biyik · Transfermarkt"
+    }],
     [2002, "Yoo Sang-chul", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/en/a/aa/Yoo_Sang-chul_2.jpg",
       imageSourceUrl: "https://en.wikipedia.org/wiki/File:Yoo_Sang-chul_2.jpg",
       imagePageTitle: "Yoo Sang-chul"
+    }],
+    [2002, "Marco Bode", {
+      imageUrl: "https://assets.dfb.de/uploads/000/035/014/custom_style_1_Marco_Bode.jpg?1493072092",
+      imageSourceUrl: "https://datencenter.dfb.de/en/people/marco-bode/player",
+      imagePageTitle: "Marco Bode · DFB Datencenter"
+    }],
+    [2002, "Nelson Cuevas", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/26259-1719160395.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.us/nelson-cuevas/profil/spieler/26259",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Nelson Cuevas · Transfermarkt"
     }],
     [2002, "Júnior", {
       birthDate: "1973-06-20",
@@ -758,6 +834,17 @@ const curatedDirectImageOverrides = new Map(
       imageLicense: "CC BY-SA 4.0",
       imagePageTitle: "Patrick Vieira"
     }],
+    [2006, "Aruna Dindane", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Aruna_Dindane_1651-56a6ceb1b7c98.png",
+      imageSourceUrl: "https://www.national-football-teams.com/player/1651/Aruna_Dindane.html",
+      imagePageTitle: "Aruna Dindane · National Football Teams"
+    }],
+    [2006, "Nelson Cuevas", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/26259-1719160395.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.us/nelson-cuevas/profil/spieler/26259",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Nelson Cuevas · Transfermarkt"
+    }],
     [2010, "Luis Suárez", {
       birthDate: "1987-01-24",
       imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20Su%C3%A1rez%20Uruguay.jpg?width=160",
@@ -765,6 +852,11 @@ const curatedDirectImageOverrides = new Map(
       imageCredit: "Анна Нэсси",
       imageLicense: "CC BY-SA 3.0",
       imagePageTitle: "Luis Suárez"
+    }],
+    [2010, "Aruna Dindane", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Aruna_Dindane_1651-56a6ceb1b7c98.png",
+      imageSourceUrl: "https://www.national-football-teams.com/player/1651/Aruna_Dindane.html",
+      imagePageTitle: "Aruna Dindane · National Football Teams"
     }],
     [2022, "Yahya Attiat-Allah", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/40/Yahya25.jpg",
