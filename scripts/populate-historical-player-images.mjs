@@ -474,6 +474,11 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://datencenter.dfb.de/datencenter/personen/edmund-conen/spieler",
       imagePageTitle: "Edmund Conen · DFB Datencenter"
     }],
+    [1938, "Josef Košťálek", {
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Josef_Ko%C5%A1%C5%A5%C3%A1lek-Mitropa1930.jpg",
+      imageSourceUrl: "https://en.wikipedia.org/wiki/Josef_Ko%C5%A1%C5%A5%C3%A1lek",
+      imagePageTitle: "Josef Košťálek"
+    }],
     [1938, "Gyula Polgár", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/de/2/21/Polg%C3%A1r_Gyula_portr%C3%A9ja_%28P%C3%A1lh%C3%A1zy_Gyula%2C_1938%29.jpg",
       imageSourceUrl: "https://de.wikipedia.org/wiki/Datei:Polg%C3%A1r_Gyula_portr%C3%A9ja_(P%C3%A1lh%C3%A1zy_Gyula,_1938).jpg",
@@ -508,6 +513,12 @@ const curatedDirectImageOverrides = new Map(
       imageLicense: "CC BY-SA 4.0",
       imagePageTitle: "Werner Kohlmeyer, 1954"
     }],
+    [1954, "Josef Hügi", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Josef_Huegi_18535-5ef63ac0d43ed.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/18535/Josef_Huegi.html",
+      imageCredit: "Jorge Mendoza via National Football Teams",
+      imagePageTitle: "Josef Hügi · National Football Teams"
+    }],
     [1958, "Sven Axbom", {
       imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sven%20Axbom%201960%20%28cropped%29.jpg?width=160",
       imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sven_Axbom_1960_(cropped).jpg",
@@ -515,11 +526,27 @@ const curatedDirectImageOverrides = new Map(
       imageLicense: "Public domain",
       imagePageTitle: "Sven Axbom, 1960"
     }],
+    [1958, "Zdeněk Zikán", {
+      imageUrl: "https://dsg-images.com/players/150x150/9712.png",
+      imageSourceUrl: "https://globalsportsarchive.com/en/soccer/athlete/zdenek-zikan/9712/overview",
+      imagePageTitle: "Zdeněk Zikán · Global Sports Archive"
+    }],
     [1958, "Yuri Voynov", {
       imageUrl: "https://fcdynamo.com/img/content/histories/39/vionov.jpg",
       imageSourceUrl: "https://fcdynamo.com/en/history/yurii-voinov",
       imageCredit: "FC Dynamo Kyiv official website; photographer not stated",
       imagePageTitle: "Yuri Voynov · FC Dynamo Kyiv"
+    }],
+    [1966, "Valeriy Porkujan", {
+      imageUrl: "https://fcdynamo.com/img/content/histories/147/post523565-d82ae-content.jpg?fm=jpg&q=80&fit=max&crop=750%2C423%2C0%2C0",
+      imageSourceUrl: "https://fcdynamo.com/en/history/valerii-porkuyan",
+      imageCredit: "FC Dynamo Kyiv official website",
+      imagePageTitle: "Valeriy Porkuyan · FC Dynamo Kyiv"
+    }],
+    [1966, "José Torres", {
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Jos%C3%A9_Augusto_Torres_%281963%29.jpg/330px-Jos%C3%A9_Augusto_Torres_%281963%29.jpg",
+      imageSourceUrl: "https://en.wikipedia.org/wiki/Jos%C3%A9_Torres_(footballer,_born_1938)",
+      imagePageTitle: "José Torres"
     }],
     [1966, "Vicente Lucas", {
       imageUrl: "https://www.osbelenenses.com/wp-content/uploads/2016/06/vicente_lucas.jpg",
@@ -539,6 +566,16 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://www.national-football-teams.com/player/17935/Oscar_3.html",
       imageCredit: "Arkadi via National Football Teams",
       imagePageTitle: "Oscar Bernardi · National Football Teams"
+    }],
+    [1978, "Ernie Brandts", {
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ernie_Brandts_1978c.jpg/330px-Ernie_Brandts_1978c.jpg",
+      imageSourceUrl: "https://en.wikipedia.org/wiki/Ernie_Brandts",
+      imagePageTitle: "Ernie Brandts"
+    }],
+    [1982, "Karlheinz Förster", {
+      imageUrl: "https://assets.dfb.de/uploads/000/035/915/custom_style_1_Karlheinz_F%C3%B6rster.jpg?1493072688",
+      imageSourceUrl: "https://datencenter.dfb.de/datencenter/personen/karlheinz-foerster/spieler",
+      imagePageTitle: "Karlheinz Förster · DFB Datencenter"
     }],
     [1982, "Éder", {
       birthDate: "1957-05-25",
@@ -604,10 +641,27 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/articles/wacky-haircuts-hairstyles-photos",
       imagePageTitle: "Trifon Ivanov at the 1994 World Cup · FIFA"
     }],
+    [1994, "Daniel Amokachi", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Daniel_Amokachi_13862-61a4386f88d84.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/13862/Daniel_Amokachi.html",
+      imagePageTitle: "Daniel Amokachi · National Football Teams"
+    }],
+    [1994, "Rashidi Yekini", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/resolve/players_page/uploads/person_photos/Rashidi_Yekini_13866-615040078aa71.png",
+      imageSourceUrl: "https://www.national-football-teams.com/player/13866/Rashidi_Yekini.html",
+      imageCredit: "Tsipras via National Football Teams",
+      imagePageTitle: "Rashidi Yekini · National Football Teams"
+    }],
     [2002, "Yoo Sang-chul", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/en/a/aa/Yoo_Sang-chul_2.jpg",
       imageSourceUrl: "https://en.wikipedia.org/wiki/File:Yoo_Sang-chul_2.jpg",
       imagePageTitle: "Yoo Sang-chul"
+    }],
+    [2002, "Júnior", {
+      birthDate: "1973-06-20",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Jen%C3%ADlson_%C3%82ngelo_de_Souza_%28J%C3%BAnior%29_02.jpg/330px-Jen%C3%ADlson_%C3%82ngelo_de_Souza_%28J%C3%BAnior%29_02.jpg",
+      imageSourceUrl: "https://en.wikipedia.org/wiki/J%C3%BAnior_(footballer,_born_1973)",
+      imagePageTitle: "Júnior"
     }],
     [2006, "Miguel", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Lu%C3%ADs_Miguel_Brito_24sept2006_%28cropped%29.jpg",
