@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T05:52:09.501Z",
+  "updatedAt": "2026-07-31T17:13:08.241Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -8397,7 +8397,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/194544-1721301739.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.de/ernst-lehner/profil/spieler/194544",
+      "imagePageTitle": "Ernst Lehner · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.de/ernst-lehner/profil/spieler/194544",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Franz Dienert / Germany / 1934": {
       "profileKey": "Franz Dienert / Germany / 1934",
@@ -14240,7 +14246,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "different-phase"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/194544-1721301739.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.de/ernst-lehner/profil/spieler/194544",
+      "imagePageTitle": "Ernst Lehner · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.de/ernst-lehner/profil/spieler/194544",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Fritz Szepan / Germany / 1938": {
       "profileKey": "Fritz Szepan / Germany / 1938",
@@ -18438,7 +18450,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Baltazar_1_19207-5e62a8bb25cab.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/19207/Baltazar_1.html",
+      "imagePageTitle": "Baltazar · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/19207/Baltazar_1.html",
+      "imageCredit": "rcs67 via National Football Teams"
     },
     "Barbosa / Brazil / 1950": {
       "profileKey": "Barbosa / Brazil / 1950",
@@ -25346,7 +25364,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Baltazar_1_19207-5e62a8bb25cab.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/19207/Baltazar_1.html",
+      "imagePageTitle": "Baltazar · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/19207/Baltazar_1.html",
+      "imageCredit": "rcs67 via National Football Teams"
     },
     "Didi / Brazil / 1954": {
       "profileKey": "Didi / Brazil / 1954",
@@ -27663,7 +27687,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "two-clues"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Peter_Palotas_43601-5c9934be4b992.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/43601/Peter_Palotas.html",
+      "imagePageTitle": "Péter Palotás · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/43601/Peter_Palotas.html",
+      "imageCredit": "Tsipras via National Football Teams"
     },
     "Sándor Kocsis / Hungary / 1954": {
       "profileKey": "Sándor Kocsis / Hungary / 1954",
@@ -30502,7 +30532,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.auf.org.uy/imagenes/img_contenido/seleccion_jugador/a/carlos_borges_.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.auf.org.uy/carlos-borges/",
+      "imagePageTitle": "Carlos Borges · AUF",
+      "imagePageUrl": "https://www.auf.org.uy/carlos-borges/",
+      "imageCredit": "Uruguayan Football Association archive"
     },
     "Javier Ambrois / Uruguay / 1954": {
       "profileKey": "Javier Ambrois / Uruguay / 1954",
@@ -31405,7 +31441,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "two-cues"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/102171-1447930959.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.de/bernhard-klodt/profil/spieler/102171",
+      "imagePageTitle": "Bernhard Klodt · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.de/bernhard-klodt/profil/spieler/102171",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Fritz Walter / West Germany / 1954": {
       "profileKey": "Fritz Walter / West Germany / 1954",
@@ -32222,7 +32264,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "separating-clue"
-      }
+      },
+      "imageUrl": "https://www.reprezentacija.rs/wp-content/uploads/igraci/petakovic-aleksandar.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.reprezentacija.rs/petakovic-aleksandar/",
+      "imagePageTitle": "Aleksandar Petaković · reprezentacija.rs",
+      "imagePageUrl": "https://www.reprezentacija.rs/petakovic-aleksandar/"
     },
     "Bernard Vukas / Yugoslavia / 1954": {
       "profileKey": "Bernard Vukas / Yugoslavia / 1954",
@@ -40799,7 +40846,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "repeated-evidence"
-      }
+      },
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/102171-1447930959.jpg?lm=1",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.transfermarkt.de/bernhard-klodt/profil/spieler/102171",
+      "imagePageTitle": "Bernhard Klodt · Transfermarkt",
+      "imagePageUrl": "https://www.transfermarkt.de/bernhard-klodt/profil/spieler/102171",
+      "imageCredit": "IMAGO via Transfermarkt"
     },
     "Fritz Herkenrath / West Germany / 1958": {
       "profileKey": "Fritz Herkenrath / West Germany / 1958",
@@ -41405,7 +41458,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.reprezentacija.rs/wp-content/uploads/igraci/petakovic-aleksandar.jpg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.reprezentacija.rs/petakovic-aleksandar/",
+      "imagePageTitle": "Aleksandar Petaković · reprezentacija.rs",
+      "imagePageUrl": "https://www.reprezentacija.rs/petakovic-aleksandar/"
     },
     "Dražan Jerković / Yugoslavia / 1958": {
       "profileKey": "Dražan Jerković / Yugoslavia / 1958",
@@ -57582,7 +57640,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Eduard_Malofeev_19076-56dd9c644e1c5.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/19076/Eduard_Malofeyev.html",
+      "imagePageTitle": "Eduard Malofeyev · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/19076/Eduard_Malofeyev.html",
+      "imageCredit": "Andrey from Tula via National Football Teams"
     },
     "Eduard Markarov / Soviet Union / 1966": {
       "profileKey": "Eduard Markarov / Soviet Union / 1966",
@@ -102965,7 +103029,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Billy_Hamilton_20200-544d0ccea48a0.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/20200/Billy_Hamilton.html",
+      "imagePageTitle": "Billy Hamilton · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/20200/Billy_Hamilton.html",
+      "imageCredit": "Arkadi via National Football Teams"
     },
     "Chris Nicholl / Northern Ireland / 1982": {
       "profileKey": "Chris Nicholl / Northern Ireland / 1982",
@@ -103221,7 +103291,13 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Gerry_Armstrong_20121-5a0371907c3b5.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/20121/Gerry_Armstrong.html",
+      "imagePageTitle": "Gerry Armstrong · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/20121/Gerry_Armstrong.html",
+      "imageCredit": "Tsipras via National Football Teams"
     },
     "Jimmy Nicholl / Northern Ireland / 1982": {
       "profileKey": "Jimmy Nicholl / Northern Ireland / 1982",
@@ -117726,7 +117802,13 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "two-cues"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Billy_Hamilton_20200-544d0ccea48a0.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/20200/Billy_Hamilton.html",
+      "imagePageTitle": "Billy Hamilton · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/20200/Billy_Hamilton.html",
+      "imageCredit": "Arkadi via National Football Teams"
     },
     "Colin Clarke / Northern Ireland / 1986": {
       "profileKey": "Colin Clarke / Northern Ireland / 1986",

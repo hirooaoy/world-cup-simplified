@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-31T17:01:03.608Z",
-  "sourceProfileUpdatedAt": "2026-07-30T05:52:09.501Z",
+  "generatedAt": "2026-07-31T17:13:15.199Z",
+  "sourceProfileUpdatedAt": "2026-07-31T17:13:08.241Z",
   "coverage": {
     "totalProfiles": 3645,
-    "withImages": 2786,
-    "missingImages": 859
+    "withImages": 2800,
+    "missingImages": 845
   },
   "methodology": {
     "purpose": "Rank remaining historical player image gaps for curated manual source review.",
@@ -23,12 +23,12 @@
     }
   },
   "signalCounts": {
-    "goals": 311,
-    "scoring-matches": 323,
-    "featured-matches": 840,
+    "goals": 301,
+    "scoring-matches": 313,
+    "featured-matches": 826,
     "captain-meta": 1,
-    "finalist-squad": 29,
-    "recurring-player": 110
+    "finalist-squad": 27,
+    "recurring-player": 100
   },
   "recommendedNextBatchSize": 100,
   "recommendedNextBatch": [
@@ -70,119 +70,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Bernhard Klodt / West Germany / 1954",
-      "player": "Bernhard Klodt",
-      "team": "West Germany",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "FC Schalke 04",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 2,
-      "score": 86,
-      "signals": [
-        "finalist-squad",
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Aleksandar Petaković / Yugoslavia / 1958",
-      "player": "Aleksandar Petaković",
-      "team": "Yugoslavia",
-      "tournamentYear": 1958,
-      "position": "Forward",
-      "club": "Radnički Belgrade",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 3,
-      "score": 73,
-      "signals": [
-        "recurring-player",
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Carlos Borges / Uruguay / 1954",
-      "player": "Carlos Borges",
-      "team": "Uruguay",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Peñarol",
-      "goals": 4,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 4,
-      "score": 72,
-      "signals": [
-        "goals:4",
-        "scoring-matches:2",
-        "featured-matches:4"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Baltazar / Brazil / 1950",
-      "player": "Baltazar",
-      "team": "Brazil",
-      "tournamentYear": 1950,
-      "position": "Forward",
-      "club": "Corinthians",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 69,
-      "signals": [
-        "recurring-player",
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Péter Palotás / Hungary / 1954",
-      "player": "Péter Palotás",
-      "team": "Hungary",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Budapesti Vörös Lobogó",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 67,
-      "signals": [
-        "finalist-squad",
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Gerry Armstrong / Northern Ireland / 1982",
-      "player": "Gerry Armstrong",
-      "team": "Northern Ireland",
-      "tournamentYear": 1982,
-      "position": "Midfielder",
-      "club": "Watford",
-      "goals": 3,
-      "scorerMatchCount": 3,
-      "keyMatchCount": 3,
-      "score": 66,
-      "signals": [
-        "goals:3",
-        "scoring-matches:3",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Romeu / Brazil / 1938",
       "player": "Romeu",
       "team": "Brazil",
@@ -214,44 +101,6 @@
       "signals": [
         "goals:3",
         "scoring-matches:3",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Billy Hamilton / Northern Ireland / 1982",
-      "player": "Billy Hamilton",
-      "team": "Northern Ireland",
-      "tournamentYear": 1982,
-      "position": "Forward",
-      "club": "Burnley",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 3,
-      "score": 65,
-      "signals": [
-        "recurring-player",
-        "goals:2",
-        "scoring-matches:1",
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Ernst Lehner / Germany / 1934",
-      "player": "Ernst Lehner",
-      "team": "Germany",
-      "tournamentYear": 1934,
-      "position": "Forward",
-      "club": "TSV Schwaben Augsburg",
-      "goals": 2,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 3,
-      "score": 65,
-      "signals": [
-        "recurring-player",
-        "goals:2",
-        "scoring-matches:1",
         "featured-matches:3"
       ],
       "reviewState": "needs-manual-image-source-verification"
@@ -289,24 +138,6 @@
         "finalist-squad",
         "recurring-player",
         "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Eduard Malofeyev / Soviet Union / 1966",
-      "player": "Eduard Malofeyev",
-      "team": "Soviet Union",
-      "tournamentYear": 1966,
-      "position": "Forward",
-      "club": "Dinamo Minsk",
-      "goals": 3,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 4,
-      "score": 62,
-      "signals": [
-        "goals:3",
-        "scoring-matches:2",
-        "featured-matches:4"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -589,25 +420,6 @@
         "goals:2",
         "scoring-matches:2",
         "featured-matches:5"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Baltazar / Brazil / 1954",
-      "player": "Baltazar",
-      "team": "Brazil",
-      "tournamentYear": 1954,
-      "position": "Forward",
-      "club": "Corinthians",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 3,
-      "score": 55,
-      "signals": [
-        "recurring-player",
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:3"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -1850,7 +1662,177 @@
         "featured-matches:1"
       ],
       "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Juan Simón / Argentina / 1990",
+      "player": "Juan Simón",
+      "team": "Argentina",
+      "tournamentYear": 1990,
+      "position": "Defender",
+      "club": "Boca Juniors",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 39,
+      "signals": [
+        "finalist-squad",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Miguel Capuccini / Uruguay / 1930",
+      "player": "Miguel Capuccini",
+      "team": "Uruguay",
+      "tournamentYear": 1930,
+      "position": "Goalkeeper",
+      "club": "Peñarol",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 1,
+      "score": 39,
+      "signals": [
+        "finalist-squad",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Adel Sellimi / Tunisia / 1998",
+      "player": "Adel Sellimi",
+      "team": "Tunisia",
+      "tournamentYear": 1998,
+      "position": "Forward",
+      "club": "Real Jaén",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Alisson / Brazil / 2018",
+      "player": "Alisson",
+      "team": "Brazil",
+      "tournamentYear": 2018,
+      "position": "Goalkeeper",
+      "club": "Roma",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Antoni Szymanowski / Poland / 1978",
+      "player": "Antoni Szymanowski",
+      "team": "Poland",
+      "tournamentYear": 1978,
+      "position": "Defender",
+      "club": "Wisła Kraków",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Carlos Blanco / Mexico / 1958",
+      "player": "Carlos Blanco",
+      "team": "Mexico",
+      "tournamentYear": 1958,
+      "position": "Forward",
+      "club": "Club Toluca",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Charles Antenen / Switzerland / 1954",
+      "player": "Charles Antenen",
+      "team": "Switzerland",
+      "tournamentYear": 1954,
+      "position": "Forward",
+      "club": "FC La Chaux-de-Fonds",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Charles Antenen / Switzerland / 1962",
+      "player": "Charles Antenen",
+      "team": "Switzerland",
+      "tournamentYear": 1962,
+      "position": "Forward",
+      "club": "FC La Chaux-de-Fonds",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "François Omam-Biyik / Cameroon / 1998",
+      "player": "François Omam-Biyik",
+      "team": "Cameroon",
+      "tournamentYear": 1998,
+      "position": "Forward",
+      "club": "Sampdoria",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Leão / Brazil / 1974",
+      "player": "Leão",
+      "team": "Brazil",
+      "tournamentYear": 1974,
+      "position": "Goalkeeper",
+      "club": "Palmeiras",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 37,
+      "signals": [
+        "recurring-player",
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
     }
   ],
-  "deferredMissingProfileCount": 759
+  "deferredMissingProfileCount": 745
 }

@@ -474,10 +474,22 @@ const curatedDirectImageOverrides = new Map(
       imageSourceUrl: "https://datencenter.dfb.de/datencenter/personen/edmund-conen/spieler",
       imagePageTitle: "Edmund Conen · DFB Datencenter"
     }],
+    [1934, "Ernst Lehner", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/194544-1721301739.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.de/ernst-lehner/profil/spieler/194544",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Ernst Lehner · Transfermarkt"
+    }],
     [1938, "Josef Košťálek", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Josef_Ko%C5%A1%C5%A5%C3%A1lek-Mitropa1930.jpg",
       imageSourceUrl: "https://en.wikipedia.org/wiki/Josef_Ko%C5%A1%C5%A5%C3%A1lek",
       imagePageTitle: "Josef Košťálek"
+    }],
+    [1938, "Ernst Lehner", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/194544-1721301739.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.de/ernst-lehner/profil/spieler/194544",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Ernst Lehner · Transfermarkt"
     }],
     [1938, "Gyula Polgár", {
       imageUrl: "https://upload.wikimedia.org/wikipedia/de/2/21/Polg%C3%A1r_Gyula_portr%C3%A9ja_%28P%C3%A1lh%C3%A1zy_Gyula%2C_1938%29.jpg",
@@ -506,6 +518,12 @@ const curatedDirectImageOverrides = new Map(
       imageCredit: "Terceiro Tempo archive",
       imagePageTitle: "Chico · Terceiro Tempo"
     }],
+    [1950, "Baltazar", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Baltazar_1_19207-5e62a8bb25cab.png",
+      imageSourceUrl: "https://www.national-football-teams.com/player/19207/Baltazar_1.html",
+      imageCredit: "rcs67 via National Football Teams",
+      imagePageTitle: "Baltazar · National Football Teams"
+    }],
     [1954, "Werner Kohlmeyer", {
       imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Werner%20Kohlmeyer%201954%20%28Com%20M03-0108-005-0012%29%20%28cropped%29.jpg?width=160",
       imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Werner_Kohlmeyer_1954_(Com_M03-0108-005-0012)_(cropped).jpg",
@@ -513,11 +531,40 @@ const curatedDirectImageOverrides = new Map(
       imageLicense: "CC BY-SA 4.0",
       imagePageTitle: "Werner Kohlmeyer, 1954"
     }],
+    [1954, "Bernhard Klodt", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/102171-1447930959.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.de/bernhard-klodt/profil/spieler/102171",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Bernhard Klodt · Transfermarkt"
+    }],
     [1954, "Josef Hügi", {
       imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Josef_Huegi_18535-5ef63ac0d43ed.jpeg",
       imageSourceUrl: "https://www.national-football-teams.com/player/18535/Josef_Huegi.html",
       imageCredit: "Jorge Mendoza via National Football Teams",
       imagePageTitle: "Josef Hügi · National Football Teams"
+    }],
+    [1954, "Péter Palotás", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Peter_Palotas_43601-5c9934be4b992.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/43601/Peter_Palotas.html",
+      imageCredit: "Tsipras via National Football Teams",
+      imagePageTitle: "Péter Palotás · National Football Teams"
+    }],
+    [1954, "Carlos Borges", {
+      imageUrl: "https://www.auf.org.uy/imagenes/img_contenido/seleccion_jugador/a/carlos_borges_.jpg",
+      imageSourceUrl: "https://www.auf.org.uy/carlos-borges/",
+      imageCredit: "Uruguayan Football Association archive",
+      imagePageTitle: "Carlos Borges · AUF"
+    }],
+    [1954, "Baltazar", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Baltazar_1_19207-5e62a8bb25cab.png",
+      imageSourceUrl: "https://www.national-football-teams.com/player/19207/Baltazar_1.html",
+      imageCredit: "rcs67 via National Football Teams",
+      imagePageTitle: "Baltazar · National Football Teams"
+    }],
+    [1954, "Aleksandar Petaković", {
+      imageUrl: "https://www.reprezentacija.rs/wp-content/uploads/igraci/petakovic-aleksandar.jpg",
+      imageSourceUrl: "https://www.reprezentacija.rs/petakovic-aleksandar/",
+      imagePageTitle: "Aleksandar Petaković · reprezentacija.rs"
     }],
     [1958, "Sven Axbom", {
       imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sven%20Axbom%201960%20%28cropped%29.jpg?width=160",
@@ -525,6 +572,17 @@ const curatedDirectImageOverrides = new Map(
       imageCredit: "Rekord-Magasinet no. 33, 1960",
       imageLicense: "Public domain",
       imagePageTitle: "Sven Axbom, 1960"
+    }],
+    [1958, "Bernhard Klodt", {
+      imageUrl: "https://img.a.transfermarkt.technology/portrait/header/102171-1447930959.jpg?lm=1",
+      imageSourceUrl: "https://www.transfermarkt.de/bernhard-klodt/profil/spieler/102171",
+      imageCredit: "IMAGO via Transfermarkt",
+      imagePageTitle: "Bernhard Klodt · Transfermarkt"
+    }],
+    [1958, "Aleksandar Petaković", {
+      imageUrl: "https://www.reprezentacija.rs/wp-content/uploads/igraci/petakovic-aleksandar.jpg",
+      imageSourceUrl: "https://www.reprezentacija.rs/petakovic-aleksandar/",
+      imagePageTitle: "Aleksandar Petaković · reprezentacija.rs"
     }],
     [1958, "Zdeněk Zikán", {
       imageUrl: "https://dsg-images.com/players/150x150/9712.png",
@@ -547,6 +605,12 @@ const curatedDirectImageOverrides = new Map(
       imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Jos%C3%A9_Augusto_Torres_%281963%29.jpg/330px-Jos%C3%A9_Augusto_Torres_%281963%29.jpg",
       imageSourceUrl: "https://en.wikipedia.org/wiki/Jos%C3%A9_Torres_(footballer,_born_1938)",
       imagePageTitle: "José Torres"
+    }],
+    [1966, "Eduard Malofeyev", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Eduard_Malofeev_19076-56dd9c644e1c5.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/19076/Eduard_Malofeyev.html",
+      imageCredit: "Andrey from Tula via National Football Teams",
+      imagePageTitle: "Eduard Malofeyev · National Football Teams"
     }],
     [1966, "Vicente Lucas", {
       imageUrl: "https://www.osbelenenses.com/wp-content/uploads/2016/06/vicente_lucas.jpg",
@@ -576,6 +640,18 @@ const curatedDirectImageOverrides = new Map(
       imageUrl: "https://assets.dfb.de/uploads/000/035/915/custom_style_1_Karlheinz_F%C3%B6rster.jpg?1493072688",
       imageSourceUrl: "https://datencenter.dfb.de/datencenter/personen/karlheinz-foerster/spieler",
       imagePageTitle: "Karlheinz Förster · DFB Datencenter"
+    }],
+    [1982, "Gerry Armstrong", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Gerry_Armstrong_20121-5a0371907c3b5.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/20121/Gerry_Armstrong.html",
+      imageCredit: "Tsipras via National Football Teams",
+      imagePageTitle: "Gerry Armstrong · National Football Teams"
+    }],
+    [1982, "Billy Hamilton", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Billy_Hamilton_20200-544d0ccea48a0.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/20200/Billy_Hamilton.html",
+      imageCredit: "Arkadi via National Football Teams",
+      imagePageTitle: "Billy Hamilton · National Football Teams"
     }],
     [1982, "Éder", {
       birthDate: "1957-05-25",
@@ -625,6 +701,12 @@ const curatedDirectImageOverrides = new Map(
       imageUrl: "https://assets.dfb.de/uploads/000/035/915/custom_style_1_Karlheinz_F%C3%B6rster.jpg?1493072688",
       imageSourceUrl: "https://datencenter.dfb.de/datencenter/personen/karlheinz-foerster/spieler",
       imagePageTitle: "Karlheinz Förster · DFB Datencenter"
+    }],
+    [1986, "Billy Hamilton", {
+      imageUrl: "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Billy_Hamilton_20200-544d0ccea48a0.jpeg",
+      imageSourceUrl: "https://www.national-football-teams.com/player/20200/Billy_Hamilton.html",
+      imageCredit: "Arkadi via National Football Teams",
+      imagePageTitle: "Billy Hamilton · National Football Teams"
     }],
     [1990, "Luis Gabelo Conejo", {
       imageUrl: "https://www.fcrf.cr/wp-content/uploads/2020/06/GABELO-1.png",
