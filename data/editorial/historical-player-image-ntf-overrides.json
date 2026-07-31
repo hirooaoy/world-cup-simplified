@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T18:09:43.493Z",
+  "generatedAt": "2026-07-31T18:35:23.903Z",
   "source": {
     "id": "national-football-teams-roster-harvest-2026-07-31",
     "name": "National Football Teams roster/player-page harvest",
@@ -5577,6 +5577,60 @@
       "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Abdulellah_Al_Malki_75678-60c4cd3d0567e.jpeg",
       "imageSourceUrl": "https://www.national-football-teams.com/player/75678/Abdulellah_Al_Malki.html",
       "imagePageTitle": "Abdulellah Al-Malki · National Football Teams"
+    },
+    {
+      "profileKey": "Martin Hoffmann / East Germany / 1974",
+      "player": "Martin Hoffmann",
+      "team": "East Germany",
+      "tournamentYear": 1974,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Martin_Hoffmann_16679-5f49cd501f3aa.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/16679/Martin_Hoffmann.html",
+      "imagePageTitle": "Martin Hoffmann · National Football Teams"
+    },
+    {
+      "profileKey": "Adriano / Brazil / 2006",
+      "player": "Adriano",
+      "team": "Brazil",
+      "tournamentYear": 2006,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Adriano_989-5dc4fc435dfd1.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/989/Adriano.html",
+      "imagePageTitle": "Adriano · National Football Teams"
+    },
+    {
+      "profileKey": "Gilberto / Brazil / 2006",
+      "player": "Gilberto",
+      "team": "Brazil",
+      "tournamentYear": 2006,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Gilberto_2_2227-5671850c9a76f.png",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/2227/Gilberto_2.html",
+      "imagePageTitle": "Gilberto · National Football Teams"
+    },
+    {
+      "profileKey": "Carlos / Brazil / 1986",
+      "player": "Carlos",
+      "team": "Brazil",
+      "tournamentYear": 1986,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Carlos_17979-5e5a6ad83627f.png",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/17979/Carlos_Gallo.html",
+      "imagePageTitle": "Carlos Gallo · National Football Teams"
+    },
+    {
+      "profileKey": "Alfredo / Brazil / 1950",
+      "player": "Alfredo",
+      "team": "Brazil",
+      "tournamentYear": 1950,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Alfredo_50649-68af233d72746.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/50649/Alfredo.html",
+      "imagePageTitle": "Alfredo · National Football Teams"
+    },
+    {
+      "profileKey": "Keun-ho Lee / South Korea / 2014",
+      "player": "Keun-ho Lee",
+      "team": "South Korea",
+      "tournamentYear": 2014,
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Keun_Ho_Lee_22840-52370f0b34447.jpeg",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/22840/Keun_Ho_Lee.html",
+      "imagePageTitle": "Keun-ho Lee · National Football Teams"
     }
   ]
 }

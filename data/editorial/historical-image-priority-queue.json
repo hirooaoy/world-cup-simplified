@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-31T18:09:53.684Z",
-  "sourceProfileUpdatedAt": "2026-07-31T18:09:43.492Z",
+  "generatedAt": "2026-07-31T18:35:29.119Z",
+  "sourceProfileUpdatedAt": "2026-07-31T18:35:23.949Z",
   "coverage": {
     "totalProfiles": 3645,
-    "withImages": 3436,
-    "missingImages": 209
+    "withImages": 3442,
+    "missingImages": 203
   },
   "methodology": {
     "purpose": "Rank remaining historical player image gaps for curated manual source review.",
@@ -23,9 +23,9 @@
     }
   },
   "signalCounts": {
-    "goals": 65,
-    "scoring-matches": 67,
-    "featured-matches": 205,
+    "goals": 60,
+    "scoring-matches": 62,
+    "featured-matches": 199,
     "recurring-player": 19,
     "finalist-squad": 8
   },
@@ -252,24 +252,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Adriano / Brazil / 2006",
-      "player": "Adriano",
-      "team": "Brazil",
-      "tournamentYear": 2006,
-      "position": "Forward",
-      "club": "Inter Milan",
-      "goals": 2,
-      "scorerMatchCount": 2,
-      "keyMatchCount": 2,
-      "score": 44,
-      "signals": [
-        "goals:2",
-        "scoring-matches:2",
-        "featured-matches:2"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Derek Kevan / England / 1958",
       "player": "Derek Kevan",
       "team": "England",
@@ -421,24 +403,6 @@
       "signals": [
         "recurring-player",
         "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Martin Hoffmann / East Germany / 1974",
-      "player": "Martin Hoffmann",
-      "team": "East Germany",
-      "tournamentYear": 1974,
-      "position": "Forward",
-      "club": "1. FC Magdeburg",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 4,
-      "score": 34,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:4"
       ],
       "reviewState": "needs-manual-image-source-verification"
     },
@@ -863,24 +827,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Alfredo / Brazil / 1950",
-      "player": "Alfredo",
-      "team": "Brazil",
-      "tournamentYear": 1950,
-      "position": "Forward",
-      "club": "Vasco da Gama",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 22,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Andrei Zygmantovich / Soviet Union / 1990",
       "player": "Andrei Zygmantovich",
       "team": "Soviet Union",
@@ -959,24 +905,6 @@
       "tournamentYear": 1938,
       "position": "Forward",
       "club": "Warta Poznań",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 22,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Gilberto / Brazil / 2006",
-      "player": "Gilberto",
-      "team": "Brazil",
-      "tournamentYear": 2006,
-      "position": "Defender",
-      "club": "Hertha BSC",
       "goals": 1,
       "scorerMatchCount": 1,
       "keyMatchCount": 1,
@@ -1175,24 +1103,6 @@
       "tournamentYear": 1982,
       "position": "Defender",
       "club": "Budapest Honvéd",
-      "goals": 1,
-      "scorerMatchCount": 1,
-      "keyMatchCount": 1,
-      "score": 22,
-      "signals": [
-        "goals:1",
-        "scoring-matches:1",
-        "featured-matches:1"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
-      "profileKey": "Keun-ho Lee / South Korea / 2014",
-      "player": "Keun-ho Lee",
-      "team": "South Korea",
-      "tournamentYear": 2014,
-      "position": "Forward",
-      "club": "Sangju Sangmu",
       "goals": 1,
       "scorerMatchCount": 1,
       "keyMatchCount": 1,
@@ -1658,22 +1568,6 @@
       "reviewState": "needs-manual-image-source-verification"
     },
     {
-      "profileKey": "Carlos / Brazil / 1986",
-      "player": "Carlos",
-      "team": "Brazil",
-      "tournamentYear": 1986,
-      "position": "Goalkeeper",
-      "club": "Corinthians",
-      "goals": 0,
-      "scorerMatchCount": 0,
-      "keyMatchCount": 3,
-      "score": 12,
-      "signals": [
-        "featured-matches:3"
-      ],
-      "reviewState": "needs-manual-image-source-verification"
-    },
-    {
       "profileKey": "Carlos Calderón de la Barca / Mexico / 1958",
       "player": "Carlos Calderón de la Barca",
       "team": "Mexico",
@@ -1784,7 +1678,104 @@
         "featured-matches:3"
       ],
       "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Zague / Mexico / 1994",
+      "player": "Zague",
+      "team": "Mexico",
+      "tournamentYear": 1994,
+      "position": "Forward",
+      "club": "América",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 3,
+      "score": 12,
+      "signals": [
+        "featured-matches:3"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Colin Curran / Australia / 1974",
+      "player": "Colin Curran",
+      "team": "Australia",
+      "tournamentYear": 1974,
+      "position": "Defender",
+      "club": "Western Suburbs",
+      "goals": 0,
+      "scorerMatchCount": 1,
+      "keyMatchCount": 1,
+      "score": 12,
+      "signals": [
+        "scoring-matches:1",
+        "featured-matches:1"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Abdullah Al-Waked / Saudi Arabia / 2002",
+      "player": "Abdullah Al-Waked",
+      "team": "Saudi Arabia",
+      "tournamentYear": 2002,
+      "position": "Midfielder",
+      "club": "Al Shabab",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Adam Wolanin / United States / 1950",
+      "player": "Adam Wolanin",
+      "team": "United States",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "Chicago Eagles",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Adãozinho / Brazil / 1950",
+      "player": "Adãozinho",
+      "team": "Brazil",
+      "tournamentYear": 1950,
+      "position": "Forward",
+      "club": "Internacional",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
+    },
+    {
+      "profileKey": "Al Hasan Al-Yami / Saudi Arabia / 2002",
+      "player": "Al Hasan Al-Yami",
+      "team": "Saudi Arabia",
+      "tournamentYear": 2002,
+      "position": "Forward",
+      "club": "Al-Ittihad",
+      "goals": 0,
+      "scorerMatchCount": 0,
+      "keyMatchCount": 2,
+      "score": 8,
+      "signals": [
+        "featured-matches:2"
+      ],
+      "reviewState": "needs-manual-image-source-verification"
     }
   ],
-  "deferredMissingProfileCount": 109
+  "deferredMissingProfileCount": 103
 }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-31T18:09:43.492Z",
+  "updatedAt": "2026-07-31T18:35:23.949Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -20,7 +20,7 @@
     "note": "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs, historical goal records, or an editorial Best XI.",
     "imageStatus": "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
     "imageNote": "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override, and use reviewed official or editorial portraits for profiles with no safe open portrait.",
-    "minimumImageCount": 3436,
+    "minimumImageCount": 3442,
     "finalSemiImageStatus": "targeted-final-and-semi-final-scorers-key-players-and-team-description-mentions",
     "finalSemiImageTargetCount": 294,
     "finalSemiImageCount": 260,
@@ -18496,7 +18496,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "quality-defines"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Alfredo_50649-68af233d72746.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/50649/Alfredo.html",
+      "imagePageTitle": "Alfredo · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/50649/Alfredo.html"
     },
     "Baltazar / Brazil / 1950": {
       "profileKey": "Baltazar / Brazil / 1950",
@@ -75471,7 +75476,12 @@
           "status": "rewritten",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Martin_Hoffmann_16679-5f49cd501f3aa.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/16679/Martin_Hoffmann.html",
+      "imagePageTitle": "Martin Hoffmann · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/16679/Martin_Hoffmann.html"
     },
     "Wolfram Löwe / East Germany / 1974": {
       "profileKey": "Wolfram Löwe / East Germany / 1974",
@@ -112639,7 +112649,12 @@
           "status": "reviewed-retained",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Carlos_17979-5e5a6ad83627f.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/17979/Carlos_Gallo.html",
+      "imagePageTitle": "Carlos Gallo · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/17979/Carlos_Gallo.html"
     },
     "Edinho / Brazil / 1986": {
       "profileKey": "Edinho / Brazil / 1986",
@@ -200094,7 +200109,12 @@
           "status": "reviewed-retained",
           "reviewedAt": "2026-07-29"
         }
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Adriano_989-5dc4fc435dfd1.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/989/Adriano.html",
+      "imagePageTitle": "Adriano · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/989/Adriano.html"
     },
     "Cafu / Brazil / 2006": {
       "profileKey": "Cafu / Brazil / 2006",
@@ -200435,7 +200455,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "key-another"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Gilberto_2_2227-5671850c9a76f.png",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/2227/Gilberto_2.html",
+      "imagePageTitle": "Gilberto · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/2227/Gilberto_2.html"
     },
     "Gilberto Silva / Brazil / 2006": {
       "profileKey": "Gilberto Silva / Brazil / 2006",
@@ -260875,7 +260900,12 @@
         "evidenceScope": "role-level",
         "confidence": "role-level",
         "structureId": "build-two-cues"
-      }
+      },
+      "imageUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/Keun_Ho_Lee_22840-52370f0b34447.jpeg",
+      "imageSource": "curated-official-and-editorial-player-portraits",
+      "imageSourceUrl": "https://www.national-football-teams.com/player/22840/Keun_Ho_Lee.html",
+      "imagePageTitle": "Keun-ho Lee · National Football Teams",
+      "imagePageUrl": "https://www.national-football-teams.com/player/22840/Keun_Ho_Lee.html"
     },
     "Shin-wook Kim / South Korea / 2014": {
       "profileKey": "Shin-wook Kim / South Korea / 2014",
